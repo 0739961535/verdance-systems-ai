@@ -1,70 +1,144 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Section from '../(components)/Section';
 
-/**
- * Calendar section with GHL iframe integration
- * Displays current timezone and responsive iframe
- * Uses environment variable for calendar URL
- */
 export default function Calendar() {
   const [currentTimezone, setCurrentTimezone] = useState('');
+  const [calendarError, setCalendarError] = useState(false);
 
-  // Get current timezone
   useEffect(() => {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    setCurrentTimezone(timezone);
+    const readableTimezone = timezone.replace('_', ' ');
+    setCurrentTimezone(readableTimezone);
+
+    // Load the form embed script
+    const script = document.createElement('script');
+    script.src = 'https://link.msgsndr.com/js/form_embed.js';
+    script.type = 'text/javascript';
+    script.async = true;
+
+    if (!document.querySelector('script[src="https://link.msgsndr.com/js/form_embed.js"]')) {
+      document.body.appendChild(script);
+    }
+
+    return () => {
+      const existingScript = document.querySelector('script[src="https://link.msgsndr.com/js/form_embed.js"]');
+      if (existingScript) {
+        existingScript.remove();
+      }
+    };
   }, []);
 
-  // Get calendar URL from environment variable
-  const calendarUrl = process.env.NEXT_PUBLIC_GHL_CALENDAR_URL || '';
+  const handleCalendarError = () => {
+    setCalendarError(true);
+    console.error('Calendar failed to load');
+  };
 
   return (
-    <Section id="book" background="white" padding="lg">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl lg:text-4xl font-bold text-primary-600 mb-4">
-            Demo Call — 30 Min
+    <section id="book" className="py-16 lg:py-24 bg-gradient-to-br from-neutral-50 to-primary-50 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-0 left-0 w-full h-full">
+        <div className="absolute top-10 right-10 w-32 h-32 bg-primary-200 rounded-full opacity-30 animate-float"></div>
+        <div className="absolute bottom-10 left-10 w-24 h-24 bg-turquoise-200 rounded-full opacity-40 animate-bounce-subtle"></div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center px-6 py-3 bg-white/90 backdrop-blur-sm border border-primary-200 rounded-full text-primary-600 font-medium mb-8 animate-scale-in shadow-lg">
+            <div className="w-2 h-2 bg-primary-500 rounded-full mr-3 animate-pulse"></div>
+            Ready to Transform Your Business?
+          </div>
+
+          <h2 className="text-4xl lg:text-6xl font-bold text-gradient mb-6 animate-fade-in-up">
+            Book Your Free
+            <br />
+            <span className="text-gradient-animated">AI Demo Call</span>
           </h2>
-          <p className="text-lg text-neutral-700 mb-2">
-            Meeting hosted on Google Meet. Select a date & time.
+          <p className="text-xl text-neutral-600 mb-4 animate-fade-in-up max-w-3xl mx-auto leading-relaxed">
+            <span className="text-primary-600 font-semibold">30-minute session</span> hosted on Google Meet.
+            See our AI systems in action and discover how they can automate your growth.
           </p>
           {currentTimezone && (
-            <p className="text-sm text-neutral-600">
-              Times shown in {currentTimezone}
+            <p className="text-sm text-neutral-500 animate-fade-in">
+              📍 Times shown in {currentTimezone}
             </p>
           )}
         </div>
 
-        <div className="bg-white rounded-2xl border border-border shadow-soft overflow-hidden">
-          {calendarUrl ? (
+        <div className="max-w-4xl mx-auto">
+          <div className="glass-effect rounded-3xl border border-primary-200 shadow-2xl shadow-primary-500/10 overflow-hidden animate-scale-in p-2">
             <iframe
-              src={calendarUrl}
-              width="100%"
-              height="600"
-              frameBorder="0"
+              src="https://api.leadconnectorhq.com/widget/booking/yLGPT8nNF78G32doGmoW"
+              style={{ width: '100%', border: 'none', overflow: 'hidden', minHeight: '600px' }}
+              scrolling="no"
+              id="yLGPT8nNF78G32doGmoW_1760630215402"
               title="Book a Demo Call"
-              className="w-full h-96 lg:h-[600px]"
-              loading="lazy"
+              className="w-full h-[600px] rounded-2xl"
+              onError={handleCalendarError}
+              allow="fullscreen"
             />
-          ) : (
-            <div className="flex items-center justify-center h-96 lg:h-[600px] bg-neutral-50">
-              <div className="text-center p-8">
-                <h3 className="text-xl font-semibold text-neutral-700 mb-2">
-                  Calendar Integration Ready
+
+            {calendarError && (
+              <div className="p-12 text-center bg-gradient-to-br from-error-50 to-neutral-50 rounded-2xl m-2">
+                <div className="text-6xl mb-6 animate-bounce-subtle">⚠️</div>
+                <h3 className="text-2xl font-bold text-neutral-700 mb-4">
+                  Calendar Temporarily Unavailable
                 </h3>
-                <p className="text-neutral-600 mb-4">
-                  Please add your GHL calendar URL to the .env.local file
+                <p className="text-lg text-neutral-600 mb-8 max-w-md mx-auto leading-relaxed">
+                  No worries! Contact us directly to schedule your demo:
                 </p>
-                <code className="bg-neutral-100 px-3 py-1 rounded text-sm text-neutral-800">
-                  NEXT_PUBLIC_GHL_CALENDAR_URL=your-calendar-url
-                </code>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
+                  <a
+                    href="tel:+27739961535"
+                    className="glass-effect p-6 rounded-2xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
+                  >
+                    <div className="text-2xl mb-2">📞</div>
+                    <div className="text-primary-600 hover:text-primary-700 font-semibold">
+                      +27 73 996 1535
+                    </div>
+                  </a>
+                  <a
+                    href="mailto:verdancesystems@gmail.com"
+                    className="glass-effect p-6 rounded-2xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
+                  >
+                    <div className="text-2xl mb-2">📧</div>
+                    <div className="text-primary-600 hover:text-primary-700 font-semibold">
+                      Email Us
+                    </div>
+                  </a>
+                  <a
+                    href="https://wa.me/27739961535"
+                    className="glass-effect p-6 rounded-2xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="text-2xl mb-2">💬</div>
+                    <div className="text-primary-600 hover:text-primary-700 font-semibold">
+                      WhatsApp
+                    </div>
+                  </a>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
+        </div>
+
+        {/* Trust indicators */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-12 animate-fade-in">
+          <div className="text-center">
+            <div className="text-3xl mb-2">🎯</div>
+            <p className="text-sm font-medium text-neutral-600">No High-Pressure Sales</p>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl mb-2">🚀</div>
+            <p className="text-sm font-medium text-neutral-600">See Live AI Demo</p>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl mb-2">💡</div>
+            <p className="text-sm font-medium text-neutral-600">Custom Strategy Session</p>
+          </div>
         </div>
       </div>
-    </Section>
+    </section>
   );
 }

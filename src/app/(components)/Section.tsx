@@ -5,7 +5,7 @@ interface SectionProps {
   children: ReactNode;
   className?: string;
   id?: string;
-  background?: 'white' | 'gray' | 'gradient';
+  background?: 'white' | 'gray' | 'gradient' | 'enhanced-gradient';
   padding?: 'sm' | 'md' | 'lg';
   containerSize?: 'sm' | 'md' | 'lg' | 'xl';
 }
@@ -25,7 +25,8 @@ export default function Section({
   const backgroundClasses = {
     white: 'bg-white',
     gray: 'bg-neutral-50',
-    gradient: 'hero-gradient',
+    gradient: 'moving-gradient',
+    'enhanced-gradient': 'enhanced-gradient',
   };
 
   const paddingClasses = {

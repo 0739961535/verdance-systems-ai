@@ -24,21 +24,26 @@ export default function Button({
   disabled,
   ...props
 }: ButtonProps) {
-  const baseClasses = 'inline-flex items-center justify-center font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0';
+  const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed hover:-translate-y-1 active:translate-y-0 relative overflow-hidden group';
 
   const variantClasses = {
-    primary: 'bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 shadow-soft',
-    secondary: 'bg-white text-primary-600 border border-primary-600 hover:bg-primary-50 focus:ring-primary-500 shadow-soft',
-    ghost: 'text-primary-600 hover:bg-primary-50 focus:ring-primary-500',
+    primary: 'bg-gradient-to-r from-primary-500 to-primary-600 text-white hover:from-primary-600 hover:to-primary-700 hover:shadow-2xl hover:shadow-primary-500/25 focus:ring-primary-400 shadow-lg border border-transparent',
+    secondary: 'bg-white/80 backdrop-blur-sm text-primary-600 border-2 border-primary-500 hover:bg-primary-50 hover:border-primary-600 hover:shadow-lg hover:shadow-primary-500/20 focus:ring-primary-400 shadow-md',
+    ghost: 'text-primary-600 hover:bg-primary-50 hover:shadow-md focus:ring-primary-400 border border-transparent',
   };
 
   const sizeClasses = {
-    sm: 'px-4 py-2 text-sm',
-    md: 'px-6 py-3 text-base',
-    lg: 'px-8 py-4 text-lg',
+    sm: 'px-6 py-3 text-sm',
+    md: 'px-8 py-4 text-base',
+    lg: 'px-12 py-5 text-lg',
   };
 
   const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+
+  // Shimmer effect for primary buttons
+  const shimmerEffect = variant === 'primary' ? (
+    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform -skew-x-12 -translate-x-full group-hover:translate-x-full group-hover:animate-shimmer"></span>
+  ) : null;
 
   // If href is provided, render as a link
   if (href) {
@@ -49,7 +54,8 @@ export default function Button({
         onClick={onClick}
         {...(props as any)}
       >
-        {children}
+        {shimmerEffect}
+        <span className="relative z-10">{children}</span>
       </a>
     );
   }
@@ -62,7 +68,8 @@ export default function Button({
       disabled={disabled}
       {...props}
     >
-      {children}
+      {shimmerEffect}
+      <span className="relative z-10">{children}</span>
     </button>
   );
 }

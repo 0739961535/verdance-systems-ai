@@ -1,5 +1,6 @@
 import Section from '../(components)/Section';
 import Container from '../(components)/Container';
+import Link from 'next/link';
 
 /**
  * Footer component with contact information, legal links, and POPIA compliance
@@ -57,18 +58,18 @@ export default function Footer() {
               Legal
             </h4>
             <div className="space-y-2">
-              <a
-                href="#terms"
+              <Link
+                href="/terms"
                 className="block text-neutral-300 hover:text-white transition-colors duration-200"
               >
                 Terms & Conditions
-              </a>
-              <a
-                href="#privacy"
+              </Link>
+              <Link
+                href="/privacy"
                 className="block text-neutral-300 hover:text-white transition-colors duration-200"
               >
                 Privacy Policy
-              </a>
+              </Link>
             </div>
           </div>
         </div>
