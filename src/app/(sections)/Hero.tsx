@@ -35,15 +35,15 @@ export default function Hero() {
   return (
     <Section
       id="hero"
-      background="gradient"
+      background="white"
       padding="lg"
-      className="pt-20 lg:pt-28 relative overflow-hidden"
+      className="pt-20 lg:pt-28 modern-geometric-bg"
     >
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 mesh-gradient opacity-30"></div>
-      <div className="absolute top-20 left-10 w-32 h-32 bg-primary-300 rounded-full opacity-20 animate-float"></div>
-      <div className="absolute top-40 right-20 w-24 h-24 bg-primary-400 rounded-full opacity-30 animate-bounce-subtle"></div>
-      <div className="absolute bottom-20 left-1/4 w-16 h-16 bg-primary-500 rounded-full opacity-25 animate-float" style={{ animationDelay: '1s' }}></div>
+      {/* Modern Floating Elements */}
+      <div className="absolute top-20 left-10 w-8 h-8 bg-gradient-to-br from-slate-800 to-slate-600 rounded-full opacity-20 animate-float shadow-lg"></div>
+      <div className="absolute top-40 right-20 w-6 h-6 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full opacity-30 animate-bounce-subtle shadow-md"></div>
+      <div className="absolute bottom-20 left-1/4 w-4 h-4 bg-gradient-to-br from-slate-700 to-slate-500 rounded-full opacity-25 animate-float shadow-sm" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute top-1/3 left-3/4 w-5 h-5 bg-gradient-to-br from-primary-400 to-turquoise-400 rounded-full opacity-20 animate-bounce-subtle shadow-md" style={{ animationDelay: '2s' }}></div>
 
       <div className="text-center max-w-5xl mx-auto relative z-10">
         {/* Badge */}
