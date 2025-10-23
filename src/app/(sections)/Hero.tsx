@@ -2,6 +2,7 @@
 
 import Button from '../(components)/Button';
 import Section from '../(components)/Section';
+import { Sparkles, Brain, Network, Video, MessageCircle } from 'lucide-react';
 
 /**
  * Hero section with main value proposition and dual CTAs
@@ -17,18 +18,11 @@ export default function Hero() {
     }
   };
 
-  // Open BuildMyAgent widget with debugging
-  const openWidget = () => {
-    console.log('Widget button clicked!');
-    if (typeof window !== 'undefined') {
-      console.log('Window available, checking for VERDANCE_WIDGET...');
-      if ((window as any).VERDANCE_WIDGET) {
-        console.log('VERDANCE_WIDGET found:', (window as any).VERDANCE_WIDGET);
-        (window as any).VERDANCE_WIDGET.open();
-      } else {
-        console.log('VERDANCE_WIDGET not found, showing alert...');
-        alert('Widget is initializing... Please wait a moment and try again, or contact us at +27 73 996 1535');
-      }
+  // Scroll to contact section
+  const scrollToContact = () => {
+    const element = document.getElementById('contact');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -74,37 +68,49 @@ export default function Hero() {
             onClick={scrollToCalendar}
             className="w-full sm:w-auto text-lg px-12 py-5 animate-pulse-glow"
           >
-            🚀 BOOK FREE DEMO
+            <span className="flex items-center gap-2">
+              <Video className="w-5 h-5 text-white" />
+              BOOK FREE DEMO
+            </span>
           </Button>
           <Button
             variant="secondary"
             size="lg"
-            onClick={openWidget}
+            onClick={scrollToContact}
             className="w-full sm:w-auto text-lg px-12 py-5 hover-glow"
           >
-            ✨ TRY AI DEMO
+            <span className="flex items-center gap-2">
+              <MessageCircle className="w-5 h-5 text-turquoise-500" />
+              CONTACT US
+            </span>
           </Button>
         </div>
 
-        {/* Feature Highlights */}
+        {/* Feature Highlights - Simplified */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-8 animate-fade-in">
-          <div className="glass-effect rounded-2xl p-6 text-center">
-            <div className="text-primary-500 text-2xl mb-2">⚡</div>
-            <p className="text-sm font-medium text-neutral-700">Setup in 24 Hours</p>
+          <div className="glass-effect rounded-2xl p-6 text-center hover:shadow-xl hover:shadow-primary-500/20 transition-all duration-300 group">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <Sparkles className="w-7 h-7 text-white" />
+            </div>
+            <p className="text-sm font-semibold text-neutral-700 group-hover:text-primary-600 transition-colors">Precision-Built Systems</p>
           </div>
-          <div className="glass-effect rounded-2xl p-6 text-center">
-            <div className="text-primary-500 text-2xl mb-2">🎯</div>
-            <p className="text-sm font-medium text-neutral-700">ROI Guaranteed</p>
+          <div className="glass-effect rounded-2xl p-6 text-center hover:shadow-xl hover:shadow-turquoise-500/20 transition-all duration-300 group">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br from-turquoise-500 to-primary-500 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <Brain className="w-7 h-7 text-white" />
+            </div>
+            <p className="text-sm font-semibold text-neutral-700 group-hover:text-turquoise-600 transition-colors">Adaptive Intelligence</p>
           </div>
-          <div className="glass-effect rounded-2xl p-6 text-center">
-            <div className="text-primary-500 text-2xl mb-2">🤖</div>
-            <p className="text-sm font-medium text-neutral-700">AI-Powered Automation</p>
+          <div className="glass-effect rounded-2xl p-6 text-center hover:shadow-xl hover:shadow-primary-500/20 transition-all duration-300 group">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br from-primary-400 to-turquoise-500 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <Network className="w-7 h-7 text-white" />
+            </div>
+            <p className="text-sm font-semibold text-neutral-700 group-hover:text-primary-600 transition-colors">Seamless Integration</p>
           </div>
         </div>
 
         {/* Small Note */}
         <p className="text-sm text-neutral-500 max-w-md mx-auto animate-fade-in italic">
-          💬 Try the chat — it captures your details and offers times automatically.
+          💬 Contact us to discuss your custom automation solution
         </p>
       </div>
     </Section>

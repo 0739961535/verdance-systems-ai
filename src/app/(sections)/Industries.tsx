@@ -66,10 +66,10 @@ export default function Industries() {
     <Section id="industries" background="gray" padding="lg">
       <div className="text-center mb-12">
         <h2 className="text-3xl lg:text-4xl font-bold text-primary-600 mb-4">
-          Industries We've Helped Succeed
+          Built to Scale Any Industry
         </h2>
         <p className="text-lg text-neutral-700 max-w-2xl mx-auto leading-relaxed">
-          Proven automation solutions across diverse business sectors
+          Our AI systems adapt to your business — whatever sector you're in
         </p>
       </div>
 

@@ -31,7 +31,7 @@ export default function CTA() {
           Start Automating Growth With AI Today
         </h2>
 
-        <p className="text-lg lg:text-xl text-neutral-700 mb-8 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-lg lg:text-xl text-white mb-8 max-w-3xl mx-auto leading-relaxed">
           Don't let another lead slip through the cracks. Let's build your
           automated growth system and turn every visitor into a qualified opportunity.
         </p>

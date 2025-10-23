@@ -6,7 +6,11 @@ import {
   Search,
   Send,
   BarChart3,
-  Globe
+  Globe,
+  Brain,
+  Calendar,
+  LayoutDashboard,
+  Video
 } from 'lucide-react';
 import Card from '../(components)/Card';
 import Section from '../(components)/Section';
@@ -20,21 +24,21 @@ import Button from '../(components)/Button';
 export default function Features() {
   const features = [
     {
-      icon: <MessageSquare className="w-10 h-10 text-primary-600 group-hover:text-white transition-colors duration-300" />,
+      icon: <MessageSquare className="w-10 h-10 text-primary-500 group-hover:text-white transition-colors duration-300" />,
       title: 'Website Widget',
       description: 'Intelligent chat that captures leads and qualifies prospects in real-time conversations.',
       gradient: 'from-primary-500 to-primary-600',
       emoji: '💬'
     },
     {
-      icon: <Phone className="w-10 h-10 text-primary-600 group-hover:text-white transition-colors duration-300" />,
+      icon: <Phone className="w-10 h-10 text-turquoise-600 group-hover:text-white transition-colors duration-300" />,
       title: 'Voice Agent',
       description: 'Natural-sounding phone calls that handle inquiries and book appointments automatically.',
       gradient: 'from-primary-400 to-primary-500',
       emoji: '📞'
     },
     {
-      icon: <Search className="w-10 h-10 text-primary-600 group-hover:text-white transition-colors duration-300" />,
+      icon: <Search className="w-10 h-10 text-turquoise-500 group-hover:text-white transition-colors duration-300" />,
       title: 'Lead Finder',
       description: 'Proactive lead generation that identifies and reaches out to your ideal customers.',
       gradient: 'from-turquoise-500 to-turquoise-600',
@@ -48,18 +52,39 @@ export default function Features() {
       emoji: '📧'
     },
     {
-      icon: <BarChart3 className="w-10 h-10 text-primary-600 group-hover:text-white transition-colors duration-300" />,
+      icon: <BarChart3 className="w-10 h-10 text-turquoise-500 group-hover:text-white transition-colors duration-300" />,
       title: 'GHL Dashboard',
       description: 'Complete CRM integration with lead tracking, analytics, and performance insights.',
       gradient: 'from-turquoise-400 to-primary-500',
       emoji: '📊'
     },
     {
-      icon: <Globe className="w-10 h-10 text-primary-600 group-hover:text-white transition-colors duration-300" />,
+      icon: <Globe className="w-10 h-10 text-primary-500 group-hover:text-white transition-colors duration-300" />,
       title: 'Website Integration',
       description: 'Seamless embedding into your existing site or complete website rebuild with automation.',
       gradient: 'from-primary-500 to-turquoise-500',
       emoji: '🌐'
+    },
+    {
+      icon: <Brain className="w-10 h-10 text-primary-600 group-hover:text-white transition-colors duration-300" />,
+      title: 'Analytics & Optimization',
+      description: 'Continuous learning system that monitors performance, analyzes engagement data, and automatically improves conversion rates across your agents and website.',
+      gradient: 'from-primary-600 to-turquoise-600',
+      emoji: '🧠'
+    },
+    {
+      icon: <Calendar className="w-10 h-10 text-turquoise-600 group-hover:text-white transition-colors duration-300" />,
+      title: 'Smart Scheduler',
+      description: 'AI-powered booking system that syncs with Google Calendar and your CRM to schedule calls, demos, and follow-ups automatically — no human input required.',
+      gradient: 'from-turquoise-500 to-primary-600',
+      emoji: '📅'
+    },
+    {
+      icon: <LayoutDashboard className="w-10 h-10 text-primary-500 group-hover:text-white transition-colors duration-300" />,
+      title: 'Agent Dashboard',
+      description: 'See exactly what your AI agents are doing for you — track live conversations, performance metrics, lead progress, and engagement insights in one clean, centralized view.',
+      gradient: 'from-primary-500 to-turquoise-400',
+      emoji: '🧩'
     },
   ];
 
@@ -93,11 +118,6 @@ export default function Features() {
               className="card-enhanced text-center hover:scale-105 transition-all duration-500 cursor-pointer animate-fade-in-up"
               style={{ animationDelay: `${index * 0.15}s` }}
             >
-              {/* Emoji background */}
-              <div className="absolute top-6 right-6 text-4xl opacity-20 group-hover:opacity-40 transition-opacity duration-300">
-                {feature.emoji}
-              </div>
-
               {/* Icon container with gradient hover */}
               <div className="relative mb-6">
                 <div className={`w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br ${feature.gradient} opacity-10 group-hover:opacity-100 transition-all duration-500 absolute inset-0`}></div>
@@ -133,7 +153,10 @@ export default function Features() {
             }}
             className="animate-pulse-glow"
           >
-            🚀 Book Your Demo Now
+            <span className="flex items-center gap-2">
+              <Video className="w-5 h-5" />
+              Book Your Demo Now
+            </span>
           </Button>
         </div>
       </div>

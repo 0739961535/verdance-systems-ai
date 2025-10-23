@@ -122,22 +122,6 @@ export default function Calendar() {
             )}
           </div>
         </div>
-
-        {/* Trust indicators */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-12 animate-fade-in">
-          <div className="text-center">
-            <div className="text-3xl mb-2">🎯</div>
-            <p className="text-sm font-medium text-neutral-600">No High-Pressure Sales</p>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl mb-2">🚀</div>
-            <p className="text-sm font-medium text-neutral-600">See Live AI Demo</p>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl mb-2">💡</div>
-            <p className="text-sm font-medium text-neutral-600">Custom Strategy Session</p>
-          </div>
-        </div>
       </div>
     </section>
   );

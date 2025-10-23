@@ -5,7 +5,7 @@ import Advantage from './(sections)/Advantage';
 import Features from './(sections)/Features';
 import HowItWorks from './(sections)/HowItWorks';
 import Industries from './(sections)/Industries';
-import Demo from './(sections)/Demo';
+import ContactUs from './(sections)/ContactUs';
 import PricingTeaser from './(sections)/PricingTeaser';
 import Calendar from './(sections)/Calendar';
 import CTA from './(sections)/CTA';
@@ -42,8 +42,8 @@ export default function HomePage() {
         {/* 6. Industries We've Helped Succeed */}
         <Industries />
 
-        {/* 7. Demo Section */}
-        <Demo />
+        {/* 7. Contact Us Section */}
+        <ContactUs />
 
         {/* 8. Pricing Teaser */}
         <PricingTeaser />

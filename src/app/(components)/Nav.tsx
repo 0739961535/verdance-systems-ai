@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Video } from 'lucide-react';
 import Image from 'next/image';
 import Container from './Container';
 import Button from './Button';
@@ -66,7 +66,7 @@ export default function Nav() {
           >
             <div className="relative w-10 h-10 lg:w-12 lg:h-12 group-hover:scale-110 transition-transform duration-300">
               <Image
-                src="/finallogo.png"
+                src="/LOGOFinal1.png"
                 alt="Verdance Systems AI Logo"
                 fill
                 className="object-contain hover-glow"
@@ -96,7 +96,10 @@ export default function Nav() {
               onClick={() => scrollToSection('book')}
               className="hover:scale-105 transition-transform duration-300 glow-effect"
             >
-              🚀 Book Free Demo
+              <span className="flex items-center gap-2">
+                <Video className="w-4 h-4" />
+                Book Free Demo
+              </span>
             </Button>
           </div>
 
@@ -135,7 +138,10 @@ export default function Nav() {
                   onClick={() => scrollToSection('book')}
                   className="w-full animate-pulse-glow"
                 >
-                  🚀 Book Free Demo
+                  <span className="flex items-center justify-center gap-2">
+                    <Video className="w-4 h-4" />
+                    Book Free Demo
+                  </span>
                 </Button>
               </div>
             </div>
