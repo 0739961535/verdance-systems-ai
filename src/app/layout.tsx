@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { defaultMetadata } from '../lib/seo';
 import { GA_MEASUREMENT_ID } from '../lib/gtag';
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = defaultMetadata;
 
@@ -80,6 +81,7 @@ export default function RootLayout({
 
       <body className="antialiased bg-white text-neutral-950">
         {children}
+        <Analytics />
 
         {/* BuildMyAgent Widget - Final Script */}
         <script
