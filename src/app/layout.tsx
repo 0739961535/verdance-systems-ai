@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { defaultMetadata } from '../lib/seo';
 import { GA_MEASUREMENT_ID } from '../lib/gtag';
-import WidgetLauncher from './(components)/WidgetLauncher';
 
 export const metadata: Metadata = defaultMetadata;
 
@@ -54,8 +53,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
 
-        {/* Favicon - Add your favicon files to public/ directory */}
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>" />
+        {/* Favicon - Verdance Systems Logo */}
+        <link rel="icon" href="/LOGOFinal1.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/LOGOFinal1.png" />
 
         {/* Structured Data */}
         <script
@@ -81,8 +81,11 @@ export default function RootLayout({
       <body className="antialiased bg-white text-neutral-950">
         {children}
 
-        {/* Initialize widget launcher */}
-        <WidgetLauncher />
+        {/* BuildMyAgent Widget - Final Script */}
+        <script
+          src="https://buildmyagent.io/widget/68ece20a5ba4585357eb476d/widget-professional.js?widgetId=68ece20a5ba4585357eb476d"
+          async
+        />
 
         {/* Performance monitoring script */}
         <script

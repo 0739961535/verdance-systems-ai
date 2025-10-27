@@ -2,10 +2,16 @@ import Container from '../(components)/Container';
 import Section from '../(components)/Section';
 
 /**
- * Terms of Service page with comprehensive service terms
- * Covers service provision, user responsibilities, and legal protections
+ * Terms of Service page - Verdance Systems AI
+ * Comprehensive service terms covering billing, intellectual property, and legal protections
  */
 export default function TermsOfService() {
+  const currentDate = new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
   return (
     <>
       {/* Navigation Spacer */}
@@ -14,164 +20,134 @@ export default function TermsOfService() {
       <Section background="white" padding="lg">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-3xl lg:text-4xl font-bold text-primary-600 mb-8">
-              Terms &amp; Conditions
+            <h1 className="text-3xl lg:text-5xl font-bold text-gradient mb-4">
+              Terms of Service
             </h1>
+            <p className="text-lg text-primary-600 font-semibold mb-2">
+              Verdance Systems AI
+            </p>
+            <p className="text-sm text-neutral-500 mb-12">
+              Effective Date: {currentDate}
+            </p>
 
-            <div className="prose prose-lg max-w-none text-neutral-700">
-              <p className="text-sm text-neutral-500 mb-8">
-                Last Updated: {new Date().toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}
+            <div className="prose prose-lg max-w-none text-neutral-700 leading-relaxed">
+              <p className="text-lg mb-8 text-neutral-600">
+                Welcome to Verdance Systems AI. These Terms of Service govern your access to and use of our websites, software, and AI automation services.
               </p>
 
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold text-primary-600 mb-4">
-                  1. Acceptance of Terms
+              <section className="mb-10 bg-gray-50 rounded-2xl p-6 border border-gray-200">
+                <h2 className="text-2xl font-bold text-primary-600 mb-4">
+                  1. Services
                 </h2>
                 <p>
-                  By accessing and using Verdance Systems AI services, you accept and agree to be bound
-                  by the terms and provisions of this agreement. These terms apply to all visitors,
-                  users, and others who access or use the service.
+                  Verdance Systems AI provides AI-powered website development, automation agents, CRM integrations, and ongoing support systems for business clients. All projects are custom-built and optimized for performance.
                 </p>
               </section>
 
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold text-primary-600 mb-4">
-                  2. Description of Service
+              <section className="mb-10 bg-gray-50 rounded-2xl p-6 border border-gray-200">
+                <h2 className="text-2xl font-bold text-primary-600 mb-4">
+                  2. Billing and Payments
                 </h2>
-                <p className="mb-4">
-                  Verdance Systems AI provides:
+                <p className="mb-3">
+                  Projects are billed as either once-off setups or on monthly subscription plans depending on the system package.
                 </p>
-                <ul className="list-disc pl-6 mb-4 space-y-2">
-                  <li>AI automation consulting services</li>
-                  <li>Website design and development</li>
-                  <li>Business process optimization</li>
-                  <li>Lead generation system implementation</li>
-                  <li>Technical support and maintenance</li>
+                <ul className="list-disc pl-6 space-y-2">
+                  <li>Payments are processed through Stripe or other approved payment gateways.</li>
+                  <li>Automatic renewals apply to monthly subscriptions.</li>
+                  <li>Verdance Systems AI reserves the right to pause services for failed or delayed payments.</li>
+                  <li>All purchases are <strong>non-refundable</strong> after project initiation.</li>
                 </ul>
               </section>
 
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold text-primary-600 mb-4">
-                  3. User Responsibilities
+              <section className="mb-10 bg-gray-50 rounded-2xl p-6 border border-gray-200">
+                <h2 className="text-2xl font-bold text-primary-600 mb-4">
+                  3. Project Scope
+                </h2>
+                <p>
+                  Each project follows an agreed blueprint outlining deliverables and features. Any additional work outside the original scope will be quoted separately.
+                </p>
+              </section>
+
+              <section className="mb-10 bg-gray-50 rounded-2xl p-6 border border-gray-200">
+                <h2 className="text-2xl font-bold text-primary-600 mb-4">
+                  4. Client Responsibilities
+                </h2>
+                <p>
+                  Clients must provide all necessary information, content, and access credentials to complete the setup and integration of their systems.
+                </p>
+              </section>
+
+              <section className="mb-10 bg-gray-50 rounded-2xl p-6 border border-gray-200">
+                <h2 className="text-2xl font-bold text-primary-600 mb-4">
+                  5. Intellectual Property
+                </h2>
+                <p className="mb-3">
+                  All AI systems, automations, and websites created by Verdance Systems AI remain the property of Verdance Systems AI until full payment is received.
+                </p>
+                <p>
+                  Clients are granted a non-exclusive, perpetual license to use their final systems once payment is complete.
+                </p>
+              </section>
+
+              <section className="mb-10 bg-gray-50 rounded-2xl p-6 border border-gray-200">
+                <h2 className="text-2xl font-bold text-primary-600 mb-4">
+                  6. Legal Use
+                </h2>
+                <p>
+                  Our services must be used only for lawful business purposes. You may not use Verdance Systems AI platforms for spam, illegal activity, or unauthorized data collection.
+                </p>
+              </section>
+
+              <section className="mb-10 bg-gray-50 rounded-2xl p-6 border border-gray-200">
+                <h2 className="text-2xl font-bold text-primary-600 mb-4">
+                  7. Support and Maintenance
+                </h2>
+                <p>
+                  Ongoing support, updates, and changes are included in active subscription plans. Support may be paused if subscriptions lapse.
+                </p>
+              </section>
+
+              <section className="mb-10 bg-gray-50 rounded-2xl p-6 border border-gray-200">
+                <h2 className="text-2xl font-bold text-primary-600 mb-4">
+                  8. Liability
+                </h2>
+                <p className="mb-3">
+                  Verdance Systems AI is not liable for indirect, incidental, or consequential damages, or for business interruptions caused by third-party integrations.
+                </p>
+                <p>
+                  Our total liability shall not exceed the amount paid for the service in the 12 months preceding the event.
+                </p>
+              </section>
+
+              <section className="mb-10 bg-gray-50 rounded-2xl p-6 border border-gray-200">
+                <h2 className="text-2xl font-bold text-primary-600 mb-4">
+                  9. Termination
+                </h2>
+                <p>
+                  Verdance Systems AI may terminate or suspend services if the client breaches these Terms or engages in unlawful use of the systems.
+                </p>
+              </section>
+
+              <section className="mb-10 bg-gray-50 rounded-2xl p-6 border border-gray-200">
+                <h2 className="text-2xl font-bold text-primary-600 mb-4">
+                  10. Governing Law &amp; Arbitration
+                </h2>
+                <p>
+                  These Terms are governed by international commercial law. Any disputes will be resolved through binding international arbitration.
+                </p>
+              </section>
+
+              <section className="mt-12 bg-gradient-to-br from-primary-50 to-turquoise-50 rounded-2xl p-8 border border-primary-200">
+                <h2 className="text-2xl font-bold text-primary-600 mb-4">
+                  Contact Information
                 </h2>
                 <p className="mb-4">
-                  You agree to:
+                  If you have any questions about these Terms of Service, please contact us:
                 </p>
-                <ul className="list-disc pl-6 mb-4 space-y-2">
-                  <li>Provide accurate and complete information during consultations</li>
-                  <li>Use our services in compliance with applicable laws</li>
-                  <li>Not interfere with or disrupt the service</li>
-                  <li>Respect intellectual property rights</li>
-                  <li>Maintain confidentiality of any proprietary information shared</li>
-                </ul>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold text-primary-600 mb-4">
-                  4. Service Availability
-                </h2>
-                <p>
-                  While we strive to maintain continuous service availability, we do not guarantee
-                  uninterrupted access. Services may be temporarily unavailable due to maintenance,
-                  updates, or technical issues beyond our control.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibent text-primary-600 mb-4">
-                  5. Consultation and Booking Terms
-                </h2>
-                <p className="mb-4">
-                  For consultation services:
-                </p>
-                <ul className="list-disc pl-6 mb-4 space-y-2">
-                  <li>Initial consultations are provided free of charge</li>
-                  <li>Booking confirmations will be sent via email or WhatsApp</li>
-                  <li>Cancellations should be made at least 24 hours in advance</li>
-                  <li>No-shows may result in booking restrictions</li>
-                </ul>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold text-primary-600 mb-4">
-                  6. Intellectual Property
-                </h2>
-                <p>
-                  All content, features, and functionality of our service, including but not limited to
-                  text, graphics, logos, and software, are owned by Verdance Systems AI and protected
-                  by international copyright, trademark, and other intellectual property laws.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold text-primary-600 mb-4">
-                  7. Limitation of Liability
-                </h2>
-                <p>
-                  Verdance Systems AI shall not be liable for any indirect, incidental, special,
-                  consequential, or punitive damages, including without limitation, loss of profits,
-                  data, use, goodwill, or other intangible losses resulting from your use of the service.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold text-primary-600 mb-4">
-                  8. Privacy and Data Protection
-                </h2>
-                <p>
-                  Your privacy is important to us. Please review our Privacy Policy, which also governs
-                  your use of the service, to understand our practices regarding the collection and use
-                  of your information.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold text-primary-600 mb-4">
-                  9. Communication Consent
-                </h2>
-                <p>
-                  By using our AI assistant or booking services, you consent to receive communications
-                  from us via email, WhatsApp, or other electronic means regarding your consultation,
-                  service updates, and relevant business information.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold text-primary-600 mb-4">
-                  10. Governing Law
-                </h2>
-                <p>
-                  These terms shall be governed and construed in accordance with the laws of South Africa,
-                  without regard to its conflict of law provisions. Any disputes shall be resolved in
-                  the courts of South Africa.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold text-primary-600 mb-4">
-                  11. Changes to Terms
-                </h2>
-                <p>
-                  We reserve the right to modify or replace these terms at any time. If a revision is
-                  material, we will try to provide at least 30 days notice prior to any new terms taking effect.
-                </p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-semibold text-primary-600 mb-4">
-                  12. Contact Information
-                </h2>
-                <p>
-                  If you have any questions about these Terms & Conditions, please contact us:
-                </p>
-                <div className="bg-neutral-50 p-6 rounded-lg mt-4">
-                  <p><strong>Email:</strong> verdancesystems@gmail.com</p>
-                  <p><strong>Phone:</strong> +27 73 996 1535</p>
-                  <p><strong>Business Hours:</strong> Monday - Friday, 9:00 AM - 5:00 PM SAST</p>
+                <div className="space-y-2">
+                  <p><strong className="text-primary-600">Email:</strong> support@verdancesystemsai.com</p>
+                  <p><strong className="text-primary-600">Phone:</strong> +27 73 996 1535</p>
+                  <p><strong className="text-primary-600">WhatsApp:</strong> +27 73 996 1535</p>
                 </div>
               </section>
             </div>
