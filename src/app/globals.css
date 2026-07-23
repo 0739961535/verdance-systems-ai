@@ -1,0 +1,755 @@
+@import "tailwindcss";
+
+/* ============================================================
+   VERDANCE SYSTEMS AI — DUAL-THEME · AZURE PREMIUM
+   Deep black / clean light · editorial type · electric azure accent.
+   Linear × Vercel × luxury watchmaker.
+
+   Architecture:
+   - Semantic colours live as raw CSS vars on :root (dark = default).
+   - Light theme overrides those vars via [data-theme="light"] and
+     prefers-color-scheme, so EVERYTHING flips from one place.
+   - Accent usages reference --accent-rgb triples, e.g.
+       rgba(var(--accent-rgb), 0.2)
+     so the whole palette (and both themes) resolve centrally.
+   - Tailwind v4 @theme inline maps --color-* → these runtime vars.
+   ============================================================ */
+
+/* ── DARK (default brand canvas) ─────────────────────────── */
+:root {
+  color-scheme: dark;
+
+  /* base canvas — original deep near-black */
+  --bg:        #050709;
+  --bg-2:      #0A0D10;
+  --bg-3:      #12161B;
+  --bg-4:      #1A2028;
+  --bg-glass:  rgba(12, 17, 24, 0.65);
+  --bg-rgb:    5, 7, 9;
+
+  /* ink */
+  --ink:        #FFFFFF;
+  --ink-soft:   #C5CDD3;
+  --ink-muted:  #6B7680;
+  --ink-faint:  #3E4750;
+  --ink-rgb:    255, 255, 255;
+
+  /* ── BRAND PALETTE — electric azure (original) ─────────────── */
+
+  /* PRIMARY — azure */
+  --accent:        #4F8DFF;
+  --accent-bright: #7DABFF;
+  --accent-glow:   #3B82F6;
+  --accent-deep:   #1E4FD6;
+  --on-accent:     #05132E;
+  --accent-rgb:        79, 141, 255;
+  --accent-bright-rgb: 125, 171, 255;
+  --accent-glow-rgb:   59, 130, 246;
+  --accent-deep-rgb:   30, 79, 214;
+
+  /* SECONDARY — brighter azure for fills */
+  --accent-2:      #7DABFF;
+  --accent-2-deep: #3B82F6;
+  --on-accent-2:   #05132E;
+  --accent-2-rgb:      125, 171, 255;
+  --accent-2-deep-rgb: 59, 130, 246;
+
+  /* TERTIARY — azure CTA */
+  --accent-3:      #4F8DFF;
+  --accent-3-deep: #1E4FD6;
+  --on-accent-3:   #05132E;
+  --accent-3-rgb:      79, 141, 255;
+  --accent-3-deep-rgb: 30, 79, 214;
+
+  /* HIGHLIGHT — the italic accent words, in azure */
+  --highlight:     #4F8DFF;
+  --highlight-rgb: 79, 141, 255;
+
+  /* hairlines resolve from a neutral white triple */
+  --hairline-rgb: 255, 255, 255;
+  --hairline:      rgba(var(--hairline-rgb), 0.06);
+  --hairline-2:    rgba(var(--hairline-rgb), 0.12);
+  --hairline-3:    rgba(var(--hairline-rgb), 0.20);
+  --hairline-glow: rgba(var(--accent-rgb), 0.22);
+
+  /* surface tints (white overlays on dark, dark overlays on light) */
+  --surface-tint-1: rgba(var(--hairline-rgb), 0.02);
+  --surface-tint-2: rgba(var(--hairline-rgb), 0.04);
+  --surface-tint-3: rgba(var(--hairline-rgb), 0.08);
+
+  /* elevation shadows */
+  --shadow-card:
+    0 1px 0 rgba(var(--hairline-rgb), 0.04) inset,
+    0 24px 60px rgba(0, 0, 0, 0.55);
+  --shadow-raised:
+    0 1px 0 rgba(var(--hairline-rgb), 0.05) inset,
+    0 32px 80px rgba(0, 0, 0, 0.62),
+    0 0 0 1px rgba(var(--accent-rgb), 0.10);
+  --shadow-accent:
+    0 1px 0 rgba(255, 255, 255, 0.20) inset,
+    0 14px 40px rgba(var(--accent-glow-rgb), 0.34),
+    0 2px 4px rgba(var(--accent-deep-rgb), 0.24);
+}
+
+/* ── LIGHT (clean premium) ───────────────────────────────── */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  /* warm oat/ivory — premium & bright, now with a brown undertone; crisp
+     white kept for elevated cards so it still reads clean and expensive */
+  --bg:        #F4F7FC;
+  --bg-2:      #ECF1F9;
+  --bg-3:      #FFFFFF;
+  --bg-4:      #F7FAFE;
+  --bg-glass:  rgba(255, 255, 255, 0.74);
+  --bg-rgb:    244, 247, 252;
+
+  --ink:        #0A1524;
+  --ink-soft:   #33415A;
+  --ink-muted:  #566277;
+  --ink-faint:  #93A1B8;
+  --ink-rgb:    10, 21, 36;
+
+  /* electric azure (original) — deepened for contrast on white */
+  /* PRIMARY — deep azure (4.5:1+ on white) */
+  --accent:        #2563EB;
+  --accent-bright: #4F8DFF;
+  --accent-glow:   #3B82F6;
+  --accent-deep:   #1E40AF;
+  --on-accent:     #FFFFFF;
+  --accent-rgb:        37, 99, 235;
+  --accent-bright-rgb: 79, 141, 255;
+  --accent-glow-rgb:   59, 130, 246;
+  --accent-deep-rgb:   30, 64, 175;
+
+  /* SECONDARY — azure */
+  --accent-2:      #2563EB;
+  --accent-2-deep: #1E40AF;
+  --on-accent-2:   #FFFFFF;
+  --accent-2-rgb:      37, 99, 235;
+  --accent-2-deep-rgb: 30, 64, 175;
+
+  /* TERTIARY — azure CTA */
+  --accent-3:      #2563EB;
+  --accent-3-deep: #1E40AF;
+  --on-accent-3:   #FFFFFF;
+  --accent-3-rgb:      37, 99, 235;
+  --accent-3-deep-rgb: 30, 64, 175;
+
+  /* HIGHLIGHT — azure accent words */
+  --highlight:     #2563EB;
+  --highlight-rgb: 37, 99, 235;
+
+  --hairline-rgb: 12, 22, 40;
+  --hairline:      rgba(var(--hairline-rgb), 0.08);
+  --hairline-2:    rgba(var(--hairline-rgb), 0.14);
+  --hairline-3:    rgba(var(--hairline-rgb), 0.22);
+
+  --surface-tint-1: rgba(var(--hairline-rgb), 0.02);
+  --surface-tint-2: rgba(var(--hairline-rgb), 0.035);
+  --surface-tint-3: rgba(var(--hairline-rgb), 0.06);
+
+  --shadow-card:
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 18px 44px rgba(15, 34, 68, 0.10);
+  --shadow-raised:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 26px 60px rgba(15, 34, 68, 0.14),
+    0 0 0 1px rgba(var(--accent-rgb), 0.12);
+  --shadow-accent:
+    0 1px 0 rgba(255, 255, 255, 0.35) inset,
+    0 14px 36px rgba(var(--accent-glow-rgb), 0.28),
+    0 2px 4px rgba(var(--accent-deep-rgb), 0.18);
+}
+
+/* honour OS preference on first visit (before any explicit choice) */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]):not([data-theme="light"]) {
+    color-scheme: light;
+
+    --bg:        #F4F7FC;
+    --bg-2:      #ECF1F9;
+    --bg-3:      #FFFFFF;
+    --bg-4:      #F7FAFE;
+    --bg-glass:  rgba(255, 255, 255, 0.74);
+    --bg-rgb:    244, 247, 252;
+
+    --ink:        #0A1524;
+    --ink-soft:   #33415A;
+    --ink-muted:  #566277;
+    --ink-faint:  #93A1B8;
+    --ink-rgb:    10, 21, 36;
+
+    --accent:        #2563EB;
+    --accent-bright: #4F8DFF;
+    --accent-glow:   #3B82F6;
+    --accent-deep:   #1E40AF;
+    --on-accent:     #FFFFFF;
+    --accent-rgb:        37, 99, 235;
+    --accent-bright-rgb: 79, 141, 255;
+    --accent-glow-rgb:   59, 130, 246;
+    --accent-deep-rgb:   30, 64, 175;
+
+    --accent-2:      #2563EB;
+    --accent-2-deep: #1E40AF;
+    --on-accent-2:   #FFFFFF;
+    --accent-2-rgb:      37, 99, 235;
+    --accent-2-deep-rgb: 30, 64, 175;
+
+    --accent-3:      #2563EB;
+    --accent-3-deep: #1E40AF;
+    --on-accent-3:   #FFFFFF;
+    --accent-3-rgb:      37, 99, 235;
+    --accent-3-deep-rgb: 30, 64, 175;
+
+    --highlight:     #2563EB;
+    --highlight-rgb: 37, 99, 235;
+
+    --hairline-rgb: 12, 22, 40;
+    --hairline:      rgba(var(--hairline-rgb), 0.08);
+    --hairline-2:    rgba(var(--hairline-rgb), 0.14);
+    --hairline-3:    rgba(var(--hairline-rgb), 0.22);
+
+    --surface-tint-1: rgba(var(--hairline-rgb), 0.02);
+    --surface-tint-2: rgba(var(--hairline-rgb), 0.035);
+    --surface-tint-3: rgba(var(--hairline-rgb), 0.06);
+
+    --shadow-card:
+      0 1px 0 rgba(255, 255, 255, 0.8) inset,
+      0 18px 44px rgba(15, 34, 68, 0.10);
+    --shadow-raised:
+      0 1px 0 rgba(255, 255, 255, 0.9) inset,
+      0 26px 60px rgba(15, 34, 68, 0.14),
+      0 0 0 1px rgba(var(--accent-rgb), 0.12);
+    --shadow-accent:
+      0 1px 0 rgba(255, 255, 255, 0.35) inset,
+      0 14px 36px rgba(var(--accent-glow-rgb), 0.28),
+      0 2px 4px rgba(var(--accent-deep-rgb), 0.18);
+  }
+}
+
+/* ── Tailwind v4 token map (→ runtime vars, both themes) ──── */
+@theme inline {
+  --color-bg:            var(--bg);
+  --color-bg-2:          var(--bg-2);
+  --color-bg-3:          var(--bg-3);
+  --color-bg-4:          var(--bg-4);
+  --color-bg-glass:      var(--bg-glass);
+
+  --color-ink:           var(--ink);
+  --color-ink-soft:      var(--ink-soft);
+  --color-ink-muted:     var(--ink-muted);
+  --color-ink-faint:     var(--ink-faint);
+
+  --color-accent:        var(--accent);
+  --color-accent-bright: var(--accent-bright);
+  --color-accent-glow:   var(--accent-glow);
+  --color-accent-deep:   var(--accent-deep);
+  --color-on-accent:     var(--on-accent);
+
+  /* secondary (marigold) + tertiary (ember) + highlight */
+  --color-accent-2:      var(--accent-2);
+  --color-accent-2-deep: var(--accent-2-deep);
+  --color-on-accent-2:   var(--on-accent-2);
+  --color-accent-3:      var(--accent-3);
+  --color-accent-3-deep: var(--accent-3-deep);
+  --color-on-accent-3:   var(--on-accent-3);
+  --color-highlight:     var(--highlight);
+
+  --color-hairline:      var(--hairline);
+  --color-hairline-2:    var(--hairline-2);
+  --color-hairline-3:    var(--hairline-3);
+  --color-hairline-glow: var(--hairline-glow);
+
+  /* ── TYPOGRAPHY ──────────────────────────────────────────── */
+  --font-display: var(--font-geist), 'Geist', 'Inter', system-ui, sans-serif;
+  --font-body:    var(--font-inter), 'Inter', system-ui, sans-serif;
+  --font-serif:   var(--font-instrument), 'Instrument Serif', 'EB Garamond', Georgia, serif;
+  --font-mono:    var(--font-jetbrains), 'JetBrains Mono', ui-monospace, monospace;
+
+  /* ── RADIUS ──────────────────────────────────────────────── */
+  --radius-xs:    4px;
+  --radius-sm:    8px;
+  --radius-md:    14px;
+  --radius-lg:    22px;
+  --radius-xl:    32px;
+  --radius-pill:  9999px;
+
+  /* ── EASE / DURATION ─────────────────────────────────────── */
+  --ease-out-expo: cubic-bezier(0.19, 1.00, 0.22, 1.00);
+  --ease-spring:   cubic-bezier(0.34, 1.30, 0.64, 1.0);
+  --ease-luxury:   cubic-bezier(0.65, 0, 0.35, 1);
+  --d-fast:   180ms;
+  --d-base:   360ms;
+  --d-slow:   720ms;
+  --d-grand:  1200ms;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  letter-spacing: -0.005em;
+  overflow-x: hidden;
+  font-feature-settings: "ss01", "cv11", "kern";
+  transition: background-color var(--d-base) var(--ease-luxury),
+              color var(--d-base) var(--ease-luxury);
+}
+
+/* lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }
+
+::selection { background: rgba(var(--accent-rgb), 0.30); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(var(--hairline-rgb), 0.14); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(var(--accent-rgb), 0.40); }
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+
+.font-display { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.035em; }
+.font-body    { font-family: var(--font-body); }
+.font-serif   { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -0.02em; }
+.font-mono    { font-family: var(--font-mono); letter-spacing: 0.04em; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  display: inline-block;
+}
+.eyebrow-muted { color: var(--ink-muted); }
+.eyebrow-soft  { color: var(--ink-soft); }
+
+.headline {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.0;
+  color: var(--ink);
+}
+
+.headline-hero {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  font-size: clamp(3rem, 7vw, 6rem);
+  color: var(--ink);
+}
+
+.headline-section {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  color: var(--ink);
+}
+
+.italic-accent {
+  font-family: var(--font-fraunces), 'Fraunces', 'Newsreader', Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--highlight);
+  letter-spacing: -0.005em;
+}
+
+.text-accent  { color: var(--accent); }
+.text-soft    { color: var(--ink-soft); }
+.text-muted   { color: var(--ink-muted); }
+.text-faint   { color: var(--ink-faint); }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.625rem;
+  padding: 0.9rem 1.5rem;
+  min-height: 44px;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 500;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    transform var(--d-fast) var(--ease-luxury),
+    box-shadow var(--d-fast) var(--ease-luxury),
+    background var(--d-fast) var(--ease-luxury),
+    color var(--d-fast) var(--ease-luxury),
+    border-color var(--d-fast) var(--ease-luxury);
+}
+
+/* Solid ember — the one hot "click me" CTA colour */
+.btn-accent {
+  background: var(--accent-3);
+  color: var(--on-accent-3);
+  border-color: var(--accent-3);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.24) inset,
+    0 14px 40px rgba(var(--accent-3-rgb), 0.36),
+    0 2px 4px rgba(var(--accent-3-deep-rgb), 0.30);
+  font-weight: 600;
+}
+.btn-accent:hover {
+  background: var(--accent-3-deep);
+  border-color: var(--accent-3-deep);
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.28) inset,
+    0 20px 52px rgba(var(--accent-3-rgb), 0.52),
+    0 2px 6px rgba(var(--accent-3-deep-rgb), 0.36);
+}
+
+/* Outlined azure — primary "Book a demo" style */
+.btn-outline {
+  background: transparent;
+  color: var(--accent);
+  border-color: rgba(var(--accent-rgb), 0.42);
+}
+.btn-outline:hover {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-accent);
+}
+
+/* Hairline ghost */
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--hairline-2);
+}
+.btn-ghost:hover {
+  border-color: var(--hairline-3);
+  background: var(--surface-tint-2);
+  transform: translateY(-2px);
+}
+
+/* Glass — used inside gradient panels */
+.btn-glass {
+  background: var(--surface-tint-3);
+  color: var(--ink);
+  border-color: var(--hairline-2);
+  backdrop-filter: blur(12px);
+}
+.btn-glass:hover {
+  background: rgba(var(--hairline-rgb), 0.14);
+  border-color: var(--hairline-3);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   SURFACES
+   ============================================================ */
+
+.surface {
+  background: var(--bg-3);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  position: relative;
+}
+.surface::before {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg, rgba(var(--hairline-rgb), 0.06), transparent 40%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.surface-2 {
+  background: var(--bg-4);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+}
+
+.surface-glass {
+  background: var(--bg-glass);
+  border: 1px solid var(--hairline-2);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(16px);
+}
+
+.surface-card-hover {
+  transition:
+    transform var(--d-base) var(--ease-luxury),
+    box-shadow var(--d-base) var(--ease-luxury),
+    border-color var(--d-base) var(--ease-luxury),
+    background var(--d-base) var(--ease-luxury);
+}
+.surface-card-hover:hover {
+  transform: translateY(-3px);
+  border-color: rgba(var(--accent-rgb), 0.30);
+  box-shadow:
+    0 1px 0 rgba(var(--hairline-rgb), 0.05) inset,
+    0 24px 60px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(var(--accent-rgb), 0.22),
+    0 0 40px rgba(var(--accent-rgb), 0.10);
+}
+
+.glow-accent:hover {
+  box-shadow:
+    0 0 0 1px rgba(var(--accent-rgb), 0.30),
+    0 0 40px rgba(var(--accent-rgb), 0.18);
+}
+
+/* ============================================================
+   BACKGROUNDS
+   ============================================================ */
+
+.bg-canvas    { background: var(--bg); }
+.bg-canvas-2  { background: var(--bg-2); }
+.bg-canvas-3  { background: var(--bg-3); }
+
+.bg-ambient-hero {
+  background:
+    radial-gradient(ellipse 90% 50% at 50% 0%, rgba(var(--accent-rgb), 0.10), transparent 60%),
+    radial-gradient(ellipse 60% 60% at 10% 100%, rgba(var(--accent-deep-rgb), 0.08), transparent 60%),
+    radial-gradient(ellipse 50% 50% at 90% 80%, rgba(var(--accent-rgb), 0.06), transparent 60%),
+    var(--bg);
+}
+
+.bg-ambient-soft {
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 10%, rgba(var(--accent-rgb), 0.06), transparent 65%),
+    radial-gradient(ellipse 50% 50% at 10% 100%, rgba(var(--accent-deep-rgb), 0.05), transparent 65%),
+    var(--bg-2);
+}
+
+.bg-ambient-deep {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(var(--accent-rgb), 0.04), transparent 70%),
+    var(--bg);
+}
+
+/* spotlight overlay for hero */
+.bg-spotlight {
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(var(--accent-rgb), 0.10), transparent 60%);
+}
+
+/* Grain — adds luxury texture */
+.grain::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+}
+
+/* ============================================================
+   HAIRLINES
+   ============================================================ */
+
+.hairline {
+  height: 1px; width: 100%;
+  background: var(--hairline);
+}
+.hairline-glow {
+  height: 1px; width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.45), transparent);
+}
+.hairline-glow-strong {
+  height: 1px; width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.7), transparent);
+}
+.vertical-hairline {
+  width: 1px; height: 100%;
+  background: linear-gradient(180deg, transparent, var(--hairline-2), transparent);
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+
+.section-pad     { padding-top: clamp(5rem, 9vw, 8rem); padding-bottom: clamp(5rem, 9vw, 8rem); }
+.section-pad-sm  { padding-top: clamp(3rem, 6vw, 5rem); padding-bottom: clamp(3rem, 6vw, 5rem); }
+
+.container-wide      { width: 100%; max-width: 1440px; margin: 0 auto; padding-left: 1.25rem; padding-right: 1.25rem; }
+.container-narrow    { width: 100%; max-width: 1120px; margin: 0 auto; padding-left: 1.25rem; padding-right: 1.25rem; }
+.container-editorial { width: 100%; max-width: 880px;  margin: 0 auto; padding-left: 1.25rem; padding-right: 1.25rem; }
+
+@media (min-width: 768px) {
+  .container-wide, .container-narrow, .container-editorial {
+    padding-left: 2.5rem; padding-right: 2.5rem;
+  }
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+@keyframes aurora-drift {
+  0%   { transform: translate3d(-2%, -1%, 0) scale(1.0); opacity: 0.85; }
+  50%  { transform: translate3d(2%,  1%, 0) scale(1.08); opacity: 1.0; }
+  100% { transform: translate3d(-2%, -1%, 0) scale(1.0); opacity: 0.85; }
+}
+@keyframes shimmer {
+  0%, 100% { opacity: 0.4; transform: scaleX(0.85); }
+  50%      { opacity: 1;   transform: scaleX(1); }
+}
+@keyframes float-y      { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
+@keyframes pulse-ring   { 0% { transform: scale(0.95); opacity: 0.7 } 70% { transform: scale(1.6); opacity: 0 } 100% { transform: scale(1.6); opacity: 0 } }
+@keyframes marquee-x    { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+@keyframes spin-slow    { from { transform: rotate(0) } to { transform: rotate(360deg) } }
+@keyframes glow-pulse   { 0%, 100% { opacity: 0.4 } 50% { opacity: 1 } }
+@keyframes scroll-hint  { 0% { transform: translateY(-100%); opacity: 0 } 30% { opacity: 1 } 100% { transform: translateY(100%); opacity: 0 } }
+
+.animate-aurora      { animation: aurora-drift 18s ease-in-out infinite; }
+.animate-shimmer     { animation: shimmer 4s ease-in-out infinite; transform-origin: center; }
+.animate-float       { animation: float-y 6s ease-in-out infinite; }
+.animate-pulse-ring  { animation: pulse-ring 2.6s ease-out infinite; }
+.animate-marquee     { animation: marquee-x 60s linear infinite; }
+.animate-spin-slow   { animation: spin-slow 40s linear infinite; }
+.animate-glow-pulse  { animation: glow-pulse 3.4s ease-in-out infinite; }
+.animate-scroll-hint { animation: scroll-hint 2.4s ease-in-out infinite; }
+
+.magnetic-target { display: inline-block; will-change: transform; }
+
+/* ============================================================
+   ENTRANCE — CSS-driven (bulletproof: always completes, runs in
+   background tabs, snaps visible under reduced-motion). Used for
+   above-the-fold hero content that must never get stuck hidden.
+   ============================================================ */
+
+@keyframes lux-rise    { from { transform: translateY(115%); } to { transform: translateY(0); } }
+@keyframes lux-fade-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes lux-fade    { from { opacity: 0; } to { opacity: 1; } }
+@keyframes lux-grow-x  { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
+
+.enter-line {
+  display: inline-block;
+  will-change: transform;
+  animation: lux-rise 1.0s var(--ease-out-expo) both;
+}
+.enter-fade-up {
+  will-change: transform, opacity;
+  animation: lux-fade-up 0.85s var(--ease-out-expo) both;
+}
+.enter-fade {
+  animation: lux-fade 0.85s var(--ease-out-expo) both;
+}
+.enter-grow-x {
+  transform-origin: left;
+  animation: lux-grow-x 1.3s var(--ease-out-expo) both;
+}
+
+@keyframes lux-drop { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+.enter-drop { animation: lux-drop 0.7s var(--ease-out-expo) 0.15s both; }
+
+/* ============================================================
+   FLOATING WHATSAPP — azure edition
+   ============================================================ */
+
+.fab-wa {
+  position: fixed;
+  bottom: 1.5rem; right: 1.5rem;
+  z-index: 60;
+  width: 58px; height: 58px;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, var(--accent-bright) 0%, var(--accent-glow) 100%);
+  color: #FFFFFF;
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.30) inset,
+    0 16px 36px rgba(var(--accent-glow-rgb), 0.44),
+    0 2px 6px rgba(var(--accent-deep-rgb), 0.28);
+  transition: transform var(--d-fast) var(--ease-spring);
+}
+.fab-wa:hover { transform: translateY(-2px) scale(1.05); }
+.fab-wa::after {
+  content: "";
+  position: absolute; inset: -6px;
+  border-radius: inherit;
+  border: 2px solid rgba(var(--accent-rgb), 0.55);
+  animation: pulse-ring 2.6s ease-out infinite;
+  pointer-events: none;
+}
+
+/* ============================================================
+   AURORA / SPOTLIGHT HERO PIECES
+   ============================================================ */
+
+.aurora-wash {
+  position: absolute; inset: -10%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 45% 35% at 25% 35%, rgba(var(--accent-rgb), 0.22), transparent 60%),
+    radial-gradient(ellipse 40% 30% at 75% 60%, rgba(var(--accent-deep-rgb), 0.20), transparent 60%),
+    radial-gradient(ellipse 35% 25% at 50% 80%, rgba(var(--accent-glow-rgb), 0.16), transparent 60%);
+  filter: blur(40px);
+}
+
+.spotlight-center {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 50% 35% at 50% 60%, rgba(var(--accent-rgb), 0.10), transparent 65%);
+}
+
+.grid-bg {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(var(--hairline-rgb), 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(var(--hairline-rgb), 0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, #000 30%, transparent 80%);
+}
+
+/* ============================================================
+   HERO 3D CRYSTAL — full strength on dark, gentler on light so it
+   never overpowers the airy light theme.
+   ============================================================ */
+.hero-crystal-wrap { transition: opacity var(--d-slow) var(--ease-luxury); }
+:root[data-theme="light"] .hero-crystal-wrap {
+  opacity: 0.45;
+  -webkit-mask-image: radial-gradient(ellipse 82% 78% at 72% 50%, #000 38%, transparent 82%);
+  mask-image: radial-gradient(ellipse 82% 78% at 72% 50%, #000 38%, transparent 82%);
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-aurora, .animate-shimmer, .animate-float,
+  .animate-pulse-ring, .animate-marquee, .animate-spin-slow,
+  .animate-glow-pulse, .animate-scroll-hint {
+    animation: none !important;
+  }
+  * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}

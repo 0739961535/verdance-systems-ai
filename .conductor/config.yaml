@@ -1,0 +1,28 @@
+agent_settings:
+  heartbeat_interval: 600
+  idle_timeout: 1800
+  max_concurrent: 5
+conflict_prevention:
+  file_locking: true
+  use_worktrees: true
+docs_directory: .
+github_integration:
+  enabled: true
+  issue_to_task: true
+  pr_reviews: true
+  use_actions: true
+  use_issues: true
+project_name: verdance-systems-ai-v3
+roles:
+  default: dev
+  specialized:
+  - code-reviewer
+  - frontend
+  - mobile
+  - devops
+  - security
+  - ml-engineer
+  - ui-designer
+  - data
+task_management: github-issues
+version: 1.0.0
