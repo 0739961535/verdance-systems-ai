@@ -7,7 +7,7 @@ import Link from "next/link";
 const features = [
   {
     title: "Effortless intake",
-    body: "AI-led intake handles enquiries from any channel — phone, web, WhatsApp, email — and writes them straight into your pipeline.",
+    body: "AI-led intake handles enquiries from any channel - phone, web, WhatsApp, email - and writes them straight into your pipeline.",
     accent: "emerald",
   },
   {
@@ -17,7 +17,7 @@ const features = [
   },
   {
     title: "Always-warm follow-up",
-    body: "Sequenced correspondence — natural, attentive, never robotic — keeps relationships warm long after the first contact.",
+    body: "Sequenced correspondence - natural, attentive, never robotic - keeps relationships warm long after the first contact.",
     accent: "champagne",
   },
 ];
@@ -44,7 +44,7 @@ export function HowItWorksPreview() {
             </h2>
           </div>
           <p className="text-[#5A6660] text-base md:text-lg leading-[1.65] max-w-md">
-            What our systems quietly take off your plate — so you can spend your days on the work only you can do.
+            What our systems quietly take off your plate - so you can spend your days on the work only you can do.
           </p>
         </motion.div>
 
@@ -69,10 +69,10 @@ export function HowItWorksPreview() {
                 Effortless automation
               </span>
               <h3 className="font-display font-bold text-[2.4rem] text-[#0B1812] leading-[1.0] mb-4">
-                Automate routine touchpoints with our AI — saving time, eliminating errors.
+                Automate routine touchpoints with our AI - saving time, eliminating errors.
               </h3>
               <p className="text-[#5A6660] text-[0.95rem] leading-[1.65] mb-8">
-                Verdance handles the work no business owner should spend their weeks on: intake, scheduling, reminders, follow-up, review collection — quietly, in your brand voice.
+                Verdance handles the work no business owner should spend their weeks on: intake, scheduling, reminders, follow-up, review collection - quietly, in your brand voice.
               </p>
 
               <Link href="/contact" className="btn-primary group inline-flex">
@@ -93,7 +93,7 @@ export function HowItWorksPreview() {
             </div>
           </motion.div>
 
-          {/* Right column — 3 smaller feature cards */}
+          {/* Right column - 3 smaller feature cards */}
           <div className="flex flex-col gap-5">
             {features.map((feat, i) => (
               <motion.article

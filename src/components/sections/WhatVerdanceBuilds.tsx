@@ -10,7 +10,7 @@ const blocks = [
     label: "The Verdance Cycle",
     title: "Built so every signal becomes a kept appointment.",
     body:
-      "Verdance composes the systems that catch every enquiry, convert every conversation, and keep every client warm — across phone, web, WhatsApp and email.",
+      "Verdance composes the systems that catch every enquiry, convert every conversation, and keep every client warm - across phone, web, WhatsApp and email.",
     cta: "Watch the cycle",
     image: "/visual-cycle.png",
   },
@@ -26,7 +26,7 @@ const blocks = [
     label: "Operating in seconds",
     title: "Reply, schedule and follow up in moments.",
     body:
-      "Our systems answer first contact in under five seconds, schedule diary-aware, and follow up consistently — quietly, at any hour, without dropping a thread.",
+      "Our systems answer first contact in under five seconds, schedule diary-aware, and follow up consistently - quietly, at any hour, without dropping a thread.",
     cta: "See the speed",
     image: "/visual-speed.png",
   },
@@ -53,7 +53,7 @@ function FeatureBlock({ block, index }: { block: typeof blocks[number]; index: n
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="grid lg:grid-cols-[1.1fr_1fr] gap-14 lg:gap-20 items-center"
         >
-          {/* LEFT — visual */}
+          {/* LEFT - visual */}
           <div className={`relative ${index % 2 === 1 ? "lg:order-2" : ""}`}>
             <div className="relative aspect-[5/4] rounded-2xl overflow-hidden surface-card flex items-center justify-center"
                  style={{ background: "linear-gradient(135deg, #FAF7F0 0%, #EFEADD 60%, rgba(184,148,100,0.10) 100%)" }}>
@@ -94,7 +94,7 @@ function FeatureBlock({ block, index }: { block: typeof blocks[number]; index: n
             </div>
           </div>
 
-          {/* RIGHT — copy */}
+          {/* RIGHT - copy */}
           <div className={`flex flex-col ${index % 2 === 1 ? "lg:order-1" : ""}`}>
             <div className="flex items-center gap-3 mb-5">
               <span className="block w-6 h-px bg-[#1B4D3E]" />

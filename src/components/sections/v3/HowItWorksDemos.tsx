@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * HowItWorksDemos — five steps, each paired with the matching live demo.
+ * HowItWorksDemos - five steps, each paired with the matching live demo.
  * Replaces the previous static 5-step grid on /how-it-works.
  *
  * Caller: src/app/how-it-works/page.tsx
@@ -28,20 +28,20 @@ const STEPS: Step[] = [
   {
     n: "01",
     title: "Discovery & free consult",
-    body: "We study how leads enter, who handles them, and where they leak. Then we map out exactly what we'd build for you — free, before you commit to anything.",
+    body: "We study how leads enter, who handles them, and where they leak. Then we map out exactly what we'd build for you - free, before you commit to anything.",
     visual: <DiscoveryVisual />,
   },
   {
     n: "02",
     title: "Onboarding",
-    body: "Quick call to connect your phone, calendar, website, and lead sources. The calendar syncs cleanly — and starts auto-filling on its own.",
+    body: "Quick call to connect your phone, calendar, website, and lead sources. The calendar syncs cleanly - and starts auto-filling on its own.",
     visual: <CalendarDemo />,
     reverse: true,
   },
   {
     n: "03",
     title: "Go live",
-    body: "Within days, every WhatsApp message and every phone call is answered and booked — 24/7, on-brand, on-script.",
+    body: "Within days, every WhatsApp message and every phone call is answered and booked - 24/7, on-brand, on-script.",
     visual: <ChatAndCall />,
   },
   {
@@ -54,7 +54,7 @@ const STEPS: Step[] = [
   {
     n: "05",
     title: "We optimise & report",
-    body: "Every week we tune the script, the routing, the timing — and report the numbers. Reply-rate up, response-time down, bookings up.",
+    body: "Every week we tune the script, the routing, the timing - and report the numbers. Reply-rate up, response-time down, bookings up.",
     visual: <MetricsLineDemo />,
   },
 ];
@@ -150,7 +150,7 @@ function DiscoveryVisual() {
         {[
           "Where leads enter (phone, WhatsApp, web, walk-in)",
           "Who handles them and when they go quiet",
-          "Where revenue is leaking — every week",
+          "Where revenue is leaking - every week",
         ].map((t, i) => (
           <li
             key={i}

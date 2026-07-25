@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * RotatingHeadline — cycles a set of phrases in place with a soft blur/slide.
+ * RotatingHeadline - cycles a set of phrases in place with a soft blur/slide.
  * Used in the hero after a fixed lead-in ("AI for …") so the headline keeps
  * saying, in different ways, exactly what Verdance does.
  *

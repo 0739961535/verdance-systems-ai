@@ -157,7 +157,7 @@ export async function POST(req: Request) {
 
   const contactBody = {
     firstName: firstName.trim(),
-    lastName: businessName.trim(), // per spec — surface business name as last name
+    lastName: businessName.trim(), // per spec - surface business name as last name
     email: email.trim().toLowerCase(),
     phone: phone.trim(),
     locationId,
@@ -243,7 +243,7 @@ export async function POST(req: Request) {
         `Industry: ${industry}`,
         `Lead volume: ${leadVolume}`,
         `Urgency: ${urgency}`,
-        `Top pains: ${pains.join(", ") || "—"}`,
+        `Top pains: ${pains.join(", ") || "-"}`,
         notes ? `Notes: ${notes}` : null,
       ]
         .filter(Boolean)

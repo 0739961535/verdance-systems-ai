@@ -42,3 +42,8 @@ This single command will:
 ---
 
 @AGENTS.md
+
+## Design Principles
+
+- **No em dashes (—) in any copy or code comments.** Use a comma or a plain hyphen (`-`) instead, whichever reads more naturally in context.
+- **Never mention "GHL" / "GoHighLevel" / "LeadConnector" in website copy** - anything a visitor can read (page text, metadata/SEO descriptions, on-site labels). The CRM is white-labeled; refer to it generically as "the CRM" or "your CRM" there. Backend code (env var names, function names, internal comments, the `leadconnectorhq.com` API domain) can keep the real GHL naming - that's implementation detail, not customer-facing.

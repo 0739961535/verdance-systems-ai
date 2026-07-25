@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * ChatbotWidget — "Mia", Verdance's own AI assistant, living in the bottom-right.
+ * ChatbotWidget - "Mia", Verdance's own AI assistant, living in the bottom-right.
  * Replaces the old WhatsApp FAB. Since Verdance sells AI chat assistants, running
  * one on the site is the product demonstrating itself. Scripted (no backend):
  * greets, answers the three things people ask, and funnels to a free consult.
@@ -16,7 +16,7 @@ import { Bot, X, Send } from "lucide-react";
 
 /**
  * Routes where the floating Mia button is suppressed. On the form pages the
- * qualifying form IS the conversion — Mia only ever funnels people here, so on
+ * qualifying form IS the conversion - Mia only ever funnels people here, so on
  * these pages she's redundant and (being bottom-right, fixed) physically
  * overlaps the form's fields and submit control. Hide her so every field and
  * button stays tappable.
@@ -26,7 +26,7 @@ const HIDE_ON = ["/contact", "/apply"];
 type Msg = { from: "mia" | "you"; text: string; cta?: boolean };
 
 const GREETING =
-  "Hey — I'm Mia, Verdance's AI assistant 👋 I can answer a quick question or get you booked in for a free consult. What brings you by?";
+  "Hey - I'm Mia, Verdance's AI assistant 👋 I can answer a quick question or get you booked in for a free consult. What brings you by?";
 
 const QUICK = ["What do you do?", "How much is it?", "Book a free consult"];
 
@@ -35,7 +35,7 @@ function miaReply(text: string): Msg {
   if (/book|consult|demo|call|start|get going|sign|yes|please/.test(t))
     return {
       from: "mia",
-      text: "Perfect — pick a time that suits you and we'll take it from there. 👇",
+      text: "Perfect - pick a time that suits you and we'll take it from there. 👇",
       cta: true,
     };
   if (/price|cost|how much|pricing|fee|expensive|budget|charge/.test(t))
@@ -46,11 +46,11 @@ function miaReply(text: string): Msg {
   if (/do|what|service|help|how|work|book|lead|call/.test(t))
     return {
       from: "mia",
-      text: "We install an AI system that answers every call, text and message, chases every lead, and books them straight into your calendar — 24/7. Want to see it on your own business?",
+      text: "We install an AI system that answers every call, text and message, chases every lead, and books them straight into your calendar - 24/7. Want to see it on your own business?",
     };
   return {
     from: "mia",
-    text: "Great question. The quickest way to get you a proper answer is a short free consult — want me to line one up?",
+    text: "Great question. The quickest way to get you a proper answer is a short free consult - want me to line one up?",
     cta: true,
   };
 }
@@ -60,13 +60,13 @@ export function ChatbotWidget() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [nudge, setNudge] = useState(false);
-  const [nudged, setNudged] = useState(false); // shown once — never repeats
+  const [nudged, setNudged] = useState(false); // shown once - never repeats
   const [messages, setMessages] = useState<Msg[]>([{ from: "mia", text: GREETING }]);
   const [typing, setTyping] = useState(false);
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Gentle nudge bubble once — appears briefly, then auto-dismisses so it never
+  // Gentle nudge bubble once - appears briefly, then auto-dismisses so it never
   // lingers over the page content. Suppressed on narrow/touch screens, where a
   // floating bubble would sit over the section content or a CTA.
   useEffect(() => {
@@ -110,7 +110,7 @@ export function ChatbotWidget() {
   }
 
   // Suppress on form pages so nothing overlaps the qualifying form. (All hooks
-  // above run unconditionally — this early return keeps hook order stable.)
+  // above run unconditionally - this early return keeps hook order stable.)
   if (pathname && HIDE_ON.some((p) => pathname === p || pathname.startsWith(p + "/"))) {
     return null;
   }
@@ -256,7 +256,7 @@ export function ChatbotWidget() {
               boxShadow: "0 16px 40px -14px rgba(var(--accent-rgb),0.4)",
             }}
           >
-            Hi 👋 I&apos;m Mia — want to see what we could build for your business?
+            Hi 👋 I&apos;m Mia - want to see what we could build for your business?
           </motion.button>
         )}
       </AnimatePresence>

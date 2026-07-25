@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * PipelineDemo — the 5-step Missed-Revenue Recovery pipeline.
+ * PipelineDemo - the 5-step Missed-Revenue Recovery pipeline.
  * A lead avatar travels along a turquoise hairline rail, lighting up each
  * stop as it arrives. Loops every ~14s with a new lead each cycle.
  */
@@ -250,9 +250,9 @@ export function PipelineDemo({ size = "md" }: { size?: "md" | "xl" } = {}) {
               }
             >
               {step === 0 && `Inbound lead from ${channel}. ${lead.name} requesting ${lead.service.toLowerCase()}.`}
-              {step === 1 && `Mia picks up instantly and replies on-brand — no queue, no waiting.`}
+              {step === 1 && `Mia picks up instantly and replies on-brand - no queue, no waiting.`}
               {step === 2 && `Three qualifying questions answered in the same thread.`}
-              {step === 3 && `Calendar checked, slot held, confirmation sent — without anyone lifting a finger.`}
+              {step === 3 && `Calendar checked, slot held, confirmation sent - without anyone lifting a finger.`}
               {step === 4 && `Customer arrives. The booking is real money in your business.`}
             </p>
           </div>
@@ -313,7 +313,7 @@ function InboundPanel({ lead, channel }: { lead: typeof LEADS[number]; channel: 
       </div>
       <div className="rounded-lg border px-3 py-2.5 text-[13px] text-[color:var(--color-ink-soft)]"
         style={{ borderColor: "var(--color-hairline)", background: "rgba(var(--hairline-rgb),0.03)" }}>
-        &ldquo;Hi — do you take new clients for {lead.service.toLowerCase()}?&rdquo;
+        &ldquo;Hi - do you take new clients for {lead.service.toLowerCase()}?&rdquo;
       </div>
     </>
   );
@@ -330,7 +330,7 @@ function EngagedPanel({ greeting }: { greeting: string }) {
         className="rounded-xl rounded-tr-md px-3.5 py-2.5 text-[13px] font-medium"
         style={{ background: "var(--color-accent)", color: "var(--color-on-accent)" }}
       >
-        <TypingText text={greeting + " Our soonest opening is Thursday at 2pm — does that work?"} speed={18} cursor={false} />
+        <TypingText text={greeting + " Our soonest opening is Thursday at 2pm - does that work?"} speed={18} cursor={false} />
       </div>
       <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-ink-muted)]">
         Reply in 6 seconds

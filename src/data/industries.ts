@@ -17,7 +17,7 @@ export const industries: Industry[] = [
     icon: "Scale",
     headline: "Stop losing clients to slow response times.",
     subheadline:
-      "Automate intake, qualification, and follow-up so your team focuses on billable work — not admin.",
+      "Automate intake, qualification, and follow-up so your team focuses on billable work - not admin.",
     problems: [
       {
         title: "Slow enquiry response",
@@ -56,7 +56,7 @@ export const industries: Industry[] = [
       { step: 5, label: "Review Requested", description: "Post-matter review automation fires automatically" },
     ],
     outcomes: [
-      { metric: "100%", description: "Enquiries answered — including after hours" },
+      { metric: "100%", description: "Enquiries answered - including after hours" },
       { metric: "20–30 min", description: "Admin saved per new client intake" },
       { metric: "2–4x", description: "Increase in Google review volume" },
     ],
@@ -67,12 +67,12 @@ export const industries: Industry[] = [
     icon: "Building2",
     headline: "More viewings. More offers. Less admin.",
     subheadline:
-      "Automate lead qualification, follow-up, and scheduling so your agents spend time closing — not chasing.",
+      "Automate lead qualification, follow-up, and scheduling so your agents spend time closing - not chasing.",
     problems: [
       {
         title: "Slow lead response",
         description:
-          "Property enquiries come in 24/7 — agents can't respond fast enough and lose buyers to competitors.",
+          "Property enquiries come in 24/7 - agents can't respond fast enough and lose buyers to competitors.",
       },
       {
         title: "Database of cold leads",
@@ -121,7 +121,7 @@ export const industries: Industry[] = [
       {
         title: "High call volume",
         description:
-          "Reception can't handle peak call demand — calls go unanswered and appointments are lost.",
+          "Reception can't handle peak call demand - calls go unanswered and appointments are lost.",
       },
       {
         title: "High no-show rate",
@@ -155,7 +155,7 @@ export const industries: Industry[] = [
       { step: 5, label: "Review Requested", description: "Post-visit review automation triggers" },
     ],
     outcomes: [
-      { metric: "100%", description: "Call answer rate — no missed appointments" },
+      { metric: "100%", description: "Call answer rate - no missed appointments" },
       { metric: "40%", description: "Reduction in no-show rate" },
       { metric: "2–4x", description: "Monthly Google review volume increase" },
     ],
@@ -306,7 +306,7 @@ export const industries: Industry[] = [
       {
         title: "Enquiries going unanswered",
         description:
-          "WhatsApp and DM enquiries coming in while you're with clients — replied to too late.",
+          "WhatsApp and DM enquiries coming in while you're with clients - replied to too late.",
       },
       {
         title: "Not enough Google reviews",
@@ -354,7 +354,7 @@ export const industries: Industry[] = [
       {
         title: "Low online review count",
         description:
-          "Google and TripAdvisor reviews are key to new customer acquisition — most businesses don't ask.",
+          "Google and TripAdvisor reviews are key to new customer acquisition - most businesses don't ask.",
       },
     ],
     relevantProducts: [

@@ -1,9 +1,9 @@
 "use client";
 
 /**
- * WhatYouGet — the concrete "here's exactly what you're buying" bento.
+ * WhatYouGet - the concrete "here's exactly what you're buying" bento.
  * A 2×2 feature tile (the core AI receptionist) + eight capability/add-on
- * tiles. Dense, varied, and plain-spoken — the antidote to the vague
+ * tiles. Dense, varied, and plain-spoken - the antidote to the vague
  * metaphor sections. Crisp white cards on the warm ground, cognac accents.
  */
 
@@ -23,9 +23,9 @@ import {
 const CHANNELS = ["Call", "SMS", "WhatsApp", "Instagram"];
 
 const TILES: { icon: typeof Zap; title: string; body: string; tag?: string }[] = [
-  { icon: CalendarCheck, title: "Books into your calendar", body: "Offers real openings and locks the job in — synced to your calendar." },
+  { icon: CalendarCheck, title: "Books into your calendar", body: "Offers real openings and locks the job in - synced to your calendar." },
   { icon: Zap, title: "Follows up with every lead", body: "Chases quotes and enquiries until they book or say no." },
-  { icon: PhoneMissed, title: "Missed-call text-back", body: "Texts back a missed call in seconds — before they ring a rival.", tag: "Add-on" },
+  { icon: PhoneMissed, title: "Missed-call text-back", body: "Texts back a missed call in seconds - before they ring a rival.", tag: "Add-on" },
   { icon: RotateCcw, title: "Reactivates old leads", body: "Wakes up your dead database with a friendly nudge that rebooks.", tag: "Add-on" },
   { icon: Star, title: "Collects 5-star reviews", body: "Invites happy customers to leave a Google review, on autopilot.", tag: "Add-on" },
   { icon: Sparkles, title: "Sounds like your brand", body: "Trained on your business, your tone, your services and prices." },
@@ -49,13 +49,13 @@ export function WhatYouGet() {
           <Reveal delay={0.1}>
             <p className="mt-5 text-lg text-[color:var(--color-ink-soft)] leading-relaxed">
               The core AI receptionist, plus the add-ons that turn missed enquiries
-              into booked jobs — all built, run and maintained by us.
+              into booked jobs - all built, run and maintained by us.
             </p>
           </Reveal>
         </div>
 
         <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* FEATURE — the core, 2×2 */}
+          {/* FEATURE - the core, 2×2 */}
           <Reveal className="col-span-2 lg:row-span-2">
             <div
               className="relative flex h-full flex-col justify-between overflow-hidden rounded-2xl p-7 md:p-9"
@@ -82,7 +82,7 @@ export function WhatYouGet() {
                 </h3>
                 <p className="mt-4 text-[15px] leading-relaxed max-w-[38ch]" style={{ opacity: 0.9 }}>
                   It picks up every call, text, WhatsApp and Instagram DM the moment
-                  it lands — day or night — and replies like your best front-desk person.
+                  it lands - day or night - and replies like your best front-desk person.
                 </p>
               </div>
               <div className="relative mt-7 flex flex-wrap gap-2">

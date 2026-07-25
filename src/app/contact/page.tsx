@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { GradientMesh } from "@/components/primitives/GradientMesh";
 import { Reveal } from "@/components/primitives/Reveal";
-import { VSLApplyForm } from "@/components/forms/VSLApplyForm";
+import { VSLApplyForm, BookingPanel } from "@/components/forms/VSLApplyForm";
 import { SITE } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -42,15 +42,23 @@ export default function ContactPage() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-8 max-w-2xl text-xl text-[color:var(--color-ink-soft)] leading-relaxed">
-              Answer a few quick questions below and we&apos;ll map out what we&apos;d
-              build for your business. Takes about a minute — or ask Mia, our AI
-              assistant, bottom-right, anything.
+              Pick a time below - takes seconds. Answer a few quick questions
+              after so we walk in already knowing your business.
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* What happens next — remove the friction before the form */}
+      {/* Booking calendar - the primary action, front and centre */}
+      <section className="relative section-pad-sm bg-canvas">
+        <div className="container-wide">
+          <Reveal>
+            <BookingPanel bookingUrl={SITE.ghlBooking} />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* What happens next - remove the friction before the form */}
       <section className="relative section-pad-sm bg-canvas">
         <div className="container-wide">
           <Reveal>
@@ -60,18 +68,18 @@ export default function ContactPage() {
             {[
               {
                 n: "01",
-                t: "Answer a few questions",
-                d: "Tell us a little about your business and where leads slip through the cracks. Takes about a minute.",
+                t: "Pick a time",
+                d: "Grab a slot on the calendar above - just your email to confirm. Takes seconds.",
               },
               {
                 n: "02",
-                t: "We map out what we'd build",
-                d: "On a free consult, you get a clear plan — exactly what we'd build for you, how it works, and what it's worth. No obligation.",
+                t: "Tell us about your business",
+                d: "A few optional questions so we walk into the call already knowing your setup.",
               },
               {
                 n: "03",
-                t: "We build it out",
-                d: "If it makes sense, we build, launch and run the whole system for you — usually live within days.",
+                t: "We map out what we'd build",
+                d: "On the call, you get a clear plan - exactly what we'd build for you, how it works, and what it's worth. No obligation.",
               },
             ].map((s, i) => (
               <Reveal key={s.n} delay={0.08 + i * 0.08}>
@@ -92,11 +100,11 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* The qualifying form — the main conversion */}
+      {/* Booking calendar + qualifying form - the main conversion */}
       <section className="relative section-pad-sm bg-canvas">
         <div className="container-wide">
           <Reveal>
-            <VSLApplyForm bookingUrl={SITE.ghlBooking} />
+            <VSLApplyForm bookingUrl={SITE.ghlBooking} hideBooking />
           </Reveal>
 
           {/* Prefer to reach us directly */}
@@ -130,7 +138,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Proof — a real operator, right where they decide */}
+      {/* Proof - a real operator, right where they decide */}
       <section className="relative section-pad bg-canvas overflow-hidden">
         <div
           aria-hidden
@@ -158,7 +166,7 @@ export default function ContactPage() {
               <p className="-mt-3 font-display text-2xl md:text-[28px] font-normal leading-[1.5] tracking-[-0.01em] text-[color:var(--color-ink)]">
                 They mapped out exactly what they&apos;d build before we committed
                 to anything. By week two of going live we were booking 30% more
-                cleanings — and I haven&apos;t touched the phone in months.
+                cleanings - and I haven&apos;t touched the phone in months.
               </p>
               <div className="mt-8 flex items-center justify-center gap-3">
                 <span

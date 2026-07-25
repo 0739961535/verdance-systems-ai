@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * LeadScraperDemo — Google Maps style results streaming in with AI scoring.
+ * LeadScraperDemo - Google Maps style results streaming in with AI scoring.
  * Loops every ~14s with a new niche.
  */
 

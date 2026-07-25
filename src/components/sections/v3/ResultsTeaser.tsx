@@ -43,13 +43,13 @@ export function ResultsTeaser() {
                 Sky Dounny
               </h3>
               <p className="mt-3 text-[color:var(--color-ink-soft)] leading-relaxed">
-                A complete operating system: GHL CRM, WhatsApp automation, invoice
-                generation, and a new website — built to handle every inbound enquiry
+                A complete operating system: CRM, WhatsApp automation, invoice
+                generation, and a new website - built to handle every inbound enquiry
                 without missing one.
               </p>
               <div className="mt-7 grid grid-cols-3 gap-3">
                 {[
-                  { k: "CRM", v: "GHL" },
+                  { k: "CRM", v: "Custom" },
                   { k: "Channel", v: "WhatsApp" },
                   { k: "Stack", v: "Web + Invoice" },
                 ].map((p) => (

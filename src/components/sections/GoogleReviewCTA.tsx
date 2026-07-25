@@ -26,7 +26,7 @@ export function GoogleReviewCTA() {
               </span>
             </h2>
             <p className="text-[#5A6660] text-base leading-[1.65] max-w-lg">
-              A short review is the most generous thing a client can offer — it allows the next business owner to find us with confidence.
+              A short review is the most generous thing a client can offer - it allows the next business owner to find us with confidence.
             </p>
             <div className="flex items-center gap-2 mt-5">
               {[...Array(5)].map((_, i) => (

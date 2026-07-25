@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * "The Verdance promise" — an honest trust beat for a hands-on, early-stage
+ * "The Verdance promise" - an honest trust beat for a hands-on, early-stage
  * team. No fabricated testimonials or invented metrics; just the real
  * commitments that de-risk working with us. (Swap in real client quotes here
  * once they're available.)
@@ -19,12 +19,12 @@ const PROMISES = [
   {
     icon: Wrench,
     title: "We run it, you own it",
-    body: "We build, connect and maintain the whole system. It's yours — no lock-in, no jargon, nothing to learn.",
+    body: "We build, connect and maintain the whole system. It's yours - no lock-in, no jargon, nothing to learn.",
   },
   {
     icon: Sparkles,
     title: "Answered like you'd answer",
-    body: "Trained on your services, your prices and your tone — so every reply sounds like your business, not a robot.",
+    body: "Trained on your services, your prices and your tone - so every reply sounds like your business, not a robot.",
   },
 ];
 
@@ -47,13 +47,13 @@ export function TestimonialsSection() {
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="mt-4 headline-section max-w-[20ch]">
-              No hype, no lock-in —{" "}
+              No hype, no lock-in -{" "}
               <span className="italic-accent">just a system that answers.</span>
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-6 max-w-xl text-lg text-[color:var(--color-ink-soft)] leading-relaxed">
-              We&apos;re a small, hands-on team — so you get real attention and a
+              We&apos;re a small, hands-on team - so you get real attention and a
               system built properly, not a template and a login.
             </p>
           </Reveal>

@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * CalendarDemo — week-view that auto-fills with bookings.
+ * CalendarDemo - week-view that auto-fills with bookings.
  * Empty hairline slots become turquoise pills one by one. Final
  * "Week 23 · 87% booked" summary pill animates in. Loops every ~14s.
  */

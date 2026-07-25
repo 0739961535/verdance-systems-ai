@@ -5,23 +5,23 @@ import { FAQAccordion } from "@/components/primitives/FAQAccordion";
 
 const BADGES = [
   "POPIA-compliant",
-  "Data stays in your GHL",
-  "No spam — Daniel only",
+  "Data stays in your CRM",
+  "No spam - us only",
   "Free build before you pay",
 ];
 
 const FAQS = [
   {
     q: "What happens after I apply?",
-    a: "Daniel reviews every application personally — usually within 4 hours. Once you pick a time on the booking widget, you'll get a confirmation in your inbox and on WhatsApp. On the call we walk you through exactly what we'd build on your business — no slides, no pitch deck, just the working system.",
+    a: "We review every application personally - usually within 4 hours. Once you pick a time on the booking widget, you'll get a confirmation in your inbox and on WhatsApp. On the call we walk you through exactly what we'd build on your business - no slides, no pitch deck, just the working system.",
   },
   {
     q: "Is there a cost?",
-    a: "No. The walkthrough is free, and so is the demo we build on your business. You only pay once it's live, integrated, and booking customers for you. If you decide it's not for you, we shake hands and part ways — no contracts.",
+    a: "No. The walkthrough is free, and so is the demo we build on your business. You only pay once it's live, integrated, and booking customers for you. If you decide it's not for you, we shake hands and part ways - no contracts.",
   },
   {
     q: "How long is the call?",
-    a: "About 30 minutes. We spend the first 10 understanding how leads currently land with you, then 20 minutes showing you the system tailored to your business — phone, website, follow-up, calendar — all wired together.",
+    a: "About 30 minutes. We spend the first 10 understanding how leads currently land with you, then 20 minutes showing you the system tailored to your business - phone, website, follow-up, calendar - all wired together.",
   },
 ];
 

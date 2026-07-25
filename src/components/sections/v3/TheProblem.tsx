@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * TheProblem — the dark, dramatic full-bleed beat right after the bright hero.
+ * TheProblem - the dark, dramatic full-bleed beat right after the bright hero.
  * Its job is contrast (bright → dark → bright) + pain agitation before the
  * solution. Colours are hard-set to the espresso/caramel dark world so it's
  * always a dramatic dark band regardless of the page theme.
@@ -19,12 +19,12 @@ const PAINS = [
   {
     icon: Timer,
     title: "Slow follow-up",
-    body: "Reply an hour later and the lead's gone cold. Speed is the whole game — and no one's fast enough all day.",
+    body: "Reply an hour later and the lead's gone cold. Speed is the whole game - and no one's fast enough all day.",
   },
   {
     icon: Moon,
     title: "After-hours enquiries",
-    body: "Evenings, weekends, mid-job — that's when enquiries land, and there's no one free to answer.",
+    body: "Evenings, weekends, mid-job - that's when enquiries land, and there's no one free to answer.",
   },
 ];
 
@@ -80,7 +80,7 @@ export function TheProblem() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-6 text-lg leading-relaxed max-w-xl" style={{ color: "#C5CDD3" }}>
-              For most local businesses, the leak isn&apos;t marketing — it&apos;s
+              For most local businesses, the leak isn&apos;t marketing - it&apos;s
               the enquiries that come in and never get answered in time. Here&apos;s
               where the jobs slip away:
             </p>
@@ -123,7 +123,7 @@ export function TheProblem() {
             className="mt-11 text-lg md:text-xl font-medium"
             style={{ color: "#FFFFFF" }}
           >
-            Verdance answers all of it —{" "}
+            Verdance answers all of it -{" "}
             <span style={{ color: "#7DABFF" }}>instantly, every time.</span>
           </p>
         </Reveal>

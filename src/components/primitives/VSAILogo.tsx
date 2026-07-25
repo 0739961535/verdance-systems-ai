@@ -7,7 +7,7 @@ type Props = {
 };
 
 /**
- * Verdance Systems AI mark — refined V with a turquoise hairline accent.
+ * Verdance Systems AI mark - refined V with a turquoise hairline accent.
  * Designed for dark backgrounds: white V on a near-black tile, edged with turquoise.
  */
 export function VSAILogo({ size = 36, className = "", withWordmark = false }: Props) {

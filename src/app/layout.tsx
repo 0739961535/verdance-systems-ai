@@ -36,7 +36,7 @@ const instrument = Instrument_Serif({
   display: "swap",
 });
 
-// Accent word ("recovered.", "free." etc.) — Fraunces italic reads far clearer
+// Accent word ("recovered.", "free." etc.) - Fraunces italic reads far clearer
 // than the hairline Instrument Serif, with more weight and character.
 const fraunces = Fraunces({
   variable: "--font-fraunces",

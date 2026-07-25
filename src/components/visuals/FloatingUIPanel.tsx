@@ -30,7 +30,7 @@ function ChatPanel() {
       </div>
       <div className="flex gap-2 items-end justify-end">
         <div className="bg-gradient-to-r from-[rgba(30,143,255,0.2)] to-[rgba(0,212,200,0.15)] rounded-lg rounded-br-sm px-3 py-2 max-w-[160px]">
-          <p className="text-[0.7rem] text-[#E8EDF5]">Got it — let me pull that up for you</p>
+          <p className="text-[0.7rem] text-[#E8EDF5]">Got it - let me pull that up for you</p>
         </div>
         <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#1E8FFF] to-[#00D4C8] flex items-center justify-center shrink-0">
           <span className="text-[0.5rem] text-[color:var(--color-ink)] font-bold">V</span>

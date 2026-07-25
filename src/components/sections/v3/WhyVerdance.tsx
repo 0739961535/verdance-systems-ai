@@ -61,7 +61,7 @@ export function WhyVerdance() {
         </Reveal>
         <Reveal delay={0.05}>
           <h2 className="mt-4 headline-section max-w-[16ch]">
-            Built different —{" "}
+            Built different -{" "}
             <span className="italic-accent">on purpose.</span>
           </h2>
         </Reveal>

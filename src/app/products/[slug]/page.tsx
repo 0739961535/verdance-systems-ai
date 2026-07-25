@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const product = getProductBySlug(slug);
   if (!product) return {};
   const title = `${product.name} | Verdance Systems AI`;
-  const description = `${product.name} — ${product.tagline} Done-for-you AI for local service businesses: answers, follows up, and books appointments 24/7. Book a free consult.`;
+  const description = `${product.name} - ${product.tagline} Done-for-you AI for local service businesses: answers, follows up, and books appointments 24/7. Book a free consult.`;
   const url = `https://verdancesystemsai.com/products/${slug}`;
   return {
     title,

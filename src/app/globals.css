@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ============================================================
-   VERDANCE SYSTEMS AI — DUAL-THEME · AZURE PREMIUM
+   VERDANCE SYSTEMS AI - DUAL-THEME · AZURE PREMIUM
    Deep black / clean light · editorial type · electric azure accent.
    Linear × Vercel × luxury watchmaker.
 
@@ -19,7 +19,7 @@
 :root {
   color-scheme: dark;
 
-  /* base canvas — original deep near-black */
+  /* base canvas - original deep near-black */
   --bg:        #050709;
   --bg-2:      #0A0D10;
   --bg-3:      #12161B;
@@ -34,9 +34,9 @@
   --ink-faint:  #3E4750;
   --ink-rgb:    255, 255, 255;
 
-  /* ── BRAND PALETTE — electric azure (original) ─────────────── */
+  /* ── BRAND PALETTE - electric azure (original) ─────────────── */
 
-  /* PRIMARY — azure */
+  /* PRIMARY - azure */
   --accent:        #4F8DFF;
   --accent-bright: #7DABFF;
   --accent-glow:   #3B82F6;
@@ -47,21 +47,21 @@
   --accent-glow-rgb:   59, 130, 246;
   --accent-deep-rgb:   30, 79, 214;
 
-  /* SECONDARY — brighter azure for fills */
+  /* SECONDARY - brighter azure for fills */
   --accent-2:      #7DABFF;
   --accent-2-deep: #3B82F6;
   --on-accent-2:   #05132E;
   --accent-2-rgb:      125, 171, 255;
   --accent-2-deep-rgb: 59, 130, 246;
 
-  /* TERTIARY — azure CTA */
+  /* TERTIARY - azure CTA */
   --accent-3:      #4F8DFF;
   --accent-3-deep: #1E4FD6;
   --on-accent-3:   #05132E;
   --accent-3-rgb:      79, 141, 255;
   --accent-3-deep-rgb: 30, 79, 214;
 
-  /* HIGHLIGHT — the italic accent words, in azure */
+  /* HIGHLIGHT - the italic accent words, in azure */
   --highlight:     #4F8DFF;
   --highlight-rgb: 79, 141, 255;
 
@@ -95,7 +95,7 @@
 :root[data-theme="light"] {
   color-scheme: light;
 
-  /* warm oat/ivory — premium & bright, now with a brown undertone; crisp
+  /* warm oat/ivory - premium & bright, now with a brown undertone; crisp
      white kept for elevated cards so it still reads clean and expensive */
   --bg:        #F4F7FC;
   --bg-2:      #ECF1F9;
@@ -110,8 +110,8 @@
   --ink-faint:  #93A1B8;
   --ink-rgb:    10, 21, 36;
 
-  /* electric azure (original) — deepened for contrast on white */
-  /* PRIMARY — deep azure (4.5:1+ on white) */
+  /* electric azure (original) - deepened for contrast on white */
+  /* PRIMARY - deep azure (4.5:1+ on white) */
   --accent:        #2563EB;
   --accent-bright: #4F8DFF;
   --accent-glow:   #3B82F6;
@@ -122,21 +122,21 @@
   --accent-glow-rgb:   59, 130, 246;
   --accent-deep-rgb:   30, 64, 175;
 
-  /* SECONDARY — azure */
+  /* SECONDARY - azure */
   --accent-2:      #2563EB;
   --accent-2-deep: #1E40AF;
   --on-accent-2:   #FFFFFF;
   --accent-2-rgb:      37, 99, 235;
   --accent-2-deep-rgb: 30, 64, 175;
 
-  /* TERTIARY — azure CTA */
+  /* TERTIARY - azure CTA */
   --accent-3:      #2563EB;
   --accent-3-deep: #1E40AF;
   --on-accent-3:   #FFFFFF;
   --accent-3-rgb:      37, 99, 235;
   --accent-3-deep-rgb: 30, 64, 175;
 
-  /* HIGHLIGHT — azure accent words */
+  /* HIGHLIGHT - azure accent words */
   --highlight:     #2563EB;
   --highlight-rgb: 37, 99, 235;
 
@@ -408,7 +408,7 @@ html.lenis, html.lenis body { height: auto; }
     border-color var(--d-fast) var(--ease-luxury);
 }
 
-/* Solid ember — the one hot "click me" CTA colour */
+/* Solid ember - the one hot "click me" CTA colour */
 .btn-accent {
   background: var(--accent-3);
   color: var(--on-accent-3);
@@ -429,7 +429,7 @@ html.lenis, html.lenis body { height: auto; }
     0 2px 6px rgba(var(--accent-3-deep-rgb), 0.36);
 }
 
-/* Outlined azure — primary "Book a demo" style */
+/* Outlined azure - primary "Book a demo" style */
 .btn-outline {
   background: transparent;
   color: var(--accent);
@@ -455,7 +455,7 @@ html.lenis, html.lenis body { height: auto; }
   transform: translateY(-2px);
 }
 
-/* Glass — used inside gradient panels */
+/* Glass - used inside gradient panels */
 .btn-glass {
   background: var(--surface-tint-3);
   color: var(--ink);
@@ -561,7 +561,7 @@ html.lenis, html.lenis body { height: auto; }
     radial-gradient(ellipse 60% 40% at 50% 50%, rgba(var(--accent-rgb), 0.10), transparent 60%);
 }
 
-/* Grain — adds luxury texture */
+/* Grain - adds luxury texture */
 .grain::after {
   content: "";
   position: absolute; inset: 0;
@@ -641,7 +641,7 @@ html.lenis, html.lenis body { height: auto; }
 .magnetic-target { display: inline-block; will-change: transform; }
 
 /* ============================================================
-   ENTRANCE — CSS-driven (bulletproof: always completes, runs in
+   ENTRANCE - CSS-driven (bulletproof: always completes, runs in
    background tabs, snaps visible under reduced-motion). Used for
    above-the-fold hero content that must never get stuck hidden.
    ============================================================ */
@@ -672,7 +672,7 @@ html.lenis, html.lenis body { height: auto; }
 .enter-drop { animation: lux-drop 0.7s var(--ease-out-expo) 0.15s both; }
 
 /* ============================================================
-   FLOATING WHATSAPP — azure edition
+   FLOATING WHATSAPP - azure edition
    ============================================================ */
 
 .fab-wa {
@@ -731,7 +731,7 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 /* ============================================================
-   HERO 3D CRYSTAL — full strength on dark, gentler on light so it
+   HERO 3D CRYSTAL - full strength on dark, gentler on light so it
    never overpowers the airy light theme.
    ============================================================ */
 .hero-crystal-wrap { transition: opacity var(--d-slow) var(--ease-luxury); }

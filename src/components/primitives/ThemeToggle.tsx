@@ -27,7 +27,7 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
     try {
       localStorage.setItem("theme", next);
     } catch {
-      /* storage blocked — theme still applies for this session */
+      /* storage blocked - theme still applies for this session */
     }
     setTheme(next);
   };

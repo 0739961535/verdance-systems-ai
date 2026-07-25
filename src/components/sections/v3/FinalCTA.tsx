@@ -7,7 +7,7 @@ import { ConicBorder } from "@/components/primitives/ConicBorder";
 export function FinalCTA() {
   return (
     <section className="relative section-pad-sm bg-canvas overflow-hidden">
-      {/* Site-bottom ambient — a single static gilt glow, no motion */}
+      {/* Site-bottom ambient - a single static gilt glow, no motion */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div
           className="absolute left-1/2 top-1/3"
@@ -85,7 +85,7 @@ export function FinalCTA() {
             <Reveal delay={0.12}>
               <p className="mt-7 max-w-2xl text-lg md:text-xl text-[color:var(--color-ink-soft)] leading-relaxed">
                 Start with a free consult. We&apos;ll show you exactly where
-                you&apos;re losing customers and what we&apos;d build to fix it —
+                you&apos;re losing customers and what we&apos;d build to fix it -
                 then you decide.
               </p>
             </Reveal>

@@ -37,10 +37,10 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     number: "01",
     name: "Lead Generation & Capture",
     eyebrow: "Lead Generation & Capture",
-    headline: "Fill the top of the funnel —",
+    headline: "Fill the top of the funnel -",
     italicWord: "before competitors do.",
     promise:
-      "Scrape, find, capture, and reactivate every potential customer for your business — on every channel that matters.",
+      "Scrape, find, capture, and reactivate every potential customer for your business - on every channel that matters.",
     bullets: [
       "Lead Scraper · Google Maps + niche directories",
       "Lead Finder · enriched B2C & B2B lists",
@@ -57,7 +57,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
         description:
           "Re-engage old leads sitting in your CRM with a friendly, on-brand message. Brings forgotten money back to life.",
         howItWorks: [
-          "Import your existing contact list (CSV, GHL, Sheets)",
+          "Import your existing contact list (CSV, CRM, Sheets)",
           "AI writes a personalised outreach in your voice",
           "Replies route into the unified inbox + AI qualifier",
           "Booked appointments drop into your calendar",
@@ -137,7 +137,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     ],
     whyItMatters:
       "No business has a sales problem until they have a lead problem. We make sure you never run dry.",
-    outcome: "A reliable, predictable inflow of qualified leads — every week.",
+    outcome: "A reliable, predictable inflow of qualified leads - every week.",
     demoKey: "lead-scraper",
     relatedSlugs: ["conversation-ai", "follow-up-nurture", "marketing-social"],
     ctaCopy: "Get a lead generation demo on your business",
@@ -148,10 +148,10 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     number: "02",
     name: "Conversation AI & Chatbots",
     eyebrow: "Conversation AI & Chatbots",
-    headline: "Reply to every lead — in seconds,",
+    headline: "Reply to every lead - in seconds,",
     italicWord: "on every channel.",
     promise:
-      "On-brand AI conversations across web, WhatsApp, Messenger, Instagram DM, TikTok DM, LinkedIn, and SMS — unified in one inbox.",
+      "On-brand AI conversations across web, WhatsApp, Messenger, Instagram DM, TikTok DM, LinkedIn, and SMS - unified in one inbox.",
     bullets: [
       "Website Chat Widget",
       "WhatsApp AI",
@@ -187,7 +187,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Messenger AI",
         description:
-          "Facebook Messenger handled by AI — perfect for service businesses running Meta ads.",
+          "Facebook Messenger handled by AI - perfect for service businesses running Meta ads.",
         howItWorks: [
           "Connect your FB page",
           "AI manages the inbound flow + tags leads",
@@ -217,7 +217,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "LinkedIn AI",
         description:
-          "For B2B service businesses — answer LinkedIn inbox, qualify, and route.",
+          "For B2B service businesses - answer LinkedIn inbox, qualify, and route.",
         howItWorks: [
           "Authorise LinkedIn account",
           "AI handles inbound + outbound replies",
@@ -227,7 +227,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "SMS AI",
         description:
-          "Your business SMS line — answered by AI in seconds, any hour.",
+          "Your business SMS line - answered by AI in seconds, any hour.",
         howItWorks: [
           "We provision a number or use yours",
           "AI replies, qualifies, books",
@@ -241,7 +241,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
         howItWorks: [
           "All channels stream into a single view",
           "Filter by channel, agent, or status",
-          "Reply from anywhere — desktop or mobile",
+          "Reply from anywhere - desktop or mobile",
         ],
       },
       {
@@ -268,7 +268,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     number: "03",
     name: "Voice AI",
     eyebrow: "Voice AI",
-    headline: "Never miss another call —",
+    headline: "Never miss another call -",
     italicWord: "even after hours.",
     promise:
       "Natural-sounding AI voice agents answer your inbound calls, follow up with leads, and book appointments directly.",
@@ -296,7 +296,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
           "Calls leads back, runs reactivation campaigns, follows up on quotes.",
         howItWorks: [
           "Upload the list + define the campaign",
-          "AI calls, qualifies, books — or hands off",
+          "AI calls, qualifies, books - or hands off",
           "Outcomes logged in CRM with recordings",
         ],
       },
@@ -307,13 +307,13 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
         howItWorks: [
           "Record once in your voice (or cloned)",
           "AI personalises name + context per recipient",
-          "Drops as voicemail — no ring, no interrupt",
+          "Drops as voicemail - no ring, no interrupt",
         ],
       },
       {
         name: "Call Routing",
         description:
-          "Smart routing — sends the right calls to the right person, escalates the rest.",
+          "Smart routing - sends the right calls to the right person, escalates the rest.",
         howItWorks: [
           "Configure rules by topic, hour, or caller",
           "AI does first contact, then transfers if needed",
@@ -332,7 +332,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       },
     ],
     whyItMatters:
-      "Missed calls = missed bookings. The average local business misses 27% of calls — most go to a competitor.",
+      "Missed calls = missed bookings. The average local business misses 27% of calls - most go to a competitor.",
     outcome: "Zero missed calls. Zero after-hours dead air. More booked customers.",
     demoKey: "voice-ai",
     relatedSlugs: ["conversation-ai", "follow-up-nurture", "booking-calendar"],
@@ -344,7 +344,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     number: "04",
     name: "CRM & Pipeline",
     eyebrow: "CRM & Pipeline",
-    headline: "Every lead, every stage —",
+    headline: "Every lead, every stage -",
     italicWord: "one place.",
     promise:
       "A customised CRM with smart pipelines, lead scoring, routing, and a live internal AI assistant.",
@@ -363,7 +363,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
           "A CRM built around your business, not a generic Salesforce stub.",
         howItWorks: [
           "Map your fields, stages, and roles with us",
-          "We configure GHL or a custom backend",
+          "We configure your CRM or a custom backend",
           "Onboard the team in under an hour",
         ],
       },
@@ -410,7 +410,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Internal AI Assistant",
         description:
-          "An always-on assistant for your team — query the CRM, draft replies, get summaries.",
+          "An always-on assistant for your team - query the CRM, draft replies, get summaries.",
         howItWorks: [
           "Connected to your CRM + inbox",
           "Ask in plain English",
@@ -431,7 +431,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     number: "05",
     name: "Booking & Calendar",
     eyebrow: "Booking & Calendar",
-    headline: "Bookings, slotted —",
+    headline: "Bookings, slotted -",
     italicWord: "no back-and-forth.",
     promise:
       "AI-managed booking, smart calendars, automated reminders, and a scheduler that books in conversation.",
@@ -457,7 +457,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Calendar System",
         description:
-          "Two-way sync to Google Calendar / Outlook — no double-bookings ever.",
+          "Two-way sync to Google Calendar / Outlook - no double-bookings ever.",
         howItWorks: [
           "Authorise your calendar",
           "Availability stays accurate to the second",
@@ -487,7 +487,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Meeting Booking",
         description:
-          "For consultations, demos, and discovery calls — perfect for B2B.",
+          "For consultations, demos, and discovery calls - perfect for B2B.",
         howItWorks: [
           "Pick a slot from your shared link",
           "Custom intake questions on booking",
@@ -497,7 +497,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Smart Scheduler",
         description:
-          "AI books inside the conversation — no link sent, no friction.",
+          "AI books inside the conversation - no link sent, no friction.",
         howItWorks: [
           "AI proposes 2–3 slots in chat",
           "Customer picks one in reply",
@@ -518,7 +518,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     number: "06",
     name: "Follow-up & Nurture",
     eyebrow: "Follow-up & Nurture",
-    headline: "Never lose a lead to —",
+    headline: "Never lose a lead to -",
     italicWord: "silence.",
     promise:
       "Missed-call text-back, lead reactivation, long-term nurture, and friendly re-engagement that brings customers back.",
@@ -604,8 +604,8 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       },
     ],
     whyItMatters:
-      "The money is in the follow-up. Most businesses follow up once — winners follow up seven times.",
-    outcome: "Revenue you would have lost — recovered, weekly, on autopilot.",
+      "The money is in the follow-up. Most businesses follow up once - winners follow up seven times.",
+    outcome: "Revenue you would have lost - recovered, weekly, on autopilot.",
     demoKey: "follow-up-nurture",
     relatedSlugs: ["conversation-ai", "lead-generation", "reputation-reviews"],
     ctaCopy: "Recover lost revenue this week",
@@ -616,10 +616,10 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     number: "07",
     name: "Payments & Invoicing",
     eyebrow: "Payments & Invoicing",
-    headline: "Send. Get paid —",
+    headline: "Send. Get paid -",
     italicWord: "tap, tap.",
     promise:
-      "Invoice generation, payment links, text-to-pay, deposits, subscriptions — wired to Stripe.",
+      "Invoice generation, payment links, text-to-pay, deposits, subscriptions - wired to Stripe.",
     bullets: [
       "Invoice App + Generator",
       "Payment Links",
@@ -641,7 +641,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Payment Links",
         description:
-          "Single-link payments that work everywhere — WhatsApp, SMS, email, web.",
+          "Single-link payments that work everywhere - WhatsApp, SMS, email, web.",
         howItWorks: [
           "Set amount + reference",
           "Share the link",
@@ -692,7 +692,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     number: "08",
     name: "Reputation & Reviews",
     eyebrow: "Reputation & Reviews",
-    headline: "More 5-star reviews —",
+    headline: "More 5-star reviews -",
     italicWord: "on autopilot.",
     promise:
       "Automated review collection, smart sentiment routing, multi-platform monitoring, and a referral engine.",
@@ -728,7 +728,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Multi-Platform Reviews",
         description:
-          "Beyond Google — Facebook, Trustpilot, Hello Peter, Yelp.",
+          "Beyond Google - Facebook, Trustpilot, Hello Peter, Yelp.",
         howItWorks: [
           "Pick the platforms that matter",
           "Customer chooses where to leave the review",
@@ -738,7 +738,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Review Monitoring",
         description:
-          "Get alerted the moment a new review lands — anywhere.",
+          "Get alerted the moment a new review lands - anywhere.",
         howItWorks: [
           "All platforms feed into one stream",
           "AI drafts an owner reply",
@@ -768,7 +768,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     ],
     whyItMatters:
       "5-star reviews compound: they drive bookings, ad performance, and trust. Most businesses leave them to chance.",
-    outcome: "A steady drip of new 5-star reviews — and unhappy customers caught early.",
+    outcome: "A steady drip of new 5-star reviews - and unhappy customers caught early.",
     demoKey: "reputation-reviews",
     relatedSlugs: ["follow-up-nurture", "marketing-social", "lead-generation"],
     ctaCopy: "Turn on the review engine",
@@ -779,10 +779,10 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     number: "09",
     name: "Websites & Build",
     eyebrow: "Websites & Build",
-    headline: "A site that —",
+    headline: "A site that -",
     italicWord: "actually books customers.",
     promise:
-      "Custom Next.js websites engineered for SEO, speed, and conversion — plus funnels, portals, and dashboards.",
+      "Custom Next.js websites engineered for SEO, speed, and conversion - plus funnels, portals, and dashboards.",
     bullets: [
       "Custom Website (Next.js + SEO)",
       "Website Integration",
@@ -795,7 +795,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Custom Website (Next.js + SEO)",
         description:
-          "A site built like a flagship product — design-led, SEO-tight, blazing fast.",
+          "A site built like a flagship product - design-led, SEO-tight, blazing fast.",
         howItWorks: [
           "Discovery + design system in week one",
           "Build + content in weeks 2–3",
@@ -825,7 +825,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Membership / Course Sites",
         description:
-          "Gated areas for paying customers — courses, memberships, communities.",
+          "Gated areas for paying customers - courses, memberships, communities.",
         howItWorks: [
           "Auth + payments wired in",
           "Drip content + progress tracking",
@@ -835,7 +835,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Client Portals",
         description:
-          "Logged-in workspaces for customers — bookings, invoices, files.",
+          "Logged-in workspaces for customers - bookings, invoices, files.",
         howItWorks: [
           "Account creation on first booking",
           "Self-service for invoices + history",
@@ -854,7 +854,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       },
     ],
     whyItMatters:
-      "Most local sites are brochures. Yours should be a salesperson — open 24/7, never sleeping.",
+      "Most local sites are brochures. Yours should be a salesperson - open 24/7, never sleeping.",
     outcome: "A site that converts paid + organic traffic into real bookings.",
     demoKey: "website-build",
     relatedSlugs: ["lead-generation", "conversation-ai", "marketing-social"],
@@ -866,7 +866,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     number: "10",
     name: "Marketing & Social",
     eyebrow: "Marketing & Social",
-    headline: "Show up consistently —",
+    headline: "Show up consistently -",
     italicWord: "without lifting a finger.",
     promise:
       "Social media management, AI content generation, paid ads, email marketing, and a unified social planner.",
@@ -881,7 +881,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Social Media Management",
         description:
-          "Done-for-you posting across IG, FB, LinkedIn, TikTok — managed by humans + AI.",
+          "Done-for-you posting across IG, FB, LinkedIn, TikTok - managed by humans + AI.",
         howItWorks: [
           "Brand kit + content pillars defined",
           "AI drafts, our team produces + approves",
@@ -891,7 +891,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "AI Content Generation",
         description:
-          "Captions, hooks, scripts, blog posts — generated in your voice, ready to use.",
+          "Captions, hooks, scripts, blog posts - generated in your voice, ready to use.",
         howItWorks: [
           "Train on your existing best content",
           "Generate by topic + platform",
@@ -930,7 +930,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       },
     ],
     whyItMatters:
-      "Consistent brand presence drives trust — and trust drives bookings. Outsource the hardest discipline in marketing.",
+      "Consistent brand presence drives trust - and trust drives bookings. Outsource the hardest discipline in marketing.",
     outcome: "Always-on brand presence + measurable lift in inbound interest.",
     demoKey: "social-media",
     relatedSlugs: ["websites-build", "lead-generation", "reputation-reviews"],
@@ -942,7 +942,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     number: "11",
     name: "Custom Builds",
     eyebrow: "Custom Builds",
-    headline: "Whatever your business needs —",
+    headline: "Whatever your business needs -",
     italicWord: "we build it.",
     promise:
       "Custom automations on Make.com + Claude + APIs, bespoke AI agents, and deep integrations across your stack.",
@@ -975,7 +975,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Custom Integrations",
         description:
-          "Connect anything to anything — POS, ERP, niche industry tools.",
+          "Connect anything to anything - POS, ERP, niche industry tools.",
         howItWorks: [
           "Audit existing systems",
           "Build the bridge (webhook, API, sync)",
@@ -985,7 +985,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     ],
     whyItMatters:
       "Off-the-shelf only goes so far. Custom builds eliminate the last 20% of friction that nothing else can.",
-    outcome: "Workflows your team has been asking for — finally automated.",
+    outcome: "Workflows your team has been asking for - finally automated.",
     demoKey: "custom-builds",
     relatedSlugs: ["crm-pipeline", "analytics-compliance", "websites-build"],
     ctaCopy: "Scope a custom build",
@@ -996,7 +996,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     number: "12",
     name: "Analytics & Compliance",
     eyebrow: "Analytics & Compliance",
-    headline: "Know what's working —",
+    headline: "Know what's working -",
     italicWord: "and stay compliant.",
     promise:
       "Live analytics, monthly performance reviews, an agent dashboard, POPIA compliance, and a continuous CRO loop.",
@@ -1011,7 +1011,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Analytics & Optimization",
         description:
-          "Live data on lead sources, conversion rates, and revenue — with auto-improvement loops.",
+          "Live data on lead sources, conversion rates, and revenue - with auto-improvement loops.",
         howItWorks: [
           "Connect data sources (site, CRM, ads)",
           "Custom dashboards configured",
@@ -1031,7 +1031,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Agent Dashboard",
         description:
-          "See exactly what your AI agents are doing — live conversations, performance metrics, lead progress.",
+          "See exactly what your AI agents are doing - live conversations, performance metrics, lead progress.",
         howItWorks: [
           "Real-time activity feed",
           "Per-agent performance scoring",
@@ -1041,7 +1041,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "POPIA Compliance",
         description:
-          "Built-in consent, data residency, and right-to-be-forgotten flows — GDPR-ready by design.",
+          "Built-in consent, data residency, and right-to-be-forgotten flows - GDPR-ready by design.",
         howItWorks: [
           "Consent capture on every form",
           "Data-export + delete tools",
@@ -1051,7 +1051,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "CRO Loop",
         description:
-          "Continuous conversion-rate optimisation — small tests, weekly, never-ending.",
+          "Continuous conversion-rate optimisation - small tests, weekly, never-ending.",
         howItWorks: [
           "Identify weakest funnel steps",
           "Test variants + measure",

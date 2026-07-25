@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/how-it-works" },
   openGraph: {
     title: "How Verdance Works | Done-for-You AI Booking",
-    description: "Discovery, onboarding, go-live, 24/7 booking, ongoing optimisation. We build it, you get the bookings — usually live within days.",
+    description: "Discovery, onboarding, go-live, 24/7 booking, ongoing optimisation. We build it, you get the bookings - usually live within days.",
     url: "https://verdancesystemsai.com/how-it-works",
     type: "website",
     siteName: "Verdance Systems AI",
@@ -19,11 +19,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "How Verdance Works | Done-for-You AI Booking",
-    description: "Discovery, onboarding, go-live, 24/7 booking, ongoing optimisation. We build it, you get the bookings — usually live within days.",
+    description: "Discovery, onboarding, go-live, 24/7 booking, ongoing optimisation. We build it, you get the bookings - usually live within days.",
   },
   title: "How Verdance Works | Done-for-You AI Booking",
   description:
-    "Discovery, onboarding, go-live, 24/7 booking, ongoing optimisation. We build it, you get the bookings — usually live within days.",
+    "Discovery, onboarding, go-live, 24/7 booking, ongoing optimisation. We build it, you get the bookings - usually live within days.",
 };
 
 export default function HowItWorksPage() {
@@ -46,7 +46,7 @@ export default function HowItWorksPage() {
           <Reveal delay={0.1}>
             <p className="mt-8 max-w-2xl text-xl text-[color:var(--color-ink-soft)] leading-relaxed">
               From your first call to a system that books customers for you around
-              the clock — usually live within days. You keep working exactly the way
+              the clock - usually live within days. You keep working exactly the way
               you always have; the building is on us.
             </p>
           </Reveal>
@@ -77,7 +77,7 @@ export default function HowItWorksPage() {
                 You don&apos;t need to be technical.
               </p>
               <p className="mt-5 text-lg text-[color:var(--color-ink-soft)] leading-relaxed">
-                You don&apos;t change how you work. We do the building — you get the
+                You don&apos;t change how you work. We do the building - you get the
                 bookings.
               </p>
             </div>

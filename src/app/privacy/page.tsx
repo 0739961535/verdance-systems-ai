@@ -26,7 +26,7 @@ export default function PrivacyPage() {
           <li>
             <strong>Details you give us.</strong> When you book a consult, submit
             a form, message us on WhatsApp, or email us, we collect the
-            information you provide — typically your name, business name, contact
+            information you provide - typically your name, business name, contact
             details and what you&apos;re looking for.
           </li>
           <li>
@@ -58,7 +58,7 @@ export default function PrivacyPage() {
       <LegalSection heading="How long we keep it">
         <p>
           We keep your information only as long as needed to respond to you,
-          deliver our services, and meet any legal obligations — after which we
+          deliver our services, and meet any legal obligations - after which we
           delete or anonymise it.
         </p>
       </LegalSection>

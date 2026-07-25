@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ConicBorder } from "@/components/primitives/ConicBorder";
 import { MagneticButton } from "@/components/primitives/MagneticButton";
 
 // ─────────────────────────────────────────────────────────────────
-// QUESTION CONFIG — single source of truth for the 8-step flow
+// QUESTION CONFIG - single source of truth for the 8-step flow
 // ─────────────────────────────────────────────────────────────────
 
 type FieldKey =
@@ -117,7 +117,7 @@ const STEPS: Step[] = [
     question: "How urgent is this?",
     emphasis: "urgent",
     options: [
-      "Yesterday — I'm losing money now",
+      "Yesterday - I'm losing money now",
       "Within the next month",
       "Next 1–3 months",
       "Just researching for now",
@@ -142,13 +142,13 @@ const STEPS: Step[] = [
     inputMode: "tel",
     required: true,
   },
-  // Bonus optional notes — shown as a separate final question
+  // Bonus optional notes - shown as a separate final question
   {
     key: "notes",
     kind: "textarea",
     question: "Anything else we should know?",
     emphasis: "else",
-    hint: "Optional — totally fine to skip.",
+    hint: "Optional - totally fine to skip.",
     placeholder: "Optional",
     inputMode: "text",
     required: false,
@@ -191,7 +191,14 @@ const PHONE_RE = /^[+\d][\d\s\-().]{6,}$/;
 
 type Status = "form" | "submitting" | "success" | "error";
 
-export function VSLApplyForm({ bookingUrl }: { bookingUrl: string }) {
+export function VSLApplyForm({
+  bookingUrl,
+  hideBooking = false,
+}: {
+  bookingUrl: string;
+  /** Skip rendering the booking panel - use when the caller renders it separately elsewhere on the page. */
+  hideBooking?: boolean;
+}) {
   const reduce = useReducedMotion();
   const [step, setStep] = useState(0);
   const [data, setData] = useState<FormState>(INITIAL);
@@ -265,7 +272,7 @@ export function VSLApplyForm({ bookingUrl }: { bookingUrl: string }) {
     }
   };
 
-  // ── Focus management — autofocus the first input on every step ─
+  // ── Focus management - autofocus the first input on every step ─
   useEffect(() => {
     if (status !== "form") return;
     const el = containerRef.current?.querySelector<HTMLElement>(
@@ -298,15 +305,34 @@ export function VSLApplyForm({ bookingUrl }: { bookingUrl: string }) {
 
   // ── Render ────────────────────────────────────────────────────
   return (
-    <ConicBorder
-      glow="#4F8DFF"
-      duration={11}
-      inset={1}
-      radius={24}
-      surface="var(--color-bg-glass)"
-      border="rgba(var(--accent-rgb), 0.18)"
-      halo
-    >
+    <div className="space-y-14">
+      {!hideBooking && <BookingPanel bookingUrl={bookingUrl} />}
+
+      <div>
+        <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-accent)]">
+          Step 02 · Optional, but it helps
+        </div>
+        <h3
+          className="font-display text-[color:var(--color-ink)] leading-[1.06]"
+          style={{ fontSize: "clamp(1.8rem, 4vw, 2.75rem)", letterSpacing: "-0.03em" }}
+        >
+          Tell us about <span className="italic-accent">your business.</span>
+        </h3>
+        <p className="mt-4 text-lg text-[color:var(--color-ink-soft)] max-w-2xl leading-relaxed">
+          A few quick questions so we walk into your call already knowing your
+          setup. Takes about a minute - skip it and we&apos;ll just ask on the call.
+        </p>
+      </div>
+
+      <ConicBorder
+        glow="#4F8DFF"
+        duration={11}
+        inset={1}
+        radius={24}
+        surface="var(--color-bg-glass)"
+        border="rgba(var(--accent-rgb), 0.18)"
+        halo
+      >
       <div
         className="relative overflow-hidden"
         style={{ minHeight: 620 }}
@@ -391,7 +417,7 @@ export function VSLApplyForm({ bookingUrl }: { bookingUrl: string }) {
                   />
                 </div>
                 <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.3em] text-[color:var(--color-ink-muted)]">
-                  Sending to Daniel
+                  Sending your application
                 </p>
                 <h3 className="mt-4 font-display text-2xl md:text-3xl text-[color:var(--color-ink)]">
                   Locking your application in...
@@ -415,7 +441,7 @@ export function VSLApplyForm({ bookingUrl }: { bookingUrl: string }) {
                 </h3>
                 <p className="mt-4 text-[color:var(--color-ink-soft)]">
                   {errorMsg ||
-                    "We couldn't save your application. You can try again, or message Daniel directly on WhatsApp."}
+                    "We couldn't save your application. You can try again, or message us directly on WhatsApp."}
                 </p>
                 <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                   <button
@@ -434,7 +460,7 @@ export function VSLApplyForm({ bookingUrl }: { bookingUrl: string }) {
                     rel="noopener noreferrer"
                     className="btn btn-ghost"
                   >
-                    WhatsApp Daniel instead
+                    WhatsApp us instead
                   </a>
                 </div>
               </motion.div>
@@ -448,13 +474,13 @@ export function VSLApplyForm({ bookingUrl }: { bookingUrl: string }) {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               >
-                <SuccessState data={data} bookingUrl={bookingUrl} />
+                <SubmittedState data={data} />
               </motion.div>
             )}
           </AnimatePresence>
         </div>
 
-        {/* bottom controls — back / continue */}
+        {/* bottom controls - back / continue */}
         {status === "form" && (
           <div
             className="absolute inset-x-0 bottom-0 px-6 md:px-12 lg:px-16 py-5 flex items-center justify-between border-t"
@@ -486,13 +512,14 @@ export function VSLApplyForm({ bookingUrl }: { bookingUrl: string }) {
             )}
             {current.kind === "radio" && (
               <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-ink-muted)]">
-                Pick one — auto-advances
+                Pick one - auto-advances
               </span>
             )}
           </div>
         )}
       </div>
-    </ConicBorder>
+      </ConicBorder>
+    </div>
   );
 }
 
@@ -661,7 +688,7 @@ function TextArea({
         }
       />
       <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-ink-muted)]">
-        Press <span className="text-[color:var(--color-ink)]">Continue</span> when done — or skip
+        Press <span className="text-[color:var(--color-ink)]">Continue</span> when done - or skip
       </p>
     </div>
   );
@@ -794,65 +821,57 @@ function MultiSelect({
 }
 
 // ─────────────────────────────────────────────────────────────────
-// Success state
+// Booking panel - shown up front, before any qualifying questions.
+// Picking a slot + entering an email is all GHL needs to confirm the
+// booking; GHL's own widget collects those fields as part of the flow.
 // ─────────────────────────────────────────────────────────────────
 
-function SuccessState({
-  data,
-  bookingUrl,
-}: {
-  data: FormState;
-  bookingUrl: string;
-}) {
-  // Prefill the GHL booking widget — most LeadConnector widgets accept query params
-  const prefilled = useMemo(() => {
-    try {
-      const u = new URL(bookingUrl);
-      if (data.firstName) u.searchParams.set("first_name", data.firstName);
-      if (data.email) u.searchParams.set("email", data.email);
-      if (data.phone) u.searchParams.set("phone", data.phone);
-      return u.toString();
-    } catch {
-      return bookingUrl;
-    }
-  }, [bookingUrl, data.firstName, data.email, data.phone]);
+export function BookingPanel({ bookingUrl }: { bookingUrl: string }) {
+  // next/script dedupes by src and only ever injects once per full page load,
+  // so on a client-side (SPA) navigation to this page the resize helper never
+  // re-runs and never scans the freshly-mounted iframe below - it's left
+  // stuck at the fallback height, clipping the calendar under whatever
+  // section follows. Inject it manually on every mount so it always re-scans.
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://link.msgsndr.com/js/form_embed.js";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div>
       <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-accent)]">
-        Received · Now pick a time
+        Step 01 · Pick a time
       </div>
       <h3
         className="font-display text-[color:var(--color-ink)] leading-[1.06]"
         style={{ fontSize: "clamp(2rem, 4.5vw, 3.25rem)", letterSpacing: "-0.03em" }}
       >
-        <span className="italic-accent">{data.firstName || "You"}</span>, you&apos;re
-        in. Let&apos;s get on a call.
+        Grab a slot on <span className="italic-accent">our calendar.</span>
       </h3>
       <p className="mt-5 text-lg text-[color:var(--color-ink-soft)] max-w-2xl leading-relaxed">
-        Daniel will run through what we&apos;d build on your business in 30 minutes.
-        Pick a time below — confirmation lands in your inbox + WhatsApp.
+        Pick a time and pop in your email - confirmation lands in your inbox
+        instantly. No back-and-forth.
       </p>
 
-      <div
-        className="mt-10 overflow-hidden rounded-2xl border"
+      <iframe
+        id="verdance-booking-calendar"
+        src={bookingUrl}
+        title="Book a call with us"
+        scrolling="no"
+        className="mt-10"
         style={{
-          borderColor: "var(--color-hairline-2)",
-          background: "var(--color-bg-2)",
+          width: "100%",
+          border: "none",
+          borderRadius: 14,
+          minHeight: 560,
+          background: "var(--color-bg)",
         }}
-      >
-        <iframe
-          src={prefilled}
-          title="Book a call with Daniel"
-          scrolling="no"
-          style={{
-            width: "100%",
-            border: "none",
-            minHeight: 720,
-            background: "var(--color-bg-2)",
-          }}
-        />
-      </div>
+      />
 
       <div
         className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border p-5"
@@ -862,11 +881,11 @@ function SuccessState({
         }}
       >
         <p className="text-[color:var(--color-ink-soft)] text-sm">
-          Prefer WhatsApp? Daniel&apos;s reachable on{" "}
+          Prefer WhatsApp? We&apos;re reachable on{" "}
           <span className="text-[color:var(--color-ink)]">+27 73 996 1535</span>
         </p>
         <MagneticButton
-          href="https://wa.me/27739961535?text=Hi%20Daniel%2C%20I%20just%20applied%20on%20your%20site."
+          href="https://wa.me/27739961535?text=Hi%2C%20I%27d%20like%20to%20book%20a%20call."
           variant="accent"
           newTab
         >
@@ -874,6 +893,33 @@ function SuccessState({
           <Arrow />
         </MagneticButton>
       </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────
+// Submitted state - the qualifying answers were saved to GHL against
+// the contact matched by email. The booking itself already happened
+// in the panel above, so this is just a confirmation.
+// ─────────────────────────────────────────────────────────────────
+
+function SubmittedState({ data }: { data: FormState }) {
+  return (
+    <div className="max-w-2xl mx-auto text-center py-6">
+      <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-accent)]">
+        Received
+      </div>
+      <h3
+        className="font-display text-[color:var(--color-ink)] leading-[1.06]"
+        style={{ fontSize: "clamp(1.8rem, 4vw, 2.5rem)", letterSpacing: "-0.03em" }}
+      >
+        <span className="italic-accent">{data.firstName || "Thanks"}</span>, we&apos;ve
+        got it.
+      </h3>
+      <p className="mt-5 text-lg text-[color:var(--color-ink-soft)] leading-relaxed">
+        We&apos;ll review this before your call so no time&apos;s wasted going
+        over the basics. Haven&apos;t picked a time yet? Scroll up to grab a slot.
+      </p>
     </div>
   );
 }

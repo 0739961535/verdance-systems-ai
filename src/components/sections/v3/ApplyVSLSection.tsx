@@ -10,7 +10,7 @@ import { useHtmlTheme } from "@/components/primitives/useHtmlTheme";
 /**
  * ApplyVSLSection
  *
- * Top of /apply — the VSL (video sales letter) frame. The <video> element is a
+ * Top of /apply - the VSL (video sales letter) frame. The <video> element is a
  * placeholder for Daniel to swap with a real Loom/Mux URL. Until then we render
  * a ConicBorder-wrapped 16:9 frame with a soft turquoise poster, a centered
  * play button, and the swap caption.
@@ -21,14 +21,14 @@ export function ApplyVSLSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hover, setHover] = useState(false);
 
-  // Theme-aware ambient wash — never a dark base on the light canvas.
+  // Theme-aware ambient wash - never a dark base on the light canvas.
   const noise =
     mode === "light"
       ? { primary: "#EDF3FC", secondary: "#BAD1F7", accent: "#1E4FD6", colorIntensity: 0.6 }
       : { primary: "#050709", secondary: "#1E4FD6", accent: "#4F8DFF", colorIntensity: 0.85 };
 
   const handlePlay = () => {
-    // Placeholder behavior — Daniel will set a real URL on <video src>.
+    // Placeholder behavior - Daniel will set a real URL on <video src>.
     // eslint-disable-next-line no-console
     console.info(
       "[VSL] Play clicked. Swap src in /components/sections/v3/ApplyVSLSection.tsx"
@@ -41,7 +41,7 @@ export function ApplyVSLSection() {
 
   return (
     <section className="relative isolate overflow-hidden bg-canvas pt-36 md:pt-44 pb-20 md:pb-24">
-      {/* Ambient turquoise wash — very low intensity */}
+      {/* Ambient turquoise wash - very low intensity */}
       <div className="pointer-events-none absolute inset-0 -z-30">
         <SpectraNoise
           primary={noise.primary}
@@ -94,7 +94,7 @@ export function ApplyVSLSection() {
         />
       )}
 
-      {/* Top fade — sits under the navbar */}
+      {/* Top fade - sits under the navbar */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-28 -z-10"
@@ -130,7 +130,7 @@ export function ApplyVSLSection() {
               className="mt-6 font-display text-[color:var(--color-ink)] leading-[1.04] tracking-tight"
               style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.5rem)", letterSpacing: "-0.04em" }}
             >
-              See exactly what we&apos;ll build on your business —{" "}
+              See exactly what we&apos;ll build on your business -{" "}
               <span className="italic-accent">free.</span>
             </h1>
           </Reveal>
@@ -139,7 +139,7 @@ export function ApplyVSLSection() {
             <p className="mt-7 max-w-2xl text-lg md:text-xl text-[color:var(--color-ink-soft)] leading-relaxed">
               A 6-minute walkthrough of the system we install. After you watch, fill
               out the short application below to get a free build of it for your
-              business — before you commit.
+              business - before you commit.
             </p>
           </Reveal>
         </div>
@@ -161,7 +161,7 @@ export function ApplyVSLSection() {
               onMouseEnter={() => setHover(true)}
               onMouseLeave={() => setHover(false)}
             >
-              {/* Poster — gradient turquoise placeholder */}
+              {/* Poster - gradient turquoise placeholder */}
               <div
                 aria-hidden
                 className="absolute inset-0"
@@ -186,14 +186,14 @@ export function ApplyVSLSection() {
                 }}
               />
 
-              {/* Hidden video — Daniel sets src here later */}
+              {/* Hidden video - Daniel sets src here later */}
               <video
                 ref={videoRef}
                 className="absolute inset-0 w-full h-full object-cover"
                 playsInline
                 controls={false}
                 preload="none"
-                // src="" — intentionally blank
+                // src="" - intentionally blank
               />
 
               {/* VSL label top-right */}
@@ -281,7 +281,7 @@ export function ApplyVSLSection() {
                 boxShadow: "0 0 8px rgba(var(--accent-rgb),0.65)",
               }}
             />
-            Daniel personally reviews every application within 4 hours.
+            We personally review every application within 4 hours.
           </p>
         </Reveal>
       </div>

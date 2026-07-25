@@ -30,7 +30,7 @@ export function HomeHero() {
 
   return (
     <section className="relative isolate overflow-hidden bg-canvas min-h-[100svh]">
-      {/* Ambient: fine grain over the obsidian ground — quiet, premium, no flow */}
+      {/* Ambient: fine grain over the obsidian ground - quiet, premium, no flow */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-40"
@@ -42,7 +42,7 @@ export function HomeHero() {
         }}
       />
 
-      {/* LAYER 2 — Architectural grid with radial mask */}
+      {/* LAYER 2 - Architectural grid with radial mask */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-30"
@@ -57,7 +57,7 @@ export function HomeHero() {
         }}
       />
 
-      {/* LAYER 3 — one soft, static claret wash for depth (no drift) */}
+      {/* LAYER 3 - one soft, static claret wash for depth (no drift) */}
       <div
         aria-hidden
         className="pointer-events-none absolute -z-20"
@@ -69,7 +69,7 @@ export function HomeHero() {
         }}
       />
 
-      {/* LAYER 5 — Central darkening vignette keeps the headline crisp */}
+      {/* LAYER 5 - Central darkening vignette keeps the headline crisp */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10"
@@ -79,7 +79,7 @@ export function HomeHero() {
         }}
       />
 
-      {/* LAYER 7 — Top + bottom edge fades */}
+      {/* LAYER 7 - Top + bottom edge fades */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-32 -z-10"
@@ -97,12 +97,12 @@ export function HomeHero() {
         }}
       />
 
-      {/* CORNER REGISTRATION MARKS — architectural luxury cue */}
+      {/* CORNER REGISTRATION MARKS - architectural luxury cue */}
       <CornerMarks />
 
       <div className="container-wide relative pt-32 pb-20 md:pt-40 md:pb-28 lg:pt-44 lg:pb-32">
        <div className="grid items-center gap-12 lg:grid-cols-[1.04fr_0.96fr] lg:gap-8">
-        {/* LEFT — the pitch */}
+        {/* LEFT - the pitch */}
         <div className="relative z-10">
         {/* Eyebrow */}
         <div
@@ -125,10 +125,10 @@ export function HomeHero() {
           <span className="eyebrow">24/7 AI receptionist · done for you</span>
         </div>
 
-        {/* Hero headline — fixed lead-in + a phrase that keeps saying what we do */}
+        {/* Hero headline - fixed lead-in + a phrase that keeps saying what we do */}
         <h1
           className="mt-9 md:mt-11 headline-hero max-w-[15ch] relative z-10"
-          aria-label="AI for your business — a 24/7 AI receptionist that answers every call and books the job."
+          aria-label="AI for your business - a 24/7 AI receptionist that answers every call and books the job."
         >
           <span className="enter-line block overflow-hidden" style={{ animationDelay: "0.15s" }}>
             AI for
@@ -147,7 +147,7 @@ export function HomeHero() {
           className="enter-fade-up mt-8 max-w-xl text-lg md:text-xl text-[color:var(--color-ink-soft)] leading-relaxed relative z-10"
           style={{ animationDelay: "0.62s" }}
         >
-          Verdance builds and runs a 24/7 AI receptionist — it answers every call,
+          Verdance builds and runs a 24/7 AI receptionist - it answers every call,
           text and DM the moment it lands, follows up with every lead, and books
           the job straight into your calendar. Done for you.
         </p>
@@ -188,7 +188,7 @@ export function HomeHero() {
         </div>
         {/* end LEFT */}
 
-        {/* RIGHT — the product, working */}
+        {/* RIGHT - the product, working */}
         <div
           className="enter-fade-up relative flex justify-center lg:justify-end lg:pr-12 xl:pr-20 mt-2 lg:mt-0"
           style={{ animationDelay: "0.5s" }}
@@ -208,7 +208,7 @@ export function HomeHero() {
        {/* end grid */}
       </div>
 
-      {/* AMBIENT BOTTOM TICKER — scrolling hairline of live activity */}
+      {/* AMBIENT BOTTOM TICKER - scrolling hairline of live activity */}
       <BottomTicker items={TICKER_ITEMS} />
     </section>
   );

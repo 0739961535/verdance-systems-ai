@@ -10,7 +10,7 @@ export function ProcessPipeline() {
   const [pinned, setPinned] = useState(false);
 
   // Decide layout on the client: pin + scrub only on desktop with motion
-  // allowed. Mobile / reduced-motion get a clean vertical stack — no
+  // allowed. Mobile / reduced-motion get a clean vertical stack - no
   // scroll-jacking, which the UX guidelines flag as nausea-inducing.
   useEffect(() => {
     const wide = window.matchMedia("(min-width: 768px)");

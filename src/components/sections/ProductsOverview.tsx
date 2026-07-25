@@ -9,7 +9,7 @@ const cards = [
     n:    "01",
     head: "Capture every signal",
     title: "Seamless presence",
-    body: "Websites, WhatsApp, voice and web widgets — every enquiry recorded the moment it arrives.",
+    body: "Websites, WhatsApp, voice and web widgets - every enquiry recorded the moment it arrives.",
   },
   {
     n:    "02",

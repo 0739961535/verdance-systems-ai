@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * WebsiteWidgetDemo — fake browser frame with embedded chat widget.
+ * WebsiteWidgetDemo - fake browser frame with embedded chat widget.
  * Browser shows a fake business hero; chat bubble pops up bottom-right,
  * AI greets, visitor asks question, AI books them.
  *
@@ -17,7 +17,7 @@ type Msg = { from: "ai" | "visitor"; text: string };
 
 const SCRIPT: Msg[] = [
   { from: "ai", text: "Hi! Looking to book a job in?" },
-  { from: "visitor", text: "Yes — what's the soonest?" },
+  { from: "visitor", text: "Yes - what's the soonest?" },
   { from: "ai", text: "Thursday 2pm or Friday 10am. Which works?" },
   { from: "visitor", text: "Thursday 2pm" },
   { from: "ai", text: "Booked. Confirmation on its way ✓" },

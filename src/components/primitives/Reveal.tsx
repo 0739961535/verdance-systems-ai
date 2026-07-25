@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 /**
  * Reveal / RevealWords / RevealLines
  *
- * Scroll-in reveals for decorative page motion (respects OS reduce-motion —
+ * Scroll-in reveals for decorative page motion (respects OS reduce-motion -
  * unlike the live demos, which always animate; see useDemoMotion).
  *
  * IMPORTANT (hydration): the SSR markup and the initial ("hidden") styles must

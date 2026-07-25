@@ -1,10 +1,10 @@
 "use client";
 
 /**
- * SystemDiagram — the "how the product actually works" schematic.
+ * SystemDiagram - the "how the product actually works" schematic.
  * Left: every channel a lead can arrive on. Center: the Verdance AI core (Mia).
  * Right: the outcomes it produces. An animated beam carries a pulse from the
- * inputs, through the core, out to the outcomes — on a loop — so a visitor sees
+ * inputs, through the core, out to the outcomes - on a loop - so a visitor sees
  * the flow, not just a static picture. Theme-aware, reduced-motion safe,
  * stacks cleanly on mobile.
  */
@@ -37,7 +37,7 @@ const OUTPUTS = [
   { icon: CalendarCheck, label: "Booked in your calendar" },
   { icon: Send, label: "Follow-up sent automatically" },
   { icon: Star, label: "Review invite after the visit" },
-  { icon: BellRing, label: "You get notified — that's it" },
+  { icon: BellRing, label: "You get notified - that's it" },
 ];
 
 function FlowCard({
@@ -197,7 +197,7 @@ export function SystemDiagram() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-7 text-lg text-[color:var(--color-ink-soft)] leading-relaxed">
-              However a customer reaches out, it lands in the same place — an AI
+              However a customer reaches out, it lands in the same place - an AI
               that answers, qualifies, and books. You don&apos;t touch a thing until
               they&apos;re in your calendar.
             </p>
@@ -240,7 +240,7 @@ export function SystemDiagram() {
         <Reveal delay={0.3}>
           <p className="mt-12 max-w-2xl text-[color:var(--color-ink-muted)] text-[15px] leading-relaxed">
             One system, every channel, all day and all night. No new apps for you
-            to run — it plugs into the phone, website, and calendar you already use.
+            to run - it plugs into the phone, website, and calendar you already use.
           </p>
         </Reveal>
       </div>

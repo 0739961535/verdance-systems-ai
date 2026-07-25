@@ -16,7 +16,7 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 
 /* ============================================================
-   TypingText — types out a single line, char by char.
+   TypingText - types out a single line, char by char.
    ============================================================ */
 export function TypingText({
   text,
@@ -91,7 +91,7 @@ export function TypingText({
 }
 
 /* ============================================================
-   TypingDots — three-dot "is typing…" indicator.
+   TypingDots - three-dot "is typing…" indicator.
    ============================================================ */
 export function TypingDots({ className = "" }: { className?: string }) {
   return (
@@ -118,7 +118,7 @@ export function TypingDots({ className = "" }: { className?: string }) {
 }
 
 /* ============================================================
-   TickRow — a checklist row that ticks itself off when active.
+   TickRow - a checklist row that ticks itself off when active.
    ============================================================ */
 export function TickRow({
   label,
@@ -174,7 +174,7 @@ export function TickRow({
 }
 
 /* ============================================================
-   NumberTicker — counts from `from` to `to` when in view (or when `play` flips).
+   NumberTicker - counts from `from` to `to` when in view (or when `play` flips).
    ============================================================ */
 export function NumberTicker({
   to,
@@ -240,7 +240,7 @@ export function NumberTicker({
 }
 
 /* ============================================================
-   PulseRing — pulsing turquoise ring you can drop behind any node.
+   PulseRing - pulsing turquoise ring you can drop behind any node.
    ============================================================ */
 export function PulseRing({
   size = 56,
@@ -273,7 +273,7 @@ export function PulseRing({
 }
 
 /* ============================================================
-   HoverGlow — cursor-following turquoise glow halo wrapper.
+   HoverGlow - cursor-following turquoise glow halo wrapper.
    ============================================================ */
 export function HoverGlow({
   children,
@@ -319,7 +319,7 @@ export function HoverGlow({
 }
 
 /* ============================================================
-   SignatureUnderline — draws a hand-script SVG underline.
+   SignatureUnderline - draws a hand-script SVG underline.
    ============================================================ */
 export function SignatureUnderline({
   className = "",
@@ -359,7 +359,7 @@ export function SignatureUnderline({
 }
 
 /* ============================================================
-   WaveformBars — animated voice waveform.
+   WaveformBars - animated voice waveform.
    ============================================================ */
 export function WaveformBars({
   bars = 6,
@@ -424,7 +424,7 @@ export function WaveformBars({
 }
 
 /* ============================================================
-   DemoLabel — turquoise eyebrow with pulsing dot.
+   DemoLabel - turquoise eyebrow with pulsing dot.
    ============================================================ */
 export function DemoLabel({
   children,
@@ -453,7 +453,7 @@ export function DemoLabel({
 }
 
 /* ============================================================
-   useLoopStep — step through 0..n-1 on an interval.
+   useLoopStep - step through 0..n-1 on an interval.
    ============================================================ */
 export function useLoopStep(steps: number, intervalMs: number, paused = false) {
   const [step, setStep] = useState(0);
@@ -469,7 +469,7 @@ export function useLoopStep(steps: number, intervalMs: number, paused = false) {
 }
 
 /* ============================================================
-   useSequencedTimeline — fire cues at specific offsets, then loop.
+   useSequencedTimeline - fire cues at specific offsets, then loop.
    ============================================================ */
 export function useSequencedTimeline(
   cues: { at: number; id: string }[],
@@ -511,7 +511,7 @@ export function useSequencedTimeline(
 }
 
 /* ============================================================
-   FadeStage — smooth fade in/out wrapper.
+   FadeStage - smooth fade in/out wrapper.
    ============================================================ */
 export function FadeStage({
   show,

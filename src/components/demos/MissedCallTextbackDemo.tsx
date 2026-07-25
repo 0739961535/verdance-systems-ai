@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * MissedCallTextbackDemo — three-frame story.
+ * MissedCallTextbackDemo - three-frame story.
  * 1) Missed call notification
  * 2) Mia sends an instant SMS
  * 3) Customer replies, booking confirmed
@@ -112,7 +112,7 @@ export function MissedCallTextbackDemo() {
                   Result
                 </div>
                 <div className="mt-1.5 text-[13.5px] text-[color:var(--color-ink)] leading-snug">
-                  <span className="font-medium">Answered in 42 seconds</span> — before they called anyone else.
+                  <span className="font-medium">Answered in 42 seconds</span> - before they called anyone else.
                 </div>
               </motion.div>
             )}
@@ -259,7 +259,7 @@ function SmsScreen({ frame }: { frame: Frame }) {
         )}
         {(frame === "reply" || frame === "booked") && (
           <SmsBubble from="ai" delay={0.6}>
-            Got it. We can do a free on-site quote on Thu morning or Fri 2pm — which?
+            Got it. We can do a free on-site quote on Thu morning or Fri 2pm - which?
           </SmsBubble>
         )}
         {frame === "booked" && (

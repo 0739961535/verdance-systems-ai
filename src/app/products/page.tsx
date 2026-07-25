@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/products" },
   openGraph: {
     title: "Products | Verdance Systems AI",
-    description: "12 automation products designed to capture leads, convert enquiries, retain clients, and scale your business — built to work together.",
+    description: "12 automation products designed to capture leads, convert enquiries, retain clients, and scale your business - built to work together.",
     url: "https://verdancesystemsai.com/products",
     type: "website",
     siteName: "Verdance Systems AI",
@@ -13,11 +13,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Products | Verdance Systems AI",
-    description: "12 automation products designed to capture leads, convert enquiries, retain clients, and scale your business — built to work together.",
+    description: "12 automation products designed to capture leads, convert enquiries, retain clients, and scale your business - built to work together.",
   },
   title: "Products | Verdance Systems AI",
   description:
-    "12 automation products designed to capture leads, convert enquiries, retain clients, and scale your business — built to work together.",
+    "12 automation products designed to capture leads, convert enquiries, retain clients, and scale your business - built to work together.",
 };
 
 export default function ProductsPage() {
@@ -35,7 +35,7 @@ export default function ProductsPage() {
               The complete automation stack.
             </h1>
             <p className="text-[color:var(--color-ink-muted)] text-lg leading-relaxed">
-              12 products built to cover every touchpoint — from first visit to repeat booking.
+              12 products built to cover every touchpoint - from first visit to repeat booking.
               Use them individually or deploy the full growth system.
             </p>
           </div>

@@ -3,16 +3,49 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { VSAILogo } from "@/components/primitives/VSAILogo";
 import { MagneticButton } from "@/components/primitives/MagneticButton";
 import { ThemeToggle } from "@/components/primitives/ThemeToggle";
 import { NAV_ITEMS, SITE } from "@/data/site";
+import { SERVICE_CATEGORIES } from "@/data/services";
+import { industries } from "@/data/industries";
+
+type MegaMenuItem = { slug: string; name: string; number: string };
+type MegaMenu = {
+  eyebrow: string;
+  heading: string;
+  headingAccent: string;
+  base: string;
+  items: MegaMenuItem[];
+};
+
+const MEGA_MENUS: Record<string, MegaMenu> = {
+  "/services": {
+    eyebrow: "The full capability map",
+    heading: "Every system -",
+    headingAccent: "one operator.",
+    base: "/services",
+    items: SERVICE_CATEGORIES.map((c) => ({ slug: c.slug, name: c.name, number: c.number })),
+  },
+  "/industries": {
+    eyebrow: "Built for how you work",
+    heading: "Every industry -",
+    headingAccent: "one system.",
+    base: "/industries",
+    items: industries.map((ind, i) => ({
+      slug: ind.slug,
+      name: ind.name,
+      number: String(i + 1).padStart(2, "0"),
+    })),
+  },
+};
 
 export function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -39,7 +72,7 @@ export function Navbar() {
         <Link
           href="/"
           className="group inline-flex items-center gap-3"
-          aria-label="Verdance Systems AI — home"
+          aria-label="Verdance Systems AI - home"
         >
           <VSAILogo size={34} withWordmark={false} />
           <span className="hidden sm:inline-flex flex-col leading-none">
@@ -55,9 +88,9 @@ export function Navbar() {
         <nav className="hidden md:flex items-center gap-1">
           {NAV_ITEMS.map((it) => {
             const active = pathname === it.href;
-            return (
+            const menu = MEGA_MENUS[it.href];
+            const link = (
               <Link
-                key={it.href}
                 href={it.href}
                 className={`relative inline-flex items-center px-3.5 py-2 rounded-full text-sm font-medium transition-colors ${
                   active
@@ -78,6 +111,68 @@ export function Navbar() {
                 )}
                 <span className="relative">{it.label}</span>
               </Link>
+            );
+
+            if (!menu) {
+              return <span key={it.href}>{link}</span>;
+            }
+
+            const isOpen = openMenu === it.href;
+            const half = Math.ceil(menu.items.length / 2);
+            const columns = [menu.items.slice(0, half), menu.items.slice(half)];
+
+            return (
+              <div
+                key={it.href}
+                className="relative"
+                onMouseEnter={() => setOpenMenu(it.href)}
+                onMouseLeave={() => setOpenMenu(null)}
+              >
+                {link}
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.18, ease: [0.19, 1, 0.22, 1] }}
+                      className="absolute left-1/2 top-full -translate-x-1/2 pt-3 w-[640px] z-50"
+                    >
+                      <div
+                        className="rounded-2xl p-6 shadow-2xl border"
+                        style={{ background: "var(--bg-4)", borderColor: "var(--hairline-2)" }}
+                      >
+                        <span className="eyebrow">{menu.eyebrow}</span>
+                        <h3 className="mt-2 font-display text-xl font-medium text-[color:var(--color-ink)]">
+                          {menu.heading}{" "}
+                          <span className="italic-accent">{menu.headingAccent}</span>
+                        </h3>
+                        <div className="mt-5 grid grid-cols-2 gap-x-8">
+                          {columns.map((col, ci) => (
+                            <div key={ci} className="flex flex-col gap-y-1">
+                              {col.map((item) => (
+                                <Link
+                                  key={item.slug}
+                                  href={`${menu.base}/${item.slug}`}
+                                  onClick={() => setOpenMenu(null)}
+                                  className="group flex items-baseline gap-2.5 rounded-lg px-2 py-2 -mx-2 transition-colors hover:bg-[color:var(--surface-tint-2)]"
+                                >
+                                  <span className="font-mono text-[10px] text-[color:var(--color-ink-faint)]">
+                                    {item.number}
+                                  </span>
+                                  <span className="font-display text-sm font-medium text-[color:var(--color-ink)] group-hover:text-[color:var(--color-accent)] transition-colors">
+                                    {item.name}
+                                  </span>
+                                </Link>
+                              ))}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             );
           })}
         </nav>

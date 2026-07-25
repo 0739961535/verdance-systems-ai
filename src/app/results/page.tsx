@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/results" },
   openGraph: {
     title: "Results & Case Studies | Verdance Systems AI",
-    description: "Real systems built for real businesses. Featured: Sky Dounny — GHL, WhatsApp automation, invoice generator, and a complete custom website.",
+    description: "Real systems built for real businesses. Featured: Sky Dounny - CRM, WhatsApp automation, invoice generator, and a complete custom website.",
     url: "https://verdancesystemsai.com/results",
     type: "website",
     siteName: "Verdance Systems AI",
@@ -17,11 +17,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Results & Case Studies | Verdance Systems AI",
-    description: "Real systems built for real businesses. Featured: Sky Dounny — GHL, WhatsApp automation, invoice generator, and a complete custom website.",
+    description: "Real systems built for real businesses. Featured: Sky Dounny - CRM, WhatsApp automation, invoice generator, and a complete custom website.",
   },
   title: "Results & Case Studies | Verdance Systems AI",
   description:
-    "Real systems built for real businesses. Featured: Sky Dounny — GHL, WhatsApp automation, invoice generator, and a complete custom website.",
+    "Real systems built for real businesses. Featured: Sky Dounny - CRM, WhatsApp automation, invoice generator, and a complete custom website.",
 };
 
 const GALLERY = [
@@ -61,7 +61,7 @@ export default function ResultsPage() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-8 max-w-2xl text-xl text-[color:var(--color-ink-soft)] leading-relaxed">
-              Real systems, real businesses. We&apos;re early — these case studies are
+              Real systems, real businesses. We&apos;re early - these case studies are
               growing as we ship. The featured one below is live.
             </p>
           </Reveal>
@@ -100,17 +100,17 @@ export default function ResultsPage() {
                     Sky Dounny
                   </h2>
                   <p className="mt-6 max-w-xl text-lg md:text-xl text-[color:var(--color-ink-soft)] leading-relaxed">
-                    A complete operating system: GHL CRM, WhatsApp automation, custom
-                    invoice generator, and a new website — built to handle every
+                    A complete operating system: CRM, WhatsApp automation, custom
+                    invoice generator, and a new website - built to handle every
                     inbound enquiry without missing one.
                   </p>
 
                   <div className="mt-9 grid gap-3 sm:grid-cols-2">
                     <Highlight label="Problem">
-                      Manual lead handling — enquiries falling through.
+                      Manual lead handling - enquiries falling through.
                     </Highlight>
                     <Highlight label="What we built">
-                      GHL CRM + WhatsApp automation + invoices + website.
+                      CRM + WhatsApp automation + invoices + website.
                     </Highlight>
                     <Highlight label="Outcome">
                       Every lead captured. Bookings on autopilot.
@@ -130,7 +130,7 @@ export default function ResultsPage() {
                 <div className="relative">
                   {[
                     { rot: -3, top: 0, z: 1, label: "WhatsApp flow" },
-                    { rot: 2, top: 80, z: 2, label: "GHL CRM" },
+                    { rot: 2, top: 80, z: 2, label: "CRM" },
                     { rot: -2, top: 160, z: 3, label: "Invoice generator" },
                   ].map((card, i) => (
                     <div

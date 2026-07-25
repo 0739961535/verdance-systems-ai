@@ -4,18 +4,18 @@ import { Reveal } from "@/components/primitives/Reveal";
 import { PhoneCall, MessagesSquare, CalendarCheck } from "lucide-react";
 
 // The plain-language "what we actually do" explainer. Three jobs a lead moves
-// through — Answer → Follow up → Book — stated so a non-technical owner gets it
+// through - Answer → Follow up → Book - stated so a non-technical owner gets it
 // in five seconds. Deliberately simple; the live demos below prove each one.
 const JOBS = [
   {
     icon: PhoneCall,
     title: "Answer",
-    line: "Every call, text and website message — answered in seconds, 24/7, in your business's own voice.",
+    line: "Every call, text and website message - answered in seconds, 24/7, in your business's own voice.",
   },
   {
     icon: MessagesSquare,
     title: "Follow up",
-    line: "Every lead chased until they decide — including the ones you'd normally forget to call back.",
+    line: "Every lead chased until they decide - including the ones you'd normally forget to call back.",
   },
   {
     icon: CalendarCheck,
@@ -40,7 +40,7 @@ export function WhatWeDo() {
         <Reveal delay={0.1}>
           <p className="mt-7 max-w-2xl text-lg text-[color:var(--color-ink-soft)] leading-relaxed">
             No new software to learn and no change to how you work. We install an AI
-            system that answers, follows up, and books — then simply hands you the
+            system that answers, follows up, and books - then simply hands you the
             customers.
           </p>
         </Reveal>

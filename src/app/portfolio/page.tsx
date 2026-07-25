@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/portfolio" },
   openGraph: {
     title: "Portfolio | Verdance Systems AI",
-    description: "Projects built by Verdance Systems AI — automation systems deployed for businesses worldwide.",
+    description: "Projects built by Verdance Systems AI - automation systems deployed for businesses worldwide.",
     url: "https://verdancesystemsai.com/portfolio",
     type: "website",
     siteName: "Verdance Systems AI",
@@ -14,11 +14,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Portfolio | Verdance Systems AI",
-    description: "Projects built by Verdance Systems AI — automation systems deployed for businesses worldwide.",
+    description: "Projects built by Verdance Systems AI - automation systems deployed for businesses worldwide.",
   },
   robots: { index: false, follow: true },
   title: "Portfolio | Verdance Systems AI",
-  description: "Projects built by Verdance Systems AI — automation systems deployed for businesses worldwide.",
+  description: "Projects built by Verdance Systems AI - automation systems deployed for businesses worldwide.",
 };
 
 const placeholders = [

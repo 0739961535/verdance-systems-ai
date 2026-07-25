@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * PaymentsDemo — three-stage invoice → payment link → confirmation flow.
+ * PaymentsDemo - three-stage invoice → payment link → confirmation flow.
  */
 
 import { useDemoMotion } from "@/components/primitives/useDemoMotion";
@@ -166,7 +166,7 @@ export function PaymentsDemo() {
                     >
                       <div className="text-[12px] text-[color:var(--color-ink-soft)]">Verdance Studio</div>
                       <div className="mt-1 text-[13px] text-[color:var(--color-ink)] leading-relaxed">
-                        Hi {order.customer.split(" ")[0]} — invoice ready. Tap to pay £{order.total.toLocaleString()}.
+                        Hi {order.customer.split(" ")[0]} - invoice ready. Tap to pay £{order.total.toLocaleString()}.
                       </div>
                       <motion.div
                         initial={{ opacity: 0, y: 6 }}

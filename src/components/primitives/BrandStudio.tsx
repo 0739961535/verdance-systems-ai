@@ -1,13 +1,13 @@
 "use client";
 
 /**
- * BrandStudio — live brand-colour sandbox for testing on the real site.
+ * BrandStudio - live brand-colour sandbox for testing on the real site.
  *
  * The whole design system is driven by CSS custom properties (--accent and its
  * --accent-rgb / bright / glow / deep / on-accent variants, mapped to
  * --color-* via Tailwind @theme). This panel overrides those variables inline
  * on <html>, so picking a colour recolours every token-driven surface across
- * the site instantly — buttons, gradients, glows, borders, demos, chat.
+ * the site instantly - buttons, gradients, glows, borders, demos, chat.
  *
  * Dev/testing tool only: mounted behind NEXT_PUBLIC_BRAND_STUDIO=1, so it never
  * ships on a normal production build. Choice persists in localStorage; Reset
@@ -123,7 +123,7 @@ export function BrandStudio() {
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1600);
     } catch {
-      /* clipboard blocked — ignore */
+      /* clipboard blocked - ignore */
     }
   }
 
@@ -156,7 +156,7 @@ export function BrandStudio() {
           </div>
 
           <p className="mt-1 text-[11px] leading-snug text-[color:var(--color-ink-muted)]">
-            Pick an accent — the whole site recolours live.
+            Pick an accent - the whole site recolours live.
           </p>
 
           {/* Picker + hex */}

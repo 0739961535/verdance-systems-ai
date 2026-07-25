@@ -6,7 +6,7 @@ import { Suspense, useMemo, useRef } from "react";
 import * as THREE from "three";
 
 /* ============================================================
-   PALETTE — verdant + champagne, no orange
+   PALETTE - verdant + champagne, no orange
    ============================================================ */
 const C = {
   cream:        "#F5F1E8",
@@ -22,7 +22,7 @@ const C = {
 };
 
 /* ============================================================
-   GROUND — chunky tiled platform (the diorama floor)
+   GROUND - chunky tiled platform (the diorama floor)
    ============================================================ */
 function Tile({ position, size, height = 0.4, color = C.ivory, ring = false }: {
   position: [number, number, number];
@@ -77,7 +77,7 @@ function GroundPlatform() {
 }
 
 /* ============================================================
-   ACCENT OBJECTS — verdant spheres, champagne pyramids,
+   ACCENT OBJECTS - verdant spheres, champagne pyramids,
    wireframe cubes, half-spheres, cylinders
    ============================================================ */
 
@@ -163,7 +163,7 @@ function Cylinder({ position, radius = 0.35, height = 0.9, color = C.cream }: {
   );
 }
 
-/* ─── Floating "leaf" — botanical Verdance touch ──────────── */
+/* ─── Floating "leaf" - botanical Verdance touch ──────────── */
 function Leaf({ position, rotation = [0, 0, 0], color = C.emerald }: {
   position: [number, number, number]; rotation?: [number, number, number]; color?: string;
 }) {
@@ -178,17 +178,17 @@ function Leaf({ position, rotation = [0, 0, 0], color = C.emerald }: {
 }
 
 /* ============================================================
-   THE DIORAMA — full composition
+   THE DIORAMA - full composition
    ============================================================ */
 function Diorama() {
   return (
     <group>
       <GroundPlatform />
 
-      {/* Big verdant glass sphere — anchor on the right */}
+      {/* Big verdant glass sphere - anchor on the right */}
       <ForestSphere position={[4.0, 1.4, -0.6]} radius={1.0} color={C.forest} glass />
 
-      {/* Solid forest sphere — left anchor */}
+      {/* Solid forest sphere - left anchor */}
       <ForestSphere position={[-3.0, 1.1, 0.0]} radius={0.65} color={C.forest} />
 
       {/* Smaller emerald spheres scattered */}
@@ -201,7 +201,7 @@ function Diorama() {
       <ChampagnePyramid position={[2.0, 1.0, -0.6]} scale={0.7} rotate={Math.PI / 6} />
       <ChampagnePyramid position={[6.0, 0.95, 0.6]} scale={0.6} rotate={-Math.PI / 5} />
 
-      {/* Wireframe cubes — quiet structure */}
+      {/* Wireframe cubes - quiet structure */}
       <WireCube position={[-2.4, 1.4, 1.2]} size={0.65} color={C.forest} />
       <WireCube position={[3.4, 1.6, -1.6]} size={0.45} color={C.champagneDeep} />
 
@@ -213,7 +213,7 @@ function Diorama() {
       <Cylinder position={[-0.6, 0.95, 2.4]} radius={0.28} height={0.7} color={C.ivory} />
       <Cylinder position={[5.0, 0.95, 2.4]} radius={0.25} height={0.65} color={C.ivory} />
 
-      {/* Botanical leaves — small floating accents */}
+      {/* Botanical leaves - small floating accents */}
       <Leaf position={[-2.6, 2.0, -1.4]} color={C.emerald} />
       <Leaf position={[3.0, 2.4, 1.4]} color={C.emeraldDark} />
       <Leaf position={[5.0, 2.6, -2.0]} color={C.emerald} />
@@ -222,7 +222,7 @@ function Diorama() {
 }
 
 /* ============================================================
-   CAMERA — slow scroll-coupled drift + parallax
+   CAMERA - slow scroll-coupled drift + parallax
    ============================================================ */
 function CameraRig() {
   const { camera, pointer } = useThree();
@@ -234,7 +234,7 @@ function CameraRig() {
     }
     const sNorm = Math.min(1, scrollY.current / 1200);
 
-    // Initial: high, distant, looking down — scene mostly below the text
+    // Initial: high, distant, looking down - scene mostly below the text
     // As you scroll: camera dives in, gets lower & closer to the diorama
     const targetX = -1.0 + sNorm * 4.5 + pointer.x * 0.45;
     const targetY = 7.5 - sNorm * 3.5 + pointer.y * 0.20;
@@ -244,7 +244,7 @@ function CameraRig() {
     camera.position.y += (targetY - camera.position.y) * 0.06;
     camera.position.z += (targetZ - camera.position.z) * 0.06;
 
-    // Look at a point that's well below center — keeps scene anchored to the bottom
+    // Look at a point that's well below center - keeps scene anchored to the bottom
     camera.lookAt(1.5 + sNorm * 2.5, -1.0 + sNorm * 1.2, 0);
   });
 
@@ -261,7 +261,7 @@ function Scene() {
       <directionalLight position={[5, 8, 4]} intensity={1.6} color={"#FFEED0"} castShadow shadow-mapSize={[2048, 2048]}>
         <orthographicCamera attach="shadow-camera" args={[-12, 12, 12, -12, 0.1, 40]} />
       </directionalLight>
-      {/* Cool rim — verdant */}
+      {/* Cool rim - verdant */}
       <directionalLight position={[-4, 3, -3]} intensity={0.55} color={"#4F8DFF"} />
       {/* Soft fill */}
       <ambientLight intensity={0.62} color={"#FFFFFF"} />

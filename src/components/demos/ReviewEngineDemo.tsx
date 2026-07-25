@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * ReviewEngineDemo — Google review accumulation.
+ * ReviewEngineDemo - Google review accumulation.
  * Stars fill 1→5, review text types in, then rating ticks 4.6→4.8.
  * Halo pulse on the new average. Loops every ~16s.
  *
@@ -13,7 +13,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { DemoLabel, NumberTicker, TypingText } from "./_micro";
 
-const REVIEW = `Sarah's whitening at Bryant Electrical was incredible. Their booking process was so smooth — got my appointment confirmed in under a minute. Genuinely the easiest experience I've had.`;
+const REVIEW = `Sarah's whitening at Bryant Electrical was incredible. Their booking process was so smooth - got my appointment confirmed in under a minute. Genuinely the easiest experience I've had.`;
 
 const STAR_INTERVAL = 280;
 const REVIEW_START = STAR_INTERVAL * 5 + 600;

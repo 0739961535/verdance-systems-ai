@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * VoiceAgentDemo — AI receptionist phone call.
+ * VoiceAgentDemo - AI receptionist phone call.
  * Incoming-call header, animated turquoise waveform, transcript that
  * scrolls in word-by-word. After call ends a "Booked" stat card appears.
  *
@@ -16,9 +16,9 @@ import { DemoLabel, WaveformBars } from "./_micro";
 type Turn = { speaker: "ai" | "caller"; text: string; ms: number };
 
 const TRANSCRIPT: Turn[] = [
-  { speaker: "ai", text: "Thanks for calling Bryant Electrical. This is Mia — how can I help?", ms: 4200 },
+  { speaker: "ai", text: "Thanks for calling Bryant Electrical. This is Mia - how can I help?", ms: 4200 },
   { speaker: "caller", text: "Hi, I'd like to book a cleaning for next week.", ms: 3000 },
-  { speaker: "ai", text: "Of course. We've got Tuesday at 10am or Wednesday at 3pm — which works?", ms: 3800 },
+  { speaker: "ai", text: "Of course. We've got Tuesday at 10am or Wednesday at 3pm - which works?", ms: 3800 },
   { speaker: "caller", text: "Tuesday at 10.", ms: 1600 },
   { speaker: "ai", text: "Done. You'll get a confirmation text in a moment. See you Tuesday.", ms: 3800 },
 ];
@@ -160,7 +160,7 @@ export function VoiceAgentDemo() {
                 </svg>
               </span>
               <div className="flex-1 leading-tight">
-                <div className="text-[13px] font-medium text-[color:var(--color-ink)]">Booked · Tue 10:00 — Cleaning</div>
+                <div className="text-[13px] font-medium text-[color:var(--color-ink)]">Booked · Tue 10:00 - Cleaning</div>
                 <div className="text-[11px] text-[color:var(--color-ink-muted)] mt-0.5">
                   Call duration 1m 12s · caller never waited on hold
                 </div>

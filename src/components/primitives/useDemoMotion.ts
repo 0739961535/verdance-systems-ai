@@ -1,10 +1,10 @@
 "use client";
 
 /**
- * useDemoMotion — motion gate for the live product demos.
+ * useDemoMotion - motion gate for the live product demos.
  *
  * The demos (WhatsApp thread, calendar auto-fill, pipeline flow, review engine,
- * etc.) are functional demonstrations of the product — the core of the pitch,
+ * etc.) are functional demonstrations of the product - the core of the pitch,
  * closer to an autoplaying explainer than to decorative page motion. Owner
  * decision (2026-07): they animate for everyone, including visitors who have the
  * OS "reduce motion" preference on.

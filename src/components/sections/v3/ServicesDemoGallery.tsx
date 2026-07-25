@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * ServicesDemoGallery — live demo cards for every capability.
+ * ServicesDemoGallery - live demo cards for every capability.
  *
  * Caller: src/app/services/page.tsx
  */
@@ -47,7 +47,7 @@ const CARDS: Card[] = [
     id: "smart-scheduler",
     title: "Smart Scheduler",
     subtitle: "Auto-booking week view",
-    blurb: "Books straight into your Google Calendar — no human input.",
+    blurb: "Books straight into your Google Calendar - no human input.",
     el: <CalendarDemo />,
     span: "wide",
   },
@@ -79,7 +79,7 @@ const CARDS: Card[] = [
     id: "dashboard",
     title: "Agent Dashboard",
     subtitle: "Live operations",
-    blurb: "Every conversation, booking, and reactivation — in one view.",
+    blurb: "Every conversation, booking, and reactivation - in one view.",
     el: <AgentDashboardDemo />,
     span: "narrow",
   },

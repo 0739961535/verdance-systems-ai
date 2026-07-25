@@ -131,7 +131,7 @@ export default async function ServiceCategoryPage({
             </Reveal>
             <Reveal delay={0.05}>
               <h2 className="mt-4 headline-section">
-                What it looks like —{" "}
+                What it looks like -{" "}
                 <span className="italic-accent">running.</span>
               </h2>
             </Reveal>
@@ -155,7 +155,7 @@ export default async function ServiceCategoryPage({
             </Reveal>
             <Reveal delay={0.05}>
               <h2 className="mt-4 headline-section">
-                Everything inside —{" "}
+                Everything inside -{" "}
                 <span className="italic-accent">unpacked.</span>
               </h2>
             </Reveal>
@@ -255,7 +255,7 @@ export default async function ServiceCategoryPage({
               </Reveal>
               <Reveal delay={0.05}>
                 <h2 className="mt-4 headline-section">
-                  Stack it with —{" "}
+                  Stack it with -{" "}
                   <span className="italic-accent">these.</span>
                 </h2>
               </Reveal>

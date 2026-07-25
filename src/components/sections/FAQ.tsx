@@ -18,7 +18,7 @@ const faqs = [
   {
     question: "Do I need technical knowledge to operate it?",
     answer:
-      "No. Everything is built, configured and rehearsed by us before handover. You receive a guided walkthrough and ongoing stewardship — you only need to know what the system does for your business, not how.",
+      "No. Everything is built, configured and rehearsed by us before handover. You receive a guided walkthrough and ongoing stewardship - you only need to know what the system does for your business, not how.",
   },
   {
     question: "How is Verdance priced?",
@@ -28,17 +28,17 @@ const faqs = [
   {
     question: "What happens after the system is delivered?",
     answer:
-      "All engagements include ongoing stewardship — monitoring, refinements and quiet evolutions as your business changes. We treat your automation as a living instrument.",
+      "All engagements include ongoing stewardship - monitoring, refinements and quiet evolutions as your business changes. We treat your automation as a living instrument.",
   },
   {
     question: "Which countries do you work with?",
     answer:
-      "All of them. Verdance is remote-first and operates with clients across the United Kingdom, the United States, Europe, the Middle East, Australia and beyond — in any time zone.",
+      "All of them. Verdance is remote-first and operates with clients across the United Kingdom, the United States, Europe, the Middle East, Australia and beyond - in any time zone.",
   },
   {
     question: "How do I begin?",
     answer:
-      "Book a private strategy call. We spend thirty to forty-five minutes reading your business and where automation will return the most, then propose a system — without commitment.",
+      "Book a private strategy call. We spend thirty to forty-five minutes reading your business and where automation will return the most, then propose a system - without commitment.",
   },
 ];
 

@@ -20,7 +20,7 @@ export function ProblemSection() {
         </Reveal>
         <Reveal delay={0.1}>
           <p className="mt-7 max-w-2xl text-lg text-[color:var(--color-ink-soft)] leading-relaxed">
-            Most local businesses lose 20–40% of their enquiries — calls during a
+            Most local businesses lose 20–40% of their enquiries - calls during a
             treatment, messages after hours, quotes that never got a follow-up. You
             already paid to get those leads. They&apos;re slipping away quietly, every
             week.

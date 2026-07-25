@@ -70,7 +70,7 @@ export function SectionHeading({
         >
           {index && (
             <span className="font-mono text-[0.62rem] tracking-[0.22em] text-[#5C6862] uppercase">
-              — {index}
+              - {index}
             </span>
           )}
           {eyebrow && (

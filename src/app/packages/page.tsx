@@ -42,8 +42,8 @@ export default function PackagesPage() {
               Choose the system that fits where you are.
             </h1>
             <p className="text-[color:var(--color-ink-muted)] text-lg leading-relaxed">
-              Three tiers built around real business stages. Start where you are — scale when you&apos;re ready.
-              No pricing shown — every system is scoped and quoted based on your specific business.
+              Three tiers built around real business stages. Start where you are - scale when you&apos;re ready.
+              No pricing shown - every system is scoped and quoted based on your specific business.
             </p>
           </div>
 

@@ -8,13 +8,13 @@ import Lenis from "lenis";
  *
  * The critical detail: Lenis drives a *virtual* scroll position, so any
  * GSAP ScrollTrigger (pins, scrubs) must be told to update from Lenis and
- * both must share one clock — otherwise pinned sections desync, jump, and
+ * both must share one clock - otherwise pinned sections desync, jump, and
  * blank out. We drive Lenis from gsap.ticker and call ScrollTrigger.update
  * on every Lenis scroll.
  *
  * DESKTOP ONLY. Lenis is disabled under reduced-motion AND on any touch
  * device. On real iOS Safari, Lenis intercepts touch and strands the user
- * on the first screen — and native mobile scrolling is already smooth, so
+ * on the first screen - and native mobile scrolling is already smooth, so
  * there is nothing to gain. On touch/narrow viewports we bail out and let
  * the browser scroll natively; framer-motion whileInView reveals fire off
  * the native scroll position exactly as they do on desktop.
@@ -26,7 +26,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     const noHover = !window.matchMedia("(hover: hover)").matches;
     const isTouchDevice = coarsePointer || noHover || "ontouchstart" in window;
     const isNarrow = window.innerWidth < 1024;
-    // Native scroll on mobile/touch/narrow — never run Lenis there.
+    // Native scroll on mobile/touch/narrow - never run Lenis there.
     if (reduce || isTouchDevice || isNarrow) return;
 
     const lenis = new Lenis({

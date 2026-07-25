@@ -22,9 +22,9 @@ export default function TermsPage() {
 
       <LegalSection heading="What we do">
         <p>
-          Verdance builds and runs AI systems — such as an AI receptionist that
+          Verdance builds and runs AI systems - such as an AI receptionist that
           answers calls and messages, follows up with leads, and books
-          appointments — for local businesses. Any project begins with a free
+          appointments - for local businesses. Any project begins with a free
           consult and a written plan of exactly what we&apos;d build. Nothing is
           committed until you agree to that plan.
         </p>
@@ -33,7 +33,7 @@ export default function TermsPage() {
       <LegalSection heading="The free consult">
         <p>
           The consult and the plan we prepare are free and carry no obligation.
-          They&apos;re there to help you decide — you&apos;re under no pressure to
+          They&apos;re there to help you decide - you&apos;re under no pressure to
           proceed.
         </p>
       </LegalSection>

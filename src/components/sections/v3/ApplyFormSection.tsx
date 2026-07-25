@@ -47,13 +47,13 @@ export function ApplyFormSection() {
             className="mt-6 font-display text-[color:var(--color-ink)] leading-[1.04]"
             style={{ fontSize: "clamp(2.25rem, 4.8vw, 3.75rem)", letterSpacing: "-0.035em" }}
           >
-            Tell us about your <span className="italic-accent">business.</span>
+            Book your <span className="italic-accent">free build.</span>
           </h2>
         </Reveal>
         <Reveal delay={0.1}>
           <p className="mt-5 max-w-2xl text-lg text-[color:var(--color-ink-soft)] leading-relaxed">
-            Eight short questions. About 90 seconds. Then we&apos;ll show you
-            exactly what we&apos;d build.
+            Pick a time below - takes seconds. Then a few optional questions
+            so we show up already knowing your business.
           </p>
         </Reveal>
 

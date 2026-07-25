@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * LeadReactivationDemo — old database awakening.
+ * LeadReactivationDemo - old database awakening.
  * Six "dormant" lead rows. One by one their tag flips from
  * "Lost"/"Stale"/"No-show" to a turquoise "Reactivated", with a
  * chat-bubble preview that slides out showing the outreach message.
@@ -23,12 +23,12 @@ type Lead = {
 };
 
 const LEADS: Lead[] = [
-  { name: "James Pillay", initial: "J", service: "Boiler service", tag: "Lost · 4 mo", message: "Hi James — quick note from Verdance Plumbing. We've had a couple of cancellations open up this week for boiler services. Want me to hold one for you?" },
-  { name: "Anna Bekker", initial: "A", service: "Boiler service", tag: "Stale · 90 days", message: "Hi Anna — it's been 3 months since your last touch-up. We can fit you in Thu morning if that helps." },
-  { name: "Mike Davies", initial: "M", service: "Quote visit", tag: "No-show · 2 mo", message: "Hi Mike — sorry we didn't connect last time. Happy to rebook whenever it suits you." },
-  { name: "Lerato Mokoena", initial: "L", service: "Rewire", tag: "Quote · 3 mo", message: "Hi Lerato — your quote is still valid. Free to book this week?" },
-  { name: "Jess Lourens", initial: "J", service: "Boiler service", tag: "Cold · 6 mo", message: "Hi Jess — we've got a free slot this week if that boiler service is still on your list. Want me to book it?" },
-  { name: "Maya Reddy", initial: "M", service: "Callback", tag: "Lost · 5 mo", message: "Hi Maya — touch-up slots open Fri afternoon. Should I save you one?" },
+  { name: "James Pillay", initial: "J", service: "Boiler service", tag: "Lost · 4 mo", message: "Hi James - quick note from Verdance Plumbing. We've had a couple of cancellations open up this week for boiler services. Want me to hold one for you?" },
+  { name: "Anna Bekker", initial: "A", service: "Boiler service", tag: "Stale · 90 days", message: "Hi Anna - it's been 3 months since your last touch-up. We can fit you in Thu morning if that helps." },
+  { name: "Mike Davies", initial: "M", service: "Quote visit", tag: "No-show · 2 mo", message: "Hi Mike - sorry we didn't connect last time. Happy to rebook whenever it suits you." },
+  { name: "Lerato Mokoena", initial: "L", service: "Rewire", tag: "Quote · 3 mo", message: "Hi Lerato - your quote is still valid. Free to book this week?" },
+  { name: "Jess Lourens", initial: "J", service: "Boiler service", tag: "Cold · 6 mo", message: "Hi Jess - we've got a free slot this week if that boiler service is still on your list. Want me to book it?" },
+  { name: "Maya Reddy", initial: "M", service: "Callback", tag: "Lost · 5 mo", message: "Hi Maya - touch-up slots open Fri afternoon. Should I save you one?" },
 ];
 
 const STEP_MS = 1600;

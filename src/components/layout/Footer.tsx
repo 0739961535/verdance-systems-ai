@@ -58,7 +58,7 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
-              {/* Deep pages — surfaced for discovery & internal linking (SEO) */}
+              {/* Deep pages - surfaced for discovery & internal linking (SEO) */}
               {[
                 { href: "/industries", label: "Industries" },
                 { href: "/products", label: "Products" },

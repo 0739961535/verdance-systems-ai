@@ -103,7 +103,7 @@ export function FounderTeaser() {
               className="mt-8 inline-flex items-center gap-2 font-medium text-[color:var(--color-ink)] group"
             >
               <span className="border-b border-white/40 group-hover:border-[color:var(--color-accent)] group-hover:text-[color:var(--color-accent)] transition-colors">
-                Book a call with Daniel
+                Book a call with us
               </span>
               <Arrow />
             </Link>

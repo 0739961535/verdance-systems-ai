@@ -8,7 +8,7 @@ type Props = {
 };
 
 /**
- * Dark-luxury ambient mesh — drifting turquoise glows behind page heroes.
+ * Dark-luxury ambient mesh - drifting turquoise glows behind page heroes.
  * Replaces the old vibrant green+blue+lime mesh.
  */
 export function GradientMesh({ className = "", intensity = "soft" }: Props) {
@@ -20,7 +20,7 @@ export function GradientMesh({ className = "", intensity = "soft" }: Props) {
       className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}
       aria-hidden
     >
-      {/* base — pure black */}
+      {/* base - pure black */}
       <div className="absolute inset-0 bg-canvas" />
 
       {/* top-left jewel turquoise */}

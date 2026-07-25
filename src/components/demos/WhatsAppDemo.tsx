@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * WhatsAppDemo — turn-by-turn AI receptionist thread.
+ * WhatsAppDemo - turn-by-turn AI receptionist thread.
  * Phone-mockup frame with chat bubbles that type in sequentially.
  * Loops on ~22s cycle. Last bubble triggers a "Booked" badge that floats up.
  */
@@ -16,12 +16,12 @@ type Msg =
   | { from: "ai"; time: string; text: string; typingMs?: number };
 
 const SCRIPT: Msg[] = [
-  { from: "customer", time: "07:42", text: "Hi — do you have any availability this week?" },
-  { from: "ai", time: "07:42", text: "Hi Sarah — yes! I've got Thursday at 2pm or Friday at 10am open. Which works for you?", typingMs: 1300 },
+  { from: "customer", time: "07:42", text: "Hi - do you have any availability this week?" },
+  { from: "ai", time: "07:42", text: "Hi Sarah - yes! I've got Thursday at 2pm or Friday at 10am open. Which works for you?", typingMs: 1300 },
   { from: "customer", time: "07:43", text: "Thursday 2pm, please" },
   { from: "ai", time: "07:43", text: "Booked you in for Thursday at 2pm. I'll text a confirmation now. Anything I should pass on to the team?", typingMs: 1300 },
   { from: "customer", time: "07:43", text: "That's everything, thanks!" },
-  { from: "ai", time: "07:43", text: "Perfect — see you Thursday, Sarah.", typingMs: 900 },
+  { from: "ai", time: "07:43", text: "Perfect - see you Thursday, Sarah.", typingMs: 900 },
 ];
 
 const TOTAL_MS = SCRIPT.length * 2400 + 4000;
@@ -260,7 +260,7 @@ export function WhatsAppDemoCard({ label = "AI Receptionist · WhatsApp" }: { la
       <DemoLabel className="mb-6">{label}</DemoLabel>
       <WhatsAppDemo />
       <div className="mt-6 text-[12px] text-[color:var(--color-ink-muted)] text-center">
-        Real reply, real booking — in under 60 seconds.
+        Real reply, real booking - in under 60 seconds.
       </div>
     </div>
   );

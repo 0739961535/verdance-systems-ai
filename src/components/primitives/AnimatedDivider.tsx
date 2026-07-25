@@ -8,7 +8,7 @@ type Props = {
 };
 
 /**
- * Hairline divider — the new look.
+ * Hairline divider - the new look.
  * No wavy lines. Just a thin gradient line that softly emerges into view.
  */
 export function AnimatedDivider({ className = "", variant = "accent" }: Props) {

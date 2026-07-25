@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * SocialMediaDemo — weekly content calendar that fills itself out post by post,
+ * SocialMediaDemo - weekly content calendar that fills itself out post by post,
  * then an engagement counter ticks up.
  */
 

@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * AgentDashboardDemo — live operations view.
+ * AgentDashboardDemo - live operations view.
  * - Three stat tiles ticking (Conversations live, Leads engaged, Bookings)
  * - Scrolling activity feed, new entries slide in from top
  * - Bottom turquoise stripe: "Mia · 24/7 · 87% reply rate"
@@ -24,7 +24,7 @@ const FEED_TEMPLATES: { agent: string; verb: string; subject: string }[] = [
   { agent: "Mia AI", verb: "Sent review invite to", subject: "Anna B." },
   { agent: "Voice AI", verb: "Handled overflow call from", subject: "+27 83 ••• 412" },
   { agent: "Mia AI", verb: "Quoted", subject: "Lerato M. (boiler service)" },
-  { agent: "Mia AI", verb: "Confirmed booking with", subject: "Jess L. — Fri 10:00" },
+  { agent: "Mia AI", verb: "Confirmed booking with", subject: "Jess L. - Fri 10:00" },
   { agent: "Mia AI", verb: "Replied to", subject: "Maya R. (Instagram DM)" },
   { agent: "Voice AI", verb: "Booked appointment for", subject: "Tasha M. (Tue 11:30)" },
 ];

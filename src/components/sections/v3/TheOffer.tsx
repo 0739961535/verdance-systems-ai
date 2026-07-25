@@ -11,7 +11,7 @@ const TERMS = [
   {
     k: "First",
     t: "A free consult.",
-    d: "We get on a call and learn how you win and lose customers today — and exactly where the money is leaking.",
+    d: "We get on a call and learn how you win and lose customers today - and exactly where the money is leaking.",
   },
   {
     k: "Then",
@@ -21,7 +21,7 @@ const TERMS = [
   {
     k: "Then",
     t: "We build it out.",
-    d: "Once you're happy with the plan, we build, launch and run the whole system for you — usually live within days.",
+    d: "Once you're happy with the plan, we build, launch and run the whole system for you - usually live within days.",
   },
 ];
 
@@ -51,7 +51,7 @@ export function TheOffer() {
               <p className="mt-7 max-w-2xl text-lg text-[color:var(--color-ink-soft)] leading-relaxed">
                 No pressure and no guesswork. We start with a free consultation,
                 map out exactly what we&apos;d build for your business and what it&apos;s
-                worth — then, if it makes sense, we build it out.
+                worth - then, if it makes sense, we build it out.
               </p>
             </Reveal>
 

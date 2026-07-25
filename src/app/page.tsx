@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
 };
 
-// FAQPage structured data — server-rendered so it's in the initial HTML
+// FAQPage structured data - server-rendered so it's in the initial HTML
 // (FAQSection is a client component, so we emit the JSON-LD here).
 const FAQ_JSON_LD = {
   "@context": "https://schema.org",
@@ -35,7 +35,7 @@ const FAQ_JSON_LD = {
 };
 
 /**
- * Home — tightened conversion spine.
+ * Home - tightened conversion spine.
  * Hook → see it work (live demos, up front) → what we do → the money pipeline →
  * what you get → proof → the offer → objections → close.
  */

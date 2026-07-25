@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * DemoRegistry — maps a demoKey from src/data/services.ts to the actual demo(s)
+ * DemoRegistry - maps a demoKey from src/data/services.ts to the actual demo(s)
  * to render on a service sub-page. Composite keys render multiple demos stacked.
  */
 

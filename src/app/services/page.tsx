@@ -40,14 +40,14 @@ export default function ServicesPage() {
           </Reveal>
           <Reveal delay={0.05}>
             <h1 className="mt-4 headline-hero max-w-[20ch]">
-              One outcome —{" "}
+              One outcome -{" "}
               <span className="italic-accent">more booked customers.</span>
             </h1>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-8 max-w-2xl text-xl text-[color:var(--color-ink-soft)] leading-relaxed">
               Twelve categories. Every system you need to capture, convert, and retain
-              customers — built, run, and optimised by Verdance.
+              customers - built, run, and optimised by Verdance.
             </p>
           </Reveal>
           <Reveal delay={0.15}>
@@ -63,7 +63,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* FLAGSHIP — Missed Revenue Recovery */}
+      {/* FLAGSHIP - Missed Revenue Recovery */}
       <section id="missed-revenue" className="relative section-pad bg-canvas">
         <div className="container-wide">
           <div className="relative overflow-hidden surface p-10 md:p-14 lg:p-16">
@@ -98,12 +98,12 @@ export default function ServicesPage() {
               <Reveal delay={0.1}>
                 <p className="mt-7 max-w-2xl text-lg md:text-xl text-[color:var(--color-ink-soft)] leading-relaxed">
                   Capture the leads you&apos;re losing and turn them into booked
-                  appointments — automatically.
+                  appointments - automatically.
                 </p>
               </Reveal>
               <div className="mt-10 grid gap-4 md:grid-cols-4">
                 {[
-                  { k: "Promise", v: "Stop the leak — book what's already coming in." },
+                  { k: "Promise", v: "Stop the leak - book what's already coming in." },
                   { k: "What it is", v: "An always-on AI system that answers, follows up, and books." },
                   { k: "How it works", v: "Connects to your phone, calendar, website, and lead sources." },
                   { k: "Who it's for", v: "Local service businesses losing 20–40% of enquiries." },
@@ -143,14 +143,14 @@ export default function ServicesPage() {
             </Reveal>
             <Reveal delay={0.05}>
               <h2 className="mt-4 headline-section">
-                Every system —{" "}
+                Every system -{" "}
                 <span className="italic-accent">one operator.</span>
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mt-6 text-lg text-[color:var(--color-ink-soft)] leading-relaxed">
                 Pick one or stack them. Each category is a dedicated motion graphic +
-                walkthrough — tap in to see exactly what runs.
+                walkthrough - tap in to see exactly what runs.
               </p>
             </Reveal>
           </div>

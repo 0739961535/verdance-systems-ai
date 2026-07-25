@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * WebsiteBuildDemo — laptop frame mockup where a site assembles itself.
+ * WebsiteBuildDemo - laptop frame mockup where a site assembles itself.
  * navbar → hero → hero image → services → contact form → footer,
  * then Lighthouse / SEO / CWV badges drop in.
  */

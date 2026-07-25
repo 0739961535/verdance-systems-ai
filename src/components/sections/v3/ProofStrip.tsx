@@ -56,7 +56,7 @@ export function ProofStrip() {
       <div className="container-wide">
         <div className="max-w-3xl">
           <Reveal>
-            <span className="eyebrow">— Built into real operations</span>
+            <span className="eyebrow">- Built into real operations</span>
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="mt-4 headline-section max-w-[20ch]">

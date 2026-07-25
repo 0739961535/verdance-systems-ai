@@ -10,17 +10,17 @@ type Activity = {
 
 const ACTIVITY: Activity[] = [
   { time: "just now", agent: "VOICE AI", action: "Booked Sarah W. for Thu 14:00 at Bryant Dental" },
-  { time: "3m ago",   agent: "MIA AI", action: "Replied to Lerato M. via WhatsApp — quoted aligners" },
-  { time: "12m ago",  agent: "REACTIVATION AI", action: "Sent reactivation to Mike D. — 3 mo dormant" },
-  { time: "21m ago",  agent: "REVIEW AI", action: "Collected 5★ review from Jess L. — Atelier Skin" },
+  { time: "3m ago",   agent: "MIA AI", action: "Replied to Lerato M. via WhatsApp - quoted aligners" },
+  { time: "12m ago",  agent: "REACTIVATION AI", action: "Sent reactivation to Mike D. - 3 mo dormant" },
+  { time: "21m ago",  agent: "REVIEW AI", action: "Collected 5★ review from Jess L. - Atelier Skin" },
   { time: "34m ago",  agent: "BOOKING AI", action: "Rescheduled Karabo N. to Fri 10:30" },
   { time: "48m ago",  agent: "VOICE AI", action: "Answered after-hours call from Daniels Property" },
-  { time: "1h ago",   agent: "MIA AI", action: "Qualified inbound lead — routed to owner" },
+  { time: "1h ago",   agent: "MIA AI", action: "Qualified inbound lead - routed to owner" },
   { time: "1h ago",   agent: "REACTIVATION AI", action: "Recovered 2 dormant leads at Oakbarn Home Svc" },
   { time: "2h ago",   agent: "BOOKING AI", action: "Booked Pieter J. for valuation on Sat 09:00" },
-  { time: "2h ago",   agent: "REVIEW AI", action: "Filtered 2★ feedback to owner — private follow-up" },
+  { time: "2h ago",   agent: "REVIEW AI", action: "Filtered 2★ feedback to owner - private follow-up" },
   { time: "3h ago",   agent: "VOICE AI", action: "Captured 4 missed calls at Algar Dental" },
-  { time: "4h ago",   agent: "MIA AI", action: "Closed quote thread — booked consult at Acacia" },
+  { time: "4h ago",   agent: "MIA AI", action: "Closed quote thread - booked consult at Acacia" },
 ];
 
 export function LiveActivityTicker() {
@@ -34,7 +34,7 @@ export function LiveActivityTicker() {
     >
       <div className="container-wide pt-7 pb-4 flex items-center justify-between">
         <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-ink-muted)]">
-          — Live operations · Last 24 hours
+          - Live operations · Last 24 hours
         </span>
         <span className="hidden sm:inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-ink-muted)]">
           <span

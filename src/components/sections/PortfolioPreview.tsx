@@ -6,8 +6,8 @@ import Link from "next/link";
 
 const cases = [
   { fig: "I",   sector: "Legal Practice",        note: "AI Receptionist · Client Intake",     body: "An always-on first point of contact for a partner-led firm. Intake captured, conflicts checked, consultations scheduled before counsel's diary is opened." },
-  { fig: "II",  sector: "Real Estate Atelier",   note: "WhatsApp AI · Lead Reactivation",     body: "A boutique agency's dormant database brought back to life — sequenced, qualified, handed warm to the agent who originally listed." },
-  { fig: "III", sector: "Medical Practice",      note: "Smart Scheduler · Voice AI",          body: "Diary-aware voice agent for a specialist clinic. Bookings, reschedules and preparation notes — handled politely, twenty-four hours a day." },
+  { fig: "II",  sector: "Real Estate Atelier",   note: "WhatsApp AI · Lead Reactivation",     body: "A boutique agency's dormant database brought back to life - sequenced, qualified, handed warm to the agent who originally listed." },
+  { fig: "III", sector: "Medical Practice",      note: "Smart Scheduler · Voice AI",          body: "Diary-aware voice agent for a specialist clinic. Bookings, reschedules and preparation notes - handled politely, twenty-four hours a day." },
 ];
 
 export function PortfolioPreview() {
@@ -32,7 +32,7 @@ export function PortfolioPreview() {
             </h2>
           </div>
           <p className="text-[#5A6660] text-base md:text-lg leading-[1.65] max-w-md">
-            Our work is, by design, invisible to the end client — it simply makes the business feel attentive. A small selection, anonymised.
+            Our work is, by design, invisible to the end client - it simply makes the business feel attentive. A small selection, anonymised.
           </p>
         </motion.div>
 

@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * HeroCrystal — 3D refractive turquoise crystal centerpiece for the homepage hero.
+ * HeroCrystal - 3D refractive turquoise crystal centerpiece for the homepage hero.
  *
  * A chamfered octahedron rendered with MeshTransmissionMaterial, slow auto-rotation,
  * mouse-driven parallax, rim-lit with the turquoise jewel accent. Sits on the right
@@ -28,7 +28,7 @@ function Crystal({ mouse }: CrystalProps) {
   const group = useRef<THREE.Group>(null);
   const innerCore = useRef<THREE.Mesh>(null);
 
-  // Chamfered octahedron — start with an octahedron, smooth via vertex normals.
+  // Chamfered octahedron - start with an octahedron, smooth via vertex normals.
   const geometry = useMemo(() => {
     const g = new THREE.OctahedronGeometry(1.55, 2);
     g.computeVertexNormals();
@@ -39,7 +39,7 @@ function Crystal({ mouse }: CrystalProps) {
 
   useFrame((state, delta) => {
     if (!group.current) return;
-    // Auto-rotation on multiple axes — slow + luxurious
+    // Auto-rotation on multiple axes - slow + luxurious
     group.current.rotation.y += delta * 0.18;
     group.current.rotation.x += delta * 0.08;
 
@@ -88,7 +88,7 @@ function Crystal({ mouse }: CrystalProps) {
           />
         </mesh>
 
-        {/* Inner glowing core — the jewel inside the jewel */}
+        {/* Inner glowing core - the jewel inside the jewel */}
         <mesh ref={innerCore} geometry={coreGeo}>
           <meshStandardMaterial
             color={"#4F8DFF"}
@@ -99,7 +99,7 @@ function Crystal({ mouse }: CrystalProps) {
           />
         </mesh>
 
-        {/* Thin wireframe halo — adds architectural detail */}
+        {/* Thin wireframe halo - adds architectural detail */}
         <mesh geometry={geometry} scale={1.04}>
           <meshBasicMaterial
             color={"#4F8DFF"}

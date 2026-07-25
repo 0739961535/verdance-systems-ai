@@ -5,13 +5,16 @@ const isDev = process.env.NODE_ENV !== "production";
 // IP / a temporary tunnel) for QA on a phone. Drops the HTTPS-only hardening
 // (`upgrade-insecure-requests` + HSTS) that would otherwise rewrite every asset
 // URL to https:// and break styling on a non-localhost http origin. NEVER set
-// this on the real HTTPS deploy — the hardening must stay on there.
+// this on the real HTTPS deploy - the hardening must stay on there.
 const localHttp = process.env.LOCAL_HTTP === "1";
 
 // Content-Security-Policy. Kept strict where it doesn't break the site:
 // - 'unsafe-inline' is required for the pre-paint theme script and inline styles.
 // - 'unsafe-eval' + ws: are dev-only (Turbopack HMR).
 // - frame-src allows the GoHighLevel booking widget embedded on /contact.
+// - script-src allows link.msgsndr.com/js/form_embed.js, the official
+//   LeadConnector helper that auto-resizes the booking iframe to fit its
+//   content (otherwise the widget clips or shows an internal scrollbar).
 const csp = [
   "default-src 'self'",
   "base-uri 'self'",
@@ -20,7 +23,7 @@ const csp = [
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
   "style-src 'self' 'unsafe-inline'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
+  `script-src 'self' 'unsafe-inline' https://link.msgsndr.com${isDev ? " 'unsafe-eval'" : ""}`,
   "worker-src 'self' blob:",
   `connect-src 'self' https:${isDev ? " ws: wss:" : ""}`,
   "frame-src 'self' https://api.leadconnectorhq.com https://*.leadconnectorhq.com https://*.google.com",

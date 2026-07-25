@@ -28,7 +28,7 @@ export function BookDemoCTA() {
             </h2>
 
             <p className="text-[#5A6660] text-base md:text-lg leading-[1.65] max-w-lg mb-10">
-              Discover how the Verdance system can transform every customer interaction your business has — from first hello to long-tail loyalty.
+              Discover how the Verdance system can transform every customer interaction your business has - from first hello to long-tail loyalty.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
@@ -43,7 +43,7 @@ export function BookDemoCTA() {
             </div>
           </div>
 
-          {/* Right — emblem */}
+          {/* Right - emblem */}
           <div className="relative hidden lg:flex items-center justify-center w-[360px] h-[360px]">
             <div className="absolute inset-0 rounded-full animate-spin-slow"
                  style={{ background: "conic-gradient(from 0deg, transparent, rgba(184,148,100,0.28), rgba(0,200,150,0.24), rgba(27,77,62,0.18), transparent)", filter: "blur(16px)" }} />

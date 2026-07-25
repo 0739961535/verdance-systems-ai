@@ -1,11 +1,11 @@
 "use client";
 
 /**
- * HeroConstellation — the hero 3D centerpiece.
+ * HeroConstellation - the hero 3D centerpiece.
  *
  * An interconnected node network (a "neural constellation") with light
  * pulses travelling along its edges. It represents what Verdance actually
- * is: an AI system where every lead (node) is connected and routed — calls,
+ * is: an AI system where every lead (node) is connected and routed - calls,
  * messages and enquiries (pulses) flowing through to a booking. Slow auto-
  * rotation + mouse parallax, rendered in the azure brand palette.
  *

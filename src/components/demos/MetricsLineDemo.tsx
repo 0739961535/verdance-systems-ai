@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * MetricsLineDemo — small line-chart card with metrics ticking up.
+ * MetricsLineDemo - small line-chart card with metrics ticking up.
  * SVG line draws itself in, area-fill rises, three KPIs count up.
  *
  * Caller: src/app/how-it-works/page.tsx
@@ -116,7 +116,7 @@ export function MetricsLineDemo() {
       </div>
 
       <p className="mt-5 text-[12.5px] text-[color:var(--color-ink-muted)] max-w-xl leading-relaxed">
-        Every week the system books more of the leads you were losing. You get the report — more booked customers, more revenue, month after month.
+        Every week the system books more of the leads you were losing. You get the report - more booked customers, more revenue, month after month.
       </p>
     </div>
   );

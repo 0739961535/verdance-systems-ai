@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/apply" },
   openGraph: {
     title: "Apply for a Free Build | Verdance Systems AI",
-    description: "Watch the 6-minute walkthrough, then apply. We build the AI booking system on your business — free — before you commit.",
+    description: "Watch the 6-minute walkthrough, then apply. We build the AI booking system on your business - free - before you commit.",
     url: "https://verdancesystemsai.com/apply",
     type: "website",
     siteName: "Verdance Systems AI",
@@ -15,11 +15,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Apply for a Free Build | Verdance Systems AI",
-    description: "Watch the 6-minute walkthrough, then apply. We build the AI booking system on your business — free — before you commit.",
+    description: "Watch the 6-minute walkthrough, then apply. We build the AI booking system on your business - free - before you commit.",
   },
   title: "Apply for a Free Build | Verdance Systems AI",
   description:
-    "Watch the 6-minute walkthrough, then apply. We build the AI booking system on your business — free — before you commit.",
+    "Watch the 6-minute walkthrough, then apply. We build the AI booking system on your business - free - before you commit.",
   robots: { index: true, follow: true },
 };
 

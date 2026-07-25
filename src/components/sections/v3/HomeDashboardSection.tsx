@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * HomeDashboardSection — live operations dashboard between WhyVerdance & CapabilitySuite.
+ * HomeDashboardSection - live operations dashboard between WhyVerdance & CapabilitySuite.
  *
  * Caller: src/app/page.tsx
  */
@@ -26,7 +26,7 @@ export function HomeDashboardSection() {
           <Reveal delay={0.1}>
             <p className="mt-6 max-w-md text-lg text-[color:var(--color-ink-soft)] leading-relaxed">
               Conversations, replies, bookings, reactivations. You see exactly
-              what the system is doing — in the same place, 24/7. No spreadsheets,
+              what the system is doing - in the same place, 24/7. No spreadsheets,
               no guessing.
             </p>
           </Reveal>

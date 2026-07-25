@@ -65,9 +65,9 @@ export const packages: Package[] = [
     positioning: "The complete front-of-business growth system.",
     tagline: "Full automation across every client touchpoint.",
     bestFor:
-      "Established businesses who want high-performance automation across every channel — from first call to repeat booking.",
+      "Established businesses who want high-performance automation across every channel - from first call to repeat booking.",
     solves:
-      "You want every inbound channel handled, every interaction followed up, and full operational visibility — without adding headcount.",
+      "You want every inbound channel handled, every interaction followed up, and full operational visibility - without adding headcount.",
     highlight: "Everything in Growth, plus",
     products: [
       { name: "Smart Website", slug: "smart-website" },

@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import React from "react";
 
 /**
- * ConicBorder — rotating conic-gradient border that frames any child.
+ * ConicBorder - rotating conic-gradient border that frames any child.
  * Ported from the Framer Conic_Gradient_Component, tuned for the
  * dark + turquoise Verdance system.
  *

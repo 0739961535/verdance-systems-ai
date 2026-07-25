@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * DemoFrame & DemoSection — shared wrappers used by all pages.
+ * DemoFrame & DemoSection - shared wrappers used by all pages.
  * Every demo lives inside a ConicBorder card for visual cohesion.
  *
  * Callers: src/app/page.tsx, src/app/services/page.tsx, src/app/how-it-works/page.tsx

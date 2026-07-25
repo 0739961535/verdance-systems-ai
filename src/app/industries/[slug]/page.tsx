@@ -1,29 +1,91 @@
+import type { ComponentType, CSSProperties } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, CheckCircle, Scale, Building2, Heart, Car, Hammer, Dumbbell, Sparkles, UtensilsCrossed, BookOpen, ShoppingBag, Globe, MessageCircle, Phone, UserCheck, RefreshCw, Calendar, Mail, Star, BarChart2, ClipboardList, Bell, Zap } from "lucide-react";
+import {
+  CheckCircle,
+  Scale,
+  Building2,
+  Heart,
+  Car,
+  Wrench,
+  Dumbbell,
+  Sparkles,
+  UtensilsCrossed,
+  GraduationCap,
+  ShoppingBag,
+  Globe,
+  MessageCircle,
+  Phone,
+  UserCheck,
+  RefreshCw,
+  Calendar,
+  Repeat,
+  Star,
+  LayoutDashboard,
+  ClipboardList,
+  Send,
+  MessageSquare,
+  Zap,
+} from "lucide-react";
+import { Reveal } from "@/components/primitives/Reveal";
+import { MagneticButton } from "@/components/primitives/MagneticButton";
+import { AnimatedDivider } from "@/components/primitives/AnimatedDivider";
+import { GradientMesh } from "@/components/primitives/GradientMesh";
+import { FinalCTA } from "@/components/sections/v3/FinalCTA";
 import { industries, getIndustryBySlug } from "@/data/industries";
 import { getProductBySlug } from "@/data/products";
 import type { Metadata } from "next";
 
-const industryIconMap: Record<string, React.ElementType> = {
-  Scale, Building2, Heart, Car, Hammer, Dumbbell, Sparkles, UtensilsCrossed, BookOpen, ShoppingBag,
+type IconComponent = ComponentType<{ size?: number; className?: string; style?: CSSProperties }>;
+
+const industryIconMap: Record<string, IconComponent> = {
+  Scale,
+  Building2,
+  Heart,
+  Car,
+  Wrench,
+  Dumbbell,
+  Sparkles,
+  UtensilsCrossed,
+  GraduationCap,
+  ShoppingBag,
 };
 
-const productIconMap: Record<string, React.ElementType> = {
-  Globe, MessageCircle, Phone, UserCheck, RefreshCw, Calendar, Mail, Star, BarChart2, ClipboardList, Bell, Zap,
+const productIconMap: Record<string, IconComponent> = {
+  Globe,
+  MessageCircle,
+  Phone,
+  UserCheck,
+  RefreshCw,
+  Calendar,
+  Repeat,
+  Star,
+  LayoutDashboard,
+  ClipboardList,
+  Send,
+  MessageSquare,
 };
 
 const productColors: Record<string, { color: string; bg: string; border: string }> = {
-  Presence:       { color: "var(--color-accent)", bg: "rgba(var(--accent-rgb),0.08)",  border: "rgba(var(--accent-rgb),0.20)" },
-  Messaging:      { color: "var(--color-accent)", bg: "rgba(var(--accent-rgb),0.08)",   border: "rgba(var(--accent-rgb),0.20)" },
-  Communication:  { color: "#5AAEFF", bg: "rgba(90,174,255,0.08)",  border: "rgba(90,174,255,0.20)" },
-  Pipeline:       { color: "#33DDD3", bg: "rgba(51,221,211,0.08)",  border: "rgba(51,221,211,0.20)" },
-  Booking:        { color: "var(--color-accent)", bg: "rgba(var(--accent-rgb),0.08)",  border: "rgba(var(--accent-rgb),0.20)" },
-  Intelligence:   { color: "var(--color-accent)", bg: "rgba(var(--accent-rgb),0.08)",   border: "rgba(var(--accent-rgb),0.20)" },
-  Reputation:     { color: "#5AAEFF", bg: "rgba(90,174,255,0.08)",  border: "rgba(90,174,255,0.20)" },
-  "Follow-Up":    { color: "#33DDD3", bg: "rgba(51,221,211,0.08)",  border: "rgba(51,221,211,0.20)" },
-  Conversion:     { color: "var(--color-accent)", bg: "rgba(var(--accent-rgb),0.08)",  border: "rgba(var(--accent-rgb),0.20)" },
+  Presence:      { color: "var(--color-accent)", bg: "rgba(var(--accent-rgb),0.08)", border: "rgba(var(--accent-rgb),0.20)" },
+  Messaging:     { color: "var(--color-accent)", bg: "rgba(var(--accent-rgb),0.08)", border: "rgba(var(--accent-rgb),0.20)" },
+  Communication: { color: "#5AAEFF", bg: "rgba(90,174,255,0.08)", border: "rgba(90,174,255,0.20)" },
+  Pipeline:      { color: "#33DDD3", bg: "rgba(51,221,211,0.08)", border: "rgba(51,221,211,0.20)" },
+  Booking:       { color: "var(--color-accent)", bg: "rgba(var(--accent-rgb),0.08)", border: "rgba(var(--accent-rgb),0.20)" },
+  Intelligence:  { color: "var(--color-accent)", bg: "rgba(var(--accent-rgb),0.08)", border: "rgba(var(--accent-rgb),0.20)" },
+  Reputation:    { color: "#5AAEFF", bg: "rgba(90,174,255,0.08)", border: "rgba(90,174,255,0.20)" },
+  "Follow-Up":   { color: "#33DDD3", bg: "rgba(51,221,211,0.08)", border: "rgba(51,221,211,0.20)" },
+  Conversion:    { color: "var(--color-accent)", bg: "rgba(var(--accent-rgb),0.08)", border: "rgba(var(--accent-rgb),0.20)" },
 };
+
+/** Industry headlines are plain sentences (no italicWord field like services).
+ *  Split off the last sentence to get a consistent italic-accent punchline;
+ *  single-sentence headlines render plain. */
+function splitHeadline(headline: string): { lead: string; accent: string | null } {
+  const sentences = headline.trim().split(/(?<=\.)\s+/).filter(Boolean);
+  if (sentences.length < 2) return { lead: headline, accent: null };
+  return { lead: sentences.slice(0, -1).join(" "), accent: sentences[sentences.length - 1] };
+}
 
 export async function generateStaticParams() {
   return industries.map((i) => ({ slug: i.slug }));
@@ -54,6 +116,7 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
   const relevantProducts = industry.relevantProducts
     .map((s) => getProductBySlug(s))
     .filter(Boolean);
+  const { lead, accent } = splitHeadline(industry.headline);
 
   const url = `https://verdancesystemsai.com/industries/${slug}`;
   const jsonLd = {
@@ -67,79 +130,136 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
   };
 
   return (
-    <main className="bg-canvas min-h-screen">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {/* Hero */}
-      <section className="section-padding pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(var(--accent-rgb),0.08),transparent)] pointer-events-none" />
-        <div className="container-wide relative z-10 max-w-3xl">
-          <span className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold bg-[rgba(var(--accent-rgb),0.10)] border border-[color:rgba(var(--accent-rgb),0.22)] text-[color:var(--color-accent)] mb-6">
-            <IndustryIcon size={12} />
-            {industry.name}
-          </span>
-          <h1 className="font-display font-bold text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.05] tracking-tight text-[color:var(--color-ink)] mb-4">
-            {industry.headline}
-          </h1>
-          <p className="text-[color:var(--color-ink-muted)] text-xl leading-relaxed mb-8">{industry.subheadline}</p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent)] text-[color:var(--color-ink)] font-semibold px-7 py-3.5 rounded-lg shadow-[0_0_0_1px_rgba(var(--accent-rgb),0.4),0_4px_20px_rgba(var(--accent-rgb),0.35)] hover:shadow-[0_0_0_1px_rgba(var(--accent-rgb),0.6),0_6px_28px_rgba(var(--accent-rgb),0.5)] hover:-translate-y-px active:translate-y-0 transition-all duration-300 text-base"
-          >
-            Book a Strategy Call <ArrowRight size={16} />
-          </Link>
+
+      {/* HERO */}
+      <section className="relative isolate overflow-hidden pt-36 pb-16 md:pt-44 md:pb-24">
+        <div className="absolute inset-0 -z-10">
+          <GradientMesh intensity="soft" />
+        </div>
+        <div className="container-wide">
+          <Reveal>
+            <nav className="font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-ink-muted)]">
+              <Link href="/industries" className="hover:text-[color:var(--color-accent)] transition-colors">
+                Industries
+              </Link>
+              <span className="mx-2 text-[color:var(--color-ink-faint)]">/</span>
+              <span className="text-[color:var(--color-accent)]">{industry.name}</span>
+            </nav>
+          </Reveal>
+
+          <Reveal delay={0.05}>
+            <span className="mt-6 inline-flex items-center gap-2 eyebrow">
+              <IndustryIcon size={12} />
+              {industry.name}
+            </span>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h1 className="mt-4 headline-hero max-w-[20ch]">
+              {lead} {accent && <span className="italic-accent">{accent}</span>}
+            </h1>
+          </Reveal>
+          <Reveal delay={0.15}>
+            <p className="mt-8 max-w-2xl text-lg md:text-xl text-[color:var(--color-ink-soft)] leading-relaxed">
+              {industry.subheadline}
+            </p>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <MagneticButton href="/contact" variant="accent">
+                Book a free consult
+              </MagneticButton>
+              <MagneticButton href="/industries" variant="ghost">
+                All industries
+              </MagneticButton>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Problems */}
-      <section className="section-padding bg-canvas-2">
-        <div className="container-wide max-w-3xl">
-          <span className="text-[0.65rem] font-bold tracking-[0.15em] uppercase mb-6 block text-[color:var(--color-accent)]">The Challenges</span>
-          <div className="grid sm:grid-cols-2 gap-4">
+      {/* PROBLEMS */}
+      <section className="relative section-pad bg-canvas-2">
+        <div className="container-wide">
+          <div className="max-w-3xl">
+            <Reveal>
+              <span className="eyebrow">The challenges</span>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <h2 className="mt-4 headline-section">
+                What&apos;s costing you{" "}
+                <span className="italic-accent">customers.</span>
+              </h2>
+            </Reveal>
+          </div>
+
+          <div className="mt-12 grid gap-5 sm:grid-cols-2">
             {industry.problems.map((problem, i) => (
-              <div
-                key={i}
-                className="rounded-xl p-5"
-                style={{ background: "rgba(var(--hairline-rgb),0.03)", border: "1px solid rgba(var(--accent-rgb),0.12)" }}
-              >
-                <p className="font-semibold text-sm text-[color:var(--color-ink)] mb-2">{problem.title}</p>
-                <p className="text-[color:var(--color-ink-muted)] text-xs leading-relaxed">{problem.description}</p>
-              </div>
+              <Reveal key={problem.title} delay={i * 0.05}>
+                <div
+                  className="rounded-2xl border p-6 h-full"
+                  style={{ borderColor: "var(--color-hairline)", background: "rgba(var(--hairline-rgb),0.02)" }}
+                >
+                  <p className="font-display text-lg font-medium text-[color:var(--color-ink)] mb-2">
+                    {problem.title}
+                  </p>
+                  <p className="text-[color:var(--color-ink-soft)] text-sm leading-relaxed">
+                    {problem.description}
+                  </p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Relevant Products */}
+      {/* RELEVANT PRODUCTS */}
       {relevantProducts.length > 0 && (
-        <section className="section-padding bg-canvas">
-          <div className="container-wide max-w-3xl">
-            <span className="text-[0.65rem] font-bold tracking-[0.15em] uppercase mb-6 block text-[color:var(--color-accent)]">Recommended Products</span>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {relevantProducts.map((product) => {
+        <section className="relative section-pad bg-canvas">
+          <div className="container-wide">
+            <div className="max-w-3xl">
+              <Reveal>
+                <span className="eyebrow">What we&apos;d build</span>
+              </Reveal>
+              <Reveal delay={0.05}>
+                <h2 className="mt-4 headline-section">
+                  Recommended for{" "}
+                  <span className="italic-accent">{industry.name.toLowerCase()}.</span>
+                </h2>
+              </Reveal>
+            </div>
+
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {relevantProducts.map((product, i) => {
                 if (!product) return null;
                 const ProductIcon = productIconMap[product.icon] ?? Zap;
                 const colors = productColors[product.category] ?? productColors.Presence;
                 return (
-                  <Link
-                    key={product.slug}
-                    href={`/products/${product.slug}`}
-                    className="group rounded-xl p-4 flex gap-3 items-start transition-all duration-300"
-                    style={{ background: colors.bg, border: `1px solid ${colors.border}` }}
-                  >
-                    <div
-                      className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                      style={{ background: `${colors.color}20` }}
+                  <Reveal key={product.slug} delay={i * 0.04}>
+                    <Link
+                      href={`/products/${product.slug}`}
+                      className="group rounded-2xl p-5 flex gap-3.5 items-start h-full transition-all duration-300"
+                      style={{ background: colors.bg, border: `1px solid ${colors.border}` }}
                     >
-                      <ProductIcon size={14} style={{ color: colors.color }} />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-sm text-[color:var(--color-ink)] leading-snug mb-0.5">{product.name}</p>
-                      <p className="text-[color:var(--color-ink-muted)] text-xs leading-relaxed line-clamp-2">{product.tagline}</p>
-                    </div>
-                  </Link>
+                      <div
+                        className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300"
+                        style={{ background: `${colors.color}20` }}
+                      >
+                        <ProductIcon size={16} style={{ color: colors.color }} />
+                      </div>
+                      <div>
+                        <p className="font-display font-medium text-[15px] text-[color:var(--color-ink)] leading-snug mb-1">
+                          {product.name}
+                        </p>
+                        <p className="text-[color:var(--color-ink-soft)] text-xs leading-relaxed">
+                          {product.tagline}
+                        </p>
+                      </div>
+                    </Link>
+                  </Reveal>
                 );
               })}
             </div>
@@ -147,70 +267,88 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
         </section>
       )}
 
-      {/* Automation Flow */}
-      <section className="section-padding bg-canvas-2">
+      <div className="container-wide">
+        <AnimatedDivider variant="accent" />
+      </div>
+
+      {/* AUTOMATION FLOW */}
+      <section className="relative section-pad bg-canvas-2">
         <div className="container-wide max-w-3xl">
-          <span className="text-[0.65rem] font-bold tracking-[0.15em] uppercase mb-6 block text-[color:var(--color-accent)]">How It Works</span>
-          <div className="flex flex-col gap-3">
+          <Reveal>
+            <span className="eyebrow">How it works</span>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <h2 className="mt-4 headline-section">
+              The system,{" "}
+              <span className="italic-accent">step by step.</span>
+            </h2>
+          </Reveal>
+
+          <div className="mt-12 flex flex-col gap-3">
             {industry.automationFlow.map((step, i) => (
-              <div
-                key={i}
-                className="flex gap-4 rounded-xl p-4"
-                style={{ background: "rgba(var(--accent-rgb),0.06)", border: "1px solid rgba(var(--accent-rgb),0.15)" }}
-              >
-                <span className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-[0.7rem] font-bold bg-[var(--color-accent)] text-[color:var(--color-on-accent)]">
-                  {step.step}
-                </span>
-                <div>
-                  <p className="font-semibold text-sm text-[color:var(--color-ink)] mb-0.5">{step.label}</p>
-                  <p className="text-[color:var(--color-ink-muted)] text-xs leading-relaxed">{step.description}</p>
+              <Reveal key={step.step} delay={i * 0.05}>
+                <div
+                  className="flex gap-4 rounded-2xl p-5 items-start"
+                  style={{ background: "rgba(var(--accent-rgb),0.05)", border: "1px solid rgba(var(--accent-rgb),0.16)" }}
+                >
+                  <span
+                    className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-mono text-xs font-semibold"
+                    style={{ background: "var(--color-accent)", color: "var(--color-on-accent)" }}
+                  >
+                    {step.step}
+                  </span>
+                  <div>
+                    <p className="font-display font-medium text-[15px] text-[color:var(--color-ink)] mb-1">
+                      {step.label}
+                    </p>
+                    <p className="text-[color:var(--color-ink-soft)] text-sm leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Outcomes */}
-      <section className="section-padding bg-canvas">
+      {/* OUTCOMES */}
+      <section className="relative section-pad bg-canvas">
         <div className="container-wide max-w-3xl">
-          <span className="text-[0.65rem] font-bold tracking-[0.15em] uppercase mb-6 block text-[color:var(--color-accent)]">Expected Outcomes</span>
-          <div className="grid sm:grid-cols-3 gap-4">
+          <Reveal>
+            <span className="eyebrow">Expected outcomes</span>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <h2 className="mt-4 headline-section">
+              What changes,{" "}
+              <span className="italic-accent">on the numbers.</span>
+            </h2>
+          </Reveal>
+
+          <div className="mt-12 grid gap-5 sm:grid-cols-3">
             {industry.outcomes.map((outcome, i) => (
-              <div
-                key={i}
-                className="rounded-xl p-5 flex gap-3 items-start"
-                style={{ background: "rgba(var(--accent-rgb),0.06)", border: "1px solid rgba(var(--accent-rgb),0.18)" }}
-              >
-                <CheckCircle size={16} className="text-[color:var(--color-accent)] shrink-0 mt-0.5" />
-                <div>
-                  <p className="font-display font-bold text-lg text-[color:var(--color-accent)] leading-none mb-1">{outcome.metric}</p>
-                  <p className="text-[color:var(--color-ink-muted)] text-xs leading-relaxed">{outcome.description}</p>
+              <Reveal key={outcome.description} delay={i * 0.05}>
+                <div
+                  className="rounded-2xl p-6 h-full"
+                  style={{ background: "rgba(var(--accent-rgb),0.06)", border: "1px solid rgba(var(--accent-rgb),0.20)" }}
+                >
+                  <div className="flex items-center gap-2">
+                    <CheckCircle size={16} className="text-[color:var(--color-accent)] shrink-0" />
+                    <p className="font-display font-medium text-2xl text-[color:var(--color-accent)] leading-none">
+                      {outcome.metric}
+                    </p>
+                  </div>
+                  <p className="mt-3 text-[color:var(--color-ink-soft)] text-sm leading-relaxed">
+                    {outcome.description}
+                  </p>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section-padding bg-canvas-2 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_100%,rgba(var(--accent-rgb),0.08),transparent)] pointer-events-none" />
-        <div className="container-wide max-w-2xl text-center relative z-10">
-          <h2 className="font-display font-bold text-[clamp(1.75rem,4vw,2.5rem)] text-[color:var(--color-ink)] leading-tight tracking-tight mb-4">
-            Ready to automate your {industry.name.toLowerCase()} business?
-          </h2>
-          <p className="text-[color:var(--color-ink-muted)] text-base leading-relaxed mb-8">
-            Book a strategy call and we&apos;ll map out exactly how these systems fit into your workflow.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent)] text-[color:var(--color-ink)] font-semibold px-8 py-4 rounded-xl shadow-[0_0_0_1px_rgba(var(--accent-rgb),0.4),0_4px_24px_rgba(var(--accent-rgb),0.35)] hover:shadow-[0_0_0_1px_rgba(var(--accent-rgb),0.6),0_6px_32px_rgba(var(--accent-rgb),0.5)] hover:-translate-y-px active:translate-y-0 transition-all duration-300 text-base"
-          >
-            Book a Strategy Call <ArrowRight size={16} />
-          </Link>
-        </div>
-      </section>
-    </main>
+      <FinalCTA />
+    </>
   );
 }

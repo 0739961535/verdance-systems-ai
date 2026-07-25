@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 /**
- * LegalLayout / LegalSection — a clean, legible reading layout for the
+ * LegalLayout / LegalSection - a clean, legible reading layout for the
  * Privacy and Terms pages. Narrow measure, generous rhythm, site tokens.
  */
 
