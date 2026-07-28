@@ -104,27 +104,6 @@ export function HomeHero() {
        <div className="grid items-center gap-12 lg:grid-cols-[1.04fr_0.96fr] lg:gap-8">
         {/* LEFT - the pitch */}
         <div className="relative z-10">
-        {/* Eyebrow */}
-        <div
-          className="enter-fade-up inline-flex items-center gap-3 rounded-full border border-[color:var(--color-hairline-2)] bg-[color:var(--color-bg-glass)] backdrop-blur-md px-4 py-1.5"
-          style={{ animationDelay: "0.05s" }}
-        >
-          <span className="relative inline-flex h-1.5 w-1.5">
-            <span
-              className="absolute inline-flex h-full w-full rounded-full opacity-70 animate-pulse-ring"
-              style={{ background: "var(--color-accent)" }}
-            />
-            <span
-              className="relative inline-flex h-1.5 w-1.5 rounded-full"
-              style={{
-                background: "var(--color-accent)",
-                boxShadow: "0 0 10px rgba(var(--accent-rgb),0.8)",
-              }}
-            />
-          </span>
-          <span className="eyebrow">24/7 AI receptionist · done for you</span>
-        </div>
-
         {/* Hero headline - fixed lead-in + a phrase that keeps saying what we do */}
         <h1
           className="mt-9 md:mt-11 headline-hero max-w-[15ch] relative z-10"

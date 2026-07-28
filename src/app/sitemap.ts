@@ -16,7 +16,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/industries", priority: 0.8, freq: "monthly" },
     { path: "/products", priority: 0.8, freq: "monthly" },
     { path: "/how-it-works", priority: 0.8, freq: "monthly" },
-    { path: "/results", priority: 0.7, freq: "monthly" },
     { path: "/contact", priority: 0.7, freq: "yearly" },
     { path: "/apply", priority: 0.8, freq: "monthly" },
     // Deliberately excluded until they carry real content:

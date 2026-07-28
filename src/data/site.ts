@@ -18,7 +18,6 @@ export const NAV_ITEMS = [
   { label: "Services", href: "/services" },
   { label: "Industries", href: "/industries" },
   { label: "How It Works", href: "/how-it-works" },
-  { label: "Results", href: "/results" },
   { label: "Contact", href: "/contact" },
 ];
 

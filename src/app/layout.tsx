@@ -66,9 +66,9 @@ export const metadata: Metadata = {
   creator: "Verdance Systems AI",
   publisher: "Verdance Systems AI",
   openGraph: {
-    title: "Verdance Systems AI",
+    title: "Verdance Systems AI - Your AI Integration Partner",
     description:
-      "We install an AI system that answers every call, follows up with every lead, and books straight into your calendar. Start with a free consult.",
+      "We install and run AI systems that answer every call, follow up with every lead, and book straight into your calendar. Start with a free consult.",
     url: "https://verdancesystemsai.com",
     type: "website",
     locale: "en_GB",
@@ -76,8 +76,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Verdance Systems AI",
-    description: "AI that books more customers for local businesses. Free consult first.",
+    title: "Verdance Systems AI - Your AI Integration Partner",
+    description: "Your AI integration partner for local businesses. Free consult first.",
   },
   robots: {
     index: true,
