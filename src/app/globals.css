@@ -296,6 +296,10 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   background: var(--bg);
+  /* Stop the browser's native pull-to-refresh firing when a swipe-down
+     starts at the top of the page on mobile. `contain` keeps normal
+     in-page scrolling but blocks the overscroll from reloading the page. */
+  overscroll-behavior-y: contain;
 }
 
 body {
