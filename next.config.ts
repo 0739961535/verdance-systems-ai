@@ -15,21 +15,24 @@ const localHttp = process.env.LOCAL_HTTP === "1";
 // - script-src allows link.msgsndr.com/js/form_embed.js, the official
 //   LeadConnector helper that auto-resizes the booking iframe to fit its
 //   content (otherwise the widget clips or shows an internal scrollbar).
+// - *.leadconnectorhq.com (script/style/font/media) + fonts.bunny.net (style/
+//   font) are the sitewide chat widget (Conversation AI) loaded by
+//   GHLChatWidget — it chains resources off widgets./stcdn./services. subdomains.
 const csp = [
   "default-src 'self'",
   "base-uri 'self'",
   "object-src 'none'",
   "frame-ancestors 'self'",
   "img-src 'self' data: blob: https:",
-  "font-src 'self' data:",
-  "style-src 'self' 'unsafe-inline'",
-  `script-src 'self' 'unsafe-inline' https://link.msgsndr.com${isDev ? " 'unsafe-eval'" : ""}`,
+  "font-src 'self' data: https://*.leadconnectorhq.com https://fonts.bunny.net",
+  "style-src 'self' 'unsafe-inline' https://*.leadconnectorhq.com https://fonts.bunny.net",
+  `script-src 'self' 'unsafe-inline' https://link.msgsndr.com https://*.leadconnectorhq.com${isDev ? " 'unsafe-eval'" : ""}`,
   "worker-src 'self' blob:",
   `connect-src 'self' https:${isDev ? " ws: wss:" : ""}`,
   "frame-src 'self' https://api.leadconnectorhq.com https://*.leadconnectorhq.com https://*.google.com",
   "form-action 'self' https://*.leadconnectorhq.com",
   "manifest-src 'self'",
-  "media-src 'self'",
+  "media-src 'self' https://*.leadconnectorhq.com",
   ...(isDev || localHttp ? [] : ["upgrade-insecure-requests"]),
 ].join("; ");
 

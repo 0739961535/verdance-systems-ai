@@ -4,7 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/primitives/SmoothScroll";
-import { ChatbotWidget } from "@/components/primitives/ChatbotWidget";
+import { GHLChatWidget } from "@/components/primitives/GHLChatWidget";
 import { BrandStudio } from "@/components/primitives/BrandStudio";
 import { NoPullToRefresh } from "@/components/primitives/NoPullToRefresh";
 
@@ -155,7 +155,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </SmoothScroll>
-        <ChatbotWidget />
+        <GHLChatWidget />
         {process.env.NEXT_PUBLIC_BRAND_STUDIO === "1" && <BrandStudio />}
       </body>
     </html>
