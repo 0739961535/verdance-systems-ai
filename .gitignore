@@ -45,3 +45,7 @@ next-env.d.ts
 .venv/
 conductor
 /UPGRADE_PLAN.md
+
+
+# Client working files - not part of the Verdance site
+/public/clients/skydouny/
