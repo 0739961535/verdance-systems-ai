@@ -297,9 +297,10 @@ html {
   text-rendering: optimizeLegibility;
   background: var(--bg);
   /* Stop the browser's native pull-to-refresh firing when a swipe-down
-     starts at the top of the page on mobile. `contain` keeps normal
-     in-page scrolling but blocks the overscroll from reloading the page. */
-  overscroll-behavior-y: contain;
+     starts at the top of the page on mobile. `none` blocks the overscroll
+     reload on both Android Chrome and iOS Safari 16+ without any JS -
+     normal in-page scrolling stays fully native and composited. */
+  overscroll-behavior-y: none;
 }
 
 body {
