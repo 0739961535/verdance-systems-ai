@@ -2,31 +2,29 @@ import Script from "next/script";
 import { SITE } from "@/data/site";
 
 /**
- * GHLBookingEmbed - embeds the live GoHighLevel booking calendar (the same
- * calendar behind SITE.ghlBooking) as an iframe. The official
- * link.msgsndr.com/js/form_embed.js helper listens for the widget's postMessage
- * and auto-resizes the iframe to its content, so there is no inner scrollbar.
+ * GHLBookingEmbed - the live GoHighLevel booking calendar.
  *
- * Unlike the API-backed BookingCard, this needs no server env vars - it works
- * from the public widget URL alone. The site CSP already allows the frame
- * (*.leadconnectorhq.com) and the resize script (link.msgsndr.com).
+ * Rendered bare (no card, border or background) so it sits flush with no bubble
+ * or padding around it. Sizing is deliberately defensive: GHL's resize helper
+ * (link.msgsndr.com/js/form_embed.js) is loaded and will fit the iframe exactly
+ * on browsers where it fires - but it proved unreliable in practice, so we also
+ * give the iframe a sensible min-height (taller on mobile, where the calendar
+ * stacks) and leave scrolling enabled. That way the widget is never cut off:
+ * if it's taller than the min-height it simply scrolls inside the frame.
  *
- * Calendar look-and-feel (colours, fonts) is controlled inside GoHighLevel's
- * calendar settings, not here.
+ * CSP already allows the frame (*.leadconnectorhq.com) and the script
+ * (link.msgsndr.com), so this needs no server config.
  */
+const CALENDAR_ID = SITE.ghlBooking.split("/").filter(Boolean).pop() || "booking";
+
 export function GHLBookingEmbed({ className = "" }: { className?: string }) {
   return (
-    <div
-      className={`surface relative overflow-hidden ${className}`}
-      style={{ borderRadius: 20, border: "1px solid var(--hairline-2)", background: "var(--bg-3)" }}
-    >
+    <div className={className}>
       <iframe
         src={SITE.ghlBooking}
         title="Book a meeting"
-        loading="lazy"
-        scrolling="no"
-        style={{ width: "100%", minHeight: 720, border: "none", display: "block" }}
-        id="vsai-booking-calendar"
+        className="block w-full border-0 min-h-[740px] md:min-h-[660px]"
+        id={`${CALENDAR_ID}_calendar`}
       />
       <Script
         src="https://link.msgsndr.com/js/form_embed.js"

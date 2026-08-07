@@ -2,7 +2,8 @@ export const SITE = {
   name: "Verdance Systems AI",
   shortName: "Verdance",
   email: "daniel@verdancesystemsai.com",
-  phone: "+27 73 996 1535",
+  phone: "+27 73 996 1535", // South Africa
+  phoneUK: "+44 7432 351517", // United Kingdom
   location: "Worldwide · Remote-first",
   whatsapp: {
     href: "https://wa.me/27739961535?text=Hi%20Daniel%2C%20I%27d%20like%20to%20know%20more%20about%20Verdance%20Systems%20AI.",

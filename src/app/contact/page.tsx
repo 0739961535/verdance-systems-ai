@@ -78,7 +78,15 @@ export default function ContactPage() {
                 href={`tel:${SITE.phone.replace(/\s/g, "")}`}
                 className="font-medium text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)] transition-colors"
               >
+                <span className="text-[color:var(--color-ink-muted)]">SA</span>{" "}
                 {SITE.phone}
+              </a>
+              <a
+                href={`tel:${SITE.phoneUK.replace(/\s/g, "")}`}
+                className="font-medium text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)] transition-colors"
+              >
+                <span className="text-[color:var(--color-ink-muted)]">UK</span>{" "}
+                {SITE.phoneUK}
               </a>
               <a
                 href={SITE.whatsapp.href}
