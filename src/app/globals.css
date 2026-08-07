@@ -30,9 +30,14 @@
   /* ink */
   --ink:        #FFFFFF;
   --ink-soft:   #C5CDD3;
-  --ink-muted:  #6B7680;
+  --ink-muted:  #8A96A0; /* lifted from #6B7680 to clear 4.5:1 on card bgs */
   --ink-faint:  #3E4750;
   --ink-rgb:    255, 255, 255;
+
+  /* signal - emerald, ONLY for live/positive telemetry (live dots, "after"
+     values in delta rows, booked-call events). Never buttons or headings. */
+  --signal:     #34D399;
+  --signal-dim: rgba(52, 211, 153, 0.14);
 
   /* ── BRAND PALETTE - electric azure (original) ─────────────── */
 
@@ -106,9 +111,12 @@
 
   --ink:        #0A1524;
   --ink-soft:   #33415A;
-  --ink-muted:  #566277;
+  --ink-muted:  #4E5B71; /* darkened to hold 4.5:1 on white */
   --ink-faint:  #93A1B8;
   --ink-rgb:    10, 21, 36;
+
+  --signal:     #059669; /* emerald-600 - 4.5:1+ on white */
+  --signal-dim: rgba(5, 150, 105, 0.12);
 
   /* electric azure (original) - deepened for contrast on white */
   /* PRIMARY - deep azure (4.5:1+ on white) */
@@ -264,7 +272,7 @@
   /* ── TYPOGRAPHY ──────────────────────────────────────────── */
   --font-display: var(--font-geist), 'Geist', 'Inter', system-ui, sans-serif;
   --font-body:    var(--font-inter), 'Inter', system-ui, sans-serif;
-  --font-serif:   var(--font-instrument), 'Instrument Serif', 'EB Garamond', Georgia, serif;
+  --font-serif:   var(--font-fraunces), 'Fraunces', 'EB Garamond', Georgia, serif;
   --font-mono:    var(--font-jetbrains), 'JetBrains Mono', ui-monospace, monospace;
 
   /* ── RADIUS ──────────────────────────────────────────────── */
@@ -618,30 +626,17 @@ html.lenis, html.lenis body { height: auto; }
    ANIMATIONS
    ============================================================ */
 
-@keyframes aurora-drift {
-  0%   { transform: translate3d(-2%, -1%, 0) scale(1.0); opacity: 0.85; }
-  50%  { transform: translate3d(2%,  1%, 0) scale(1.08); opacity: 1.0; }
-  100% { transform: translate3d(-2%, -1%, 0) scale(1.0); opacity: 0.85; }
-}
-@keyframes shimmer {
-  0%, 100% { opacity: 0.4; transform: scaleX(0.85); }
-  50%      { opacity: 1;   transform: scaleX(1); }
-}
-@keyframes float-y      { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
+/* Control Room motion budget: continuous decorative loops are banned
+   (aurora drift, floating, slow spins, glow pulses). Deleted keyframes:
+   aurora-drift, shimmer, float-y, spin-slow, glow-pulse, scroll-hint.
+   pulse-ring survives for exactly one use: the live-status dot in data
+   UI (it is data, not decoration). marquee-x survives for the single
+   capability ticker. */
 @keyframes pulse-ring   { 0% { transform: scale(0.95); opacity: 0.7 } 70% { transform: scale(1.6); opacity: 0 } 100% { transform: scale(1.6); opacity: 0 } }
 @keyframes marquee-x    { from { transform: translateX(0) } to { transform: translateX(-50%) } }
-@keyframes spin-slow    { from { transform: rotate(0) } to { transform: rotate(360deg) } }
-@keyframes glow-pulse   { 0%, 100% { opacity: 0.4 } 50% { opacity: 1 } }
-@keyframes scroll-hint  { 0% { transform: translateY(-100%); opacity: 0 } 30% { opacity: 1 } 100% { transform: translateY(100%); opacity: 0 } }
 
-.animate-aurora      { animation: aurora-drift 18s ease-in-out infinite; }
-.animate-shimmer     { animation: shimmer 4s ease-in-out infinite; transform-origin: center; }
-.animate-float       { animation: float-y 6s ease-in-out infinite; }
 .animate-pulse-ring  { animation: pulse-ring 2.6s ease-out infinite; }
 .animate-marquee     { animation: marquee-x 60s linear infinite; }
-.animate-spin-slow   { animation: spin-slow 40s linear infinite; }
-.animate-glow-pulse  { animation: glow-pulse 3.4s ease-in-out infinite; }
-.animate-scroll-hint { animation: scroll-hint 2.4s ease-in-out infinite; }
 
 .magnetic-target { display: inline-block; will-change: transform; }
 

@@ -9,6 +9,7 @@
 
 import Script from "next/script";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 /**
  * Routes where the floating widget is suppressed - same reasoning as Mia: on
@@ -23,6 +24,41 @@ export function GHLChatWidget() {
   const pathname = usePathname();
   const hidden =
     !!pathname && HIDE_ON.some((p) => pathname === p || pathname.startsWith(p + "/"));
+
+  // On mobile the sticky CTA bar occupies the bottom 64px+, and the widget's
+  // bubble parks at bottom: 20px as an inline style inside its shadow root -
+  // exactly on top of the bar's WhatsApp button. Stylesheet overrides don't
+  // reach it reliably, so lift it with inline !important styles once the
+  // shadow elements exist, and re-assert on resize.
+  useEffect(() => {
+    const LIFT_BELOW = 768;
+
+    const apply = () => {
+      const root = document.querySelector("chat-widget")?.shadowRoot;
+      if (!root) return false;
+      const els = root.querySelectorAll<HTMLElement>(".lc_text-widget, .lc_text-widget--bubble");
+      if (!els.length) return false;
+      els.forEach((el) => {
+        if (window.innerWidth < LIFT_BELOW) {
+          el.style.setProperty("bottom", "88px", "important");
+        } else {
+          el.style.removeProperty("bottom");
+        }
+      });
+      return true;
+    };
+
+    // The widget loads asynchronously after hydration - poll gently until its
+    // shadow DOM exists, then stop.
+    const poll = setInterval(() => {
+      if (apply()) clearInterval(poll);
+    }, 500);
+    window.addEventListener("resize", apply);
+    return () => {
+      clearInterval(poll);
+      window.removeEventListener("resize", apply);
+    };
+  }, []);
 
   return (
     <>

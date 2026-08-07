@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Geist, JetBrains_Mono, Instrument_Serif, Fraunces } from "next/font/google";
+import { Inter, Geist, JetBrains_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -28,14 +28,6 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
-const instrument = Instrument_Serif({
-  variable: "--font-instrument",
-  subsets: ["latin"],
-  weight: ["400"],
-  style: ["italic", "normal"],
-  display: "swap",
-});
-
 // Accent word ("recovered.", "free." etc.) - Fraunces italic reads far clearer
 // than the hairline Instrument Serif, with more weight and character.
 const fraunces = Fraunces({
@@ -48,27 +40,29 @@ const fraunces = Fraunces({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://verdancesystemsai.com"),
-  title: "AI Receptionist for Local Businesses | Verdance Systems AI",
+  title: "AI Systems Agency | Marketing, Sales & Automation | Verdance Systems AI",
   description:
-    "A done-for-you AI receptionist that answers every call, text and DM 24/7, follows up with every lead, and books appointments straight into your calendar. Free consult.",
+    "Verdance designs, builds and runs AI systems across marketing, sales, operations and automation - conversation AI, voice agents, CRM, custom agents and integrations. Book a free AI Systems Audit and leave with a roadmap.",
   applicationName: "Verdance Systems AI",
   keywords: [
-    "AI receptionist",
-    "missed call text back",
-    "lead follow-up automation",
-    "AI appointment booking",
+    "AI systems agency",
     "AI automation agency",
-    "AI for local businesses worldwide",
-    "WhatsApp AI",
+    "AI agents for business",
+    "conversation AI",
     "voice AI agent",
+    "WhatsApp AI",
+    "CRM automation",
+    "AI receptionist",
+    "lead follow-up automation",
+    "MCP integrations",
   ],
   authors: [{ name: "Daniel Bouwer", url: "https://www.linkedin.com/in/daniel-bouwer/" }],
   creator: "Verdance Systems AI",
   publisher: "Verdance Systems AI",
   openGraph: {
-    title: "Verdance Systems AI - Your AI Integration Partner",
+    title: "Verdance Systems AI - We don't talk about AI. We ship it.",
     description:
-      "We install and run AI systems that answer every call, follow up with every lead, and book straight into your calendar. Start with a free consult.",
+      "AI systems for marketing, sales, operations and automation - designed, built and run for you. You own everything we build. Start with a free AI Systems Audit.",
     url: "https://verdancesystemsai.com",
     type: "website",
     locale: "en_GB",
@@ -76,8 +70,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Verdance Systems AI - Your AI Integration Partner",
-    description: "Your AI integration partner for local businesses. Free consult first.",
+    title: "Verdance Systems AI - We don't talk about AI. We ship it.",
+    description:
+      "AI systems for marketing, sales, operations and automation. Free AI Systems Audit first.",
   },
   robots: {
     index: true,
@@ -117,7 +112,7 @@ const JSON_LD = {
       email: "daniel@verdancesystemsai.com",
       logo: `${SITE_URL}/logo.png`,
       description:
-        "A done-for-you AI automation agency that answers every call, follows up with every lead, and books appointments 24/7 for local businesses worldwide.",
+        "An AI systems agency that designs, builds and runs marketing, sales, operations and automation systems - conversation AI, voice agents, CRM, custom AI agents and integrations.",
       founder: { "@type": "Person", name: "Daniel Bouwer" },
       areaServed: "Worldwide",
       sameAs: ["https://www.linkedin.com/in/daniel-bouwer/"],
@@ -140,7 +135,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${geist.variable} ${jetbrains.variable} ${instrument.variable} ${fraunces.variable} h-full`}
+      className={`${inter.variable} ${geist.variable} ${jetbrains.variable} ${fraunces.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-canvas text-[color:var(--color-ink)] antialiased">
         <script dangerouslySetInnerHTML={{ __html: NO_FLASH }} />

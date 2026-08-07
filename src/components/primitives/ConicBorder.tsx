@@ -1,14 +1,17 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import React from "react";
 
 /**
- * ConicBorder - rotating conic-gradient border that frames any child.
- * Ported from the Framer Conic_Gradient_Component, tuned for the
- * dark + turquoise Verdance system.
+ * ConicBorder - static premium frame around any child.
  *
- * Wrap any element; the rotating glow appears as a thin frame.
+ * Previously rendered a continuously rotating conic-gradient sweep. That
+ * class of motion is banned by the Control Room design direction (and Daniel
+ * explicitly asked for it to go): continuous background rotation reads as
+ * distracting and costs main-thread time on mobile. The component keeps its
+ * name and API so all existing call sites work unchanged, but it now renders
+ * a calm hairline frame with an optional soft halo. `duration` is accepted
+ * and ignored.
  */
 
 interface ConicBorderProps {
@@ -27,7 +30,6 @@ interface ConicBorderProps {
 export function ConicBorder({
   children,
   glow      = "#4F8DFF",
-  duration  = 0,
   inset     = 1,
   radius    = 18,
   surface   = "var(--color-bg-glass)",
@@ -36,10 +38,6 @@ export function ConicBorder({
   halo      = false,
   className = "",
 }: ConicBorderProps) {
-  const reduce = useReducedMotion();
-  // duration <= 0 → render the gilt frame statically (no spin). Premium/quiet.
-  const still = reduce || !duration || duration <= 0;
-
   return (
     <div
       className={`relative overflow-hidden ${className}`}
@@ -55,27 +53,6 @@ export function ConicBorder({
           }}
         />
       )}
-
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute"
-        style={{
-          top: "-450%",
-          left: 0,
-          right: 0,
-          height: "1000%",
-          background: `conic-gradient(from 0deg, transparent 200deg, ${glow})`,
-          borderRadius: radius,
-          zIndex: 1,
-        }}
-        initial={still ? false : { rotate: 0 }}
-        animate={still ? undefined : { rotate: 360 }}
-        transition={
-          still
-            ? undefined
-            : { duration, ease: "linear", repeat: Infinity, repeatType: "loop" }
-        }
-      />
 
       <div
         aria-hidden
