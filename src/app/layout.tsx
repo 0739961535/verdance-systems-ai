@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/primitives/SmoothScroll";
 import { GHLChatWidget } from "@/components/primitives/GHLChatWidget";
 import { BrandStudio } from "@/components/primitives/BrandStudio";
+import { NoPullToRefresh } from "@/components/primitives/NoPullToRefresh";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -196,6 +197,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
         />
+        <NoPullToRefresh />
         <SmoothScroll>
           <Navbar />
           <main className="flex-1">{children}</main>
