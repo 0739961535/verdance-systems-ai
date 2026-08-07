@@ -8,7 +8,7 @@ import { VSAILogo } from "@/components/primitives/VSAILogo";
 import { MagneticButton } from "@/components/primitives/MagneticButton";
 import { ThemeToggle } from "@/components/primitives/ThemeToggle";
 import { NAV_ITEMS, SITE } from "@/data/site";
-import { SERVICE_CATEGORIES } from "@/data/services";
+import { SERVICE_CATEGORIES, SERVICE_PILLARS, PILLAR_CATEGORIES } from "@/data/services";
 import { industries } from "@/data/industries";
 
 type MegaMenuItem = { slug: string; name: string; number: string };
@@ -23,21 +23,9 @@ type MegaMenu = {
   groups?: MegaMenuGroup[];
 };
 
-/** The four pillars and the service categories that live under each. */
-const PILLAR_GROUPS: { title: string; slugs: string[] }[] = [
-  { title: "Marketing", slugs: ["lead-generation", "marketing-social", "reputation-reviews", "websites-build"] },
-  { title: "Sales", slugs: ["conversation-ai", "voice-ai", "booking-calendar", "follow-up-nurture"] },
-  { title: "Internal Operations", slugs: ["crm-pipeline", "payments-invoicing", "analytics-compliance"] },
-  { title: "Automations", slugs: ["custom-builds"] },
-];
-
-const bySlug = new Map(SERVICE_CATEGORIES.map((c) => [c.slug, c]));
-const SERVICE_GROUPS: MegaMenuGroup[] = PILLAR_GROUPS.map((g) => ({
-  title: g.title,
-  items: g.slugs
-    .map((s) => bySlug.get(s))
-    .filter((c): c is NonNullable<typeof c> => !!c)
-    .map((c) => ({ slug: c.slug, name: c.name, number: c.number })),
+const SERVICE_GROUPS: MegaMenuGroup[] = SERVICE_PILLARS.map((p) => ({
+  title: p.title,
+  items: PILLAR_CATEGORIES(p).map((c) => ({ slug: c.slug, name: c.name, number: c.number })),
 }));
 
 const MEGA_MENUS: Record<string, MegaMenu> = {

@@ -1071,3 +1071,50 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
 export const SERVICE_BY_SLUG: Record<string, ServiceCategory> = Object.fromEntries(
   SERVICE_CATEGORIES.map((c) => [c.slug, c])
 );
+
+/**
+ * The four pillars - the top-level architecture every service category
+ * lives under. Shared by the navbar mega menu and the services page so
+ * the grouping can never drift apart.
+ */
+export type ServicePillar = {
+  index: string;
+  slug: string;
+  title: string;
+  promise: string;
+  slugs: string[];
+};
+
+export const SERVICE_PILLARS: ServicePillar[] = [
+  {
+    index: "01",
+    slug: "marketing",
+    title: "Marketing",
+    promise: "Systems that fill your pipeline and keep your name everywhere.",
+    slugs: ["lead-generation", "marketing-social", "reputation-reviews", "websites-build"],
+  },
+  {
+    index: "02",
+    slug: "sales",
+    title: "Sales",
+    promise: "Every enquiry answered in seconds, on every channel, and booked.",
+    slugs: ["conversation-ai", "voice-ai", "booking-calendar", "follow-up-nurture"],
+  },
+  {
+    index: "03",
+    slug: "operations",
+    title: "Internal Operations",
+    promise: "Your pipeline, payments and reporting run themselves.",
+    slugs: ["crm-pipeline", "payments-invoicing", "analytics-compliance"],
+  },
+  {
+    index: "04",
+    slug: "automations",
+    title: "Automations",
+    promise: "Custom agents and integrations that connect everything you run.",
+    slugs: ["custom-builds"],
+  },
+];
+
+export const PILLAR_CATEGORIES = (pillar: ServicePillar): ServiceCategory[] =>
+  pillar.slugs.map((s) => SERVICE_BY_SLUG[s]).filter(Boolean);

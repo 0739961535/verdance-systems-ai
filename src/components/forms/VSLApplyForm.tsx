@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ConicBorder } from "@/components/primitives/ConicBorder";
 import { MagneticButton } from "@/components/primitives/MagneticButton";
+import { BookingCard } from "@/components/sections/v4/BookingCard";
 
 // ─────────────────────────────────────────────────────────────────
 // QUESTION CONFIG - single source of truth for the 8-step flow
@@ -826,22 +827,12 @@ function MultiSelect({
 // booking; GHL's own widget collects those fields as part of the flow.
 // ─────────────────────────────────────────────────────────────────
 
-export function BookingPanel({ bookingUrl }: { bookingUrl: string }) {
-  // next/script dedupes by src and only ever injects once per full page load,
-  // so on a client-side (SPA) navigation to this page the resize helper never
-  // re-runs and never scans the freshly-mounted iframe below - it's left
-  // stuck at the fallback height, clipping the calendar under whatever
-  // section follows. Inject it manually on every mount so it always re-scans.
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://link.msgsndr.com/js/form_embed.js";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
+export function BookingPanel({ bookingUrl: _bookingUrl }: { bookingUrl?: string }) {
+  // Previously embedded the CRM's hosted calendar in an iframe, which
+  // clashed with the site's design. Now renders the native BookingCard
+  // (same availability and booking flow, via our own API routes); the
+  // bookingUrl prop is kept for call-site compatibility - the card's
+  // fallback link uses the hosted calendar itself.
   return (
     <div>
       <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-accent)]">
@@ -854,24 +845,13 @@ export function BookingPanel({ bookingUrl }: { bookingUrl: string }) {
         Grab a slot on <span className="italic-accent">our calendar.</span>
       </h3>
       <p className="mt-5 text-lg text-[color:var(--color-ink-soft)] max-w-2xl leading-relaxed">
-        Pick a time and pop in your email - confirmation lands in your inbox
-        instantly. No back-and-forth.
+        Pick a time and confirm your details. The calendar invitation arrives
+        in your inbox immediately.
       </p>
 
-      <iframe
-        id="verdance-booking-calendar"
-        src={bookingUrl}
-        title="Book a call with us"
-        scrolling="no"
-        className="mt-10"
-        style={{
-          width: "100%",
-          border: "none",
-          borderRadius: 14,
-          minHeight: 560,
-          background: "var(--color-bg)",
-        }}
-      />
+      <div className="mt-10 max-w-2xl">
+        <BookingCard />
+      </div>
 
       <div
         className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border p-5"
