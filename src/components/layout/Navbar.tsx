@@ -232,7 +232,7 @@ export function Navbar() {
             WhatsApp
           </a>
           <MagneticButton href="/contact" variant="accent">
-            Book an audit
+            Book a Meeting
           </MagneticButton>
         </div>
 
@@ -283,7 +283,7 @@ export function Navbar() {
               WhatsApp
             </a>
             <Link href="/contact" className="btn btn-accent flex-1 text-sm py-3">
-              Book an audit
+              Book a Meeting
             </Link>
           </div>
         </div>

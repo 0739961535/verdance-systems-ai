@@ -58,7 +58,7 @@ export function GuaranteeBlock() {
             These three terms are written into every contract we sign.
           </p>
           <Link href="#audit" className="btn btn-accent mt-6 min-h-12">
-            Book your AI Systems Audit
+            Book a Meeting
             <ArrowUpRight size={15} aria-hidden />
           </Link>
         </Reveal>

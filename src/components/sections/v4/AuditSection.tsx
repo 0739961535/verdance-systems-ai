@@ -3,12 +3,12 @@ import { Reveal } from "@/components/primitives/Reveal";
 import { AUDIT } from "@/data/landing";
 import { SITE } from "@/data/site";
 import { WhatsAppIcon } from "./WhatsAppIcon";
-import { BookingCard } from "./BookingCard";
+import { GHLBookingEmbed } from "@/components/primitives/GHLBookingEmbed";
 
 /**
  * AuditSection - the terminal conversion moment: the named productised
- * first call, booked natively through the BookingCard (CRM-backed via
- * our API routes) so the page keeps its own design language.
+ * first call, booked through the live GoHighLevel calendar widget
+ * (GHLBookingEmbed), which needs no server config to work.
  */
 export function AuditSection() {
   return (
@@ -90,9 +90,9 @@ export function AuditSection() {
           </Reveal>
         </div>
 
-        {/* native booking */}
+        {/* live GoHighLevel booking calendar */}
         <Reveal delay={0.1}>
-          <BookingCard />
+          <GHLBookingEmbed />
         </Reveal>
       </div>
     </section>
