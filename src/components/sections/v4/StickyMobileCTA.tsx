@@ -56,7 +56,7 @@ export function StickyMobileCTA() {
       }}
     >
       <div className="flex items-center gap-2 px-4 py-3">
-        <Link href="#audit" className="btn btn-accent flex-1 justify-center min-h-12 text-[0.95rem]">
+        <Link href="/contact" className="btn btn-accent flex-1 justify-center min-h-12 text-[0.95rem]">
           Book a Meeting
         </Link>
         <a

@@ -59,11 +59,11 @@ export function DeliveryMethod() {
                 </p>
                 {i === 0 && (
                   <Link
-                    href="#audit"
+                    href="/contact"
                     className="mt-3 inline-flex items-center gap-2 rounded-full px-4 py-2 font-mono text-[0.78rem] uppercase tracking-[0.14em] text-[color:var(--color-accent)]"
                     style={{ border: "1px solid rgba(var(--accent-rgb), 0.4)" }}
                   >
-                    Start here, book the audit →
+                    Start here, book a meeting →
                   </Link>
                 )}
               </Reveal>

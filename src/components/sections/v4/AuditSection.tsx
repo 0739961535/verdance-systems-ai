@@ -1,14 +1,14 @@
-import { Check } from "lucide-react";
+import Link from "next/link";
+import { Check, ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
 import { AUDIT } from "@/data/landing";
 import { SITE } from "@/data/site";
 import { WhatsAppIcon } from "./WhatsAppIcon";
-import { GHLBookingEmbed } from "@/components/primitives/GHLBookingEmbed";
 
 /**
- * AuditSection - the terminal conversion moment: the named productised
- * first call, booked through the live GoHighLevel calendar widget
- * (GHLBookingEmbed), which needs no server config to work.
+ * AuditSection - the terminal conversion moment. The booking calendar lives on
+ * the dedicated /contact page, so this section pitches the call and sends the
+ * visitor straight there with one click (no on-page form or calendar iframe).
  */
 export function AuditSection() {
   return (
@@ -90,9 +90,33 @@ export function AuditSection() {
           </Reveal>
         </div>
 
-        {/* live GoHighLevel booking calendar */}
+        {/* book CTA - the calendar lives on /contact so every "Book a Meeting"
+            lands straight on the booking tool */}
         <Reveal delay={0.1}>
-          <GHLBookingEmbed />
+          <div
+            className="surface relative overflow-hidden"
+            style={{ borderRadius: 20, border: "1px solid var(--hairline-2)", background: "var(--bg-3)" }}
+          >
+            <div className="px-6 py-9 md:px-9 md:py-11">
+              <span className="font-mono text-[0.72rem] uppercase tracking-[0.2em] text-[color:var(--color-ink-muted)]">
+                30 min · video call
+              </span>
+              <h3
+                className="mt-4 font-display font-medium text-[color:var(--color-ink)]"
+                style={{ fontSize: "clamp(1.6rem, 2.4vw + 1rem, 2.4rem)", lineHeight: 1.08, letterSpacing: "-0.03em" }}
+              >
+                Grab a slot on <span className="italic-accent">the calendar.</span>
+              </h3>
+              <p className="mt-4 max-w-md text-[0.95rem] leading-[1.55] text-[color:var(--color-ink-soft)]">
+                Pick a time that works and a calendar invite lands in your inbox
+                straight away. No forms, no back-and-forth.
+              </p>
+              <Link href="/contact" className="btn btn-accent mt-7 min-h-12">
+                Book a Meeting
+                <ArrowUpRight size={15} aria-hidden />
+              </Link>
+            </div>
+          </div>
         </Reveal>
       </div>
     </section>

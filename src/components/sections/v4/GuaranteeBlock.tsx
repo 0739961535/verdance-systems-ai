@@ -57,7 +57,7 @@ export function GuaranteeBlock() {
           <p className="mt-8 max-w-xl text-[color:var(--color-ink-soft)]" style={{ lineHeight: 1.6 }}>
             These three terms are written into every contract we sign.
           </p>
-          <Link href="#audit" className="btn btn-accent mt-6 min-h-12">
+          <Link href="/contact" className="btn btn-accent mt-6 min-h-12">
             Book a Meeting
             <ArrowUpRight size={15} aria-hidden />
           </Link>

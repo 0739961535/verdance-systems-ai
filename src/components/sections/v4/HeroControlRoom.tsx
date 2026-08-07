@@ -87,7 +87,7 @@ export function HeroControlRoom() {
             </p>
 
             <div className="enter-fade-up mt-8 flex flex-col sm:flex-row gap-3" style={{ animationDelay: "0.24s" }}>
-              <Link href="#audit" className="btn btn-accent justify-center min-h-12">
+              <Link href="/contact" className="btn btn-accent justify-center min-h-12">
                 {HERO.ctaPrimary}
                 <ArrowUpRight size={15} aria-hidden />
               </Link>
