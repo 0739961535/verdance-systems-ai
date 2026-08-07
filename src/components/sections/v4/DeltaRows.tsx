@@ -11,14 +11,17 @@ export function DeltaRows() {
     <section className="section-pad" style={{ background: "var(--bg-2)" }} aria-labelledby="deltas-title">
       <div className="container-narrow">
         <Reveal>
-          <span className="eyebrow">What changes</span>
+          <span className="eyebrow">The result</span>
           <h2
             id="deltas-title"
-            className="font-display text-[color:var(--color-ink)] mt-4 max-w-[20ch]"
+            className="font-display text-[color:var(--color-ink)] mt-4 max-w-[22ch]"
             style={{ fontSize: "clamp(1.9rem, 3.2vw + 1.2rem, 3.5rem)", lineHeight: 1.06, letterSpacing: "-0.035em" }}
           >
-            The same business, <span className="italic-accent">running</span> differently.
+            What changes when your systems <span className="italic-accent">go live</span>.
           </h2>
+          <p className="mt-5 max-w-xl text-[color:var(--color-ink-soft)]" style={{ lineHeight: 1.6 }}>
+            Before and after, in the numbers that decide whether a lead becomes a customer.
+          </p>
         </Reveal>
 
         <div className="mt-10 md:mt-14">

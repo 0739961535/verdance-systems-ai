@@ -1,0 +1,61 @@
+# Verdance Systems AI
+
+> Verdance Systems AI is an AI systems agency. We design, build and run AI
+> systems for businesses across four pillars: Marketing, Sales, Internal
+> Operations and Automations. Clients own everything we build: every account,
+> agent and automation is registered in their name from day one. Engagements
+> start with a complimentary 30-minute AI Systems Audit that produces a
+> prioritised roadmap and a fixed quote.
+
+Founded and led by Daniel Bouwer. Website: https://verdancesystemsai.com
+Contact: daniel@verdancesystemsai.com · WhatsApp: +27 73 996 1535
+
+## What we build
+
+### Marketing
+- Lead generation: database reactivation, lead finding and scraping, landing
+  pages, funnels, forms, surveys and QR capture
+- Reputation: Google review automation that requests a review after every job
+- Websites: fast, search-ready builds with lead capture built in
+- Social and content systems
+
+### Sales
+- Conversation AI: AI agents answering WhatsApp, SMS, website chat, Instagram,
+  Facebook Messenger, TikTok and LinkedIn messages in seconds, around the clock
+- Voice AI: inbound and outbound voice agents, AI receptionists, call routing
+  and tracking
+- Booking: smart scheduling synced to calendars with no back-and-forth
+- Follow-up and nurture: multi-touch automated follow-up on every lead
+
+### Internal Operations
+- Customised CRM and pipeline setup, lead scoring and routing
+- Payments and invoicing automation, including automatic invoice chasing
+- Tracking dashboards, analytics and reporting
+
+### Automations
+- Custom AI agents built for business-specific workflows
+- MCP server integrations connecting business tools to AI safely
+- Client intake automation and workflow automation between tools
+
+## How engagements work
+
+1. Audit (week 0): a complimentary 30-minute call producing a prioritised roadmap
+2. Blueprint (week 1): exact system specification with a fixed quote
+3. Build (weeks 2-3): systems assembled and tested
+4. Integrate: wired into the client's CRM, calendar, phone lines and channels
+5. Launch: a go-live date written into the contract
+6. Run and optimise: ongoing monitoring, tuning and monthly reporting
+
+## Commercial terms
+
+- Fixed quote agreed in writing before any work begins
+- A launch date in the contract
+- Full ownership: accounts, agents and automations in the client's name from day one
+
+## Key pages
+
+- https://verdancesystemsai.com/ : overview and the AI Systems Audit booking
+- https://verdancesystemsai.com/services : the full service catalogue
+- https://verdancesystemsai.com/industries : industry-specific systems
+- https://verdancesystemsai.com/how-it-works : delivery method in detail
+- https://verdancesystemsai.com/contact : contact and booking

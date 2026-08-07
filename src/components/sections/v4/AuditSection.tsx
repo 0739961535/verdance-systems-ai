@@ -1,38 +1,22 @@
-"use client";
-
-import { useEffect } from "react";
 import { Check } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
 import { AUDIT } from "@/data/landing";
 import { SITE } from "@/data/site";
 import { WhatsAppIcon } from "./WhatsAppIcon";
+import { BookingCard } from "./BookingCard";
 
 /**
  * AuditSection - the terminal conversion moment: the named productised
- * first call with the booking calendar embedded directly. The iframe
- * container reserves a fixed min-height so the embed never shifts layout.
+ * first call, booked natively through the BookingCard (CRM-backed via
+ * our API routes) so the page keeps its own design language.
  */
 export function AuditSection() {
-  // The embed's resize helper only injects once per full page load via
-  // next/script, so inject it manually on every mount (same fix as the
-  // contact page) so the calendar always sizes itself after SPA navs.
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://link.msgsndr.com/js/form_embed.js";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
   return (
     <section
       id="audit"
       className="section-pad"
       style={{
-        background: "var(--bg-2)",
-        borderTop: "1px solid var(--hairline-glow)",
+        background: "var(--bg)",
         borderBottom: "1px solid var(--hairline-glow)",
         scrollMarginTop: "5rem",
       }}
@@ -106,26 +90,9 @@ export function AuditSection() {
           </Reveal>
         </div>
 
-        {/* calendar */}
+        {/* native booking */}
         <Reveal delay={0.1}>
-          <div
-            className="surface relative overflow-hidden px-2 pt-2 pb-4 md:px-4"
-            style={{ borderRadius: 20, border: "1px solid var(--hairline-2)", background: "var(--bg-3)" }}
-          >
-            {["top-2 left-2", "top-2 right-2"].map((pos) => (
-              <span key={pos} aria-hidden className={`pointer-events-none absolute ${pos} font-mono text-[10px] text-[color:var(--color-ink-faint)] z-10`}>+</span>
-            ))}
-            <iframe
-              id="verdance-audit-calendar"
-              src={SITE.ghlBooking}
-              title="Book your AI Systems Audit"
-              scrolling="no"
-              style={{ width: "100%", border: "none", minHeight: 700, overflow: "hidden" }}
-            />
-            <p className="px-3 pt-2 font-mono text-[0.62rem] tracking-[0.08em] text-[color:var(--color-ink-faint)]">
-              pick a slot, the invite arrives instantly
-            </p>
-          </div>
+          <BookingCard />
         </Reveal>
       </div>
     </section>

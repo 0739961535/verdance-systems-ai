@@ -49,8 +49,8 @@ export default function HomePage() {
       />
       <HeroControlRoom />
       <CapabilityTicker />
-      <DeltaRows />
       <PillarGrid />
+      <DeltaRows />
       <DeliveryMethod />
       <GuaranteeBlock />
       <AuditSection />

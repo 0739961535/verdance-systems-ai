@@ -12,21 +12,42 @@ import { SERVICE_CATEGORIES } from "@/data/services";
 import { industries } from "@/data/industries";
 
 type MegaMenuItem = { slug: string; name: string; number: string };
+type MegaMenuGroup = { title: string; items: MegaMenuItem[] };
 type MegaMenu = {
   eyebrow: string;
   heading: string;
   headingAccent: string;
   base: string;
   items: MegaMenuItem[];
+  /** When set, the dropdown renders one column per group (the four pillars). */
+  groups?: MegaMenuGroup[];
 };
+
+/** The four pillars and the service categories that live under each. */
+const PILLAR_GROUPS: { title: string; slugs: string[] }[] = [
+  { title: "Marketing", slugs: ["lead-generation", "marketing-social", "reputation-reviews", "websites-build"] },
+  { title: "Sales", slugs: ["conversation-ai", "voice-ai", "booking-calendar", "follow-up-nurture"] },
+  { title: "Internal Operations", slugs: ["crm-pipeline", "payments-invoicing", "analytics-compliance"] },
+  { title: "Automations", slugs: ["custom-builds"] },
+];
+
+const bySlug = new Map(SERVICE_CATEGORIES.map((c) => [c.slug, c]));
+const SERVICE_GROUPS: MegaMenuGroup[] = PILLAR_GROUPS.map((g) => ({
+  title: g.title,
+  items: g.slugs
+    .map((s) => bySlug.get(s))
+    .filter((c): c is NonNullable<typeof c> => !!c)
+    .map((c) => ({ slug: c.slug, name: c.name, number: c.number })),
+}));
 
 const MEGA_MENUS: Record<string, MegaMenu> = {
   "/services": {
-    eyebrow: "The full capability map",
+    eyebrow: "Four pillars",
     heading: "Every system -",
     headingAccent: "one operator.",
     base: "/services",
     items: SERVICE_CATEGORIES.map((c) => ({ slug: c.slug, name: c.name, number: c.number })),
+    groups: SERVICE_GROUPS,
   },
   "/industries": {
     eyebrow: "Built for how you work",
@@ -136,7 +157,7 @@ export function Navbar() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 8 }}
                       transition={{ duration: 0.18, ease: [0.19, 1, 0.22, 1] }}
-                      className="absolute left-1/2 top-full -translate-x-1/2 pt-3 w-[640px] z-50"
+                      className={`absolute left-1/2 top-full -translate-x-1/2 pt-3 z-50 ${menu.groups ? "w-[880px]" : "w-[640px]"}`}
                     >
                       <div
                         className="rounded-2xl p-6 shadow-2xl border"
@@ -147,27 +168,54 @@ export function Navbar() {
                           {menu.heading}{" "}
                           <span className="italic-accent">{menu.headingAccent}</span>
                         </h3>
-                        <div className="mt-5 grid grid-cols-2 gap-x-8">
-                          {columns.map((col, ci) => (
-                            <div key={ci} className="flex flex-col gap-y-1">
-                              {col.map((item) => (
-                                <Link
-                                  key={item.slug}
-                                  href={`${menu.base}/${item.slug}`}
-                                  onClick={() => setOpenMenu(null)}
-                                  className="group flex items-baseline gap-2.5 rounded-lg px-2 py-2 -mx-2 transition-colors hover:bg-[color:var(--surface-tint-2)]"
+                        {menu.groups ? (
+                          <div className="mt-5 grid grid-cols-4 gap-x-6">
+                            {menu.groups.map((group) => (
+                              <div key={group.title} className="flex flex-col">
+                                <div
+                                  className="mb-2 pb-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[color:var(--color-accent)]"
+                                  style={{ borderBottom: "1px solid var(--hairline)" }}
                                 >
-                                  <span className="font-mono text-[10px] text-[color:var(--color-ink-faint)]">
-                                    {item.number}
-                                  </span>
-                                  <span className="font-display text-sm font-medium text-[color:var(--color-ink)] group-hover:text-[color:var(--color-accent)] transition-colors">
-                                    {item.name}
-                                  </span>
-                                </Link>
-                              ))}
-                            </div>
-                          ))}
-                        </div>
+                                  {group.title}
+                                </div>
+                                {group.items.map((item) => (
+                                  <Link
+                                    key={item.slug}
+                                    href={`${menu.base}/${item.slug}`}
+                                    onClick={() => setOpenMenu(null)}
+                                    className="group rounded-lg px-2 py-2 -mx-2 transition-colors hover:bg-[color:var(--surface-tint-2)]"
+                                  >
+                                    <span className="font-display text-sm font-medium text-[color:var(--color-ink)] group-hover:text-[color:var(--color-accent)] transition-colors">
+                                      {item.name}
+                                    </span>
+                                  </Link>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="mt-5 grid grid-cols-2 gap-x-8">
+                            {columns.map((col, ci) => (
+                              <div key={ci} className="flex flex-col gap-y-1">
+                                {col.map((item) => (
+                                  <Link
+                                    key={item.slug}
+                                    href={`${menu.base}/${item.slug}`}
+                                    onClick={() => setOpenMenu(null)}
+                                    className="group flex items-baseline gap-2.5 rounded-lg px-2 py-2 -mx-2 transition-colors hover:bg-[color:var(--surface-tint-2)]"
+                                  >
+                                    <span className="font-mono text-[10px] text-[color:var(--color-ink-faint)]">
+                                      {item.number}
+                                    </span>
+                                    <span className="font-display text-sm font-medium text-[color:var(--color-ink)] group-hover:text-[color:var(--color-accent)] transition-colors">
+                                      {item.name}
+                                    </span>
+                                  </Link>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </motion.div>
                   )}

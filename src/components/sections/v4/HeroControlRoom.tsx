@@ -101,12 +101,6 @@ export function HeroControlRoom() {
               </a>
             </div>
 
-            <p
-              className="enter-fade-up mt-4 font-mono text-[0.72rem] tracking-[0.08em] text-[color:var(--color-ink-muted)]"
-              style={{ animationDelay: "0.32s" }}
-            >
-              {HERO.microcopy}
-            </p>
           </div>
 
           {/* dashboard column */}

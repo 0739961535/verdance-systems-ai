@@ -385,12 +385,15 @@ html.lenis, html.lenis body { height: auto; }
   color: var(--ink);
 }
 
+/* Accent word device - same display face as the headline, azure. The
+   previous Fraunces italic clashed with the grotesk headlines (owner
+   feedback: the serif italic "doesn't match"), so the accent is now
+   carried by colour alone. */
 .italic-accent {
-  font-family: var(--font-fraunces), 'Fraunces', 'Newsreader', Georgia, serif;
-  font-style: italic;
-  font-weight: 600;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: inherit;
   color: var(--highlight);
-  letter-spacing: -0.005em;
 }
 
 .text-accent  { color: var(--accent); }

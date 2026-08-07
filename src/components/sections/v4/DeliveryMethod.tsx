@@ -9,7 +9,7 @@ import { PROCESS } from "@/data/landing";
  */
 export function DeliveryMethod() {
   return (
-    <section className="section-pad" style={{ background: "var(--bg-2)" }} aria-labelledby="process-title">
+    <section className="section-pad bg-canvas" aria-labelledby="process-title">
       <div className="container-narrow grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <div className="lg:sticky lg:top-28 self-start">
           <Reveal>

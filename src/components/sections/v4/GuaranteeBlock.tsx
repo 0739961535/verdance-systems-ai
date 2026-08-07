@@ -4,54 +4,63 @@ import { Reveal } from "@/components/primitives/Reveal";
 import { GUARANTEE } from "@/data/landing";
 
 /**
- * GuaranteeBlock - the risk-reversal band. One full-width statement
- * (not three timid boxes); this and the hero are the only two
- * azure-bordered surfaces on the page.
+ * GuaranteeBlock - the commitment band. Three numbered terms presented
+ * like contract clauses: mono index, strong label, one plain sentence.
+ * Sits on the tinted band with an azure top rule marking it as one of
+ * the page's two conversion moments.
  */
 export function GuaranteeBlock() {
   return (
-    <section className="section-pad bg-canvas" aria-labelledby="guarantee-title">
+    <section
+      className="section-pad"
+      style={{ background: "var(--bg-2)", borderTop: "1px solid var(--hairline-glow)" }}
+      aria-labelledby="guarantee-title"
+    >
       <div className="container-narrow">
         <Reveal>
-          <div
-            className="surface relative px-6 py-10 md:px-12 md:py-14"
-            style={{ borderRadius: 20, border: "1px solid var(--hairline-glow)" }}
+          <span className="eyebrow">{GUARANTEE.eyebrow}</span>
+          <h2
+            id="guarantee-title"
+            className="font-display text-[color:var(--color-ink)] mt-4 max-w-[22ch]"
+            style={{ fontSize: "clamp(1.9rem, 3.2vw + 1.2rem, 3.5rem)", lineHeight: 1.06, letterSpacing: "-0.035em" }}
           >
-            {["top-3 left-3", "top-3 right-3", "bottom-3 left-3", "bottom-3 right-3"].map((pos) => (
-              <span key={pos} aria-hidden className={`pointer-events-none absolute ${pos} font-mono text-[10px] text-[color:var(--color-ink-faint)]`}>+</span>
-            ))}
+            Fixed price. Fixed launch date.
+            <br />
+            <span className="italic-accent">Full ownership.</span>
+          </h2>
+        </Reveal>
 
-            <span className="eyebrow">{GUARANTEE.eyebrow}</span>
-            <h2
-              id="guarantee-title"
-              className="font-display text-[color:var(--color-ink)] mt-4 max-w-[18ch]"
-              style={{ fontSize: "clamp(1.9rem, 3.2vw + 1.2rem, 3.5rem)", lineHeight: 1.06, letterSpacing: "-0.035em" }}
-            >
-              Fixed price. Fixed timeline. You <span className="italic-accent">own</span> the system.
-            </h2>
-
-            <div className="mt-8 grid md:grid-cols-3">
-              {GUARANTEE.columns.map((c, i) => (
+        <div className="mt-10 md:mt-14 grid md:grid-cols-3 gap-px rounded-[20px] overflow-hidden" style={{ background: "var(--hairline)" }}>
+          {GUARANTEE.columns.map((c, i) => (
+            <Reveal key={c.label} delay={i * 0.06}>
+              <div className="h-full px-6 py-7 md:px-8 md:py-9" style={{ background: "var(--bg-3)" }}>
                 <div
-                  key={c.label}
-                  className="py-4 md:py-0 md:px-6 first:pl-0 last:pr-0"
+                  className="font-mono"
                   style={{
-                    borderTop: i > 0 ? "1px solid var(--hairline)" : undefined,
+                    fontSize: "clamp(1.4rem, 1.4vw + 1rem, 2rem)",
+                    color: "rgba(var(--accent-rgb), 0.4)",
+                    fontVariantNumeric: "tabular-nums",
                   }}
                 >
-                  <div className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[color:var(--color-accent)]">
-                    {c.label}
-                  </div>
-                  <p className="mt-2 text-[0.9rem] leading-[1.55] text-[color:var(--color-ink-soft)]">{c.text}</p>
+                  {c.n}
                 </div>
-              ))}
-            </div>
+                <div className="mt-3 font-display font-medium text-[color:var(--color-ink)]" style={{ fontSize: "1.1rem" }}>
+                  {c.label}
+                </div>
+                <p className="mt-2 text-[0.92rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{c.text}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
 
-            <Link href="#audit" className="btn btn-accent mt-9 min-h-12">
-              Book your AI Systems Audit
-              <ArrowUpRight size={15} aria-hidden />
-            </Link>
-          </div>
+        <Reveal delay={0.12}>
+          <p className="mt-8 max-w-xl text-[color:var(--color-ink-soft)]" style={{ lineHeight: 1.6 }}>
+            These three terms are written into every contract we sign.
+          </p>
+          <Link href="#audit" className="btn btn-accent mt-6 min-h-12">
+            Book your AI Systems Audit
+            <ArrowUpRight size={15} aria-hidden />
+          </Link>
         </Reveal>
       </div>
     </section>

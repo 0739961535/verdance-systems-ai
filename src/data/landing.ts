@@ -10,7 +10,6 @@ export const HERO = {
   lead: "Marketing, sales, operations and automation systems, designed, built and run for you. You own everything we build.",
   ctaPrimary: "Book your AI Systems Audit",
   ctaWhatsApp: "WhatsApp us",
-  microcopy: "free · 30 min · leave with a roadmap · no sales pitch",
 };
 
 /** Simulated dashboard - stat tiles and the event feed. */
@@ -42,13 +41,13 @@ export const TICKER_ITEMS = [
 ];
 
 export const DELTAS = [
-  { label: "Lead response", before: "4 hrs", after: "28 sec" },
-  { label: "After-hours enquiries", before: "voicemail", after: "answered and booked" },
-  { label: "Follow-up per lead", before: "1 attempt", after: "12 touches, automatic" },
-  { label: "Review requests", before: "when you remember", after: "after every job" },
+  { label: "Time to answer a new enquiry", before: "4 hours", after: "28 seconds" },
+  { label: "Enquiries after closing time", before: "go to voicemail", after: "answered and booked" },
+  { label: "Follow-ups on every lead", before: "one, when there's time", after: "twelve, automatic" },
+  { label: "Google review requests", before: "hit and miss", after: "after every job" },
 ];
 export const DELTAS_FOOTNOTE =
-  "Typical system targets, set together on your audit call.";
+  "Typical performance targets, agreed together on your audit call.";
 
 export interface PillarOffer {
   name: string;
@@ -175,23 +174,35 @@ export const PROCESS = [
 ];
 
 export const GUARANTEE = {
-  eyebrow: "THE DEAL, IN WRITING",
+  eyebrow: "OUR COMMITMENT",
   columns: [
-    { label: "Fixed quote", text: "Price agreed before we build. It doesn't move." },
-    { label: "Delivery window", text: "A launch date in the contract, not a vibe." },
-    { label: "Your property", text: "Accounts, agents, automations, all in your name from day one." },
+    {
+      n: "01",
+      label: "Fixed quote",
+      text: "The price is agreed in writing before any work begins, and it does not change.",
+    },
+    {
+      n: "02",
+      label: "Fixed launch date",
+      text: "Your go-live date is part of the contract, with visible progress every week.",
+    },
+    {
+      n: "03",
+      label: "Full ownership",
+      text: "Every account, agent and automation is registered in your name from day one.",
+    },
   ],
 };
 
 export const AUDIT = {
-  eyebrow: "FREE · 30 MINUTES",
+  eyebrow: "COMPLIMENTARY · 30 MINUTES",
   title: "The AI Systems Audit",
   checklist: [
     "A map of where AI pays back fastest in your business",
     "A prioritised system roadmap, yours to keep",
     "A fixed quote if you want us to build it",
   ],
-  microcopy: "No sales pitch. No obligation. The roadmap is yours either way.",
+  microcopy: "A complimentary consultation with no obligation. The roadmap is yours to keep either way.",
   aiChips: [
     {
       label: "ChatGPT",

@@ -182,7 +182,7 @@ export function LiveOpsDashboard() {
       {/* honesty label */}
       <div className="px-5 py-2.5" style={{ borderTop: "1px solid var(--hairline)" }}>
         <span className="font-mono text-[0.62rem] tracking-[0.08em] text-[color:var(--color-ink-faint)]">
-          simulated feed - this is what your dashboard looks like
+          Simulated preview. A live view like this ships with every build.
         </span>
       </div>
     </div>

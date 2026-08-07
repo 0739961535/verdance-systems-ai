@@ -116,6 +116,59 @@ const JSON_LD = {
       founder: { "@type": "Person", name: "Daniel Bouwer" },
       areaServed: "Worldwide",
       sameAs: ["https://www.linkedin.com/in/daniel-bouwer/"],
+      knowsAbout: [
+        "AI automation",
+        "conversation AI",
+        "voice AI agents",
+        "AI receptionists",
+        "CRM automation",
+        "lead generation systems",
+        "Google review automation",
+        "MCP server integrations",
+        "custom AI agents",
+      ],
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "AI systems",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Marketing systems",
+              description:
+                "Lead generation, database reactivation, landing pages and funnels, Google review automation, website builds and social content systems.",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Sales systems",
+              description:
+                "Conversation AI across WhatsApp, SMS and social DMs, inbound and outbound voice AI agents, AI receptionists, smart scheduling and automated follow-up.",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Internal operations systems",
+              description:
+                "Customised CRM and pipelines, lead scoring, payments and invoicing automation, tracking dashboards and reporting.",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Automation systems",
+              description:
+                "Custom AI agents, MCP server integrations, client intake automation and workflow automation between business tools.",
+            },
+          },
+        ],
+      },
     },
     {
       "@type": "WebSite",
