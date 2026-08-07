@@ -59,7 +59,7 @@ function PillarCard({ pillar, open, onToggle }: { pillar: Pillar; open: boolean;
         <p className="mt-2 text-[0.9rem] leading-[1.5] text-[color:var(--color-ink-soft)]">
           {pillar.promise}
         </p>
-        <p className="mt-4 font-mono text-[0.68rem] tracking-[0.1em] text-[color:var(--color-ink-muted)]">
+        <p className="mt-4 font-mono text-[0.75rem] tracking-[0.1em] text-[color:var(--color-ink-muted)]">
           {pillar.capabilities.join(" · ")}
         </p>
       </button>
@@ -84,7 +84,7 @@ function PillarCard({ pillar, open, onToggle }: { pillar: Pillar; open: boolean;
                 >
                   <span>
                     <span className="block text-[0.9rem] font-medium text-[color:var(--color-ink)]">{o.name}</span>
-                    <span className="block text-[0.78rem] text-[color:var(--color-ink-muted)]">{o.outcome}</span>
+                    <span className="block text-[0.85rem] text-[color:var(--color-ink-muted)]">{o.outcome}</span>
                   </span>
                   <ArrowUpRight size={14} aria-hidden className="shrink-0 text-[color:var(--color-ink-muted)] group-hover:text-[color:var(--color-accent)]" />
                 </Link>
@@ -92,7 +92,7 @@ function PillarCard({ pillar, open, onToggle }: { pillar: Pillar; open: boolean;
             ))}
           </ul>
           <div className="px-5 py-4 md:px-7">
-            <Link href={pillar.href} className="font-mono text-[0.72rem] uppercase tracking-[0.18em] text-[color:var(--color-accent)]">
+            <Link href={pillar.href} className="font-mono text-[0.8rem] uppercase tracking-[0.18em] text-[color:var(--color-accent)]">
               View {pillar.name.toLowerCase()} systems →
             </Link>
           </div>

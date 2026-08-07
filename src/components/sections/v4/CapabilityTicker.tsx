@@ -17,7 +17,7 @@ export function CapabilityTicker() {
       <div className="animate-marquee flex w-max items-center gap-10 px-5">
         {items.map((t, i) => (
           <span key={i} className="flex items-center gap-10 whitespace-nowrap">
-            <span className="font-mono text-[0.7rem] uppercase tracking-[0.24em] text-[color:var(--color-ink-muted)]">
+            <span className="font-mono text-[0.78rem] uppercase tracking-[0.24em] text-[color:var(--color-ink-muted)]">
               {t}
             </span>
             <span className="w-1 h-1 rounded-full" style={{ background: "rgba(var(--accent-rgb), 0.5)" }} />

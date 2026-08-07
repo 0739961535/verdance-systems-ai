@@ -89,10 +89,10 @@ export function BookingCard() {
     >
       {/* header */}
       <div className="flex items-center justify-between px-5 py-4 md:px-7" style={{ borderBottom: "1px solid var(--hairline)" }}>
-        <span className="font-mono text-[0.72rem] uppercase tracking-[0.2em] text-[color:var(--color-ink-muted)]">
+        <span className="font-mono text-[0.8rem] uppercase tracking-[0.2em] text-[color:var(--color-ink-muted)]">
           {step === "done" ? "Confirmed" : "Book your audit"}
         </span>
-        <span className="font-mono text-[0.66rem] tracking-[0.08em] text-[color:var(--color-ink-faint)]">
+        <span className="font-mono text-[0.72rem] tracking-[0.08em] text-[color:var(--color-ink-faint)]">
           30 min · video call
         </span>
       </div>
@@ -141,7 +141,7 @@ export function BookingCard() {
                       transition: "border-color 0.15s var(--ease-luxury), background-color 0.15s var(--ease-luxury)",
                     }}
                   >
-                    <div className="font-mono text-[0.6rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)]">
+                    <div className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)]">
                       {l.weekday}
                     </div>
                     <div className="mt-0.5 font-display font-medium text-[color:var(--color-ink)]" style={{ fontVariantNumeric: "tabular-nums" }}>
@@ -162,7 +162,7 @@ export function BookingCard() {
                     type="button"
                     onClick={() => setSlot(t)}
                     aria-pressed={active}
-                    className="rounded-lg py-2.5 font-mono text-[0.85rem] cursor-pointer"
+                    className="rounded-lg py-2.5 font-mono text-[0.9rem] cursor-pointer"
                     style={{
                       fontVariantNumeric: "tabular-nums",
                       color: active ? "var(--on-accent)" : "var(--ink)",
@@ -177,7 +177,7 @@ export function BookingCard() {
               })}
             </div>
 
-            <p className="mt-3 font-mono text-[0.62rem] tracking-[0.08em] text-[color:var(--color-ink-faint)]">
+            <p className="mt-3 font-mono text-[0.72rem] tracking-[0.08em] text-[color:var(--color-ink-faint)]">
               Times shown in South Africa Standard Time (GMT+2).
             </p>
 
@@ -197,13 +197,13 @@ export function BookingCard() {
             <button
               type="button"
               onClick={() => setStep("pick")}
-              className="inline-flex items-center gap-1.5 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)] cursor-pointer"
+              className="inline-flex items-center gap-1.5 font-mono text-[0.8rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)] cursor-pointer"
             >
               <ArrowLeft size={13} aria-hidden /> Change time
             </button>
 
             <div
-              className="mt-4 rounded-lg px-4 py-3 font-mono text-[0.85rem] text-[color:var(--color-ink)]"
+              className="mt-4 rounded-lg px-4 py-3 font-mono text-[0.9rem] text-[color:var(--color-ink)]"
               style={{ background: "rgba(var(--accent-rgb), 0.08)", border: "1px solid rgba(var(--accent-rgb), 0.35)", fontVariantNumeric: "tabular-nums" }}
             >
               {dayLabel(selectedDay.date).weekday} {dayLabel(selectedDay.date).day} {dayLabel(selectedDay.date).month} · {slot.slice(11, 16)} SAST
@@ -216,7 +216,7 @@ export function BookingCard() {
               <input className={inputCls} style={inputStyle} placeholder="Full name" autoComplete="name" required value={name} onChange={(e) => setName(e.target.value)} />
               <input className={inputCls} style={inputStyle} placeholder="Work email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
               <input className={inputCls} style={inputStyle} placeholder="Phone (optional)" type="tel" autoComplete="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
-              {error && <p className="text-[0.85rem]" style={{ color: "#F87171" }}>{error}</p>}
+              {error && <p className="text-[0.9rem]" style={{ color: "#F87171" }}>{error}</p>}
               <button type="submit" disabled={step === "booking"} className="btn btn-accent w-full min-h-12 justify-center disabled:opacity-60">
                 {step === "booking" ? "Booking…" : "Confirm booking"}
               </button>

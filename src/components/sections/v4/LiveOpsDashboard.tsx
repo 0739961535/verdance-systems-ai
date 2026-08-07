@@ -115,11 +115,11 @@ export function LiveOpsDashboard() {
               <span key={i} className="w-2 h-2 rounded-full" style={{ background: "var(--ink-faint)" }} />
             ))}
           </div>
-          <span className="font-mono text-[0.72rem] tracking-[0.12em] text-[color:var(--color-ink-muted)]">
+          <span className="font-mono text-[0.8rem] tracking-[0.12em] text-[color:var(--color-ink-muted)]">
             verdance-ops · live
           </span>
         </div>
-        <span className="flex items-center gap-2 font-mono text-[0.66rem] tracking-[0.22em] text-[color:var(--color-ink-soft)]">
+        <span className="flex items-center gap-2 font-mono text-[0.72rem] tracking-[0.22em] text-[color:var(--color-ink-soft)]">
           <span className="relative flex w-2 h-2">
             {!reduced && (
               <span className="animate-pulse-ring absolute inline-flex w-full h-full rounded-full" style={{ background: "var(--signal)" }} />
@@ -134,7 +134,7 @@ export function LiveOpsDashboard() {
       <div className="grid grid-cols-3" style={{ borderBottom: "1px solid var(--hairline)" }}>
         {stats.map((s) => (
           <div key={s.label} className="px-4 py-3 [&+&]:border-l" style={{ borderColor: "var(--hairline)" }}>
-            <div className="font-mono text-[0.6rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)] truncate">
+            <div className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)] truncate">
               {s.label}
             </div>
             <div
@@ -160,14 +160,14 @@ export function LiveOpsDashboard() {
               animation: !reduced && i === 0 ? "lux-drop 0.5s var(--ease-out-expo) both" : undefined,
             }}
           >
-            <span className="font-mono text-[0.7rem] text-[color:var(--color-ink-muted)]" style={{ fontVariantNumeric: "tabular-nums" }}>
+            <span className="font-mono text-[0.78rem] text-[color:var(--color-ink-muted)]" style={{ fontVariantNumeric: "tabular-nums" }}>
               {e.time}
             </span>
-            <span className="flex-1 text-[0.82rem] text-[color:var(--color-ink-soft)] truncate">
+            <span className="flex-1 text-[0.9rem] text-[color:var(--color-ink-soft)] truncate">
               {e.text}
             </span>
             <span
-              className="hidden sm:inline font-mono text-[0.6rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)] rounded-full px-2 py-0.5"
+              className="hidden sm:inline font-mono text-[0.7rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)] rounded-full px-2 py-0.5"
               style={{ border: `1px solid ${chipColor(e.chip)}` }}
             >
               {e.chip}
@@ -181,7 +181,7 @@ export function LiveOpsDashboard() {
 
       {/* honesty label */}
       <div className="px-5 py-2.5" style={{ borderTop: "1px solid var(--hairline)" }}>
-        <span className="font-mono text-[0.62rem] tracking-[0.08em] text-[color:var(--color-ink-faint)]">
+        <span className="font-mono text-[0.72rem] tracking-[0.08em] text-[color:var(--color-ink-faint)]">
           Simulated preview. A live view like this ships with every build.
         </span>
       </div>

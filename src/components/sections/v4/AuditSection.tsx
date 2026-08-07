@@ -14,7 +14,7 @@ export function AuditSection() {
   return (
     <section
       id="audit"
-      className="section-pad"
+      className="section-pad band-texture"
       style={{
         background: "var(--bg)",
         borderBottom: "1px solid var(--hairline-glow)",
@@ -48,7 +48,7 @@ export function AuditSection() {
                 </li>
               ))}
             </ul>
-            <p className="mt-6 font-mono text-[0.72rem] tracking-[0.08em] text-[color:var(--color-ink-muted)]">
+            <p className="mt-6 font-mono text-[0.8rem] tracking-[0.08em] text-[color:var(--color-ink-muted)]">
               {AUDIT.microcopy}
             </p>
 
@@ -69,7 +69,7 @@ export function AuditSection() {
 
           <Reveal delay={0.14}>
             <div className="mt-10">
-              <div className="font-mono text-[0.62rem] uppercase tracking-[0.24em] text-[color:var(--color-ink-muted)]">
+              <div className="font-mono text-[0.72rem] uppercase tracking-[0.24em] text-[color:var(--color-ink-muted)]">
                 Ask an AI about us
               </div>
               <div className="mt-3 flex flex-wrap gap-2">
@@ -79,7 +79,7 @@ export function AuditSection() {
                     href={chip.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-full px-4 py-2 font-mono text-[0.72rem] tracking-[0.08em] text-[color:var(--color-ink-soft)]"
+                    className="rounded-full px-4 py-2 font-mono text-[0.8rem] tracking-[0.08em] text-[color:var(--color-ink-soft)]"
                     style={{ border: "1px solid var(--hairline-2)", transition: "border-color 0.15s var(--ease-luxury)" }}
                   >
                     {chip.label} ↗

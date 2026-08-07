@@ -50,8 +50,8 @@ export default function HomePage() {
       <HeroControlRoom />
       <CapabilityTicker />
       <PillarGrid />
-      <DeltaRows />
       <DeliveryMethod />
+      <DeltaRows />
       <GuaranteeBlock />
       <AuditSection />
       <FAQControl />

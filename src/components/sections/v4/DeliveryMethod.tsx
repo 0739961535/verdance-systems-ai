@@ -9,7 +9,7 @@ import { PROCESS } from "@/data/landing";
  */
 export function DeliveryMethod() {
   return (
-    <section className="section-pad bg-canvas" aria-labelledby="process-title">
+    <section className="section-pad band-texture" style={{ background: "var(--bg-2)" }} aria-labelledby="process-title">
       <div className="container-narrow grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <div className="lg:sticky lg:top-28 self-start">
           <Reveal>
@@ -54,13 +54,13 @@ export function DeliveryMethod() {
                 <p className="mt-2 max-w-md text-[0.95rem] leading-[1.6] text-[color:var(--color-ink-soft)]">
                   {step.desc}
                 </p>
-                <p className="mt-2 font-mono text-[0.68rem] tracking-[0.1em] text-[color:var(--color-ink-muted)]">
+                <p className="mt-2 font-mono text-[0.75rem] tracking-[0.1em] text-[color:var(--color-ink-muted)]">
                   {step.meta}
                 </p>
                 {i === 0 && (
                   <Link
                     href="#audit"
-                    className="mt-3 inline-flex items-center gap-2 rounded-full px-4 py-2 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-[color:var(--color-accent)]"
+                    className="mt-3 inline-flex items-center gap-2 rounded-full px-4 py-2 font-mono text-[0.78rem] uppercase tracking-[0.14em] text-[color:var(--color-accent)]"
                     style={{ border: "1px solid rgba(var(--accent-rgb), 0.4)" }}
                   >
                     Start here, book the audit →

@@ -12,7 +12,7 @@ import { GUARANTEE } from "@/data/landing";
 export function GuaranteeBlock() {
   return (
     <section
-      className="section-pad"
+      className="section-pad band-texture"
       style={{ background: "var(--bg-2)", borderTop: "1px solid var(--hairline-glow)" }}
       aria-labelledby="guarantee-title"
     >

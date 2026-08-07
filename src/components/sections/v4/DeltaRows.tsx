@@ -8,7 +8,7 @@ import { DELTAS, DELTAS_FOOTNOTE } from "@/data/landing";
  */
 export function DeltaRows() {
   return (
-    <section className="section-pad" style={{ background: "var(--bg-2)" }} aria-labelledby="deltas-title">
+    <section className="section-pad bg-canvas" aria-labelledby="deltas-title">
       <div className="container-narrow">
         <Reveal>
           <span className="eyebrow">The result</span>
@@ -34,7 +34,7 @@ export function DeltaRows() {
                 <span className="text-[color:var(--color-ink-soft)]">{d.label}</span>
                 <span className="flex items-baseline gap-3 md:justify-end">
                   <span
-                    className="font-mono text-[0.85rem] text-[color:var(--color-ink-muted)] line-through"
+                    className="font-mono text-[0.9rem] text-[color:var(--color-ink-muted)] line-through"
                     style={{ textDecorationColor: "var(--hairline-3)" }}
                   >
                     {d.before}
@@ -58,7 +58,7 @@ export function DeltaRows() {
         </div>
 
         <Reveal delay={0.1}>
-          <p className="mt-5 font-mono text-[0.62rem] tracking-[0.08em] text-[color:var(--color-ink-faint)]">
+          <p className="mt-5 font-mono text-[0.72rem] tracking-[0.08em] text-[color:var(--color-ink-faint)]">
             {DELTAS_FOOTNOTE}
           </p>
         </Reveal>

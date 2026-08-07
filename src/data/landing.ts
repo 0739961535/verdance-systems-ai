@@ -5,7 +5,7 @@
  */
 
 export const HERO = {
-  eyebrow: "AI SYSTEMS AGENCY · DESIGN / BUILD / RUN",
+  eyebrow: "AI SYSTEMS AGENCY",
   // Headline is rendered in the component so the accent word can be styled.
   lead: "Marketing, sales, operations and automation systems, designed, built and run for you. You own everything we build.",
   ctaPrimary: "Book your AI Systems Audit",

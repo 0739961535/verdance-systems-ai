@@ -619,6 +619,32 @@ html.lenis, html.lenis body { height: auto; }
 .section-pad     { padding-top: clamp(5rem, 9vw, 8rem); padding-bottom: clamp(5rem, 9vw, 8rem); }
 .section-pad-sm  { padding-top: clamp(3rem, 6vw, 5rem); padding-bottom: clamp(3rem, 6vw, 5rem); }
 
+/* Band texture - quiet depth for tinted section bands: a fine masked
+   grid plus film grain. Both layers are static pseudo-elements painted
+   beneath the section's in-flow content; costs nothing during scroll. */
+.band-texture { position: relative; }
+.band-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(var(--hairline-rgb), 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--hairline-rgb), 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 100% 90% at 50% 0%, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 55%, transparent 85%);
+  mask-image: radial-gradient(ellipse 100% 90% at 50% 0%, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 55%, transparent 85%);
+}
+.band-texture::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
 .container-wide      { width: 100%; max-width: 1440px; margin: 0 auto; padding-left: 1.25rem; padding-right: 1.25rem; }
 .container-narrow    { width: 100%; max-width: 1120px; margin: 0 auto; padding-left: 1.25rem; padding-right: 1.25rem; }
 .container-editorial { width: 100%; max-width: 880px;  margin: 0 auto; padding-left: 1.25rem; padding-right: 1.25rem; }

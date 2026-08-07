@@ -55,7 +55,7 @@ export function HeroControlRoom() {
           <div>
             <div className="enter-fade-up flex items-center gap-3">
               <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--signal)" }} />
-              <span className="font-mono text-[0.68rem] uppercase tracking-[0.28em] text-[color:var(--color-ink-muted)]">
+              <span className="font-mono text-[0.75rem] uppercase tracking-[0.28em] text-[color:var(--color-ink-muted)]">
                 {HERO.eyebrow}
               </span>
             </div>
