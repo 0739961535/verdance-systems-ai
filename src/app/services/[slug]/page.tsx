@@ -21,7 +21,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const category = SERVICE_BY_SLUG[slug];
   if (!category) return {};
-  const title = `${category.name} for Local Businesses | Verdance Systems AI`;
+  const title = `${category.name} | Verdance Systems AI`;
   const description = `${category.name}: ${category.promise} Done-for-you AI that answers, follows up, and books appointments 24/7 for local service businesses. Free consult.`;
   const url = `https://verdancesystemsai.com/services/${slug}`;
   return {

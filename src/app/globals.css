@@ -304,6 +304,10 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   background: var(--bg);
+  /* `clip` (not `hidden`) forbids horizontal panning entirely - wide
+     decorative elements (marquee, hero washes) can never drag the page
+     sideways on touch, and scrollLeft can't be moved programmatically. */
+  overflow-x: clip;
   /* Stop the browser's native pull-to-refresh firing when a swipe-down
      starts at the top of the page on mobile. `none` blocks the overscroll
      reload on both Android Chrome and iOS Safari 16+ without any JS -

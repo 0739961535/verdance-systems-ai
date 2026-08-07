@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Verdance Systems AI - AI that books more customers for local businesses";
+export const alt = "Verdance Systems AI - AI systems for marketing, sales, operations and automation";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
