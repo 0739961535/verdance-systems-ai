@@ -777,8 +777,8 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     slug: "websites-build",
     number: "09",
-    name: "Websites & Build",
-    eyebrow: "Websites & Build",
+    name: "Websites & Custom Apps",
+    eyebrow: "Websites & Custom Apps",
     headline: "A site that -",
     italicWord: "actually books customers.",
     promise:

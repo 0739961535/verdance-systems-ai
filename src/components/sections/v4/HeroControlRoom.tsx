@@ -51,8 +51,9 @@ export function HeroControlRoom() {
 
       <div className="container-wide relative z-10 pt-28 pb-14 md:pt-40 md:pb-20">
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          {/* text column */}
-          <div>
+          {/* text column - min-w-0 lets the column shrink to the grid track
+              instead of being forced wide by the button's nowrap label */}
+          <div className="min-w-0">
             <div className="enter-fade-up flex items-center gap-3">
               <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--signal)" }} />
               <span className="font-mono text-[0.75rem] uppercase tracking-[0.28em] text-[color:var(--color-ink-muted)]">
@@ -103,8 +104,11 @@ export function HeroControlRoom() {
 
           </div>
 
-          {/* dashboard column */}
-          <div className="enter-fade-up" style={{ animationDelay: "0.3s" }}>
+          {/* dashboard column - min-w-0 is essential: the dashboard is an
+              overflow-hidden panel with a ~370px min-content, and without this
+              it drags the grid track wider than the viewport on mobile,
+              clipping the hero off the right edge */}
+          <div className="enter-fade-up min-w-0" style={{ animationDelay: "0.3s" }}>
             <LiveOpsDashboard />
           </div>
         </div>

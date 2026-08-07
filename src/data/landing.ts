@@ -19,15 +19,18 @@ export const DASH_STATS = [
   { label: "Calls booked", value: 9, suffix: "", up: true },
 ];
 
+// Keep each `text` short (~20-28 chars) so a feed row never outgrows the
+// panel on a phone. The row is time + message + (chip, hidden on mobile);
+// long copy here forces the panel's min-content wider than a 375px viewport.
 export const DASH_EVENTS: { time: string; text: string; chip: string; booked?: boolean }[] = [
-  { time: "14:32", text: "WhatsApp lead captured, replied in 24s", chip: "sales" },
-  { time: "14:29", text: "Call booked: discovery, Thu 10:00", chip: "booking", booked: true },
-  { time: "14:21", text: "Review request sent after job completion", chip: "marketing" },
-  { time: "14:14", text: "Invoice chased, payment link re-sent", chip: "ops" },
-  { time: "13:58", text: "Voice agent answered a missed call", chip: "sales" },
-  { time: "13:52", text: "Old lead re-engaged, replied after 62 days", chip: "marketing" },
-  { time: "13:47", text: "Pipeline stage updated: quote accepted", chip: "ops", booked: true },
-  { time: "13:40", text: "After-hours enquiry answered in 19s", chip: "sales" },
+  { time: "14:32", text: "WhatsApp lead replied in 24s", chip: "sales" },
+  { time: "14:29", text: "Call booked: Thu 10:00", chip: "booking", booked: true },
+  { time: "14:21", text: "Review request sent", chip: "marketing" },
+  { time: "14:14", text: "Invoice chased, link re-sent", chip: "ops" },
+  { time: "13:58", text: "Missed call answered", chip: "sales" },
+  { time: "13:52", text: "Old lead re-engaged", chip: "marketing" },
+  { time: "13:47", text: "Quote accepted", chip: "ops", booked: true },
+  { time: "13:40", text: "After-hours enquiry answered", chip: "sales" },
 ];
 
 export const TICKER_ITEMS = [
@@ -44,7 +47,7 @@ export const DELTAS = [
   { label: "Time to answer a new enquiry", before: "4 hours", after: "28 seconds" },
   { label: "Enquiries after closing time", before: "go to voicemail", after: "answered and booked" },
   { label: "Follow-ups on every lead", before: "one, when there's time", after: "twelve, automatic" },
-  { label: "Google review requests", before: "hit and miss", after: "after every job" },
+  { label: "Google review requests", before: "hit and miss", after: "after every sale" },
 ];
 export const DELTAS_FOOTNOTE =
   "Typical performance targets, agreed together on your audit call.";
@@ -78,8 +81,8 @@ export const PILLARS: Pillar[] = [
       { name: "Database Reactivation", outcome: "Wakes up old leads and books them in", href: "/services/lead-generation" },
       { name: "Lead Finder & Scraper", outcome: "A steady feed of your ideal customers", href: "/services/lead-generation" },
       { name: "Landing Pages & Funnels", outcome: "Pages built to convert, not decorate", href: "/services/lead-generation" },
-      { name: "Google Review Engine", outcome: "Reviews asked for after every job, automatically", href: "/services/reputation-reviews" },
-      { name: "Website Builds", outcome: "Fast, search-ready sites with capture built in", href: "/services/websites-build" },
+      { name: "Google Review Engine", outcome: "Reviews asked for after every sale, automatically", href: "/services/reputation-reviews" },
+      { name: "Websites & Custom Apps", outcome: "Fast, search-ready sites and apps with capture built in", href: "/services/websites-build" },
       { name: "Social & Content Systems", outcome: "A publishing rhythm that runs without you", href: "/services/marketing-social" },
     ],
     href: "/services/lead-generation",
@@ -95,7 +98,7 @@ export const PILLARS: Pillar[] = [
       { name: "WhatsApp & SMS AI", outcome: "Replies in seconds, qualifies while it chats", href: "/services/conversation-ai" },
       { name: "Website Chat Widget", outcome: "Turns visitors into booked conversations", href: "/services/conversation-ai" },
       { name: "Voice AI Agents", outcome: "Inbound and outbound calls, handled naturally", href: "/services/voice-ai" },
-      { name: "AI Receptionist", outcome: "Every call answered, every job booked", href: "/products/ai-receptionist" },
+      { name: "AI Receptionist", outcome: "Every call answered, every sale booked", href: "/products/ai-receptionist" },
       { name: "Smart Scheduler", outcome: "Booking synced to your calendar, no back-and-forth", href: "/services/booking-calendar" },
       { name: "Follow-up & Nurture", outcome: "Twelve touches per lead without lifting a finger", href: "/services/follow-up-nurture" },
     ],

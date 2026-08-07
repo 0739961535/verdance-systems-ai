@@ -137,7 +137,7 @@ const JSON_LD = {
               "@type": "Service",
               name: "Marketing systems",
               description:
-                "Lead generation, database reactivation, landing pages and funnels, Google review automation, website builds and social content systems.",
+                "Lead generation, database reactivation, landing pages and funnels, Google review automation, websites and custom apps, and social content systems.",
             },
           },
           {
