@@ -72,7 +72,7 @@ export async function POST(req: Request) {
       locationId,
       contactId,
       startTime: slot,
-      title: `AI Systems Audit - ${name}`,
+      title: `Audit call - ${name}`,
       appointmentStatus: "confirmed",
     }),
   });

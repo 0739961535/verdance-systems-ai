@@ -1,13 +1,21 @@
 /**
  * Landing page data - the Control Room revamp.
  * All visitor-facing copy for the homepage lives here so it can be edited
- * in one place. Rules: no em dashes, never name the CRM vendor.
+ * in one place.
+ *
+ * Rules: no em dashes, never name the CRM vendor.
+ *
+ * Plain language rule: the reader is a business owner who does not know what
+ * AI is and does not care. Write about calls, messages, customers, money and
+ * time. Do not write about pipelines, agents, integrations, funnels, stacks,
+ * nurture, onboarding, scoring or reactivation. If a plumber would not use
+ * the word out loud, it does not go on the page.
  */
 
 export const HERO = {
-  eyebrow: "AI SYSTEMS AGENCY",
+  eyebrow: "ANSWERING · BOOKING · FOLLOW UP",
   // Headline is rendered in the component so the accent word can be styled.
-  lead: "Marketing, sales, operations and automation systems, designed, built and run for you. You own everything we build.",
+  lead: "We build the thing that answers your phone, replies to your messages and books people into your calendar. Day or night, in seconds. You own all of it.",
   ctaPrimary: "Book a Meeting",
   ctaWhatsApp: "WhatsApp us",
 };
@@ -28,19 +36,19 @@ export const DASH_EVENTS: { time: string; text: string; chip: string; booked?: b
   { time: "14:21", text: "Review request sent", chip: "marketing" },
   { time: "14:14", text: "Invoice chased, link re-sent", chip: "ops" },
   { time: "13:58", text: "Missed call answered", chip: "sales" },
-  { time: "13:52", text: "Old lead re-engaged", chip: "marketing" },
+  { time: "13:52", text: "Old customer messaged back", chip: "marketing" },
   { time: "13:47", text: "Quote accepted", chip: "ops", booked: true },
   { time: "13:40", text: "After-hours enquiry answered", chip: "sales" },
 ];
 
 export const TICKER_ITEMS = [
-  "Conversation AI on every channel",
-  "Voice agents answering 24/7",
-  "CRM and pipelines that run themselves",
-  "Google reviews on autopilot",
-  "Custom AI agents and integrations",
-  "Follow-up that never forgets",
-  "Booking without back-and-forth",
+  "Answers the phone, day or night",
+  "Replies to WhatsApp, texts and website messages",
+  "Books people straight into your calendar",
+  "Chases every enquiry until they answer",
+  "Asks for a Google review after every job",
+  "Keeps track of every customer without you",
+  "Handles the jobs only your business has",
 ];
 
 export const DELTAS = [
@@ -50,7 +58,7 @@ export const DELTAS = [
   { label: "Google review requests", before: "hit and miss", after: "after every sale" },
 ];
 export const DELTAS_FOOTNOTE =
-  "Typical performance targets, agreed together on your audit call.";
+  "These are the targets we agree with you on the audit call, and the numbers we report against every month.";
 
 export interface PillarOffer {
   name: string;
@@ -73,65 +81,65 @@ export const PILLARS: Pillar[] = [
   {
     index: "01",
     slug: "marketing",
-    name: "Marketing",
+    name: "Getting Found",
     icon: "megaphone",
-    promise: "Systems that fill your pipeline and keep your name everywhere.",
-    capabilities: ["Lead generation", "Reviews & reputation", "SEO & content"],
+    promise: "More of the right people find you, and more of them get in touch.",
+    capabilities: ["Finding new customers", "Google reviews", "Showing up on Google"],
     offers: [
-      { name: "Database Reactivation", outcome: "Wakes up old leads and books them in", href: "/services/lead-generation" },
-      { name: "Lead Finder & Scraper", outcome: "A steady feed of your ideal customers", href: "/services/lead-generation" },
-      { name: "Landing Pages & Funnels", outcome: "Pages built to convert, not decorate", href: "/services/lead-generation" },
-      { name: "Google Review Engine", outcome: "Reviews asked for after every sale, automatically", href: "/services/reputation-reviews" },
-      { name: "Websites & Custom Apps", outcome: "Fast, search-ready sites and apps with capture built in", href: "/services/websites-build" },
-      { name: "Social & Content Systems", outcome: "A publishing rhythm that runs without you", href: "/services/marketing-social" },
+      { name: "Waking Up Old Customers", outcome: "We message the people who went quiet, and book the ones who reply", href: "/services/lead-generation" },
+      { name: "Finding New Customers", outcome: "A steady list of people who match the ones you already sell to", href: "/services/lead-generation" },
+      { name: "Pages That Get Enquiries", outcome: "Built to make people contact you, not just to look good", href: "/services/lead-generation" },
+      { name: "Google Reviews On Autopilot", outcome: "Every customer gets asked, right after you have done the work", href: "/services/reputation-reviews" },
+      { name: "Websites and Apps", outcome: "Quick to load, easy to find on Google, built to capture enquiries", href: "/services/websites-build" },
+      { name: "Posting Without You", outcome: "Your social media keeps going on the weeks you are flat out", href: "/services/marketing-social" },
     ],
     href: "/services/lead-generation",
   },
   {
     index: "02",
     slug: "sales",
-    name: "Sales",
+    name: "Answering and Booking",
     icon: "message-circle",
-    promise: "Every enquiry answered in seconds, on every channel, and booked.",
-    capabilities: ["Conversation AI", "Voice agents", "Booking & follow-up"],
+    promise: "Every call and message answered in seconds, at any hour, and booked in.",
+    capabilities: ["Answering messages", "Answering the phone", "Booking and chasing"],
     offers: [
-      { name: "WhatsApp & SMS AI", outcome: "Replies in seconds, qualifies while it chats", href: "/services/conversation-ai" },
-      { name: "Website Chat Widget", outcome: "Turns visitors into booked conversations", href: "/services/conversation-ai" },
-      { name: "Voice AI Agents", outcome: "Inbound and outbound calls, handled naturally", href: "/services/voice-ai" },
-      { name: "AI Receptionist", outcome: "Every call answered, every sale booked", href: "/products/ai-receptionist" },
-      { name: "Smart Scheduler", outcome: "Booking synced to your calendar, no back-and-forth", href: "/services/booking-calendar" },
-      { name: "Follow-up & Nurture", outcome: "Twelve touches per lead without lifting a finger", href: "/services/follow-up-nurture" },
+      { name: "WhatsApp and Texts", outcome: "Replies in seconds, and works out what they need while it chats", href: "/services/conversation-ai" },
+      { name: "Chat On Your Website", outcome: "Talks to people while they are still on the page, and books them", href: "/services/conversation-ai" },
+      { name: "Answering The Phone", outcome: "Picks up every call, at any hour, and sounds like a person", href: "/services/voice-ai" },
+      { name: "A Receptionist That Never Sleeps", outcome: "Answers, takes the details, books the job, tells you about it", href: "/products/ai-receptionist" },
+      { name: "Booking Into Your Calendar", outcome: "Straight into your diary, with none of the back and forth", href: "/services/booking-calendar" },
+      { name: "Chasing Every Enquiry", outcome: "Twelve follow-ups each, and it stops the moment they reply", href: "/services/follow-up-nurture" },
     ],
     href: "/services/conversation-ai",
   },
   {
     index: "03",
     slug: "operations",
-    name: "Internal Operations",
+    name: "Running The Business",
     icon: "settings-2",
-    promise: "Your pipeline, payments and reporting run themselves.",
-    capabilities: ["CRM & pipelines", "Payments & invoicing", "Dashboards"],
+    promise: "The admin does itself. Records, invoices, and knowing where you stand.",
+    capabilities: ["Keeping customer records", "Invoices and payments", "Knowing your numbers"],
     offers: [
-      { name: "Customised CRM", outcome: "One system of record, set up around how you sell", href: "/services/crm-pipeline" },
-      { name: "Pipelines & Lead Scoring", outcome: "Every deal visible, hot leads surfaced first", href: "/services/crm-pipeline" },
-      { name: "Payments & Invoicing", outcome: "Invoices sent and chased without you", href: "/services/payments-invoicing" },
-      { name: "Tracking Dashboards", outcome: "The numbers that matter, live in one view", href: "/services/analytics-compliance" },
-      { name: "Internal AI Assistant", outcome: "Your team's questions answered from your own data", href: "/services/crm-pipeline" },
+      { name: "One Place For Every Customer", outcome: "Every call, message and job filed against the right name, by itself", href: "/services/crm-pipeline" },
+      { name: "Seeing Every Job", outcome: "All of them in one view, with the keenest customers at the top", href: "/services/crm-pipeline" },
+      { name: "Invoices and Chasing", outcome: "Sent the moment the work is done, then chased until they pay", href: "/services/payments-invoicing" },
+      { name: "Your Numbers In One Place", outcome: "How many called, how many booked, and what it was worth", href: "/services/analytics-compliance" },
+      { name: "An Assistant For Your Team", outcome: "Answers your staff's questions out of your own files, instantly", href: "/services/crm-pipeline" },
     ],
     href: "/services/crm-pipeline",
   },
   {
     index: "04",
     slug: "automations",
-    name: "Automations",
+    name: "The Custom Work",
     icon: "workflow",
-    promise: "Custom agents and integrations that connect everything you run.",
-    capabilities: ["Custom AI agents", "MCP integrations", "Workflow automation"],
+    promise: "The jobs only your business has, done without anyone doing them.",
+    capabilities: ["One off builds", "Connecting your tools", "Removing repeat work"],
     offers: [
-      { name: "Custom AI Agents", outcome: "Agents built for the work only your business has", href: "/services/custom-builds" },
-      { name: "MCP Server Integrations", outcome: "Your tools wired into AI, safely", href: "/services/custom-builds" },
-      { name: "Client Intake Automation", outcome: "From enquiry to onboarded without admin", href: "/products/client-intake-automation" },
-      { name: "Workflow Automation", outcome: "The busywork between your tools, gone", href: "/services/custom-builds" },
+      { name: "Built For Your Job", outcome: "For the work nobody else does the way you do it", href: "/services/custom-builds" },
+      { name: "Connecting What You Already Use", outcome: "Your existing tools passing information to each other, safely", href: "/services/custom-builds" },
+      { name: "Signing Up New Customers", outcome: "From first message to paperwork done, without the admin", href: "/products/client-intake-automation" },
+      { name: "Killing The Busywork", outcome: "The copying and pasting between your tools, gone", href: "/services/custom-builds" },
     ],
     href: "/services/custom-builds",
   },
@@ -141,37 +149,37 @@ export const PROCESS = [
   {
     n: "01",
     name: "Audit",
-    desc: "A 30-minute call mapping where AI pays back fastest in your business.",
-    meta: "Week 0 · you get: a prioritised roadmap",
+    desc: "A 30 minute call. We work out where you are losing the most money, and what to fix first.",
+    meta: "Week 0 · you get: a plan, in order",
   },
   {
     n: "02",
     name: "Blueprint",
-    desc: "We spec the exact systems, integrations and outcomes before anything is built.",
-    meta: "Week 1 · you get: system blueprint + fixed quote",
+    desc: "We write down exactly what gets built and what it will do, before anyone starts building.",
+    meta: "Week 1 · you get: the written plan and a fixed price",
   },
   {
     n: "03",
     name: "Build",
-    desc: "Your systems assembled and tested against the blueprint.",
-    meta: "Weeks 2–3 · you get: working systems in staging",
+    desc: "We build it, then test it against that plan line by line.",
+    meta: "Weeks 2-3 · you get: something you can try before it goes live",
   },
   {
     n: "04",
-    name: "Integrate",
-    desc: "Wired into your CRM, calendar, phone lines and channels.",
-    meta: "you get: one connected stack",
+    name: "Connect",
+    desc: "We hook it up to your phone, your calendar, and wherever your customers message you.",
+    meta: "you get: everything talking to everything",
   },
   {
     n: "05",
     name: "Launch",
-    desc: "Live on a date agreed in writing, with your team trained.",
+    desc: "It goes live on the date written into your contract, and we train your team to use it.",
     meta: "you get: a launch date in the contract",
   },
   {
     n: "06",
-    name: "Run & optimise",
-    desc: "We monitor, tune and report. The system gets better every month.",
+    name: "Run and improve",
+    desc: "We watch it, keep improving it, and send you the numbers every month.",
     meta: "monthly · you get: a performance report",
   },
 ];
@@ -198,14 +206,14 @@ export const GUARANTEE = {
 };
 
 export const AUDIT = {
-  eyebrow: "COMPLIMENTARY · 30 MINUTES",
-  title: "The AI Systems Audit",
+  eyebrow: "FREE · 30 MINUTES",
+  title: "The Free Audit Call",
   checklist: [
-    "A map of where AI pays back fastest in your business",
-    "A prioritised system roadmap, yours to keep",
-    "A fixed quote if you want us to build it",
+    "Where you are losing customers right now",
+    "What to fix first, second and third. Yours to keep.",
+    "A fixed price, if you want us to build it",
   ],
-  microcopy: "A complimentary consultation with no obligation. The roadmap is yours to keep either way.",
+  microcopy: "Free, and there is nothing to sign. The plan is yours to keep either way.",
   aiChips: [
     {
       label: "ChatGPT",
@@ -224,27 +232,31 @@ export const AUDIT = {
 
 export const LANDING_FAQS = [
   {
-    q: "What happens on the AI Systems Audit call?",
-    a: "Thirty minutes on a video call. We map how enquiries, follow-up and admin flow through your business today, find where AI pays back fastest, and leave you with a prioritised roadmap. It's yours to keep whether or not we build anything.",
+    q: "What happens on the free audit call?",
+    a: "Thirty minutes on a video call. We go through how enquiries, follow-up and admin actually work in your business today, find where you are losing the most, and leave you with a list of what to fix in order. It's yours to keep whether or not we build anything.",
   },
   {
     q: "What does it cost?",
-    a: "The audit is free. If you want us to build, you get a fixed quote with the blueprint, agreed before any work starts. The price on the quote is the price you pay.",
+    a: "The call is free. If you want us to build, you get a fixed price with the written plan, agreed before any work starts. The price on the quote is the price you pay.",
   },
   {
-    q: "How long until my systems are live?",
-    a: "Most builds go live in two to four weeks from the blueprint. Your contract includes the launch date, and we build in stages so you see working systems early, not at the end.",
+    q: "How long until it's working?",
+    a: "Most builds go live two to four weeks after the plan is signed off. Your contract includes the launch date, and we build in stages so you see it working early, not at the end.",
   },
   {
-    q: "Who owns the system once it's built?",
-    a: "You do. Accounts, AI agents, automations and data are set up in your name from day one. If we part ways, everything keeps working and stays yours.",
+    q: "Who owns it once it's built?",
+    a: "You do. Every account, automation and piece of data is set up in your name from day one. If we part ways, everything keeps working and stays yours.",
   },
   {
-    q: "We already have a CRM. Do we have to switch?",
-    a: "No. We integrate with what you run today where that's the right call, and only recommend moving if it genuinely pays for itself. That trade-off is exactly what the audit works out.",
+    q: "We already have a system for our customers. Do we have to switch?",
+    a: "No. We connect to what you run today where that's the right call, and only suggest moving if it genuinely pays for itself. Working out that trade-off is exactly what the audit call is for.",
   },
   {
-    q: "How is our data handled?",
-    a: "Your data lives in your own accounts, not ours. We follow least-access principles, use your systems' native permissions, and hand over all credentials at launch.",
+    q: "What happens to our data?",
+    a: "It lives in your own accounts, not ours. We give everything the least access it needs to work, use your systems' own permissions, and hand over every login at launch.",
+  },
+  {
+    q: "I don't really understand AI. Is that a problem?",
+    a: "No, and you don't need to. You'll never touch it. It answers your phone and your messages, books people in, and tells you what it did. If anything ever needs a decision, it comes to you in plain English.",
   },
 ];

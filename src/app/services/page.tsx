@@ -55,7 +55,7 @@ export default function ServicesPage() {
           <Reveal delay={0.15}>
             <div className="mt-10 flex flex-wrap gap-3">
               <MagneticButton href="/contact" variant="accent">
-                Book your AI Systems Audit
+                Book your free audit call
               </MagneticButton>
               <MagneticButton href="/how-it-works" variant="ghost">
                 How it works
