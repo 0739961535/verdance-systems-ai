@@ -6,6 +6,9 @@ import { AnimatedDivider } from "@/components/primitives/AnimatedDivider";
 import { SystemDiagram } from "@/components/sections/v3/SystemDiagram";
 import { HowItWorksDemos } from "@/components/sections/v3/HowItWorksDemos";
 import { FinalCTA } from "@/components/sections/v3/FinalCTA";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { PROCESS } from "@/data/process";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/how-it-works" },
@@ -60,6 +63,49 @@ export default function HowItWorksPage() {
               </MagneticButton>
             </div>
           </Reveal>
+        </div>
+      </section>
+
+      <section className="section-pad-sm bg-canvas" aria-labelledby="steps-title">
+        <div className="container-wide">
+          <Reveal>
+            <h2
+              id="steps-title"
+              className="font-display text-[color:var(--color-ink)] max-w-[20ch]"
+              style={{ fontSize: "clamp(1.6rem, 2.8vw, 2.3rem)", letterSpacing: "-0.03em" }}
+            >
+              The six steps, in detail.
+            </h2>
+          </Reveal>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {PROCESS.map((step, i) => (
+              <Reveal key={step.slug} delay={i * 0.04}>
+                <Link
+                  href={`/how-it-works/${step.slug}`}
+                  className="group block h-full rounded-2xl border p-5 transition-colors hover:bg-[rgba(var(--accent-rgb),0.04)]"
+                  style={{ borderColor: "var(--hairline)" }}
+                >
+                  <span
+                    className="font-mono tabular-nums text-sm"
+                    style={{ color: "rgba(var(--accent-rgb), 0.5)" }}
+                  >
+                    {step.n}
+                  </span>
+                  <h3 className="mt-1.5 font-display font-semibold text-[color:var(--color-ink)] flex items-center gap-1.5">
+                    {step.name}
+                    <ArrowUpRight
+                      size={14}
+                      aria-hidden
+                      className="text-[color:var(--color-accent)] opacity-0 transition-opacity group-hover:opacity-100"
+                    />
+                  </h3>
+                  <p className="mt-2 text-sm text-[color:var(--color-ink-muted)] leading-relaxed">
+                    {step.promise}
+                  </p>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

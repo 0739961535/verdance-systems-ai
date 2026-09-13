@@ -3,6 +3,7 @@ import { SERVICE_CATEGORIES } from "@/data/services";
 import { products } from "@/data/products";
 import { industries } from "@/data/industries";
 import { LOCATIONS } from "@/data/locations";
+import { PROCESS } from "@/data/process";
 
 const SITE_URL = "https://verdancesystemsai.com";
 
@@ -46,13 +47,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     freq: "monthly" as Freq,
   }));
 
+  const processRoutes = PROCESS.map((s) => ({
+    path: `/how-it-works/${s.slug}`,
+    priority: 0.75,
+    freq: "monthly" as Freq,
+  }));
+
   const productRoutes = products.map((p) => ({
     path: `/products/${p.slug}`,
     priority: 0.7,
     freq: "monthly" as Freq,
   }));
 
-  return [...staticRoutes, ...serviceRoutes, ...industryRoutes, ...locationRoutes, ...productRoutes].map(
+  return [...staticRoutes, ...serviceRoutes, ...industryRoutes, ...locationRoutes, ...processRoutes, ...productRoutes].map(
     ({ path, priority, freq }) => ({
       url: `${SITE_URL}${path}`,
       lastModified: now,
