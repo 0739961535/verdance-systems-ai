@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   },
   title: "Portfolio | Verdance Systems AI",
   description: "Projects built by Verdance Systems AI - automation systems deployed for businesses worldwide.",
+  // Stays out of the index until the cards carry real case studies. Six
+  // "Coming soon" boxes indexed is thin content, and it shows a prospect
+  // researching a R71 000 quote that there is nothing to show yet.
+  robots: { index: false, follow: true },
 };
 
 const placeholders = [
@@ -43,7 +47,7 @@ export default function PortfolioPage() {
               What we&apos;ve built.
             </h1>
             <p className="text-[color:var(--color-ink-muted)] text-lg leading-relaxed">
-              A growing collection of systems deployed for businesses for businesses worldwide.
+              A growing collection of systems deployed for businesses worldwide.
               Case studies and project details coming soon.
             </p>
           </div>

@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { SERVICE_CATEGORIES } from "@/data/services";
 import { products } from "@/data/products";
 import { industries } from "@/data/industries";
+import { LOCATIONS } from "@/data/locations";
 
 const SITE_URL = "https://verdancesystemsai.com";
 
@@ -34,13 +35,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     freq: "monthly" as Freq,
   }));
 
+  // Location pages carry hand-written local content, so they are worth
+  // indexing. If one is ever reduced to a templated city swap, take it out of
+  // here and out of the LOCATIONS list: a doorway page is worse than no page.
+  const locationRoutes = LOCATIONS.map((l) => ({
+    path: `/ai-agency/${l.slug}`,
+    priority: 0.8,
+    freq: "monthly" as Freq,
+  }));
+
   const productRoutes = products.map((p) => ({
     path: `/products/${p.slug}`,
     priority: 0.7,
     freq: "monthly" as Freq,
   }));
 
-  return [...staticRoutes, ...serviceRoutes, ...industryRoutes, ...productRoutes].map(
+  return [...staticRoutes, ...serviceRoutes, ...industryRoutes, ...locationRoutes, ...productRoutes].map(
     ({ path, priority, freq }) => ({
       url: `${SITE_URL}${path}`,
       lastModified: now,

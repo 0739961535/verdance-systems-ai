@@ -115,8 +115,44 @@ const JSON_LD = {
       description:
         "An AI systems agency that designs, builds and runs marketing, sales, operations and automation systems - conversation AI, voice agents, CRM, custom AI agents and integrations.",
       founder: { "@type": "Person", name: "Daniel Bouwer" },
-      areaServed: "Worldwide",
-      sameAs: ["https://www.linkedin.com/in/daniel-bouwer/"],
+      areaServed: [
+        { "@type": "Country", name: "South Africa" },
+        { "@type": "Country", name: "United Kingdom" },
+        { "@type": "AdministrativeArea", name: "Gauteng" },
+        { "@type": "AdministrativeArea", name: "Western Cape" },
+        { "@type": "AdministrativeArea", name: "KwaZulu-Natal" },
+        { "@type": "AdministrativeArea", name: "Greater London" },
+        { "@type": "AdministrativeArea", name: "Greater Manchester" },
+        { "@type": "AdministrativeArea", name: "West Midlands" },
+      ],
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          telephone: "+27739961535",
+          contactType: "sales",
+          areaServed: "ZA",
+          availableLanguage: ["English", "Afrikaans"],
+        },
+        {
+          "@type": "ContactPoint",
+          telephone: "+447432351517",
+          contactType: "sales",
+          areaServed: "GB",
+          availableLanguage: ["English"],
+        },
+      ],
+      // Every profile listed here is one more place an AI engine can confirm
+      // this company exists and does what it says. One link is close to no
+      // signal. Add each URL here the day the profile goes live.
+      sameAs: [
+        "https://www.linkedin.com/in/daniel-bouwer/",
+        // TODO add as they go live, in roughly this order of value:
+        //   company LinkedIn page
+        //   Google Business Profile (the maps URL)
+        //   Clutch profile
+        //   Crunchbase
+        //   YouTube channel
+      ],
       knowsAbout: [
         "AI automation",
         "conversation AI",
