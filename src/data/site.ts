@@ -66,7 +66,7 @@ export const HOW_IT_WORKS_STEPS = [
 export const SERVICES_OVERVIEW = [
   {
     title: "Missed-Revenue Recovery",
-    flagship: true,
+    featured: true,
     blurb:
       "Capture the leads you're losing and turn them into booked appointments - automatically.",
     href: "/services#missed-revenue",
@@ -74,7 +74,7 @@ export const SERVICES_OVERVIEW = [
   },
   {
     title: "AI Voice Receptionist",
-    flagship: false,
+    featured: false,
     blurb:
       "Never miss another call. Answers 24/7, handles questions, books appointments.",
     href: "/services#voice",
@@ -82,21 +82,21 @@ export const SERVICES_OVERVIEW = [
   },
   {
     title: "Website & Chat Assistant",
-    flagship: false,
+    featured: false,
     blurb: "Turn website visitors into booked appointments.",
     href: "/services#website",
     tone: "blue",
   },
   {
     title: "Reputation & Reviews Engine",
-    flagship: false,
+    featured: false,
     blurb: "More 5-star reviews, on autopilot.",
     href: "/services#reviews",
     tone: "green",
   },
   {
     title: "Custom AI Builds",
-    flagship: false,
+    featured: false,
     blurb: "Whatever your business needs, built for you.",
     href: "/services#custom",
     tone: "blue",

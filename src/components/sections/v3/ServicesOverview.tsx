@@ -7,7 +7,7 @@ import { SERVICES_OVERVIEW } from "@/data/site";
 
 /**
  * Map the curated home-page service cards to their canonical sub-page slugs
- * in the new /services/[slug] taxonomy. The Missed-Revenue flagship stays
+ * in the new /services/[slug] taxonomy. The Missed-Revenue feature card stays
  * pointing at the dedicated section on /services itself.
  */
 const HOME_OVERVIEW_HREF: Record<string, string> = {
@@ -37,7 +37,7 @@ export function ServicesOverview() {
             <Reveal
               key={s.title}
               delay={i * 0.06}
-              className={s.flagship ? "lg:col-span-2" : ""}
+              className={s.featured ? "lg:col-span-2" : ""}
             >
               <Link
                 href={HOME_OVERVIEW_HREF[s.title] ?? s.href}
@@ -45,7 +45,7 @@ export function ServicesOverview() {
               >
                 <div className="p-8 md:p-9 flex flex-col h-full">
                   <div className="flex items-center justify-between">
-                    {s.flagship ? (
+                    {s.featured ? (
                       <span
                         className="inline-flex items-center gap-2 rounded-full text-[10px] uppercase tracking-[0.3em] font-mono font-medium px-2.5 py-1"
                         style={{
@@ -53,7 +53,7 @@ export function ServicesOverview() {
                           color: "var(--color-on-accent)",
                         }}
                       >
-                        Flagship
+                        Start here
                       </span>
                     ) : (
                       <span className="font-mono text-xs uppercase tracking-[0.3em] text-[color:var(--color-ink-muted)]">
@@ -64,7 +64,7 @@ export function ServicesOverview() {
                   </div>
                   <h3
                     className={`mt-7 font-display font-medium leading-tight text-[color:var(--color-ink)] ${
-                      s.flagship ? "text-3xl md:text-4xl" : "text-2xl"
+                      s.featured ? "text-3xl md:text-4xl" : "text-2xl"
                     }`}
                   >
                     {s.title}

@@ -53,7 +53,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     ],
     subProducts: [
       {
-        name: "Database Reactivation (flagship opener)",
+        name: "Database Reactivation (most start here)",
         description:
           "Re-engage old leads sitting in your CRM with a friendly, on-brand message. Brings forgotten money back to life.",
         howItWorks: [
@@ -795,7 +795,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Custom Website (Next.js + SEO)",
         description:
-          "A site built like a flagship product - design-led, SEO-tight, blazing fast.",
+          "Built properly, loads fast, and set up so Google can actually find you.",
         howItWorks: [
           "Discovery + design system in week one",
           "Build + content in weeks 2–3",

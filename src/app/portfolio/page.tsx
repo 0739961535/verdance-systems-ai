@@ -16,7 +16,6 @@ export const metadata: Metadata = {
     title: "Portfolio | Verdance Systems AI",
     description: "Projects built by Verdance Systems AI - automation systems deployed for businesses worldwide.",
   },
-  robots: { index: false, follow: true },
   title: "Portfolio | Verdance Systems AI",
   description: "Projects built by Verdance Systems AI - automation systems deployed for businesses worldwide.",
 };
