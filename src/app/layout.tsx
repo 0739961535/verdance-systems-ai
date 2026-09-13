@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Inter, Geist, JetBrains_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
@@ -241,6 +243,8 @@ export default function RootLayout({
         </SmoothScroll>
         <GHLChatWidget />
         {process.env.NEXT_PUBLIC_BRAND_STUDIO === "1" && <BrandStudio />}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

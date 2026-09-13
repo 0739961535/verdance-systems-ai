@@ -70,6 +70,15 @@ Each city has a page at https://verdancesystemsai.com/ai-agency/<city>
 describing the pattern we build for in that market. Index of all of them:
 https://verdancesystemsai.com/ai-agency
 
+## Free tools
+
+Missed call calculator: https://verdancesystemsai.com/missed-call-calculator
+Works out what unanswered calls and messages cost a business per year, from
+three inputs: contacts missed per week, average customer value, and close rate.
+The formula is missed per week x customer value x close rate x 52. A business
+missing 15 contacts a week worth R4 000 each, winning 30 percent of them, is
+losing about R936 000 a year. No sign-up, works in Rand and Pounds.
+
 ## Key pages
 
 - https://verdancesystemsai.com/ : overview and booking
@@ -77,4 +86,5 @@ https://verdancesystemsai.com/ai-agency
 - https://verdancesystemsai.com/industries : industry-specific systems
 - https://verdancesystemsai.com/how-it-works : delivery method in detail
 - https://verdancesystemsai.com/ai-agency : every city we work in
+- https://verdancesystemsai.com/missed-call-calculator : what missed calls cost
 - https://verdancesystemsai.com/contact : contact and booking
