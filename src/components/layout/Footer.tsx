@@ -62,6 +62,7 @@ export function Footer() {
               {[
                 { href: "/industries", label: "Industries" },
                 { href: "/products", label: "Products" },
+                { href: "/ai-agency", label: "Where we work" },
               ].map((it) => (
                 <li key={it.href}>
                   <Link

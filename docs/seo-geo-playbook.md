@@ -37,7 +37,7 @@ If you disagree with that split, say so, because everything below depends on it.
 |---|---|
 | `areaServed: "Worldwide"` replaced with named countries and regions | "Worldwide" tells a search engine nothing about where to rank you. It was the single biggest on-site blocker. |
 | Added `contactPoint` for both numbers, tagged `ZA` and `GB` | Tells Google you genuinely operate in both, and which number belongs to which. |
-| 8 location pages at `/ai-agency/<city>` | The pages that can rank for "AI agency" plus a city name. Each carries `ProfessionalService` schema with a real `areaServed`. |
+| 18 location pages at `/ai-agency/<city>`, plus an index at `/ai-agency` | The pages that can rank for "AI agency" plus a city name. Each carries `ProfessionalService` schema with a real `areaServed`. |
 | `FAQPage` schema on every location page | Structured data raises AI citation rates substantially, and FAQ blocks are the format generative engines quote most readily. |
 | Location pages added to the sitemap | So they get discovered. |
 | `sameAs` expanded with a prioritised TODO list | One link is close to no entity signal. See below. |
@@ -85,11 +85,15 @@ Generative engines quote specifics. "Bookings up 34% in six weeks for a dental g
 
 One real number does more for you right now than another ten pages.
 
-### 5. Then, and only then, more location pages
+### 5. More location pages, but only where you can write them
+
+Fifteen South African cities and three British ones are live, covering
+Gauteng, the Western Cape, KwaZulu-Natal, the Eastern Cape, the Free State,
+Limpopo, Mpumalanga and North West.
 
 `src/data/locations.ts` has the rule at the top. Google penalises doorway pages, meaning near-identical pages that differ only by a swapped city name, and that penalty can drag the whole domain down.
 
-Every city needs a true, specific `angle` and `localContext`. If you cannot write them, do not add the city. Eight real pages beat forty templated ones, and forty templated ones are an active liability.
+Every city needs a true, specific `angle` and `localContext`. If you cannot write them, do not add the city. Fifteen real pages beat forty templated ones, and forty templated ones are an active liability.
 
 ---
 

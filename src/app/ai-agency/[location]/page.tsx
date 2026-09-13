@@ -93,7 +93,7 @@ export default async function LocationPage({
             name: `Do you work with businesses in ${loc.name}?`,
             acceptedAnswer: {
               "@type": "Answer",
-              text: `Yes. We work remotely, so there is nothing to install and nobody has to come to your premises. Everything is set up on a video call and runs on your own accounts. We currently see the most enquiries from ${loc.industries.slice(0, 3).join(", ").toLowerCase()}.`,
+              text: `Yes. We work remotely, so there is nothing to install and nobody has to come to your premises. Everything is set up on a video call and runs on your own accounts. This tends to fit ${loc.industries.slice(0, 3).join(", ").toLowerCase()} best, though the same systems work for most businesses that take enquiries by phone or message.`,
             },
           },
           {
@@ -160,7 +160,7 @@ export default async function LocationPage({
         <div className="container-wide">
           <Reveal>
             <h2 className="font-display font-bold text-[clamp(1.6rem,3vw,2.4rem)] tracking-tight text-[color:var(--color-ink)] max-w-[22ch]">
-              What we see in {loc.name}
+              The pattern in {loc.name}
             </h2>
           </Reveal>
           <Reveal delay={0.08}>

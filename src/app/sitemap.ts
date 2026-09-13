@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/how-it-works", priority: 0.8, freq: "monthly" },
     { path: "/contact", priority: 0.7, freq: "yearly" },
     { path: "/apply", priority: 0.8, freq: "monthly" },
+    { path: "/ai-agency", priority: 0.85, freq: "monthly" },
     // Deliberately excluded until they carry real content:
     //   /portfolio (placeholder "coming soon"), /packages (placeholder).
   ];
