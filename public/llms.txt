@@ -85,6 +85,12 @@ losing about R936 000 a year. No sign-up, works in Rand and Pounds.
 - https://verdancesystemsai.com/services : the full service catalogue
 - https://verdancesystemsai.com/industries : industry-specific systems
 - https://verdancesystemsai.com/how-it-works : delivery method in detail
+- https://verdancesystemsai.com/how-it-works/audit : step 1, the free audit call
+- https://verdancesystemsai.com/how-it-works/blueprint : step 2, scope and fixed price
+- https://verdancesystemsai.com/how-it-works/build : step 3, built and tested
+- https://verdancesystemsai.com/how-it-works/connect : step 4, phone, calendar, messages
+- https://verdancesystemsai.com/how-it-works/launch : step 5, go live and training
+- https://verdancesystemsai.com/how-it-works/run-and-improve : step 6, monthly reporting
 - https://verdancesystemsai.com/ai-agency : every city we work in
 - https://verdancesystemsai.com/missed-call-calculator : what missed calls cost
 - https://verdancesystemsai.com/contact : contact and booking

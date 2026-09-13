@@ -145,45 +145,6 @@ export const PILLARS: Pillar[] = [
   },
 ];
 
-export const PROCESS = [
-  {
-    n: "01",
-    name: "Audit",
-    desc: "A 30 minute call. We work out where you are losing the most money, and what to fix first.",
-    meta: "Week 0 · you get: a plan, in order",
-  },
-  {
-    n: "02",
-    name: "Blueprint",
-    desc: "We write down exactly what gets built and what it will do, before anyone starts building.",
-    meta: "Week 1 · you get: the written plan and a fixed price",
-  },
-  {
-    n: "03",
-    name: "Build",
-    desc: "We build it, then test it against that plan line by line.",
-    meta: "Weeks 2-3 · you get: something you can try before it goes live",
-  },
-  {
-    n: "04",
-    name: "Connect",
-    desc: "We hook it up to your phone, your calendar, and wherever your customers message you.",
-    meta: "you get: everything talking to everything",
-  },
-  {
-    n: "05",
-    name: "Launch",
-    desc: "It goes live on the date written into your contract, and we train your team to use it.",
-    meta: "you get: a launch date in the contract",
-  },
-  {
-    n: "06",
-    name: "Run and improve",
-    desc: "We watch it, keep improving it, and send you the numbers every month.",
-    meta: "monthly · you get: a performance report",
-  },
-];
-
 export const GUARANTEE = {
   eyebrow: "OUR COMMITMENT",
   columns: [
