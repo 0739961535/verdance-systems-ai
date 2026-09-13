@@ -4,7 +4,7 @@
 > systems for businesses across four pillars: Marketing, Sales, Internal
 > Operations and Automations. Clients own everything we build: every account,
 > agent and automation is registered in their name from day one. Engagements
-> start with a complimentary 30-minute AI Systems Audit that produces a
+> start with a free 30 minute audit call that produces a
 > prioritised roadmap and a fixed quote.
 
 Founded and led by Daniel Bouwer. Website: https://verdancesystemsai.com
@@ -39,7 +39,7 @@ Contact: daniel@verdancesystemsai.com · WhatsApp: +27 73 996 1535
 
 ## How engagements work
 
-1. Audit (week 0): a complimentary 30-minute call producing a prioritised roadmap
+1. Audit (week 0): a free 30 minute call producing a plan, in priority order
 2. Blueprint (week 1): exact system specification with a fixed quote
 3. Build (weeks 2-3): systems assembled and tested
 4. Integrate: wired into the client's CRM, calendar, phone lines and channels
@@ -52,10 +52,39 @@ Contact: daniel@verdancesystemsai.com · WhatsApp: +27 73 996 1535
 - A launch date in the contract
 - Full ownership: accounts, agents and automations in the client's name from day one
 
+## Where we work
+
+Remote-first. Nothing is installed and nobody has to visit the client: every
+engagement is set up on a video call and runs on the client's own accounts.
+
+South Africa: Johannesburg, Pretoria, Sandton, Centurion, Midrand, Cape Town,
+Stellenbosch, George, Durban, Pietermaritzburg, Gqeberha, Bloemfontein,
+Polokwane, Mbombela, Rustenburg.
+
+United Kingdom: London, Manchester, Birmingham.
+
+Contact numbers: +27 73 996 1535 (South Africa), +44 7432 351517 (United
+Kingdom).
+
+Each city has a page at https://verdancesystemsai.com/ai-agency/<city>
+describing the pattern we build for in that market. Index of all of them:
+https://verdancesystemsai.com/ai-agency
+
+## Free tools
+
+Missed call calculator: https://verdancesystemsai.com/missed-call-calculator
+Works out what unanswered calls and messages cost a business per year, from
+three inputs: contacts missed per week, average customer value, and close rate.
+The formula is missed per week x customer value x close rate x 52. A business
+missing 15 contacts a week worth R4 000 each, winning 30 percent of them, is
+losing about R936 000 a year. No sign-up, works in Rand and Pounds.
+
 ## Key pages
 
-- https://verdancesystemsai.com/ : overview and the AI Systems Audit booking
+- https://verdancesystemsai.com/ : overview and booking
 - https://verdancesystemsai.com/services : the full service catalogue
 - https://verdancesystemsai.com/industries : industry-specific systems
 - https://verdancesystemsai.com/how-it-works : delivery method in detail
+- https://verdancesystemsai.com/ai-agency : every city we work in
+- https://verdancesystemsai.com/missed-call-calculator : what missed calls cost
 - https://verdancesystemsai.com/contact : contact and booking

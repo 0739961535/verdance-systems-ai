@@ -62,17 +62,19 @@ export function HeroControlRoom() {
             </div>
 
             <h1
-              className="enter-fade-up font-display text-[color:var(--color-ink)] mt-6 max-w-[15ch]"
+              className="enter-fade-up font-display text-[color:var(--color-ink)] mt-6 max-w-[20ch]"
               style={{
-                fontSize: "clamp(2.5rem, 4.8vw + 1.6rem, 5.25rem)",
+                fontSize: "clamp(2.25rem, 4.1vw + 1.4rem, 4.5rem)",
                 lineHeight: 1.02,
                 letterSpacing: "-0.04em",
                 animationDelay: "0.08s",
               }}
             >
-              We don&apos;t talk about AI.
+              They called at 7pm.
               <br />
-              We <span className="italic-accent">ship</span> it.
+              Nobody answered.
+              <br />
+              They called <span className="italic-accent">someone else</span>.
             </h1>
 
             <p

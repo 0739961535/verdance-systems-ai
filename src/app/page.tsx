@@ -13,9 +13,9 @@ import { LANDING_FAQS } from "@/data/landing";
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
-    title: "AI Systems Agency | Verdance Systems AI",
+    title: "Never Miss Another Customer | Verdance Systems AI",
     description:
-      "AI systems for marketing, sales, operations and automation - designed, built and run for you. You own everything we build. Start with a free AI Systems Audit.",
+      "Every call and message answered in seconds, at any hour, and booked straight into your calendar. Built for you, owned by you. Free audit call first.",
     url: "https://verdancesystemsai.com/",
     type: "website",
   },

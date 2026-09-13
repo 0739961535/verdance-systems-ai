@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Inter, Geist, JetBrains_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
@@ -41,9 +43,9 @@ const fraunces = Fraunces({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://verdancesystemsai.com"),
-  title: "AI Systems Agency | Marketing, Sales & Automation | Verdance Systems AI",
+  title: "Never Miss Another Customer | AI Answering, Booking & Follow Up | Verdance Systems AI",
   description:
-    "Verdance designs, builds and runs AI systems across marketing, sales, operations and automation - conversation AI, voice agents, CRM, custom agents and integrations. Book a free AI Systems Audit and leave with a roadmap.",
+    "We build the thing that answers your phone, replies to your messages and books people into your calendar, day or night. You own all of it. Start with a free 30 minute audit call.",
   applicationName: "Verdance Systems AI",
   keywords: [
     "AI systems agency",
@@ -61,9 +63,9 @@ export const metadata: Metadata = {
   creator: "Verdance Systems AI",
   publisher: "Verdance Systems AI",
   openGraph: {
-    title: "Verdance Systems AI - We don't talk about AI. We ship it.",
+    title: "Verdance Systems AI - Never miss another customer.",
     description:
-      "AI systems for marketing, sales, operations and automation - designed, built and run for you. You own everything we build. Start with a free AI Systems Audit.",
+      "Every call and message answered in seconds, at any hour, and booked straight into your calendar. Built for you, owned by you. Free audit call first.",
     url: "https://verdancesystemsai.com",
     type: "website",
     locale: "en_GB",
@@ -71,9 +73,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Verdance Systems AI - We don't talk about AI. We ship it.",
+    title: "Verdance Systems AI - Never miss another customer.",
     description:
-      "AI systems for marketing, sales, operations and automation. Free AI Systems Audit first.",
+      "Every call and message answered in seconds, any hour, and booked in. Free audit call first.",
   },
   robots: {
     index: true,
@@ -115,8 +117,44 @@ const JSON_LD = {
       description:
         "An AI systems agency that designs, builds and runs marketing, sales, operations and automation systems - conversation AI, voice agents, CRM, custom AI agents and integrations.",
       founder: { "@type": "Person", name: "Daniel Bouwer" },
-      areaServed: "Worldwide",
-      sameAs: ["https://www.linkedin.com/in/daniel-bouwer/"],
+      areaServed: [
+        { "@type": "Country", name: "South Africa" },
+        { "@type": "Country", name: "United Kingdom" },
+        { "@type": "AdministrativeArea", name: "Gauteng" },
+        { "@type": "AdministrativeArea", name: "Western Cape" },
+        { "@type": "AdministrativeArea", name: "KwaZulu-Natal" },
+        { "@type": "AdministrativeArea", name: "Greater London" },
+        { "@type": "AdministrativeArea", name: "Greater Manchester" },
+        { "@type": "AdministrativeArea", name: "West Midlands" },
+      ],
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          telephone: "+27739961535",
+          contactType: "sales",
+          areaServed: "ZA",
+          availableLanguage: ["English", "Afrikaans"],
+        },
+        {
+          "@type": "ContactPoint",
+          telephone: "+447432351517",
+          contactType: "sales",
+          areaServed: "GB",
+          availableLanguage: ["English"],
+        },
+      ],
+      // Every profile listed here is one more place an AI engine can confirm
+      // this company exists and does what it says. One link is close to no
+      // signal. Add each URL here the day the profile goes live.
+      sameAs: [
+        "https://www.linkedin.com/in/daniel-bouwer/",
+        // TODO add as they go live, in roughly this order of value:
+        //   company LinkedIn page
+        //   Google Business Profile (the maps URL)
+        //   Clutch profile
+        //   Crunchbase
+        //   YouTube channel
+      ],
       knowsAbout: [
         "AI automation",
         "conversation AI",
@@ -205,6 +243,8 @@ export default function RootLayout({
         </SmoothScroll>
         <GHLChatWidget />
         {process.env.NEXT_PUBLIC_BRAND_STUDIO === "1" && <BrandStudio />}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
