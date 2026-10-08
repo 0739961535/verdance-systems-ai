@@ -32,7 +32,7 @@ const INDUSTRY_ITEMS: MegaMenuItem[] = industries.map((ind, i) => ({
 const INDUSTRY_HALF = Math.ceil(INDUSTRY_ITEMS.length / 2);
 const INDUSTRY_GROUPS: MegaMenuGroup[] = [
   {
-    title: "Our offers",
+    title: "Current offers",
     items: NICHES.map((n, i) => ({ slug: n.slug, name: n.name, number: String(i + 1).padStart(2, "0") })),
   },
   { title: "More industries", items: INDUSTRY_ITEMS.slice(0, INDUSTRY_HALF) },
@@ -290,7 +290,7 @@ export function Navbar() {
             </Link>
           ))}
           <div className="mt-2 px-3 pt-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[color:var(--color-accent)]">
-            Our offers
+            Current offers
           </div>
           {NICHES.map((n) => (
             <Link
