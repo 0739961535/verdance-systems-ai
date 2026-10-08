@@ -1595,6 +1595,11 @@ html.js .chatphone[data-ssr] .wa-stack > * { opacity: 0; animation: chat-fallbac
     linear-gradient(155deg, rgba(var(--accent-bright-rgb), 0.6), rgba(var(--hairline-rgb), 0.06) 40%, rgba(var(--accent-rgb), 0.35)) border-box;
 }
 
+/* Tactile press: buttons and link cards give a little under the finger. */
+.btn:active { transform: scale(0.97) !important; transition-duration: 80ms; }
+a.card-x:active, button.card-x:active { transform: scale(0.985); transition-duration: 80ms; }
+.hero-chip:active, .orbit-tile:active .orbit-tile-glass { transform: scale(0.95); }
+
 /* Arrow nudge for link cards: transform only. */
 .nudge { transition: transform var(--dur-base) var(--ease-out); }
 .group:hover .nudge { transform: translate3d(3px, -3px, 0); }
