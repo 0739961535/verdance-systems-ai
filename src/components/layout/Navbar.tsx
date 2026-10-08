@@ -10,6 +10,7 @@ import { ThemeToggle } from "@/components/primitives/ThemeToggle";
 import { NAV_ITEMS, SITE } from "@/data/site";
 import { SERVICE_CATEGORIES, SERVICE_PILLARS, PILLAR_CATEGORIES } from "@/data/services";
 import { industries } from "@/data/industries";
+import { NICHES } from "@/data/niches";
 
 type MegaMenuItem = { slug: string; name: string; number: string };
 type MegaMenuGroup = { title: string; items: MegaMenuItem[] };
@@ -22,6 +23,21 @@ type MegaMenu = {
   /** When set, the dropdown renders one column per group (the four pillars). */
   groups?: MegaMenuGroup[];
 };
+
+const INDUSTRY_ITEMS: MegaMenuItem[] = industries.map((ind, i) => ({
+  slug: ind.slug,
+  name: ind.name,
+  number: String(i + 1).padStart(2, "0"),
+}));
+const INDUSTRY_HALF = Math.ceil(INDUSTRY_ITEMS.length / 2);
+const INDUSTRY_GROUPS: MegaMenuGroup[] = [
+  {
+    title: "Our offers",
+    items: NICHES.map((n, i) => ({ slug: n.slug, name: n.name, number: String(i + 1).padStart(2, "0") })),
+  },
+  { title: "More industries", items: INDUSTRY_ITEMS.slice(0, INDUSTRY_HALF) },
+  { title: "\u00a0", items: INDUSTRY_ITEMS.slice(INDUSTRY_HALF) },
+];
 
 const SERVICE_GROUPS: MegaMenuGroup[] = SERVICE_PILLARS.map((p) => ({
   title: p.title,
@@ -42,11 +58,8 @@ const MEGA_MENUS: Record<string, MegaMenu> = {
     heading: "Every industry -",
     headingAccent: "one system.",
     base: "/industries",
-    items: industries.map((ind, i) => ({
-      slug: ind.slug,
-      name: ind.name,
-      number: String(i + 1).padStart(2, "0"),
-    })),
+    items: INDUSTRY_ITEMS,
+    groups: INDUSTRY_GROUPS,
   },
 };
 
@@ -157,7 +170,10 @@ export function Navbar() {
                           <span className="italic-accent">{menu.headingAccent}</span>
                         </h3>
                         {menu.groups ? (
-                          <div className="mt-5 grid grid-cols-4 gap-x-6">
+                          <div
+                            className="mt-5 grid gap-x-6"
+                            style={{ gridTemplateColumns: `repeat(${menu.groups.length}, minmax(0, 1fr))` }}
+                          >
                             {menu.groups.map((group) => (
                               <div key={group.title} className="flex flex-col">
                                 <div
@@ -271,6 +287,19 @@ export function Navbar() {
               className="block rounded-lg px-3 py-2.5 text-sm font-medium text-[color:var(--color-ink)] hover:bg-[color:var(--surface-tint-2)]"
             >
               {it.label}
+            </Link>
+          ))}
+          <div className="mt-2 px-3 pt-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[color:var(--color-accent)]">
+            Our offers
+          </div>
+          {NICHES.map((n) => (
+            <Link
+              key={n.slug}
+              href={`/industries/${n.slug}`}
+              onClick={() => setOpen(false)}
+              className="block rounded-lg px-3 py-2 text-sm text-[color:var(--color-ink-soft)] hover:bg-[color:var(--surface-tint-2)]"
+            >
+              {n.name}
             </Link>
           ))}
           <div className="mt-2 flex gap-2">

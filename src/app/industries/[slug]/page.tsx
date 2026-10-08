@@ -33,6 +33,8 @@ import { AnimatedDivider } from "@/components/primitives/AnimatedDivider";
 import { GradientMesh } from "@/components/primitives/GradientMesh";
 import { FinalCTA } from "@/components/sections/v3/FinalCTA";
 import { industries, getIndustryBySlug } from "@/data/industries";
+import { NICHES, getNicheBySlug } from "@/data/niches";
+import { NicheOfferPage } from "@/components/niche/NicheOfferPage";
 import { getProductBySlug } from "@/data/products";
 import type { Metadata } from "next";
 
@@ -88,11 +90,32 @@ function splitHeadline(headline: string): { lead: string; accent: string | null 
 }
 
 export async function generateStaticParams() {
-  return industries.map((i) => ({ slug: i.slug }));
+  return [...NICHES.map((n) => ({ slug: n.slug })), ...industries.map((i) => ({ slug: i.slug }))];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
+
+  // Niche offer pages share this route but carry their own copy and metadata.
+  const niche = getNicheBySlug(slug);
+  if (niche) {
+    const url = `https://verdancesystemsai.com/industries/${slug}`;
+    return {
+      title: niche.meta.title,
+      description: niche.meta.description,
+      alternates: { canonical: `/industries/${slug}` },
+      openGraph: {
+        title: niche.meta.ogTitle,
+        description: niche.meta.description,
+        url,
+        type: "website",
+        siteName: "Verdance Systems AI",
+        locale: "en_ZA",
+      },
+      twitter: { card: "summary_large_image", title: niche.meta.ogTitle, description: niche.meta.description },
+    };
+  }
+
   const industry = getIndustryBySlug(slug);
   if (!industry) return {};
   const title = `AI Receptionist for ${industry.name} | Verdance Systems AI`;
@@ -109,6 +132,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function IndustryDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  const niche = getNicheBySlug(slug);
+  if (niche) return <NicheOfferPage niche={niche} />;
+
   const industry = getIndustryBySlug(slug);
   if (!industry) notFound();
 

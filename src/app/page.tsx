@@ -3,6 +3,7 @@ import { HeroControlRoom } from "@/components/sections/v4/HeroControlRoom";
 import { CapabilityTicker } from "@/components/sections/v4/CapabilityTicker";
 import { DeltaRows } from "@/components/sections/v4/DeltaRows";
 import { PillarGrid } from "@/components/sections/v4/PillarGrid";
+import { NicheGrid } from "@/components/niche/NicheGrid";
 import { DeliveryMethod } from "@/components/sections/v4/DeliveryMethod";
 import { GuaranteeBlock } from "@/components/sections/v4/GuaranteeBlock";
 import { AuditSection } from "@/components/sections/v4/AuditSection";
@@ -50,6 +51,7 @@ export default function HomePage() {
       <HeroControlRoom />
       <CapabilityTicker />
       <PillarGrid />
+      <NicheGrid tone="canvas-2" />
       <DeliveryMethod />
       <DeltaRows />
       <GuaranteeBlock />

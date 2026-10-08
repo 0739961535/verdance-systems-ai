@@ -11,7 +11,11 @@ import { SITE } from "@/data/site";
  * animate via grid-template-rows (no layout-thrash height tweens);
  * the plus icon's 45-degree turn is the one permitted rotation.
  */
-export function FAQControl() {
+interface FAQControlProps {
+  faqs?: { q: string; a: string }[];
+}
+
+export function FAQControl({ faqs = LANDING_FAQS }: FAQControlProps = {}) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
@@ -29,7 +33,7 @@ export function FAQControl() {
         </Reveal>
 
         <div className="mt-10">
-          {LANDING_FAQS.map((f, i) => {
+          {faqs.map((f, i) => {
             const isOpen = open === i;
             return (
               <Reveal key={f.q} delay={Math.min(i * 0.04, 0.2)}>

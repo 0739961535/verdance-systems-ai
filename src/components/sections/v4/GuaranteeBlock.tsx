@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
@@ -9,7 +10,27 @@ import { GUARANTEE } from "@/data/landing";
  * Sits on the tinted band with an azure top rule marking it as one of
  * the page's two conversion moments.
  */
-export function GuaranteeBlock() {
+type GuaranteeColumn = { n: string; label: string; text: string };
+
+interface GuaranteeBlockProps {
+  eyebrow?: string;
+  /** Headline. Defaults to the homepage commitment line. */
+  title?: ReactNode;
+  columns?: GuaranteeColumn[];
+  note?: string;
+  ctaHref?: string;
+  ctaLabel?: string;
+}
+
+export function GuaranteeBlock({
+  eyebrow = GUARANTEE.eyebrow,
+  title,
+  columns = GUARANTEE.columns,
+  note = "These three terms are written into every contract we sign.",
+  ctaHref = "/contact",
+  ctaLabel = "Book a Meeting",
+}: GuaranteeBlockProps = {}) {
+  const external = ctaHref.startsWith("http");
   return (
     <section
       className="section-pad band-texture"
@@ -18,20 +39,24 @@ export function GuaranteeBlock() {
     >
       <div className="container-narrow">
         <Reveal>
-          <span className="eyebrow">{GUARANTEE.eyebrow}</span>
+          <span className="eyebrow">{eyebrow}</span>
           <h2
             id="guarantee-title"
             className="font-display text-[color:var(--color-ink)] mt-4 max-w-[22ch]"
             style={{ fontSize: "clamp(1.9rem, 3.2vw + 1.2rem, 3.5rem)", lineHeight: 1.06, letterSpacing: "-0.035em" }}
           >
-            Fixed price. Fixed launch date.
-            <br />
-            <span className="italic-accent">Full ownership.</span>
+            {title ?? (
+              <>
+                Fixed price. Fixed launch date.
+                <br />
+                <span className="italic-accent">Full ownership.</span>
+              </>
+            )}
           </h2>
         </Reveal>
 
         <div className="mt-10 md:mt-14 grid md:grid-cols-3 gap-px rounded-[20px] overflow-hidden" style={{ background: "var(--hairline)" }}>
-          {GUARANTEE.columns.map((c, i) => (
+          {columns.map((c, i) => (
             <Reveal key={c.label} delay={i * 0.06}>
               <div className="h-full px-6 py-7 md:px-8 md:py-9" style={{ background: "var(--bg-3)" }}>
                 <div
@@ -55,12 +80,19 @@ export function GuaranteeBlock() {
 
         <Reveal delay={0.12}>
           <p className="mt-8 max-w-xl text-[color:var(--color-ink-soft)]" style={{ lineHeight: 1.6 }}>
-            These three terms are written into every contract we sign.
+            {note}
           </p>
-          <Link href="/contact" className="btn btn-accent mt-6 min-h-12">
-            Book a Meeting
-            <ArrowUpRight size={15} aria-hidden />
-          </Link>
+          {external ? (
+            <a href={ctaHref} className="btn btn-accent mt-6 min-h-12">
+              {ctaLabel}
+              <ArrowUpRight size={15} aria-hidden />
+            </a>
+          ) : (
+            <Link href={ctaHref} className="btn btn-accent mt-6 min-h-12">
+              {ctaLabel}
+              <ArrowUpRight size={15} aria-hidden />
+            </Link>
+          )}
         </Reveal>
       </div>
     </section>

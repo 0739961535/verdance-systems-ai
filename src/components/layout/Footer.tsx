@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NICHES } from "@/data/niches";
 import { VSAILogo } from "@/components/primitives/VSAILogo";
 import { NAV_ITEMS, SITE } from "@/data/site";
 
@@ -61,6 +62,7 @@ export function Footer() {
               {/* Deep pages - surfaced for discovery & internal linking (SEO) */}
               {[
                 { href: "/industries", label: "Industries" },
+                ...NICHES.map((n) => ({ href: `/industries/${n.slug}`, label: n.name })),
                 { href: "/products", label: "Products" },
                 { href: "/ai-agency", label: "Where we work" },
                 { href: "/missed-call-calculator", label: "Missed call calculator" },
