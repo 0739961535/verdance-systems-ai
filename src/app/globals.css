@@ -704,7 +704,7 @@ p { text-wrap: pretty; }
 .animate-pulse-ring  { animation: pulse-ring 2.6s ease-out infinite; }
 .animate-marquee     { animation: marquee-x 60s linear infinite; }
 
-@keyframes nav-menu-in { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+@keyframes nav-menu-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 .nav-menu-enter { animation: nav-menu-in 0.18s var(--ease-out-expo) both; }
 
 .magnetic-target { display: inline-block; will-change: transform; }

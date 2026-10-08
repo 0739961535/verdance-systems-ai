@@ -74,7 +74,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="relative hidden md:flex items-center gap-1">
           {NAV_ITEMS.map((it) => {
             const active = pathname === it.href;
             const menu = menus[it.href];
@@ -111,14 +111,13 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
             return (
               <div
                 key={it.href}
-                className="relative"
                 onMouseEnter={() => setOpenMenu(it.href)}
                 onMouseLeave={() => setOpenMenu(null)}
               >
                 {link}
                 {isOpen && (
                     <div
-                      className={`nav-menu-enter absolute left-1/2 top-full -translate-x-1/2 pt-3 z-50 ${menu.groups ? "w-[880px]" : "w-[640px]"}`}
+                      className={`nav-menu-enter absolute left-1/2 top-full -translate-x-1/2 pt-3 z-50 ${menu.groups ? "w-[min(880px,calc(100vw-2rem))]" : "w-[min(640px,calc(100vw-2rem))]"}`}
                     >
                       <div
                         className="rounded-2xl p-6 shadow-2xl border"
