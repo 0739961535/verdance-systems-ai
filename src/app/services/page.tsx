@@ -11,11 +11,10 @@ import { PowerOfAI } from "@/components/aiteam/PowerOfAI";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { SERVICE_PILLARS, PILLAR_CATEGORIES, SERVICE_CATEGORIES } from "@/data/services";
 import { GENERIC_BOOK_URL } from "@/data/booking";
-import { plain } from "@/lib/plain";
 
-const TITLE = "AI Systems & Services | Marketing, Sales, Operations, Automations | Verdance Systems AI";
+const TITLE = "Services: WhatsApp Replies, Phone Answering, Online Booking and More | Verdance Systems AI";
 const DESCRIPTION =
-  "Every system Verdance builds, organised under four pillars: Marketing, Sales, Internal Operations and Automations. Conversation AI, voice agents, CRM, review automation, custom AI agents and more.";
+  "Twelve services for South African businesses: instant WhatsApp and message replies, phone answering, online booking, missed call text back, Google reviews, websites and more. Fixed quote after a free pre-audit.";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/services" },
@@ -45,7 +44,7 @@ export default function ServicesPage() {
             Four pillars. <span className="italic-accent">One system.</span>
           </>
         }
-        lead="Everything we build sits under Marketing, Sales, Operations or Automations, and all of it talks to each other. Start with the part that is costing you most."
+        lead="Getting found, answering and booking, running the business, and the custom work only you have. Every part talks to the others. Start with the one that is costing you most."
         crumbs={[{ href: "/", label: "Home" }, { label: "Services" }]}
         visual={<SystemStack />}
         note={`${SERVICE_CATEGORIES.length} services · fixed quote after your free pre-audit`}
@@ -108,7 +107,7 @@ export default function ServicesPage() {
                           <h3 className="mt-8 font-display text-[1.45rem] leading-tight text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
                             {c.name}
                           </h3>
-                          <p className="mt-3 text-[0.95rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{plain(c.promise)}</p>
+                          <p className="mt-3 text-[0.95rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{c.promise}</p>
                           <ul className="mt-6 flex flex-wrap gap-1.5">
                             {c.subProducts.slice(0, 4).map((sp) => (
                               <li
@@ -116,7 +115,7 @@ export default function ServicesPage() {
                                 className="rounded-full px-2.5 py-1 text-[0.75rem] text-[color:var(--color-ink-muted)]"
                                 style={{ border: "1px solid var(--hairline-2)" }}
                               >
-                                {sp.name.replace(/\s*\(.*\)\s*/, "")}
+                                {sp.name}
                               </li>
                             ))}
                           </ul>
