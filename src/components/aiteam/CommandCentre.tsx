@@ -115,7 +115,7 @@ export function CommandCentre() {
   const snapshot = bestMonthTiles();
 
   return (
-    <div ref={ref} className="browser-frame light-sweep">
+    <div ref={ref} className="browser-frame g-border light-sweep">
       <div className="flex items-center gap-3 px-4 py-3" style={{ borderBottom: "1px solid var(--hairline)" }}>
         <span className="flex gap-1.5" aria-hidden>
           {[0, 1, 2].map((i) => (

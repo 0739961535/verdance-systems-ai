@@ -26,7 +26,7 @@ export function PowerOfAI({ variant = "full" }: { variant?: "full" | "short" }) 
           {examples.map((e, i) => (
             <li key={e.title}>
               <Reveal delay={i * 0.06} className="h-full">
-                <div className="sheen glass-panel flex h-full flex-col" data-tilt="4">
+                <div className="sheen glass-panel g-border flex h-full flex-col" data-tilt="4">
                   <div className="flex items-baseline justify-between gap-3">
                     <span className="font-mono text-[0.75rem] tracking-[0.12em] text-[color:var(--color-accent)] tabular">{e.moment}</span>
                     <span className="font-mono text-[0.7rem] text-[color:var(--color-ink-muted)] tabular">{String(i + 1).padStart(2, "0")}</span>

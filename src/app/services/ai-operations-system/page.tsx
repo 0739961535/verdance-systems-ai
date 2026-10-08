@@ -119,7 +119,7 @@ export default function AiOperationsTeamPage() {
             {DEPARTMENTS.map((d, i) => (
               <li key={d.name}>
                 <Reveal delay={i * 0.04} className="h-full">
-                  <div className="sheen h-full rounded-[20px] p-5" data-tilt="4" style={{ background: "var(--bg-3)", border: "1px solid var(--hairline-2)" }}>
+                  <div className="sheen g-border h-full rounded-[20px] p-5" data-tilt="4" style={{ ["--gb-bg" as string]: "var(--bg-3)" }}>
                     <p className="font-display text-[1.15rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.02em" }}>{d.name}</p>
                     <p className="mt-1 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[color:var(--color-accent)]">{d.head}</p>
                     <ul className="mt-4 flex flex-wrap gap-1.5">
