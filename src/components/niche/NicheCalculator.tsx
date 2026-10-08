@@ -2,7 +2,8 @@
 
 import { useId, useMemo, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import type { CalcField, CalcFormat, NicheCalculator as Calc } from "@/data/niches";
+import { formatRand } from "@/lib/money";
+import type { CalcField, NicheCalculator as Calc } from "@/data/niches";
 
 /**
  * NicheCalculator - the missed-call calculator, adapted per niche.
@@ -12,15 +13,7 @@ import type { CalcField, CalcFormat, NicheCalculator as Calc } from "@/data/nich
  * No number on this card comes from us. Nothing is sent anywhere.
  */
 
-function rand(n: number) {
-  return `R${Math.round(n).toLocaleString("en-ZA").replace(/[,  ]/g, " ")}`;
-}
-
-function fmt(n: number, f: CalcFormat) {
-  if (f === "rand") return rand(n);
-  if (f === "pct") return `${n}%`;
-  return String(n);
-}
+const rand = formatRand;
 
 function count(n: number) {
   return n >= 10 ? String(Math.round(n)) : n.toFixed(1).replace(/\.0$/, "");
@@ -28,6 +21,7 @@ function count(n: number) {
 
 function Field({ field, value, onChange }: { field: CalcField; value: number; onChange: (n: number) => void }) {
   const id = useId();
+  const clamp = (n: number) => Math.min(field.max, Math.max(field.min, n));
   return (
     <div>
       <label htmlFor={id} className="block font-medium text-[color:var(--color-ink)] mb-1">
@@ -36,21 +30,36 @@ function Field({ field, value, onChange }: { field: CalcField; value: number; on
       <p className="text-sm text-[color:var(--color-ink-muted)] mb-3">{field.hint}</p>
       <div className="flex items-center gap-4">
         <input
-          id={id}
           type="range"
+          aria-label={`${field.label} slider`}
           min={field.min}
           max={field.max}
           step={field.step}
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
-          className="flex-1 accent-[color:var(--color-accent)] min-h-6"
+          className="flex-1 accent-[color:var(--color-accent)] min-h-11"
         />
-        <output
-          htmlFor={id}
-          className="font-mono text-lg font-bold text-[color:var(--color-ink)] tabular-nums min-w-28 text-right"
+        <div
+          className="flex min-h-11 w-32 shrink-0 items-center rounded-xl px-3 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[color:var(--color-accent)]"
+          style={{ background: "var(--bg-3)", border: "1px solid var(--hairline-2)" }}
         >
-          {fmt(value, field.format)}
-        </output>
+          {field.format === "rand" && <span className="mr-1 font-mono text-[color:var(--color-ink-muted)]">R</span>}
+          <input
+            id={id}
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            autoComplete="off"
+            value={String(value)}
+            onChange={(e) => {
+              const digits = e.target.value.replace(/\D/g, "").slice(0, 7);
+              onChange(digits === "" ? field.min : Math.min(field.max, Number(digits)));
+            }}
+            onBlur={() => onChange(clamp(value))}
+            className="w-full min-w-0 bg-transparent text-right font-mono text-base text-[color:var(--color-ink)] tabular-nums outline-none"
+          />
+          {field.format === "pct" && <span className="ml-1 font-mono text-[color:var(--color-ink-muted)]">%</span>}
+        </div>
       </div>
     </div>
   );
@@ -95,7 +104,7 @@ export function NicheCalculator({ calc, bookHref }: { calc: Calc; bookHref: stri
         <div className="mt-5">
           <span className="block text-sm text-[color:var(--color-ink-muted)] mb-1">A year</span>
           <div
-            className="font-display font-bold tabular-nums leading-none text-[color:var(--color-accent)]"
+            className="font-display font-medium tabular-nums leading-none text-[color:var(--color-ink)]"
             style={{ fontSize: "clamp(2.1rem, 5vw, 3.1rem)", letterSpacing: "-0.03em" }}
           >
             {rand(monthly * 12)}

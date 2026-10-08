@@ -39,9 +39,9 @@ export function ClientViewSection() {
 /* ------------------------------------------------------------------ */
 const BUILT = [
   { title: "Website", body: "Quick to load and built to turn visitors into enquiries." },
-  { title: "WhatsApp AI concierge", body: "Answers customer questions and takes the details, day or night." },
-  { title: "CRM pipeline", body: "Every enquiry and job filed against the right customer, automatically." },
-  { title: "Quote generator", body: "Turns the details a customer gives into a quote, without retyping." },
+  { title: "WhatsApp AI concierge", body: "Answers enquiries and takes the details, day or night." },
+  { title: "CRM pipeline", body: "Every enquiry and project filed against the right client, automatically." },
+  { title: "Quote generator", body: "Turns the details a client gives into a quote, without retyping." },
 ];
 
 export function ProofSection() {
@@ -51,10 +51,10 @@ export function ProofSection() {
         <Reveal>
           <p className="eyebrow">Proof</p>
           <h2 id="proof-title" className="h2 mt-5">
-            Running today, at a South African <span className="italic-accent">logistics company.</span>
+            Running today at a South African <span className="italic-accent">luxury home design and build studio.</span>
           </h2>
           <p className="mt-6 max-w-md text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">
-            Not a demo and not a mock-up. A live business uses this every day to answer customers, keep track of every job and send quotes. We keep the client&apos;s name private.
+            Not a demo and not a mock-up. A live studio uses it every day to answer enquiries, keep track of every client and project, and send quotes. We keep the client&apos;s name private.
           </p>
         </Reveal>
         <ul className="grid gap-px self-start overflow-hidden rounded-[22px] sm:grid-cols-2" style={{ background: "var(--hairline)" }}>

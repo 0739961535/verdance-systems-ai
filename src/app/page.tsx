@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { HomeHero } from "@/components/home/HomeHero";
-import { LeakSection } from "@/components/home/LeakSection";
+import { CostSection, HowItWorksSection, WhatWeDoSection } from "@/components/home/HomeStory";
 import { NicheGrid } from "@/components/niche/NicheGrid";
-import { HowItWorksStory } from "@/components/home/HowItWorksStory";
 import { ClientViewSection, FinalCTASection, ProofSection } from "@/components/home/HomeSections";
 import { GuaranteeBlock } from "@/components/sections/v4/GuaranteeBlock";
 import { FAQControl } from "@/components/sections/v4/FAQControl";
@@ -34,20 +33,22 @@ const FAQ_JSON_LD = {
 
 /**
  * Home - one story:
- * the claim (a phone doing the work) -> the leak (the same 19:00 call, without
- * and with us, and what it costs you) -> current offers -> how it works ->
- * what you see as a client -> proof -> guarantee -> questions -> book.
+ * the claim (one phone, cycling through real kinds of enquiry) -> what we do
+ * for any business that runs on enquiries -> how it works -> what you see as
+ * a client -> what slow replies cost you -> proof -> current offers ->
+ * guarantee -> questions -> book. The hero phone is the only phone here.
  */
 export default function HomePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }} />
       <HomeHero />
-      <LeakSection />
-      <NicheGrid tone="canvas-2" />
-      <HowItWorksStory />
+      <WhatWeDoSection />
+      <HowItWorksSection />
       <ClientViewSection />
+      <CostSection />
       <ProofSection />
+      <NicheGrid tone="canvas-2" />
       <GuaranteeBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="Book your free pre-audit" />
       <FAQControl />
       <FinalCTASection />

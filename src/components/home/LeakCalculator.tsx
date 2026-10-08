@@ -3,19 +3,19 @@
 import { useId, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { GENERIC_BOOK_URL } from "@/data/niches";
+import { formatRand } from "@/lib/money";
 
 /**
  * LeakCalculator - two of the visitor's own numbers, one rand figure.
- * The only assumption is stated in the sentence itself (one in ten slips
- * away), so the visitor can check it in their head. Nothing is sent.
+ * The only assumption is conservative and stated in the sentence itself
+ * (one enquiry in twenty slips away), so the visitor can check it in their
+ * head. Nothing is sent.
  */
 
-const SHARE = 0.1; // "one in ten"
+const SHARE = 0.05; // "one in twenty"
 const WEEKS_PER_MONTH = 52 / 12;
 
-function rand(n: number) {
-  return `R${Math.round(n).toLocaleString("en-ZA").replace(/[,  ]/g, " ")}`;
-}
+const rand = formatRand;
 
 function NumberField({
   label,
@@ -61,8 +61,8 @@ function NumberField({
 }
 
 export function LeakCalculator() {
-  const [perWeek, setPerWeek] = useState("15");
-  const [sale, setSale] = useState("3500");
+  const [perWeek, setPerWeek] = useState("20");
+  const [sale, setSale] = useState("2500");
 
   const w = Number(perWeek || 0);
   const v = Number(sale || 0);
@@ -75,17 +75,17 @@ export function LeakCalculator() {
       style={{ background: "var(--bg-2)", border: "1px solid var(--hairline-2)" }}
     >
       <div className="grid content-start gap-5">
-        <NumberField label="Enquiries you get a week" value={perWeek} onChange={setPerWeek} max={10000} />
-        <NumberField label="What an average sale is worth" prefix="R" value={sale} onChange={setSale} max={9999999} />
+        <NumberField label="Enquiries you get a week" value={perWeek} onChange={setPerWeek} max={2000} />
+        <NumberField label="What an average sale is worth" prefix="R" value={sale} onChange={setSale} max={1000000} />
         <p className="text-[0.85rem] leading-relaxed text-[color:var(--color-ink-muted)]">
-          Calls, WhatsApps, website forms and DMs. Your numbers stay in your browser.
+          Calls, WhatsApps, website forms and DMs. Change the numbers to your own. They stay in your browser.
         </p>
       </div>
 
       <div className="flex flex-col justify-between gap-6 md:border-l md:pl-12" style={{ borderColor: "var(--hairline)" }}>
         <div aria-live="polite">
           <p className="text-[0.98rem] leading-relaxed text-[color:var(--color-ink-soft)]">
-            If one in ten of those enquiries goes to someone else because nobody answered in time, that is
+            If just one enquiry in twenty goes to someone else because nobody answered in time, that is
           </p>
           <p
             className="mt-3 font-display text-[color:var(--color-ink)] tabular"

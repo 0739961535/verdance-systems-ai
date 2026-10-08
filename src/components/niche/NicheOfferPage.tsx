@@ -5,6 +5,7 @@ import { FAQControl } from "@/components/sections/v4/FAQControl";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { bookUrl, type Niche } from "@/data/niches";
 import { NicheHero } from "./NicheHero";
+import { NicheLeak } from "./NicheLeak";
 import { NicheCalculator } from "./NicheCalculator";
 import { NicheCTA, NicheIncluded, NichePricing, NicheProof, NicheSteps } from "./NicheSections";
 
@@ -58,6 +59,7 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <NicheHero niche={niche} />
+      <NicheLeak niche={niche} />
 
       <DeltaRows
         eyebrow="What changes"

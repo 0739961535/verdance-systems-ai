@@ -9,9 +9,23 @@
  * automatically before every reply ("out") and booking card.
  */
 
+export interface ProductCard {
+  name: string;
+  detail: string;
+  cta: string;
+}
+
 export type Beat =
-  | { kind: "in"; text: string; time: string }
-  | { kind: "out"; text: string; time: string; meta?: string }
+  | { kind: "in"; text: string; time: string; picked?: boolean }
+  | {
+      kind: "out";
+      text: string;
+      time: string;
+      meta?: string;
+      /** A list message (rows inside the bubble) or quick-reply buttons under it. */
+      options?: { style: "list" | "quick"; title?: string; items: string[] };
+      product?: ProductCard;
+    }
   | { kind: "card"; title: string; lines: string[]; time: string; dir?: "in" | "out" }
   | { kind: "missed"; text: string; time: string };
 
@@ -208,3 +222,98 @@ export const NICHE_CONVERSATIONS: Record<string, Conversation> = {
       "Sample conversation. At 10:22 a customer calls and nobody can answer. Within seconds they get a text back asking what they need. They describe a leaking geyser and give the address, and a quote visit is booked for Wednesday 08:00.",
   },
 };
+
+/**
+ * The homepage hero cycles through these, one after another. Each one plays
+ * fully, holds, then crossfades to the next. Times are after hours on
+ * purpose. All names are invented.
+ */
+export const HOME_ROTATION: { label: string; conversation: Conversation }[] = [
+  {
+    label: "Home services",
+    conversation: {
+      business: { name: "Rietvlei Plumbing", initials: "RP" },
+      clock: "21:42",
+      lock: {
+        clock: "21:44",
+        date: "Monday 12 October",
+        app: "Jobs",
+        title: "New job booked",
+        body: "Tue 07:30. Geyser repair, address captured.",
+      },
+      beats: [
+        { kind: "in", time: "21:42", text: "Hi, my geyser is leaking, can someone come out today?" },
+        {
+          kind: "out",
+          time: "21:42",
+          meta: "Replied in 4s",
+          text: "Sorry to hear that. We can help. What do you need?",
+          options: { style: "list", title: "Choose a service", items: ["Geyser repair", "Leak detection", "New installation", "Something else"] },
+        },
+        { kind: "in", time: "21:43", text: "Geyser repair", picked: true },
+        { kind: "out", time: "21:43", meta: "Replied in 3s", text: "The next available slot is tomorrow at 07:30. Shall I book it?" },
+        { kind: "in", time: "21:43", text: "Yes please" },
+        { kind: "card", time: "21:44", title: "Booked, Tue 07:30", lines: ["Geyser repair", "Reminder tonight at 20:00"] },
+      ],
+      summary:
+        "Sample conversation, home services. At 21:42 a customer says their geyser is leaking. The business replies in 4 seconds with a list of services. The customer picks geyser repair, is offered the next slot at 07:30 the next morning, and the job is booked.",
+    },
+  },
+  {
+    label: "Online store",
+    conversation: {
+      business: { name: "Homeware Store", initials: "HS" },
+      clock: "22:15",
+      lock: {
+        clock: "22:17",
+        date: "Monday 12 October",
+        app: "Orders",
+        title: "New order",
+        body: "Linen bedding set, large. Delivery to Durban.",
+      },
+      beats: [
+        { kind: "in", time: "22:15", text: "Hi, is the large linen set back in stock? Do you deliver to Durban?" },
+        {
+          kind: "out",
+          time: "22:15",
+          meta: "Replied in 3s",
+          text: "It's back in stock. Delivery to Durban takes 2 to 3 working days.",
+          product: { name: "Linen bedding set, large", detail: "In stock · ships tomorrow", cta: "Buy now" },
+        },
+        { kind: "in", time: "22:16", text: "Perfect, just ordered" },
+        { kind: "card", time: "22:16", title: "Order confirmed", lines: ["Linen bedding set, large", "Tracking link sent when it ships"] },
+      ],
+      summary:
+        "Sample conversation, online store. At 22:15 a customer asks if the large linen set is back in stock and if it delivers to Durban. The store replies in 3 seconds with stock, delivery time and a buy button. The customer orders and gets an order confirmation.",
+    },
+  },
+  { label: "Venues", conversation: HOME_CONVERSATION },
+  {
+    label: "Clinics",
+    conversation: {
+      business: { name: "Parkside Practice", initials: "PP" },
+      clock: "21:58",
+      lock: {
+        clock: "21:59",
+        date: "Monday 12 October",
+        app: "Practice diary",
+        title: "Consultation booked",
+        body: "Thu 15:00. Implant consultation, new patient.",
+      },
+      beats: [
+        { kind: "in", time: "21:58", text: "Do you have a consult for implants next week?" },
+        {
+          kind: "out",
+          time: "21:58",
+          meta: "Replied in 4s",
+          text: "We do. These times are open for an implant consultation:",
+          options: { style: "quick", items: ["Tue 09:30", "Thu 15:00"] },
+        },
+        { kind: "in", time: "21:59", text: "Thu 15:00", picked: true },
+        { kind: "card", time: "21:59", title: "Consultation booked, Thu 15:00", lines: ["In the practice diary", "Reminder the day before"] },
+      ],
+      summary:
+        "Sample conversation, clinic. At 21:58 a patient asks for an implant consultation next week. The practice replies in 4 seconds with two times as buttons. The patient taps Thursday 15:00 and the consultation is booked.",
+    },
+  },
+];

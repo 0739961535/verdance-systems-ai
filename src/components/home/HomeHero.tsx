@@ -2,7 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 import { HERO } from "@/data/landing";
 import { SITE } from "@/data/site";
 import { GENERIC_BOOK_URL } from "@/data/niches";
-import { HOME_CONVERSATION } from "@/data/conversations";
+import { HOME_ROTATION } from "@/data/conversations";
 import { ChatPhone } from "@/components/device/ChatPhone";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
 
@@ -85,7 +85,7 @@ export function HomeHero() {
           </div>
 
           <div className="enter-fade min-w-0 flex justify-center lg:justify-end" style={{ animationDelay: "0.35s" }}>
-            <ChatPhone conversation={HOME_CONVERSATION} />
+            <ChatPhone rotation={HOME_ROTATION} />
           </div>
         </div>
       </div>

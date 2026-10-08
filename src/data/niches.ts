@@ -97,7 +97,7 @@ export interface Niche {
 }
 
 const PROOF_LINE =
-  "A live South African logistics company runs on a Verdance-built website, WhatsApp concierge, CRM and quote generator.";
+  "Running today at a South African luxury home design and build studio: website, WhatsApp AI concierge, CRM pipeline and quote generator.";
 export const PROOF = PROOF_LINE;
 
 const PRE_AUDIT_FAQ = {
@@ -182,9 +182,9 @@ export const NICHES: Niche[] = [
       fields: [
         { key: "enquiries", label: "Enquiries a month", hint: "All channels: website, email, WhatsApp, Instagram and phone.", min: 1, max: 150, step: 1, initial: 20, format: "int" },
         { key: "slow", label: "Share that wait more than an hour for a reply", hint: "Evenings, weekends and busy event days count. Most venues guess low here.", min: 0, max: 100, step: 5, initial: 40, format: "pct" },
-        { key: "viewing", label: "Of those, the share who would have booked a viewing", hint: "If they had heard back from you first.", min: 0, max: 100, step: 5, initial: 40, format: "pct" },
-        { key: "book", label: "Viewings that turn into a booking", hint: "Your own conversion from viewing to signed booking.", min: 0, max: 100, step: 5, initial: 30, format: "pct" },
-        { key: "value", label: "Average booking value", hint: "Venue hire plus anything you sell with it, per event.", min: 5000, max: 300000, step: 5000, initial: 50000, format: "rand" },
+        { key: "viewing", label: "Of those, the share who would have booked a viewing", hint: "If they had heard back from you first.", min: 0, max: 100, step: 5, initial: 25, format: "pct" },
+        { key: "book", label: "Viewings that turn into a booking", hint: "Your own conversion from viewing to signed booking.", min: 0, max: 100, step: 5, initial: 25, format: "pct" },
+        { key: "value", label: "Average booking value", hint: "Venue hire plus anything you sell with it, per event.", min: 5000, max: 300000, step: 5000, initial: 40000, format: "rand" },
       ],
       steps: ["slow replies a month", "viewings you could have had", "bookings a month"],
       resultLabel: "Bookings at risk, in rand",
@@ -326,10 +326,10 @@ export const NICHES: Niche[] = [
       title: "What slow replies cost across your departments",
       intro: "Use your totals across weddings, rooms and conferences. Nothing is sent anywhere.",
       fields: [
-        { key: "enquiries", label: "Enquiries a month, all departments", hint: "Weddings, rooms, conferences and functions together.", min: 5, max: 400, step: 5, initial: 60, format: "int" },
-        { key: "slow", label: "Share that wait more than an hour for a reply", hint: "After hours, weekends and shift changes count.", min: 0, max: 100, step: 5, initial: 35, format: "pct" },
-        { key: "convert", label: "Share of those you would normally book", hint: "Your own conversion from enquiry to confirmed booking.", min: 0, max: 100, step: 5, initial: 20, format: "pct" },
-        { key: "value", label: "Average booking value", hint: "A blend across departments: a wedding, a conference, a two-night stay.", min: 2000, max: 300000, step: 1000, initial: 30000, format: "rand" },
+        { key: "enquiries", label: "Enquiries a month, all departments", hint: "Weddings, rooms, conferences and functions together.", min: 5, max: 400, step: 5, initial: 40, format: "int" },
+        { key: "slow", label: "Share that wait more than an hour for a reply", hint: "After hours, weekends and shift changes count.", min: 0, max: 100, step: 5, initial: 25, format: "pct" },
+        { key: "convert", label: "Share of those you would normally book", hint: "Your own conversion from enquiry to confirmed booking.", min: 0, max: 100, step: 5, initial: 10, format: "pct" },
+        { key: "value", label: "Average booking value", hint: "A blend across departments: a wedding, a conference, a two-night stay.", min: 2000, max: 300000, step: 1000, initial: 20000, format: "rand" },
       ],
       steps: ["slow replies a month", "bookings a month"],
       resultLabel: "Bookings at risk, in rand",
@@ -457,11 +457,11 @@ export const NICHES: Niche[] = [
       title: "What slow replies cost your practice",
       intro: "Business numbers only. Nothing is sent anywhere.",
       fields: [
-        { key: "enquiries", label: "Consult enquiries a month", hint: "WhatsApp, Instagram, web forms and calls together.", min: 5, max: 300, step: 5, initial: 60, format: "int" },
-        { key: "slow", label: "Share that wait more than an hour for a reply", hint: "After hours, lunch, and busy clinic sessions count.", min: 0, max: 100, step: 5, initial: 30, format: "pct" },
-        { key: "consult", label: "Share of those who would have booked a consult", hint: "Your normal rate from enquiry to booked consult.", min: 0, max: 100, step: 5, initial: 40, format: "pct" },
-        { key: "proceed", label: "Consults that go ahead with treatment", hint: "Your own figure from consult to accepted treatment plan.", min: 0, max: 100, step: 5, initial: 30, format: "pct" },
-        { key: "value", label: "Average treatment plan value", hint: "Use your average, not your largest case.", min: 1000, max: 300000, step: 1000, initial: 20000, format: "rand" },
+        { key: "enquiries", label: "Consult enquiries a month", hint: "WhatsApp, Instagram, web forms and calls together.", min: 5, max: 300, step: 5, initial: 40, format: "int" },
+        { key: "slow", label: "Share that wait more than an hour for a reply", hint: "After hours, lunch, and busy clinic sessions count.", min: 0, max: 100, step: 5, initial: 25, format: "pct" },
+        { key: "consult", label: "Share of those who would have booked a consult", hint: "Your normal rate from enquiry to booked consult.", min: 0, max: 100, step: 5, initial: 30, format: "pct" },
+        { key: "proceed", label: "Consults that go ahead with treatment", hint: "Your own figure from consult to accepted treatment plan.", min: 0, max: 100, step: 5, initial: 25, format: "pct" },
+        { key: "value", label: "Average treatment plan value", hint: "Use your average, not your largest case.", min: 1000, max: 300000, step: 1000, initial: 15000, format: "rand" },
       ],
       steps: ["slow replies a month", "consults you could have had", "treatment plans a month"],
       resultLabel: "Revenue at risk, in rand",
@@ -593,11 +593,11 @@ export const NICHES: Niche[] = [
       title: "What one slow reply can cost in commission",
       intro: "Use your agency's own numbers. Nothing is sent anywhere.",
       fields: [
-        { key: "leads", label: "Portal, website and WhatsApp leads a month", hint: "Per branch.", min: 5, max: 500, step: 5, initial: 80, format: "int" },
-        { key: "slow", label: "Share that wait more than an hour for a reply", hint: "Evenings, weekends and while agents are at viewings.", min: 0, max: 100, step: 5, initial: 40, format: "pct" },
+        { key: "leads", label: "Portal, website and WhatsApp leads a month", hint: "Per branch.", min: 5, max: 500, step: 5, initial: 60, format: "int" },
+        { key: "slow", label: "Share that wait more than an hour for a reply", hint: "Evenings, weekends and while agents are at viewings.", min: 0, max: 100, step: 5, initial: 30, format: "pct" },
         { key: "viewing", label: "Share of those who would have viewed with you", hint: "Your normal rate from lead to viewing.", min: 0, max: 100, step: 5, initial: 20, format: "pct" },
         { key: "sale", label: "Viewings that end in a sale", hint: "Your own figure. It is usually a small number, which is fine.", min: 0, max: 50, step: 1, initial: 5, format: "pct" },
-        { key: "commission", label: "Average commission per sale", hint: "Your agency's share, before splits if you prefer.", min: 5000, max: 300000, step: 5000, initial: 50000, format: "rand" },
+        { key: "commission", label: "Average commission per sale", hint: "Your agency's share, before splits if you prefer.", min: 5000, max: 300000, step: 5000, initial: 40000, format: "rand" },
       ],
       steps: ["slow replies a month", "viewings you could have had", "sales a month"],
       resultLabel: "Commission at risk, in rand",
@@ -723,10 +723,10 @@ export const NICHES: Niche[] = [
       title: "What missed calls cost your business",
       intro: "Four numbers about your business. Nothing is sent anywhere.",
       fields: [
-        { key: "calls", label: "Calls and enquiries a month", hint: "Phone, WhatsApp, website and Facebook together.", min: 5, max: 400, step: 5, initial: 80, format: "int" },
-        { key: "missed", label: "Share missed or answered late", hint: "On a job, driving, after hours. Your phone's call log is the honest source.", min: 0, max: 100, step: 5, initial: 25, format: "pct" },
-        { key: "win", label: "Share of those you would normally win", hint: "Out of people who actually reach you, the share that becomes a job.", min: 0, max: 100, step: 5, initial: 35, format: "pct" },
-        { key: "value", label: "Average job value", hint: "The typical job, not the biggest one.", min: 500, max: 100000, step: 500, initial: 5000, format: "rand" },
+        { key: "calls", label: "Calls and enquiries a month", hint: "Phone, WhatsApp, website and Facebook together.", min: 5, max: 400, step: 5, initial: 60, format: "int" },
+        { key: "missed", label: "Share missed or answered late", hint: "On a job, driving, after hours. Your phone's call log is the honest source.", min: 0, max: 100, step: 5, initial: 20, format: "pct" },
+        { key: "win", label: "Share of those you would normally win", hint: "Out of people who actually reach you, the share that becomes a job.", min: 0, max: 100, step: 5, initial: 30, format: "pct" },
+        { key: "value", label: "Average job value", hint: "The typical job, not the biggest one.", min: 500, max: 100000, step: 500, initial: 3500, format: "rand" },
       ],
       steps: ["missed or late a month", "jobs a month"],
       resultLabel: "Jobs at risk, in rand",

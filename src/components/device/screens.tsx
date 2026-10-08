@@ -38,6 +38,7 @@ export function ChatView({
       </div>
 
       <div className="wa-body">
+        <div className="wa-stack">
         <div className="wa-chip">Today</div>
         {beats.map((b, i) => (
           <BeatView key={`${keyPrefix}-${i}`} beat={b} animate={animate} />
@@ -49,6 +50,7 @@ export function ChatView({
             <span />
           </div>
         )}
+        </div>
       </div>
 
       <div className="wa-composer">
@@ -93,16 +95,55 @@ export function BeatView({ beat, animate }: { beat: Beat; animate: boolean }) {
       </div>
     );
   }
+  if (beat.kind === "in") {
+    return (
+      <div className={`wa-bubble${enter}`} data-dir="in" data-picked={beat.picked ? "" : undefined}>
+        {beat.picked && <span className="wa-picked">Selected</span>}
+        {beat.text}
+        <span className="wa-time">{beat.time}</span>
+      </div>
+    );
+  }
+  const quick = beat.options?.style === "quick" ? beat.options : undefined;
+  const list = beat.options?.style === "list" ? beat.options : undefined;
   return (
     <>
-      <div className={`wa-bubble${enter}`} data-dir={beat.kind}>
+      <div className={`wa-bubble${enter}`} data-dir="out" data-wide={list || beat.product ? "" : undefined}>
+        {beat.product && (
+          <div className="wa-product">
+            <div className="wa-product-img" aria-hidden />
+            <div className="wa-product-body">
+              <div className="font-semibold">{beat.product.name}</div>
+              <div className="wa-product-detail">{beat.product.detail}</div>
+            </div>
+          </div>
+        )}
         {beat.text}
         <span className="wa-time">
           {beat.time}
-          {beat.kind === "out" && <Ticks />}
+          <Ticks />
         </span>
+        {list && (
+          <div className="wa-list">
+            {list.title && <div className="wa-list-title">{list.title}</div>}
+            {list.items.map((it) => (
+              <div key={it} className="wa-list-row">
+                <span>{it}</span>
+                <span className="wa-radio" />
+              </div>
+            ))}
+          </div>
+        )}
+        {beat.product && <div className="wa-action">{beat.product.cta}</div>}
       </div>
-      {beat.kind === "out" && beat.meta && <div className={`wa-meta${enter}`}>{beat.meta}</div>}
+      {quick && (
+        <div className={`wa-quick${enter}`}>
+          {quick.items.map((it) => (
+            <span key={it}>{it}</span>
+          ))}
+        </div>
+      )}
+      {beat.meta && <div className={`wa-meta${enter}`}>{beat.meta}</div>}
     </>
   );
 }

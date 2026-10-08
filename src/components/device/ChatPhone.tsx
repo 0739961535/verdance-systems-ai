@@ -7,17 +7,19 @@ import { Phone } from "./Phone";
 import { ChatView, LockView } from "./screens";
 
 /**
- * ChatPhone - a phone playing a WhatsApp-style conversation on a gentle loop:
- * message in, typing, reply, booking card, then the owner's lock screen.
+ * ChatPhone - a phone playing sample WhatsApp-style conversations on a
+ * gentle loop: message in, typing, reply, booking card, the owner's lock
+ * screen, then a crossfade. Pass one `conversation` (niche pages) or a
+ * `rotation` (homepage), which plays each in turn with chips to jump.
  *
  * Performance and resilience:
- * - The server renders the finished conversation, so it reads without JS.
- *   While JS is loading, CSS keeps those bubbles transparent (with a timed
+ * - The server renders the first finished conversation, so it reads without
+ *   JS. While JS loads, CSS keeps those bubbles transparent (with a timed
  *   fallback that shows them if the script never runs).
  * - Playback waits for window load plus an idle slot, so it never competes
  *   with the headline (the LCP element).
  * - It pauses while off screen or in a background tab.
- * - Reduced motion: the finished conversation, static.
+ * - Reduced motion: one finished conversation, static (chips still switch).
  * - The animated device is aria-hidden; screen readers get a transcript.
  */
 
@@ -28,37 +30,52 @@ type Step =
   | { t: "lock"; ms: number }
   | { t: "fade"; ms: number };
 
+function readMs(b: Beat) {
+  if (b.kind === "out") {
+    const extra = (b.options ? 900 : 0) + (b.product ? 900 : 0);
+    return Math.min(5000, 1300 + b.text.length * 15 + extra);
+  }
+  if (b.kind === "card") return 2300;
+  if (b.kind === "missed") return 1300;
+  return 1400;
+}
+
 function buildSteps(beats: Beat[]): Step[] {
-  const steps: Step[] = [{ t: "blank", ms: 700 }];
+  const steps: Step[] = [{ t: "blank", ms: 600 }];
   beats.forEach((b, i) => {
     if (b.kind === "out" || b.kind === "card") {
-      steps.push({ t: "typing", upTo: i, ms: b.kind === "out" ? 1500 : 1000 });
+      steps.push({ t: "typing", upTo: i, ms: b.kind === "out" ? 1300 : 900 });
     }
-    const read =
-      b.kind === "out" ? Math.min(4200, 1400 + b.text.length * 16) :
-      b.kind === "card" ? 2400 :
-      b.kind === "missed" ? 1300 :
-      1500;
-    steps.push({ t: "show", upTo: i + 1, ms: read });
+    steps.push({ t: "show", upTo: i + 1, ms: readMs(b) });
   });
-  steps.push({ t: "lock", ms: 4600 });
-  steps.push({ t: "fade", ms: 650 });
+  steps.push({ t: "lock", ms: 4000 });
+  steps.push({ t: "fade", ms: 600 });
   return steps;
 }
 
+type RotationItem = { label: string; conversation: Conversation };
+
 export function ChatPhone({
   conversation,
+  rotation,
   size = "md",
   label = "Sample conversation",
   className,
 }: {
-  conversation: Conversation;
+  conversation?: Conversation;
+  rotation?: RotationItem[];
   size?: "sm" | "md";
   label?: string;
   className?: string;
 }) {
-  const steps = useMemo(() => buildSteps(conversation.beats), [conversation]);
-  const total = conversation.beats.length;
+  const items: RotationItem[] = useMemo(
+    () => rotation ?? (conversation ? [{ label, conversation }] : []),
+    [rotation, conversation, label],
+  );
+  const [idx, setIdx] = useState(0);
+  const current = items[idx].conversation;
+  const steps = useMemo(() => buildSteps(current.beats), [current]);
+  const total = current.beats.length;
 
   // -1 = server render / not started (full conversation, CSS-held).
   const [step, setStep] = useState(-1);
@@ -69,7 +86,7 @@ export function ChatPhone({
   const [wake, setWake] = useState(0);
   const rootRef = useRef<HTMLElement>(null);
 
-  // Decide the mode and wait for load + idle before playing.
+  // Wait for load + idle before playing.
   useEffect(() => {
     if (reduce) return;
     let cancelled = false;
@@ -105,24 +122,34 @@ export function ChatPhone({
     return () => io.disconnect();
   }, []);
 
-  // Advance the play-head.
+  // Advance the play-head; at the end of a conversation, move to the next.
   useEffect(() => {
-    if (mode !== "play" || !ready || !visible || step < 0) return;
-    const current = steps[step];
+    if (mode !== "play" || !visible || step < 0) return;
+    const s = steps[step];
     const id = setTimeout(() => {
       if (document.hidden) return; // resumes on the next visibility change
-      setStep((s) => (s + 1) % steps.length);
-    }, current.ms);
+      if (step + 1 >= steps.length) {
+        setIdx((i) => (i + 1) % items.length);
+        setStep(0);
+      } else {
+        setStep(step + 1);
+      }
+    }, s.ms);
     return () => clearTimeout(id);
-  }, [mode, ready, visible, step, steps, wake]);
+  }, [mode, visible, step, steps, wake, items.length]);
 
   useEffect(() => {
     const onVis = () => {
-      if (!document.hidden) setWake((w) => w + 1); // re-arm the timer effect
+      if (!document.hidden) setWake((w) => w + 1);
     };
     document.addEventListener("visibilitychange", onVis);
     return () => document.removeEventListener("visibilitychange", onVis);
   }, []);
+
+  const jump = (i: number) => {
+    setIdx(i);
+    if (mode === "play") setStep(0);
+  };
 
   // Derive what is on screen.
   let shown = total;
@@ -138,19 +165,20 @@ export function ChatPhone({
     else if (s.t === "fade") { shown = total; locked = true; fading = true; }
   }
 
-  const { business, lock } = conversation;
+  const { business, lock } = current;
+  const multi = items.length > 1;
 
   return (
     <figure ref={rootRef} className={`m-0 flex flex-col items-center ${className ?? ""}`}>
       <div className="chatphone" data-ssr={mode === "ssr" ? "" : undefined} aria-hidden>
-        <Phone clock={locked ? lock.clock : conversation.clock} size={size}>
+        <Phone clock={locked ? lock.clock : current.clock} size={size}>
           <div className="chat-fade absolute inset-0" data-out={fading ? "" : undefined}>
             <ChatView
               business={business}
-              beats={conversation.beats.slice(0, shown)}
+              beats={current.beats.slice(0, shown)}
               typing={typing}
               animate={mode === "play"}
-              keyPrefix={step < 0 ? "s" : "p"}
+              keyPrefix={`${idx}-${step < 0 ? "s" : "p"}`}
             >
               <LockView
                 on={locked}
@@ -162,9 +190,29 @@ export function ChatPhone({
           </div>
         </Phone>
       </div>
-      <figcaption className="mt-5 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[color:var(--color-ink-muted)]">
-        {label}
-        <span className="sr-only">: {conversation.summary}</span>
+
+      <figcaption className="mt-5 flex flex-col items-center gap-2">
+        <span className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[color:var(--color-ink-muted)]">
+          {multi ? `Sample conversation · ${items[idx].label}` : label}
+        </span>
+        <span className="sr-only">
+          {items.map((it) => it.conversation.summary).join(" ")}
+        </span>
+        {multi && (
+          <div className="flex max-w-[22rem] flex-wrap justify-center gap-1.5" role="group" aria-label="Choose a sample conversation">
+            {items.map((it, i) => (
+              <button
+                key={it.label}
+                type="button"
+                onClick={() => jump(i)}
+                aria-pressed={i === idx}
+                className="hero-chip"
+              >
+                {it.label}
+              </button>
+            ))}
+          </div>
+        )}
       </figcaption>
     </figure>
   );
