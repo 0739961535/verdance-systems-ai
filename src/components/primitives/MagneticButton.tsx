@@ -2,7 +2,6 @@
 
 import { useRef, type ReactNode } from "react";
 import Link from "next/link";
-import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 
 type Variant = "accent" | "outline" | "ghost" | "glass";
 
@@ -17,54 +16,50 @@ type Props = {
   ariaLabel?: string;
 };
 
+/**
+ * A button that leans gently toward a fine pointer. Plain DOM transforms
+ * with a CSS transition (no animation library). Touch and reduced-motion
+ * visitors get a normal button.
+ */
 export function MagneticButton({
   children,
   href,
   onClick,
   variant = "outline",
   className = "",
-  strength = 0.28,
+  strength = 0.22,
   newTab,
   ariaLabel,
 }: Props) {
   const ref = useRef<HTMLSpanElement>(null);
-  const reduce = useReducedMotion();
 
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 220, damping: 18, mass: 0.4 });
-  const sy = useSpring(y, { stiffness: 220, damping: 18, mass: 0.4 });
-
-  const onMove = (e: React.MouseEvent) => {
-    if (reduce || !ref.current) return;
-    const r = ref.current.getBoundingClientRect();
-    const dx = e.clientX - (r.left + r.width / 2);
-    const dy = e.clientY - (r.top + r.height / 2);
-    x.set(dx * strength);
-    y.set(dy * strength);
+  const onMove = (e: React.PointerEvent) => {
+    const el = ref.current;
+    if (!el || e.pointerType !== "mouse") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const r = el.getBoundingClientRect();
+    const dx = (e.clientX - (r.left + r.width / 2)) * strength;
+    const dy = (e.clientY - (r.top + r.height / 2)) * strength;
+    el.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
   };
   const onLeave = () => {
-    x.set(0);
-    y.set(0);
+    if (ref.current) ref.current.style.transform = "";
   };
 
-  const cls = `btn btn-${variant} ${className}`;
-
   const inner = (
-    <motion.span
+    <span
       ref={ref}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
+      onPointerMove={onMove}
+      onPointerLeave={onLeave}
       className="magnetic-target"
-      style={{ x: sx, y: sy }}
+      style={{ transition: "transform 0.35s var(--ease-out-expo)" }}
     >
-      <span className={cls}>{children}</span>
-    </motion.span>
+      <span className={`btn btn-${variant} ${className}`}>{children}</span>
+    </span>
   );
 
   if (href) {
-    const isExternal =
-      href.startsWith("http") || href.startsWith("mailto") || href.startsWith("tel");
+    const isExternal = href.startsWith("http") || href.startsWith("mailto") || href.startsWith("tel");
     if (isExternal) {
       return (
         <a

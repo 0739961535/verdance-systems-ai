@@ -692,6 +692,9 @@ p { text-wrap: pretty; }
 .animate-pulse-ring  { animation: pulse-ring 2.6s ease-out infinite; }
 .animate-marquee     { animation: marquee-x 60s linear infinite; }
 
+@keyframes nav-menu-in { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+.nav-menu-enter { animation: nav-menu-in 0.18s var(--ease-out-expo) both; }
+
 .magnetic-target { display: inline-block; will-change: transform; }
 
 /* ============================================================
@@ -717,6 +720,10 @@ p { text-wrap: pretty; }
 .enter-fade {
   animation: lux-fade 0.85s var(--ease-out-expo) both;
 }
+/* Transform-only entrance for LCP text: opacity stays 1, so the browser
+   records the headline as painted on the first frame. */
+@keyframes lux-rise-sm { from { transform: translateY(14px); } to { transform: translateY(0); } }
+.enter-rise { animation: lux-rise-sm 0.8s var(--ease-out-expo) both; }
 .enter-grow-x {
   transform-origin: left;
   animation: lux-grow-x 1.3s var(--ease-out-expo) both;

@@ -36,7 +36,7 @@ export function HomeHero() {
 
             <h1
               id="hero-title"
-              className="enter-fade-up font-display mt-7 text-[color:var(--color-ink)]"
+              className="enter-rise font-display mt-7 text-[color:var(--color-ink)]"
               style={{
                 fontSize: "clamp(3.1rem, 5.6vw + 1rem, 6.4rem)",
                 lineHeight: 0.98,
@@ -52,7 +52,7 @@ export function HomeHero() {
             </h1>
 
             <p
-              className="enter-fade-up mt-7 max-w-[34rem] text-[color:var(--color-ink-soft)]"
+              className="enter-rise mt-7 max-w-[34rem] text-[color:var(--color-ink-soft)]"
               style={{ fontSize: "clamp(1.0625rem, 0.45vw + 0.98rem, 1.3rem)", lineHeight: 1.6, animationDelay: "0.1s" }}
             >
               {HERO.lead}

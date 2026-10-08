@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
-import { LANDING_FAQS } from "@/data/landing";
 import { SITE } from "@/data/site";
 
 /**
@@ -12,10 +11,10 @@ import { SITE } from "@/data/site";
  * the plus icon's 45-degree turn is the one permitted rotation.
  */
 interface FAQControlProps {
-  faqs?: { q: string; a: string }[];
+  faqs: { q: string; a: string }[];
 }
 
-export function FAQControl({ faqs = LANDING_FAQS }: FAQControlProps = {}) {
+export function FAQControl({ faqs }: FAQControlProps) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (

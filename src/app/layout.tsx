@@ -5,6 +5,7 @@ import localFont from "next/font/local";
 import { Instrument_Serif, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
+import { MEGA_MENUS, NICHE_LINKS } from "@/components/layout/navMenus";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/primitives/SmoothScroll";
 import { GHLChatWidget } from "@/components/primitives/GHLChatWidget";
@@ -32,6 +33,8 @@ const instrumentSerif = Instrument_Serif({
   weight: "400",
   style: ["italic"],
   display: "swap",
+  // One accent word per heading: not worth competing with the headline.
+  preload: false,
 });
 
 // Labels, times and numbers.
@@ -241,7 +244,7 @@ export default function RootLayout({
         />
         <NoPullToRefresh />
         <SmoothScroll>
-          <Navbar />
+          <Navbar menus={MEGA_MENUS} niches={NICHE_LINKS} />
           <main className="flex-1">{children}</main>
           <Footer />
         </SmoothScroll>

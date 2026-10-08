@@ -126,7 +126,7 @@ export function GHLChatWidget() {
         src="https://widgets.leadconnectorhq.com/loader.js"
         data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
         data-widget-id={WIDGET_ID}
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       />
     </>
   );

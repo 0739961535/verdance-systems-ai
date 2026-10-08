@@ -32,7 +32,7 @@ export function NicheHero({ niche }: { niche: Niche }) {
           <Link href="/industries" className="inline-flex min-h-11 items-center hover:text-[color:var(--color-accent)] transition-colors">
             Industries
           </Link>
-          <span className="mx-2 text-[color:var(--color-ink-faint)]">/</span>
+          <span className="mx-2 text-[color:var(--color-ink-muted)]">/</span>
           <span className="text-[color:var(--color-ink-soft)]">{niche.shortName}</span>
         </nav>
 
@@ -45,7 +45,7 @@ export function NicheHero({ niche }: { niche: Niche }) {
 
             <h1
               id="niche-hero-title"
-              className="enter-fade-up font-display mt-6 text-[color:var(--color-ink)]"
+              className="enter-rise font-display mt-6 text-[color:var(--color-ink)]"
               style={{
                 fontSize: "clamp(2.5rem, 4.2vw + 1rem, 5rem)",
                 lineHeight: 1,
@@ -62,7 +62,7 @@ export function NicheHero({ niche }: { niche: Niche }) {
             </h1>
 
             <p
-              className="enter-fade-up mt-7 max-w-[34rem] text-[color:var(--color-ink-soft)]"
+              className="enter-rise mt-7 max-w-[34rem] text-[color:var(--color-ink-soft)]"
               style={{ fontSize: "clamp(1.0625rem, 0.4vw + 0.98rem, 1.25rem)", lineHeight: 1.6, animationDelay: "0.1s" }}
             >
               {niche.hero.lead}

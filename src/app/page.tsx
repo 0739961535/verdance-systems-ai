@@ -50,7 +50,7 @@ export default function HomePage() {
       <ProofSection />
       <NicheGrid tone="canvas-2" />
       <GuaranteeBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="Book your free pre-audit" />
-      <FAQControl />
+      <FAQControl faqs={LANDING_FAQS} />
       <FinalCTASection />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free pre-audit" />
     </>

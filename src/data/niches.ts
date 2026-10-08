@@ -11,9 +11,7 @@
  * BOOK_BASE/<bookSlug>.
  */
 
-export const BOOK_BASE = "https://book.verdancesystemsai.com";
-export const GENERIC_BOOK_URL = `${BOOK_BASE}/audit`;
-export const bookUrl = (bookSlug: string) => `${BOOK_BASE}/${bookSlug}`;
+export { BOOK_BASE, GENERIC_BOOK_URL, bookUrl } from "./booking";
 
 export type CalcFormat = "int" | "rand" | "pct";
 

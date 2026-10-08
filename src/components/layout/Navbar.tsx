@@ -3,18 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { VSAILogo } from "@/components/primitives/VSAILogo";
-import { MagneticButton } from "@/components/primitives/MagneticButton";
 import { ThemeToggle } from "@/components/primitives/ThemeToggle";
 import { NAV_ITEMS, SITE } from "@/data/site";
-import { SERVICE_CATEGORIES, SERVICE_PILLARS, PILLAR_CATEGORIES } from "@/data/services";
-import { industries } from "@/data/industries";
-import { NICHES, GENERIC_BOOK_URL, bookUrl } from "@/data/niches";
+import { GENERIC_BOOK_URL, bookUrl } from "@/data/booking";
 
-type MegaMenuItem = { slug: string; name: string; number: string };
-type MegaMenuGroup = { title: string; items: MegaMenuItem[] };
-type MegaMenu = {
+export type MegaMenuItem = { slug: string; name: string; number: string };
+export type MegaMenuGroup = { title: string; items: MegaMenuItem[] };
+export type MegaMenu = {
   eyebrow: string;
   heading: string;
   headingAccent: string;
@@ -23,53 +19,19 @@ type MegaMenu = {
   /** When set, the dropdown renders one column per group (the four pillars). */
   groups?: MegaMenuGroup[];
 };
+export type NicheLink = { slug: string; name: string; bookSlug: string };
 
-const INDUSTRY_ITEMS: MegaMenuItem[] = industries.map((ind, i) => ({
-  slug: ind.slug,
-  name: ind.name,
-  number: String(i + 1).padStart(2, "0"),
-}));
-const INDUSTRY_HALF = Math.ceil(INDUSTRY_ITEMS.length / 2);
-const INDUSTRY_GROUPS: MegaMenuGroup[] = [
-  {
-    title: "Current offers",
-    items: NICHES.map((n, i) => ({ slug: n.slug, name: n.name, number: String(i + 1).padStart(2, "0") })),
-  },
-  { title: "More industries", items: INDUSTRY_ITEMS.slice(0, INDUSTRY_HALF) },
-  { title: "\u00a0", items: INDUSTRY_ITEMS.slice(INDUSTRY_HALF) },
-];
-
-const SERVICE_GROUPS: MegaMenuGroup[] = SERVICE_PILLARS.map((p) => ({
-  title: p.title,
-  items: PILLAR_CATEGORIES(p).map((c) => ({ slug: c.slug, name: c.name, number: c.number })),
-}));
-
-const MEGA_MENUS: Record<string, MegaMenu> = {
-  "/services": {
-    eyebrow: "Four pillars",
-    heading: "Every system -",
-    headingAccent: "one operator.",
-    base: "/services",
-    items: SERVICE_CATEGORIES.map((c) => ({ slug: c.slug, name: c.name, number: c.number })),
-    groups: SERVICE_GROUPS,
-  },
-  "/industries": {
-    eyebrow: "Built for how you work",
-    heading: "Every industry -",
-    headingAccent: "one system.",
-    base: "/industries",
-    items: INDUSTRY_ITEMS,
-    groups: INDUSTRY_GROUPS,
-  },
-};
-
-export function Navbar() {
+/**
+ * Menus and niche links are built on the server (see navMenus.ts) and passed
+ * in, so the big data files never ship in the client bundle.
+ */
+export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; niches: NicheLink[] }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   // Book CTA: the niche's own pre-audit flow on a niche page, else the general one.
-  const niche = NICHES.find((n) => pathname === `/industries/${n.slug}`);
+  const niche = niches.find((n) => pathname === `/industries/${n.slug}`);
   const bookHref = niche ? bookUrl(niche.bookSlug) : GENERIC_BOOK_URL;
 
   useEffect(() => {
@@ -113,7 +75,7 @@ export function Navbar() {
         <nav className="hidden md:flex items-center gap-1">
           {NAV_ITEMS.map((it) => {
             const active = pathname === it.href;
-            const menu = MEGA_MENUS[it.href];
+            const menu = menus[it.href];
             const link = (
               <Link
                 href={it.href}
@@ -124,14 +86,12 @@ export function Navbar() {
                 }`}
               >
                 {active && (
-                  <motion.span
-                    layoutId="nav-active"
+                  <span
                     className="absolute inset-0 rounded-full border"
                     style={{
                       background: "rgba(var(--accent-rgb),0.06)",
                       borderColor: "rgba(var(--accent-rgb),0.22)",
                     }}
-                    transition={{ duration: 0.45, ease: [0.19, 1, 0.22, 1] }}
                   />
                 )}
                 <span className="relative">{it.label}</span>
@@ -154,14 +114,9 @@ export function Navbar() {
                 onMouseLeave={() => setOpenMenu(null)}
               >
                 {link}
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 8 }}
-                      transition={{ duration: 0.18, ease: [0.19, 1, 0.22, 1] }}
-                      className={`absolute left-1/2 top-full -translate-x-1/2 pt-3 z-50 ${menu.groups ? "w-[880px]" : "w-[640px]"}`}
+                {isOpen && (
+                    <div
+                      className={`nav-menu-enter absolute left-1/2 top-full -translate-x-1/2 pt-3 z-50 ${menu.groups ? "w-[880px]" : "w-[640px]"}`}
                     >
                       <div
                         className="rounded-2xl p-6 shadow-2xl border"
@@ -224,9 +179,8 @@ export function Navbar() {
                           </div>
                         )}
                       </div>
-                    </motion.div>
+                    </div>
                   )}
-                </AnimatePresence>
               </div>
             );
           })}
@@ -250,9 +204,9 @@ export function Navbar() {
             </svg>
             WhatsApp
           </a>
-          <MagneticButton href={bookHref} variant="accent">
+          <a href={bookHref} className="btn btn-accent">
             Book a pre-audit
-          </MagneticButton>
+          </a>
         </div>
 
         <div className="md:hidden flex items-center gap-2">
@@ -295,7 +249,7 @@ export function Navbar() {
           <div className="mt-2 px-3 pt-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[color:var(--color-accent)]">
             Current offers
           </div>
-          {NICHES.map((n) => (
+          {niches.map((n) => (
             <Link
               key={n.slug}
               href={`/industries/${n.slug}`}

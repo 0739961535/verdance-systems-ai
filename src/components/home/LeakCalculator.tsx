@@ -2,7 +2,7 @@
 
 import { useId, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { GENERIC_BOOK_URL } from "@/data/niches";
+import { GENERIC_BOOK_URL } from "@/data/booking";
 import { formatRand } from "@/lib/money";
 
 /**

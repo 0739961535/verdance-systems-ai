@@ -118,7 +118,7 @@ export function ClientDashboard() {
                 >
                   {t.value}
                 </dd>
-                <dd className="mt-1 text-[0.72rem] text-[color:var(--color-ink-faint)]">{t.sub}</dd>
+                <dd className="mt-1 text-[0.72rem] text-[color:var(--color-ink-muted)]">{t.sub}</dd>
               </div>
             ))}
           </dl>
@@ -160,7 +160,7 @@ export function ClientDashboard() {
                     className={`flex items-center gap-3 py-2.5 ${i === 0 && r.k >= 5 ? "wa-enter" : ""}`}
                     style={{ borderTop: i ? "1px solid var(--hairline)" : undefined }}
                   >
-                    <span className="w-11 shrink-0 font-mono text-[0.72rem] text-[color:var(--color-ink-faint)] tabular">{r.time}</span>
+                    <span className="w-11 shrink-0 font-mono text-[0.72rem] text-[color:var(--color-ink-muted)] tabular">{r.time}</span>
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-[0.85rem] text-[color:var(--color-ink)]">{r.text}</span>
                       <span className="block font-mono text-[0.65rem] uppercase tracking-[0.12em] text-[color:var(--color-ink-muted)]">

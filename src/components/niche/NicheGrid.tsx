@@ -56,7 +56,7 @@ export function NicheGrid({
                 style={{ background: tone === "canvas" ? "var(--bg)" : "var(--bg-2)" }}
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-[0.72rem] text-[color:var(--color-ink-faint)] tabular">
+                  <span className="font-mono text-[0.72rem] text-[color:var(--color-ink-muted)] tabular">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <NicheIcon
