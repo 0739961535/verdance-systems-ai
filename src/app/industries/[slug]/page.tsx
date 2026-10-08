@@ -1,88 +1,20 @@
-import type { ComponentType, CSSProperties } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import {
-  CheckCircle,
-  Scale,
-  Building2,
-  Heart,
-  Car,
-  Wrench,
-  Dumbbell,
-  Sparkles,
-  UtensilsCrossed,
-  GraduationCap,
-  ShoppingBag,
-  Globe,
-  MessageCircle,
-  Phone,
-  UserCheck,
-  RefreshCw,
-  Calendar,
-  Repeat,
-  Star,
-  LayoutDashboard,
-  ClipboardList,
-  Send,
-  MessageSquare,
-  Zap,
-} from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
-import { MagneticButton } from "@/components/primitives/MagneticButton";
-import { AnimatedDivider } from "@/components/primitives/AnimatedDivider";
-import { GradientMesh } from "@/components/primitives/GradientMesh";
-import { FinalCTA } from "@/components/sections/v3/FinalCTA";
+import { PageHero } from "@/components/kit/PageHero";
+import { SectionHead } from "@/components/kit/SectionHead";
+import { CTABand } from "@/components/kit/CTABand";
+import { ServiceConsole } from "@/components/visuals/hero/ServiceConsole";
+import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { industries, getIndustryBySlug } from "@/data/industries";
 import { NICHES, getNicheBySlug } from "@/data/niches";
 import { NicheOfferPage } from "@/components/niche/NicheOfferPage";
-import { getProductBySlug } from "@/data/products";
+import { SERVICE_BY_SLUG } from "@/data/services";
+import { PRODUCT_TO_SERVICE } from "@/data/productToService";
+import { GENERIC_BOOK_URL } from "@/data/booking";
 import type { Metadata } from "next";
 
-type IconComponent = ComponentType<{ size?: number; className?: string; style?: CSSProperties }>;
-
-const industryIconMap: Record<string, IconComponent> = {
-  Scale,
-  Building2,
-  Heart,
-  Car,
-  Wrench,
-  Dumbbell,
-  Sparkles,
-  UtensilsCrossed,
-  GraduationCap,
-  ShoppingBag,
-};
-
-const productIconMap: Record<string, IconComponent> = {
-  Globe,
-  MessageCircle,
-  Phone,
-  UserCheck,
-  RefreshCw,
-  Calendar,
-  Repeat,
-  Star,
-  LayoutDashboard,
-  ClipboardList,
-  Send,
-  MessageSquare,
-};
-
-const productColors: Record<string, { color: string; bg: string; border: string }> = {
-  Presence:      { color: "var(--color-accent)", bg: "rgba(var(--accent-rgb),0.08)", border: "rgba(var(--accent-rgb),0.20)" },
-  Messaging:     { color: "var(--color-accent)", bg: "rgba(var(--accent-rgb),0.08)", border: "rgba(var(--accent-rgb),0.20)" },
-  Communication: { color: "#5AAEFF", bg: "rgba(90,174,255,0.08)", border: "rgba(90,174,255,0.20)" },
-  Pipeline:      { color: "#33DDD3", bg: "rgba(51,221,211,0.08)", border: "rgba(51,221,211,0.20)" },
-  Booking:       { color: "var(--color-accent)", bg: "rgba(var(--accent-rgb),0.08)", border: "rgba(var(--accent-rgb),0.20)" },
-  Intelligence:  { color: "var(--color-accent)", bg: "rgba(var(--accent-rgb),0.08)", border: "rgba(var(--accent-rgb),0.20)" },
-  Reputation:    { color: "#5AAEFF", bg: "rgba(90,174,255,0.08)", border: "rgba(90,174,255,0.20)" },
-  "Follow-Up":   { color: "#33DDD3", bg: "rgba(51,221,211,0.08)", border: "rgba(51,221,211,0.20)" },
-  Conversion:    { color: "var(--color-accent)", bg: "rgba(var(--accent-rgb),0.08)", border: "rgba(var(--accent-rgb),0.20)" },
-};
-
-/** Industry headlines are plain sentences (no italicWord field like services).
- *  Split off the last sentence to get a consistent italic-accent punchline;
- *  single-sentence headlines render plain. */
 function splitHeadline(headline: string): { lead: string; accent: string | null } {
   const sentences = headline.trim().split(/(?<=\.)\s+/).filter(Boolean);
   if (sentences.length < 2) return { lead: headline, accent: null };
@@ -118,8 +50,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const industry = getIndustryBySlug(slug);
   if (!industry) return {};
-  const title = `AI Receptionist for ${industry.name} | Verdance Systems AI`;
-  const description = `AI answering & booking for ${industry.name.toLowerCase()}: ${industry.subheadline} Answers every call, text and DM 24/7 and books the job. Free consult.`;
+  const title = `Enquiry Answering and Booking for ${industry.name} | Verdance Systems AI`;
+  const description = `${industry.subheadline} Every call and message answered within 5 minutes, day or night, and booked. Fixed quote after a free pre-audit.`;
   const url = `https://verdancesystemsai.com/industries/${slug}`;
   return {
     title,
@@ -138,10 +70,12 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
   const industry = getIndustryBySlug(slug);
   if (!industry) notFound();
 
-  const IndustryIcon = industryIconMap[industry.icon] ?? Scale;
-  const relevantProducts = industry.relevantProducts
-    .map((s) => getProductBySlug(s))
-    .filter(Boolean);
+  const services = Array.from(
+    new Set(industry.relevantProducts.map((p) => PRODUCT_TO_SERVICE[p]).filter(Boolean)),
+  )
+    .map((slug) => SERVICE_BY_SLUG[slug])
+    .filter(Boolean)
+    .slice(0, 6);
   const { lead, accent } = splitHeadline(industry.headline);
 
   const url = `https://verdancesystemsai.com/industries/${slug}`;
@@ -157,224 +91,124 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
+      <PageHero
+        eyebrow={industry.name}
+        title={
+          <>
+            {lead} {accent && <span className="italic-accent">{accent}</span>}
+          </>
+        }
+        lead={industry.subheadline}
+        crumbs={[{ href: "/industries", label: "Industries" }, { label: industry.name }]}
+        visual={
+          <ServiceConsole
+            title={`${industry.name} · how an enquiry is handled`}
+            parts={[{ name: "From first message to booked", steps: industry.automationFlow.map((s) => s.label) }]}
+          />
+        }
+        note="Fixed quote after your free pre-audit"
       />
 
-      {/* HERO */}
-      <section className="relative isolate overflow-hidden pt-36 pb-16 md:pt-44 md:pb-24">
-        <div className="absolute inset-0 -z-10">
-          <GradientMesh intensity="soft" />
-        </div>
+      <section className="section-pad bg-canvas-2" aria-labelledby="problems-title" style={{ borderTop: "1px solid var(--hairline)" }}>
         <div className="container-wide">
-          <Reveal>
-            <nav className="font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-ink-muted)]">
-              <Link href="/industries" className="hover:text-[color:var(--color-accent)] transition-colors">
-                Industries
-              </Link>
-              <span className="mx-2 text-[color:var(--color-ink-faint)]">/</span>
-              <span className="text-[color:var(--color-accent)]">{industry.name}</span>
-            </nav>
-          </Reveal>
-
-          <Reveal delay={0.05}>
-            <span className="mt-6 inline-flex items-center gap-2 eyebrow">
-              <IndustryIcon size={12} />
-              {industry.name}
-            </span>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h1 className="mt-4 headline-hero max-w-[20ch]">
-              {lead} {accent && <span className="italic-accent">{accent}</span>}
-            </h1>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <p className="mt-8 max-w-2xl text-lg md:text-xl text-[color:var(--color-ink-soft)] leading-relaxed">
-              {industry.subheadline}
-            </p>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <MagneticButton href="/contact" variant="accent">
-                Book a free consult
-              </MagneticButton>
-              <MagneticButton href="/industries" variant="ghost">
-                All industries
-              </MagneticButton>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* PROBLEMS */}
-      <section className="relative section-pad bg-canvas-2">
-        <div className="container-wide">
-          <div className="max-w-3xl">
-            <Reveal>
-              <span className="eyebrow">The challenges</span>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <h2 className="mt-4 headline-section">
-                What&apos;s costing you{" "}
-                <span className="italic-accent">customers.</span>
-              </h2>
-            </Reveal>
-          </div>
-
-          <div className="mt-12 grid gap-5 sm:grid-cols-2">
+          <SectionHead
+            id="problems-title"
+            eyebrow="Where customers slip away"
+            title={
+              <>
+                What is costing you <span className="italic-accent">customers.</span>
+              </>
+            }
+          />
+          <ul className="mt-12 grid gap-4 sm:grid-cols-2 md:mt-16">
             {industry.problems.map((problem, i) => (
-              <Reveal key={problem.title} delay={i * 0.05}>
-                <div
-                  className="rounded-2xl border p-6 h-full"
-                  style={{ borderColor: "var(--color-hairline)", background: "rgba(var(--hairline-rgb),0.02)" }}
-                >
-                  <p className="font-display text-lg font-medium text-[color:var(--color-ink)] mb-2">
-                    {problem.title}
-                  </p>
-                  <p className="text-[color:var(--color-ink-soft)] text-sm leading-relaxed">
-                    {problem.description}
-                  </p>
-                </div>
-              </Reveal>
+              <li key={problem.title}>
+                <Reveal delay={i * 0.06} className="h-full">
+                  <div className="card-x h-full p-6 md:p-7">
+                    <span className="font-mono text-[0.72rem] text-[color:var(--color-accent)] tabular">{String(i + 1).padStart(2, "0")}</span>
+                    <h3 className="mt-3 font-display text-[1.3rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
+                      {problem.title}
+                    </h3>
+                    <p className="mt-2 text-[0.98rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{problem.description}</p>
+                  </div>
+                </Reveal>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      {/* RELEVANT PRODUCTS */}
-      {relevantProducts.length > 0 && (
-        <section className="relative section-pad bg-canvas">
-          <div className="container-wide">
-            <div className="max-w-3xl">
-              <Reveal>
-                <span className="eyebrow">What we&apos;d build</span>
-              </Reveal>
-              <Reveal delay={0.05}>
-                <h2 className="mt-4 headline-section">
-                  Recommended for{" "}
-                  <span className="italic-accent">{industry.name.toLowerCase()}.</span>
-                </h2>
-              </Reveal>
-            </div>
+      <section className="section-pad bg-canvas" aria-labelledby="flow-title" style={{ borderTop: "1px solid var(--hairline)" }}>
+        <div className="container-wide grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <SectionHead
+              id="flow-title"
+              eyebrow="How it works"
+              title={
+                <>
+                  The system, <span className="italic-accent">step by step.</span>
+                </>
+              }
+            />
+          </div>
+          <ol className="grid gap-3">
+            {industry.automationFlow.map((step, i) => (
+              <li key={step.step}>
+                <Reveal delay={i * 0.06}>
+                  <div className="card-x flex items-start gap-4 p-5 md:p-6">
+                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full font-mono text-[0.75rem]" style={{ background: "var(--accent-3)", color: "var(--on-accent-3)" }}>
+                      {step.step}
+                    </span>
+                    <span>
+                      <span className="block font-display text-[1.1rem] text-[color:var(--color-ink)]">{step.label}</span>
+                      <span className="mt-1 block text-[0.95rem] leading-[1.55] text-[color:var(--color-ink-soft)]">{step.description}</span>
+                    </span>
+                  </div>
+                </Reveal>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
 
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {relevantProducts.map((product, i) => {
-                if (!product) return null;
-                const ProductIcon = productIconMap[product.icon] ?? Zap;
-                const colors = productColors[product.category] ?? productColors.Presence;
-                return (
-                  <Reveal key={product.slug} delay={i * 0.04}>
-                    <Link
-                      href={`/products/${product.slug}`}
-                      className="group rounded-2xl p-5 flex gap-3.5 items-start h-full transition-all duration-300"
-                      style={{ background: colors.bg, border: `1px solid ${colors.border}` }}
-                    >
-                      <div
-                        className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300"
-                        style={{ background: `${colors.color}20` }}
-                      >
-                        <ProductIcon size={16} style={{ color: colors.color }} />
+      {services.length > 0 && (
+        <section className="section-pad bg-canvas-2" aria-labelledby="build-title" style={{ borderTop: "1px solid var(--hairline)" }}>
+          <div className="container-wide">
+            <SectionHead
+              id="build-title"
+              eyebrow="What we would build"
+              title={
+                <>
+                  Recommended for <span className="italic-accent">{industry.name.toLowerCase()}.</span>
+                </>
+              }
+            />
+            <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 md:mt-16">
+              {services.map((c, i) => (
+                <li key={c.slug}>
+                  <Reveal delay={i * 0.06} className="h-full">
+                    <Link href={`/services/${c.slug}`} className="card-x group flex h-full flex-col p-6 md:p-7">
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">Service {c.number}</span>
+                        <ArrowUpRight size={17} aria-hidden className="nudge text-[color:var(--color-ink-muted)] group-hover:text-[color:var(--color-accent)]" />
                       </div>
-                      <div>
-                        <p className="font-display font-medium text-[15px] text-[color:var(--color-ink)] leading-snug mb-1">
-                          {product.name}
-                        </p>
-                        <p className="text-[color:var(--color-ink-soft)] text-xs leading-relaxed">
-                          {product.tagline}
-                        </p>
-                      </div>
+                      <h3 className="mt-6 font-display text-[1.3rem] leading-tight text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
+                        {c.name}
+                      </h3>
+                      <p className="mt-3 flex-1 text-[0.95rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{c.promise}</p>
                     </Link>
                   </Reveal>
-                );
-              })}
-            </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
       )}
 
-      <div className="container-wide">
-        <AnimatedDivider variant="accent" />
-      </div>
-
-      {/* AUTOMATION FLOW */}
-      <section className="relative section-pad bg-canvas-2">
-        <div className="container-wide max-w-3xl">
-          <Reveal>
-            <span className="eyebrow">How it works</span>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <h2 className="mt-4 headline-section">
-              The system,{" "}
-              <span className="italic-accent">step by step.</span>
-            </h2>
-          </Reveal>
-
-          <div className="mt-12 flex flex-col gap-3">
-            {industry.automationFlow.map((step, i) => (
-              <Reveal key={step.step} delay={i * 0.05}>
-                <div
-                  className="flex gap-4 rounded-2xl p-5 items-start"
-                  style={{ background: "rgba(var(--accent-rgb),0.05)", border: "1px solid rgba(var(--accent-rgb),0.16)" }}
-                >
-                  <span
-                    className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-mono text-xs font-semibold"
-                    style={{ background: "var(--color-accent)", color: "var(--color-on-accent)" }}
-                  >
-                    {step.step}
-                  </span>
-                  <div>
-                    <p className="font-display font-medium text-[15px] text-[color:var(--color-ink)] mb-1">
-                      {step.label}
-                    </p>
-                    <p className="text-[color:var(--color-ink-soft)] text-sm leading-relaxed">
-                      {step.description}
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* OUTCOMES */}
-      <section className="relative section-pad bg-canvas">
-        <div className="container-wide max-w-3xl">
-          <Reveal>
-            <span className="eyebrow">Expected outcomes</span>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <h2 className="mt-4 headline-section">
-              What changes,{" "}
-              <span className="italic-accent">on the numbers.</span>
-            </h2>
-          </Reveal>
-
-          <div className="mt-12 grid gap-5 sm:grid-cols-3">
-            {industry.outcomes.map((outcome, i) => (
-              <Reveal key={outcome.description} delay={i * 0.05}>
-                <div
-                  className="rounded-2xl p-6 h-full"
-                  style={{ background: "rgba(var(--accent-rgb),0.06)", border: "1px solid rgba(var(--accent-rgb),0.20)" }}
-                >
-                  <div className="flex items-center gap-2">
-                    <CheckCircle size={16} className="text-[color:var(--color-accent)] shrink-0" />
-                    <p className="font-display font-medium text-2xl text-[color:var(--color-accent)] leading-none">
-                      {outcome.metric}
-                    </p>
-                  </div>
-                  <p className="mt-3 text-[color:var(--color-ink-soft)] text-sm leading-relaxed">
-                    {outcome.description}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <FinalCTA />
+      <CTABand />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free pre-audit" />
     </>
   );
 }

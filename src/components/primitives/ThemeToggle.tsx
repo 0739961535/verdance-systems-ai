@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
@@ -10,14 +10,18 @@ type Theme = "light" | "dark";
  * 44×44 hit area, SVG icons, accessible label.
  */
 export function ThemeToggle({ className = "" }: { className?: string }) {
-  const [theme, setTheme] = useState<Theme | null>(null);
-
-  useEffect(() => {
-    const current =
+  // The theme lives on <html data-theme>; read it as an external store.
+  const theme = useSyncExternalStore<Theme | null>(
+    (cb) => {
+      const obs = new MutationObserver(cb);
+      obs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+      return () => obs.disconnect();
+    },
+    () =>
       (document.documentElement.getAttribute("data-theme") as Theme | null) ||
-      (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
-    setTheme(current);
-  }, []);
+      (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"),
+    () => null,
+  );
 
   const isDark = theme !== "light"; // default to dark before mount
 
@@ -27,9 +31,8 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
     try {
       localStorage.setItem("theme", next);
     } catch {
-      /* storage blocked - theme still applies for this session */
+      /* storage blocked: the theme still applies for this session */
     }
-    setTheme(next);
   };
 
   return (

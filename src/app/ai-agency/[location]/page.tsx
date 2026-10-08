@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
+import { PageHero } from "@/components/kit/PageHero";
+import { SectionHead } from "@/components/kit/SectionHead";
+import { CTABand } from "@/components/kit/CTABand";
+import { LocationMap } from "@/components/visuals/hero/LocationMap";
+import { DeltaRows } from "@/components/sections/v4/DeltaRows";
+import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
+import { GENERIC_BOOK_URL } from "@/data/booking";
 import { LOCATIONS, getLocation } from "@/data/locations";
-import { DELTAS, DELTAS_FOOTNOTE } from "@/data/landing";
 import { SITE } from "@/data/site";
 
 const SITE_URL = "https://verdancesystemsai.com";
@@ -22,8 +26,8 @@ export async function generateMetadata({
   const loc = getLocation(slug);
   if (!loc) return {};
 
-  const title = `AI Agency in ${loc.name} | Answering, Booking & Follow Up | Verdance Systems AI`;
-  const description = `We build the thing that answers your phone, replies to your messages and books ${loc.name} customers into your calendar, day or night. ${loc.commonLoss} Free 30 minute audit call.`;
+  const title = `AI Agency in ${loc.name} | Answering, Booking and Follow Up | Verdance Systems AI`;
+  const description = `We build the thing that answers your phone, replies to your messages and books ${loc.name} customers into your calendar, day or night. ${loc.commonLoss} Free 30-minute pre-audit.`;
   const url = `${SITE_URL}/ai-agency/${slug}`;
 
   return {
@@ -123,128 +127,68 @@ export default async function LocationPage({
   };
 
   return (
-    <main className="bg-canvas min-h-screen">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
+      <PageHero
+        eyebrow={`${loc.name} · ${loc.region}`}
+        title={
+          <>
+            Every {loc.name} enquiry answered, <span className="italic-accent">day or night.</span>
+          </>
+        }
+        lead={`We build the thing that answers your phone, replies to your messages and books ${loc.name} customers into your calendar. ${loc.angle}`}
+        crumbs={[{ href: "/ai-agency", label: "Where we work" }, { label: loc.name }]}
+        visual={<LocationMap active={loc.slug} />}
+        secondary={{ href: `tel:${phone.replace(/\s/g, "")}`, label: `Call ${phone}` }}
+        note="Remote first · fixed quote after your free pre-audit"
       />
 
-      <section className="section-padding pt-32 pb-20">
-        <div className="container-wide">
-          <div className="max-w-3xl">
-            <span className="font-mono text-[0.72rem] uppercase tracking-[0.2em] text-[color:var(--color-accent)]">
-              {loc.name} · {loc.region}
-            </span>
-            <h1 className="font-display font-bold text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.05] tracking-tight text-[color:var(--color-ink)] mt-5 mb-6">
-              AI that answers your {loc.name} phone, day or night.
-            </h1>
-            <p className="text-[color:var(--color-ink-soft)] text-lg leading-relaxed">
-              We build the thing that picks up your calls, replies to your messages and
-              books people straight into your calendar. It runs on your own accounts, you
-              own all of it, and you never have to touch it.
-            </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-3">
-              <Link href="/contact" className="btn btn-accent justify-center min-h-12">
-                Book a free audit call
-                <ArrowUpRight size={15} aria-hidden />
-              </Link>
-              <a href={`tel:${phone.replace(/\s/g, "")}`} className="btn btn-ghost justify-center min-h-12">
-                {phone}
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-padding py-16 border-t" style={{ borderColor: "var(--hairline)" }}>
-        <div className="container-wide">
-          <Reveal>
-            <h2 className="font-display font-bold text-[clamp(1.6rem,3vw,2.4rem)] tracking-tight text-[color:var(--color-ink)] max-w-[22ch]">
-              The pattern in {loc.name}
-            </h2>
-          </Reveal>
+      <section className="section-pad bg-canvas-2" aria-labelledby="pattern-title" style={{ borderTop: "1px solid var(--hairline)" }}>
+        <div className="container-wide grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
+          <SectionHead
+            id="pattern-title"
+            eyebrow="The local pattern"
+            title={
+              <>
+                What we see in <span className="italic-accent">{loc.name}.</span>
+              </>
+            }
+          />
           <Reveal delay={0.08}>
-            <p className="mt-5 max-w-2xl text-[color:var(--color-ink-soft)] leading-relaxed">
-              {loc.angle}
-            </p>
-          </Reveal>
-          <Reveal delay={0.12}>
-            <p className="mt-4 max-w-2xl text-[color:var(--color-ink-soft)] leading-relaxed">
-              {loc.localContext}
-            </p>
-          </Reveal>
-          <Reveal delay={0.16}>
-            <div className="mt-8 flex flex-wrap gap-2">
-              {loc.industries.map((industry) => (
-                <span
-                  key={industry}
-                  className="text-xs font-medium rounded-full px-3.5 py-1.5 border"
-                  style={{
-                    borderColor: "var(--hairline)",
-                    color: "var(--color-ink-muted)",
-                  }}
-                >
-                  {industry}
-                </span>
-              ))}
+            <div className="card-x p-7 md:p-9">
+              <p className="text-[1.05rem] leading-[1.65] text-[color:var(--color-ink)]">{loc.localContext}</p>
+              <p className="mt-5 font-mono text-[0.66rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">Built for</p>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {loc.industries.map((industry) => (
+                  <li key={industry} className="rounded-full px-3 py-1.5 text-[0.8rem] text-[color:var(--color-ink-soft)]" style={{ border: "1px solid var(--hairline-2)" }}>
+                    {industry}
+                  </li>
+                ))}
+              </ul>
             </div>
           </Reveal>
         </div>
       </section>
 
-      <section className="section-padding py-16 border-t" style={{ borderColor: "var(--hairline)" }}>
-        <div className="container-wide">
-          <Reveal>
-            <h2 className="font-display font-bold text-[clamp(1.6rem,3vw,2.4rem)] tracking-tight text-[color:var(--color-ink)] max-w-[24ch]">
-              The change, in the numbers we report on
-            </h2>
-          </Reveal>
-          <div className="mt-10 max-w-3xl">
-            {DELTAS.map((d, i) => (
-              <Reveal key={d.label} delay={0.05 * (i + 1)}>
-                <div
-                  className="grid gap-1 py-5 md:grid-cols-[1fr_auto] md:items-baseline md:gap-6 border-b"
-                  style={{ borderColor: "var(--hairline)" }}
-                >
-                  <span className="text-[color:var(--color-ink-soft)]">{d.label}</span>
-                  <span className="flex items-baseline gap-3 md:justify-end">
-                    <span className="font-mono text-[0.9rem] text-[color:var(--color-ink-muted)] line-through">
-                      {d.before}
-                    </span>
-                    <span className="font-mono text-[color:var(--color-ink)]">{d.after}</span>
-                  </span>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          <p className="mt-5 text-sm text-[color:var(--color-ink-muted)] max-w-2xl">
-            {DELTAS_FOOTNOTE}
-          </p>
-        </div>
-      </section>
+      <DeltaRows
+        eyebrow="What changes"
+        title={
+          <>
+            The same enquiries, <span className="italic-accent">answered first.</span>
+          </>
+        }
+        intro={loc.commonLoss}
+      />
 
-      <section className="section-padding py-20 border-t" style={{ borderColor: "var(--hairline)" }}>
-        <div className="container-wide">
-          <Reveal>
-            <h2 className="font-display font-bold text-[clamp(1.6rem,3vw,2.4rem)] tracking-tight text-[color:var(--color-ink)] max-w-[20ch]">
-              Thirty minutes, and the plan is yours either way.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <p className="mt-5 max-w-2xl text-[color:var(--color-ink-soft)] leading-relaxed">
-              We go through how enquiries, follow-up and admin actually work in your
-              business today, find where you are losing the most, and leave you with a
-              list of what to fix in order. Free, and there is nothing to sign.
-            </p>
-          </Reveal>
-          <Reveal delay={0.12}>
-            <Link href="/contact" className="btn btn-accent justify-center min-h-12 mt-8 inline-flex">
-              Book a free audit call
-              <ArrowUpRight size={15} aria-hidden />
-            </Link>
-          </Reveal>
-        </div>
-      </section>
-    </main>
+      <CTABand
+        title={
+          <>
+            Thirty minutes, <span className="italic-accent">and the plan is yours either way.</span>
+          </>
+        }
+      />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free pre-audit" />
+    </>
   );
 }

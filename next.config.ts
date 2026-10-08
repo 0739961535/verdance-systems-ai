@@ -54,10 +54,35 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
-  // Legacy /industries/[slug] and /products/[slug] are orphan routes from a
-  // previous direction with pre-existing TS issues. Unblock the production
-  // build while leaving them in place; clean up later.
-  typescript: { ignoreBuildErrors: true },
+  // Legacy pages replaced by newer ones (round 4). Permanent redirects keep
+  // any old links and search results working.
+  async redirects() {
+    const productToService: Record<string, string> = {
+      "smart-website": "websites-build",
+      "website-conversion-widget": "conversation-ai",
+      "whatsapp-ai-agent": "conversation-ai",
+      "voice-ai-agent": "voice-ai",
+      "ai-receptionist": "voice-ai",
+      "lead-reactivation": "lead-generation",
+      "smart-scheduler": "booking-calendar",
+      "automated-follow-up": "follow-up-nurture",
+      "post-interaction-messenger": "follow-up-nurture",
+      "google-review-automation": "reputation-reviews",
+      "crm-and-pipeline": "crm-pipeline",
+      "client-intake-automation": "custom-builds",
+    };
+    return [
+      ...Object.entries(productToService).map(([from, to]) => ({
+        source: `/products/${from}`,
+        destination: `/services/${to}`,
+        permanent: true,
+      })),
+      { source: "/products/:slug*", destination: "/services", permanent: true },
+      { source: "/products", destination: "/services", permanent: true },
+      { source: "/packages", destination: "/services", permanent: true },
+      { source: "/portfolio", destination: "/#proof", permanent: true },
+    ];
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

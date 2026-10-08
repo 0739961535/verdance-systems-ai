@@ -49,7 +49,7 @@ const BUILT = [
 
 export function ProofSection() {
   return (
-    <section className="section-pad bg-canvas" aria-labelledby="proof-title" style={{ borderTop: "1px solid var(--hairline)" }}>
+    <section id="proof" className="section-pad bg-canvas" aria-labelledby="proof-title" style={{ borderTop: "1px solid var(--hairline)", scrollMarginTop: "5rem" }}>
       <div className="container-wide grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
         <Reveal>
           <p className="eyebrow">Proof</p>
