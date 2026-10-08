@@ -2,7 +2,8 @@
 
 import { useId, useMemo, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { formatRand } from "@/lib/money";
+import { CurrencySwitch } from "@/components/primitives/CurrencySwitch";
+import { CURRENCY, formatMoney, localAmount, useCurrency, type CurrencyCode } from "@/lib/currency";
 import type { CalcField, NicheCalculator as Calc } from "@/data/niches";
 
 /**
@@ -13,13 +14,17 @@ import type { CalcField, NicheCalculator as Calc } from "@/data/niches";
  * No number on this card comes from us. Nothing is sent anywhere.
  */
 
-const rand = formatRand;
+// Money fields are written in rand; other currencies get round local ranges.
+function localField(f: CalcField, cur: CurrencyCode): CalcField {
+  if (f.format !== "rand" || cur === "ZAR") return f;
+  return { ...f, min: localAmount(f.min, cur), max: localAmount(f.max, cur), step: Math.max(1, localAmount(f.step, cur)), initial: localAmount(f.initial, cur) };
+}
 
 function count(n: number) {
   return n >= 10 ? String(Math.round(n)) : n.toFixed(1).replace(/\.0$/, "");
 }
 
-function Field({ field, value, onChange }: { field: CalcField; value: number; onChange: (n: number) => void }) {
+function Field({ field, value, onChange, symbol }: { field: CalcField; value: number; onChange: (n: number) => void; symbol: string }) {
   const id = useId();
   const clamp = (n: number) => Math.min(field.max, Math.max(field.min, n));
   return (
@@ -43,7 +48,7 @@ function Field({ field, value, onChange }: { field: CalcField; value: number; on
           className="flex min-h-11 w-32 shrink-0 items-center rounded-xl px-3 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[color:var(--color-accent)]"
           style={{ background: "var(--bg-3)", border: "1px solid var(--hairline-2)" }}
         >
-          {field.format === "rand" && <span className="mr-1 font-mono text-[color:var(--color-ink-muted)]">R</span>}
+          {field.format === "rand" && <span className="mr-1 font-mono text-[color:var(--color-ink-muted)]">{symbol}</span>}
           <input
             id={id}
             type="text"
@@ -66,20 +71,25 @@ function Field({ field, value, onChange }: { field: CalcField; value: number; on
 }
 
 export function NicheCalculator({ calc, bookHref }: { calc: Calc; bookHref: string }) {
-  const [values, setValues] = useState<Record<string, number>>(() =>
-    Object.fromEntries(calc.fields.map((f) => [f.key, f.initial]))
-  );
+  const cur = useCurrency();
+  const fields = useMemo(() => calc.fields.map((f) => localField(f, cur)), [calc.fields, cur]);
+  // Typed values; money values are kept per currency, so switching starts
+  // each money field from its local default.
+  const [typed, setTyped] = useState<Record<string, number>>({});
+  const values = useMemo(() => Object.fromEntries(fields.map((f) => [f.key, typed[f.format === "rand" ? `${cur}:${f.key}` : f.key] ?? f.initial])), [fields, typed, cur]);
+  const setValue = (f: CalcField, n: number) => setTyped((t) => ({ ...t, [f.format === "rand" ? `${cur}:${f.key}` : f.key]: n }));
+  const rand = (n: number) => formatMoney(n, cur);
 
   const { chain, monthly } = useMemo(() => {
     let running = 0;
     const chain: number[] = [];
-    calc.fields.forEach((f, i) => {
+    fields.forEach((f, i) => {
       const v = f.format === "pct" ? values[f.key] / 100 : values[f.key];
       running = i === 0 ? v : running * v;
       chain.push(running);
     });
     return { chain, monthly: running };
-  }, [calc.fields, values]);
+  }, [fields, values]);
 
   // Intermediate lines: after field 2 up to the field before the value.
   const steps = calc.steps.map((label, i) => ({ label, n: chain[i + 1] }));
@@ -87,8 +97,9 @@ export function NicheCalculator({ calc, bookHref }: { calc: Calc; bookHref: stri
   return (
     <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 items-start">
       <div className="flex flex-col gap-7">
-        {calc.fields.map((f) => (
-          <Field key={f.key} field={f} value={values[f.key]} onChange={(n) => setValues((v) => ({ ...v, [f.key]: n }))} />
+        {fields.some((f) => f.format === "rand") && <CurrencySwitch className="self-start" />}
+        {fields.map((f) => (
+          <Field key={f.key} field={f} symbol={CURRENCY[cur].symbol} value={values[f.key]} onChange={(n) => setValue(f, n)} />
         ))}
       </div>
 

@@ -44,7 +44,7 @@ export function ClientDashboard() {
         </span>
       </div>
 
-      <div className="grid md:grid-cols-[180px_1fr]">
+      <div className="grid grid-cols-1 md:grid-cols-[180px_1fr]">
         <nav aria-hidden className="hidden flex-col gap-1 p-4 md:flex" style={{ borderRight: "1px solid var(--hairline)" }}>
           {["Overview", "Conversations", "Bookings", "Reports"].map((l, i) => (
             <span
@@ -83,8 +83,8 @@ export function ClientDashboard() {
             </dl>
           )}
 
-          <div className="mt-4 grid gap-4 lg:grid-cols-[0.85fr_1.15fr]">
-            <div className="rounded-2xl p-4" style={{ background: "var(--bg-3)", border: "1px solid var(--hairline)" }}>
+          <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-[0.85fr_1.15fr]">
+            <div className="min-w-0 rounded-2xl p-4" style={{ background: "var(--bg-3)", border: "1px solid var(--hairline)" }}>
               <p className="text-[0.8rem] text-[color:var(--color-ink-muted)]">Channels</p>
               <ul className="mt-2 flex flex-col">
                 {CHANNELS.map((c, i) => (
@@ -103,7 +103,7 @@ export function ClientDashboard() {
               </ul>
             </div>
 
-            <div className="rounded-2xl p-4" style={{ background: "var(--bg-3)", border: "1px solid var(--hairline)" }}>
+            <div className="min-w-0 rounded-2xl p-4" style={{ background: "var(--bg-3)", border: "1px solid var(--hairline)" }}>
               <div className="flex items-center justify-between">
                 <p className="text-[0.8rem] text-[color:var(--color-ink-muted)]">Recent activity</p>
                 <span className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)]">Sample</span>

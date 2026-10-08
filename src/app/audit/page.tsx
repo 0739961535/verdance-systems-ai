@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 const GET = [
   { t: "Your reply times, channel by channel", b: "Website forms, WhatsApp, social messages and missed calls, timed and written down." },
-  { t: "What it is likely costing you", b: "Worked out from your own enquiries and what a customer is worth to you, in rand." },
+  { t: "What it is likely costing you", b: "Worked out from your own enquiries and what a customer is worth to you, in your own currency." },
   { t: "What to fix first, second and third", b: "A short list in order. It is yours to keep whether or not we work together." },
   { t: "A fixed quote, if you want us to build", b: "Agreed in writing before any work starts. The price on the quote is the price you pay." },
 ];
