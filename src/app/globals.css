@@ -1717,6 +1717,10 @@ html.js .chatphone[data-ssr] .wa-stack > * { opacity: 0; animation: chat-fallbac
 .legal-docs i:first-child { width: 60%; background: rgba(var(--accent-rgb), 0.6); }
 .legal-docs i:nth-child(3) { width: 85%; } .legal-docs i:nth-child(4) { width: 70%; }
 
+/* Logo: the node breathes, very slowly */
+.mark-node { transform-box: fill-box; transform-origin: center; animation: mark-breathe 4.8s var(--ease-inout) infinite; }
+@keyframes mark-breathe { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.82); opacity: 0.8; } }
+
 /* ServiceConsole */
 .console-step { display: flex; align-items: flex-start; gap: 0.65rem; font-size: 0.88rem; line-height: 1.45; color: var(--ink-muted); transition: color var(--dur-base) var(--ease-out); }
 .console-step[data-state="done"] { color: var(--ink-soft); }
@@ -1739,7 +1743,7 @@ html.js .chatphone[data-ssr] .wa-stack > * { opacity: 0; animation: chat-fallbac
   [data-reveal][data-armed]:not([data-revealed]) { opacity: 1; transform: none; }
   .aurora, .light-sweep::before, .flow-pulse, .orbit-hub-ring, .orbit-stars-2, .btn-accent::after, .stack-plane { animation: none !important; }
   .ptrack-fill { animation: none !important; transform: scaleY(1); }
-  .ring-current, .ptrack-dot-on, .cal-day.is-pick::before, .cal-slot.is-pick::before, .cal-confirm { animation: none !important; opacity: 1; transform: none; }
+  .mark-node, .ring-current, .ptrack-dot-on, .cal-day.is-pick::before, .cal-slot.is-pick::before, .cal-confirm { animation: none !important; opacity: 1; transform: none; }
   .audit-bar span { animation: none !important; }
   .orbit-stage { transform: none !important; }
 }

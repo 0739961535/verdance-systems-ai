@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { VSAILogo } from "@/components/primitives/VSAILogo";
+import { LogoMark } from "@/components/brand/LogoMark";
 import { ThemeToggle } from "@/components/primitives/ThemeToggle";
 import { NAV_ITEMS, SITE } from "@/data/site";
 import { GENERIC_BOOK_URL, bookUrl } from "@/data/booking";
@@ -61,14 +61,12 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
           className="group inline-flex items-center gap-3"
           aria-label="Verdance Systems AI - home"
         >
-          <VSAILogo size={34} withWordmark={false} />
-          <span className="hidden sm:inline-flex flex-col leading-none">
-            <span className="font-display text-[15px] font-medium tracking-tight text-[color:var(--color-ink)]">
+          <LogoMark size={34} animated title={null} />
+          <span className="hidden items-baseline gap-1.5 leading-none sm:inline-flex">
+            <span className="font-display text-[1.15rem] text-[color:var(--color-ink)]" style={{ fontWeight: 600, letterSpacing: "-0.035em" }}>
               Verdance
             </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-ink-muted)]">
-              Systems AI
-            </span>
+            <span className="font-serif text-[1.1rem] text-[color:var(--color-ink-muted)]">Systems AI</span>
           </span>
         </Link>
 
