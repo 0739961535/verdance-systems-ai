@@ -11,7 +11,12 @@ import { WhatsAppIcon } from "./WhatsAppIcon";
  * calendar it points at) or the footer is on screen. Fixed + transform
  * only, so it can never cause layout shift.
  */
-export function StickyMobileCTA() {
+interface StickyMobileCTAProps {
+  href?: string;
+  label?: string;
+}
+
+export function StickyMobileCTA({ href = "/contact", label = "Book a Meeting" }: StickyMobileCTAProps = {}) {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -56,9 +61,15 @@ export function StickyMobileCTA() {
       }}
     >
       <div className="flex items-center gap-2 px-4 py-3">
-        <Link href="/contact" className="btn btn-accent flex-1 justify-center min-h-12 text-[0.95rem]">
-          Book a Meeting
-        </Link>
+        {href.startsWith("http") ? (
+          <a href={href} className="btn btn-accent flex-1 justify-center min-h-12 text-[0.95rem]">
+            {label}
+          </a>
+        ) : (
+          <Link href={href} className="btn btn-accent flex-1 justify-center min-h-12 text-[0.95rem]">
+            {label}
+          </Link>
+        )}
         <a
           href={SITE.whatsapp.href}
           target="_blank"

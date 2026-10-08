@@ -6,6 +6,7 @@ import { AnimatedDivider } from "@/components/primitives/AnimatedDivider";
 import { FinalCTA } from "@/components/sections/v3/FinalCTA";
 import { IndustryCard } from "@/components/industries/IndustryCard";
 import { industries } from "@/data/industries";
+import { NicheGrid } from "@/components/niche/NicheGrid";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/industries" },
@@ -68,12 +69,22 @@ export default function IndustriesPage() {
         <AnimatedDivider variant="accent" />
       </div>
 
+      {/* NICHE OFFERS - the five productised offers, first */}
+      <NicheGrid
+        eyebrow="Our five offers"
+        title={
+          <>
+            Start with the offer <span className="italic-accent">built for you.</span>
+          </>
+        }
+      />
+
       {/* INDUSTRIES GRID */}
       <section className="relative section-pad bg-canvas-2">
         <div className="container-wide">
           <div className="max-w-3xl">
             <Reveal>
-              <span className="eyebrow">{industries.length} industries we build for</span>
+              <span className="eyebrow">More industries we build for</span>
             </Reveal>
             <Reveal delay={0.05}>
               <h2 className="mt-4 headline-section">

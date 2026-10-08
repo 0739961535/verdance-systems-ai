@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NICHES, GENERIC_BOOK_URL } from "@/data/niches";
 import { VSAILogo } from "@/components/primitives/VSAILogo";
 import { NAV_ITEMS, SITE } from "@/data/site";
 
@@ -37,8 +38,8 @@ export function Footer() {
               {SITE.tagline}
             </p>
             <div className="mt-6 flex items-center gap-3">
-              <Link href="/contact" className="btn btn-accent text-sm">
-                Book a free consult
+              <Link href={GENERIC_BOOK_URL} className="btn btn-accent text-sm">
+                Book a free pre-audit
               </Link>
             </div>
           </div>
@@ -61,6 +62,7 @@ export function Footer() {
               {/* Deep pages - surfaced for discovery & internal linking (SEO) */}
               {[
                 { href: "/industries", label: "Industries" },
+                ...NICHES.map((n) => ({ href: `/industries/${n.slug}`, label: n.name })),
                 { href: "/products", label: "Products" },
                 { href: "/ai-agency", label: "Where we work" },
                 { href: "/missed-call-calculator", label: "Missed call calculator" },

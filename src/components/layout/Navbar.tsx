@@ -3,17 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { VSAILogo } from "@/components/primitives/VSAILogo";
-import { MagneticButton } from "@/components/primitives/MagneticButton";
 import { ThemeToggle } from "@/components/primitives/ThemeToggle";
 import { NAV_ITEMS, SITE } from "@/data/site";
-import { SERVICE_CATEGORIES, SERVICE_PILLARS, PILLAR_CATEGORIES } from "@/data/services";
-import { industries } from "@/data/industries";
+import { GENERIC_BOOK_URL, bookUrl } from "@/data/booking";
 
-type MegaMenuItem = { slug: string; name: string; number: string };
-type MegaMenuGroup = { title: string; items: MegaMenuItem[] };
-type MegaMenu = {
+export type MegaMenuItem = { slug: string; name: string; number: string };
+export type MegaMenuGroup = { title: string; items: MegaMenuItem[] };
+export type MegaMenu = {
   eyebrow: string;
   heading: string;
   headingAccent: string;
@@ -21,40 +18,23 @@ type MegaMenu = {
   items: MegaMenuItem[];
   /** When set, the dropdown renders one column per group (the four pillars). */
   groups?: MegaMenuGroup[];
+  /** Optional highlighted link under the columns. */
+  feature?: { href: string; label: string; note: string };
 };
+export type NicheLink = { slug: string; name: string; bookSlug: string };
 
-const SERVICE_GROUPS: MegaMenuGroup[] = SERVICE_PILLARS.map((p) => ({
-  title: p.title,
-  items: PILLAR_CATEGORIES(p).map((c) => ({ slug: c.slug, name: c.name, number: c.number })),
-}));
-
-const MEGA_MENUS: Record<string, MegaMenu> = {
-  "/services": {
-    eyebrow: "Four pillars",
-    heading: "Every system -",
-    headingAccent: "one operator.",
-    base: "/services",
-    items: SERVICE_CATEGORIES.map((c) => ({ slug: c.slug, name: c.name, number: c.number })),
-    groups: SERVICE_GROUPS,
-  },
-  "/industries": {
-    eyebrow: "Built for how you work",
-    heading: "Every industry -",
-    headingAccent: "one system.",
-    base: "/industries",
-    items: industries.map((ind, i) => ({
-      slug: ind.slug,
-      name: ind.name,
-      number: String(i + 1).padStart(2, "0"),
-    })),
-  },
-};
-
-export function Navbar() {
+/**
+ * Menus and niche links are built on the server (see navMenus.ts) and passed
+ * in, so the big data files never ship in the client bundle.
+ */
+export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; niches: NicheLink[] }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  // Book CTA: the niche's own pre-audit flow on a niche page, else the general one.
+  const niche = niches.find((n) => pathname === `/industries/${n.slug}`);
+  const bookHref = niche ? bookUrl(niche.bookSlug) : GENERIC_BOOK_URL;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -97,7 +77,7 @@ export function Navbar() {
         <nav className="hidden md:flex items-center gap-1">
           {NAV_ITEMS.map((it) => {
             const active = pathname === it.href;
-            const menu = MEGA_MENUS[it.href];
+            const menu = menus[it.href];
             const link = (
               <Link
                 href={it.href}
@@ -108,14 +88,12 @@ export function Navbar() {
                 }`}
               >
                 {active && (
-                  <motion.span
-                    layoutId="nav-active"
+                  <span
                     className="absolute inset-0 rounded-full border"
                     style={{
                       background: "rgba(var(--accent-rgb),0.06)",
                       borderColor: "rgba(var(--accent-rgb),0.22)",
                     }}
-                    transition={{ duration: 0.45, ease: [0.19, 1, 0.22, 1] }}
                   />
                 )}
                 <span className="relative">{it.label}</span>
@@ -138,14 +116,9 @@ export function Navbar() {
                 onMouseLeave={() => setOpenMenu(null)}
               >
                 {link}
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 8 }}
-                      transition={{ duration: 0.18, ease: [0.19, 1, 0.22, 1] }}
-                      className={`absolute left-1/2 top-full -translate-x-1/2 pt-3 z-50 ${menu.groups ? "w-[880px]" : "w-[640px]"}`}
+                {isOpen && (
+                    <div
+                      className={`nav-menu-enter absolute left-1/2 top-full -translate-x-1/2 pt-3 z-50 ${menu.groups ? "w-[880px]" : "w-[640px]"}`}
                     >
                       <div
                         className="rounded-2xl p-6 shadow-2xl border"
@@ -157,7 +130,10 @@ export function Navbar() {
                           <span className="italic-accent">{menu.headingAccent}</span>
                         </h3>
                         {menu.groups ? (
-                          <div className="mt-5 grid grid-cols-4 gap-x-6">
+                          <div
+                            className="mt-5 grid gap-x-6"
+                            style={{ gridTemplateColumns: `repeat(${menu.groups.length}, minmax(0, 1fr))` }}
+                          >
                             {menu.groups.map((group) => (
                               <div key={group.title} className="flex flex-col">
                                 <div
@@ -204,10 +180,23 @@ export function Navbar() {
                             ))}
                           </div>
                         )}
+                        {menu.feature && (
+                          <Link
+                            href={menu.feature.href}
+                            onClick={() => setOpenMenu(null)}
+                            className="mt-5 flex items-center justify-between gap-4 rounded-xl px-4 py-3 transition-colors hover:bg-[color:var(--surface-tint-2)]"
+                            style={{ border: "1px solid rgba(var(--accent-rgb),0.3)" }}
+                          >
+                            <span>
+                              <span className="block font-display text-sm font-medium text-[color:var(--color-ink)]">{menu.feature.label}</span>
+                              <span className="block text-xs text-[color:var(--color-ink-muted)]">{menu.feature.note}</span>
+                            </span>
+                            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--color-accent)]">New</span>
+                          </Link>
+                        )}
                       </div>
-                    </motion.div>
+                    </div>
                   )}
-                </AnimatePresence>
               </div>
             );
           })}
@@ -231,9 +220,9 @@ export function Navbar() {
             </svg>
             WhatsApp
           </a>
-          <MagneticButton href="/contact" variant="accent">
-            Book a Meeting
-          </MagneticButton>
+          <a href={bookHref} className="btn btn-accent">
+            Book a pre-audit
+          </a>
         </div>
 
         <div className="md:hidden flex items-center gap-2">
@@ -273,6 +262,26 @@ export function Navbar() {
               {it.label}
             </Link>
           ))}
+          <Link
+            href="/services/ai-operations-system"
+            onClick={() => setOpen(false)}
+            className="block rounded-lg px-3 py-2.5 text-sm font-medium text-[color:var(--color-ink)] hover:bg-[color:var(--surface-tint-2)]"
+          >
+            Ashford&apos;s Staff <span className="ml-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-accent)]">New</span>
+          </Link>
+          <div className="mt-2 px-3 pt-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[color:var(--color-accent)]">
+            Current offers
+          </div>
+          {niches.map((n) => (
+            <Link
+              key={n.slug}
+              href={`/industries/${n.slug}`}
+              onClick={() => setOpen(false)}
+              className="block rounded-lg px-3 py-2 text-sm text-[color:var(--color-ink-soft)] hover:bg-[color:var(--surface-tint-2)]"
+            >
+              {n.name}
+            </Link>
+          ))}
           <div className="mt-2 flex gap-2">
             <a
               href={SITE.whatsapp.href}
@@ -282,8 +291,8 @@ export function Navbar() {
             >
               WhatsApp
             </a>
-            <Link href="/contact" className="btn btn-accent flex-1 text-sm py-3">
-              Book a Meeting
+            <Link href={bookHref} className="btn btn-accent flex-1 text-sm py-3">
+              Book a pre-audit
             </Link>
           </div>
         </div>

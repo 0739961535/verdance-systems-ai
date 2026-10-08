@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Reveal } from "@/components/primitives/Reveal";
 import { DELTAS, DELTAS_FOOTNOTE } from "@/data/landing";
 
@@ -6,26 +7,43 @@ import { DELTAS, DELTAS_FOOTNOTE } from "@/data/landing";
  * Before-values are muted strikethrough (calm, not alarmist red);
  * after-values are large mono with the signal accent.
  */
-export function DeltaRows() {
+interface DeltaRowsProps {
+  eyebrow?: string;
+  title?: ReactNode;
+  intro?: string;
+  deltas?: { label: string; before: string; after: string }[];
+  footnote?: string;
+}
+
+export function DeltaRows({
+  eyebrow = "The result",
+  title,
+  intro = "Before and after, in the numbers that decide whether a lead becomes a customer.",
+  deltas = DELTAS,
+  footnote = DELTAS_FOOTNOTE,
+}: DeltaRowsProps = {}) {
   return (
     <section className="section-pad bg-canvas" aria-labelledby="deltas-title">
       <div className="container-narrow">
         <Reveal>
-          <span className="eyebrow">The result</span>
+          <p className="eyebrow">{eyebrow}</p>
           <h2
             id="deltas-title"
-            className="font-display text-[color:var(--color-ink)] mt-4 max-w-[22ch]"
-            style={{ fontSize: "clamp(1.9rem, 3.2vw + 1.2rem, 3.5rem)", lineHeight: 1.06, letterSpacing: "-0.035em" }}
+            className="h2 mt-5 max-w-[22ch]"
           >
-            What changes when your systems <span className="italic-accent">go live</span>.
+            {title ?? (
+              <>
+                What changes when your systems <span className="italic-accent">go live</span>.
+              </>
+            )}
           </h2>
           <p className="mt-5 max-w-xl text-[color:var(--color-ink-soft)]" style={{ lineHeight: 1.6 }}>
-            Before and after, in the numbers that decide whether a lead becomes a customer.
+            {intro}
           </p>
         </Reveal>
 
         <div className="mt-10 md:mt-14">
-          {DELTAS.map((d, i) => (
+          {deltas.map((d, i) => (
             <Reveal key={d.label} delay={i * 0.06}>
               <div
                 className="grid gap-1 py-5 md:grid-cols-[1fr_auto] md:items-baseline md:gap-6"
@@ -59,7 +77,7 @@ export function DeltaRows() {
 
         <Reveal delay={0.1}>
           <p className="mt-5 font-mono text-[0.72rem] tracking-[0.08em] text-[color:var(--color-ink-faint)]">
-            {DELTAS_FOOTNOTE}
+            {footnote}
           </p>
         </Reveal>
       </div>

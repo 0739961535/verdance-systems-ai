@@ -1,49 +1,53 @@
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
-import { Inter, Geist, JetBrains_Mono, Fraunces } from "next/font/google";
+import localFont from "next/font/local";
+import { Instrument_Serif, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
+import { MEGA_MENUS, NICHE_LINKS } from "@/components/layout/navMenus";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/primitives/SmoothScroll";
 import { GHLChatWidget } from "@/components/primitives/GHLChatWidget";
 import { BrandStudio } from "@/components/primitives/BrandStudio";
 import { NoPullToRefresh } from "@/components/primitives/NoPullToRefresh";
+import { RevealObserver } from "@/components/primitives/RevealObserver";
+import { Interactions } from "@/components/primitives/Interactions";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+// Satoshi (Indian Type Foundry, ITF Free Font License): headlines and body.
+// The woff2 is fetched at build time by scripts/fetch-fonts.mjs because the
+// licence forbids publishing the file in this public repository.
+const satoshi = localFont({
+  src: "../fonts/satoshi/Satoshi-Variable.woff2",
+  variable: "--font-satoshi",
+  weight: "300 900",
+  style: "normal",
   display: "swap",
+  fallback: ["system-ui", "Helvetica Neue", "Arial", "sans-serif"],
+  adjustFontFallback: "Arial",
 });
 
-const geist = Geist({
-  variable: "--font-geist",
+// The accent word ("ship"). Instrument Serif only ships one weight.
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-});
-
-const jetbrains = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "swap",
-});
-
-// Accent word ("recovered.", "free." etc.) - Fraunces italic reads far clearer
-// than the hairline Instrument Serif, with more weight and character.
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  weight: ["500", "600"],
+  weight: "400",
   style: ["italic"],
   display: "swap",
 });
 
+// Labels, times and numbers.
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+  preload: false,
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://verdancesystemsai.com"),
-  title: "Never Miss Another Customer | AI Answering, Booking & Follow Up | Verdance Systems AI",
+  title: "Verdance Systems AI | We don't talk about AI. We ship it.",
   description:
     "We build the thing that answers your phone, replies to your messages and books people into your calendar, day or night. You own all of it. Start with a free 30 minute audit call.",
   applicationName: "Verdance Systems AI",
@@ -63,7 +67,7 @@ export const metadata: Metadata = {
   creator: "Verdance Systems AI",
   publisher: "Verdance Systems AI",
   openGraph: {
-    title: "Verdance Systems AI - Never miss another customer.",
+    title: "Verdance Systems AI - We don't talk about AI. We ship it.",
     description:
       "Every call and message answered in seconds, at any hour, and booked straight into your calendar. Built for you, owned by you. Free audit call first.",
     url: "https://verdancesystemsai.com",
@@ -73,7 +77,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Verdance Systems AI - Never miss another customer.",
+    title: "Verdance Systems AI - We don't talk about AI. We ship it.",
     description:
       "Every call and message answered in seconds, any hour, and booked in. Free audit call first.",
   },
@@ -94,14 +98,16 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#050709" },
-    { media: "(prefers-color-scheme: light)", color: "#F4F7FC" },
+    { media: "(prefers-color-scheme: dark)", color: "#0A0A0B" },
+    { media: "(prefers-color-scheme: light)", color: "#F5F3EE" },
   ],
 };
 
 // Runs before paint: applies the saved/OS theme to <html> so there is no
 // flash of the wrong theme on load.
-const NO_FLASH = `(function(){try{var t=localStorage.getItem('theme');if(!t){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`;
+// Also marks <html> with `js` so progressive-enhancement styles (reveals)
+// only ever apply when JavaScript is actually running.
+const NO_FLASH = `(function(){var d=document.documentElement;d.classList.add('js');try{var t=localStorage.getItem('theme');if(!t){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}d.setAttribute('data-theme',t);}catch(e){d.setAttribute('data-theme','dark');}})();`;
 
 const SITE_URL = "https://verdancesystemsai.com";
 const JSON_LD = {
@@ -227,7 +233,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${geist.variable} ${jetbrains.variable} ${fraunces.variable} h-full`}
+      className={`${satoshi.variable} ${instrumentSerif.variable} ${geistMono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-canvas text-[color:var(--color-ink)] antialiased">
         <script dangerouslySetInnerHTML={{ __html: NO_FLASH }} />
@@ -237,10 +243,13 @@ export default function RootLayout({
         />
         <NoPullToRefresh />
         <SmoothScroll>
-          <Navbar />
+          <Navbar menus={MEGA_MENUS} niches={NICHE_LINKS} />
           <main className="flex-1">{children}</main>
           <Footer />
         </SmoothScroll>
+        <RevealObserver />
+        <Interactions />
+        <div aria-hidden className="site-grain" />
         <GHLChatWidget />
         {process.env.NEXT_PUBLIC_BRAND_STUDIO === "1" && <BrandStudio />}
         <Analytics />

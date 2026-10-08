@@ -70,7 +70,7 @@ export default function ServicesPage() {
                 <a
                   key={p.slug}
                   href={`#${p.slug}`}
-                  className="inline-flex items-baseline gap-2 rounded-full px-4 py-2 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-soft)] transition-colors hover:text-[color:var(--color-accent)]"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-full px-4 py-2 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-soft)] transition-colors hover:text-[color:var(--color-accent)]"
                   style={{ border: "1px solid var(--hairline-2)" }}
                 >
                   <span className="text-[color:var(--color-ink-faint)]">{p.index}</span>

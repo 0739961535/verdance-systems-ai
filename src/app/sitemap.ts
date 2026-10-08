@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { SERVICE_CATEGORIES } from "@/data/services";
 import { products } from "@/data/products";
 import { industries } from "@/data/industries";
+import { NICHES } from "@/data/niches";
 import { LOCATIONS } from "@/data/locations";
 import { PROCESS } from "@/data/process";
 
@@ -15,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: { path: string; priority: number; freq: Freq }[] = [
     { path: "", priority: 1.0, freq: "weekly" },
     { path: "/services", priority: 0.9, freq: "monthly" },
+    { path: "/services/ai-operations-system", priority: 0.9, freq: "monthly" },
     { path: "/industries", priority: 0.8, freq: "monthly" },
     { path: "/products", priority: 0.8, freq: "monthly" },
     { path: "/how-it-works", priority: 0.8, freq: "monthly" },
@@ -29,6 +31,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const serviceRoutes = SERVICE_CATEGORIES.map((c) => ({
     path: `/services/${c.slug}`,
     priority: 0.85,
+    freq: "monthly" as Freq,
+  }));
+
+  // Niche offer pages are the main paid and organic landing pages.
+  const nicheRoutes = NICHES.map((n) => ({
+    path: `/industries/${n.slug}`,
+    priority: 0.9,
     freq: "monthly" as Freq,
   }));
 
@@ -59,7 +68,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     freq: "monthly" as Freq,
   }));
 
-  return [...staticRoutes, ...serviceRoutes, ...industryRoutes, ...locationRoutes, ...processRoutes, ...productRoutes].map(
+  return [...staticRoutes, ...nicheRoutes, ...serviceRoutes, ...industryRoutes, ...locationRoutes, ...processRoutes, ...productRoutes].map(
     ({ path, priority, freq }) => ({
       url: `${SITE_URL}${path}`,
       lastModified: now,
