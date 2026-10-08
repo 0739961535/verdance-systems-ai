@@ -54,10 +54,10 @@ export function GuaranteeBlock({
           </h2>
         </Reveal>
 
-        <div className="mt-10 md:mt-14 grid md:grid-cols-3 gap-px rounded-[20px] overflow-hidden" style={{ background: "var(--hairline)" }}>
+        <div className="mt-10 md:mt-14 grid gap-4 md:grid-cols-3">
           {columns.map((c, i) => (
-            <Reveal key={c.label} delay={i * 0.06}>
-              <div className="h-full px-6 py-7 md:px-8 md:py-9" style={{ background: "var(--bg-3)" }}>
+            <Reveal key={c.label} delay={i * 0.06} className="h-full">
+              <div className="card-x h-full px-6 py-7 md:px-8 md:py-9">
                 <div
                   className="font-mono"
                   style={{
@@ -82,7 +82,7 @@ export function GuaranteeBlock({
             {note}
           </p>
           {external ? (
-            <a href={ctaHref} className="btn btn-accent mt-6 min-h-12">
+            <a href={ctaHref} data-magnetic className="btn btn-accent mt-6 min-h-12">
               {ctaLabel}
               <ArrowUpRight size={15} aria-hidden />
             </a>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { GradientMesh } from "@/components/primitives/GradientMesh";
+import { PageHero } from "@/components/kit/PageHero";
+import { CalendarMock } from "@/components/visuals/hero/CalendarMock";
 import { Reveal } from "@/components/primitives/Reveal";
 import { GHLBookingEmbed } from "@/components/primitives/GHLBookingEmbed";
 import { SITE } from "@/data/site";
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
   title: "Book a Meeting | Verdance Systems AI",
   description:
-    "Pick a time and book a meeting with Verdance Systems AI. Thirty minutes, no obligation - grab a slot and you'll get a calendar invite straight away.",
+    "Pick a time and book a meeting with Verdance Systems AI. Thirty minutes, no obligation. A calendar invite lands in your inbox straight away.",
   openGraph: {
     title: "Book a Meeting | Verdance Systems AI",
     description:
@@ -33,34 +34,26 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <section className="relative isolate overflow-hidden pt-36 pb-10 md:pt-44 md:pb-12">
-        <div className="absolute inset-0 -z-10">
-          <GradientMesh intensity="soft" />
-        </div>
-        <div className="container-narrow text-center">
-          <Reveal>
-            <span className="eyebrow">Book a meeting</span>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <h1 className="mt-4 headline-hero max-w-[16ch] mx-auto">
-              Pick a time that{" "}
-              <span className="italic-accent">works.</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="mt-6 max-w-xl mx-auto text-lg text-[color:var(--color-ink-soft)] leading-relaxed">
-              Thirty minutes, no obligation. Grab a slot below and a calendar
-              invite lands in your inbox straight away.
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
+      <PageHero
+        eyebrow="Book a meeting"
+        title={
+          <>
+            Pick a time <span className="italic-accent">that works.</span>
+          </>
+        }
+        lead="Thirty minutes on a video call, no obligation. Pick a slot below and a calendar invite lands in your inbox straight away."
+        crumbs={[{ href: "/", label: "Home" }, { label: "Contact" }]}
+        visual={<CalendarMock />}
+        primary={{ href: "#book", label: "Pick a time below" }}
+        note="30 minutes · video call · free"
+      />
       {/* The booking calendar - the only thing on this page */}
-      <section className="relative pb-24 md:pb-32 bg-canvas">
+      <section id="book" className="relative bg-canvas-2 py-16 md:py-24" style={{ borderTop: "1px solid var(--hairline)", scrollMarginTop: "5rem" }}>
         <div className="container-narrow">
           <Reveal>
-            <GHLBookingEmbed />
+            <div className="card-x p-2 sm:p-4" style={{ ["--gb-bg" as string]: "var(--bg-3)" }}>
+              <GHLBookingEmbed />
+            </div>
           </Reveal>
 
           <Reveal delay={0.08}>
@@ -70,20 +63,20 @@ export default function ContactPage() {
               </span>
               <a
                 href={`mailto:${SITE.email}`}
-                className="font-medium text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)] transition-colors"
+                className="inline-flex min-h-11 items-center font-medium text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)] transition-colors"
               >
                 {SITE.email}
               </a>
               <a
                 href={`tel:${SITE.phone.replace(/\s/g, "")}`}
-                className="font-medium text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)] transition-colors"
+                className="inline-flex min-h-11 items-center font-medium text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)] transition-colors"
               >
                 <span className="text-[color:var(--color-ink-muted)]">SA</span>{" "}
                 {SITE.phone}
               </a>
               <a
                 href={`tel:${SITE.phoneUK.replace(/\s/g, "")}`}
-                className="font-medium text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)] transition-colors"
+                className="inline-flex min-h-11 items-center font-medium text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)] transition-colors"
               >
                 <span className="text-[color:var(--color-ink-muted)]">UK</span>{" "}
                 {SITE.phoneUK}
@@ -92,7 +85,7 @@ export default function ContactPage() {
                 href={SITE.whatsapp.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)] transition-colors"
+                className="inline-flex min-h-11 items-center font-medium text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)] transition-colors"
               >
                 WhatsApp
               </a>

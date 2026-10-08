@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
-import { GradientMesh } from "@/components/primitives/GradientMesh";
 import { Reveal } from "@/components/primitives/Reveal";
-import { MagneticButton } from "@/components/primitives/MagneticButton";
-import { AnimatedDivider } from "@/components/primitives/AnimatedDivider";
-import { SystemDiagram } from "@/components/sections/v3/SystemDiagram";
-import { HowItWorksDemos } from "@/components/sections/v3/HowItWorksDemos";
-import { FinalCTA } from "@/components/sections/v3/FinalCTA";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { PROCESS } from "@/data/process";
-
+import { ArrowUpRight as Arrow } from "lucide-react";
+import { PageHero } from "@/components/kit/PageHero";
+import { SectionHead } from "@/components/kit/SectionHead";
+import { CTABand } from "@/components/kit/CTABand";
+import { ProcessTrack } from "@/components/visuals/hero/ProcessTrack";
+import { GuaranteeBlock } from "@/components/sections/v4/GuaranteeBlock";
+import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
+import { GENERIC_BOOK_URL } from "@/data/booking";
+import { NumberTicker } from "@/components/kit/NumberTicker";
 export const metadata: Metadata = {
   alternates: { canonical: "/how-it-works" },
   openGraph: {
     title: "How Verdance Works | Done-for-You AI Booking",
-    description: "Discovery, onboarding, go-live, 24/7 booking, ongoing optimisation. We build it, you get the bookings - usually live within days.",
+    description: "Six steps from a free 30-minute pre-audit to a system that answers and books for you, day or night. Fixed quote, fixed launch date, and you own all of it.",
     url: "https://verdancesystemsai.com/how-it-works",
     type: "website",
     siteName: "Verdance Systems AI",
@@ -22,116 +23,95 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "How Verdance Works | Done-for-You AI Booking",
-    description: "Discovery, onboarding, go-live, 24/7 booking, ongoing optimisation. We build it, you get the bookings - usually live within days.",
+    description: "Six steps from a free 30-minute pre-audit to a system that answers and books for you, day or night. Fixed quote, fixed launch date, and you own all of it.",
   },
   title: "How Verdance Works | Done-for-You AI Booking",
   description:
-    "Discovery, onboarding, go-live, 24/7 booking, ongoing optimisation. We build it, you get the bookings - usually live within days.",
+    "Six steps from a free 30-minute pre-audit to a system that answers and books for you, day or night. Fixed quote, fixed launch date, and you own all of it.",
 };
 
 export default function HowItWorksPage() {
   return (
     <>
-      <section className="relative isolate overflow-hidden pt-36 pb-20 md:pt-44 md:pb-28">
-        <div className="absolute inset-0 -z-10">
-          <GradientMesh intensity="soft" />
-        </div>
+      <PageHero
+        eyebrow="How it works"
+        title={
+          <>
+            Simple to start. <span className="italic-accent">Built to keep running.</span>
+          </>
+        }
+        lead="Six steps from a free 30-minute pre-audit to a system that answers and books for you, day or night. You keep working the way you always have. The building is on us."
+        crumbs={[{ href: "/", label: "Home" }, { label: "How it works" }]}
+        visual={<ProcessTrack />}
+        note="Fixed quote · fixed launch date · you own all of it"
+      />
+
+      <section className="section-pad bg-canvas-2" aria-labelledby="steps-title" style={{ borderTop: "1px solid var(--hairline)" }}>
         <div className="container-wide">
-          <Reveal>
-            <span className="eyebrow">How it works</span>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <h1 className="mt-4 headline-hero max-w-[20ch]">
-              Simple to start.{" "}
-              <span className="italic-accent">Built to run forever.</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="mt-8 max-w-2xl text-xl text-[color:var(--color-ink-soft)] leading-relaxed">
-              From your first call to a system that books customers for you around
-              the clock - usually live within days. You keep working exactly the way
-              you always have; the building is on us.
-            </p>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <MagneticButton href="/contact" variant="accent">
-                Book a free consult
-              </MagneticButton>
-              <MagneticButton href="/services" variant="ghost">
-                See services
-              </MagneticButton>
-            </div>
-          </Reveal>
+          <SectionHead
+            id="steps-title"
+            eyebrow="The six steps"
+            title={
+              <>
+                Each one names what you get, <span className="italic-accent">and when.</span>
+              </>
+            }
+            intro="Open any step to see exactly what happens in it, what you leave with, and what we need from you."
+          />
+          <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 md:mt-16">
+            {PROCESS.map((step, i) => (
+              <li key={step.slug}>
+                <Reveal delay={i * 0.06} className="h-full">
+                  <Link href={`/how-it-works/${step.slug}`} className="card-x group flex h-full flex-col p-6 md:p-7">
+                    <div className="flex items-center justify-between">
+                      <span className="font-display text-[2.4rem] leading-none text-[color:var(--color-accent)]" style={{ letterSpacing: "-0.04em" }}>
+                        <NumberTicker value={Number(step.n)} pad={2} />
+                      </span>
+                      <Arrow size={17} aria-hidden className="nudge text-[color:var(--color-ink-muted)] group-hover:text-[color:var(--color-accent)]" />
+                    </div>
+                    <h3 className="mt-6 font-display text-[1.4rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
+                      {step.name}
+                    </h3>
+                    <p className="mt-2 flex-1 text-[0.95rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{step.promise}</p>
+                    <p className="mt-5 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)]">{step.duration}</p>
+                  </Link>
+                </Reveal>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      <section className="section-pad-sm bg-canvas" aria-labelledby="steps-title">
-        <div className="container-wide">
-          <Reveal>
-            <h2
-              id="steps-title"
-              className="font-display text-[color:var(--color-ink)] max-w-[20ch]"
-              style={{ fontSize: "clamp(1.6rem, 2.8vw, 2.3rem)", letterSpacing: "-0.03em" }}
-            >
-              The six steps, in detail.
+      <section className="section-pad bg-canvas" aria-labelledby="you-title" style={{ borderTop: "1px solid var(--hairline)" }}>
+        <div className="container-wide grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
+          <Reveal variant="wipe">
+            <p className="eyebrow">What you do</p>
+            <h2 id="you-title" className="h2 mt-5">
+              Answer a few questions. <span className="italic-accent">Then get on with your day.</span>
             </h2>
           </Reveal>
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {PROCESS.map((step, i) => (
-              <Reveal key={step.slug} delay={i * 0.04}>
-                <Link
-                  href={`/how-it-works/${step.slug}`}
-                  className="group block h-full rounded-2xl border p-5 transition-colors hover:bg-[rgba(var(--accent-rgb),0.04)]"
-                  style={{ borderColor: "var(--hairline)" }}
-                >
-                  <span
-                    className="font-mono tabular-nums text-sm"
-                    style={{ color: "rgba(var(--accent-rgb), 0.5)" }}
-                  >
-                    {step.n}
-                  </span>
-                  <h3 className="mt-1.5 font-display font-semibold text-[color:var(--color-ink)] flex items-center gap-1.5">
-                    {step.name}
-                    <ArrowUpRight
-                      size={14}
-                      aria-hidden
-                      className="text-[color:var(--color-accent)] opacity-0 transition-opacity group-hover:opacity-100"
-                    />
-                  </h3>
-                  <p className="mt-2 text-sm text-[color:var(--color-ink-muted)] leading-relaxed">
-                    {step.promise}
-                  </p>
-                </Link>
-              </Reveal>
+          <ul className="grid gap-3">
+            {[
+              ["You don't need to be technical", "You never touch the system. It answers, books and tells you what it did."],
+              ["You don't change how you work", "It fits around your diary, your channels and your team."],
+              ["You decide on anything unusual", "Custom requests, complaints and pricing go straight to a person."],
+            ].map(([t, b], i) => (
+              <li key={t}>
+                <Reveal delay={i * 0.06}>
+                  <div className="card-x p-5 md:p-6">
+                    <p className="font-display text-[1.15rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.02em" }}>{t}</p>
+                    <p className="mt-1.5 text-[0.95rem] leading-[1.55] text-[color:var(--color-ink-soft)]">{b}</p>
+                  </div>
+                </Reveal>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      <SystemDiagram />
-
-      <HowItWorksDemos />
-
-      <section className="relative section-pad-sm bg-canvas">
-        <div className="container-wide">
-          <AnimatedDivider variant="accent" />
-
-          <Reveal>
-            <div className="mt-14 max-w-3xl">
-              <p className="font-display text-2xl md:text-3xl font-medium leading-tight text-[color:var(--color-ink)]">
-                You don&apos;t need to be technical.
-              </p>
-              <p className="mt-5 text-lg text-[color:var(--color-ink-soft)] leading-relaxed">
-                You don&apos;t change how you work. We do the building - you get the
-                bookings.
-              </p>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      <FinalCTA />
+      <GuaranteeBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="Book your free pre-audit" />
+      <CTABand />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free pre-audit" />
     </>
   );
 }

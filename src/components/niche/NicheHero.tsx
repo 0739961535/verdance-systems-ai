@@ -18,6 +18,7 @@ export function NicheHero({ niche }: { niche: Niche }) {
   return (
     <section className="relative isolate overflow-hidden bg-canvas" aria-labelledby="niche-hero-title">
       <div aria-hidden className="aurora" />
+      <div aria-hidden className="hero-grid" />
       <div
         aria-hidden
         className="pointer-events-none absolute -z-10 left-1/2 top-[55%] h-[620px] w-[620px] -translate-x-1/2 rounded-full lg:left-[74%] lg:top-[50%] lg:-translate-y-1/2"

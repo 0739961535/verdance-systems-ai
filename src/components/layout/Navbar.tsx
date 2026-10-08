@@ -45,9 +45,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
 
   return (
     <header
-      className={`enter-drop fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "py-3" : "py-5"
-      }`}
+      className="enter-drop fixed inset-x-0 top-0 z-50 py-3.5 transition-[background-color,border-color,backdrop-filter] duration-300"
       style={{
         background: scrolled ? "rgba(var(--bg-rgb),0.72)" : "transparent",
         backdropFilter: scrolled ? "blur(16px)" : "none",
@@ -207,7 +205,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
             href={SITE.whatsapp.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border px-3.5 py-2 text-sm font-medium transition-all"
+            className="inline-flex items-center gap-2 rounded-full border px-3.5 py-2 text-sm font-medium transition-colors"
             style={{
               borderColor: "rgba(var(--accent-rgb),0.30)",
               color: "var(--color-accent)",

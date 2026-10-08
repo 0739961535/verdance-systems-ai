@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowUpRight, ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { PageHero } from "@/components/kit/PageHero";
+import { SectionHead } from "@/components/kit/SectionHead";
+import { CTABand } from "@/components/kit/CTABand";
+import { StepRing } from "@/components/visuals/hero/StepRing";
+import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
+import { GENERIC_BOOK_URL } from "@/data/booking";
 import { Reveal } from "@/components/primitives/Reveal";
 import { ReadingProgress } from "@/components/primitives/ReadingProgress";
 import { PROCESS, PROCESS_BY_SLUG } from "@/data/process";
@@ -92,76 +98,46 @@ export default async function ProcessStepPage({
   };
 
   return (
-    <main className="bg-canvas min-h-screen">
+    <>
       <ReadingProgress />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
+      <PageHero
+        eyebrow={`Step ${step.n} · ${step.duration}`}
+        title={
+          <>
+            {step.name}. <span className="italic-accent">Step {Number(step.n)} of six.</span>
+          </>
+        }
+        lead={`${step.promise} ${step.desc}`}
+        crumbs={[{ href: "/how-it-works", label: "How it works" }, { label: step.name }]}
+        visual={<StepRing index={index} deliverable={step.deliverable} />}
       />
 
-      {/* header */}
-      <section className="section-padding pt-32 pb-14">
-        <div className="container-narrow">
-          <Link
-            href="/how-it-works"
-            className="inline-flex items-center gap-2 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-[color:var(--color-ink-muted)] hover:text-[color:var(--color-accent)] transition-colors"
-          >
-            <ArrowLeft size={13} aria-hidden />
-            How we deliver
-          </Link>
-
-          <div className="mt-7 flex items-baseline gap-5">
-            <span
-              className="font-mono tabular-nums"
-              style={{
-                fontSize: "clamp(2.2rem, 4vw, 3.4rem)",
-                color: "rgba(var(--accent-rgb), 0.32)",
-                lineHeight: 1,
-              }}
-            >
-              {step.n}
-            </span>
-            <h1
-              className="font-display font-bold tracking-tight text-[color:var(--color-ink)]"
-              style={{ fontSize: "clamp(2rem, 4.5vw, 3.2rem)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
-            >
-              {step.name}
-            </h1>
+      <section className="section-pad bg-canvas-2" aria-labelledby="beats-title" style={{ borderTop: "1px solid var(--hairline)" }}>
+        <div className="container-wide grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <SectionHead
+              id="beats-title"
+              eyebrow="What actually happens"
+              title={
+                <>
+                  In order, <span className="italic-accent">in plain words.</span>
+                </>
+              }
+            />
           </div>
-
-          <p className="mt-6 max-w-2xl text-[color:var(--color-ink-soft)] text-lg leading-relaxed">
-            {step.promise}
-          </p>
-          <p className="mt-4 font-mono text-[0.76rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)]">
-            {step.duration}
-          </p>
-        </div>
-      </section>
-
-      {/* what happens, on the same spine device as the homepage timeline */}
-      <section className="section-padding py-16 border-t" style={{ borderColor: "var(--hairline)" }}>
-        <div className="container-narrow">
-          <Reveal>
-            <h2 className="font-display font-bold tracking-tight text-[color:var(--color-ink)]" style={{ fontSize: "clamp(1.5rem, 2.6vw, 2.1rem)" }}>
-              What actually happens
-            </h2>
-          </Reveal>
-
-          <ol className="relative mt-10 max-w-2xl" style={{ borderLeft: "1px solid var(--hairline-2)" }}>
+          <ol className="grid gap-4">
             {step.beats.map((beat, i) => (
-              <li key={beat.title} className="relative pl-7 md:pl-9 pb-9 last:pb-0">
+              <li key={beat.title}>
                 <Reveal delay={i * 0.06}>
-                  <span
-                    aria-hidden
-                    className="absolute -left-[4px] top-[0.5rem] w-[7px] h-[7px] rounded-full"
-                    style={{ background: "var(--color-accent)" }}
-                  />
-                  <h3 className="font-display font-semibold text-[color:var(--color-ink)]" style={{ fontSize: "1.12rem" }}>
-                    {beat.title}
-                  </h3>
-                  <p className="mt-2 text-[color:var(--color-ink-soft)] leading-relaxed">
-                    {beat.body}
-                  </p>
+                  <div className="card-x p-6 md:p-7">
+                    <span className="font-mono text-[0.72rem] text-[color:var(--color-accent)] tabular">{String(i + 1).padStart(2, "0")}</span>
+                    <h3 className="mt-3 font-display text-[1.3rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
+                      {beat.title}
+                    </h3>
+                    <p className="mt-2 text-[0.98rem] leading-[1.65] text-[color:var(--color-ink-soft)]">{beat.body}</p>
+                  </div>
                 </Reveal>
               </li>
             ))}
@@ -169,116 +145,65 @@ export default async function ProcessStepPage({
         </div>
       </section>
 
-      {/* deliverable and what we need */}
-      <section className="section-padding py-16 border-t" style={{ borderColor: "var(--hairline)" }}>
-        <div className="container-narrow grid gap-10 md:grid-cols-2">
-          <Reveal>
-            <div
-              className="rounded-2xl border p-6 h-full"
-              style={{ borderColor: "var(--hairline)", background: "rgba(var(--accent-rgb),0.04)" }}
-            >
-              <span className="font-mono text-[0.66rem] uppercase tracking-[0.16em] text-[color:var(--color-accent)]">
-                What you get
-              </span>
-              <p className="mt-4 text-[color:var(--color-ink)] leading-relaxed">
-                {step.deliverable}
-              </p>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.08}>
-            <div className="h-full">
-              <span className="font-mono text-[0.66rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">
-                What we need from you
-              </span>
-              <ul className="mt-4 flex flex-col">
-                {step.fromYou.map((item) => (
-                  <li
-                    key={item}
-                    className="py-3 border-b text-[color:var(--color-ink-soft)] leading-relaxed"
-                    style={{ borderColor: "var(--hairline)" }}
-                  >
+      <section className="section-pad bg-canvas" aria-label="What we need and common question" style={{ borderTop: "1px solid var(--hairline)" }}>
+        <div className="container-wide grid gap-4 lg:grid-cols-2">
+          <Reveal className="h-full">
+            <div className="card-x h-full p-7 md:p-9">
+              <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[color:var(--color-ink-muted)]">What we need from you</p>
+              <ul className="mt-5 flex flex-col">
+                {step.fromYou.map((item, i) => (
+                  <li key={item} className="py-3 text-[0.98rem] leading-[1.55] text-[color:var(--color-ink-soft)]" style={{ borderTop: i ? "1px solid var(--hairline)" : undefined }}>
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
           </Reveal>
-        </div>
-      </section>
-
-      {/* the question people actually ask */}
-      <section className="section-padding py-16 border-t" style={{ borderColor: "var(--hairline)" }}>
-        <div className="container-narrow max-w-2xl">
-          <Reveal>
-            <h2 className="font-display font-semibold text-[color:var(--color-ink)]" style={{ fontSize: "1.3rem" }}>
-              {step.question.q}
-            </h2>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <p className="mt-3 text-[color:var(--color-ink-soft)] leading-relaxed">
-              {step.question.a}
-            </p>
+          <Reveal delay={0.08} className="h-full">
+            <div className="card-x is-accent h-full p-7 md:p-9">
+              <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[color:var(--color-accent)]">Asked about this step</p>
+              <h2 className="mt-4 font-display text-[1.45rem] leading-snug text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
+                {step.question.q}
+              </h2>
+              <p className="mt-3 text-[0.98rem] leading-[1.65] text-[color:var(--color-ink-soft)]">{step.question.a}</p>
+            </div>
           </Reveal>
         </div>
       </section>
 
-      {/* prev / next */}
-      <section className="section-padding py-14 border-t" style={{ borderColor: "var(--hairline)" }}>
-        <div className="container-narrow grid gap-4 sm:grid-cols-2">
+      <nav aria-label="Steps" className="bg-canvas-2" style={{ borderTop: "1px solid var(--hairline)" }}>
+        <div className="container-wide grid gap-4 py-12 sm:grid-cols-2">
           {prev ? (
-            <Link
-              href={`/how-it-works/${prev.slug}`}
-              className="group rounded-2xl border p-5 transition-colors hover:bg-[rgba(var(--accent-rgb),0.04)]"
-              style={{ borderColor: "var(--hairline)" }}
-            >
-              <span className="inline-flex items-center gap-2 font-mono text-[0.66rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">
+            <Link href={`/how-it-works/${prev.slug}`} className="card-x group p-6">
+              <span className="inline-flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">
                 <ArrowLeft size={12} aria-hidden />
                 Step {prev.n}
               </span>
-              <div className="mt-2 font-display font-semibold text-[color:var(--color-ink)]">{prev.name}</div>
+              <span className="mt-2 block font-display text-[1.25rem] text-[color:var(--color-ink)]">{prev.name}</span>
             </Link>
           ) : (
             <span />
           )}
-
           {next && (
-            <Link
-              href={`/how-it-works/${next.slug}`}
-              className="group rounded-2xl border p-5 transition-colors hover:bg-[rgba(var(--accent-rgb),0.04)] sm:text-right"
-              style={{ borderColor: "var(--hairline)" }}
-            >
-              <span className="inline-flex items-center gap-2 font-mono text-[0.66rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)] sm:flex-row-reverse">
+            <Link href={`/how-it-works/${next.slug}`} className="card-x group p-6 sm:text-right">
+              <span className="inline-flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)] sm:flex-row-reverse">
                 <ArrowRight size={12} aria-hidden />
                 Step {next.n}
               </span>
-              <div className="mt-2 font-display font-semibold text-[color:var(--color-ink)]">{next.name}</div>
+              <span className="mt-2 block font-display text-[1.25rem] text-[color:var(--color-ink)]">{next.name}</span>
             </Link>
           )}
         </div>
-      </section>
+      </nav>
 
-      {/* close */}
-      <section className="section-padding py-20 border-t" style={{ borderColor: "var(--hairline)" }}>
-        <div className="container-narrow max-w-2xl">
-          <Reveal>
-            <h2 className="font-display font-bold tracking-tight text-[color:var(--color-ink)] max-w-[22ch]" style={{ fontSize: "clamp(1.6rem, 3vw, 2.3rem)" }}>
-              All six steps start with the same thirty minutes.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <p className="mt-5 text-[color:var(--color-ink-soft)] leading-relaxed">
-              Free, nothing to sign, and you keep the plan whether or not you work with us.
-            </p>
-          </Reveal>
-          <Reveal delay={0.12}>
-            <Link href="/contact" className="btn btn-accent justify-center min-h-12 mt-8 inline-flex">
-              Book a free audit call
-              <ArrowUpRight size={15} aria-hidden />
-            </Link>
-          </Reveal>
-        </div>
-      </section>
-    </main>
+      <CTABand
+        title={
+          <>
+            All six steps start with <span className="italic-accent">the same thirty minutes.</span>
+          </>
+        }
+      />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free pre-audit" />
+    </>
   );
 }
