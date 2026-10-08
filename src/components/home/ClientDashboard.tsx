@@ -32,13 +32,13 @@ const POOL: Row[] = [
   { time: "22:40", channel: "WhatsApp", text: "Reminder sent for tomorrow" },
 ];
 
-const INITIAL = POOL.slice(0, 5).reverse();
+const INITIAL = POOL.slice(0, 4).reverse();
 
 export function ClientDashboard() {
   const reduce = useReducedMotionPref();
   const [rows, setRows] = useState<(Row & { k: number })[]>(INITIAL.map((r, i) => ({ ...r, k: i })));
   const [visible, setVisible] = useState(false);
-  const counter = useRef(5);
+  const counter = useRef(4);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export function ClientDashboard() {
       if (document.hidden) return;
       const next = POOL[counter.current % POOL.length];
       const k = counter.current++;
-      setRows((r) => [{ ...next, k }, ...r].slice(0, 5));
+      setRows((r) => [{ ...next, k }, ...r].slice(0, 4));
     }, 3200);
     return () => clearInterval(id);
   }, [reduce, visible]);
@@ -125,9 +125,9 @@ export function ClientDashboard() {
 
           <div className="mt-4 grid gap-4 lg:grid-cols-[1fr_1.15fr]">
             {/* chart */}
-            <div className="rounded-2xl p-4" style={{ background: "var(--bg-3)", border: "1px solid var(--hairline)" }}>
+            <div className="flex flex-col rounded-2xl p-4" style={{ background: "var(--bg-3)", border: "1px solid var(--hairline)" }}>
               <p className="text-[0.8rem] text-[color:var(--color-ink-muted)]">Conversations, last 14 days</p>
-              <div className="mt-4 flex h-28 items-end gap-[5px]" aria-hidden>
+              <div className="mt-4 flex h-28 flex-1 items-end gap-[5px] lg:h-auto lg:min-h-28" aria-hidden>
                 {BARS.map((b, i) => (
                   <span
                     key={i}
@@ -153,11 +153,11 @@ export function ClientDashboard() {
                   Live
                 </span>
               </div>
-              <ul className="mt-3 h-[16.75rem] overflow-hidden">
+              <ul className="mt-3 h-[14.5rem] overflow-hidden">
                 {rows.map((r, i) => (
                   <li
                     key={r.k}
-                    className={`flex items-center gap-3 py-2.5 ${i === 0 && r.k >= 5 ? "wa-enter" : ""}`}
+                    className={`flex items-center gap-3 py-2.5 ${i === 0 && r.k >= 4 ? "wa-enter" : ""}`}
                     style={{ borderTop: i ? "1px solid var(--hairline)" : undefined }}
                   >
                     <span className="w-11 shrink-0 font-mono text-[0.72rem] text-[color:var(--color-ink-muted)] tabular">{r.time}</span>
