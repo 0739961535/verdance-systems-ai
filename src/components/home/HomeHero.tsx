@@ -3,7 +3,7 @@ import { HERO } from "@/data/landing";
 import { SITE } from "@/data/site";
 import { GENERIC_BOOK_URL } from "@/data/niches";
 import { HOME_ROTATION } from "@/data/conversations";
-import { ChatPhone } from "@/components/device/ChatPhone";
+import { LaptopInbox } from "@/components/device/LaptopInbox";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
 
 /**
@@ -21,7 +21,7 @@ export function HomeHero() {
       {/* one quiet light source behind the phone */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -z-10 left-1/2 top-[52%] h-[640px] w-[640px] -translate-x-1/2 rounded-full lg:left-[74%] lg:top-[50%] lg:-translate-y-1/2"
+        className="pointer-events-none absolute -z-10 left-1/2 top-[52%] h-[640px] w-[640px] -translate-x-1/2 rounded-full lg:left-[30%] lg:top-[50%] lg:-translate-y-1/2"
         style={{
           background: "radial-gradient(circle, rgba(var(--accent-glow-rgb),0.16), transparent 62%)",
           filter: "blur(40px)",
@@ -31,7 +31,7 @@ export function HomeHero() {
       <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-px" style={{ background: "var(--hairline)" }} />
 
       <div className="container-wide relative pt-28 pb-16 sm:pt-32 md:pt-40 lg:pb-24 lg:min-h-[100svh] lg:flex lg:items-center">
-        <div className="grid w-full items-center gap-14 lg:grid-cols-[1.12fr_0.88fr] lg:gap-10">
+        <div className="grid w-full items-center gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14">
           <div className="min-w-0">
             <p className="enter-fade-up eyebrow">AI systems · South Africa</p>
 
@@ -39,7 +39,7 @@ export function HomeHero() {
               id="hero-title"
               className="enter-rise font-display mt-7 text-[color:var(--color-ink)]"
               style={{
-                fontSize: "clamp(3.1rem, 5.6vw + 1rem, 6.4rem)",
+                fontSize: "clamp(3.1rem, 4.2vw + 1rem, 5.6rem)",
                 lineHeight: 0.98,
                 letterSpacing: "-0.045em",
                 animationDuration: "0.7s",
@@ -85,9 +85,9 @@ export function HomeHero() {
             </ul>
           </div>
 
-          <div className="enter-fade min-w-0 flex justify-center lg:justify-end" style={{ animationDelay: "0.35s" }}>
-            <div data-parallax="-0.06">
-              <ChatPhone rotation={HOME_ROTATION} />
+          <div className="enter-fade min-w-0 lg:order-first" style={{ animationDelay: "0.35s" }}>
+            <div data-parallax="-0.05">
+              <LaptopInbox rotation={HOME_ROTATION} />
             </div>
           </div>
         </div>
