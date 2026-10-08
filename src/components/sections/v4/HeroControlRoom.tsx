@@ -70,11 +70,9 @@ export function HeroControlRoom() {
                 animationDelay: "0.08s",
               }}
             >
-              They called at 7pm.
+              We don&apos;t talk about AI.
               <br />
-              Nobody answered.
-              <br />
-              They called <span className="italic-accent">someone else</span>.
+              We <span className="italic-accent">ship</span> it.
             </h1>
 
             <p

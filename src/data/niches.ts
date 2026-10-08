@@ -195,7 +195,7 @@ export const NICHES: Niche[] = [
       ],
     },
     pricing: {
-      eyebrow: "Pricing",
+      eyebrow: "Investment",
       title: "Start small.",
       intro: "Most venues start with the 30-day pilot. If it works, you move onto the Engine and the pilot setup fee is credited.",
       cards: [
@@ -203,30 +203,31 @@ export const NICHES: Niche[] = [
           name: "Venue Viewing Pilot",
           tag: "30 days",
           lines: [
-            { label: "Setup", value: "R5 000" },
-            { label: "Per attended viewing", value: "R1 000" },
-            { label: "Viewing fees capped at", value: "R10 000" },
+            { label: "Investment", value: "Fixed quote" },
+            { label: "Quoted after", value: "Your free pre-audit" },
+            { label: "Surprises", value: "None, agreed in writing" },
           ],
-          note: "You pay per viewing the system books that the couple actually attends. The R5 000 is credited against the Engine setup if you continue.",
+          note: "You pay per viewing the system books that the couple actually attends. The pilot fee is credited against the Engine setup if you continue.",
           featured: true,
         },
         {
           name: "Venue 5-Minute Enquiry Engine",
           tag: "Ongoing",
           lines: [
-            { label: "Setup", value: "from R18 000" },
-            { label: "Monthly", value: "from R14 500" },
+            { label: "Investment", value: "Fixed quote" },
+            { label: "Quoted after", value: "Your free pre-audit" },
+            { label: "Surprises", value: "None, agreed in writing" },
           ],
           note: "50% deposit on setup. The monthly fee starts at go-live. Includes the past-enquiry message, no-show rescue, review requests and the monthly report.",
         },
       ],
-      footnote: "For venues with at least 10 enquiries a month. Final pricing is confirmed in writing after the pre-audit.",
+      footnote: "For venues with at least 10 enquiries a month. Every system is scoped to your business, so we quote after the free pre-audit. The quote is fixed and in writing.",
     },
     guarantee: {
       title: "Measured against your own numbers.",
       accent: "Or you get your money back.",
       columns: [
-        { n: "01", label: "Pilot: viewings or a refund", text: "If the system books no attended viewings in the 30 days, your R5 000 setup fee is refunded." },
+        { n: "01", label: "Pilot: viewings or a refund", text: "If the system books no attended viewings in the 30 days, your setup fee is refunded." },
         { n: "02", label: "Engine: the 5-minute standard", text: "95% of enquiries on web, email, WhatsApp and Instagram get a first reply within 5 minutes, day or night. Any month that misses it is free." },
         { n: "03", label: "Engine: viewings up 25% by day 60", text: "If booked viewings are not 25% above your audited baseline at day 60, we work free until they are. Or you cancel and get both monthly fees back. The setup fee covers the build and is not refunded." },
       ],
@@ -245,7 +246,7 @@ export const NICHES: Niche[] = [
       },
       {
         q: "What happens at day 30?",
-        a: "You choose. Move onto the Engine with the R5 000 already credited against the setup, or walk away. If no attended viewings were booked, your R5 000 is refunded.",
+        a: "You choose. Move onto the Engine with the pilot fee already credited against the setup, or walk away. If no attended viewings were booked, your setup fee is refunded.",
       },
       BASELINE_FAQ,
       {
@@ -339,7 +340,7 @@ export const NICHES: Niche[] = [
       ],
     },
     pricing: {
-      eyebrow: "Pricing",
+      eyebrow: "Investment",
       title: "One system, three revenue lines.",
       intro: "Built for properties with weddings, rooms and conferences, or groups with two or more venues.",
       cards: [
@@ -347,14 +348,15 @@ export const NICHES: Niche[] = [
           name: "Lodge and Venue Group Revenue System",
           tag: "Premium",
           lines: [
-            { label: "Setup", value: "from R45 000" },
-            { label: "Monthly", value: "from R32 000" },
+            { label: "Investment", value: "Fixed quote" },
+            { label: "Quoted after", value: "Your free pre-audit" },
+            { label: "Surprises", value: "None, agreed in writing" },
           ],
           note: "Includes every department and channel, the 24-month revival campaign, quarterly revivals, review requests and a monthly review with Daniel.",
           featured: true,
         },
       ],
-      footnote: "Final pricing depends on the number of venues and departments, and is confirmed in writing after the pre-audit.",
+      footnote: "Every system is scoped to your venues and departments, so we quote after the free pre-audit. The quote is fixed and in writing.",
     },
     guarantee: {
       title: "Two promises.",
@@ -470,7 +472,7 @@ export const NICHES: Niche[] = [
       ],
     },
     pricing: {
-      eyebrow: "Pricing",
+      eyebrow: "Investment",
       title: "Clear, from day one.",
       intro: "One system for every channel your patients use to reach the practice.",
       cards: [
@@ -478,14 +480,15 @@ export const NICHES: Niche[] = [
           name: "Consult Recovery System",
           tag: "Ongoing",
           lines: [
-            { label: "Setup", value: "from R25 000" },
-            { label: "Monthly", value: "from R18 000" },
+            { label: "Investment", value: "Fixed quote" },
+            { label: "Quoted after", value: "Your free pre-audit" },
+            { label: "Surprises", value: "None, agreed in writing" },
           ],
           note: "Includes 5-minute replies, consult booking, reminders, no-show rescue, treatment-plan follow-up, recall messages and a monthly report.",
           featured: true,
         },
       ],
-      footnote: "For practices with at least 10 enquiries a month. Final pricing is confirmed in writing after the pre-audit.",
+      footnote: "For practices with at least 10 enquiries a month. Every system is scoped to your business, so we quote after the free pre-audit. The quote is fixed and in writing.",
     },
     guarantee: {
       title: "Measured against your own diary.",
@@ -605,7 +608,7 @@ export const NICHES: Niche[] = [
       ],
     },
     pricing: {
-      eyebrow: "Pricing",
+      eyebrow: "Investment",
       title: "Per branch. Done for you.",
       intro: "We build it, connect it and run it. Your agents keep doing viewings.",
       cards: [
@@ -613,14 +616,15 @@ export const NICHES: Niche[] = [
           name: "Portal Lead 5-Minute Response",
           tag: "Per branch",
           lines: [
-            { label: "Setup", value: "from R15 000" },
-            { label: "Monthly", value: "from R12 000" },
+            { label: "Investment", value: "Fixed quote" },
+            { label: "Quoted after", value: "Your free pre-audit" },
+            { label: "Surprises", value: "None, agreed in writing" },
           ],
           note: "Includes 5-minute replies, qualifying questions, calendar booking, agent summaries, the seller valuation flow and old buyer revival.",
           featured: true,
         },
       ],
-      footnote: "For branches with at least 10 leads a month. Final pricing is confirmed in writing after the pre-audit.",
+      footnote: "For branches with at least 10 leads a month. Every system is scoped to your business, so we quote after the free pre-audit. The quote is fixed and in writing.",
     },
     guarantee: {
       title: "Measured against your own leads.",
@@ -733,7 +737,7 @@ export const NICHES: Niche[] = [
       ],
     },
     pricing: {
-      eyebrow: "Pricing",
+      eyebrow: "Investment",
       title: "A fixed price, after one call.",
       intro: "Trades vary a lot, from a one-van business to a team with several crews. We quote a fixed setup and monthly fee after the pre-audit, in writing, before any work starts.",
       cards: [
@@ -741,8 +745,9 @@ export const NICHES: Niche[] = [
           name: "Trades 5-Minute Enquiry Engine",
           tag: "After one call",
           lines: [
-            { label: "Setup", value: "Fixed quote" },
-            { label: "Monthly", value: "Fixed quote" },
+            { label: "Investment", value: "Fixed quote" },
+            { label: "Quoted after", value: "Your free pre-audit" },
+            { label: "Surprises", value: "None, agreed in writing" },
           ],
           note: "Includes missed-call text-back, 5-minute replies, quote follow-up, diary booking and review requests.",
           featured: true,

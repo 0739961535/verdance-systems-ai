@@ -43,7 +43,7 @@ const fraunces = Fraunces({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://verdancesystemsai.com"),
-  title: "Never Miss Another Customer | AI Answering, Booking & Follow Up | Verdance Systems AI",
+  title: "Verdance Systems AI | We don't talk about AI. We ship it.",
   description:
     "We build the thing that answers your phone, replies to your messages and books people into your calendar, day or night. You own all of it. Start with a free 30 minute audit call.",
   applicationName: "Verdance Systems AI",
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   creator: "Verdance Systems AI",
   publisher: "Verdance Systems AI",
   openGraph: {
-    title: "Verdance Systems AI - Never miss another customer.",
+    title: "Verdance Systems AI - We don't talk about AI. We ship it.",
     description:
       "Every call and message answered in seconds, at any hour, and booked straight into your calendar. Built for you, owned by you. Free audit call first.",
     url: "https://verdancesystemsai.com",
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Verdance Systems AI - Never miss another customer.",
+    title: "Verdance Systems AI - We don't talk about AI. We ship it.",
     description:
       "Every call and message answered in seconds, any hour, and booked in. Free audit call first.",
   },
