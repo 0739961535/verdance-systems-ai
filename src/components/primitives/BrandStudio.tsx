@@ -95,12 +95,16 @@ export function BrandStudio() {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem(KEY);
-    if (saved && /^#[0-9a-fA-F]{6}$/.test(saved)) {
-      setHex(saved);
-      setCustomized(true);
-      apply(saved);
-    }
+    // Read the saved colour after the first paint (keeps SSR and hydration identical).
+    const id = requestAnimationFrame(() => {
+      const saved = localStorage.getItem(KEY);
+      if (saved && /^#[0-9a-fA-F]{6}$/.test(saved)) {
+        setHex(saved);
+        setCustomized(true);
+        apply(saved);
+      }
+    });
+    return () => cancelAnimationFrame(id);
   }, []);
 
   function pick(next: string) {

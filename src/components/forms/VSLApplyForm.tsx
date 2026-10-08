@@ -827,7 +827,8 @@ function MultiSelect({
 // booking; GHL's own widget collects those fields as part of the flow.
 // ─────────────────────────────────────────────────────────────────
 
-export function BookingPanel({ bookingUrl: _bookingUrl }: { bookingUrl?: string }) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function BookingPanel(_props: { bookingUrl?: string }) {
   // Previously embedded the CRM's hosted calendar in an iframe, which
   // clashed with the site's design. Now renders the native BookingCard
   // (same availability and booking flow, via our own API routes); the

@@ -52,13 +52,13 @@ export const TICKER_ITEMS = [
 ];
 
 export const DELTAS = [
-  { label: "Time to answer a new enquiry", before: "4 hours", after: "28 seconds" },
+  { label: "Time to answer a new enquiry", before: "hours, or the next day", after: "within 5 minutes" },
   { label: "Enquiries after closing time", before: "go to voicemail", after: "answered and booked" },
-  { label: "Follow-ups on every lead", before: "one, when there's time", after: "twelve, automatic" },
-  { label: "Google review requests", before: "hit and miss", after: "after every sale" },
+  { label: "Follow-ups on every lead", before: "one, when there's time", after: "until they reply" },
+  { label: "Google review requests", before: "hit and miss", after: "after every job" },
 ];
 export const DELTAS_FOOTNOTE =
-  "These are the targets we agree with you on the audit call, and the numbers we report against every month.";
+  "Every enquiry gets a reply within 5 minutes, day or night. The rest is measured against your own numbers from the pre-audit.";
 
 export interface PillarOffer {
   name: string;

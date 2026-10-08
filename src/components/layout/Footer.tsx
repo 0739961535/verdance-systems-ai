@@ -55,7 +55,7 @@ export function Footer() {
               {[
                 { href: "/industries", label: "Industries" },
                 ...NICHES.map((n) => ({ href: `/industries/${n.slug}`, label: n.name })),
-                { href: "/products", label: "Products" },
+                { href: "/audit", label: "Free pre-audit" },
                 { href: "/ai-agency", label: "Where we work" },
                 { href: "/missed-call-calculator", label: "Missed call calculator" },
               ].map((it) => (

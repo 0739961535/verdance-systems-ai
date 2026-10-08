@@ -29,7 +29,6 @@ export function ApplyVSLSection() {
 
   const handlePlay = () => {
     // Placeholder behavior - Daniel will set a real URL on <video src>.
-    // eslint-disable-next-line no-console
     console.info(
       "[VSL] Play clicked. Swap src in /components/sections/v3/ApplyVSLSection.tsx"
     );

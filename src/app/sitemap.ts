@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
 import { SERVICE_CATEGORIES } from "@/data/services";
-import { products } from "@/data/products";
 import { industries } from "@/data/industries";
 import { NICHES } from "@/data/niches";
 import { LOCATIONS } from "@/data/locations";
@@ -19,14 +18,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/services/ai-operations-system", priority: 0.9, freq: "monthly" },
     { path: "/audit", priority: 0.9, freq: "monthly" },
     { path: "/industries", priority: 0.8, freq: "monthly" },
-    { path: "/products", priority: 0.8, freq: "monthly" },
     { path: "/how-it-works", priority: 0.8, freq: "monthly" },
     { path: "/contact", priority: 0.7, freq: "yearly" },
     { path: "/apply", priority: 0.8, freq: "monthly" },
     { path: "/ai-agency", priority: 0.85, freq: "monthly" },
     { path: "/missed-call-calculator", priority: 0.9, freq: "monthly" },
-    // Deliberately excluded until they carry real content:
-    //   /portfolio (placeholder "coming soon"), /packages (placeholder).
+    // /products, /packages and /portfolio were retired in round 4 and now
+    // redirect (see next.config.ts).
   ];
 
   const serviceRoutes = SERVICE_CATEGORIES.map((c) => ({
@@ -63,13 +61,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     freq: "monthly" as Freq,
   }));
 
-  const productRoutes = products.map((p) => ({
-    path: `/products/${p.slug}`,
-    priority: 0.7,
-    freq: "monthly" as Freq,
-  }));
 
-  return [...staticRoutes, ...nicheRoutes, ...serviceRoutes, ...industryRoutes, ...locationRoutes, ...processRoutes, ...productRoutes].map(
+  return [...staticRoutes, ...nicheRoutes, ...serviceRoutes, ...industryRoutes, ...locationRoutes, ...processRoutes].map(
     ({ path, priority, freq }) => ({
       url: `${SITE_URL}${path}`,
       lastModified: now,
