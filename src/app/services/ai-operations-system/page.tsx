@@ -61,6 +61,7 @@ export default function AiOperationsTeamPage() {
       {/* HERO */}
       <section className="relative isolate overflow-hidden bg-canvas" aria-labelledby="ai-hero-title">
         <div aria-hidden className="aurora" />
+        <div aria-hidden className="hero-grid" />
         <div className="container-wide relative pt-28 pb-16 sm:pt-32 md:pt-40 lg:pb-24">
           <p className="enter-fade-up eyebrow">{AI_TEAM.eyebrow}</p>
           <h1

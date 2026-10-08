@@ -1,5 +1,3 @@
-"use client";
-
 import type { ComponentType, CSSProperties } from "react";
 import Link from "next/link";
 import {
@@ -42,11 +40,11 @@ export function IndustryCard({ industry }: IndustryCardProps) {
   return (
     <Link
       href={`/industries/${industry.slug}`}
-      className="group block relative overflow-hidden surface surface-card-hover h-full"
+      className="card-x group flex h-full flex-col p-6 md:p-7"
     >
-      <div className="p-7 flex flex-col h-full">
+      <div className="flex h-full flex-col">
         <div
-          className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"
           style={{
             background: "rgba(var(--accent-rgb),0.10)",
             border: "1px solid rgba(var(--accent-rgb),0.22)",
@@ -62,9 +60,9 @@ export function IndustryCard({ industry }: IndustryCardProps) {
           {industry.headline}
         </p>
 
-        <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-[color:var(--color-ink)] group-hover:gap-3 group-hover:text-[color:var(--color-accent)] transition-all">
+        <div className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-[color:var(--color-ink)] transition-colors group-hover:text-[color:var(--color-accent)]">
           See how
-          <ArrowRight size={14} />
+          <ArrowRight size={14} className="nudge" />
         </div>
       </div>
     </Link>

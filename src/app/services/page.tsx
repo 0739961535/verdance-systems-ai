@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { GradientMesh } from "@/components/primitives/GradientMesh";
+import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
-import { MagneticButton } from "@/components/primitives/MagneticButton";
-import { FinalCTA } from "@/components/sections/v3/FinalCTA";
-import { SERVICE_PILLARS, PILLAR_CATEGORIES } from "@/data/services";
+import { PageHero } from "@/components/kit/PageHero";
+import { SectionHead } from "@/components/kit/SectionHead";
+import { CTABand } from "@/components/kit/CTABand";
+import { NumberTicker } from "@/components/kit/NumberTicker";
+import { SystemStack } from "@/components/visuals/hero/SystemStack";
+import { PowerOfAI } from "@/components/aiteam/PowerOfAI";
+import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
+import { SERVICE_PILLARS, PILLAR_CATEGORIES, SERVICE_CATEGORIES } from "@/data/services";
+import { GENERIC_BOOK_URL } from "@/data/booking";
+import { plain } from "@/lib/plain";
 
 const TITLE = "AI Systems & Services | Marketing, Sales, Operations, Automations | Verdance Systems AI";
 const DESCRIPTION =
@@ -31,173 +38,123 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      {/* HERO */}
-      <section className="relative isolate overflow-hidden pt-36 pb-20 md:pt-44 md:pb-28">
-        <div className="absolute inset-0 -z-10">
-          <GradientMesh intensity="soft" />
-        </div>
-        <div className="container-wide">
-          <Reveal>
-            <span className="eyebrow">Services</span>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <h1 className="mt-4 headline-hero max-w-[20ch]">
-              Four pillars. <span className="italic-accent">Every system.</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="mt-8 max-w-2xl text-xl text-[color:var(--color-ink-soft)] leading-relaxed">
-              Everything we design, build and run lives under Marketing, Sales,
-              Internal Operations or Automations - and the pillars are built to
-              work together as one connected system.
-            </p>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <MagneticButton href="/contact" variant="accent">
-                Book your free audit call
-              </MagneticButton>
-              <MagneticButton href="/how-it-works" variant="ghost">
-                How it works
-              </MagneticButton>
-            </div>
-          </Reveal>
+      <PageHero
+        eyebrow="Services"
+        title={
+          <>
+            Four pillars. <span className="italic-accent">One system.</span>
+          </>
+        }
+        lead="Everything we build sits under Marketing, Sales, Operations or Automations, and all of it talks to each other. Start with the part that is costing you most."
+        crumbs={[{ href: "/", label: "Home" }, { label: "Services" }]}
+        visual={<SystemStack />}
+        note={`${SERVICE_CATEGORIES.length} services · fixed quote after your free pre-audit`}
+      />
 
-          {/* pillar quick-nav */}
-          <Reveal delay={0.2}>
-            <div className="mt-12 flex flex-wrap gap-2">
-              {SERVICE_PILLARS.map((p) => (
-                <a
-                  key={p.slug}
-                  href={`#${p.slug}`}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-full px-4 py-2 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-soft)] transition-colors hover:text-[color:var(--color-accent)]"
-                  style={{ border: "1px solid var(--hairline-2)" }}
-                >
-                  <span className="text-[color:var(--color-ink-faint)]">{p.index}</span>
-                  {p.title}
-                </a>
-              ))}
-            </div>
-          </Reveal>
+      {/* pillar quick-nav */}
+      <nav aria-label="Pillars" className="bg-canvas" style={{ borderTop: "1px solid var(--hairline)" }}>
+        <div className="container-wide flex flex-wrap gap-2 py-6">
+          {SERVICE_PILLARS.map((p) => (
+            <a
+              key={p.slug}
+              href={`#${p.slug}`}
+              className="inline-flex min-h-11 items-center gap-2 rounded-full px-4 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-soft)] transition-colors hover:text-[color:var(--color-accent)]"
+              style={{ border: "1px solid var(--hairline-2)" }}
+            >
+              <span className="text-[color:var(--color-accent)]">{p.index}</span>
+              {p.title}
+            </a>
+          ))}
         </div>
-      </section>
+      </nav>
 
-      {/* PILLAR SECTIONS */}
       {SERVICE_PILLARS.map((pillar, pi) => {
         const categories = PILLAR_CATEGORIES(pillar);
         return (
           <section
             key={pillar.slug}
             id={pillar.slug}
-            className={`relative section-pad ${pi % 2 === 0 ? "bg-canvas-2" : "bg-canvas"}`}
+            className={`section-pad ${pi % 2 === 0 ? "bg-canvas-2" : "bg-canvas"}`}
             style={{ borderTop: "1px solid var(--hairline)", scrollMarginTop: "5rem" }}
+            aria-labelledby={`pillar-${pillar.slug}`}
           >
             <div className="container-wide">
-              <div className="max-w-3xl">
-                <Reveal>
-                  <div className="flex items-baseline gap-4">
-                    <span
-                      className="font-mono text-[color:var(--color-ink-faint)]"
-                      style={{ fontSize: "clamp(1.75rem, 2.4vw + 1.2rem, 2.75rem)", fontVariantNumeric: "tabular-nums" }}
+              <div className="grid gap-10 lg:grid-cols-[0.42fr_1fr] lg:gap-16">
+                <div className="lg:sticky lg:top-28 lg:self-start">
+                  <Reveal variant="wipe">
+                    <p
+                      className="font-display text-[color:var(--color-accent)]"
+                      style={{ fontSize: "clamp(3.5rem, 6vw, 6rem)", lineHeight: 0.9, letterSpacing: "-0.05em" }}
                     >
-                      {pillar.index}
-                    </span>
-                    <h2 className="headline-section">{pillar.title}</h2>
-                  </div>
-                </Reveal>
-                <Reveal delay={0.05}>
-                  <p className="mt-4 text-lg text-[color:var(--color-ink-soft)] leading-relaxed">
-                    {pillar.promise}
-                  </p>
-                </Reveal>
-              </div>
-
-              <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-                {categories.map((c, i) => (
-                  <Reveal key={c.slug} delay={i * 0.05}>
-                    <Link
-                      href={`/services/${c.slug}`}
-                      className="group block relative overflow-hidden surface surface-card-hover h-full"
-                    >
-                      <div className="p-7 md:p-8 flex flex-col h-full">
-                        <div className="flex items-center justify-between">
-                          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-accent)]">
-                            {pillar.title} · {c.number}
-                          </span>
-                          <ArrowCircle />
-                        </div>
-                        <h3 className="mt-6 font-display text-xl md:text-2xl font-medium leading-tight text-[color:var(--color-ink)]">
-                          {c.name}
-                        </h3>
-                        <p className="mt-3 text-[color:var(--color-ink-soft)] text-[14px] leading-relaxed">
-                          {c.promise}
-                        </p>
-                        <ul className="mt-5 space-y-1.5 text-[13px] text-[color:var(--color-ink-muted)]">
-                          {c.bullets.slice(0, 5).map((b) => (
-                            <li key={b} className="flex items-start gap-2">
-                              <span
-                                className="inline-block h-1 w-1 mt-2 rounded-full flex-shrink-0"
-                                style={{ background: "var(--color-accent)" }}
-                              />
-                              <span>{b}</span>
-                            </li>
-                          ))}
-                          {c.bullets.length > 5 && (
-                            <li className="text-[color:var(--color-ink-faint)] pl-3">
-                              + {c.bullets.length - 5} more
-                            </li>
-                          )}
-                        </ul>
-                        <div className="mt-7 inline-flex items-center gap-2 text-sm font-medium text-[color:var(--color-ink)] group-hover:gap-3 group-hover:text-[color:var(--color-accent)] transition-all">
-                          Explore {c.name.split("&")[0].trim().toLowerCase()}
-                          <Arrow />
-                        </div>
-                      </div>
-                    </Link>
+                      <NumberTicker value={Number(pillar.index)} pad={2} />
+                    </p>
+                    <h2 id={`pillar-${pillar.slug}`} className="h2 mt-4">
+                      {pillar.title}
+                    </h2>
+                    <p className="mt-4 max-w-sm text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{pillar.promise}</p>
                   </Reveal>
-                ))}
+                </div>
+                <ul className="grid gap-4 sm:grid-cols-2">
+                  {categories.map((c, i) => (
+                    <li key={c.slug}>
+                      <Reveal delay={i * 0.06} className="h-full">
+                        <Link href={`/services/${c.slug}`} className="card-x group flex h-full flex-col p-6 md:p-7">
+                          <div className="flex items-center justify-between">
+                            <span className="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">
+                              {pillar.title} · {c.number}
+                            </span>
+                            <ArrowUpRight size={17} aria-hidden className="nudge text-[color:var(--color-ink-muted)] group-hover:text-[color:var(--color-accent)]" />
+                          </div>
+                          <h3 className="mt-8 font-display text-[1.45rem] leading-tight text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
+                            {c.name}
+                          </h3>
+                          <p className="mt-3 text-[0.95rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{plain(c.promise)}</p>
+                          <ul className="mt-6 flex flex-wrap gap-1.5">
+                            {c.subProducts.slice(0, 4).map((sp) => (
+                              <li
+                                key={sp.name}
+                                className="rounded-full px-2.5 py-1 text-[0.75rem] text-[color:var(--color-ink-muted)]"
+                                style={{ border: "1px solid var(--hairline-2)" }}
+                              >
+                                {sp.name.replace(/\s*\(.*\)\s*/, "")}
+                              </li>
+                            ))}
+                          </ul>
+                        </Link>
+                      </Reveal>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </section>
         );
       })}
 
-      <section className="relative section-pad-sm bg-canvas">
-        <div className="container-narrow text-center">
-          <Reveal>
-            <p className="font-display text-2xl md:text-3xl font-medium max-w-2xl mx-auto text-[color:var(--color-ink)]">
-              All designed, built and run by{" "}
-              <span className="italic-accent">Verdance Systems AI.</span>
-            </p>
-          </Reveal>
+      <PowerOfAI variant="short" />
+
+      <section className="section-pad bg-canvas" aria-labelledby="start-title" style={{ borderTop: "1px solid var(--hairline)" }}>
+        <div className="container-wide">
+          <SectionHead
+            id="start-title"
+            eyebrow="Where to start"
+            title={
+              <>
+                Not sure which? <span className="italic-accent">That is what the pre-audit is for.</span>
+              </>
+            }
+            intro={
+              <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent min-h-12 justify-center">
+                Book your free pre-audit
+                <ArrowUpRight size={16} aria-hidden />
+              </a>
+            }
+          />
         </div>
       </section>
 
-      <FinalCTA />
+      <CTABand />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free pre-audit" />
     </>
-  );
-}
-
-function Arrow() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <path
-        d="M3 8h10M9 4l4 4-4 4"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-function ArrowCircle() {
-  return (
-    <span
-      className="inline-flex h-9 w-9 items-center justify-center rounded-full border text-[color:var(--color-ink)] transition-all group-hover:border-[color:var(--color-accent)] group-hover:text-[color:var(--color-accent)] group-hover:rotate-[-45deg]"
-      style={{ borderColor: "var(--color-hairline-2)" }}
-    >
-      <Arrow />
-    </span>
   );
 }

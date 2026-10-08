@@ -7,7 +7,8 @@ import { bookUrl, type Niche } from "@/data/niches";
 import { NicheHero } from "./NicheHero";
 import { NicheLeak } from "./NicheLeak";
 import { NicheCalculator } from "./NicheCalculator";
-import { NicheCTA, NicheIncluded, NichePricing, NicheProof, NicheSteps } from "./NicheSections";
+import { NicheIncluded, NichePricing, NicheProof, NicheSteps } from "./NicheSections";
+import { CTABand } from "@/components/kit/CTABand";
 
 const SITE_URL = "https://verdancesystemsai.com";
 
@@ -120,7 +121,20 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
 
       <NicheProof niche={niche} />
       <FAQControl faqs={niche.faqs} />
-      <NicheCTA niche={niche} />
+      <CTABand
+        eyebrow="Pre-audit · 30 minutes · no cost"
+        title={
+          <>
+            {niche.cta.title} <span className="italic-accent">{niche.cta.accent}</span>
+          </>
+        }
+        points={[
+          "Your reply times, channel by channel",
+          "What slow replies are likely costing you, in rand",
+          "Whether the offer fits, and a fixed quote if it does",
+        ]}
+        href={href}
+      />
       <StickyMobileCTA href={href} label="Book your pre-audit" />
     </>
   );

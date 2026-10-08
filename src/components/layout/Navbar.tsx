@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { VSAILogo } from "@/components/primitives/VSAILogo";
+import { LogoMark } from "@/components/brand/LogoMark";
 import { ThemeToggle } from "@/components/primitives/ThemeToggle";
 import { NAV_ITEMS, SITE } from "@/data/site";
 import { GENERIC_BOOK_URL, bookUrl } from "@/data/booking";
@@ -45,9 +45,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
 
   return (
     <header
-      className={`enter-drop fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "py-3" : "py-5"
-      }`}
+      className="enter-drop fixed inset-x-0 top-0 z-50 py-3.5 transition-[background-color,border-color,backdrop-filter] duration-300"
       style={{
         background: scrolled ? "rgba(var(--bg-rgb),0.72)" : "transparent",
         backdropFilter: scrolled ? "blur(16px)" : "none",
@@ -63,14 +61,12 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
           className="group inline-flex items-center gap-3"
           aria-label="Verdance Systems AI - home"
         >
-          <VSAILogo size={34} withWordmark={false} />
-          <span className="hidden sm:inline-flex flex-col leading-none">
-            <span className="font-display text-[15px] font-medium tracking-tight text-[color:var(--color-ink)]">
+          <LogoMark size={34} animated title={null} />
+          <span className="hidden items-baseline gap-1.5 leading-none sm:inline-flex">
+            <span className="font-display text-[1.15rem] text-[color:var(--color-ink)]" style={{ fontWeight: 600, letterSpacing: "-0.035em" }}>
               Verdance
             </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-ink-muted)]">
-              Systems AI
-            </span>
+            <span className="font-serif text-[1.1rem] text-[color:var(--color-ink-muted)]">Systems AI</span>
           </span>
         </Link>
 
@@ -207,7 +203,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
             href={SITE.whatsapp.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border px-3.5 py-2 text-sm font-medium transition-all"
+            className="inline-flex items-center gap-2 rounded-full border px-3.5 py-2 text-sm font-medium transition-colors"
             style={{
               borderColor: "rgba(var(--accent-rgb),0.30)",
               color: "var(--color-accent)",

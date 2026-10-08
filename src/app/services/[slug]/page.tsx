@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
-import { MagneticButton } from "@/components/primitives/MagneticButton";
-import { AnimatedDivider } from "@/components/primitives/AnimatedDivider";
-import { GradientMesh } from "@/components/primitives/GradientMesh";
-import { ServiceDemo } from "@/components/demos/DemoRegistry";
-import { FinalCTA } from "@/components/sections/v3/FinalCTA";
+import { PageHero } from "@/components/kit/PageHero";
+import { SectionHead } from "@/components/kit/SectionHead";
+import { CTABand } from "@/components/kit/CTABand";
+import { ServiceConsole } from "@/components/visuals/hero/ServiceConsole";
+import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
+import { GENERIC_BOOK_URL } from "@/data/booking";
+import { plain } from "@/lib/plain";
 import { SERVICE_CATEGORIES, SERVICE_BY_SLUG } from "@/data/services";
 
 export async function generateStaticParams() {
@@ -22,7 +25,7 @@ export async function generateMetadata({
   const category = SERVICE_BY_SLUG[slug];
   if (!category) return {};
   const title = `${category.name} | Verdance Systems AI`;
-  const description = `${category.name}: ${category.promise} Done-for-you AI that answers, follows up, and books appointments 24/7 for local service businesses. Free consult.`;
+  const description = `${category.name}: ${plain(category.promise)} Built and run for you in South Africa. Fixed quote after a free pre-audit.`;
   const url = `https://verdancesystemsai.com/services/${slug}`;
   return {
     title,
@@ -72,239 +75,129 @@ export default async function ServiceCategoryPage({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
+      <PageHero
+        eyebrow={`${category.number} · ${category.eyebrow}`}
+        title={
+          <>
+            {plain(category.headline)} <span className="italic-accent">{category.italicWord}</span>
+          </>
+        }
+        lead={plain(category.promise)}
+        crumbs={[{ href: "/services", label: "Services" }, { label: category.name }]}
+        visual={
+          <ServiceConsole
+            title={category.name}
+            parts={category.subProducts.map((sp) => ({ name: sp.name.replace(/\s*\(.*\)\s*/, ""), steps: sp.howItWorks.slice(0, 4).map(plain) }))}
+          />
+        }
+        note="Fixed quote after your free pre-audit"
       />
-      {/* HERO */}
-      <section className="relative isolate overflow-hidden pt-36 pb-16 md:pt-44 md:pb-24">
-        <div className="absolute inset-0 -z-10">
-          <GradientMesh intensity="soft" />
-        </div>
+
+      {/* WHAT YOU GET */}
+      <section className="section-pad bg-canvas-2" aria-labelledby="parts-title" style={{ borderTop: "1px solid var(--hairline)" }}>
         <div className="container-wide">
-          {/* Breadcrumb */}
-          <Reveal>
-            <nav className="font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-ink-muted)]">
-              <Link href="/services" className="hover:text-[color:var(--color-accent)] transition-colors">
-                Services
-              </Link>
-              <span className="mx-2 text-[color:var(--color-ink-faint)]">/</span>
-              <span className="text-[color:var(--color-accent)]">{category.name}</span>
-            </nav>
-          </Reveal>
-
-          <Reveal delay={0.05}>
-            <span className="mt-6 inline-block eyebrow">
-              {category.number} · {category.eyebrow}
-            </span>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h1 className="mt-4 headline-hero max-w-[20ch]">
-              {category.headline}{" "}
-              <span className="italic-accent">{category.italicWord}</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <p className="mt-8 max-w-2xl text-lg md:text-xl text-[color:var(--color-ink-soft)] leading-relaxed">
-              {category.promise}
-            </p>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <MagneticButton href="/contact" variant="accent">
-                {category.ctaCopy}
-              </MagneticButton>
-              <MagneticButton href="/services" variant="ghost">
-                All services
-              </MagneticButton>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* DEMO */}
-      <section className="relative section-pad-sm bg-canvas">
-        <div className="container-wide">
-          <div className="max-w-3xl mx-auto text-center mb-10 md:mb-14">
-            <Reveal>
-              <span className="eyebrow">Live · See it in motion</span>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <h2 className="mt-4 headline-section">
-                What it looks like -{" "}
-                <span className="italic-accent">running.</span>
-              </h2>
-            </Reveal>
-          </div>
-          <Reveal delay={0.1}>
-            <ServiceDemo demoKey={category.demoKey} />
-          </Reveal>
-        </div>
-      </section>
-
-      <div className="container-wide">
-        <AnimatedDivider variant="accent" />
-      </div>
-
-      {/* SUB-PRODUCTS */}
-      <section className="relative section-pad bg-canvas-2">
-        <div className="container-wide">
-          <div className="max-w-3xl">
-            <Reveal>
-              <span className="eyebrow">What you get · {category.subProducts.length} sub-products</span>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <h2 className="mt-4 headline-section">
-                Everything inside -{" "}
-                <span className="italic-accent">unpacked.</span>
-              </h2>
-            </Reveal>
-          </div>
-
-          <div className="mt-14 grid gap-5 md:grid-cols-2">
-            {category.subProducts.map((p, i) => (
-              <Reveal key={p.name} delay={i * 0.04}>
-                <article
-                  className="rounded-2xl border p-7 md:p-8 h-full surface-card-hover"
-                  style={{ borderColor: "var(--color-hairline)" }}
-                >
-                  <div className="flex items-baseline gap-3">
-                    <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-accent)]">
-                      0{i + 1}
-                    </span>
-                    <h3 className="font-display text-xl md:text-2xl font-medium leading-tight text-[color:var(--color-ink)]">
-                      {p.name}
-                    </h3>
-                  </div>
-                  <p className="mt-4 text-[15px] text-[color:var(--color-ink-soft)] leading-relaxed">
-                    {p.description}
-                  </p>
-                  <div className="mt-5 pt-5 border-t" style={{ borderColor: "var(--color-hairline)" }}>
-                    <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-ink-muted)] mb-3">
-                      How it works
+          <SectionHead
+            id="parts-title"
+            eyebrow={`What you get · ${category.subProducts.length} parts`}
+            title={
+              <>
+                Everything inside, <span className="italic-accent">unpacked.</span>
+              </>
+            }
+            intro="Each part works on its own. Together they cover the whole route a customer takes, from first message to booked."
+          />
+          <ul className="mt-12 grid gap-4 md:mt-16 md:grid-cols-2">
+            {category.subProducts.map((sp, i) => (
+              <li key={sp.name}>
+                <Reveal delay={Math.min(i * 0.06, 0.3)} className="h-full">
+                  <article className="card-x h-full p-6 md:p-8">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <h3 className="font-display text-[1.35rem] leading-tight text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
+                        {sp.name}
+                      </h3>
+                      <span className="font-mono text-[0.7rem] text-[color:var(--color-accent)] tabular">{String(i + 1).padStart(2, "0")}</span>
                     </div>
-                    <ul className="space-y-2">
-                      {p.howItWorks.map((step, idx) => (
-                        <li key={idx} className="flex items-start gap-3 text-[14px] text-[color:var(--color-ink-soft)]">
-                          <span
-                            className="mt-2 inline-block h-1 w-1 rounded-full flex-shrink-0"
-                            style={{ background: "var(--color-accent)" }}
-                          />
-                          <span>{step}</span>
+                    <p className="mt-3 text-[0.98rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{plain(sp.description)}</p>
+                    <ol className="mt-6 flex flex-col gap-2.5 border-t pt-5" style={{ borderColor: "var(--hairline)" }}>
+                      {sp.howItWorks.map((step, idx) => (
+                        <li key={idx} className="flex items-start gap-3 text-[0.92rem] leading-[1.5] text-[color:var(--color-ink-soft)]">
+                          <span className="mt-0.5 font-mono text-[0.68rem] text-[color:var(--color-ink-muted)] tabular">{idx + 1}</span>
+                          <span>{plain(step)}</span>
                         </li>
                       ))}
-                    </ul>
-                  </div>
-                </article>
-              </Reveal>
+                    </ol>
+                  </article>
+                </Reveal>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
       {/* WHY + OUTCOME */}
-      <section className="relative section-pad bg-canvas">
-        <div className="container-wide grid gap-10 lg:grid-cols-2">
-          <Reveal>
-            <div
-              className="rounded-2xl border p-8 md:p-10 h-full"
-              style={{
-                borderColor: "var(--color-hairline)",
-                background: "rgba(var(--hairline-rgb),0.02)",
-              }}
-            >
-              <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-accent)]">
-                Why this matters
-              </div>
-              <p className="mt-5 font-display text-2xl md:text-3xl font-medium leading-snug text-[color:var(--color-ink)]">
-                {category.whyItMatters}
+      <section className="section-pad bg-canvas" aria-label="Why it matters" style={{ borderTop: "1px solid var(--hairline)" }}>
+        <div className="container-wide grid gap-4 lg:grid-cols-2">
+          <Reveal className="h-full">
+            <div className="card-x h-full p-8 md:p-10">
+              <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[color:var(--color-ink-muted)]">Why this matters</p>
+              <p className="mt-5 font-display text-[clamp(1.4rem,1.4vw+1rem,2rem)] leading-snug text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
+                {plain(category.whyItMatters)}
               </p>
             </div>
           </Reveal>
-          <Reveal delay={0.05}>
-            <div
-              className="rounded-2xl border p-8 md:p-10 h-full"
-              style={{
-                borderColor: "rgba(var(--accent-rgb),0.3)",
-                background: "rgba(var(--accent-rgb),0.05)",
-              }}
-            >
-              <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-accent)]">
-                The outcome
-              </div>
-              <p className="mt-5 font-display text-2xl md:text-3xl font-medium leading-snug text-[color:var(--color-ink)]">
-                {category.outcome}
+          <Reveal delay={0.08} className="h-full">
+            <div className="card-x is-accent h-full p-8 md:p-10">
+              <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[color:var(--color-accent)]">The outcome</p>
+              <p className="mt-5 font-display text-[clamp(1.4rem,1.4vw+1rem,2rem)] leading-snug text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
+                {plain(category.outcome)}
               </p>
-              <div className="mt-8">
-                <MagneticButton href="/contact" variant="accent">
-                  {category.ctaCopy}
-                </MagneticButton>
-              </div>
+              <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent mt-8 min-h-12">
+                Book your free pre-audit
+                <ArrowUpRight size={16} aria-hidden />
+              </a>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* RELATED */}
       {related.length > 0 && (
-        <section className="relative section-pad bg-canvas-2">
+        <section className="section-pad bg-canvas-2" aria-labelledby="related-title" style={{ borderTop: "1px solid var(--hairline)" }}>
           <div className="container-wide">
-            <div className="max-w-3xl">
-              <Reveal>
-                <span className="eyebrow">Related capabilities</span>
-              </Reveal>
-              <Reveal delay={0.05}>
-                <h2 className="mt-4 headline-section">
-                  Stack it with -{" "}
-                  <span className="italic-accent">these.</span>
-                </h2>
-              </Reveal>
-            </div>
-            <div className="mt-12 grid gap-5 md:grid-cols-3">
+            <SectionHead
+              id="related-title"
+              eyebrow="Works well with"
+              title={
+                <>
+                  Stack it with <span className="italic-accent">these.</span>
+                </>
+              }
+            />
+            <ul className="mt-12 grid gap-4 md:grid-cols-3">
               {related.map((c, i) => (
-                <Reveal key={c.slug} delay={i * 0.05}>
-                  <Link
-                    href={`/services/${c.slug}`}
-                    className="group block relative overflow-hidden surface surface-card-hover h-full"
-                  >
-                    <div className="p-7 flex flex-col h-full">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-accent)]">
-                        {c.number} · Category
-                      </span>
-                      <h3 className="mt-5 font-display text-xl font-medium leading-tight text-[color:var(--color-ink)]">
+                <li key={c.slug}>
+                  <Reveal delay={i * 0.06} className="h-full">
+                    <Link href={`/services/${c.slug}`} className="card-x group flex h-full flex-col p-6 md:p-7">
+                      <div className="flex items-center justify-between">
+                        <span className="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">{c.number}</span>
+                        <ArrowUpRight size={17} aria-hidden className="nudge text-[color:var(--color-ink-muted)] group-hover:text-[color:var(--color-accent)]" />
+                      </div>
+                      <h3 className="mt-6 font-display text-[1.3rem] leading-tight text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
                         {c.name}
                       </h3>
-                      <p className="mt-3 text-[14px] text-[color:var(--color-ink-soft)] leading-relaxed flex-1">
-                        {c.promise}
-                      </p>
-                      <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-[color:var(--color-ink)] group-hover:gap-3 group-hover:text-[color:var(--color-accent)] transition-all">
-                        Explore
-                        <Arrow />
-                      </div>
-                    </div>
-                  </Link>
-                </Reveal>
+                      <p className="mt-3 flex-1 text-[0.95rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{plain(c.promise)}</p>
+                    </Link>
+                  </Reveal>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </section>
       )}
 
-      <FinalCTA />
+      <CTABand />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free pre-audit" />
     </>
-  );
-}
-
-function Arrow() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <path
-        d="M3 8h10M9 4l4 4-4 4"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   );
 }

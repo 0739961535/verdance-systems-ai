@@ -18,6 +18,9 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(root, "src/fonts/satoshi/Satoshi-Variable.woff2");
 const CSS_URL = "https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap";
+// Static Medium as .woff for the generated OG image (next/og cannot read woff2).
+const OUT_OG = join(root, "src/fonts/satoshi/Satoshi-Medium.woff");
+const CSS_URL_OG = "https://api.fontshare.com/v2/css?f[]=satoshi@500&display=swap";
 
 async function isValidWoff2(path) {
   try {
@@ -45,7 +48,24 @@ async function fetchWithRetry(url, tries = 4) {
   throw lastErr;
 }
 
+async function fetchWoff() {
+  try {
+    const s = await stat(OUT_OG);
+    if (s.size > 10_000) return;
+  } catch {}
+  const css = await (await fetchWithRetry(CSS_URL_OG)).text();
+  const m = css.match(/url\('([^']+?\.woff)'\)/);
+  if (!m) throw new Error("[fonts] could not find a woff URL in the Fontshare CSS");
+  const url = m[1].startsWith("//") ? `https:${m[1]}` : m[1];
+  const buf = Buffer.from(await (await fetchWithRetry(url)).arrayBuffer());
+  if (buf.subarray(0, 4).toString("latin1") !== "wOFF") throw new Error("[fonts] downloaded file is not a woff");
+  await writeFile(OUT_OG, buf);
+  console.log(`[fonts] Satoshi Medium (woff) fetched (${Math.round(buf.length / 1024)} KB)`);
+}
+
 async function main() {
+  await mkdir(dirname(OUT), { recursive: true });
+  await fetchWoff();
   if (await isValidWoff2(OUT)) {
     console.log("[fonts] Satoshi already present");
     return;

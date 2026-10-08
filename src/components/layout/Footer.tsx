@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { NICHES, GENERIC_BOOK_URL } from "@/data/niches";
-import { VSAILogo } from "@/components/primitives/VSAILogo";
+import { Logo } from "@/components/brand/LogoMark";
 import { NAV_ITEMS, SITE } from "@/data/site";
 
 export function Footer() {
@@ -24,15 +24,7 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-3">
-              <VSAILogo size={40} />
-              <div className="leading-tight">
-                <div className="font-display text-base font-medium text-[color:var(--color-ink)]">
-                  {SITE.shortName}
-                </div>
-                <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-[color:var(--color-ink-muted)]">
-                  Systems AI
-                </div>
-              </div>
+              <Logo size={40} />
             </div>
             <p className="mt-5 max-w-sm text-[color:var(--color-ink-soft)]">
               {SITE.tagline}
