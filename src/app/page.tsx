@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { HeroControlRoom } from "@/components/sections/v4/HeroControlRoom";
+import { HomeHero } from "@/components/home/HomeHero";
 import { CapabilityTicker } from "@/components/sections/v4/CapabilityTicker";
 import { DeltaRows } from "@/components/sections/v4/DeltaRows";
 import { PillarGrid } from "@/components/sections/v4/PillarGrid";
@@ -48,7 +48,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
       />
-      <HeroControlRoom />
+      <HomeHero />
       <CapabilityTicker />
       <PillarGrid />
       <NicheGrid tone="canvas-2" />

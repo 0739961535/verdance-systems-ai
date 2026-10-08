@@ -10,7 +10,7 @@ import { ThemeToggle } from "@/components/primitives/ThemeToggle";
 import { NAV_ITEMS, SITE } from "@/data/site";
 import { SERVICE_CATEGORIES, SERVICE_PILLARS, PILLAR_CATEGORIES } from "@/data/services";
 import { industries } from "@/data/industries";
-import { NICHES } from "@/data/niches";
+import { NICHES, GENERIC_BOOK_URL, bookUrl } from "@/data/niches";
 
 type MegaMenuItem = { slug: string; name: string; number: string };
 type MegaMenuGroup = { title: string; items: MegaMenuItem[] };
@@ -68,6 +68,9 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  // Book CTA: the niche's own pre-audit flow on a niche page, else the general one.
+  const niche = NICHES.find((n) => pathname === `/industries/${n.slug}`);
+  const bookHref = niche ? bookUrl(niche.bookSlug) : GENERIC_BOOK_URL;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -247,8 +250,8 @@ export function Navbar() {
             </svg>
             WhatsApp
           </a>
-          <MagneticButton href="/contact" variant="accent">
-            Book a Meeting
+          <MagneticButton href={bookHref} variant="accent">
+            Book a pre-audit
           </MagneticButton>
         </div>
 
@@ -311,8 +314,8 @@ export function Navbar() {
             >
               WhatsApp
             </a>
-            <Link href="/contact" className="btn btn-accent flex-1 text-sm py-3">
-              Book a Meeting
+            <Link href={bookHref} className="btn btn-accent flex-1 text-sm py-3">
+              Book a pre-audit
             </Link>
           </div>
         </div>
