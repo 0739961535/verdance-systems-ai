@@ -18,6 +18,8 @@ export type MegaMenu = {
   items: MegaMenuItem[];
   /** When set, the dropdown renders one column per group (the four pillars). */
   groups?: MegaMenuGroup[];
+  /** Optional highlighted link under the columns. */
+  feature?: { href: string; label: string; note: string };
 };
 export type NicheLink = { slug: string; name: string; bookSlug: string };
 
@@ -178,6 +180,20 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
                             ))}
                           </div>
                         )}
+                        {menu.feature && (
+                          <Link
+                            href={menu.feature.href}
+                            onClick={() => setOpenMenu(null)}
+                            className="mt-5 flex items-center justify-between gap-4 rounded-xl px-4 py-3 transition-colors hover:bg-[color:var(--surface-tint-2)]"
+                            style={{ border: "1px solid rgba(var(--accent-rgb),0.3)" }}
+                          >
+                            <span>
+                              <span className="block font-display text-sm font-medium text-[color:var(--color-ink)]">{menu.feature.label}</span>
+                              <span className="block text-xs text-[color:var(--color-ink-muted)]">{menu.feature.note}</span>
+                            </span>
+                            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--color-accent)]">New</span>
+                          </Link>
+                        )}
                       </div>
                     </div>
                   )}
@@ -246,6 +262,13 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
               {it.label}
             </Link>
           ))}
+          <Link
+            href="/services/ai-operations-system"
+            onClick={() => setOpen(false)}
+            className="block rounded-lg px-3 py-2.5 text-sm font-medium text-[color:var(--color-ink)] hover:bg-[color:var(--surface-tint-2)]"
+          >
+            Your AI operations team <span className="ml-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-accent)]">New</span>
+          </Link>
           <div className="mt-2 px-3 pt-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[color:var(--color-accent)]">
             Current offers
           </div>

@@ -3,6 +3,7 @@ import { HomeHero } from "@/components/home/HomeHero";
 import { CapabilityMarquee } from "@/components/home/CapabilityMarquee";
 import { CostSection, HowItWorksSection, WhatWeDoSection } from "@/components/home/HomeStory";
 import { NicheGrid } from "@/components/niche/NicheGrid";
+import { PowerOfAI } from "@/components/aiteam/PowerOfAI";
 import { ClientViewSection, FinalCTASection, ProofSection } from "@/components/home/HomeSections";
 import { GuaranteeBlock } from "@/components/sections/v4/GuaranteeBlock";
 import { FAQControl } from "@/components/sections/v4/FAQControl";
@@ -50,6 +51,7 @@ export default function HomePage() {
       <ClientViewSection />
       <CostSection />
       <ProofSection />
+      <PowerOfAI variant="short" />
       <NicheGrid tone="canvas-2" />
       <GuaranteeBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="Book your free pre-audit" />
       <FAQControl faqs={LANDING_FAQS} />

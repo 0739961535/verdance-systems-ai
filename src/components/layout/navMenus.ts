@@ -19,10 +19,12 @@ const INDUSTRY_GROUPS: MegaMenuGroup[] = [
   { title: "\u00a0", items: INDUSTRY_ITEMS.slice(INDUSTRY_HALF) },
 ];
 
-const SERVICE_GROUPS: MegaMenuGroup[] = SERVICE_PILLARS.map((p) => ({
-  title: p.title,
-  items: PILLAR_CATEGORIES(p).map((c) => ({ slug: c.slug, name: c.name, number: c.number })),
-}));
+const SERVICE_GROUPS: MegaMenuGroup[] = [
+  ...SERVICE_PILLARS.map((p) => ({
+    title: p.title,
+    items: PILLAR_CATEGORIES(p).map((c) => ({ slug: c.slug, name: c.name, number: c.number })),
+  })),
+];
 
 export const MEGA_MENUS: Record<string, MegaMenu> = {
   "/services": {
@@ -32,6 +34,11 @@ export const MEGA_MENUS: Record<string, MegaMenu> = {
     base: "/services",
     items: SERVICE_CATEGORIES.map((c) => ({ slug: c.slug, name: c.name, number: c.number })),
     groups: SERVICE_GROUPS,
+    feature: {
+      href: "/services/ai-operations-system",
+      label: "Your AI operations team",
+      note: "New: a private AI team that runs the day-to-day alongside you",
+    },
   },
   "/industries": {
     eyebrow: "Built for how you work",
