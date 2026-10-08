@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 /* ============================================================
-   VERDANCE SYSTEMS AI - DUAL-THEME · AZURE PREMIUM
-   Deep black / clean light · editorial type · electric azure accent.
-   Linear × Vercel × luxury watchmaker.
+   VERDANCE SYSTEMS AI - "Quiet luxury, real proof."
+   Near-black canvas, warm off-white ink, one accent (Verdance blue,
+   deepened), hairline borders, a soft grain. Light mode mirrors it.
 
    Architecture:
    - Semantic colours live as raw CSS vars on :root (dark = default).
@@ -11,163 +11,153 @@
      prefers-color-scheme, so EVERYTHING flips from one place.
    - Accent usages reference --accent-rgb triples, e.g.
        rgba(var(--accent-rgb), 0.2)
-     so the whole palette (and both themes) resolve centrally.
-   - Tailwind v4 @theme inline maps --color-* → these runtime vars.
+   - Tailwind v4 @theme inline maps --color-* to these runtime vars.
    ============================================================ */
 
 /* ── DARK (default brand canvas) ─────────────────────────── */
 :root {
   color-scheme: dark;
 
-  /* base canvas - original deep near-black */
-  --bg:        #050709;
-  --bg-2:      #0A0D10;
-  --bg-3:      #12161B;
-  --bg-4:      #1A2028;
-  --bg-glass:  rgba(12, 17, 24, 0.65);
-  --bg-rgb:    5, 7, 9;
+  /* canvas - near-black, very slightly warm */
+  --bg:        #0A0A0B;
+  --bg-2:      #0E0E10;
+  --bg-3:      #141416;
+  --bg-4:      #1B1B1E;
+  --bg-glass:  rgba(14, 14, 16, 0.72);
+  --bg-rgb:    10, 10, 11;
 
-  /* ink */
-  --ink:        #FFFFFF;
-  --ink-soft:   #C5CDD3;
-  --ink-muted:  #8A96A0; /* lifted from #6B7680 to clear 4.5:1 on card bgs */
-  --ink-faint:  #3E4750;
-  --ink-rgb:    255, 255, 255;
+  /* ink - warm off-white */
+  --ink:        #F2EFE9;
+  --ink-soft:   #C9C5BD;
+  --ink-muted:  #8F8B84;
+  --ink-faint:  #4A4844;
+  --ink-rgb:    242, 239, 233;
 
-  /* signal - emerald, ONLY for live/positive telemetry (live dots, "after"
-     values in delta rows, booked-call events). Never buttons or headings. */
-  --signal:     #34D399;
-  --signal-dim: rgba(52, 211, 153, 0.14);
+  /* signal - ONLY for live/positive telemetry dots. Never buttons. */
+  --signal:     #3DD68C;
+  --signal-dim: rgba(61, 214, 140, 0.12);
 
-  /* ── BRAND PALETTE - electric azure (original) ─────────────── */
+  /* THE accent - Verdance blue, deepened. One hue, three jobs:
+     --accent       text/lines on the dark canvas (5.9:1 on cards)
+     --accent-3     solid fills under white text (4.8:1)
+     --highlight    the accent word in headlines */
+  --accent:        #5B8FFF;
+  --accent-bright: #86ABFF;
+  --accent-glow:   #3D7EFF;
+  --accent-deep:   #2F6BEA;
+  --on-accent:     #06122B;
+  --accent-rgb:        91, 143, 255;
+  --accent-bright-rgb: 134, 171, 255;
+  --accent-glow-rgb:   61, 126, 255;
+  --accent-deep-rgb:   47, 107, 234;
 
-  /* PRIMARY - azure */
-  --accent:        #4F8DFF;
-  --accent-bright: #7DABFF;
-  --accent-glow:   #3B82F6;
-  --accent-deep:   #1E4FD6;
-  --on-accent:     #05132E;
-  --accent-rgb:        79, 141, 255;
-  --accent-bright-rgb: 125, 171, 255;
-  --accent-glow-rgb:   59, 130, 246;
-  --accent-deep-rgb:   30, 79, 214;
+  --accent-2:      #86ABFF;
+  --accent-2-deep: #3D7EFF;
+  --on-accent-2:   #06122B;
+  --accent-2-rgb:      134, 171, 255;
+  --accent-2-deep-rgb: 61, 126, 255;
 
-  /* SECONDARY - brighter azure for fills */
-  --accent-2:      #7DABFF;
-  --accent-2-deep: #3B82F6;
-  --on-accent-2:   #05132E;
-  --accent-2-rgb:      125, 171, 255;
-  --accent-2-deep-rgb: 59, 130, 246;
+  --accent-3:      #2F6BEA;
+  --accent-3-deep: #2558C9;
+  --on-accent-3:   #FFFFFF;
+  --accent-3-rgb:      47, 107, 234;
+  --accent-3-deep-rgb: 37, 88, 201;
 
-  /* TERTIARY - azure CTA */
-  --accent-3:      #4F8DFF;
-  --accent-3-deep: #1E4FD6;
-  --on-accent-3:   #05132E;
-  --accent-3-rgb:      79, 141, 255;
-  --accent-3-deep-rgb: 30, 79, 214;
+  --highlight:     #6E9CFF;
+  --highlight-rgb: 110, 156, 255;
 
-  /* HIGHLIGHT - the italic accent words, in azure */
-  --highlight:     #4F8DFF;
-  --highlight-rgb: 79, 141, 255;
-
-  /* hairlines resolve from a neutral white triple */
-  --hairline-rgb: 255, 255, 255;
-  --hairline:      rgba(var(--hairline-rgb), 0.06);
-  --hairline-2:    rgba(var(--hairline-rgb), 0.12);
-  --hairline-3:    rgba(var(--hairline-rgb), 0.20);
+  /* hairlines - warm white */
+  --hairline-rgb: 242, 239, 233;
+  --hairline:      rgba(var(--hairline-rgb), 0.07);
+  --hairline-2:    rgba(var(--hairline-rgb), 0.11);
+  --hairline-3:    rgba(var(--hairline-rgb), 0.18);
   --hairline-glow: rgba(var(--accent-rgb), 0.22);
 
-  /* surface tints (white overlays on dark, dark overlays on light) */
   --surface-tint-1: rgba(var(--hairline-rgb), 0.02);
-  --surface-tint-2: rgba(var(--hairline-rgb), 0.04);
-  --surface-tint-3: rgba(var(--hairline-rgb), 0.08);
+  --surface-tint-2: rgba(var(--hairline-rgb), 0.035);
+  --surface-tint-3: rgba(var(--hairline-rgb), 0.07);
 
-  /* elevation shadows */
+  --grain-opacity: 0.05;
+
   --shadow-card:
     0 1px 0 rgba(var(--hairline-rgb), 0.04) inset,
-    0 24px 60px rgba(0, 0, 0, 0.55);
+    0 24px 60px rgba(0, 0, 0, 0.5);
   --shadow-raised:
     0 1px 0 rgba(var(--hairline-rgb), 0.05) inset,
-    0 32px 80px rgba(0, 0, 0, 0.62),
-    0 0 0 1px rgba(var(--accent-rgb), 0.10);
+    0 40px 90px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(var(--hairline-rgb), 0.06);
   --shadow-accent:
-    0 1px 0 rgba(255, 255, 255, 0.20) inset,
-    0 14px 40px rgba(var(--accent-glow-rgb), 0.34),
-    0 2px 4px rgba(var(--accent-deep-rgb), 0.24);
+    0 1px 0 rgba(255, 255, 255, 0.18) inset,
+    0 12px 32px rgba(var(--accent-deep-rgb), 0.32);
 }
 
-/* ── LIGHT (clean premium) ───────────────────────────────── */
+/* ── LIGHT ───────────────────────────────────────────────── */
 :root[data-theme="light"] {
   color-scheme: light;
 
-  /* warm oat/ivory - premium & bright, now with a brown undertone; crisp
-     white kept for elevated cards so it still reads clean and expensive */
-  --bg:        #F4F7FC;
-  --bg-2:      #ECF1F9;
+  --bg:        #F5F3EE;
+  --bg-2:      #EFECE6;
   --bg-3:      #FFFFFF;
-  --bg-4:      #F7FAFE;
-  --bg-glass:  rgba(255, 255, 255, 0.74);
-  --bg-rgb:    244, 247, 252;
+  --bg-4:      #FAF9F6;
+  --bg-glass:  rgba(250, 249, 246, 0.78);
+  --bg-rgb:    245, 243, 238;
 
-  --ink:        #0A1524;
-  --ink-soft:   #33415A;
-  --ink-muted:  #4E5B71; /* darkened to hold 4.5:1 on white */
-  --ink-faint:  #93A1B8;
-  --ink-rgb:    10, 21, 36;
+  --ink:        #0E0E10;
+  --ink-soft:   #3A3935;
+  --ink-muted:  #5E5B55;
+  --ink-faint:  #A29E96;
+  --ink-rgb:    14, 14, 16;
 
-  --signal:     #059669; /* emerald-600 - 4.5:1+ on white */
-  --signal-dim: rgba(5, 150, 105, 0.12);
+  --signal:     #0F8A55;
+  --signal-dim: rgba(15, 138, 85, 0.10);
 
-  /* electric azure (original) - deepened for contrast on white */
-  /* PRIMARY - deep azure (4.5:1+ on white) */
-  --accent:        #2563EB;
-  --accent-bright: #4F8DFF;
-  --accent-glow:   #3B82F6;
-  --accent-deep:   #1E40AF;
+  --accent:        #2554D4;
+  --accent-bright: #3D7EFF;
+  --accent-glow:   #3D7EFF;
+  --accent-deep:   #1D44AE;
   --on-accent:     #FFFFFF;
-  --accent-rgb:        37, 99, 235;
-  --accent-bright-rgb: 79, 141, 255;
-  --accent-glow-rgb:   59, 130, 246;
-  --accent-deep-rgb:   30, 64, 175;
+  --accent-rgb:        37, 84, 212;
+  --accent-bright-rgb: 61, 126, 255;
+  --accent-glow-rgb:   61, 126, 255;
+  --accent-deep-rgb:   29, 68, 174;
 
-  /* SECONDARY - azure */
-  --accent-2:      #2563EB;
-  --accent-2-deep: #1E40AF;
+  --accent-2:      #2554D4;
+  --accent-2-deep: #1D44AE;
   --on-accent-2:   #FFFFFF;
-  --accent-2-rgb:      37, 99, 235;
-  --accent-2-deep-rgb: 30, 64, 175;
+  --accent-2-rgb:      37, 84, 212;
+  --accent-2-deep-rgb: 29, 68, 174;
 
-  /* TERTIARY - azure CTA */
-  --accent-3:      #2563EB;
-  --accent-3-deep: #1E40AF;
+  --accent-3:      #2554D4;
+  --accent-3-deep: #1D44AE;
   --on-accent-3:   #FFFFFF;
-  --accent-3-rgb:      37, 99, 235;
-  --accent-3-deep-rgb: 30, 64, 175;
+  --accent-3-rgb:      37, 84, 212;
+  --accent-3-deep-rgb: 29, 68, 174;
 
-  /* HIGHLIGHT - azure accent words */
-  --highlight:     #2563EB;
-  --highlight-rgb: 37, 99, 235;
+  --highlight:     #2554D4;
+  --highlight-rgb: 37, 84, 212;
 
-  --hairline-rgb: 12, 22, 40;
+  --hairline-rgb: 14, 14, 16;
   --hairline:      rgba(var(--hairline-rgb), 0.08);
-  --hairline-2:    rgba(var(--hairline-rgb), 0.14);
+  --hairline-2:    rgba(var(--hairline-rgb), 0.13);
   --hairline-3:    rgba(var(--hairline-rgb), 0.22);
+  --hairline-glow: rgba(var(--accent-rgb), 0.22);
 
   --surface-tint-1: rgba(var(--hairline-rgb), 0.02);
   --surface-tint-2: rgba(var(--hairline-rgb), 0.035);
   --surface-tint-3: rgba(var(--hairline-rgb), 0.06);
 
+  --grain-opacity: 0.035;
+
   --shadow-card:
     0 1px 0 rgba(255, 255, 255, 0.8) inset,
-    0 18px 44px rgba(15, 34, 68, 0.10);
+    0 18px 44px rgba(20, 18, 14, 0.08);
   --shadow-raised:
     0 1px 0 rgba(255, 255, 255, 0.9) inset,
-    0 26px 60px rgba(15, 34, 68, 0.14),
-    0 0 0 1px rgba(var(--accent-rgb), 0.12);
+    0 30px 70px rgba(20, 18, 14, 0.14),
+    0 0 0 1px rgba(var(--hairline-rgb), 0.06);
   --shadow-accent:
-    0 1px 0 rgba(255, 255, 255, 0.35) inset,
-    0 14px 36px rgba(var(--accent-glow-rgb), 0.28),
-    0 2px 4px rgba(var(--accent-deep-rgb), 0.18);
+    0 1px 0 rgba(255, 255, 255, 0.3) inset,
+    0 12px 30px rgba(var(--accent-rgb), 0.26);
 }
 
 /* honour OS preference on first visit (before any explicit choice) */
@@ -175,64 +165,69 @@
   :root:not([data-theme="dark"]):not([data-theme="light"]) {
     color-scheme: light;
 
-    --bg:        #F4F7FC;
-    --bg-2:      #ECF1F9;
+    --bg:        #F5F3EE;
+    --bg-2:      #EFECE6;
     --bg-3:      #FFFFFF;
-    --bg-4:      #F7FAFE;
-    --bg-glass:  rgba(255, 255, 255, 0.74);
-    --bg-rgb:    244, 247, 252;
+    --bg-4:      #FAF9F6;
+    --bg-glass:  rgba(250, 249, 246, 0.78);
+    --bg-rgb:    245, 243, 238;
 
-    --ink:        #0A1524;
-    --ink-soft:   #33415A;
-    --ink-muted:  #566277;
-    --ink-faint:  #93A1B8;
-    --ink-rgb:    10, 21, 36;
+    --ink:        #0E0E10;
+    --ink-soft:   #3A3935;
+    --ink-muted:  #5E5B55;
+    --ink-faint:  #A29E96;
+    --ink-rgb:    14, 14, 16;
 
-    --accent:        #2563EB;
-    --accent-bright: #4F8DFF;
-    --accent-glow:   #3B82F6;
-    --accent-deep:   #1E40AF;
+    --signal:     #0F8A55;
+    --signal-dim: rgba(15, 138, 85, 0.10);
+
+    --accent:        #2554D4;
+    --accent-bright: #3D7EFF;
+    --accent-glow:   #3D7EFF;
+    --accent-deep:   #1D44AE;
     --on-accent:     #FFFFFF;
-    --accent-rgb:        37, 99, 235;
-    --accent-bright-rgb: 79, 141, 255;
-    --accent-glow-rgb:   59, 130, 246;
-    --accent-deep-rgb:   30, 64, 175;
+    --accent-rgb:        37, 84, 212;
+    --accent-bright-rgb: 61, 126, 255;
+    --accent-glow-rgb:   61, 126, 255;
+    --accent-deep-rgb:   29, 68, 174;
 
-    --accent-2:      #2563EB;
-    --accent-2-deep: #1E40AF;
+    --accent-2:      #2554D4;
+    --accent-2-deep: #1D44AE;
     --on-accent-2:   #FFFFFF;
-    --accent-2-rgb:      37, 99, 235;
-    --accent-2-deep-rgb: 30, 64, 175;
+    --accent-2-rgb:      37, 84, 212;
+    --accent-2-deep-rgb: 29, 68, 174;
 
-    --accent-3:      #2563EB;
-    --accent-3-deep: #1E40AF;
+    --accent-3:      #2554D4;
+    --accent-3-deep: #1D44AE;
     --on-accent-3:   #FFFFFF;
-    --accent-3-rgb:      37, 99, 235;
-    --accent-3-deep-rgb: 30, 64, 175;
+    --accent-3-rgb:      37, 84, 212;
+    --accent-3-deep-rgb: 29, 68, 174;
 
-    --highlight:     #2563EB;
-    --highlight-rgb: 37, 99, 235;
+    --highlight:     #2554D4;
+    --highlight-rgb: 37, 84, 212;
 
-    --hairline-rgb: 12, 22, 40;
+    --hairline-rgb: 14, 14, 16;
     --hairline:      rgba(var(--hairline-rgb), 0.08);
-    --hairline-2:    rgba(var(--hairline-rgb), 0.14);
+    --hairline-2:    rgba(var(--hairline-rgb), 0.13);
     --hairline-3:    rgba(var(--hairline-rgb), 0.22);
+    --hairline-glow: rgba(var(--accent-rgb), 0.22);
 
     --surface-tint-1: rgba(var(--hairline-rgb), 0.02);
     --surface-tint-2: rgba(var(--hairline-rgb), 0.035);
     --surface-tint-3: rgba(var(--hairline-rgb), 0.06);
 
+    --grain-opacity: 0.035;
+
     --shadow-card:
       0 1px 0 rgba(255, 255, 255, 0.8) inset,
-      0 18px 44px rgba(15, 34, 68, 0.10);
+      0 18px 44px rgba(20, 18, 14, 0.08);
     --shadow-raised:
       0 1px 0 rgba(255, 255, 255, 0.9) inset,
-      0 26px 60px rgba(15, 34, 68, 0.14),
-      0 0 0 1px rgba(var(--accent-rgb), 0.12);
+      0 30px 70px rgba(20, 18, 14, 0.14),
+      0 0 0 1px rgba(var(--hairline-rgb), 0.06);
     --shadow-accent:
-      0 1px 0 rgba(255, 255, 255, 0.35) inset,
-      0 14px 36px rgba(var(--accent-glow-rgb), 0.28),
-      0 2px 4px rgba(var(--accent-deep-rgb), 0.18);
+      0 1px 0 rgba(255, 255, 255, 0.3) inset,
+      0 12px 30px rgba(var(--accent-rgb), 0.26);
   }
 }
 
@@ -270,10 +265,10 @@
   --color-hairline-glow: var(--hairline-glow);
 
   /* ── TYPOGRAPHY ──────────────────────────────────────────── */
-  --font-display: var(--font-geist), 'Geist', 'Inter', system-ui, sans-serif;
-  --font-body:    var(--font-inter), 'Inter', system-ui, sans-serif;
-  --font-serif:   var(--font-fraunces), 'Fraunces', 'EB Garamond', Georgia, serif;
-  --font-mono:    var(--font-jetbrains), 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: var(--font-satoshi), 'Satoshi', system-ui, sans-serif;
+  --font-body:    var(--font-satoshi), 'Satoshi', system-ui, sans-serif;
+  --font-serif:   var(--font-instrument), 'Instrument Serif', Georgia, serif;
+  --font-mono:    var(--font-geist-mono), 'Geist Mono', ui-monospace, monospace;
 
   /* ── RADIUS ──────────────────────────────────────────────── */
   --radius-xs:    4px;
@@ -318,12 +313,12 @@ html {
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 17px;
   line-height: 1.6;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.003em;
   overflow-x: hidden;
-  font-feature-settings: "ss01", "cv11", "kern";
+  font-feature-settings: "kern";
   transition: background-color var(--d-base) var(--ease-luxury),
               color var(--d-base) var(--ease-luxury);
 }
@@ -346,19 +341,31 @@ html.lenis, html.lenis body { height: auto; }
    TYPOGRAPHY
    ============================================================ */
 
-.font-display { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.035em; }
+.font-display { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.04em; }
 .font-body    { font-family: var(--font-body); }
-.font-serif   { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -0.02em; }
-.font-mono    { font-family: var(--font-mono); letter-spacing: 0.04em; }
+.font-serif   { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+.font-mono    { font-family: var(--font-mono); letter-spacing: 0.02em; }
+
+h1, h2, h3, h4 { text-wrap: balance; }
+p { text-wrap: pretty; }
 
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.3em;
-  color: var(--accent);
-  display: inline-block;
+  letter-spacing: 0.22em;
+  color: var(--ink-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.eyebrow::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 9999px;
+  background: var(--accent);
+  flex: none;
 }
 .eyebrow-muted { color: var(--ink-muted); }
 .eyebrow-soft  { color: var(--ink-soft); }
@@ -366,7 +373,7 @@ html.lenis, html.lenis body { height: auto; }
 .headline {
   font-family: var(--font-display);
   font-weight: 500;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.04em;
   line-height: 1.0;
   color: var(--ink);
 }
@@ -374,30 +381,43 @@ html.lenis, html.lenis body { height: auto; }
 .headline-hero {
   font-family: var(--font-display);
   font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 1.02;
-  font-size: clamp(3rem, 7vw, 6rem);
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  font-size: clamp(2.75rem, 7vw, 6.25rem);
   color: var(--ink);
 }
 
 .headline-section {
   font-family: var(--font-display);
   font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 1.04;
-  font-size: clamp(2.25rem, 5vw, 4rem);
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  font-size: clamp(2.1rem, 4.6vw, 4rem);
   color: var(--ink);
 }
 
-/* Accent word device - same display face as the headline, azure. The
-   previous Fraunces italic clashed with the grotesk headlines (owner
-   feedback: the serif italic "doesn't match"), so the accent is now
-   carried by colour alone. */
+/* Section heading scale used across the site (h2). */
+.h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2rem, 3.4vw + 1.1rem, 3.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+
+/* Accent word device - Instrument Serif italic in the accent blue. The
+   serif runs a touch small next to Satoshi, so it is scaled up slightly
+   and tracked to sit on the same optical baseline. */
 .italic-accent {
-  font-family: inherit;
-  font-style: normal;
-  font-weight: inherit;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.08em;
+  line-height: 0.9;
+  letter-spacing: -0.015em;
   color: var(--highlight);
+  padding-right: 0.04em;
 }
 
 .text-accent  { color: var(--accent); }
@@ -414,8 +434,9 @@ html.lenis, html.lenis body { height: auto; }
   padding: 0.9rem 1.5rem;
   min-height: 44px;
   font-family: var(--font-body);
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 500;
+  letter-spacing: -0.005em;
   border-radius: var(--radius-pill);
   border: 1px solid transparent;
   cursor: pointer;
@@ -434,19 +455,17 @@ html.lenis, html.lenis body { height: auto; }
   color: var(--on-accent-3);
   border-color: var(--accent-3);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.24) inset,
-    0 14px 40px rgba(var(--accent-3-rgb), 0.36),
-    0 2px 4px rgba(var(--accent-3-deep-rgb), 0.30);
-  font-weight: 600;
+    0 1px 0 rgba(255, 255, 255, 0.22) inset,
+    0 10px 28px rgba(var(--accent-3-rgb), 0.26);
+  font-weight: 500;
 }
 .btn-accent:hover {
   background: var(--accent-3-deep);
   border-color: var(--accent-3-deep);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.28) inset,
-    0 20px 52px rgba(var(--accent-3-rgb), 0.52),
-    0 2px 6px rgba(var(--accent-3-deep-rgb), 0.36);
+    0 1px 0 rgba(255, 255, 255, 0.26) inset,
+    0 14px 36px rgba(var(--accent-3-rgb), 0.36);
 }
 
 /* Outlined azure - primary "Book a demo" style */
@@ -775,6 +794,39 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 /* ============================================================
+   SCROLL REVEALS - progressive enhancement
+   Visible by default. RevealObserver arms only below-the-fold
+   elements (data-armed), and reveals them in view (data-revealed).
+   No JS, no observer, reduced motion: nothing is ever hidden.
+   ============================================================ */
+[data-reveal][data-armed] {
+  transition:
+    opacity 0.9s var(--ease-out-expo) var(--reveal-delay, 0s),
+    transform 0.9s var(--ease-out-expo) var(--reveal-delay, 0s);
+}
+[data-reveal][data-armed]:not([data-revealed]) {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-y, 20px), 0);
+}
+
+/* ============================================================
+   GRAIN - one fixed, static layer over the whole site. No blend
+   mode (cheap to composite); opacity is a theme token.
+   ============================================================ */
+.site-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1.2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* Mono numerals line up in tables and clocks. */
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* ============================================================
    REDUCED MOTION
    ============================================================ */
 
@@ -784,5 +836,6 @@ html.lenis, html.lenis body { height: auto; }
   .animate-glow-pulse, .animate-scroll-hint {
     animation: none !important;
   }
-  * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  [data-reveal][data-armed]:not([data-revealed]) { opacity: 1; transform: none; }
 }

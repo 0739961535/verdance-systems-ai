@@ -49,3 +49,7 @@ conductor
 
 # Client working files - not part of the Verdance site
 /public/clients/skydouny/
+
+# Satoshi font files are fetched at build time (scripts/fetch-fonts.mjs).
+# The ITF Free Font License forbids publishing them in a public repository.
+/src/fonts/satoshi/*.woff2

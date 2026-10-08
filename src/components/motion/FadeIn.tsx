@@ -1,9 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { fadeInUp, fadeIn, scaleIn, slideInLeft, slideInRight } from "@/lib/motion";
+import { Reveal } from "@/components/primitives/Reveal";
 
 type Direction = "up" | "in" | "scale" | "left" | "right";
 
@@ -16,24 +11,14 @@ interface FadeInProps {
   once?: boolean;
 }
 
-const variantMap = { up: fadeInUp, in: fadeIn, scale: scaleIn, left: slideInLeft, right: slideInRight };
-
-export function FadeIn({ children, direction = "up", delay = 0, duration, className = "", once = true }: FadeInProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once, margin: "-80px" });
-  const variants = variantMap[direction];
-
+/**
+ * FadeIn - thin alias of Reveal (progressive enhancement: visible without JS,
+ * animated in by RevealObserver). Direction is reduced to "up" or "none".
+ */
+export function FadeIn({ children, direction = "up", delay = 0, className = "" }: FadeInProps) {
   return (
-    <motion.div
-      ref={ref}
-      variants={variants}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      custom={delay}
-      transition={duration ? { duration, delay, ease: [0.25, 0.46, 0.45, 0.94] } : { delay }}
-      className={className}
-    >
+    <Reveal delay={delay} y={direction === "up" ? 24 : 0} className={className}>
       {children}
-    </motion.div>
+    </Reveal>
   );
 }

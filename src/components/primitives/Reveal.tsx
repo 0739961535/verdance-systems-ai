@@ -1,47 +1,51 @@
-"use client";
-
-import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 /**
- * Reveal / RevealWords / RevealLines
+ * Reveal / RevealWords / RevealLines - progressive-enhancement scroll reveals.
  *
- * Scroll-in reveals for decorative page motion (respects OS reduce-motion -
- * unlike the live demos, which always animate; see useDemoMotion).
+ * These render plain, fully visible HTML on the server. Nothing is hidden by
+ * an inline style, so content shows without JavaScript, in reader modes, to
+ * crawlers, and if an observer never fires (the old framer `initial={{
+ * opacity: 0 }}` pattern left /services as a dark empty screen when that
+ * happened).
  *
- * IMPORTANT (hydration): the SSR markup and the initial ("hidden") styles must
- * be IDENTICAL whether or not the visitor prefers reduced motion. framer's
- * useReducedMotion returns false on the server but can return true on the
- * client's first paint, so branching the *structure* or the *initial* state on
- * `reduce` produces a server/client mismatch (React #418). We therefore keep
- * structure + initial state constant and let `reduce` change only the
- * transition timing (duration/stagger → 0), which is applied after mount and
- * never appears in the SSR HTML. Reduce-motion users get an instant, motionless
- * appearance instead of a frozen/blank section.
+ * The motion is layered on by <RevealObserver/> (mounted once in the root
+ * layout): it marks anything already on screen as revealed, then adds
+ * `reveal-ready` to <html>. Only from that point can CSS hold an element
+ * below the fold back until it scrolls into view. Reduced-motion visitors
+ * never get the hidden state at all. See `[data-reveal]` in globals.css.
+ *
+ * No "use client": these are server components and ship zero JS.
  */
+
+type Tag = "div" | "section" | "p" | "h1" | "h2" | "h3" | "span" | "li";
 
 type RevealProps = {
   children: ReactNode;
   delay?: number;
   y?: number;
   className?: string;
-  as?: "div" | "section" | "p" | "h1" | "h2" | "h3" | "span";
+  as?: Tag;
+  /** Kept for API compatibility. Reveals always run once. */
   once?: boolean;
+  style?: CSSProperties;
+  id?: string;
 };
 
-export function Reveal({ children, delay = 0, y = 24, className, as = "div", once = true }: RevealProps) {
-  const reduce = useReducedMotion();
-  const MotionTag = motion[as] as typeof motion.div;
+function revealStyle(delay: number, y: number, style?: CSSProperties): CSSProperties {
+  return {
+    ...style,
+    ["--reveal-delay" as string]: `${Math.max(0, delay)}s`,
+    ["--reveal-y" as string]: `${y}px`,
+  };
+}
+
+export function Reveal({ children, delay = 0, y = 20, className, as = "div", style, id }: RevealProps) {
+  const Tag = as;
   return (
-    <MotionTag
-      className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once, margin: "-80px" }}
-      transition={reduce ? { duration: 0 } : { duration: 0.85, ease: [0.19, 1, 0.22, 1], delay }}
-    >
+    <Tag data-reveal="" id={id} className={className} style={revealStyle(delay, y, style)}>
       {children}
-    </MotionTag>
+    </Tag>
   );
 }
 
@@ -49,7 +53,7 @@ export function RevealWords({
   text,
   className,
   delay = 0,
-  staggerChildren = 0.06,
+  staggerChildren = 0.05,
   as = "h1",
 }: {
   text: string;
@@ -58,49 +62,21 @@ export function RevealWords({
   staggerChildren?: number;
   as?: "h1" | "h2" | "h3" | "p" | "span";
 }) {
-  const reduce = useReducedMotion();
+  const Tag = as;
   const words = text.split(" ");
-
-  const container: Variants = {
-    hidden: { opacity: 1 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: reduce ? 0 : staggerChildren,
-        delayChildren: reduce ? 0 : delay,
-      },
-    },
-  };
-  // `hidden` stays constant so SSR + first client paint match regardless of
-  // reduce-motion; only the transition duration changes.
-  const child: Variants = {
-    hidden: { opacity: 0, y: 36, filter: "blur(8px)" },
-    visible: {
-      opacity: 1, y: 0, filter: "blur(0px)",
-      transition: { duration: reduce ? 0 : 0.75, ease: [0.19, 1, 0.22, 1] },
-    },
-  };
-
-  const MotionTag = motion[as];
   return (
-    <MotionTag
-      className={className}
-      variants={container}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
-      aria-label={text}
-    >
+    <Tag className={className} aria-label={text}>
       {words.map((w, i) => (
-        <motion.span
+        <span
           key={i}
-          variants={child}
-          style={{ display: "inline-block", marginRight: "0.28em", willChange: "transform, opacity" }}
+          aria-hidden
+          data-reveal=""
+          style={{ display: "inline-block", marginRight: "0.28em", ...revealStyle(delay + i * staggerChildren, 24) }}
         >
           {w}
-        </motion.span>
+        </span>
       ))}
-    </MotionTag>
+    </Tag>
   );
 }
 
@@ -108,47 +84,20 @@ export function RevealLines({
   lines,
   className,
   delay = 0,
-  staggerChildren = 0.18,
+  staggerChildren = 0.12,
 }: {
   lines: string[];
   className?: string;
   delay?: number;
   staggerChildren?: number;
 }) {
-  const reduce = useReducedMotion();
-  const container: Variants = {
-    hidden: { opacity: 1 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: reduce ? 0 : staggerChildren,
-        delayChildren: reduce ? 0 : delay,
-      },
-    },
-  };
-  const child: Variants = {
-    hidden: { opacity: 0, y: 60, filter: "blur(10px)" },
-    visible: {
-      opacity: 1, y: 0, filter: "blur(0px)",
-      transition: { duration: reduce ? 0 : 0.95, ease: [0.19, 1, 0.22, 1] },
-    },
-  };
-
   return (
-    <motion.div
-      className={className}
-      variants={container}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
-    >
+    <div className={className}>
       {lines.map((l, i) => (
-        <div key={i} style={{ overflow: "hidden" }}>
-          <motion.div variants={child} style={{ willChange: "transform, opacity, filter" }}>
-            {l}
-          </motion.div>
+        <div key={i} data-reveal="" style={revealStyle(delay + i * staggerChildren, 32)}>
+          {l}
         </div>
       ))}
-    </motion.div>
+    </div>
   );
 }

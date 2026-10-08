@@ -68,7 +68,7 @@ export function TheProblem() {
               <span
                 style={{
                   fontFamily:
-                    "var(--font-fraunces), 'Fraunces', Georgia, serif",
+                    "var(--font-serif)",
                   fontStyle: "italic",
                   fontWeight: 600,
                   color: "#7DABFF",
