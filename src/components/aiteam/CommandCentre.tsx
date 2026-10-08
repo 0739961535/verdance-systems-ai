@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Check } from "lucide-react";
 import { useReducedMotionPref } from "@/lib/useReducedMotionPref";
+import { BEST_MONTH, bestMonthTiles } from "@/data/bestMonth";
 
 /**
  * CommandCentre - a stylised mockup of the owner's command centre and the
@@ -13,7 +14,7 @@ import { useReducedMotionPref } from "@/lib/useReducedMotionPref";
 type Agent = { name: string; dept: string; screen: "inbox" | "research" | "draft" | "chart" | "calendar" | "docs"; status: string };
 
 export const AGENTS: Agent[] = [
-  { name: "Inbox triage", dept: "Operations", screen: "inbox", status: "Sorting 14 new messages" },
+  { name: "Inbox triage", dept: "Operations", screen: "inbox", status: "Sorting new messages" },
   { name: "Prospect research", dept: "Sales", screen: "research", status: "Reading a prospect's website" },
   { name: "Proposal drafts", dept: "Sales", screen: "draft", status: "Writing a proposal" },
   { name: "Money tracking", dept: "Finance and tax", screen: "chart", status: "Matching payments" },
@@ -24,7 +25,7 @@ export const AGENTS: Agent[] = [
 const NEEDS_YOU = [
   { title: "Approve proposal", sub: "Kitchen refit, ready to send" },
   { title: "Reply to a supplier", sub: "Draft ready, 3 lines" },
-  { title: "Invoice overdue 14 days", sub: "Send the polite reminder?" },
+  { title: "An invoice is overdue", sub: "Send the polite reminder?" },
 ];
 
 function useTick(active: boolean, ms = 1400) {
@@ -111,6 +112,7 @@ export function CommandCentre() {
     return () => io.disconnect();
   }, []);
   const t = useTick(visible && !reduce);
+  const snapshot = bestMonthTiles();
 
   return (
     <div ref={ref} className="browser-frame light-sweep">
@@ -124,7 +126,7 @@ export function CommandCentre() {
           Command centre · your business
         </span>
         <span className="ml-auto shrink-0 rounded-full px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.14em] sm:ml-0" style={{ color: "var(--accent)", border: "1px solid rgba(var(--accent-rgb),0.35)" }}>
-          Sample data
+          Sample layout
         </span>
       </div>
 
@@ -134,7 +136,7 @@ export function CommandCentre() {
           <div className="rounded-2xl p-4" style={{ background: "var(--bg-3)", border: "1px solid rgba(var(--accent-rgb),0.3)" }}>
             <p className="flex items-center justify-between text-[0.8rem] text-[color:var(--color-ink-muted)]">
               Needs you
-              <span className="rounded-full px-2 py-0.5 font-mono text-[0.65rem]" style={{ background: "rgba(var(--accent-rgb),0.15)", color: "var(--accent)" }}>3</span>
+              <span className="rounded-full px-2 py-0.5 font-mono text-[0.65rem] uppercase tracking-[0.12em]" style={{ background: "rgba(var(--accent-rgb),0.15)", color: "var(--accent)" }}>Approve</span>
             </p>
             <ul className="mt-3 flex flex-col gap-2">
               {NEEDS_YOU.map((n) => (
@@ -150,26 +152,26 @@ export function CommandCentre() {
               ))}
             </ul>
           </div>
-          <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl" style={{ background: "var(--hairline)" }}>
-            {[
-              ["In progress", "9 tasks"],
-              ["Done today", "31 tasks"],
-              ["Replies drafted", "18"],
-              ["Spend vs cap", "within"],
-            ].map(([k, v]) => (
-              <div key={k} className="p-3" style={{ background: "var(--bg-3)" }}>
-                <p className="text-[0.7rem] text-[color:var(--color-ink-muted)]">{k}</p>
-                <p className="mt-1 font-display text-[1.15rem] text-[color:var(--color-ink)] tabular">{v}</p>
-              </div>
-            ))}
-          </div>
+          {snapshot && (
+            <div className="rounded-2xl p-4" style={{ background: "var(--bg-3)", border: "1px solid var(--hairline)" }}>
+              <p className="text-[0.8rem] text-[color:var(--color-ink-muted)]">Best month yet · {BEST_MONTH.client}</p>
+              <dl className="mt-3 grid grid-cols-2 gap-3">
+                {snapshot.map((t) => (
+                  <div key={t.label}>
+                    <dt className="text-[0.68rem] leading-tight text-[color:var(--color-ink-muted)]">{t.label}</dt>
+                    <dd className="mt-1 font-display text-[1.1rem] text-[color:var(--color-ink)] tabular">{t.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          )}
         </div>
 
         {/* the office */}
         <div className="rounded-2xl p-4" style={{ background: "var(--bg-2)", border: "1px solid var(--hairline)" }}>
           <p className="flex items-center justify-between text-[0.8rem] text-[color:var(--color-ink-muted)]">
             The office
-            <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em]">6 agents working</span>
+            <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em]">Agents at work</span>
           </p>
           <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
             {AGENTS.map((a, i) => (

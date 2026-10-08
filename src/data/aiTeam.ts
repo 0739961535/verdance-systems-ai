@@ -1,5 +1,5 @@
 /**
- * "Your AI operations team" - the service page at /services/ai-operations-system,
+ * "Ashford's Staff" (the AI operations team) - the service page at /services/ai-operations-system,
  * plus "The true power of AI" (full on that page, short on the homepage).
  *
  * Copy rules: plain, confident, understated. No hype words, no em dashes, no
@@ -10,12 +10,12 @@
 export const AI_TEAM_PATH = "/services/ai-operations-system";
 
 export const AI_TEAM = {
-  name: "Your AI operations team",
-  eyebrow: "Service · AI operations team",
+  name: "Ashford's Staff",
+  eyebrow: "Ashford's Staff · your AI operations team",
   lead:
     "A private team of AI agents that runs the day-to-day of your business alongside you. It answers, researches, drafts, tracks and reports, in plain words. You approve anything that goes out.",
   meta: {
-    title: "Your AI Operations Team | A private AI team for your business | Verdance Systems AI",
+    title: "Ashford's Staff | A private AI operations team for your business | Verdance Systems AI",
     description:
       "A private team of AI agents that answers your inbox, prepares proposals, tracks your pipeline and money, plans your day and reports in plain language. Nothing is sent or spent without your approval. Fixed quote after a free audit.",
   },

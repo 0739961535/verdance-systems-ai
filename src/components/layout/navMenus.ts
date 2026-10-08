@@ -36,8 +36,8 @@ export const MEGA_MENUS: Record<string, MegaMenu> = {
     groups: SERVICE_GROUPS,
     feature: {
       href: "/services/ai-operations-system",
-      label: "Your AI operations team",
-      note: "New: a private AI team that runs the day-to-day alongside you",
+      label: "Ashford's Staff",
+      note: "Your private AI operations team, with a live command centre",
     },
   },
   "/industries": {

@@ -61,10 +61,10 @@ export function PowerOfAI({ variant = "full" }: { variant?: "full" | "short" }) 
               <span>
                 <span className="block font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[color:var(--color-accent)]">New service</span>
                 <span className="mt-2 block font-display text-[clamp(1.5rem,1.5vw+1rem,2.25rem)] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.035em", lineHeight: 1.1 }}>
-                  Your AI operations team
+                  Ashford&apos;s Staff
                 </span>
                 <span className="mt-2 block max-w-xl text-[0.98rem] leading-[1.55] text-[color:var(--color-ink-soft)]">
-                  A private team of AI agents that runs the day-to-day alongside you, with a live command centre. You approve anything that goes out.
+                  Your private AI operations team. Agents that run the day-to-day alongside you, with a live command centre. You approve anything that goes out.
                 </span>
               </span>
               <span className="inline-flex min-h-11 shrink-0 items-center gap-2 font-medium text-[color:var(--color-ink)] group-hover:text-[color:var(--color-accent)]">

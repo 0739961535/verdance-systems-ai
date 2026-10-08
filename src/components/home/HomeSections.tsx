@@ -4,6 +4,7 @@ import { SITE } from "@/data/site";
 import { GENERIC_BOOK_URL } from "@/data/niches";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
 import { ClientDashboard } from "./ClientDashboard";
+import { BEST_MONTH, bestMonthTiles } from "@/data/bestMonth";
 
 /* ------------------------------------------------------------------ */
 /* What you see as a client                                           */
@@ -28,7 +29,7 @@ export function ClientViewSection() {
             <ClientDashboard />
           </div>
           <p className="mt-4 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-[color:var(--color-ink-muted)]">
-            Sample data, for illustration
+            {bestMonthTiles() ? `Real figures from ${BEST_MONTH.client}. Activity rows are illustrative.` : "Sample layout, for illustration"}
           </p>
         </Reveal>
       </div>

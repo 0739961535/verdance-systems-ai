@@ -65,10 +65,10 @@ export default function AiOperationsTeamPage() {
           <p className="enter-fade-up eyebrow">{AI_TEAM.eyebrow}</p>
           <h1
             id="ai-hero-title"
-            className="enter-rise mt-7 max-w-[15ch] font-display text-[color:var(--color-ink)]"
+            className="enter-rise mt-7 max-w-[17ch] font-display text-[color:var(--color-ink)]"
             style={{ fontSize: "clamp(2.7rem, 5vw + 1rem, 6rem)", lineHeight: 0.98, letterSpacing: "-0.045em" }}
           >
-            A private AI team that runs the business <span className="italic-accent">alongside you.</span>
+            Ashford&apos;s Staff. <span className="italic-accent">An AI team that runs the business alongside you.</span>
           </h1>
           <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
             <p className="enter-rise max-w-[36rem] text-[color:var(--color-ink-soft)]" style={{ fontSize: "clamp(1.0625rem, 0.45vw + 0.98rem, 1.3rem)", lineHeight: 1.6 }}>
