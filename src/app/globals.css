@@ -1306,7 +1306,7 @@ html.js .chatphone[data-ssr] .wa-stack > * { opacity: 0; animation: chat-fallbac
 /* Hero aurora: two soft gradient fields drifting slowly. Transform-only;
    static on small screens and reduced motion. */
 .aurora {
-  position: absolute; inset: -20% -10% auto -10%; height: 120%; z-index: -10; pointer-events: none;
+  position: absolute; top: -200px; left: -10%; right: -10%; height: 1400px; z-index: -10; pointer-events: none;
   background:
     radial-gradient(40% 45% at 72% 42%, rgba(var(--accent-glow-rgb), 0.22), transparent 70%),
     radial-gradient(35% 40% at 30% 18%, rgba(var(--accent-deep-rgb), 0.16), transparent 70%),

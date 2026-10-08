@@ -34,8 +34,6 @@ const instrumentSerif = Instrument_Serif({
   weight: "400",
   style: ["italic"],
   display: "swap",
-  // One accent word per heading: not worth competing with the headline.
-  preload: false,
 });
 
 // Labels, times and numbers.
