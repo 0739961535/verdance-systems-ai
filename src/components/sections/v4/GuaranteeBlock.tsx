@@ -39,15 +39,14 @@ export function GuaranteeBlock({
     >
       <div className="container-narrow">
         <Reveal>
-          <span className="eyebrow">{eyebrow}</span>
+          <p className="eyebrow">{eyebrow}</p>
           <h2
             id="guarantee-title"
-            className="font-display text-[color:var(--color-ink)] mt-4 max-w-[22ch]"
-            style={{ fontSize: "clamp(1.9rem, 3.2vw + 1.2rem, 3.5rem)", lineHeight: 1.06, letterSpacing: "-0.035em" }}
+            className="h2 mt-5 max-w-[22ch]"
           >
             {title ?? (
               <>
-                Fixed price. Fixed launch date.
+                Fixed quote. Fixed launch date.
                 <br />
                 <span className="italic-accent">Full ownership.</span>
               </>

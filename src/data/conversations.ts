@@ -12,7 +12,7 @@
 export type Beat =
   | { kind: "in"; text: string; time: string }
   | { kind: "out"; text: string; time: string; meta?: string }
-  | { kind: "card"; title: string; lines: string[]; time: string }
+  | { kind: "card"; title: string; lines: string[]; time: string; dir?: "in" | "out" }
   | { kind: "missed"; text: string; time: string };
 
 export interface Conversation {

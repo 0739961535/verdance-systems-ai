@@ -449,7 +449,9 @@ p { text-wrap: pretty; }
     border-color var(--d-fast) var(--ease-luxury);
 }
 
-/* Solid ember - the one hot "click me" CTA colour */
+@media (max-width: 420px) { .btn { white-space: normal; text-align: center; } }
+
+/* Solid accent - the one "click me" CTA colour */
 .btn-accent {
   background: var(--accent-3);
   color: var(--on-accent-3);
@@ -851,6 +853,11 @@ p { text-wrap: pretty; }
 @media (min-width: 640px)  { .phone { --phone-fs: 12.5px; } }
 @media (min-width: 1024px) { .phone { --phone-fs: 13.5px; } }
 .phone[data-size="sm"] { --phone-fs: 11px; }
+.phone[data-size="xs"] { --phone-fs: 9.5px; }
+@media (min-width: 640px) { .phone[data-size="xs"] { --phone-fs: 10.5px; } }
+/* Stacked story phones on small screens: a shorter screen keeps each step
+   compact while every message stays legible. */
+.phone[data-size="xs"] .phone-screen { aspect-ratio: 9 / 15.5; }
 @media (min-width: 1024px) { .phone[data-size="sm"] { --phone-fs: 12px; } }
 
 .phone::before { /* side button */
@@ -1005,6 +1012,7 @@ p { text-wrap: pretty; }
   background: #005C4B;
   border-top-right-radius: 0.2em;
 }
+.wa-card[data-dir="in"] { align-self: flex-start; background: #1F2C34; border-top-right-radius: 0.8em; border-top-left-radius: 0.2em; }
 .wa-card-head {
   display: flex; align-items: center; gap: 0.6em;
   padding: 0.7em 0.8em;
@@ -1031,6 +1039,20 @@ p { text-wrap: pretty; }
 @keyframes wa-dot { 0%, 60%, 100% { transform: translateY(0); opacity: 0.5; } 30% { transform: translateY(-0.25em); opacity: 1; } }
 @keyframes wa-in { from { opacity: 0; transform: translateY(0.8em) scale(0.98); } to { opacity: 1; transform: none; } }
 .wa-enter { animation: wa-in 0.42s var(--ease-out-expo) both; transform-origin: bottom; }
+
+@keyframes call-ring { 0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.28); } 100% { box-shadow: 0 0 0 1.6em rgba(255,255,255,0); } }
+.call-ring { animation: call-ring 1.4s ease-out infinite; }
+
+.offer-card { transition: background-color var(--d-base) var(--ease-luxury); }
+.offer-card:hover { background-color: var(--bg-3) !important; }
+
+.browser-frame {
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--bg-2);
+  border: 1px solid var(--hairline-2);
+  box-shadow: var(--shadow-raised);
+}
 
 /* lock screen */
 .lock {

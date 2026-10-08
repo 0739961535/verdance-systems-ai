@@ -193,12 +193,12 @@ export const AUDIT = {
 
 export const LANDING_FAQS = [
   {
-    q: "What happens on the free audit call?",
+    q: "What happens on the free pre-audit?",
     a: "Thirty minutes on a video call. We go through how enquiries, follow-up and admin actually work in your business today, find where you are losing the most, and leave you with a list of what to fix in order. It's yours to keep whether or not we build anything.",
   },
   {
     q: "What does it cost?",
-    a: "The call is free. If you want us to build, you get a fixed price with the written plan, agreed before any work starts. The price on the quote is the price you pay.",
+    a: "The pre-audit is free. If you want us to build, you get a fixed quote with the written plan, agreed before any work starts. The price on the quote is the price you pay.",
   },
   {
     q: "How long until it's working?",
@@ -210,7 +210,7 @@ export const LANDING_FAQS = [
   },
   {
     q: "We already have a system for our customers. Do we have to switch?",
-    a: "No. We connect to what you run today where that's the right call, and only suggest moving if it genuinely pays for itself. Working out that trade-off is exactly what the audit call is for.",
+    a: "No. We connect to what you run today where that's the right call, and only suggest moving if it genuinely pays for itself. Working out that trade-off is exactly what the pre-audit is for.",
   },
   {
     q: "What happens to our data?",

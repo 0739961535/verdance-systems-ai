@@ -22,11 +22,10 @@ export function FAQControl({ faqs = LANDING_FAQS }: FAQControlProps = {}) {
     <section className="section-pad bg-canvas" aria-labelledby="faq-title">
       <div className="mx-auto w-full max-w-[880px] px-5 md:px-10">
         <Reveal>
-          <span className="eyebrow">Questions</span>
+          <p className="eyebrow">Questions</p>
           <h2
             id="faq-title"
-            className="font-display text-[color:var(--color-ink)] mt-4"
-            style={{ fontSize: "clamp(1.9rem, 3.2vw + 1.2rem, 3.5rem)", lineHeight: 1.06, letterSpacing: "-0.035em" }}
+            className="h2 mt-5"
           >
             Asked <span className="italic-accent">before</span> booking.
           </h2>

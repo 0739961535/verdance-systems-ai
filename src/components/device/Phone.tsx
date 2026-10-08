@@ -18,7 +18,7 @@ export function Phone({
   children: ReactNode;
   clock?: string;
   statusTone?: "light" | "hidden";
-  size?: "sm" | "md";
+  size?: "xs" | "sm" | "md";
   className?: string;
 }) {
   return (

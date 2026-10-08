@@ -4,7 +4,6 @@ import { SITE } from "@/data/site";
 import { PROOF, bookUrl, type Niche } from "@/data/niches";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
 
-const H2_STYLE = { fontSize: "clamp(1.9rem, 3.2vw + 1.2rem, 3.5rem)", lineHeight: 1.06, letterSpacing: "-0.035em" } as const;
 
 /* ------------------------------------------------------------------ */
 /* How it works: three numbered steps on one hairline rule.            */
@@ -14,8 +13,8 @@ export function NicheSteps({ niche }: { niche: Niche }) {
     <section className="section-pad band-texture" style={{ background: "var(--bg-2)" }} aria-labelledby="steps-title">
       <div className="container-narrow">
         <Reveal>
-          <span className="eyebrow">How it works</span>
-          <h2 id="steps-title" className="font-display text-[color:var(--color-ink)] mt-4 max-w-[20ch]" style={H2_STYLE}>
+          <p className="eyebrow">How it works</p>
+          <h2 id="steps-title" className="h2 mt-5 max-w-[20ch]">
             Three steps. <span className="italic-accent">You show up.</span>
           </h2>
         </Reveal>
@@ -51,8 +50,8 @@ export function NicheIncluded({ niche }: { niche: Niche }) {
     <section className="section-pad bg-canvas" aria-labelledby="included-title">
       <div className="container-wide">
         <Reveal>
-          <span className="eyebrow">What is included</span>
-          <h2 id="included-title" className="font-display text-[color:var(--color-ink)] mt-4 max-w-[22ch]" style={H2_STYLE}>
+          <p className="eyebrow">What is included</p>
+          <h2 id="included-title" className="h2 mt-5 max-w-[22ch]">
             The {niche.offerName}, <span className="italic-accent">in full.</span>
           </h2>
         </Reveal>
@@ -112,8 +111,8 @@ export function NichePricing({ niche }: { niche: Niche }) {
     <section className="section-pad bg-canvas" aria-labelledby="pricing-title" id="pricing" style={{ scrollMarginTop: "5rem" }}>
       <div className="container-narrow">
         <Reveal>
-          <span className="eyebrow">{pricing.eyebrow}</span>
-          <h2 id="pricing-title" className="font-display text-[color:var(--color-ink)] mt-4 max-w-[20ch]" style={H2_STYLE}>
+          <p className="eyebrow">{pricing.eyebrow}</p>
+          <h2 id="pricing-title" className="h2 mt-5 max-w-[20ch]">
             {pricing.title}
           </h2>
           <p className="mt-5 max-w-xl text-[color:var(--color-ink-soft)]" style={{ lineHeight: 1.6 }}>{pricing.intro}</p>
@@ -228,8 +227,8 @@ export function NicheCTA({ niche }: { niche: Niche }) {
     >
       <div className="container-wide grid gap-12 lg:grid-cols-[1fr_0.9fr] lg:items-center">
         <Reveal>
-          <span className="eyebrow">Pre-audit · 30 minutes · no cost</span>
-          <h2 id="cta-title" className="font-display text-[color:var(--color-ink)] mt-4 max-w-[18ch]" style={H2_STYLE}>
+          <p className="eyebrow">Pre-audit · 30 minutes · no cost</p>
+          <h2 id="cta-title" className="h2 mt-5 max-w-[18ch]">
             {niche.cta.title} <span className="italic-accent">{niche.cta.accent}</span>
           </h2>
           <p className="mt-5 max-w-lg text-[color:var(--color-ink-soft)]" style={{ lineHeight: 1.6 }}>{niche.cta.body}</p>
