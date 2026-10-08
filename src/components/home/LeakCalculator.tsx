@@ -53,7 +53,7 @@ function NumberField({
             const n = Math.min(Number(digits || 0), max);
             onChange(digits === "" ? "" : String(n));
           }}
-          className="w-full bg-transparent py-3 font-mono text-xl text-[color:var(--color-ink)] tabular outline-none"
+          className="h-14 w-full bg-transparent font-mono text-xl text-[color:var(--color-ink)] tabular outline-none"
         />
       </div>
     </div>

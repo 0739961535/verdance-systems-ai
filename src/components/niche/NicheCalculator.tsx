@@ -37,7 +37,7 @@ function Field({ field, value, onChange }: { field: CalcField; value: number; on
           step={field.step}
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
-          className="flex-1 accent-[color:var(--color-accent)] min-h-11"
+          className="h-11 flex-1 accent-[color:var(--color-accent)]"
         />
         <div
           className="flex min-h-11 w-32 shrink-0 items-center rounded-xl px-3 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[color:var(--color-accent)]"
@@ -56,7 +56,7 @@ function Field({ field, value, onChange }: { field: CalcField; value: number; on
               onChange(digits === "" ? field.min : Math.min(field.max, Number(digits)));
             }}
             onBlur={() => onChange(clamp(value))}
-            className="w-full min-w-0 bg-transparent text-right font-mono text-base text-[color:var(--color-ink)] tabular-nums outline-none"
+            className="h-11 w-full min-w-0 bg-transparent text-right font-mono text-base text-[color:var(--color-ink)] tabular-nums outline-none"
           />
           {field.format === "pct" && <span className="ml-1 font-mono text-[color:var(--color-ink-muted)]">%</span>}
         </div>

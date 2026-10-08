@@ -262,7 +262,7 @@ export function NicheCTA({ niche }: { niche: Niche }) {
                   href={SITE.whatsapp.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 font-medium text-[color:var(--color-accent)]"
+                  className="inline-flex min-h-11 items-center gap-1.5 font-medium text-[color:var(--color-accent)]"
                 >
                   <WhatsAppIcon className="w-3.5 h-3.5" />
                   WhatsApp Daniel
