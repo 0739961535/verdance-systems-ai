@@ -61,7 +61,7 @@ export function NicheIncluded({ niche }: { niche: Niche }) {
             {niche.included.map((item, i) => (
               <li key={item.title}>
                 <Reveal delay={Math.min(i * 0.04, 0.2)} className="h-full">
-                  <div className="surface surface-card-hover h-full px-6 py-6" style={{ borderRadius: 16 }}>
+                  <div className="surface sheen h-full px-6 py-6" data-tilt="4" style={{ borderRadius: 16 }}>
                     <Check size={16} strokeWidth={2.5} aria-hidden className="text-[color:var(--color-accent)]" />
                     <h3 className="mt-3 font-display font-medium text-[color:var(--color-ink)]" style={{ fontSize: "1.05rem" }}>
                       {item.title}

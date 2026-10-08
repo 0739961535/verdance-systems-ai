@@ -2,19 +2,13 @@ import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
 import { GENERIC_BOOK_URL } from "@/data/niches";
 import { LeakCalculator } from "./LeakCalculator";
+import { ChannelOrbit } from "./ChannelOrbit";
 
 /**
  * The niche-neutral homepage story, told with type and one simple diagram
  * (the only phone on the homepage is in the hero).
  */
 
-const CHANNELS = ["Phone calls", "WhatsApp", "Website forms", "Instagram and Facebook", "Email", "Portals and listings"];
-const OUTCOMES = [
-  { k: "Answered", v: "within 5 minutes, usually seconds" },
-  { k: "Booked", v: "straight into your diary" },
-  { k: "Followed up", v: "until they reply, then it stops" },
-  { k: "Kept", v: "every customer on record, in your name" },
-];
 
 /* ------------------------------------------------------------------ */
 /* What we do: channels -> your system -> outcomes                    */
@@ -23,7 +17,7 @@ export function WhatWeDoSection() {
   return (
     <section className="section-pad bg-canvas" aria-labelledby="what-title" style={{ borderTop: "1px solid var(--hairline)" }}>
       <div className="container-wide">
-        <Reveal className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
+        <Reveal variant="wipe" className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
           <div className="max-w-3xl">
             <p className="eyebrow">What we do</p>
             <h2 id="what-title" className="h2 mt-5">
@@ -35,45 +29,9 @@ export function WhatWeDoSection() {
           </p>
         </Reveal>
 
-        {/* diagram */}
-        <Reveal delay={0.06} className="mt-12 md:mt-16">
-          <div className="flow" role="img" aria-label="Every channel feeds one system, which answers, books, follows up and keeps a record of every customer.">
-            <ul className="flow-col">
-              {CHANNELS.map((c) => (
-                <li key={c} className="flow-pill">{c}</li>
-              ))}
-            </ul>
-
-            <div className="flow-link" aria-hidden>
-              <span />
-            </div>
-
-            <div className="flow-core">
-              <span className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[color:var(--color-ink-muted)]">Your system</span>
-              <span className="mt-2 font-display text-[1.6rem] leading-none text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.03em" }}>
-                One inbox.
-                <br />
-                <span className="italic-accent">Always on.</span>
-              </span>
-              <span className="mt-3 text-[0.85rem] leading-snug text-[color:var(--color-ink-muted)]">
-                Trained on your business. Hands anything unusual to a person.
-              </span>
-            </div>
-
-            <div className="flow-link" aria-hidden>
-              <span />
-            </div>
-
-            <ul className="flow-col">
-              {OUTCOMES.map((o) => (
-                <li key={o.k} className="flow-out">
-                  <span className="font-display text-[1.05rem] text-[color:var(--color-ink)]">{o.k}</span>
-                  <span className="text-[0.85rem] text-[color:var(--color-ink-muted)]">{o.v}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
+        <div className="mt-12 md:mt-16">
+          <ChannelOrbit />
+        </div>
       </div>
     </section>
   );
@@ -110,7 +68,7 @@ export function HowItWorksSection() {
   return (
     <section className="section-pad bg-canvas" aria-labelledby="how-title" style={{ borderTop: "1px solid var(--hairline)" }}>
       <div className="container-wide">
-        <Reveal className="max-w-3xl">
+        <Reveal variant="wipe" className="max-w-3xl">
           <p className="eyebrow">How it works</p>
           <h2 id="how-title" className="h2 mt-5">
             Audit. Build. <span className="italic-accent">Run.</span>
@@ -150,7 +108,7 @@ export function HowItWorksSection() {
           >
             No price list. <span className="italic-accent">Fixed quote after your free pre-audit.</span>
           </p>
-          <a href={GENERIC_BOOK_URL} className="btn btn-accent min-h-12 shrink-0 justify-center">
+          <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent min-h-12 shrink-0 justify-center">
             Book the pre-audit
             <ArrowUpRight size={16} aria-hidden />
           </a>
@@ -167,7 +125,7 @@ export function CostSection() {
   return (
     <section className="section-pad bg-canvas" aria-labelledby="cost-title" id="calculator" style={{ borderTop: "1px solid var(--hairline)", scrollMarginTop: "5rem" }}>
       <div className="container-wide">
-        <Reveal className="max-w-3xl">
+        <Reveal variant="wipe" className="max-w-3xl">
           <p className="eyebrow">Your numbers</p>
           <h2 id="cost-title" className="h2 mt-5">
             What a slow reply <span className="italic-accent">costs you.</span>

@@ -17,6 +17,7 @@ export function NicheHero({ niche }: { niche: Niche }) {
   const conversation = NICHE_CONVERSATIONS[niche.slug] ?? HOME_CONVERSATION;
   return (
     <section className="relative isolate overflow-hidden bg-canvas" aria-labelledby="niche-hero-title">
+      <div aria-hidden className="aurora" />
       <div
         aria-hidden
         className="pointer-events-none absolute -z-10 left-1/2 top-[55%] h-[620px] w-[620px] -translate-x-1/2 rounded-full lg:left-[74%] lg:top-[50%] lg:-translate-y-1/2"
@@ -69,7 +70,7 @@ export function NicheHero({ niche }: { niche: Niche }) {
             </p>
 
             <div className="enter-fade-up mt-9 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: "0.18s" }}>
-              <a href={bookUrl(niche.bookSlug)} className="btn btn-accent min-h-12 justify-center px-6">
+              <a href={bookUrl(niche.bookSlug)} data-magnetic className="btn btn-accent min-h-12 justify-center px-6">
                 Book your free pre-audit
                 <ArrowUpRight size={16} aria-hidden />
               </a>
@@ -88,7 +89,9 @@ export function NicheHero({ niche }: { niche: Niche }) {
           </div>
 
           <div className="enter-fade flex min-w-0 justify-center lg:justify-end" style={{ animationDelay: "0.35s" }}>
-            <ChatPhone conversation={conversation} />
+            <div data-parallax="-0.06">
+              <ChatPhone conversation={conversation} />
+            </div>
           </div>
         </div>
       </div>

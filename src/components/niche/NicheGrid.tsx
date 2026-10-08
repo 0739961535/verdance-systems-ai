@@ -27,7 +27,7 @@ export function NicheGrid({
       style={{ borderTop: "1px solid var(--hairline)" }}
     >
       <div className="container-wide">
-        <Reveal className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
+        <Reveal variant="wipe" className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
           <div className="max-w-3xl">
             <p className="eyebrow">{eyebrow}</p>
             <h2 id="niches-title" className="h2 mt-5">
@@ -52,7 +52,8 @@ export function NicheGrid({
             <li key={n.slug} className={i === NICHES.length - 1 ? "sm:col-span-2 lg:col-span-1" : undefined}>
               <Link
                 href={`/industries/${n.slug}`}
-                className="offer-card group flex h-full min-h-[15rem] flex-col p-6 md:p-7"
+                className="offer-card sheen group flex h-full min-h-[15rem] flex-col p-6 md:p-7"
+                data-tilt="5"
                 style={{ background: tone === "canvas" ? "var(--bg)" : "var(--bg-2)" }}
               >
                 <div className="flex items-center justify-between">

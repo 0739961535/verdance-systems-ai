@@ -12,6 +12,7 @@ import { GHLChatWidget } from "@/components/primitives/GHLChatWidget";
 import { BrandStudio } from "@/components/primitives/BrandStudio";
 import { NoPullToRefresh } from "@/components/primitives/NoPullToRefresh";
 import { RevealObserver } from "@/components/primitives/RevealObserver";
+import { Interactions } from "@/components/primitives/Interactions";
 
 // Satoshi (Indian Type Foundry, ITF Free Font License): headlines and body.
 // The woff2 is fetched at build time by scripts/fetch-fonts.mjs because the
@@ -249,6 +250,7 @@ export default function RootLayout({
           <Footer />
         </SmoothScroll>
         <RevealObserver />
+        <Interactions />
         <div aria-hidden className="site-grain" />
         <GHLChatWidget />
         {process.env.NEXT_PUBLIC_BRAND_STUDIO === "1" && <BrandStudio />}

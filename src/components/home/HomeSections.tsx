@@ -12,7 +12,7 @@ export function ClientViewSection() {
   return (
     <section className="section-pad bg-canvas-2" aria-labelledby="client-title" style={{ borderTop: "1px solid var(--hairline)" }}>
       <div className="container-wide">
-        <Reveal className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
+        <Reveal variant="wipe" className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
           <div className="max-w-3xl">
             <p className="eyebrow">What you see as a client</p>
             <h2 id="client-title" className="h2 mt-5">
@@ -23,8 +23,10 @@ export function ClientViewSection() {
             What came in, how fast it was answered and what got booked. Open it on your phone whenever you like, or just read the monthly report.
           </p>
         </Reveal>
-        <Reveal delay={0.08} className="mt-10 md:mt-14">
-          <ClientDashboard />
+        <Reveal variant="scale" delay={0.05} className="mt-10 md:mt-14">
+          <div data-parallax="0.04">
+            <ClientDashboard />
+          </div>
           <p className="mt-4 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-[color:var(--color-ink-muted)]">
             Sample data, for illustration
           </p>
@@ -59,7 +61,7 @@ export function ProofSection() {
         </Reveal>
         <ul className="grid gap-px self-start overflow-hidden rounded-[22px] sm:grid-cols-2" style={{ background: "var(--hairline)" }}>
           {BUILT.map((b, i) => (
-            <li key={b.title} style={{ background: "var(--bg-2)" }}>
+            <li key={b.title} className="sheen" style={{ background: "var(--bg-2)" }} data-tilt="3">
               <Reveal delay={i * 0.05} className="h-full p-6 md:p-8">
                 <span className="font-mono text-[0.75rem] text-[color:var(--color-accent)] tabular">{String(i + 1).padStart(2, "0")}</span>
                 <h3 className="mt-4 font-display text-[1.25rem] font-medium text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.02em" }}>
@@ -114,7 +116,7 @@ export function FinalCTASection() {
             ))}
           </ul>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row md:justify-center">
-            <a href={GENERIC_BOOK_URL} className="btn btn-accent min-h-12 justify-center px-7">
+            <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent min-h-12 justify-center px-7">
               Book your free pre-audit
               <ArrowUpRight size={16} aria-hidden />
             </a>

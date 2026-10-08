@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { HomeHero } from "@/components/home/HomeHero";
+import { CapabilityMarquee } from "@/components/home/CapabilityMarquee";
 import { CostSection, HowItWorksSection, WhatWeDoSection } from "@/components/home/HomeStory";
 import { NicheGrid } from "@/components/niche/NicheGrid";
 import { ClientViewSection, FinalCTASection, ProofSection } from "@/components/home/HomeSections";
@@ -43,6 +44,7 @@ export default function HomePage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }} />
       <HomeHero />
+      <CapabilityMarquee />
       <WhatWeDoSection />
       <HowItWorksSection />
       <ClientViewSection />

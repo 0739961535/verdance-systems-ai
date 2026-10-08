@@ -17,6 +17,30 @@ const TILES = [
   { label: "After hours", value: "41%", sub: "of all enquiries" },
 ];
 
+/** Counts a tile up from zero the first time the dashboard is on screen. */
+function CountUp({ value, run }: { value: string; run: boolean }) {
+  const m = value.match(/^(\d+)(.*)$/);
+  const target = m ? Number(m[1]) : 0;
+  const suffix = m ? m[2] : "";
+  const [n, setN] = useState<number | null>(null);
+  const done = useRef(false);
+  useEffect(() => {
+    if (!run || done.current || !target) return;
+    done.current = true;
+    let raf = 0;
+    const t0 = performance.now();
+    const tick = (t: number) => {
+      const p = Math.min(1, (t - t0) / 1300);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setN(Math.round(target * eased));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [run, target]);
+  return <>{n === null ? value : `${n}${suffix}`}</>;
+}
+
 const BARS = [9, 12, 8, 14, 11, 6, 4, 13, 15, 10, 12, 16, 7, 5];
 
 type Row = { time: string; channel: string; text: string; tag?: "booked" | "handover" };
@@ -63,7 +87,7 @@ export function ClientDashboard() {
   const max = Math.max(...BARS);
 
   return (
-    <div ref={ref} className="browser-frame">
+    <div ref={ref} className="browser-frame light-sweep">
       {/* chrome */}
       <div className="flex items-center gap-3 px-4 py-3" style={{ borderBottom: "1px solid var(--hairline)" }}>
         <span className="flex gap-1.5" aria-hidden>
@@ -116,7 +140,7 @@ export function ClientDashboard() {
                   className="mt-2 font-display text-[color:var(--color-ink)] tabular"
                   style={{ fontSize: "clamp(1.5rem, 1.2vw + 1rem, 2rem)", letterSpacing: "-0.03em", lineHeight: 1 }}
                 >
-                  {t.value}
+                  <CountUp value={t.value} run={visible && !reduce} />
                 </dd>
                 <dd className="mt-1 text-[0.72rem] text-[color:var(--color-ink-muted)]">{t.sub}</dd>
               </div>

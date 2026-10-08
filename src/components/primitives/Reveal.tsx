@@ -30,6 +30,8 @@ type RevealProps = {
   once?: boolean;
   style?: CSSProperties;
   id?: string;
+  /** "fade" (default), "wipe" (clip-path, for headings) or "scale" (frames). */
+  variant?: "fade" | "wipe" | "scale";
 };
 
 function revealStyle(delay: number, y: number, style?: CSSProperties): CSSProperties {
@@ -40,10 +42,10 @@ function revealStyle(delay: number, y: number, style?: CSSProperties): CSSProper
   };
 }
 
-export function Reveal({ children, delay = 0, y = 20, className, as = "div", style, id }: RevealProps) {
+export function Reveal({ children, delay = 0, y = 20, className, as = "div", style, id, variant = "fade" }: RevealProps) {
   const Tag = as;
   return (
-    <Tag data-reveal="" id={id} className={className} style={revealStyle(delay, y, style)}>
+    <Tag data-reveal={variant === "fade" ? "" : variant} id={id} className={className} style={revealStyle(delay, y, style)}>
       {children}
     </Tag>
   );

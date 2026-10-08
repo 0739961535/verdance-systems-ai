@@ -17,6 +17,7 @@ import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
 export function HomeHero() {
   return (
     <section className="relative isolate overflow-hidden bg-canvas" aria-labelledby="hero-title">
+      <div aria-hidden className="aurora" />
       {/* one quiet light source behind the phone */}
       <div
         aria-hidden
@@ -59,7 +60,7 @@ export function HomeHero() {
             </p>
 
             <div className="enter-fade-up mt-9 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: "0.18s" }}>
-              <a href={GENERIC_BOOK_URL} className="btn btn-accent min-h-12 justify-center px-6">
+              <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent min-h-12 justify-center px-6">
                 Book your free pre-audit
                 <ArrowUpRight size={16} aria-hidden />
               </a>
@@ -85,7 +86,9 @@ export function HomeHero() {
           </div>
 
           <div className="enter-fade min-w-0 flex justify-center lg:justify-end" style={{ animationDelay: "0.35s" }}>
-            <ChatPhone rotation={HOME_ROTATION} />
+            <div data-parallax="-0.06">
+              <ChatPhone rotation={HOME_ROTATION} />
+            </div>
           </div>
         </div>
       </div>
