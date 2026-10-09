@@ -5,7 +5,8 @@ import { AI_TEAM_PATH, POWER } from "@/data/aiTeam";
 
 /**
  * "The true power of AI" - four before/after moments. Full on the AI team
- * page; a short version (two moments plus a link) on the homepage.
+ * page; the short version leads with the Ashford's Staff card (homepage,
+ * services page).
  */
 export function PowerOfAI({ variant = "full" }: { variant?: "full" | "short" }) {
   const examples = variant === "full" ? POWER.examples : POWER.examples;
@@ -21,6 +22,30 @@ export function PowerOfAI({ variant = "full" }: { variant?: "full" | "short" }) 
           </div>
           <p className="max-w-sm text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{POWER.intro}</p>
         </Reveal>
+
+        {variant === "short" && (
+          <Reveal delay={0.05} className="mt-10 md:mt-12">
+            <Link
+              href={AI_TEAM_PATH}
+              className="sheen group flex flex-col gap-5 rounded-[24px] p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8"
+              data-tilt="3"
+              style={{ background: "radial-gradient(120% 140% at 0% 0%, rgba(var(--accent-rgb),0.16), transparent 55%), var(--bg-2)", border: "1px solid rgba(var(--accent-rgb),0.3)" }}
+            >
+              <span>
+                <span className="block font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[color:var(--color-accent)]">New service</span>
+                <span className="mt-2 block font-display text-[clamp(1.5rem,1.5vw+1rem,2.25rem)] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.035em", lineHeight: 1.1 }}>
+                  Ashford&apos;s Staff
+                </span>
+                <span className="mt-2 block max-w-xl text-[0.98rem] leading-[1.55] text-[color:var(--color-ink-soft)]">
+                  Your private AI operations team. Agents that run the day-to-day alongside you, with a live command centre. You approve anything that goes out.
+                </span>
+              </span>
+              <span className="inline-flex min-h-11 shrink-0 items-center gap-2 font-medium text-[color:var(--color-ink)] group-hover:text-[color:var(--color-accent)]">
+                See how it works <ArrowUpRight size={16} aria-hidden />
+              </span>
+            </Link>
+          </Reveal>
+        )}
 
         <ol className={`mt-12 grid gap-4 md:mt-16 ${variant === "full" ? "md:grid-cols-2" : "md:grid-cols-2 xl:grid-cols-4"}`}>
           {examples.map((e, i) => (
@@ -50,29 +75,6 @@ export function PowerOfAI({ variant = "full" }: { variant?: "full" | "short" }) 
           ))}
         </ol>
 
-        {variant === "short" && (
-          <Reveal delay={0.1} className="mt-10">
-            <Link
-              href={AI_TEAM_PATH}
-              className="sheen group flex flex-col gap-5 rounded-[24px] p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8"
-              data-tilt="3"
-              style={{ background: "radial-gradient(120% 140% at 0% 0%, rgba(var(--accent-rgb),0.16), transparent 55%), var(--bg-2)", border: "1px solid rgba(var(--accent-rgb),0.3)" }}
-            >
-              <span>
-                <span className="block font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[color:var(--color-accent)]">New service</span>
-                <span className="mt-2 block font-display text-[clamp(1.5rem,1.5vw+1rem,2.25rem)] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.035em", lineHeight: 1.1 }}>
-                  Ashford&apos;s Staff
-                </span>
-                <span className="mt-2 block max-w-xl text-[0.98rem] leading-[1.55] text-[color:var(--color-ink-soft)]">
-                  Your private AI operations team. Agents that run the day-to-day alongside you, with a live command centre. You approve anything that goes out.
-                </span>
-              </span>
-              <span className="inline-flex min-h-11 shrink-0 items-center gap-2 font-medium text-[color:var(--color-ink)] group-hover:text-[color:var(--color-accent)]">
-                See how it works <ArrowUpRight size={16} aria-hidden />
-              </span>
-            </Link>
-          </Reveal>
-        )}
       </div>
     </section>
   );
