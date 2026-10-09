@@ -129,7 +129,7 @@ export default async function ServiceCategoryPage({
                 {category.bestFor}
               </p>
               <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent mt-7 min-h-12">
-                Book your free pre-audit
+                Get your free Operations Map
                 <ArrowUpRight size={16} aria-hidden />
               </a>
               <p className="mt-4 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)]">Fixed quote after the pre-audit</p>
@@ -197,7 +197,7 @@ export default async function ServiceCategoryPage({
                 {category.outcome}
               </p>
               <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent mt-8 min-h-12">
-                Book your free pre-audit
+                Get your free Operations Map
                 <ArrowUpRight size={16} aria-hidden />
               </a>
             </div>
@@ -240,7 +240,7 @@ export default async function ServiceCategoryPage({
       )}
 
       <CTABand />
-      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free pre-audit" />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Get your free Operations Map" />
     </>
   );
 }

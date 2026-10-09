@@ -106,7 +106,7 @@ export function LeakCalculator() {
           </p>
         </div>
         <a href={GENERIC_BOOK_URL} className="btn btn-accent min-h-12 justify-center self-start">
-          Book a free pre-audit
+          Get your free Operations Map
           <ArrowUpRight size={16} aria-hidden />
         </a>
       </div>

@@ -22,7 +22,7 @@ export function CTABand({
     "A fixed quote, if you want us to build it",
   ],
   href = GENERIC_BOOK_URL,
-  label = "Book your free pre-audit",
+  label = "Get your free Operations Map",
 }: {
   eyebrow?: string;
   title?: ReactNode;

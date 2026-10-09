@@ -113,7 +113,7 @@ export default function AuditPage() {
 
       <FAQControl faqs={FAQS} />
       <CTABand />
-      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free pre-audit" />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Get your free Operations Map" />
     </>
   );
 }

@@ -116,7 +116,7 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
         columns={niche.guarantee.columns}
         note={niche.guarantee.note}
         ctaHref={href}
-        ctaLabel="Book your pre-audit"
+        ctaLabel="Get your free Operations Map"
       />
 
       <NicheProof niche={niche} />
@@ -135,7 +135,7 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
         ]}
         href={href}
       />
-      <StickyMobileCTA href={href} label="Book your pre-audit" />
+      <StickyMobileCTA href={href} label="Get your free Operations Map" />
     </>
   );
 }
