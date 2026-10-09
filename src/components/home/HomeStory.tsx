@@ -59,7 +59,7 @@ const STEPS = [
     n: "03",
     name: "Run",
     title: "It replies, books and reports. Day or night.",
-    body: "Every enquiry answered within 5 minutes. You see it all in your dashboard, and get a short monthly report in plain words and rand.",
+    body: "Every enquiry answered within 5 minutes. You see it all in your dashboard, and get a short monthly report in plain words and real numbers.",
     meta: "You own all of it",
   },
 ];

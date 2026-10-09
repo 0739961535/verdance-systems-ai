@@ -3,10 +3,12 @@
 import { useId, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { GENERIC_BOOK_URL } from "@/data/booking";
-import { formatRand } from "@/lib/money";
+import { CurrencySwitch } from "@/components/primitives/CurrencySwitch";
+import { formatMoney, CURRENCY, localAmount, useCurrency } from "@/lib/currency";
 
 /**
- * LeakCalculator - two of the visitor's own numbers, one rand figure.
+ * LeakCalculator - two of the visitor's own numbers, one money figure in
+ * their currency (rand, pounds or dollars).
  * The only assumption is conservative and stated in the sentence itself
  * (one enquiry in twenty slips away), so the visitor can check it in their
  * head. Nothing is sent.
@@ -15,7 +17,6 @@ import { formatRand } from "@/lib/money";
 const SHARE = 0.05; // "one in twenty"
 const WEEKS_PER_MONTH = 52 / 12;
 
-const rand = formatRand;
 
 function NumberField({
   label,
@@ -62,7 +63,12 @@ function NumberField({
 
 export function LeakCalculator() {
   const [perWeek, setPerWeek] = useState("20");
-  const [sale, setSale] = useState("2500");
+  const cur = useCurrency();
+  // The sale value belongs to the currency it was typed in.
+  const [entered, setEntered] = useState<{ cur: string; v: string } | null>(null);
+  const sale = entered?.cur === cur ? entered.v : String(localAmount(2500, cur));
+  const setSale = (v: string) => setEntered({ cur, v });
+  const rand = (n: number) => formatMoney(n, cur);
 
   const w = Number(perWeek || 0);
   const v = Number(sale || 0);
@@ -76,7 +82,8 @@ export function LeakCalculator() {
     >
       <div className="grid content-start gap-5">
         <NumberField label="Enquiries you get a week" value={perWeek} onChange={setPerWeek} max={2000} />
-        <NumberField label="What an average sale is worth" prefix="R" value={sale} onChange={setSale} max={1000000} />
+        <NumberField label="What an average sale is worth" prefix={CURRENCY[cur].symbol} value={sale} onChange={setSale} max={1000000} />
+        <CurrencySwitch className="self-start" />
         <p className="text-[0.85rem] leading-relaxed text-[color:var(--color-ink-muted)]">
           Calls, WhatsApps, website forms and DMs. Change the numbers to your own. They stay in your browser.
         </p>

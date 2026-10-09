@@ -18,7 +18,7 @@ export function CTABand({
   ),
   points = [
     "How fast you reply today, channel by channel",
-    "What slow replies are likely costing you, in rand",
+    "What slow replies are likely costing you, in real money",
     "A fixed quote, if you want us to build it",
   ],
   href = GENERIC_BOOK_URL,

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useId } from "react";
+import { CURRENCY, formatMoney, setCurrency as setSharedCurrency, useCurrency, type CurrencyCode } from "@/lib/currency";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
@@ -22,17 +23,15 @@ import { ArrowUpRight } from "lucide-react";
  * number they cannot argue with later.
  */
 
-type Currency = "ZAR" | "GBP";
+type Currency = CurrencyCode;
 
-const CURRENCIES: Record<Currency, { symbol: string; locale: string; label: string; defaultValue: number }> = {
-  ZAR: { symbol: "R", locale: "en-ZA", label: "Rand", defaultValue: 4000 },
-  GBP: { symbol: "£", locale: "en-GB", label: "Pounds", defaultValue: 250 },
+const CURRENCIES: Record<Currency, { symbol: string; locale: string; label: string; defaultValue: number; max: number; step: number }> = {
+  ZAR: { ...CURRENCY.ZAR, defaultValue: 4000, max: 100000, step: 500 },
+  GBP: { ...CURRENCY.GBP, defaultValue: 250, max: 5000, step: 25 },
+  USD: { ...CURRENCY.USD, defaultValue: 300, max: 6000, step: 25 },
 };
 
-function money(amount: number, currency: Currency) {
-  const { symbol, locale } = CURRENCIES[currency];
-  return `${symbol}${Math.round(amount).toLocaleString(locale).replace(/,/g, " ")}`;
-}
+const money = (amount: number, currency: Currency) => formatMoney(amount, currency);
 
 interface FieldProps {
   label: string;
@@ -79,9 +78,13 @@ function Field({ label, hint, value, min, max, step, onChange, format }: FieldPr
 }
 
 export function MissedCallCalculator() {
-  const [currency, setCurrency] = useState<Currency>("ZAR");
+  const currency = useCurrency();
   const [missedPerWeek, setMissedPerWeek] = useState(15);
-  const [customerValue, setCustomerValue] = useState(CURRENCIES.ZAR.defaultValue);
+  // The value belongs to the currency it was entered in; a new currency starts
+  // from its own sensible default.
+  const [entered, setEntered] = useState<{ cur: Currency; v: number } | null>(null);
+  const customerValue = entered?.cur === currency ? entered.v : CURRENCIES[currency].defaultValue;
+  const setCustomerValue = (v: number) => setEntered({ cur: currency, v });
   const [closeRate, setCloseRate] = useState(30);
 
   const result = useMemo(() => {
@@ -89,13 +92,10 @@ export function MissedCallCalculator() {
     return { weekly, monthly: (weekly * 52) / 12, annual: weekly * 52 };
   }, [missedPerWeek, customerValue, closeRate]);
 
-  function switchCurrency(next: Currency) {
-    setCurrency(next);
-    setCustomerValue(CURRENCIES[next].defaultValue);
-  }
+  const switchCurrency = (next: Currency) => setSharedCurrency(next);
 
-  const valueMax = currency === "ZAR" ? 100000 : 5000;
-  const valueStep = currency === "ZAR" ? 500 : 25;
+  const valueMax = CURRENCIES[currency].max;
+  const valueStep = CURRENCIES[currency].step;
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 items-start">

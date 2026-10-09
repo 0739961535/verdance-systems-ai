@@ -107,7 +107,7 @@ export function FinalCTASection() {
           <ul className="mt-8 grid gap-3 text-left md:mx-auto md:max-w-md">
             {[
               "How fast you reply today, channel by channel",
-              "What slow replies are likely costing you, in rand",
+              "What slow replies are likely costing you, in real money",
               "A fixed quote, if you want us to build it",
             ].map((t) => (
               <li key={t} className="flex items-start gap-3 text-[1rem] leading-[1.55] text-[color:var(--color-ink-soft)]">
