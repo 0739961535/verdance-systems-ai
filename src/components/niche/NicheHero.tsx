@@ -72,7 +72,7 @@ export function NicheHero({ niche }: { niche: Niche }) {
 
             <div className="enter-fade-up mt-9 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: "0.18s" }}>
               <a href={bookUrl(niche.bookSlug)} data-magnetic className="btn btn-accent min-h-12 justify-center px-6">
-                Book your free pre-audit
+                Get your free Operations Map
                 <ArrowUpRight size={16} aria-hidden />
               </a>
               <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="btn btn-ghost min-h-12 justify-center px-6">

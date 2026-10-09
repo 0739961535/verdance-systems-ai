@@ -144,7 +144,7 @@ export default function ServicesPage() {
             }
             intro={
               <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent min-h-12 justify-center">
-                Book your free pre-audit
+                Get your free Operations Map
                 <ArrowUpRight size={16} aria-hidden />
               </a>
             }
@@ -153,7 +153,7 @@ export default function ServicesPage() {
       </section>
 
       <CTABand />
-      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free pre-audit" />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Get your free Operations Map" />
     </>
   );
 }

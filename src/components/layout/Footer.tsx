@@ -31,7 +31,7 @@ export function Footer() {
             </p>
             <div className="mt-6 flex items-center gap-3">
               <Link href={GENERIC_BOOK_URL} className="btn btn-accent text-sm">
-                Book a free pre-audit
+                Get your free Operations Map
               </Link>
             </div>
           </div>

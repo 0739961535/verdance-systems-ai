@@ -109,9 +109,9 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      <GuaranteeBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="Book your free pre-audit" />
+      <GuaranteeBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="Get your free Operations Map" />
       <CTABand />
-      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free pre-audit" />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Get your free Operations Map" />
     </>
   );
 }

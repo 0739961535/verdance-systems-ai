@@ -20,7 +20,7 @@ export function PageHero({
   lead,
   crumbs,
   visual,
-  primary = { href: GENERIC_BOOK_URL, label: "Book your free pre-audit" },
+  primary = { href: GENERIC_BOOK_URL, label: "Get your free Operations Map" },
   secondary = { href: SITE.whatsapp.href, label: "WhatsApp us", whatsapp: true },
   note,
   wideVisual = false,
