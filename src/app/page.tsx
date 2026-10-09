@@ -36,8 +36,9 @@ const FAQ_JSON_LD = {
 /**
  * Home - one story:
  * the claim (one phone, cycling through real kinds of enquiry) -> what we do
- * for any business that runs on enquiries -> how it works -> what you see as
- * a client -> what slow replies cost you -> proof -> current offers ->
+ * for any business that runs on enquiries -> Ashford's Staff (the AI team) ->
+ * how it works -> what you see as a client -> what slow replies cost you ->
+ * proof -> current offers ->
  * guarantee -> questions -> book. The hero phone is the only phone here.
  */
 export default function HomePage() {
@@ -47,11 +48,11 @@ export default function HomePage() {
       <HomeHero />
       <CapabilityMarquee />
       <WhatWeDoSection />
+      <PowerOfAI variant="short" />
       <HowItWorksSection />
       <ClientViewSection />
       <CostSection />
       <ProofSection />
-      <PowerOfAI variant="short" />
       <NicheGrid tone="canvas-2" />
       <GuaranteeBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="Book your free pre-audit" />
       <FAQControl faqs={LANDING_FAQS} />
