@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "We don't talk about AI. We ship it. | Verdance Systems AI",
     description:
-      "Every call and message answered within 5 minutes, day or night, and booked into your calendar. Built for you, owned by you. Free pre-audit first.",
+      "Every call and message answered within 60 seconds, day or night, and booked into your calendar. Built for you, owned by you. Free pre-audit first.",
     url: "https://verdancesystemsai.com/",
     type: "website",
   },

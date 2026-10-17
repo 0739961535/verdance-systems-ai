@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const industry = getIndustryBySlug(slug);
   if (!industry) return {};
   const title = `Enquiry Answering and Booking for ${industry.name} | Verdance Systems AI`;
-  const description = `${industry.subheadline} Every call and message answered within 5 minutes, day or night, and booked. Fixed quote after a free pre-audit.`;
+  const description = `${industry.subheadline} Every call and message answered within 60 seconds, day or night, and booked. Fixed quote after a free pre-audit.`;
   const url = `https://verdancesystemsai.com/industries/${slug}`;
   return {
     title,

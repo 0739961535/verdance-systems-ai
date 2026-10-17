@@ -125,15 +125,15 @@ export const NICHES: Niche[] = [
     meta: {
       title: "Wedding Venue Enquiry Replies in 5 Minutes | Verdance Systems AI",
       description:
-        "Every venue enquiry answered within 5 minutes, day or night, and viewings booked into your diary. Start with a 30-day pilot. Refunded if no viewings are attended.",
+        "Every venue enquiry answered within 60 seconds, day or night, and viewings booked into your diary. Start with a 30-day pilot. Refunded if no viewings are attended.",
       ogTitle: "The first venue to reply gets the viewing.",
     },
-    card: { line: "Every enquiry answered in 5 minutes. Viewings booked into your diary." },
+    card: { line: "Every enquiry answered in 60 seconds. Viewings booked into your diary." },
     hero: {
       eyebrow: "Wedding and event venues · South Africa",
       lines: ["Couples enquire with four venues."],
       accent: "The first to reply gets the viewing.",
-      lead: "We set up a system that replies to every enquiry within 5 minutes, day or night, on your website, email, WhatsApp and Instagram. It answers the usual questions, checks the date, and books the viewing into your diary. You show the venue.",
+      lead: "We set up a system that replies to every enquiry within 60 seconds, day or night, on your website, email, WhatsApp and Instagram. It answers the usual questions, checks the date, and books the viewing into your diary. You show the venue.",
     },
     thread: {
       channel: "WhatsApp · venue enquiry",
@@ -142,7 +142,7 @@ export const NICHES: Niche[] = [
       outcome: { time: "21:43", text: "Viewing booked: Sat 10:00" },
     },
     deltas: [
-      { label: "Reply to a 9pm enquiry", before: "next morning", after: "within 5 minutes" },
+      { label: "Reply to a 9pm enquiry", before: "next morning", after: "within 60 seconds" },
       { label: "Weekend and holiday enquiries", before: "wait for Monday", after: "answered the same night" },
       { label: "Booking a viewing", before: "days of back and forth", after: "in the first conversation" },
       { label: "Couples who go quiet", before: "forgotten", after: "followed up, politely" },
@@ -158,11 +158,11 @@ export const NICHES: Niche[] = [
       },
       {
         title: "It replies, books and reports",
-        body: "Every enquiry gets a reply within 5 minutes, day or night. Viewings land in your diary with reminders. You get a monthly report on enquiries, viewings and bookings, in rand.",
+        body: "Every enquiry gets a reply within 60 seconds, day or night. Viewings land in your diary with reminders. You get a monthly report on enquiries, viewings and bookings, in rand.",
       },
     ],
     included: [
-      { title: "5-minute replies, around the clock", body: "Website, email, WhatsApp and Instagram. Same standard on a Sunday night as on a Tuesday morning." },
+      { title: "60-second replies, around the clock", body: "Website, email, WhatsApp and Instagram. Same standard on a Sunday night as on a Tuesday morning." },
       { title: "Date checks and viewing booking", body: "Checks availability, offers viewing slots and puts the booking straight into your diary." },
       { title: "Viewing reminders and no-show rescue", body: "Reminders before the viewing. If a couple does not arrive, it offers a new time." },
       { title: "Polite follow-up", body: "Couples who go quiet are followed up a set number of times, and it stops the moment they reply." },
@@ -209,7 +209,7 @@ export const NICHES: Niche[] = [
           featured: true,
         },
         {
-          name: "Venue 5-Minute Enquiry Engine",
+          name: "Venue 60-Second Enquiry Engine",
           tag: "Ongoing",
           lines: [
             { label: "Investment", value: "Fixed quote" },
@@ -226,7 +226,7 @@ export const NICHES: Niche[] = [
       accent: "Or you get your money back.",
       columns: [
         { n: "01", label: "Pilot: viewings or a refund", text: "If the system books no attended viewings in the 30 days, your setup fee is refunded." },
-        { n: "02", label: "Engine: the 5-minute standard", text: "95% of enquiries on web, email, WhatsApp and Instagram get a first reply within 5 minutes, day or night. Any month that misses it is free." },
+        { n: "02", label: "Engine: the 60-second standard", text: "99% of enquiries on web, email, WhatsApp and Instagram get a first reply within 60 seconds, day or night. Any month that misses it is credited." },
         { n: "03", label: "Engine: viewings up 25% by day 60", text: "If booked viewings are not 25% above your audited baseline at day 60, we work free until they are. Or you cancel and get both monthly fees back. The setup fee covers the build and is not refunded." },
       ],
       note: "Both guarantees are measured against the baseline from your 7-day audit, signed by both sides, and apply to venues with at least 10 enquiries a month.",
@@ -271,15 +271,15 @@ export const NICHES: Niche[] = [
     meta: {
       title: "Enquiry System for Boutique Lodges and Venue Groups | Verdance Systems AI",
       description:
-        "One 5-minute reply standard across weddings, rooms and conferences, day or night. Plus a campaign to your last 24 months of unbooked enquiries. Built in South Africa.",
+        "One 60-second reply standard across weddings, rooms and conferences, day or night. Plus a campaign to your last 24 months of unbooked enquiries. Built in South Africa.",
       ogTitle: "Weddings, rooms and conferences. One reply standard.",
     },
-    card: { line: "One 5-minute reply standard across weddings, rooms and conferences." },
+    card: { line: "One 60-second reply standard across weddings, rooms and conferences." },
     hero: {
       eyebrow: "Boutique lodges and venue groups · South Africa",
       lines: ["Weddings. Rooms. Conferences.", "Four inboxes."],
       accent: "Nobody owns the first reply.",
-      lead: "We set one standard across every department and every channel: each enquiry gets a reply within 5 minutes, day or night, and is routed to the right person. Then we go back to the enquiries you never booked.",
+      lead: "We set one standard across every department and every channel: each enquiry gets a reply within 60 seconds, day or night, and is routed to the right person. Then we go back to the enquiries you never booked.",
     },
     thread: {
       channel: "Email · conference enquiry",
@@ -288,7 +288,7 @@ export const NICHES: Niche[] = [
       outcome: { time: "18:58", text: "Site visit booked: Thu 11:00" },
     },
     deltas: [
-      { label: "First reply, any department", before: "depends who is on shift", after: "within 5 minutes" },
+      { label: "First reply, any department", before: "depends who is on shift", after: "within 60 seconds" },
       { label: "Who owns each enquiry", before: "whoever sees it first", after: "routed to the right person" },
       { label: "Unbooked enquiries from the last 2 years", before: "sitting in old inboxes", after: "worked into site visits" },
       { label: "Seeing where revenue comes from", before: "four separate inboxes", after: "one monthly review" },
@@ -304,11 +304,11 @@ export const NICHES: Niche[] = [
       },
       {
         title: "Revive, reply, review",
-        body: "We work through your last 24 months of unbooked enquiries. New enquiries are answered within 5 minutes. Each month you review the numbers with Daniel.",
+        body: "We work through your last 24 months of unbooked enquiries. New enquiries are answered within 60 seconds. Each month you review the numbers with Daniel.",
       },
     ],
     included: [
-      { title: "5-minute replies across every department", body: "Web, email, WhatsApp, Instagram and missed calls, for weddings, rooms and conferences." },
+      { title: "60-second replies across every department", body: "Web, email, WhatsApp, Instagram and missed calls, for weddings, rooms and conferences." },
       { title: "Routing and ownership", body: "Each enquiry goes to the right person, with the conversation so far, so nobody starts from scratch." },
       { title: "Site visits and viewings in the diary", body: "Booked in the first conversation, with reminders and a new time offered if someone does not arrive." },
       { title: "24-month revival campaign", body: "A careful message to unbooked enquiries from the last two years, aimed at your open dates." },
@@ -360,7 +360,7 @@ export const NICHES: Niche[] = [
       title: "Two promises.",
       accent: "Both in writing.",
       columns: [
-        { n: "01", label: "The 5-minute standard", text: "95% of enquiries across every department and channel get a first reply within 5 minutes, day or night. Any month that misses it is free." },
+        { n: "01", label: "The 60-second standard", text: "99% of enquiries across every department and channel get a first reply within 60 seconds, day or night. Any month that misses it is credited." },
         { n: "02", label: "8 site visits in 45 days", text: "The revival campaign books at least 8 site visits or viewings from your last 24 months of unbooked enquiries within 45 days. If it does not, month 2 is free and we run the campaign again." },
         { n: "03", label: "Agreed before you sign", text: "Both are measured against the baseline from your 7-day audit, signed by both sides." },
       ],
@@ -402,15 +402,15 @@ export const NICHES: Niche[] = [
     meta: {
       title: "Consult Enquiry Replies for Dental and Aesthetics Clinics | Verdance Systems AI",
       description:
-        "Every WhatsApp, Instagram, form and missed call answered within 5 minutes, day or night, and consults booked into your diary. Administrative replies only. No clinical advice.",
+        "Every WhatsApp, Instagram, form and missed call answered within 60 seconds, day or night, and consults booked into your diary. Administrative replies only. No clinical advice.",
       ogTitle: "The enquiry came in at 8pm. Your front desk was closed.",
     },
-    card: { line: "Every consult enquiry answered in 5 minutes, including after hours." },
+    card: { line: "Every consult enquiry answered in 60 seconds, including after hours." },
     hero: {
       eyebrow: "Dental implant and aesthetics practices · South Africa",
       lines: ["A patient messages at 8pm.", "Your front desk is closed."],
       accent: "Who replies first?",
-      lead: "We set up a system that replies to every WhatsApp, Instagram message, web form and missed call within 5 minutes, day or night. It handles the admin: times, fees for a consult, directions. It books the consult into your diary. It never gives clinical advice.",
+      lead: "We set up a system that replies to every WhatsApp, Instagram message, web form and missed call within 60 seconds, day or night. It handles the admin: times, fees for a consult, directions. It books the consult into your diary. It never gives clinical advice.",
     },
     thread: {
       channel: "WhatsApp · consult enquiry",
@@ -419,8 +419,8 @@ export const NICHES: Niche[] = [
       outcome: { time: "20:09", text: "Consult booked: Thu 15:00" },
     },
     deltas: [
-      { label: "Reply to an after-hours enquiry", before: "next working day", after: "within 5 minutes" },
-      { label: "Missed calls at the front desk", before: "lost", after: "texted back within 5 minutes" },
+      { label: "Reply to an after-hours enquiry", before: "next working day", after: "within 60 seconds" },
+      { label: "Missed calls at the front desk", before: "lost", after: "texted back within 60 seconds" },
       { label: "Quoted but not booked", before: "followed up when there is time", after: "followed up on schedule" },
       { label: "Consult no-shows", before: "an empty chair", after: "reminded and rebooked" },
     ],
@@ -435,11 +435,11 @@ export const NICHES: Niche[] = [
       },
       {
         title: "It replies, books and follows up",
-        body: "Every enquiry gets a reply within 5 minutes. Consults go into your diary with reminders. Patients who were given a treatment plan and did not book are followed up on a schedule your practice sets.",
+        body: "Every enquiry gets a reply within 60 seconds. Consults go into your diary with reminders. Patients who were given a treatment plan and did not book are followed up on a schedule your practice sets.",
       },
     ],
     included: [
-      { title: "5-minute replies, day or night", body: "WhatsApp, Instagram, web forms and missed-call text-back." },
+      { title: "60-second replies, day or night", body: "WhatsApp, Instagram, web forms and missed-call text-back." },
       { title: "Consult booking", body: "Offers open consult times and books straight into your practice diary." },
       { title: "Reminders and no-show rescue", body: "Reminders before each consult, and a new time offered if someone does not arrive." },
       { title: "Treatment-plan follow-up", body: "Polite follow-up for patients who received a quote and have not booked, on a schedule you approve." },
@@ -482,7 +482,7 @@ export const NICHES: Niche[] = [
             { label: "Quoted after", value: "Your free pre-audit" },
             { label: "Surprises", value: "None, agreed in writing" },
           ],
-          note: "Includes 5-minute replies, consult booking, reminders, no-show rescue, treatment-plan follow-up, recall messages and a monthly report.",
+          note: "Includes 60-second replies, consult booking, reminders, no-show rescue, treatment-plan follow-up, recall messages and a monthly report.",
           featured: true,
         },
       ],
@@ -492,7 +492,7 @@ export const NICHES: Niche[] = [
       title: "Measured against your own diary.",
       accent: "Or you get your money back.",
       columns: [
-        { n: "01", label: "The 5-minute standard", text: "95% of enquiries on WhatsApp, Instagram, web forms and missed calls get a first reply within 5 minutes, day or night. Any month that misses it is free." },
+        { n: "01", label: "The 60-second standard", text: "99% of enquiries on WhatsApp, Instagram, web forms and missed calls get a first reply within 60 seconds, day or night. Any month that misses it is credited." },
         { n: "02", label: "15 more booked consults in 60 days", text: "If you do not have 15 more booked consults than your audited baseline by day 60, we work free until you do. Or you cancel and get both monthly fees back. The setup fee covers the build and is not refunded." },
         { n: "03", label: "Agreed before you sign", text: "Both are measured against the baseline from your 7-day audit, signed by both sides." },
       ],
@@ -534,20 +534,20 @@ export const NICHES: Niche[] = [
     bookSlug: "estate-agents",
     name: "Independent Estate Agencies",
     shortName: "Estate agents",
-    offerName: "Portal Lead 5-Minute Response",
+    offerName: "Portal Lead 60-Second Response",
     icon: "estate",
     meta: {
       title: "Portal Lead Response for Estate Agencies | Verdance Systems AI",
       description:
-        "Every portal, website and WhatsApp lead gets a reply and qualifying questions within 5 minutes, day or night, and the viewing goes into the agent's calendar. Done for you.",
+        "Every portal, website and WhatsApp lead gets a reply and qualifying questions within 60 seconds, day or night, and the viewing goes into the agent's calendar. Done for you.",
       ogTitle: "The buyer enquired at 21:14. Who replied first?",
     },
-    card: { line: "Every portal lead answered in 5 minutes, and the viewing in the agent's diary." },
+    card: { line: "Every portal lead answered in 60 seconds, and the viewing in the agent's diary." },
     hero: {
       eyebrow: "Independent estate agencies · South Africa",
       lines: ["A buyer enquires on three listings at 21:14."],
       accent: "The first agent to reply gets the viewing.",
-      lead: "We set up a system that replies to every portal, website and WhatsApp lead within 5 minutes, day or night. It asks the qualifying questions your agents would ask, and puts the viewing straight into the right agent's calendar.",
+      lead: "We set up a system that replies to every portal, website and WhatsApp lead within 60 seconds, day or night. It asks the qualifying questions your agents would ask, and puts the viewing straight into the right agent's calendar.",
     },
     thread: {
       channel: "Portal lead · 3-bed listing",
@@ -556,7 +556,7 @@ export const NICHES: Niche[] = [
       outcome: { time: "21:19", text: "Viewing booked: Sat 11:30 with agent" },
     },
     deltas: [
-      { label: "Reply to an evening portal lead", before: "next morning", after: "within 5 minutes" },
+      { label: "Reply to an evening portal lead", before: "next morning", after: "within 60 seconds" },
       { label: "Qualifying the buyer", before: "on the first phone call", after: "before the viewing" },
       { label: "Getting the viewing in the diary", before: "a few messages back and forth", after: "in the first conversation" },
       { label: "Old buyer leads", before: "never contacted again", after: "asked if they are still looking" },
@@ -572,11 +572,11 @@ export const NICHES: Niche[] = [
       },
       {
         title: "It replies, qualifies and books",
-        body: "Every lead gets a reply and qualifying questions within 5 minutes. Viewings go into the right agent's calendar with reminders. Agents get a short summary before they arrive.",
+        body: "Every lead gets a reply and qualifying questions within 60 seconds. Viewings go into the right agent's calendar with reminders. Agents get a short summary before they arrive.",
       },
     ],
     included: [
-      { title: "5-minute replies, day or night", body: "Portal leads, website forms and WhatsApp." },
+      { title: "60-second replies, day or night", body: "Portal leads, website forms and WhatsApp." },
       { title: "Qualifying questions", body: "Finance, timing and whether they need to sell first, asked politely before the viewing." },
       { title: "Viewings in the agent's calendar", body: "Booked straight into the right agent's diary, with reminders for the buyer." },
       { title: "Agent summary", body: "Each agent gets the buyer's answers before the viewing." },
@@ -611,14 +611,14 @@ export const NICHES: Niche[] = [
       intro: "We build it, connect it and run it. Your agents keep doing viewings.",
       cards: [
         {
-          name: "Portal Lead 5-Minute Response",
+          name: "Portal Lead 60-Second Response",
           tag: "Per branch",
           lines: [
             { label: "Investment", value: "Fixed quote" },
             { label: "Quoted after", value: "Your free pre-audit" },
             { label: "Surprises", value: "None, agreed in writing" },
           ],
-          note: "Includes 5-minute replies, qualifying questions, calendar booking, agent summaries, the seller valuation flow and old buyer revival.",
+          note: "Includes 60-second replies, qualifying questions, calendar booking, agent summaries, the seller valuation flow and old buyer revival.",
           featured: true,
         },
       ],
@@ -628,7 +628,7 @@ export const NICHES: Niche[] = [
       title: "Measured against your own leads.",
       accent: "Or you get your money back.",
       columns: [
-        { n: "01", label: "The 5-minute standard", text: "95% of portal, website and WhatsApp leads get a first reply within 5 minutes, day or night. Any month that misses it is free." },
+        { n: "01", label: "The 60-second standard", text: "99% of portal, website and WhatsApp leads get a first reply within 60 seconds, day or night. Any month that misses it is credited." },
         { n: "02", label: "Viewings up 20% by day 60", text: "If booked viewings are not 20% above your audited baseline at day 60, we work free until they are. Or you cancel and get both monthly fees back. The setup fee covers the build and is not refunded." },
         { n: "03", label: "Agreed before you sign", text: "Both are measured against the baseline from your 7-day audit, signed by both sides." },
       ],
@@ -664,12 +664,12 @@ export const NICHES: Niche[] = [
     bookSlug: "trades",
     name: "Trades and Home Services",
     shortName: "Trades",
-    offerName: "Trades 5-Minute Enquiry Engine",
+    offerName: "Trades 60-Second Enquiry Engine",
     icon: "trades",
     meta: {
       title: "Missed-Call Text-Back and Quote Follow-Up for Trades | Verdance Systems AI",
       description:
-        "For landscapers, plumbers, electricians and home service businesses. Every call and enquiry gets a reply within 5 minutes, quotes are followed up, and jobs are booked. South Africa.",
+        "For landscapers, plumbers, electricians and home service businesses. Every call and enquiry gets a reply within 60 seconds, quotes are followed up, and jobs are booked. South Africa.",
       ogTitle: "You were on a job when they called.",
     },
     card: { line: "Missed calls texted back, quotes followed up, jobs booked." },
@@ -677,7 +677,7 @@ export const NICHES: Niche[] = [
       eyebrow: "Landscaping, plumbing, electrical and home services · South Africa",
       lines: ["You were on a job when they called."],
       accent: "By lunch, they had booked someone else.",
-      lead: "We set up a system that texts back every missed call and replies to every enquiry within 5 minutes, day or night. It gets the details, follows up every quote you send, and books the job into your diary. You keep your hands on the work.",
+      lead: "We set up a system that texts back every missed call and replies to every enquiry within 60 seconds, day or night. It gets the details, follows up every quote you send, and books the job into your diary. You keep your hands on the work.",
     },
     thread: {
       channel: "Missed call · text-back",
@@ -686,8 +686,8 @@ export const NICHES: Niche[] = [
       outcome: { time: "10:31", text: "Site visit booked: Wed 08:00" },
     },
     deltas: [
-      { label: "A call you miss on a job", before: "voicemail", after: "texted back within 5 minutes" },
-      { label: "Website and WhatsApp enquiries", before: "answered tonight, maybe", after: "within 5 minutes" },
+      { label: "A call you miss on a job", before: "voicemail", after: "texted back within 60 seconds" },
+      { label: "Website and WhatsApp enquiries", before: "answered tonight, maybe", after: "within 60 seconds" },
       { label: "Quotes you send", before: "followed up once, if at all", after: "followed up on schedule" },
       { label: "Google reviews", before: "when someone remembers", after: "asked after every job" },
     ],
@@ -702,12 +702,12 @@ export const NICHES: Niche[] = [
       },
       {
         title: "It replies, chases and books",
-        body: "Missed calls get a text within 5 minutes. Enquiries get the details taken. Quotes are followed up until the customer says yes or no. Jobs land in your diary, and review requests go out when the work is done.",
+        body: "Missed calls get a text within 60 seconds. Enquiries get the details taken. Quotes are followed up until the customer says yes or no. Jobs land in your diary, and review requests go out when the work is done.",
       },
     ],
     included: [
-      { title: "Missed-call text-back", body: "Every missed call gets a text within 5 minutes, so the customer does not ring the next name." },
-      { title: "5-minute replies on every channel", body: "Website, WhatsApp and Facebook messages, day or night." },
+      { title: "Missed-call text-back", body: "Every missed call gets a text within 60 seconds, so the customer does not ring the next name." },
+      { title: "60-second replies on every channel", body: "Website, WhatsApp and Facebook messages, day or night." },
       { title: "Details taken for you", body: "Address, photos, what needs doing and how urgent it is, before you call back." },
       { title: "Quote follow-up", body: "Every quote is followed up on a schedule until the customer replies. It stops the moment they do." },
       { title: "Jobs in the diary", body: "Site visits and jobs booked into your calendar with reminders for the customer." },
@@ -740,14 +740,14 @@ export const NICHES: Niche[] = [
       intro: "Trades vary a lot, from a one-van business to a team with several crews. We quote a fixed setup and monthly fee after the pre-audit, in writing, before any work starts.",
       cards: [
         {
-          name: "Trades 5-Minute Enquiry Engine",
+          name: "Trades 60-Second Enquiry Engine",
           tag: "After one call",
           lines: [
             { label: "Investment", value: "Fixed quote" },
             { label: "Quoted after", value: "Your free pre-audit" },
             { label: "Surprises", value: "None, agreed in writing" },
           ],
-          note: "Includes missed-call text-back, 5-minute replies, quote follow-up, diary booking and review requests.",
+          note: "Includes missed-call text-back, 60-second replies, quote follow-up, diary booking and review requests.",
           featured: true,
         },
       ],

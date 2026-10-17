@@ -71,7 +71,7 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
         }
         intro="Where enquiries slip today, and what happens instead once the system is live."
         deltas={niche.deltas}
-        footnote="Every enquiry gets a reply within 5 minutes, day or night. The rest is measured against your own baseline."
+        footnote="Every enquiry gets a reply within 60 seconds, day or night. The rest is measured against your own baseline."
       />
 
       <NicheSteps niche={niche} />

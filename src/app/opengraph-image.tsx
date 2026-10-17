@@ -49,7 +49,7 @@ export default async function OpengraphImage() {
           </span>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 24, color: "#8F8B84" }}>
-          <span>Every enquiry answered within 5 minutes, day or night.</span>
+          <span>Every enquiry answered within 60 seconds, day or night.</span>
           <span>South Africa</span>
         </div>
       </div>

@@ -40,7 +40,7 @@ export function AuditReport() {
         </ul>
         <div className="mt-6 rounded-2xl p-4" style={{ background: "rgba(var(--accent-rgb),0.08)", border: "1px solid rgba(var(--accent-rgb),0.25)" }}>
           <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-[color:var(--color-accent)]">Fix first</p>
-          <p className="mt-1.5 text-[0.95rem] text-[color:var(--color-ink)]">Reply to website forms within 5 minutes, day or night.</p>
+          <p className="mt-1.5 text-[0.95rem] text-[color:var(--color-ink)]">Reply to website forms within 60 seconds, day or night.</p>
         </div>
       </div>
     </div>

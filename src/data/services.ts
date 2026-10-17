@@ -8,7 +8,7 @@
  *   - no jargon, no acronyms unless explained, no dashes as punctuation,
  *     no hype, no emojis, British English
  *   - no prices, no client names, no invented numbers. The only numbers
- *     are our own commitments (reply within 5 minutes)
+ *     are our own commitments (reply within 60 seconds)
  */
 
 export type ServicePart = {
@@ -98,7 +98,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     name: "Instant Message Replies",
     headline: "Every message answered,",
     italicWord: "day or night.",
-    promise: "WhatsApp, website chat, Instagram, Facebook and SMS answered within 5 minutes, usually in seconds.",
+    promise: "WhatsApp, website chat, Instagram, Facebook and SMS answered within 60 seconds, usually in seconds.",
     description:
       "When a customer messages you at 21:00, they get a helpful reply straight away instead of waiting until morning. It answers the usual questions in your words, checks what they need and books them in. Anything unusual goes to you or your team.",
     whatYouGet: [
@@ -137,11 +137,11 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       },
     ],
     whyItMatters: "People usually book with the first business that replies. A slow reply often means a lost customer, not a late one.",
-    outcome: "Every message answered within 5 minutes, at any hour, and more of them booked.",
+    outcome: "Every message answered within 60 seconds, at any hour, and more of them booked.",
     relatedSlugs: ["voice-ai", "booking-calendar", "follow-up-nurture"],
     seoTitle: "WhatsApp Auto Reply for Business in South Africa",
     seoDescription:
-      "Automatic WhatsApp, website chat, Instagram and SMS replies for South African businesses. Every message answered within 5 minutes, day or night, and booked into your diary.",
+      "Automatic WhatsApp, website chat, Instagram and SMS replies for South African businesses. Every message answered within 60 seconds, day or night, and booked into your diary.",
   },
   {
     slug: "voice-ai",
@@ -626,7 +626,7 @@ export const SERVICE_PILLARS: ServicePillar[] = [
     index: "02",
     slug: "sales",
     title: "Answering and Booking",
-    promise: "Every call and message answered within 5 minutes, at any hour, and booked in.",
+    promise: "Every call and message answered within 60 seconds, at any hour, and booked in.",
     slugs: ["conversation-ai", "voice-ai", "booking-calendar", "follow-up-nurture"],
   },
   {

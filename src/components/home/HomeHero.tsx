@@ -79,7 +79,7 @@ export function HomeHero() {
               className="enter-fade-up mt-8 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[0.72rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]"
               style={{ animationDelay: "0.26s" }}
             >
-              <li>Replies within 5 minutes</li>
+              <li>Replies within 60 seconds</li>
               <li>Day or night</li>
               <li>You own it</li>
             </ul>

@@ -40,7 +40,7 @@ export function NicheGrid({
           </div>
           <p className="max-w-sm text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">
             {intro ??
-              "Five offers, each built around how one kind of business gets its enquiries. Every one replies within 5 minutes, day or night."}
+              "Five offers, each built around how one kind of business gets its enquiries. Every one replies within 60 seconds, day or night."}
           </p>
         </Reveal>
 
