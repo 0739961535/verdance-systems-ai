@@ -1,6 +1,6 @@
-import { ArrowUpRight, Check, Gift, ShieldCheck } from "lucide-react";
+import { Check, Gift, ShieldCheck } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
-import { PROOF, bookUrl, type Niche } from "@/data/niches";
+import { PROOF, type Niche } from "@/data/niches";
 
 
 /* ------------------------------------------------------------------ */
@@ -94,81 +94,6 @@ export function NicheIncluded({ niche }: { niche: Niche }) {
             </aside>
           </Reveal>
         </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Pricing: "from" figures only where they exist.                     */
-/* ------------------------------------------------------------------ */
-export function NichePricing({ niche }: { niche: Niche }) {
-  const { pricing } = niche;
-  const href = bookUrl(niche.bookSlug);
-  return (
-    <section className="section-pad bg-canvas" aria-labelledby="pricing-title" id="pricing" style={{ scrollMarginTop: "5rem" }}>
-      <div className="container-narrow">
-        <Reveal>
-          <p className="eyebrow">{pricing.eyebrow}</p>
-          <h2 id="pricing-title" className="h2 mt-5 max-w-[20ch]">
-            {pricing.title}
-          </h2>
-          <p className="mt-5 max-w-xl text-[color:var(--color-ink-soft)]" style={{ lineHeight: 1.6 }}>{pricing.intro}</p>
-        </Reveal>
-
-        <div className={`mt-12 grid gap-5 ${pricing.cards.length > 1 ? "md:grid-cols-2" : "max-w-2xl"}`}>
-          {pricing.cards.map((c, i) => (
-            <Reveal key={c.name} delay={i * 0.06} className="h-full">
-              <div className={`card-x flex h-full flex-col px-6 py-8 md:px-8 md:py-9 ${c.featured ? "is-accent" : ""}`}>
-                <div className="flex items-center justify-between gap-3">
-                  <h3 className="font-display font-medium text-[color:var(--color-ink)]" style={{ fontSize: "1.25rem", lineHeight: 1.2 }}>
-                    {c.name}
-                  </h3>
-                  {c.tag && (
-                    <span
-                      className="shrink-0 rounded-full px-3 py-1 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-[color:var(--color-accent)]"
-                      style={{ border: "1px solid rgba(var(--accent-rgb),0.4)" }}
-                    >
-                      {c.tag}
-                    </span>
-                  )}
-                </div>
-
-                <dl className="mt-6">
-                  {c.lines.map((l, j) => (
-                    <div
-                      key={l.label}
-                      className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-3"
-                      style={{ borderTop: j === 0 ? "1px solid var(--hairline)" : undefined, borderBottom: "1px solid var(--hairline)" }}
-                    >
-                      <dt className="text-[0.92rem] text-[color:var(--color-ink-soft)]">{l.label}</dt>
-                      <dd
-                        className="font-mono text-[color:var(--color-ink)]"
-                        style={{ fontSize: l.value.length > 14 ? "0.95rem" : "clamp(1.15rem, 1vw + 0.9rem, 1.5rem)", fontVariantNumeric: "tabular-nums" }}
-                      >
-                        {l.value}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-
-                <p className="mt-5 flex-1 text-[0.9rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{c.note}</p>
-
-                <a href={href} className={`btn ${c.featured ? "btn-accent" : "btn-ghost"} mt-7 min-h-12 justify-center`}>
-                  Get your free Operations Map
-                  <ArrowUpRight size={15} aria-hidden />
-                </a>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal delay={0.1}>
-          <p className="mt-6 font-mono text-[0.75rem] tracking-[0.06em] text-[color:var(--color-ink-muted)]">{pricing.footnote}</p>
-          {niche.urgency && (
-            <p className="mt-3 max-w-xl text-[0.92rem] text-[color:var(--color-ink-soft)]">{niche.urgency}</p>
-          )}
-        </Reveal>
       </div>
     </section>
   );

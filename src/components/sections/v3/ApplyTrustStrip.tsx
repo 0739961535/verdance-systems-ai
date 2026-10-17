@@ -6,22 +6,22 @@ import { FAQAccordion } from "@/components/primitives/FAQAccordion";
 const BADGES = [
   "POPIA-compliant",
   "Data stays in your CRM",
-  "No spam - us only",
-  "Free build before you pay",
+  "No spam, only us",
+  "Free Operations Map first",
 ];
 
 const FAQS = [
   {
     q: "What happens after I apply?",
-    a: "We review every application personally - usually within 4 hours. Once you pick a time on the booking widget, you'll get a confirmation in your inbox and on WhatsApp. On the call we walk you through exactly what we'd build on your business - no slides, no pitch deck, just the working system.",
+    a: "We review every application personally, usually within 4 hours. Once you pick a time on the booking widget, you'll get a confirmation in your inbox and on WhatsApp. On the call we look at how your enquiries, follow-ups and admin really run, and show you what we would build. No slides and no pitch deck.",
   },
   {
     q: "Is there a cost?",
-    a: "No. The walkthrough is free, and so is the demo we build on your business. You only pay once it's live, integrated, and booking customers for you. If you decide it's not for you, we shake hands and part ways - no contracts.",
+    a: "The walkthrough and the Operations Map are free, and the map is yours to keep. If you want us to build, you get a fixed quote in writing, and two guarantees: every month that misses 99% of enquiries answered within 60 seconds is credited, and you can leave at day 90 if it has not paid for itself.",
   },
   {
     q: "How long is the call?",
-    a: "About 30 minutes. We spend the first 10 understanding how leads currently land with you, then 20 minutes showing you the system tailored to your business - phone, website, follow-up, calendar - all wired together.",
+    a: "About 30 minutes. We spend the first 10 understanding how leads currently land with you, then 20 minutes showing you the system for your business: phone, website, follow-up and calendar, working together.",
   },
 ];
 

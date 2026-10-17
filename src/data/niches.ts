@@ -41,14 +41,6 @@ export interface NicheCalculator {
   assumptions: string[];
 }
 
-export interface PriceCard {
-  name: string;
-  tag?: string;
-  lines: { label: string; value: string }[];
-  note: string;
-  featured?: boolean;
-}
-
 export interface Niche {
   slug: string;
   bookSlug: string;
@@ -75,20 +67,6 @@ export interface Niche {
   included: { title: string; body: string }[];
   bonuses: string[];
   calculator: NicheCalculator;
-  pricing: {
-    eyebrow: string;
-    title: string;
-    intro: string;
-    cards: PriceCard[];
-    footnote: string;
-  };
-  guarantee: {
-    title: string;
-    accent: string;
-    columns: { n: string; label: string; text: string }[];
-    note: string;
-  };
-  urgency?: string;
   faqs: { q: string; a: string }[];
   cta: { title: string; accent: string; body: string };
   compliance?: string;
@@ -100,12 +78,12 @@ export const PROOF = PROOF_LINE;
 
 const PRE_AUDIT_FAQ = {
   q: "What happens on the Operations Map call?",
-  a: "Thirty minutes on a video call with Daniel. We look at where your enquiries come from, how fast they are answered today, and what that is likely costing you. If it is a fit, we agree a 7-day audit that sets the baseline the guarantee is measured against. If it is not a fit, we say so.",
+  a: "Thirty minutes on a video call with Daniel. We look at where your enquiries come from, how fast they are answered today, and what that is likely costing you. If it is a fit, we agree a 7-day audit that sets the baseline both guarantees are measured against. If it is not a fit, we say so.",
 };
 
 const BASELINE_FAQ = {
   q: "How is the baseline measured?",
-  a: "Before you sign, we run a 7-day audit. We send test enquiries through each channel and time the replies, and we count your enquiries and bookings from the last 60 days using your own inbox and diary. Both sides sign the baseline, so the guarantee is measured against numbers you agreed to.",
+  a: "Before you sign, we run a 7-day audit. We send test enquiries through each channel and time the replies, and we count your enquiries and bookings from the last 60 days using your own inbox and diary. Both sides sign the baseline, so the 60-Second Guarantee and the Break-Even Exit are measured against numbers you agreed to.",
 };
 
 const OWNERSHIP_FAQ = {
@@ -120,12 +98,12 @@ export const NICHES: Niche[] = [
     bookSlug: "venues",
     name: "Wedding and Event Venues",
     shortName: "Venues",
-    offerName: "Venue Viewing Pilot",
+    offerName: "Revenue Team for venues",
     icon: "venue",
     meta: {
-      title: "Wedding Venue Enquiry Replies in 5 Minutes | Verdance Systems AI",
+      title: "Wedding Venue Enquiry Replies in 60 Seconds | Verdance Systems AI",
       description:
-        "Every venue enquiry answered within 60 seconds, day or night, and viewings booked into your diary. Start with a 30-day pilot. Refunded if no viewings are attended.",
+        "Every venue enquiry answered within 60 seconds, day or night, and viewings booked into your diary. Start with a free Operations Map.",
       ogTitle: "The first venue to reply gets the viewing.",
     },
     card: { line: "Every enquiry answered in 60 seconds. Viewings booked into your diary." },
@@ -172,7 +150,7 @@ export const NICHES: Niche[] = [
     bonuses: [
       "Your audit report, yours to keep either way",
       "A message to past enquiries from the last 24 months, to fill open 2027 dates",
-      "A Google review request after each event (on the Engine)",
+      "A Google review request after each event",
     ],
     calculator: {
       title: "What slow replies cost your venue",
@@ -192,59 +170,11 @@ export const NICHES: Niche[] = [
         "Your Operations Map replaces these guesses with your real numbers from the last 60 days.",
       ],
     },
-    pricing: {
-      eyebrow: "Investment",
-      title: "Start small.",
-      intro: "Most venues start with the 30-day pilot. If it works, you move onto the Engine and the pilot setup fee is credited.",
-      cards: [
-        {
-          name: "Venue Viewing Pilot",
-          tag: "30 days",
-          lines: [
-            { label: "Investment", value: "Fixed quote" },
-            { label: "Quoted after", value: "Your Free Operations Map" },
-            { label: "Surprises", value: "None, agreed in writing" },
-          ],
-          note: "You pay per viewing the system books that the couple actually attends. The pilot fee is credited against the Engine setup if you continue.",
-          featured: true,
-        },
-        {
-          name: "Venue 60-Second Enquiry Engine",
-          tag: "Ongoing",
-          lines: [
-            { label: "Investment", value: "Fixed quote" },
-            { label: "Quoted after", value: "Your Free Operations Map" },
-            { label: "Surprises", value: "None, agreed in writing" },
-          ],
-          note: "50% deposit on setup. The monthly fee starts at go-live. Includes the past-enquiry message, no-show rescue, review requests and the monthly report.",
-        },
-      ],
-      footnote: "For venues with at least 10 enquiries a month. Every system is scoped to your business, so we quote after the free Operations Map. The quote is fixed and in writing.",
-    },
-    guarantee: {
-      title: "Measured against your own numbers.",
-      accent: "Or you get your money back.",
-      columns: [
-        { n: "01", label: "Pilot: viewings or a refund", text: "If the system books no attended viewings in the 30 days, your setup fee is refunded." },
-        { n: "02", label: "Engine: the 60-second standard", text: "99% of enquiries on web, email, WhatsApp and Instagram get a first reply within 60 seconds, day or night. Any month that misses it is credited." },
-        { n: "03", label: "Engine: viewings up 25% by day 60", text: "If booked viewings are not 25% above your audited baseline at day 60, we work free until they are. Or you cancel and get both monthly fees back. The setup fee covers the build and is not refunded." },
-      ],
-      note: "Both guarantees are measured against the baseline from your 7-day audit, signed by both sides, and apply to venues with at least 10 enquiries a month.",
-    },
-    urgency: "We run three pilots at a time, because each one is built and watched by hand.",
     faqs: [
       PRE_AUDIT_FAQ,
       {
         q: "Will couples know they are talking to a system?",
         a: "Replies are written in your venue's voice and sound like a person, but we never pretend it is one if a couple asks. Anything that needs judgement, like a custom quote, goes straight to your team.",
-      },
-      {
-        q: "What counts as an attended viewing on the pilot?",
-        a: "A viewing the system booked, where the couple arrived at the venue at the booked time or a time it rescheduled to. Viewings your team booked by hand do not count.",
-      },
-      {
-        q: "What happens at day 30?",
-        a: "You choose. Move onto the Engine with the pilot fee already credited against the setup, or walk away. If no attended viewings were booked, your setup fee is refunded.",
       },
       BASELINE_FAQ,
       {
@@ -256,7 +186,7 @@ export const NICHES: Niche[] = [
     cta: {
       title: "Find out how fast your venue",
       accent: "really replies.",
-      body: "Book your free Operations Map. Thirty minutes, no cost. You leave knowing your reply times, what they are costing you, and whether a pilot makes sense.",
+      body: "Book your free Operations Map. Thirty minutes, no cost. You leave knowing your reply times, what they are costing you, and whether it would pay back.",
     },
   },
 
@@ -266,7 +196,7 @@ export const NICHES: Niche[] = [
     bookSlug: "lodges",
     name: "Boutique Lodges and Venue Groups",
     shortName: "Lodges",
-    offerName: "Lodge and Venue Group Revenue System",
+    offerName: "Revenue Team for lodges and venue groups",
     icon: "lodge",
     meta: {
       title: "Enquiry System for Boutique Lodges and Venue Groups | Verdance Systems AI",
@@ -337,36 +267,6 @@ export const NICHES: Niche[] = [
         "Your Operations Map replaces these guesses with real numbers per department.",
       ],
     },
-    pricing: {
-      eyebrow: "Investment",
-      title: "One system, three revenue lines.",
-      intro: "Built for properties with weddings, rooms and conferences, or groups with two or more venues.",
-      cards: [
-        {
-          name: "Lodge and Venue Group Revenue System",
-          tag: "Premium",
-          lines: [
-            { label: "Investment", value: "Fixed quote" },
-            { label: "Quoted after", value: "Your Free Operations Map" },
-            { label: "Surprises", value: "None, agreed in writing" },
-          ],
-          note: "Includes every department and channel, the 24-month revival campaign, quarterly revivals, review requests and a monthly review with Daniel.",
-          featured: true,
-        },
-      ],
-      footnote: "Every system is scoped to your venues and departments, so we quote after the free Operations Map. The quote is fixed and in writing.",
-    },
-    guarantee: {
-      title: "Two promises.",
-      accent: "Both in writing.",
-      columns: [
-        { n: "01", label: "The 60-second standard", text: "99% of enquiries across every department and channel get a first reply within 60 seconds, day or night. Any month that misses it is credited." },
-        { n: "02", label: "8 site visits in 45 days", text: "The revival campaign books at least 8 site visits or viewings from your last 24 months of unbooked enquiries within 45 days. If it does not, month 2 is free and we run the campaign again." },
-        { n: "03", label: "Agreed before you sign", text: "Both are measured against the baseline from your 7-day audit, signed by both sides." },
-      ],
-      note: "Applies to properties with at least 10 enquiries a month.",
-    },
-    urgency: "We build one premium system at a time. The build takes about two weeks.",
     faqs: [
       PRE_AUDIT_FAQ,
       {
@@ -397,7 +297,7 @@ export const NICHES: Niche[] = [
     bookSlug: "clinics",
     name: "Private Clinics: Dental Implant and Aesthetics",
     shortName: "Clinics",
-    offerName: "Consult Recovery System",
+    offerName: "Revenue Team for private clinics",
     icon: "clinic",
     meta: {
       title: "Consult Enquiry Replies for Dental and Aesthetics Clinics | Verdance Systems AI",
@@ -469,35 +369,6 @@ export const NICHES: Niche[] = [
         "Your Operations Map replaces these guesses with your own numbers from the last 60 days.",
       ],
     },
-    pricing: {
-      eyebrow: "Investment",
-      title: "Clear, from day one.",
-      intro: "One system for every channel your patients use to reach the practice.",
-      cards: [
-        {
-          name: "Consult Recovery System",
-          tag: "Ongoing",
-          lines: [
-            { label: "Investment", value: "Fixed quote" },
-            { label: "Quoted after", value: "Your Free Operations Map" },
-            { label: "Surprises", value: "None, agreed in writing" },
-          ],
-          note: "Includes 60-second replies, consult booking, reminders, no-show rescue, treatment-plan follow-up, recall messages and a monthly report.",
-          featured: true,
-        },
-      ],
-      footnote: "For practices with at least 10 enquiries a month. Every system is scoped to your business, so we quote after the free Operations Map. The quote is fixed and in writing.",
-    },
-    guarantee: {
-      title: "Measured against your own diary.",
-      accent: "Or you get your money back.",
-      columns: [
-        { n: "01", label: "The 60-second standard", text: "99% of enquiries on WhatsApp, Instagram, web forms and missed calls get a first reply within 60 seconds, day or night. Any month that misses it is credited." },
-        { n: "02", label: "15 more booked consults in 60 days", text: "If you do not have 15 more booked consults than your audited baseline by day 60, we work free until you do. Or you cancel and get both monthly fees back. The setup fee covers the build and is not refunded." },
-        { n: "03", label: "Agreed before you sign", text: "Both are measured against the baseline from your 7-day audit, signed by both sides." },
-      ],
-      note: "Applies to practices with at least 10 enquiries a month. The guarantee covers booked consults, not treatment decisions or clinical outcomes.",
-    },
     faqs: [
       PRE_AUDIT_FAQ,
       {
@@ -534,7 +405,7 @@ export const NICHES: Niche[] = [
     bookSlug: "estate-agents",
     name: "Independent Estate Agencies",
     shortName: "Estate agents",
-    offerName: "Portal Lead 60-Second Response",
+    offerName: "Revenue Team for estate agencies",
     icon: "estate",
     meta: {
       title: "Portal Lead Response for Estate Agencies | Verdance Systems AI",
@@ -605,40 +476,11 @@ export const NICHES: Niche[] = [
         "Your Operations Map replaces these guesses with your own numbers.",
       ],
     },
-    pricing: {
-      eyebrow: "Investment",
-      title: "Per branch. Done for you.",
-      intro: "We build it, connect it and run it. Your agents keep doing viewings.",
-      cards: [
-        {
-          name: "Portal Lead 60-Second Response",
-          tag: "Per branch",
-          lines: [
-            { label: "Investment", value: "Fixed quote" },
-            { label: "Quoted after", value: "Your Free Operations Map" },
-            { label: "Surprises", value: "None, agreed in writing" },
-          ],
-          note: "Includes 60-second replies, qualifying questions, calendar booking, agent summaries, the seller valuation flow and old buyer revival.",
-          featured: true,
-        },
-      ],
-      footnote: "For branches with at least 10 leads a month. Every system is scoped to your business, so we quote after the free Operations Map. The quote is fixed and in writing.",
-    },
-    guarantee: {
-      title: "Measured against your own leads.",
-      accent: "Or you get your money back.",
-      columns: [
-        { n: "01", label: "The 60-second standard", text: "99% of portal, website and WhatsApp leads get a first reply within 60 seconds, day or night. Any month that misses it is credited." },
-        { n: "02", label: "Viewings up 20% by day 60", text: "If booked viewings are not 20% above your audited baseline at day 60, we work free until they are. Or you cancel and get both monthly fees back. The setup fee covers the build and is not refunded." },
-        { n: "03", label: "Agreed before you sign", text: "Both are measured against the baseline from your 7-day audit, signed by both sides." },
-      ],
-      note: "Applies per branch, for branches with at least 10 leads a month.",
-    },
     faqs: [
       PRE_AUDIT_FAQ,
       {
         q: "We already have a chatbot. What is different?",
-        a: "Most chatbots reply. This replies, asks the questions your agents need answered, and puts the viewing in the right agent's calendar. We build it and run it for you, and it comes with a guarantee measured against your own numbers.",
+        a: "Most chatbots reply. This replies, asks the questions your agents need answered, and puts the viewing in the right agent's calendar. We build it and run it for you, and it comes with two guarantees measured against your own numbers.",
       },
       {
         q: "Which portals does it work with?",
@@ -664,7 +506,7 @@ export const NICHES: Niche[] = [
     bookSlug: "trades",
     name: "Trades and Home Services",
     shortName: "Trades",
-    offerName: "Trades 60-Second Enquiry Engine",
+    offerName: "Revenue Team for trades",
     icon: "trades",
     meta: {
       title: "Missed-Call Text-Back and Quote Follow-Up for Trades | Verdance Systems AI",
@@ -733,35 +575,6 @@ export const NICHES: Niche[] = [
         "It does not count quotes that go cold after you send them, which the follow-up also covers.",
         "Your Operations Map replaces these guesses with your real numbers.",
       ],
-    },
-    pricing: {
-      eyebrow: "Investment",
-      title: "A fixed price, after one call.",
-      intro: "Trades vary a lot, from a one-van business to a team with several crews. We quote a fixed setup and monthly fee after the Operations Map, in writing, before any work starts.",
-      cards: [
-        {
-          name: "Trades 60-Second Enquiry Engine",
-          tag: "After one call",
-          lines: [
-            { label: "Investment", value: "Fixed quote" },
-            { label: "Quoted after", value: "Your Free Operations Map" },
-            { label: "Surprises", value: "None, agreed in writing" },
-          ],
-          note: "Includes missed-call text-back, 60-second replies, quote follow-up, diary booking and review requests.",
-          featured: true,
-        },
-      ],
-      footnote: "The price on the quote is the price you pay.",
-    },
-    guarantee: {
-      title: "Fixed price. Fixed launch date.",
-      accent: "Full ownership.",
-      columns: [
-        { n: "01", label: "Fixed quote", text: "The price is agreed in writing before any work begins, and it does not change." },
-        { n: "02", label: "Fixed launch date", text: "Your go-live date is part of the agreement, with visible progress every week." },
-        { n: "03", label: "Full ownership", text: "The number, the accounts and the customer records are set up in your name from day one." },
-      ],
-      note: "These three terms are written into every agreement we sign.",
     },
     faqs: [
       PRE_AUDIT_FAQ,

@@ -7,7 +7,8 @@ import { bookUrl, type Niche } from "@/data/niches";
 import { NicheHero } from "./NicheHero";
 import { NicheLeak } from "./NicheLeak";
 import { NicheCalculator } from "./NicheCalculator";
-import { NicheIncluded, NichePricing, NicheProof, NicheSteps } from "./NicheSections";
+import { NicheIncluded, NicheProof, NicheSteps } from "./NicheSections";
+import { OfferSection } from "@/components/offer/OfferSection";
 import { CTABand } from "@/components/kit/CTABand";
 
 const SITE_URL = "https://verdancesystemsai.com";
@@ -102,22 +103,8 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
         </div>
       </section>
 
-      <NichePricing niche={niche} />
-
-      <GuaranteeBlock
-        eyebrow="The guarantee"
-        title={
-          <>
-            {niche.guarantee.title}
-            <br />
-            <span className="italic-accent">{niche.guarantee.accent}</span>
-          </>
-        }
-        columns={niche.guarantee.columns}
-        note={niche.guarantee.note}
-        ctaHref={href}
-        ctaLabel="Get your free Operations Map"
-      />
+      <OfferSection href={href} />
+      <GuaranteeBlock ctaHref={href} ctaLabel="Get your free Operations Map" />
 
       <NicheProof niche={niche} />
       <FAQControl faqs={niche.faqs} />

@@ -10,7 +10,7 @@ import { GuaranteeSeal } from "./GuaranteeSeal";
  * outcome, likelihood, time and effort) and the two guarantees. No prices,
  * by rule. One CTA. See docs/design-system-v2.md section 2.
  */
-export function OfferSection({ id = "offer", seals = true }: { id?: string; seals?: boolean }) {
+export function OfferSection({ id = "offer", seals = true, href = GENERIC_BOOK_URL }: { id?: string; seals?: boolean; href?: string }) {
   return (
     <section id={id} className="section-pad bg-canvas-2" aria-labelledby={`${id}-title`} style={{ borderTop: "1px solid var(--hairline)", scrollMarginTop: "5rem" }}>
       <div className="container-narrow">
@@ -60,7 +60,7 @@ export function OfferSection({ id = "offer", seals = true }: { id?: string; seal
                 </figcaption>
               </figure>
               <div className="mt-auto pt-8">
-                <a href={GENERIC_BOOK_URL} className="btn btn-accent min-h-12 w-full justify-center sm:w-auto">
+                <a href={href} className="btn btn-accent min-h-12 w-full justify-center sm:w-auto">
                   Get your free Operations Map
                   <ArrowUpRight size={16} aria-hidden />
                 </a>

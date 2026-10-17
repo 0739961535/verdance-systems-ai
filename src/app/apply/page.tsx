@@ -6,20 +6,20 @@ import { ApplyTrustStrip } from "@/components/sections/v3/ApplyTrustStrip";
 export const metadata: Metadata = {
   alternates: { canonical: "/apply" },
   openGraph: {
-    title: "Apply for a Free Build | Verdance Systems AI",
-    description: "Watch the 6-minute walkthrough, then apply. We build the AI booking system on your business - free - before you commit.",
+    title: "Book your free Operations Map | Verdance Systems AI",
+    description: "Watch the 6-minute walkthrough, then book your free Operations Map: where your enquiries, follow-ups and admin leak time and money.",
     url: "https://verdancesystemsai.com/apply",
     type: "website",
     siteName: "Verdance Systems AI",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Apply for a Free Build | Verdance Systems AI",
-    description: "Watch the 6-minute walkthrough, then apply. We build the AI booking system on your business - free - before you commit.",
+    title: "Book your free Operations Map | Verdance Systems AI",
+    description: "Watch the 6-minute walkthrough, then book your free Operations Map: where your enquiries, follow-ups and admin leak time and money.",
   },
-  title: "Apply for a Free Build | Verdance Systems AI",
+  title: "Book your free Operations Map | Verdance Systems AI",
   description:
-    "Watch the 6-minute walkthrough, then apply. We build the AI booking system on your business - free - before you commit.",
+    "Watch the 6-minute walkthrough, then book your free Operations Map: where your enquiries, follow-ups and admin leak time and money.",
   robots: { index: true, follow: true },
 };
 
