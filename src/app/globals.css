@@ -79,6 +79,22 @@
 
   --grain-opacity: 0.05;
 
+  /* v2 (docs/design-system-v2.md): demo status roles + signal text */
+  --signal-ink:   #3DD68C;
+  --st-dept:      var(--accent);
+  --st-review:    var(--ink-soft);
+  --st-operator:  var(--signal-ink);
+  --st-attn:      #F2B04C;
+  --st-attn-rgb:  242, 176, 76;
+  --st-attn-dim:  rgba(242, 176, 76, 0.12);
+  --seal-ring:    rgba(var(--accent-rgb), 0.55);
+  --space-section: clamp(4.5rem, 3.2rem + 5.5vw, 8rem);
+  --space-head:    clamp(2rem, 1.6rem + 1.6vw, 3.5rem);
+  --space-block:   clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+  --space-cta:     clamp(2rem, 1.6rem + 1.8vw, 3rem);
+  --demo-tick:     2800ms;
+  --demo-hold:     1200ms;
+
   --shadow-card:
     0 1px 0 rgba(var(--hairline-rgb), 0.04) inset,
     0 24px 60px rgba(0, 0, 0, 0.5);
@@ -147,6 +163,10 @@
   --surface-tint-3: rgba(var(--hairline-rgb), 0.06);
 
   --grain-opacity: 0.035;
+  --signal-ink:   #0B7547;
+  --st-attn:      #9A5B00;
+  --st-attn-rgb:  154, 91, 0;
+  --st-attn-dim:  rgba(154, 91, 0, 0.08);
 
   --shadow-card:
     0 1px 0 rgba(255, 255, 255, 0.8) inset,
@@ -217,6 +237,10 @@
     --surface-tint-3: rgba(var(--hairline-rgb), 0.06);
 
     --grain-opacity: 0.035;
+    --signal-ink:   #0B7547;
+    --st-attn:      #9A5B00;
+    --st-attn-rgb:  154, 91, 0;
+  --st-attn-dim:  rgba(154, 91, 0, 0.08);
 
     --shadow-card:
       0 1px 0 rgba(255, 255, 255, 0.8) inset,
