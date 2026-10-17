@@ -2,7 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
 import { GENERIC_BOOK_URL } from "@/data/niches";
 import { LeakCalculator } from "./LeakCalculator";
-import { UnifiedInbox } from "./inbox/UnifiedInbox";
+import { LazyUnifiedInbox } from "./inbox/LazyUnifiedInbox";
 
 /**
  * The niche-neutral homepage story, told with type and one living demo
@@ -29,7 +29,7 @@ export function WhatWeDoSection() {
         </Reveal>
 
         <div className="mt-10 md:mt-14">
-          <UnifiedInbox />
+          <LazyUnifiedInbox />
         </div>
       </div>
     </section>
