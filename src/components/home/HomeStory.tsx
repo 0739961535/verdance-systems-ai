@@ -2,16 +2,15 @@ import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
 import { GENERIC_BOOK_URL } from "@/data/niches";
 import { LeakCalculator } from "./LeakCalculator";
-import { ChannelOrbit } from "./ChannelOrbit";
+import { UnifiedInbox } from "./inbox/UnifiedInbox";
 
 /**
- * The niche-neutral homepage story, told with type and one simple diagram
+ * The niche-neutral homepage story, told with type and one living demo
  * (the only phone on the homepage is in the hero).
  */
 
-
 /* ------------------------------------------------------------------ */
-/* What we do: channels -> your system -> outcomes                    */
+/* What we do: every channel into one inbox, every enquiry answered   */
 /* ------------------------------------------------------------------ */
 export function WhatWeDoSection() {
   return (
@@ -29,8 +28,8 @@ export function WhatWeDoSection() {
           </p>
         </Reveal>
 
-        <div className="mt-12 md:mt-16">
-          <ChannelOrbit />
+        <div className="mt-10 md:mt-14">
+          <UnifiedInbox />
         </div>
       </div>
     </section>
@@ -59,7 +58,7 @@ const STEPS = [
     n: "03",
     name: "Run",
     title: "It replies, books and reports. Day or night.",
-    body: "Every enquiry answered within 5 minutes. You see it all in your dashboard, and get a short monthly report in plain words and real numbers.",
+    body: "Every enquiry answered within 60 seconds. You see it all in your dashboard, and get a short monthly report in plain words and real numbers.",
     meta: "You own all of it",
   },
 ];
@@ -109,7 +108,7 @@ export function HowItWorksSection() {
             No price list. <span className="italic-accent">Fixed quote after your free pre-audit.</span>
           </p>
           <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent min-h-12 shrink-0 justify-center">
-            Book the pre-audit
+            Get your free Operations Map
             <ArrowUpRight size={16} aria-hidden />
           </a>
         </Reveal>
