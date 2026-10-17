@@ -90,7 +90,7 @@ const STEPS: Step[] = [
     kind: "radio",
     question: "How many enquiries do you get a month?",
     emphasis: "enquiries",
-    options: ["Under 50", "50–150", "150–400", "400–1,000", "1,000+"],
+    options: ["Under 50", "50 to 150", "150 to 400", "400 to 1,000", "1,000+"],
     required: true,
   },
   {
@@ -120,7 +120,7 @@ const STEPS: Step[] = [
     options: [
       "Yesterday - I'm losing money now",
       "Within the next month",
-      "Next 1–3 months",
+      "Next 1 to 3 months",
       "Just researching for now",
     ],
     required: true,
