@@ -17,6 +17,12 @@ export const OPERATIONS_MAP = {
     "The jobs your team could stop doing by hand",
     "A fixed quote, only if the numbers say it pays back",
   ],
+  /** A sample of what the map shows. Illustrative, labelled on the page. */
+  sample: [
+    { where: "WhatsApp after 17:00", today: "Answered next morning" },
+    { where: "Quotes sent", today: "Followed up once, if at all" },
+    { where: "Monday admin", today: "Half a day, by hand" },
+  ],
 };
 
 /** Hormozi value levers: dream outcome, likelihood, time, effort. No prices. */
@@ -34,7 +40,7 @@ export const REVENUE_TEAM = {
     {
       lever: "Why it works",
       statement: "Built on your own numbers from the Operations Map. We only propose it if your numbers show at least twice the monthly cost back.",
-      proof: "2x or we say no",
+      proof: "2x back",
     },
     {
       lever: "How fast",

@@ -42,6 +42,23 @@ export function OfferSection({ id = "offer", seals = true }: { id?: string; seal
                   </li>
                 ))}
               </ul>
+              <figure className="mt-7 overflow-hidden rounded-[16px]" style={{ background: "var(--bg-2)", border: "1px solid var(--hairline)" }}>
+                <div className="flex items-center justify-between px-4 py-2.5" style={{ borderBottom: "1px solid var(--hairline)" }}>
+                  <span className="font-mono text-[0.66rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">Where it leaks</span>
+                  <span className="font-mono text-[0.66rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">Today</span>
+                </div>
+                <ul>
+                  {OPERATIONS_MAP.sample.map((r) => (
+                    <li key={r.where} className="flex items-baseline justify-between gap-4 px-4 py-2.5 text-[0.88rem]" style={{ borderTop: "1px solid var(--hairline)" }}>
+                      <span className="text-[color:var(--color-ink)]">{r.where}</span>
+                      <span className="text-right text-[color:var(--color-ink-muted)]">{r.today}</span>
+                    </li>
+                  ))}
+                </ul>
+                <figcaption className="px-4 py-2 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)]" style={{ borderTop: "1px solid var(--hairline)" }}>
+                  Sample map, for illustration
+                </figcaption>
+              </figure>
               <div className="mt-auto pt-8">
                 <a href={GENERIC_BOOK_URL} className="btn btn-accent min-h-12 w-full justify-center sm:w-auto">
                   Get your free Operations Map
