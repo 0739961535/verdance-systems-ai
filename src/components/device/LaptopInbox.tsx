@@ -45,7 +45,7 @@ export function LaptopInbox({ rotation }: { rotation: RotationItem[] }) {
                   <i />
                 </span>
                 <span className="lp-title">Inbox · all channels</span>
-                <span className="lp-chip">Replies within 5 min</span>
+                <span className="lp-chip">Replies within 60 s</span>
               </div>
 
               <div className="lp-body">
