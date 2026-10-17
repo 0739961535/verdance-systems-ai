@@ -1,30 +1,25 @@
-/**
- * Department -> Reviewer -> Operator -> You. A pulse travels along the line
- * (CSS only; static under reduced motion). Vertical on phones.
- */
-const STAGES = [
-  { k: "Department", v: "A head and its workers do the work" },
-  { k: "Reviewer", v: "Checks every piece before it moves on" },
-  { k: "Operator", v: "Turns it into a short plan for you" },
-  { k: "You", v: "Approve, change or say no" },
-];
+import { STAGES } from "@/data/aiTeam";
+import { StatusChip } from "./StatusChip";
+import o from "./org.module.css";
 
+/**
+ * Department, Reviewer, Operator, You. The same four stops, in the same
+ * order and colours, as the lanes of the sample command centre above.
+ * Vertical on phones, a row on desktop. Static.
+ */
 export function FlowDiagram() {
   return (
-    <div className="flow-wrap">
-      <span aria-hidden className="flow-track" />
-      <span aria-hidden className="flow-pulse">
-        <i />
-      </span>
-    <ol className="flow-line" aria-label="How work moves: department, reviewer, operator, you">
-      {STAGES.map((s, i) => (
-        <li key={s.k} className={`flow-stage ${i === STAGES.length - 1 ? "is-you" : ""}`}>
-          <span className="font-mono text-[0.7rem] text-[color:var(--color-accent)] tabular">{String(i + 1).padStart(2, "0")}</span>
-          <span className="mt-2 block font-display text-[1.3rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.02em" }}>{s.k}</span>
-          <span className="mt-1 block text-[0.88rem] leading-snug text-[color:var(--color-ink-muted)]">{s.v}</span>
+    <ol className={o.flow} aria-label="How work moves: department, reviewer, operator, you">
+      {STAGES.map((st, i) => (
+        <li key={st.role} className={o.step} data-role={st.role}>
+          <span className={o.stepNum}>{String(i + 1).padStart(2, "0")}</span>
+          <span className={o.chipRow}>
+            <StatusChip role={st.role}>{st.role === "attn" ? "You" : st.label}</StatusChip>
+          </span>
+          <h3 className={o.stepTitle}>{st.role === "attn" ? "You decide" : st.label}</h3>
+          <p className={o.stepBody}>{st.body}</p>
         </li>
       ))}
     </ol>
-    </div>
   );
 }
