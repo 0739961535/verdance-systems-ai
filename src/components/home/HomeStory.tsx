@@ -44,7 +44,7 @@ const STEPS = [
     n: "01",
     name: "Audit",
     title: "We measure how fast you reply today.",
-    body: "A free 30-minute pre-audit. We look at where your enquiries come from, how quickly they are answered and what that is costing you.",
+    body: "A free 30-minute Operations Map. We look at where your enquiries come from, how quickly they are answered and what that is costing you.",
     meta: "Free · 30 minutes",
   },
   {
@@ -105,7 +105,7 @@ export function HowItWorksSection() {
             className="font-display text-[color:var(--color-ink)]"
             style={{ fontSize: "clamp(1.5rem, 1.6vw + 1rem, 2.4rem)", lineHeight: 1.1, letterSpacing: "-0.035em" }}
           >
-            No price list. <span className="italic-accent">Fixed quote after your free pre-audit.</span>
+            No price list. <span className="italic-accent">Fixed quote after your free Operations Map.</span>
           </p>
           <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent min-h-12 shrink-0 justify-center">
             Get your free Operations Map

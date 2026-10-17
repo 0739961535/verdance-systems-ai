@@ -103,7 +103,7 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
         </div>
       </section>
 
-      <OfferSection href={href} />
+      <OfferSection href={href} seals={false} />
       <GuaranteeBlock ctaHref={href} ctaLabel="Get your free Operations Map" />
 
       <NicheProof niche={niche} />

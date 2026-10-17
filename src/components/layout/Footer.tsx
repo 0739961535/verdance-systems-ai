@@ -49,7 +49,7 @@ const GROUPS: FooterGroup[] = [
   {
     title: "Free tools",
     links: [
-      { href: "/audit", label: "Free pre-audit" },
+      { href: "/audit", label: "Free Operations Map" },
       { href: "/missed-call-calculator", label: "Missed call calculator" },
     ],
   },
