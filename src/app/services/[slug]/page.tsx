@@ -10,6 +10,7 @@ import { ServiceConsole } from "@/components/visuals/hero/ServiceConsole";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { SERVICE_CATEGORIES, SERVICE_BY_SLUG } from "@/data/services";
+import { SITE_URL } from "@/data/site";
 
 export async function generateStaticParams() {
   return SERVICE_CATEGORIES.map((c) => ({ slug: c.slug }));
@@ -23,9 +24,9 @@ export async function generateMetadata({
   const { slug } = await params;
   const category = SERVICE_BY_SLUG[slug];
   if (!category) return {};
-  const title = `${category.seoTitle} | Verdance Systems AI`;
+  const title = `${category.seoTitle} | Verdance`;
   const description = category.seoDescription;
-  const url = `https://verdancesystemsai.com/services/${slug}`;
+  const url = `${SITE_URL}/services/${slug}`;
   return {
     title,
     description,
@@ -48,7 +49,7 @@ export default async function ServiceCategoryPage({
     .map((s) => SERVICE_BY_SLUG[s])
     .filter(Boolean);
 
-  const url = `https://verdancesystemsai.com/services/${slug}`;
+  const url = `${SITE_URL}/services/${slug}`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -58,14 +59,14 @@ export default async function ServiceCategoryPage({
         serviceType: category.name,
         description: category.promise,
         url,
-        provider: { "@type": "Organization", name: "Verdance Systems AI", url: "https://verdancesystemsai.com" },
+        provider: { "@id": `${SITE_URL}/#organization` },
         areaServed: "Worldwide",
       },
       {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://verdancesystemsai.com/" },
-          { "@type": "ListItem", position: 2, name: "Services", item: "https://verdancesystemsai.com/services" },
+          { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+          { "@type": "ListItem", position: 2, name: "Services", item: `${SITE_URL}/services` },
           { "@type": "ListItem", position: 3, name: category.name, item: url },
         ],
       },

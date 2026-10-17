@@ -39,7 +39,7 @@ export function PageHero({
   const external = (h: string) => h.startsWith("http");
   const split = visual && !wideVisual;
   return (
-    <section className="relative isolate overflow-hidden bg-canvas" aria-labelledby="page-hero-title">
+    <section className="relative isolate overflow-hidden bg-canvas" aria-labelledby="page-hero-title" data-cta-location="hero">
       <div aria-hidden className="aurora" />
       <div aria-hidden className="hero-grid" />
       <div className="container-wide relative pt-28 pb-16 sm:pt-32 md:pt-36 lg:pb-24">

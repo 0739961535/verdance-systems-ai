@@ -3,6 +3,7 @@
 import { useState, useMemo, useId } from "react";
 import { CURRENCY, formatMoney, setCurrency as setSharedCurrency, useCurrency, type CurrencyCode } from "@/lib/currency";
 import Link from "next/link";
+import { useCalculatorCompleted } from "@/lib/useCalculatorTracking";
 import { ArrowUpRight } from "lucide-react";
 
 /**
@@ -86,6 +87,7 @@ export function MissedCallCalculator() {
   const customerValue = entered?.cur === currency ? entered.v : CURRENCIES[currency].defaultValue;
   const setCustomerValue = (v: number) => setEntered({ cur: currency, v });
   const [closeRate, setCloseRate] = useState(30);
+  useCalculatorCompleted([missedPerWeek, entered, closeRate], currency);
 
   const result = useMemo(() => {
     const weekly = missedPerWeek * customerValue * (closeRate / 100);

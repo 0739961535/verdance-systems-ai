@@ -9,12 +9,13 @@ import { CTABand } from "@/components/kit/CTABand";
 import { CardFan } from "@/components/visuals/hero/CardFan";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
+import { SITE_URL } from "@/data/site";
 export const metadata: Metadata = {
   alternates: { canonical: "/industries" },
   openGraph: {
     title: "Industries | Verdance Systems AI",
     description: "Five current offers, each built around how one kind of South African business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
-    url: "https://verdancesystemsai.com/industries",
+    url: `${SITE_URL}/industries`,
     type: "website",
     siteName: "Verdance Systems AI",
   },

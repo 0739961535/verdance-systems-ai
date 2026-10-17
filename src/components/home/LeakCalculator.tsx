@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { CurrencySwitch } from "@/components/primitives/CurrencySwitch";
 import { formatMoney, CURRENCY, localAmount, useCurrency } from "@/lib/currency";
+import { useCalculatorCompleted } from "@/lib/useCalculatorTracking";
 
 /**
  * LeakCalculator - two of the visitor's own numbers, one money figure in
@@ -69,6 +70,7 @@ export function LeakCalculator() {
   const sale = entered?.cur === cur ? entered.v : String(localAmount(2500, cur));
   const setSale = (v: string) => setEntered({ cur, v });
   const rand = (n: number) => formatMoney(n, cur);
+  useCalculatorCompleted([perWeek, entered], cur);
 
   const w = Number(perWeek || 0);
   const v = Number(sale || 0);

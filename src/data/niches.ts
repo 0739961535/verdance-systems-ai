@@ -101,7 +101,7 @@ export const NICHES: Niche[] = [
     offerName: "Revenue Team for venues",
     icon: "venue",
     meta: {
-      title: "Wedding Venue Enquiry Replies in 60 Seconds | Verdance Systems AI",
+      title: "Wedding Venue Enquiries Answered in 60 Seconds | Verdance",
       description:
         "Every venue enquiry answered within 60 seconds, day or night, and viewings booked into your diary. Start with a free Operations Map.",
       ogTitle: "The first venue to reply gets the viewing.",
@@ -199,7 +199,7 @@ export const NICHES: Niche[] = [
     offerName: "Revenue Team for lodges and venue groups",
     icon: "lodge",
     meta: {
-      title: "Enquiry System for Boutique Lodges and Venue Groups | Verdance Systems AI",
+      title: "Enquiry Replies for Lodges and Venue Groups | Verdance",
       description:
         "One 60-second reply standard across weddings, rooms and conferences, day or night. Plus a campaign to your last 24 months of unbooked enquiries. Built in South Africa.",
       ogTitle: "Weddings, rooms and conferences. One reply standard.",
@@ -300,7 +300,7 @@ export const NICHES: Niche[] = [
     offerName: "Revenue Team for private clinics",
     icon: "clinic",
     meta: {
-      title: "Consult Enquiry Replies for Dental and Aesthetics Clinics | Verdance Systems AI",
+      title: "Clinic Consult Enquiries Answered in 60 Seconds | Verdance",
       description:
         "Every WhatsApp, Instagram, form and missed call answered within 60 seconds, day or night, and consults booked into your diary. Administrative replies only. No clinical advice.",
       ogTitle: "The enquiry came in at 8pm. Your front desk was closed.",
@@ -408,7 +408,7 @@ export const NICHES: Niche[] = [
     offerName: "Revenue Team for estate agencies",
     icon: "estate",
     meta: {
-      title: "Portal Lead Response for Estate Agencies | Verdance Systems AI",
+      title: "Portal Lead Response for Estate Agents | Verdance",
       description:
         "Every portal, website and WhatsApp lead gets a reply and qualifying questions within 60 seconds, day or night, and the viewing goes into the agent's calendar. Done for you.",
       ogTitle: "The buyer enquired at 21:14. Who replied first?",
@@ -509,7 +509,7 @@ export const NICHES: Niche[] = [
     offerName: "Revenue Team for trades",
     icon: "trades",
     meta: {
-      title: "Missed-Call Text-Back and Quote Follow-Up for Trades | Verdance Systems AI",
+      title: "Missed Call Text Back for Trades | Verdance Systems AI",
       description:
         "For landscapers, plumbers, electricians and home service businesses. Every call and enquiry gets a reply within 60 seconds, quotes are followed up, and jobs are booked. South Africa.",
       ogTitle: "You were on a job when they called.",

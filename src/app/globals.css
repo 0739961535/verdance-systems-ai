@@ -1403,169 +1403,6 @@ html.js .chatphone[data-ssr] .wa-stack > * { opacity: 0; animation: chat-fallbac
 }
 @keyframes flow-h { from { transform: translateX(0); } to { transform: translateX(100%); } }
 
-/* ---------- Channel orbit (galaxy) ---------- */
-.orbit-wrap { perspective: 1400px; }
-.orbit-stage {
-  position: relative; width: 100%; max-width: 34rem; margin: 0 auto; aspect-ratio: 1 / 1;
-  transform-style: preserve-3d;
-  border-radius: 32px;
-  background: radial-gradient(60% 60% at 50% 50%, rgba(var(--accent-deep-rgb), 0.16), transparent 70%);
-}
-@media (min-width: 1024px) {
-  .orbit-stage { max-width: none; aspect-ratio: 16 / 11; transform: rotateX(var(--orbit-tilt, 14deg)); transition: transform 0.2s linear; }
-}
-.orbit-stars {
-  position: absolute; inset: -4%; pointer-events: none; border-radius: inherit;
-  background:
-    radial-gradient(circle at 33.1% 97.0%, rgba(255,255,255,0.35) 0 1.0px, transparent 1.2px),
-    radial-gradient(circle at 7.4% 84.0%, rgba(255,255,255,0.6) 0 0.8px, transparent 1.6px),
-    radial-gradient(circle at 5.9% 93.1%, rgba(255,255,255,0.58) 0 0.6px, transparent 1.2px),
-    radial-gradient(circle at 44.4% 42.8%, rgba(255,255,255,0.3) 0 0.6px, transparent 1.6px),
-    radial-gradient(circle at 43.4% 6.0%, rgba(255,255,255,0.79) 0 0.6px, transparent 1.2px),
-    radial-gradient(circle at 64.5% 64.2%, rgba(255,255,255,0.63) 0 0.6px, transparent 1.6px),
-    radial-gradient(circle at 59.9% 40.6%, rgba(255,255,255,0.28) 0 0.6px, transparent 1.2px),
-    radial-gradient(circle at 57.0% 87.9%, rgba(255,255,255,0.34) 0 0.8px, transparent 1.2px),
-    radial-gradient(circle at 55.3% 12.0%, rgba(255,255,255,0.62) 0 1.0px, transparent 1.6px),
-    radial-gradient(circle at 18.5% 10.5%, rgba(255,255,255,0.63) 0 1.0px, transparent 1.2px),
-    radial-gradient(circle at 38.1% 9.9%, rgba(255,255,255,0.61) 0 0.6px, transparent 1.6px),
-    radial-gradient(circle at 6.1% 63.3%, rgba(255,255,255,0.38) 0 1.0px, transparent 1.6px),
-    radial-gradient(circle at 43.7% 79.5%, rgba(255,255,255,0.45) 0 1.0px, transparent 1.4px),
-    radial-gradient(circle at 37.0% 30.6%, rgba(255,255,255,0.41) 0 0.6px, transparent 1.6px),
-    radial-gradient(circle at 79.8% 24.9%, rgba(255,255,255,0.3) 0 0.8px, transparent 1.6px),
-    radial-gradient(circle at 50.6% 89.6%, rgba(255,255,255,0.47) 0 0.8px, transparent 1.4px),
-    radial-gradient(circle at 62.3% 7.4%, rgba(255,255,255,0.33) 0 0.8px, transparent 1.2px),
-    radial-gradient(circle at 77.5% 35.0%, rgba(255,255,255,0.35) 0 0.8px, transparent 1.4px),
-    radial-gradient(circle at 4.0% 98.5%, rgba(255,255,255,0.68) 0 1.0px, transparent 1.6px),
-    radial-gradient(circle at 80.8% 89.6%, rgba(255,255,255,0.78) 0 0.8px, transparent 1.6px),
-    radial-gradient(circle at 35.8% 60.8%, rgba(255,255,255,0.57) 0 0.8px, transparent 1.2px),
-    radial-gradient(circle at 86.0% 9.5%, rgba(255,255,255,0.86) 0 0.8px, transparent 1.6px),
-    radial-gradient(circle at 68.0% 6.6%, rgba(255,255,255,0.29) 0 1.0px, transparent 1.4px),
-    radial-gradient(circle at 66.2% 59.1%, rgba(255,255,255,0.9) 0 0.8px, transparent 1.4px),
-    radial-gradient(circle at 73.3% 39.5%, rgba(255,255,255,0.83) 0 0.8px, transparent 1.2px),
-    radial-gradient(circle at 96.3% 47.2%, rgba(255,255,255,0.48) 0 1.0px, transparent 1.2px),
-    radial-gradient(circle at 50.5% 6.0%, rgba(255,255,255,0.39) 0 0.8px, transparent 1.2px),
-    radial-gradient(circle at 75.6% 25.3%, rgba(255,255,255,0.51) 0 0.8px, transparent 1.2px),
-    radial-gradient(circle at 17.0% 45.9%, rgba(255,255,255,0.51) 0 0.8px, transparent 1.2px),
-    radial-gradient(circle at 83.8% 44.0%, rgba(255,255,255,0.81) 0 0.8px, transparent 1.6px),
-    radial-gradient(circle at 42.5% 36.7%, rgba(255,255,255,0.69) 0 0.8px, transparent 1.2px),
-    radial-gradient(circle at 15.4% 8.4%, rgba(255,255,255,0.36) 0 0.6px, transparent 1.6px),
-    radial-gradient(circle at 23.8% 1.2%, rgba(255,255,255,0.57) 0 1.0px, transparent 1.2px),
-    radial-gradient(circle at 26.9% 28.8%, rgba(255,255,255,0.25) 0 0.8px, transparent 1.6px),
-    radial-gradient(circle at 37.8% 62.4%, rgba(255,255,255,0.62) 0 0.6px, transparent 1.6px),
-    radial-gradient(circle at 87.9% 52.7%, rgba(255,255,255,0.87) 0 1.0px, transparent 1.6px),
-    radial-gradient(circle at 75.7% 5.5%, rgba(255,255,255,0.55) 0 1.0px, transparent 1.6px),
-    radial-gradient(circle at 40.1% 40.7%, rgba(255,255,255,0.51) 0 0.6px, transparent 1.4px);
-  -webkit-mask-image: radial-gradient(closest-side, #000 55%, transparent);
-  mask-image: radial-gradient(closest-side, #000 55%, transparent);
-  opacity: 0.55;
-}
-.orbit-stars-2 {
-  background:
-    radial-gradient(circle at 64.9% 41.0%, rgba(255,255,255,0.29) 0 0.9px, transparent 1.5px),
-    radial-gradient(circle at 45.1% 16.6%, rgba(255,255,255,0.32) 0 0.9px, transparent 1.5px),
-    radial-gradient(circle at 0.0% 58.0%, rgba(255,255,255,0.35) 0 0.9px, transparent 1.8px),
-    radial-gradient(circle at 62.8% 2.6%, rgba(255,255,255,0.3) 0 0.9px, transparent 1.8px),
-    radial-gradient(circle at 15.2% 64.9%, rgba(255,255,255,0.41) 0 1.2px, transparent 1.8px),
-    radial-gradient(circle at 48.5% 12.5%, rgba(255,255,255,0.32) 0 1.2px, transparent 1.8px),
-    radial-gradient(circle at 49.1% 49.5%, rgba(255,255,255,0.45) 0 0.9px, transparent 1.5px),
-    radial-gradient(circle at 76.7% 35.0%, rgba(255,255,255,0.73) 0 1.2px, transparent 1.5px),
-    radial-gradient(circle at 52.8% 2.3%, rgba(255,255,255,0.38) 0 1.2px, transparent 1.5px),
-    radial-gradient(circle at 70.6% 55.6%, rgba(255,255,255,0.84) 0 1.2px, transparent 1.5px),
-    radial-gradient(circle at 71.2% 86.5%, rgba(255,255,255,0.42) 0 1.2px, transparent 1.5px),
-    radial-gradient(circle at 36.4% 79.0%, rgba(255,255,255,0.39) 0 1.2px, transparent 1.5px),
-    radial-gradient(circle at 62.7% 83.0%, rgba(255,255,255,0.76) 0 0.9px, transparent 1.5px),
-    radial-gradient(circle at 83.7% 41.0%, rgba(255,255,255,0.73) 0 0.9px, transparent 1.5px),
-    radial-gradient(circle at 53.0% 50.4%, rgba(255,255,255,0.48) 0 0.9px, transparent 1.5px),
-    radial-gradient(circle at 80.9% 28.6%, rgba(255,255,255,0.56) 0 0.9px, transparent 1.8px),
-    radial-gradient(circle at 45.7% 82.7%, rgba(255,255,255,0.86) 0 1.2px, transparent 1.8px),
-    radial-gradient(circle at 8.2% 22.5%, rgba(255,255,255,0.32) 0 1.2px, transparent 1.5px),
-    radial-gradient(circle at 34.5% 20.9%, rgba(255,255,255,0.56) 0 0.9px, transparent 1.8px),
-    radial-gradient(circle at 93.1% 66.8%, rgba(255,255,255,0.47) 0 0.9px, transparent 1.5px),
-    radial-gradient(circle at 93.1% 39.7%, rgba(255,255,255,0.76) 0 0.9px, transparent 1.8px),
-    radial-gradient(circle at 91.0% 18.2%, rgba(255,255,255,0.53) 0 1.2px, transparent 1.5px);
-  opacity: 0.8;
-}
-:root[data-theme="light"] .orbit-stars { filter: invert(1); opacity: 0.25; }
-@media (min-width: 1024px) { .orbit-stage[data-playing] .orbit-stars-2 { animation: twinkle 5s ease-in-out infinite alternate; } }
-@keyframes twinkle { from { opacity: 0.35; } to { opacity: 0.9; } }
-
-.orbit-ring { position: absolute; left: 13%; right: 13%; top: 13%; bottom: 13%; border-radius: 50%; border: 1px dashed rgba(var(--hairline-rgb), 0.1); }
-.orbit-ring-2 { left: 31%; right: 31%; top: 31%; bottom: 31%; border-style: solid; border-color: rgba(var(--accent-rgb), 0.12); }
-
-.orbit-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.beam-base { fill: none; stroke: rgba(var(--hairline-rgb), 0.12); stroke-width: 0.35; transition: stroke 0.4s; }
-.beam-base.is-on { stroke: rgba(var(--accent-rgb), 0.55); }
-.beam-glow { fill: none; stroke: rgba(var(--accent-rgb), 0.35); stroke-width: 2.2; stroke-linecap: round; opacity: 0.6; }
-.beam-trail {
-  fill: none; stroke: rgba(var(--ink-rgb), 0.7); stroke-width: 0.6; stroke-linecap: round;
-  stroke-dasharray: 7 93; stroke-dashoffset: 100;
-  animation: beam-run 2.8s cubic-bezier(0.55, 0, 0.45, 1) infinite;
-}
-.beam-trail.is-on { stroke: rgb(var(--accent-bright-rgb)); stroke-width: 1.1; stroke-dasharray: 14 86; animation-duration: 1.8s; }
-@keyframes beam-run { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
-
-.orbit-hub { position: absolute; left: 50%; top: 50%; width: 30%; aspect-ratio: 1; transform: translate(-50%, -50%) translateZ(40px); }
-@media (min-width: 1024px) { .orbit-hub { width: 21%; } }
-.orbit-bloom { position: absolute; inset: -60%; border-radius: 9999px; background: radial-gradient(closest-side, rgba(var(--accent-glow-rgb), 0.45), rgba(var(--accent-deep-rgb), 0.12) 55%, transparent 75%); }
-.orbit-hub-ring {
-  position: absolute; inset: -5%; border-radius: 9999px;
-  background: conic-gradient(from 0deg, transparent 0 55%, rgba(var(--accent-bright-rgb), 0.9) 75%, transparent 85%);
-  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px));
-  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px));
-}
-.orbit-stage[data-playing] .orbit-hub-ring { animation: spin 6s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.orbit-hub-core {
-  position: absolute; inset: 0; border-radius: 9999px;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  background:
-    radial-gradient(circle at 30% 22%, rgba(255, 255, 255, 0.22), transparent 45%),
-    radial-gradient(circle at 50% 120%, rgba(var(--accent-rgb), 0.55), transparent 60%),
-    linear-gradient(160deg, #1b2a52, #0b1124);
-  border: 1px solid rgba(var(--accent-bright-rgb), 0.5);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 20px 60px -10px rgba(var(--accent-deep-rgb), 0.8);
-}
-.orbit-hub-label { margin-top: 0.2rem; font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(233, 237, 239, 0.75); }
-@media (min-width: 640px) { .orbit-hub-label { font-size: 0.62rem; } }
-
-.orbit-tile {
-  position: absolute; transform: translate(-50%, -50%) translateZ(24px);
-  display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
-  min-width: 44px; min-height: 44px; padding: 0; background: none; border: 0; cursor: pointer;
-  color: var(--ink-soft);
-  transition: transform 0.5s var(--ease-out-expo);
-}
-.orbit-tile-glass {
-  position: relative; display: grid; place-items: center;
-  width: 3.1rem; height: 3.1rem; border-radius: 15px;
-  color: rgb(var(--tint));
-  background:
-    radial-gradient(120% 120% at 30% 0%, rgba(var(--tint), 0.22), transparent 60%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
-    var(--bg-3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 14px 30px -12px rgba(0, 0, 0, 0.7);
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  transition: box-shadow 0.4s, border-color 0.4s;
-}
-@media (min-width: 1024px) { .orbit-tile-glass { width: 3.6rem; height: 3.6rem; border-radius: 18px; } }
-.orbit-tile-label { font-size: 0.72rem; line-height: 1; white-space: nowrap; color: var(--ink-muted); transition: color 0.3s; }
-@media (min-width: 640px) { .orbit-tile-label { font-size: 0.78rem; } }
-.orbit-tile[data-on] { transform: translate(-50%, -50%) translateZ(48px) scale(1.08); }
-.orbit-tile[data-on] .orbit-tile-glass {
-  border-color: rgba(var(--tint), 0.6);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 0 4px rgba(var(--tint), 0.14), 0 0 36px rgba(var(--tint), 0.45), 0 18px 40px -12px rgba(0, 0, 0, 0.8);
-}
-.orbit-tile[data-on] .orbit-tile-label { color: var(--ink); }
-.orbit-tile:focus-visible { outline: none; }
-.orbit-tile:focus-visible .orbit-tile-glass { outline: 2px solid var(--accent); outline-offset: 3px; }
-
-.example-bubble {
-  align-self: flex-start; max-width: 88%;
-  padding: 0.7rem 0.95rem; border-radius: 16px 16px 16px 4px;
-  background: var(--bg-4); border: 1px solid var(--hairline); color: var(--ink); font-size: 0.98rem; line-height: 1.45;
-}
-.example-bubble.is-reply { align-self: flex-end; border-radius: 16px 16px 4px 16px; background: rgba(var(--accent-rgb), 0.14); border-color: rgba(var(--accent-rgb), 0.3); }
 .example-swap > * { animation: wa-in 0.5s var(--ease-out-expo) both; }
 .example-swap > *:nth-child(2) { animation-delay: 0.25s; }
 .example-swap > *:nth-child(3) { animation-delay: 0.4s; }
@@ -1622,7 +1459,7 @@ html.js .chatphone[data-ssr] .wa-stack > * { opacity: 0; animation: chat-fallbac
 /* Tactile press: buttons and link cards give a little under the finger. */
 .btn:active { transform: scale(0.97) !important; transition-duration: 80ms; }
 a.card-x:active, button.card-x:active { transform: scale(0.985); transition-duration: 80ms; }
-.hero-chip:active, .orbit-tile:active .orbit-tile-glass { transform: scale(0.95); }
+.hero-chip:active { transform: scale(0.95); }
 
 /* Arrow nudge for link cards: transform only. */
 .nudge { transition: transform var(--dur-base) var(--ease-out); }
@@ -1753,6 +1590,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 /* LocationMap */
 .locmap { display: grid; grid-template-columns: 1fr; gap: 0; padding: 1.2rem; max-width: 36rem; margin: 0 auto; }
 @media (min-width: 640px) { .locmap { grid-template-columns: 1.6fr 1fr; gap: 1rem; } }
+@media (min-width: 640px) { .locmap.is-single { grid-template-columns: 1fr; max-width: 28rem; } }
 .locmap-panel { position: relative; padding: 2.2rem 1.2rem 1.4rem; border-radius: 16px; background-image: radial-gradient(rgba(var(--hairline-rgb), 0.12) 1px, transparent 1px); background-size: 14px 14px; }
 .locmap-label { position: absolute; top: 0.7rem; left: 1rem; font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); }
 .locmap-field { position: relative; aspect-ratio: 1.25; }
@@ -1786,11 +1624,10 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   }
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
   [data-reveal][data-armed]:not([data-revealed]) { opacity: 1; transform: none; }
-  .aurora, .light-sweep::before, .flow-pulse, .orbit-hub-ring, .orbit-stars-2, .btn-accent::after, .stack-plane { animation: none !important; }
+  .aurora, .light-sweep::before, .flow-pulse, .btn-accent::after, .stack-plane { animation: none !important; }
   .ptrack-fill { animation: none !important; transform: scaleY(1); }
   .locmap-dot::after, .mark-node, .ring-current, .ptrack-dot-on, .cal-day.is-pick::before, .cal-slot.is-pick::before, .cal-confirm { animation: none !important; opacity: 1; transform: none; }
   .audit-bar span { animation: none !important; }
-  .orbit-stage { transform: none !important; }
 }
 
 /* ── v2: guarantee certificates (docs/design-system-v2.md 2.2) ── */

@@ -1,96 +1,72 @@
 # Verdance Systems AI
 
-> Verdance Systems AI is an AI systems agency. We design, build and run AI
-> systems for businesses across four pillars: Marketing, Sales, Internal
-> Operations and Automations. Clients own everything we build: every account,
-> agent and automation is registered in their name from day one. Engagements
-> start with a free 30 minute audit call that produces a
-> prioritised roadmap and a fixed quote.
+> Verdance Systems AI builds The Revenue Team for owner-led South African
+> businesses: every enquiry answered within 60 seconds, every follow-up done,
+> and the team's hours back. Live in 10 working days. It starts with a free
+> Operations Map.
 
-Founded and led by Daniel Bouwer. Website: https://verdancesystemsai.com
-Contact: daniel@verdancesystemsai.com · WhatsApp: +27 73 996 1535
+Founded and run by Daniel Bouwer, South Africa.
+Website: https://verdancesystemsai.com
+Contact: daniel@verdancesystemsai.com · WhatsApp and phone: +27 73 996 1535
 
-## What we build
+## The facts
 
-### Marketing
-- Lead generation: database reactivation, lead finding and scraping, landing
-  pages, funnels, forms, surveys and QR capture
-- Reputation: Google review automation that requests a review after every sale
-- Websites and custom apps: fast, search-ready builds with lead capture built in
-- Social and content systems
-
-### Sales
-- Conversation AI: AI agents answering WhatsApp, SMS, website chat, Instagram,
-  Facebook Messenger, TikTok and LinkedIn messages in seconds, around the clock
-- Voice AI: inbound and outbound voice agents, AI receptionists, call routing
-  and tracking
-- Booking: smart scheduling synced to calendars with no back-and-forth
-- Follow-up and nurture: multi-touch automated follow-up on every lead
-
-### Internal Operations
-- Customised CRM and pipeline setup, lead scoring and routing
-- Payments and invoicing automation, including automatic invoice chasing
-- Tracking dashboards, analytics and reporting
-
-### Automations
-- Custom AI agents built for business-specific workflows
-- MCP server integrations connecting business tools to AI safely
-- Client intake automation and workflow automation between tools
-
-## How engagements work
-
-1. Audit (week 0): a free 30 minute call producing a plan, in priority order
-2. Blueprint (week 1): exact system specification with a fixed quote
-3. Build (weeks 2-3): systems assembled and tested
-4. Integrate: wired into the client's CRM, calendar, phone lines and channels
-5. Launch: a go-live date written into the contract
-6. Run and optimise: ongoing monitoring, tuning and monthly reporting
-
-## Commercial terms
-
-- Fixed quote agreed in writing before any work begins
-- A launch date in the contract
-- Full ownership: accounts, agents and automations in the client's name from day one
-
-## Where we work
-
-Remote-first. Nothing is installed and nobody has to visit the client: every
-engagement is set up on a video call and runs on the client's own accounts.
-
-South Africa: Johannesburg, Pretoria, Sandton, Centurion, Midrand, Cape Town,
-Stellenbosch, George, Durban, Pietermaritzburg, Gqeberha, Bloemfontein,
-Polokwane, Mbombela, Rustenburg.
-
-United Kingdom: London, Manchester, Birmingham.
-
-Contact numbers: +27 73 996 1535 (South Africa), +44 7432 351517 (United
-Kingdom).
-
-Each city has a page at https://verdancesystemsai.com/ai-agency/<city>
-describing the pattern we build for in that market. Index of all of them:
-https://verdancesystemsai.com/ai-agency
-
-## Free tools
-
-Missed call calculator: https://verdancesystemsai.com/missed-call-calculator
-Works out what unanswered calls and messages cost a business per year, from
-three inputs: contacts missed per week, average customer value, and close rate.
-The formula is missed per week x customer value x close rate x 52. A business
-missing 15 contacts a week worth R4 000 each, winning 30 percent of them, is
-losing about R936 000 a year. No sign-up, works in Rand and Pounds.
+- Company: Verdance Systems AI, founded by Daniel Bouwer, based in South Africa.
+- What it builds: The Revenue Team. Every enquiry on WhatsApp, phone, website,
+  email and social answered within 60 seconds, day or night. Every quote and
+  enquiry followed up until the customer replies. A person takes over the
+  moment it matters.
+- How fast: live in 10 working days from the day the plan is signed off.
+- The 60-Second Guarantee: if fewer than 99% of enquiries are answered within
+  60 seconds in a month, that month is credited.
+- The Break-Even Exit: if the system has not paid for itself by day 90, the
+  client can leave at the day-90 review.
+- How it starts: a free 30-minute Operations Map. It shows where time and
+  money leak in enquiries, follow-up and admin, in rand and hours, and what to
+  fix first. The client keeps it whether or not they go ahead.
+- When we propose: only if the client's own numbers show at least twice the
+  monthly cost back.
+- Who it is for: owner-led South African businesses where people spend the day
+  answering customers, chasing sales and doing admin, or where one customer is
+  worth R20,000 or more.
+- POPIA: consent records, opt-outs and an operator agreement are built in.
+- Ownership: accounts, automations and data are set up in the client's name.
+- Prices: not published. Every quote is fixed and in writing, after the
+  Operations Map.
 
 ## Key pages
 
-- https://verdancesystemsai.com/ : overview and booking
-- https://verdancesystemsai.com/services : the full service catalogue
-- https://verdancesystemsai.com/industries : industry-specific systems
-- https://verdancesystemsai.com/how-it-works : delivery method in detail
-- https://verdancesystemsai.com/how-it-works/audit : step 1, the free audit call
-- https://verdancesystemsai.com/how-it-works/blueprint : step 2, scope and fixed price
-- https://verdancesystemsai.com/how-it-works/build : step 3, built and tested
-- https://verdancesystemsai.com/how-it-works/connect : step 4, phone, calendar, messages
-- https://verdancesystemsai.com/how-it-works/launch : step 5, go live and training
-- https://verdancesystemsai.com/how-it-works/run-and-improve : step 6, monthly reporting
-- https://verdancesystemsai.com/ai-agency : every city we work in
-- https://verdancesystemsai.com/missed-call-calculator : what missed calls cost
+- https://verdancesystemsai.com/ : the offer, the guarantees and booking
+- https://verdancesystemsai.com/about : Daniel Bouwer and how Verdance works
+- https://verdancesystemsai.com/audit : the free Operations Map
+- https://verdancesystemsai.com/services/ai-operations-system : the AI team, with a live sample
+- https://verdancesystemsai.com/services : everything the Revenue Team can take on
+- https://verdancesystemsai.com/how-it-works : the steps from first call to live
+- https://verdancesystemsai.com/missed-call-calculator : what slow replies and missed calls cost
 - https://verdancesystemsai.com/contact : contact and booking
+
+## By industry
+
+- https://verdancesystemsai.com/industries/wedding-venues : wedding venues
+- https://verdancesystemsai.com/industries/lodges-and-venue-groups : lodges and venue groups
+- https://verdancesystemsai.com/industries/private-clinics : self-pay clinics
+- https://verdancesystemsai.com/industries/estate-agents : estate agencies
+- https://verdancesystemsai.com/industries/trades : trades and home services
+- https://verdancesystemsai.com/industries : every industry page
+
+## Where we work
+
+Remote first. Nothing is installed and nobody has to visit: everything is set
+up on a video call and runs on the client's own accounts. City pages:
+
+- https://verdancesystemsai.com/ai-agency/johannesburg
+- https://verdancesystemsai.com/ai-agency/cape-town
+- https://verdancesystemsai.com/ai-agency/stellenbosch
+- https://verdancesystemsai.com/ai-agency/durban
+
+## Free tool
+
+Missed call calculator: https://verdancesystemsai.com/missed-call-calculator
+Works out what unanswered calls and messages cost a business per year from
+three of its own numbers: contacts missed per week, average customer value and
+close rate (missed per week x customer value x close rate x 52). No sign-up.

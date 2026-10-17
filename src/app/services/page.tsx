@@ -12,6 +12,7 @@ import { PowerOfAI } from "@/components/aiteam/PowerOfAI";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { SERVICE_PILLARS, PILLAR_CATEGORIES, SERVICE_CATEGORIES } from "@/data/services";
 import { GENERIC_BOOK_URL } from "@/data/booking";
+import { SITE_URL } from "@/data/site";
 
 const TITLE = "Services: WhatsApp Replies, Phone Answering, Online Booking and More | Verdance Systems AI";
 const DESCRIPTION =
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
-    url: "https://verdancesystemsai.com/services",
+    url: `${SITE_URL}/services`,
     type: "website",
     siteName: "Verdance Systems AI",
   },

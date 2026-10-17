@@ -11,8 +11,7 @@ import { GENERIC_BOOK_URL } from "@/data/booking";
 import { Reveal } from "@/components/primitives/Reveal";
 import { ReadingProgress } from "@/components/primitives/ReadingProgress";
 import { PROCESS, PROCESS_BY_SLUG } from "@/data/process";
-
-const SITE_URL = "https://verdancesystemsai.com";
+import { SITE_URL } from "@/data/site";
 
 export async function generateStaticParams() {
   return PROCESS.map((s) => ({ step: s.slug }));

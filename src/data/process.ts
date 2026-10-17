@@ -115,7 +115,7 @@ export const PROCESS: ProcessStep[] = [
     desc: "We build it, then test it against that plan line by line.",
     meta: "Weeks 2-3 · you get: something you can try before it goes live",
     promise: "Built, then tested against the plan line by line.",
-    duration: "Usually two weeks",
+    duration: "Inside the 10 working days from sign-off",
     beats: [
       {
         title: "We build it on your accounts",

@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import { CurrencySwitch } from "@/components/primitives/CurrencySwitch";
 import { CURRENCY, formatMoney, localAmount, useCurrency, type CurrencyCode } from "@/lib/currency";
 import type { CalcField, NicheCalculator as Calc } from "@/data/niches";
+import { useCalculatorCompleted } from "@/lib/useCalculatorTracking";
 
 /**
  * NicheCalculator - the missed-call calculator, adapted per niche.
@@ -79,6 +80,7 @@ export function NicheCalculator({ calc, bookHref }: { calc: Calc; bookHref: stri
   const values = useMemo(() => Object.fromEntries(fields.map((f) => [f.key, typed[f.format === "rand" ? `${cur}:${f.key}` : f.key] ?? f.initial])), [fields, typed, cur]);
   const setValue = (f: CalcField, n: number) => setTyped((t) => ({ ...t, [f.format === "rand" ? `${cur}:${f.key}` : f.key]: n }));
   const rand = (n: number) => formatMoney(n, cur);
+  useCalculatorCompleted(typed, cur);
 
   const { chain, monthly } = useMemo(() => {
     let running = 0;

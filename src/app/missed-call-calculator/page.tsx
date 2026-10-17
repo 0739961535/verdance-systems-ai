@@ -3,8 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
 import { MissedCallCalculator } from "@/components/tools/MissedCallCalculator";
-
-const SITE_URL = "https://verdancesystemsai.com";
+import { SITE_URL } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Missed Call Calculator | What Unanswered Calls Cost You | Verdance Systems AI",

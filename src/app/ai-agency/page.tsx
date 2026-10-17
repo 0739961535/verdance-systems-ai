@@ -9,28 +9,28 @@ import { LocationMap } from "@/components/visuals/hero/LocationMap";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { LOCATIONS_BY_COUNTRY } from "@/data/locations";
-
-const SITE_URL = "https://verdancesystemsai.com";
+import { SITE_URL } from "@/data/site";
 
 export const metadata: Metadata = {
-  title: "Where We Work | AI Agency in South Africa and the UK | Verdance Systems AI",
+  title: "AI Agency South Africa | Where We Work | Verdance Systems AI",
   description:
-    "We build the thing that answers your phone, replies to your messages and books customers into your calendar. Remote first across South Africa and the United Kingdom. Free 30-minute Operations Map.",
+    "We build the thing that answers your phone, replies to your messages and books customers into your calendar. Remote first across South Africa, with city pages for Johannesburg, Cape Town, Stellenbosch and Durban. Free 30-minute Operations Map.",
   alternates: { canonical: "/ai-agency" },
   openGraph: {
     title: "Where We Work | Verdance Systems AI",
     description:
-      "AI answering, booking and follow-up for businesses across South Africa and the United Kingdom.",
+      "Every enquiry answered within 60 seconds, for owner-led businesses across South Africa.",
     url: `${SITE_URL}/ai-agency`,
     type: "website",
     siteName: "Verdance Systems AI",
   },
 };
 
+// Only countries with at least one city page are shown.
 const COUNTRIES = [
   { code: "ZA" as const, label: "South Africa", locations: LOCATIONS_BY_COUNTRY.ZA },
   { code: "GB" as const, label: "United Kingdom", locations: LOCATIONS_BY_COUNTRY.GB },
-];
+].filter((c) => c.locations.length > 0);
 
 export default function LocationsIndexPage() {
   // This page exists as much for crawlers as for people. Pages reachable only
@@ -61,7 +61,7 @@ export default function LocationsIndexPage() {
         lead="Nothing gets installed and nobody has to visit you. Everything is set up on a video call and runs on your own accounts. Pick the closest city to see what businesses there tend to lose, or just book the Operations Map."
         crumbs={[{ href: "/", label: "Home" }, { label: "Where we work" }]}
         visual={<LocationMap />}
-        note="South Africa and the United Kingdom"
+        note="South Africa · remote first"
       />
 
       {COUNTRIES.map((country, ci) => (

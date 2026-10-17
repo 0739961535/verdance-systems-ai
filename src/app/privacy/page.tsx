@@ -97,10 +97,14 @@ export default function PrivacyPage() {
 
       <LegalSection heading="Cookies">
         <p>
-          We use only the cookies needed for the site to function and to
-          understand basic, anonymous usage. We don&apos;t use them to build
-          advertising profiles, and we don&apos;t use an advertising pixel on this
-          site.
+          We use cookies and similar tools only to keep the site working and
+          to understand how it is used. Vercel Analytics counts visits without
+          cookies. Google Analytics sets cookies so we can see which pages and
+          buttons lead to an enquiry or a booked call; Google processes that
+          data for us. We don&apos;t use any of it to build advertising
+          profiles, and we don&apos;t use an advertising pixel on this site. You
+          can block analytics cookies in your browser settings or with
+          Google&apos;s opt-out add-on.
         </p>
       </LegalSection>
 

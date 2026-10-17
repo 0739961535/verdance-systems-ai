@@ -40,6 +40,7 @@ export function CTABand({
       id="audit"
       className="relative isolate overflow-hidden section-pad bg-canvas"
       aria-labelledby="cta-band-title"
+      data-cta-location="cta_band"
       style={{ borderTop: "1px solid var(--hairline)", scrollMarginTop: "5rem" }}
     >
       <div aria-hidden className="cta-glow" />

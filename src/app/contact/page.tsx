@@ -3,7 +3,7 @@ import { PageHero } from "@/components/kit/PageHero";
 import { CalendarMock } from "@/components/visuals/hero/CalendarMock";
 import { Reveal } from "@/components/primitives/Reveal";
 import { GHLBookingEmbed } from "@/components/primitives/GHLBookingEmbed";
-import { SITE } from "@/data/site";
+import { SITE, SITE_URL } from "@/data/site";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "Book a Meeting | Verdance Systems AI",
     description:
       "Pick a time and book a meeting with Verdance Systems AI. Thirty minutes, no obligation.",
-    url: "https://verdancesystemsai.com/contact",
+    url: `${SITE_URL}/contact`,
     type: "website",
     siteName: "Verdance Systems AI",
   },

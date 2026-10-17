@@ -8,6 +8,7 @@ import { AuditReport } from "@/components/visuals/hero/AuditReport";
 import { FAQControl } from "@/components/sections/v4/FAQControl";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
+import { SITE_URL } from "@/data/site";
 
 const TITLE = "The free Operations Map | 30 minutes, fixed quote after | Verdance Systems AI";
 const DESCRIPTION =
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/audit" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "https://verdancesystemsai.com/audit", type: "website" },
+  openGraph: { title: TITLE, description: DESCRIPTION, url: `${SITE_URL}/audit`, type: "website" },
 };
 
 const GET = [

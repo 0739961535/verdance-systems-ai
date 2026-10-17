@@ -49,6 +49,7 @@ export function StickyMobileCTA({ href = "/contact", label = "Book a Meeting" }:
   return (
     <nav
       aria-label="Quick actions"
+      data-cta-location="sticky_mobile"
       className="fixed inset-x-0 bottom-0 z-40 md:hidden"
       style={{
         paddingBottom: "env(safe-area-inset-bottom)",

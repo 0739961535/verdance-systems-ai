@@ -14,6 +14,7 @@ import { SERVICE_BY_SLUG } from "@/data/services";
 import { PRODUCT_TO_SERVICE } from "@/data/productToService";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import type { Metadata } from "next";
+import { SITE_URL } from "@/data/site";
 
 function splitHeadline(headline: string): { lead: string; accent: string | null } {
   const sentences = headline.trim().split(/(?<=\.)\s+/).filter(Boolean);
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   // Niche offer pages share this route but carry their own copy and metadata.
   const niche = getNicheBySlug(slug);
   if (niche) {
-    const url = `https://verdancesystemsai.com/industries/${slug}`;
+    const url = `${SITE_URL}/industries/${slug}`;
     return {
       title: niche.meta.title,
       description: niche.meta.description,
@@ -52,7 +53,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!industry) return {};
   const title = `Enquiry Answering and Booking for ${industry.name} | Verdance Systems AI`;
   const description = `${industry.subheadline} Every call and message answered within 60 seconds, day or night, and booked. Fixed quote after a free Operations Map.`;
-  const url = `https://verdancesystemsai.com/industries/${slug}`;
+  const url = `${SITE_URL}/industries/${slug}`;
   return {
     title,
     description,
@@ -78,13 +79,13 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
     .slice(0, 6);
   const { lead, accent } = splitHeadline(industry.headline);
 
-  const url = `https://verdancesystemsai.com/industries/${slug}`;
+  const url = `${SITE_URL}/industries/${slug}`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://verdancesystemsai.com/" },
-      { "@type": "ListItem", position: 2, name: "Industries", item: "https://verdancesystemsai.com/industries" },
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Industries", item: `${SITE_URL}/industries` },
       { "@type": "ListItem", position: 3, name: industry.name, item: url },
     ],
   };
