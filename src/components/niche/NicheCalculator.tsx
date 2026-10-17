@@ -135,7 +135,7 @@ export function NicheCalculator({ calc, bookHref }: { calc: Calc; bookHref: stri
         </dl>
 
         <a href={bookHref} className="btn btn-accent justify-center min-h-12 w-full mt-6 inline-flex">
-          Check this on a pre-audit
+          Check this on an Operations Map
           <ArrowUpRight size={15} aria-hidden />
         </a>
 

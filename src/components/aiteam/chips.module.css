@@ -1,0 +1,50 @@
+/* Status chips (design-system-v2 section 4). Role colours live in globals.css tokens. */
+.chip {
+  --c: var(--st-dept);
+  --fill: rgba(var(--accent-rgb), 0.1);
+  --edge: var(--hairline-glow);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 9999px;
+  border: 1px solid var(--edge);
+  background: var(--fill);
+  color: var(--c);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    color var(--dur-fast) var(--ease-inout),
+    background-color var(--dur-fast) var(--ease-inout),
+    border-color var(--dur-fast) var(--ease-inout);
+}
+.chip::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: currentColor;
+  flex: none;
+}
+.chip[data-role="review"] { --c: var(--st-review); --fill: var(--surface-tint-2); --edge: var(--hairline-3); }
+.chip[data-role="operator"] { --c: var(--st-operator); --fill: var(--signal-dim); --edge: rgba(61, 214, 140, 0.3); }
+.chip[data-role="attn"] { --c: var(--st-attn); --fill: var(--st-attn-dim); --edge: rgba(var(--st-attn-rgb), 0.35); }
+.chip[data-role="done"] { --c: var(--st-operator); --fill: transparent; --edge: rgba(61, 214, 140, 0.3); }
+
+/* Crossfade between two chips stacked in one slot. */
+.stack { position: relative; display: inline-flex; }
+.stack > .fadeOut { position: absolute; left: 0; top: 0; }
+.fadeIn { animation: chip-in var(--dur-fast) var(--ease-inout) both; }
+.fadeOut { animation: chip-out var(--dur-fast) var(--ease-inout) both; pointer-events: none; }
+@keyframes chip-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes chip-out { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .fadeIn, .fadeOut { animation: none; }
+  .fadeOut { display: none; }
+}

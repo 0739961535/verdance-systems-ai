@@ -7,7 +7,7 @@ import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
 
 /**
  * PageHero - the shared hero for every inner page: breadcrumb, eyebrow,
- * headline with the serif accent, lead, the pre-audit CTA and a visual of
+ * headline with the serif accent, lead, the Operations Map CTA and a visual of
  * its own (device, diagram or live-feeling UI).
  *
  * Server component. The headline enters with a transform-only rise (it is

@@ -19,7 +19,7 @@ export function CardFan() {
             </span>
             <span className="fan-name">{niche.shortName}</span>
             <span className="fan-offer">{niche.offerName}</span>
-            <span className="fan-badge">Replies within 5 min</span>
+            <span className="fan-badge">Replies within 60 s</span>
           </div>
         );
       })}

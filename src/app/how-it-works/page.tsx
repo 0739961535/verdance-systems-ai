@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/how-it-works" },
   openGraph: {
     title: "How Verdance Works | Done-for-You AI Booking",
-    description: "Six steps from a free 30-minute pre-audit to a system that answers and books for you, day or night. Fixed quote, fixed launch date, and you own all of it.",
+    description: "Six steps from a free 30-minute Operations Map to a system that answers and books for you, day or night. Fixed quote, fixed launch date, and you own all of it.",
     url: "https://verdancesystemsai.com/how-it-works",
     type: "website",
     siteName: "Verdance Systems AI",
@@ -23,11 +23,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "How Verdance Works | Done-for-You AI Booking",
-    description: "Six steps from a free 30-minute pre-audit to a system that answers and books for you, day or night. Fixed quote, fixed launch date, and you own all of it.",
+    description: "Six steps from a free 30-minute Operations Map to a system that answers and books for you, day or night. Fixed quote, fixed launch date, and you own all of it.",
   },
   title: "How Verdance Works | Done-for-You AI Booking",
   description:
-    "Six steps from a free 30-minute pre-audit to a system that answers and books for you, day or night. Fixed quote, fixed launch date, and you own all of it.",
+    "Six steps from a free 30-minute Operations Map to a system that answers and books for you, day or night. Fixed quote, fixed launch date, and you own all of it.",
 };
 
 export default function HowItWorksPage() {
@@ -40,7 +40,7 @@ export default function HowItWorksPage() {
             Simple to start. <span className="italic-accent">Built to keep running.</span>
           </>
         }
-        lead="Six steps from a free 30-minute pre-audit to a system that answers and books for you, day or night. You keep working the way you always have. The building is on us."
+        lead="Six steps from a free 30-minute Operations Map to a system that answers and books for you, day or night. You keep working the way you always have. The building is on us."
         crumbs={[{ href: "/", label: "Home" }, { label: "How it works" }]}
         visual={<ProcessTrack />}
         note="Fixed quote · fixed launch date · you own all of it"
@@ -110,7 +110,7 @@ export default function HowItWorksPage() {
       </section>
 
       <GuaranteeBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="Get your free Operations Map" />
-      <CTABand />
+      <CTABand guarantees={false} />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label="Get your free Operations Map" />
     </>
   );

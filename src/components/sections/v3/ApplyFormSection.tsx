@@ -39,7 +39,7 @@ export function ApplyFormSection() {
               className="inline-block h-1.5 w-1.5 rounded-full"
               style={{ background: "var(--color-accent)" }}
             />
-            Apply · Built for local operators doing £4k+/month
+            Apply · For owner-led South African businesses where the team spends the day answering customers
           </span>
         </Reveal>
         <Reveal delay={0.05}>
@@ -47,13 +47,13 @@ export function ApplyFormSection() {
             className="mt-6 font-display text-[color:var(--color-ink)] leading-[1.04]"
             style={{ fontSize: "clamp(2.25rem, 4.8vw, 3.75rem)", letterSpacing: "-0.035em" }}
           >
-            Book your <span className="italic-accent">free build.</span>
+            Book your free <span className="italic-accent">Operations Map.</span>
           </h2>
         </Reveal>
         <Reveal delay={0.1}>
           <p className="mt-5 max-w-2xl text-lg text-[color:var(--color-ink-soft)] leading-relaxed">
-            Pick a time below - takes seconds. Then a few optional questions
-            so we show up already knowing your business.
+            Pick a time below. It takes seconds. Then answer a few optional
+            questions so we arrive already knowing your business.
           </p>
         </Reveal>
 

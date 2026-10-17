@@ -47,9 +47,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://verdancesystemsai.com"),
-  title: "Verdance Systems AI | We don't talk about AI. We ship it.",
+  title: "Verdance Systems AI | Every enquiry answered in 60 seconds",
   description:
-    "We build the thing that answers your phone, replies to your messages and books people into your calendar, day or night. You own all of it. Start with a free 30 minute audit call.",
+    "Every enquiry answered within 60 seconds, every follow-up done, and your team's hours back. Live in 10 working days. Start with a free Operations Map.",
   applicationName: "Verdance Systems AI",
   keywords: [
     "AI systems agency",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   creator: "Verdance Systems AI",
   publisher: "Verdance Systems AI",
   openGraph: {
-    title: "Verdance Systems AI - We don't talk about AI. We ship it.",
+    title: "Verdance Systems AI | Every enquiry answered in 60 seconds",
     description:
       "Every call and message answered in seconds, at any hour, and booked straight into your calendar. Built for you, owned by you. Free audit call first.",
     url: "https://verdancesystemsai.com",
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Verdance Systems AI - We don't talk about AI. We ship it.",
+    title: "Verdance Systems AI | Every enquiry answered in 60 seconds",
     description:
       "Every call and message answered in seconds, any hour, and booked in. Free audit call first.",
   },

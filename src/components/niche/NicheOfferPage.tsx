@@ -7,7 +7,8 @@ import { bookUrl, type Niche } from "@/data/niches";
 import { NicheHero } from "./NicheHero";
 import { NicheLeak } from "./NicheLeak";
 import { NicheCalculator } from "./NicheCalculator";
-import { NicheIncluded, NichePricing, NicheProof, NicheSteps } from "./NicheSections";
+import { NicheIncluded, NicheProof, NicheSteps } from "./NicheSections";
+import { OfferSection } from "@/components/offer/OfferSection";
 import { CTABand } from "@/components/kit/CTABand";
 
 const SITE_URL = "https://verdancesystemsai.com";
@@ -16,7 +17,7 @@ const SITE_URL = "https://verdancesystemsai.com";
  * NicheOfferPage - one offer, one kind of business, one action.
  * hero (their pain, a live-looking reply) -> what changes -> how it works ->
  * what is included -> their own numbers -> price -> guarantee -> proof ->
- * questions -> book. Every book button goes to the niche's pre-audit flow.
+ * questions -> book. Every book button goes to the niche's Operations Map flow.
  */
 export function NicheOfferPage({ niche }: { niche: Niche }) {
   const href = bookUrl(niche.bookSlug);
@@ -71,7 +72,7 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
         }
         intro="Where enquiries slip today, and what happens instead once the system is live."
         deltas={niche.deltas}
-        footnote="Every enquiry gets a reply within 5 minutes, day or night. The rest is measured against your own baseline."
+        footnote="Every enquiry gets a reply within 60 seconds, day or night. The rest is measured against your own baseline."
       />
 
       <NicheSteps niche={niche} />
@@ -102,27 +103,14 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
         </div>
       </section>
 
-      <NichePricing niche={niche} />
-
-      <GuaranteeBlock
-        eyebrow="The guarantee"
-        title={
-          <>
-            {niche.guarantee.title}
-            <br />
-            <span className="italic-accent">{niche.guarantee.accent}</span>
-          </>
-        }
-        columns={niche.guarantee.columns}
-        note={niche.guarantee.note}
-        ctaHref={href}
-        ctaLabel="Get your free Operations Map"
-      />
+      <OfferSection href={href} seals={false} />
+      <GuaranteeBlock ctaHref={href} ctaLabel="Get your free Operations Map" />
 
       <NicheProof niche={niche} />
       <FAQControl faqs={niche.faqs} />
       <CTABand
-        eyebrow="Pre-audit · 30 minutes · no cost"
+        guarantees={false}
+        eyebrow="Free Operations Map · 30 minutes"
         title={
           <>
             {niche.cta.title} <span className="italic-accent">{niche.cta.accent}</span>

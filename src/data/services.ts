@@ -8,7 +8,7 @@
  *   - no jargon, no acronyms unless explained, no dashes as punctuation,
  *     no hype, no emojis, British English
  *   - no prices, no client names, no invented numbers. The only numbers
- *     are our own commitments (reply within 5 minutes)
+ *     are our own commitments (reply within 60 seconds)
  */
 
 export type ServicePart = {
@@ -90,7 +90,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["conversation-ai", "follow-up-nurture", "marketing-social"],
     seoTitle: "Lead Generation and Database Reactivation in South Africa",
     seoDescription:
-      "Win back old enquiries and find new customers. We message your past leads in your voice, build lists of people like your best customers and book every reply. Free pre-audit.",
+      "Win back old enquiries and find new customers. We message your past leads in your voice, build lists of people like your best customers and book every reply. Free Operations Map.",
   },
   {
     slug: "conversation-ai",
@@ -98,7 +98,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     name: "Instant Message Replies",
     headline: "Every message answered,",
     italicWord: "day or night.",
-    promise: "WhatsApp, website chat, Instagram, Facebook and SMS answered within 5 minutes, usually in seconds.",
+    promise: "WhatsApp, website chat, Instagram, Facebook and SMS answered within 60 seconds, usually in seconds.",
     description:
       "When a customer messages you at 21:00, they get a helpful reply straight away instead of waiting until morning. It answers the usual questions in your words, checks what they need and books them in. Anything unusual goes to you or your team.",
     whatYouGet: [
@@ -137,11 +137,11 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       },
     ],
     whyItMatters: "People usually book with the first business that replies. A slow reply often means a lost customer, not a late one.",
-    outcome: "Every message answered within 5 minutes, at any hour, and more of them booked.",
+    outcome: "Every message answered within 60 seconds, at any hour, and more of them booked.",
     relatedSlugs: ["voice-ai", "booking-calendar", "follow-up-nurture"],
     seoTitle: "WhatsApp Auto Reply for Business in South Africa",
     seoDescription:
-      "Automatic WhatsApp, website chat, Instagram and SMS replies for South African businesses. Every message answered within 5 minutes, day or night, and booked into your diary.",
+      "Automatic WhatsApp, website chat, Instagram and SMS replies for South African businesses. Every message answered within 60 seconds, day or night, and booked into your diary.",
   },
   {
     slug: "voice-ai",
@@ -187,7 +187,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["conversation-ai", "follow-up-nurture", "booking-calendar"],
     seoTitle: "AI Receptionist and After Hours Call Answering, South Africa",
     seoDescription:
-      "A phone assistant that answers every call, day or night, books callers into your diary and passes urgent calls to you. Built for South African businesses. Free pre-audit.",
+      "A phone assistant that answers every call, day or night, books callers into your diary and passes urgent calls to you. Built for South African businesses. Free Operations Map.",
   },
   {
     slug: "crm-pipeline",
@@ -279,7 +279,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["conversation-ai", "voice-ai", "follow-up-nurture"],
     seoTitle: "Online Booking System for South African Businesses",
     seoDescription:
-      "An online booking system that works with your diary: customers book at any hour, get reminders and reschedule with one tap. Bookings inside WhatsApp too. Free pre-audit.",
+      "An online booking system that works with your diary: customers book at any hour, get reminders and reschedule with one tap. Bookings inside WhatsApp too. Free Operations Map.",
   },
   {
     slug: "follow-up-nurture",
@@ -462,7 +462,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["lead-generation", "conversation-ai", "marketing-social"],
     seoTitle: "Website Design for Small Business in South Africa",
     seoDescription:
-      "Fast websites for South African businesses that show up on Google and turn visitors into enquiries, with chat, booking and enquiry forms built in. Free pre-audit.",
+      "Fast websites for South African businesses that show up on Google and turn visitors into enquiries, with chat, booking and enquiry forms built in. Free Operations Map.",
   },
   {
     slug: "marketing-social",
@@ -548,7 +548,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["crm-pipeline", "analytics-compliance", "websites-build"],
     seoTitle: "Business Automation Services in South Africa",
     seoDescription:
-      "Custom automation for South African businesses: repetitive admin done for you, your existing tools connected, and an assistant trained on your own rules. Free pre-audit.",
+      "Custom automation for South African businesses: repetitive admin done for you, your existing tools connected, and an assistant trained on your own rules. Free Operations Map.",
   },
   {
     slug: "analytics-compliance",
@@ -626,7 +626,7 @@ export const SERVICE_PILLARS: ServicePillar[] = [
     index: "02",
     slug: "sales",
     title: "Answering and Booking",
-    promise: "Every call and message answered within 5 minutes, at any hour, and booked in.",
+    promise: "Every call and message answered within 60 seconds, at any hour, and booked in.",
     slugs: ["conversation-ai", "voice-ai", "booking-calendar", "follow-up-nurture"],
   },
   {

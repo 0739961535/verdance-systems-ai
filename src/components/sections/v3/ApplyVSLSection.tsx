@@ -129,16 +129,16 @@ export function ApplyVSLSection() {
               className="mt-6 font-display text-[color:var(--color-ink)] leading-[1.04] tracking-tight"
               style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.5rem)", letterSpacing: "-0.04em" }}
             >
-              See exactly what we&apos;ll build on your business -{" "}
+              See where your business leaks time and money,{" "}
               <span className="italic-accent">free.</span>
             </h1>
           </Reveal>
 
           <Reveal delay={0.12}>
             <p className="mt-7 max-w-2xl text-lg md:text-xl text-[color:var(--color-ink-soft)] leading-relaxed">
-              A 6-minute walkthrough of the system we install. After you watch, fill
-              out the short application below to get a free build of it for your
-              business - before you commit.
+              A 6-minute walkthrough of the system we build. After you watch, fill
+              out the short application below to book your free Operations Map:
+              thirty minutes on where enquiries, follow-ups and admin leak, in rand and hours.
             </p>
           </Reveal>
         </div>

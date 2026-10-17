@@ -6,6 +6,7 @@ import { NicheGrid } from "@/components/niche/NicheGrid";
 import { PowerOfAI } from "@/components/aiteam/PowerOfAI";
 import { ClientViewSection, FinalCTASection, ProofSection } from "@/components/home/HomeSections";
 import { GuaranteeBlock } from "@/components/sections/v4/GuaranteeBlock";
+import { OfferSection } from "@/components/offer/OfferSection";
 import { FAQControl } from "@/components/sections/v4/FAQControl";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { LANDING_FAQS } from "@/data/landing";
@@ -14,9 +15,9 @@ import { GENERIC_BOOK_URL } from "@/data/niches";
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
-    title: "We don't talk about AI. We ship it. | Verdance Systems AI",
+    title: "Every enquiry answered in 60 seconds | Verdance Systems AI",
     description:
-      "Every call and message answered within 5 minutes, day or night, and booked into your calendar. Built for you, owned by you. Free pre-audit first.",
+      "Every call and message answered within 60 seconds, day or night, and booked into your calendar. Built for you, owned by you. Free Operations Map first.",
     url: "https://verdancesystemsai.com/",
     type: "website",
   },
@@ -37,7 +38,7 @@ const FAQ_JSON_LD = {
  * Home - one story:
  * the claim (one phone, cycling through real kinds of enquiry) -> what we do
  * for any business that runs on enquiries -> Ashford's Staff (the AI team) ->
- * how it works -> what you see as a client -> what slow replies cost you ->
+ * the offer and the two guarantees -> how it works -> what you see as a client -> what slow replies cost you ->
  * proof -> current offers ->
  * guarantee -> questions -> book. The hero phone is the only phone here.
  */
@@ -49,12 +50,13 @@ export default function HomePage() {
       <CapabilityMarquee />
       <WhatWeDoSection />
       <PowerOfAI variant="short" />
+      <OfferSection seals={false} />
+      <GuaranteeBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="Get your free Operations Map" />
       <HowItWorksSection />
       <ClientViewSection />
       <CostSection />
       <ProofSection />
       <NicheGrid tone="canvas-2" />
-      <GuaranteeBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="Get your free Operations Map" />
       <FAQControl faqs={LANDING_FAQS} />
       <FinalCTASection />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label="Get your free Operations Map" />

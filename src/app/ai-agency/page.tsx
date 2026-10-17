@@ -15,7 +15,7 @@ const SITE_URL = "https://verdancesystemsai.com";
 export const metadata: Metadata = {
   title: "Where We Work | AI Agency in South Africa and the UK | Verdance Systems AI",
   description:
-    "We build the thing that answers your phone, replies to your messages and books customers into your calendar. Remote first across South Africa and the United Kingdom. Free 30-minute pre-audit.",
+    "We build the thing that answers your phone, replies to your messages and books customers into your calendar. Remote first across South Africa and the United Kingdom. Free 30-minute Operations Map.",
   alternates: { canonical: "/ai-agency" },
   openGraph: {
     title: "Where We Work | Verdance Systems AI",
@@ -58,7 +58,7 @@ export default function LocationsIndexPage() {
             Remote first, <span className="italic-accent">close enough to know your market.</span>
           </>
         }
-        lead="Nothing gets installed and nobody has to visit you. Everything is set up on a video call and runs on your own accounts. Pick the closest city to see what businesses there tend to lose, or just book the pre-audit."
+        lead="Nothing gets installed and nobody has to visit you. Everything is set up on a video call and runs on your own accounts. Pick the closest city to see what businesses there tend to lose, or just book the Operations Map."
         crumbs={[{ href: "/", label: "Home" }, { label: "Where we work" }]}
         visual={<LocationMap />}
         note="South Africa and the United Kingdom"

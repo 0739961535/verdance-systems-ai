@@ -33,23 +33,19 @@ export function HomeHero() {
       <div className="container-wide relative pt-28 pb-16 sm:pt-32 md:pt-40 lg:pb-24 lg:min-h-[100svh] lg:flex lg:items-center">
         <div className="grid w-full items-center gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14">
           <div className="min-w-0">
-            <p className="enter-fade-up eyebrow">AI systems · South Africa</p>
+            <p className="enter-fade-up eyebrow">The Revenue Team · South Africa</p>
 
             <h1
               id="hero-title"
-              className="enter-rise font-display mt-7 text-[color:var(--color-ink)]"
+              className="enter-rise font-display mt-7 max-w-[13ch] text-[color:var(--color-ink)]"
               style={{
-                fontSize: "clamp(3.1rem, 4.2vw + 1rem, 5.6rem)",
+                fontSize: "clamp(2.75rem, 4.2vw + 1rem, 5.4rem)",
                 lineHeight: 0.98,
                 letterSpacing: "-0.045em",
                 animationDuration: "0.7s",
               }}
             >
-              <span className="block">We don&apos;t talk</span>{" "}
-              <span className="block">about AI.</span>{" "}
-              <span className="block">
-                We <span className="italic-accent">ship</span> it.
-              </span>
+              Every enquiry answered in <span className="italic-accent">60 seconds.</span>
             </h1>
 
             <p
@@ -79,9 +75,9 @@ export function HomeHero() {
               className="enter-fade-up mt-8 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[0.72rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]"
               style={{ animationDelay: "0.26s" }}
             >
-              <li>Replies within 5 minutes</li>
-              <li>Day or night</li>
-              <li>You own it</li>
+              <li>Every follow-up done</li>
+              <li>Live in 10 working days</li>
+              <li>You approve what goes out</li>
             </ul>
           </div>
 

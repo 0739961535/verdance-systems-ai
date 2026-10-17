@@ -57,8 +57,8 @@ export const industries: Industry[] = [
     ],
     outcomes: [
       { metric: "100%", description: "Enquiries answered, including after hours" },
-      { metric: "20–30 min", description: "Admin saved per new client intake" },
-      { metric: "2–4x", description: "Increase in Google review volume" },
+      { metric: "20 to 30 min", description: "Admin saved per new client intake" },
+      { metric: "2 to 4x", description: "Increase in Google review volume" },
     ],
   },
   {
@@ -106,7 +106,7 @@ export const industries: Industry[] = [
     ],
     outcomes: [
       { metric: "<5s", description: "Average lead response time, 24/7" },
-      { metric: "15–25%", description: "Reactivation response rate from cold database" },
+      { metric: "15 to 25%", description: "Reactivation response rate from cold database" },
       { metric: "3h+", description: "Scheduling admin saved per agent per day" },
     ],
   },
@@ -157,7 +157,7 @@ export const industries: Industry[] = [
     outcomes: [
       { metric: "100%", description: "Call answer rate, no missed appointments" },
       { metric: "40%", description: "Reduction in no-show rate" },
-      { metric: "2–4x", description: "Monthly Google review volume increase" },
+      { metric: "2 to 4x", description: "Monthly Google review volume increase" },
     ],
   },
   {
@@ -200,7 +200,7 @@ export const industries: Industry[] = [
     ],
     outcomes: [
       { metric: "0", description: "Missed inbound calls or messages" },
-      { metric: "15–25%", description: "Reactivation rate from past enquiry database" },
+      { metric: "15 to 25%", description: "Reactivation rate from past enquiry database" },
       { metric: "40%", description: "Reduction in no-shows for service appointments" },
     ],
   },
@@ -244,7 +244,7 @@ export const industries: Industry[] = [
     outcomes: [
       { metric: "100%", description: "Enquiries captured including after hours" },
       { metric: "3x", description: "Quote follow-up conversion improvement" },
-      { metric: "2–4x", description: "Google review volume increase" },
+      { metric: "2 to 4x", description: "Google review volume increase" },
     ],
   },
   {
@@ -330,7 +330,7 @@ export const industries: Industry[] = [
     outcomes: [
       { metric: "40%", description: "Reduction in no-shows with automated reminders" },
       { metric: "24/7", description: "WhatsApp enquiries answered automatically" },
-      { metric: "2–4x", description: "Monthly review volume growth" },
+      { metric: "2 to 4x", description: "Monthly review volume growth" },
     ],
   },
   {
@@ -372,7 +372,7 @@ export const industries: Industry[] = [
     ],
     outcomes: [
       { metric: "24/7", description: "Reservation handling with no staff required" },
-      { metric: "2–4x", description: "Monthly Google/TripAdvisor review increase" },
+      { metric: "2 to 4x", description: "Monthly Google/TripAdvisor review increase" },
       { metric: "30%", description: "Increase in repeat guest visits" },
     ],
   },
@@ -416,7 +416,7 @@ export const industries: Industry[] = [
     outcomes: [
       { metric: "3x", description: "Enquiry-to-enrolment conversion improvement" },
       { metric: "0", description: "Admin time spent on scheduling coordination" },
-      { metric: "20–30 min", description: "Saved per client from automated intake" },
+      { metric: "20 to 30 min", description: "Saved per client from automated intake" },
     ],
   },
   {
@@ -457,8 +457,8 @@ export const industries: Industry[] = [
       { step: 4, label: "Review Requested", description: "Automated review request 48h after delivery" },
     ],
     outcomes: [
-      { metric: "3–5x", description: "Increase in website lead capture rate" },
-      { metric: "2–4x", description: "Monthly review volume growth" },
+      { metric: "3 to 5x", description: "Increase in website lead capture rate" },
+      { metric: "2 to 4x", description: "Monthly review volume growth" },
       { metric: "100%", description: "Of enquiries followed up automatically" },
     ],
   },

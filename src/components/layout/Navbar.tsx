@@ -32,7 +32,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
-  // Book CTA: the niche's own pre-audit flow on a niche page, else the general one.
+  // Book CTA: the niche's own Operations Map flow on a niche page, else the general one.
   const niche = niches.find((n) => pathname === `/industries/${n.slug}`);
   const bookHref = niche ? bookUrl(niche.bookSlug) : GENERIC_BOOK_URL;
 
@@ -216,7 +216,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
             WhatsApp
           </a>
           <a href={bookHref} className="btn btn-accent">
-            Book a pre-audit
+            Free Operations Map
           </a>
         </div>
 
@@ -287,7 +287,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
               WhatsApp
             </a>
             <Link href={bookHref} className="btn btn-accent flex-1 text-sm py-3">
-              Book a pre-audit
+              Free Operations Map
             </Link>
           </div>
         </div>

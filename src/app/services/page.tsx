@@ -5,6 +5,7 @@ import { Reveal } from "@/components/primitives/Reveal";
 import { PageHero } from "@/components/kit/PageHero";
 import { SectionHead } from "@/components/kit/SectionHead";
 import { CTABand } from "@/components/kit/CTABand";
+import { OfferSection } from "@/components/offer/OfferSection";
 import { NumberTicker } from "@/components/kit/NumberTicker";
 import { SystemStack } from "@/components/visuals/hero/SystemStack";
 import { PowerOfAI } from "@/components/aiteam/PowerOfAI";
@@ -14,7 +15,7 @@ import { GENERIC_BOOK_URL } from "@/data/booking";
 
 const TITLE = "Services: WhatsApp Replies, Phone Answering, Online Booking and More | Verdance Systems AI";
 const DESCRIPTION =
-  "Twelve services for South African businesses: instant WhatsApp and message replies, phone answering, online booking, missed call text back, Google reviews, websites and more. Fixed quote after a free pre-audit.";
+  "Twelve services for South African businesses: instant WhatsApp and message replies, phone answering, online booking, missed call text back, Google reviews, websites and more. Fixed quote after a free Operations Map.";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/services" },
@@ -47,7 +48,7 @@ export default function ServicesPage() {
         lead="Getting found, answering and booking, running the business, and the custom work only you have. Every part talks to the others. Start with the one that is costing you most."
         crumbs={[{ href: "/", label: "Home" }, { label: "Services" }]}
         visual={<SystemStack />}
-        note={`${SERVICE_CATEGORIES.length} services · fixed quote after your free pre-audit`}
+        note={`${SERVICE_CATEGORIES.length} services · fixed quote after your free Operations Map`}
       />
 
       {/* pillar quick-nav */}
@@ -139,7 +140,7 @@ export default function ServicesPage() {
             eyebrow="Where to start"
             title={
               <>
-                Not sure which? <span className="italic-accent">That is what the pre-audit is for.</span>
+                Not sure which? <span className="italic-accent">That is what the Operations Map is for.</span>
               </>
             }
             intro={
@@ -152,7 +153,8 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <CTABand />
+      <OfferSection />
+      <CTABand guarantees={false} />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label="Get your free Operations Map" />
     </>
   );

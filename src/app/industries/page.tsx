@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/industries" },
   openGraph: {
     title: "Industries | Verdance Systems AI",
-    description: "Five current offers, each built around how one kind of South African business gets its enquiries, and systems for many more industries. Fixed quote after a free pre-audit.",
+    description: "Five current offers, each built around how one kind of South African business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
     url: "https://verdancesystemsai.com/industries",
     type: "website",
     siteName: "Verdance Systems AI",
@@ -21,11 +21,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Industries | Verdance Systems AI",
-    description: "Five current offers, each built around how one kind of South African business gets its enquiries, and systems for many more industries. Fixed quote after a free pre-audit.",
+    description: "Five current offers, each built around how one kind of South African business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
   },
   title: "Industries | Verdance Systems AI",
   description:
-    "Five current offers, each built around how one kind of South African business gets its enquiries, and systems for many more industries. Fixed quote after a free pre-audit.",
+    "Five current offers, each built around how one kind of South African business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
 };
 
 export default function IndustriesPage() {
@@ -41,7 +41,7 @@ export default function IndustriesPage() {
         lead="A wedding venue, a clinic and a plumber get very different messages. Each offer is built around one kind of business, its channels and its busy hours."
         crumbs={[{ href: "/", label: "Home" }, { label: "Industries" }]}
         visual={<CardFan />}
-        note="Five current offers · every one replies within 5 minutes"
+        note="Five current offers · every one replies within 60 seconds"
       />
 
       <NicheGrid tone="canvas-2" />

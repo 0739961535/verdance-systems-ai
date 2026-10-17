@@ -40,8 +40,8 @@ export const PROBLEM_STATS: {
   label: string;
   tone: "green" | "blue" | "pop";
 }[] = [
-  { value: "20–40%", label: "of enquiries lost", tone: "pop" },
-  { value: "£2,000–£4,000", label: "walking away monthly", tone: "blue" },
+  { value: "20 to 40%", label: "of enquiries lost", tone: "pop" },
+  { value: "£2,000 to £4,000", label: "walking away monthly", tone: "blue" },
   { value: "60 sec", numeric: 60, suffix: " sec", label: "our system's response time", tone: "green" },
 ];
 
@@ -116,7 +116,7 @@ export const CAPABILITY_SUITE = [
   { title: "Lead Finder", blurb: "Proactive lead generation that identifies and reaches out to your ideal customers." },
   { title: "Post-Call Messenger", blurb: "Smart follow-ups via SMS and email that nurture leads through your funnel." },
   { title: "CRM Dashboard", blurb: "Complete CRM integration with lead tracking, analytics, and performance insights." },
-  { title: "Website Integration", blurb: "Seamless embedding into your existing site, or a complete website rebuild with automation." },
+  { title: "Website Integration", blurb: "Clean embedding into your existing site, or a complete website rebuild with automation." },
   { title: "Analytics & Optimization", blurb: "Continuous learning system that monitors performance and automatically improves conversion rates." },
   { title: "Smart Scheduler", blurb: "AI-powered booking that syncs with Google Calendar and your CRM - no human input required." },
   { title: "Agent Dashboard", blurb: "See exactly what your AI agents are doing: live conversations, performance metrics, lead progress, engagement insights in one view." },

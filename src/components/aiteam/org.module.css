@@ -1,0 +1,127 @@
+/* Flow diagram and org chart for "How it is organised". */
+
+/* ── flow: the same four stops as the command centre ── */
+.flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  counter-reset: none;
+}
+@media (min-width: 1024px) {
+  .flow { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+}
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 4px 14px;
+  align-items: start;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: var(--bg-3);
+  border: 1px solid var(--hairline-2);
+}
+.step[data-role="attn"] { border-color: rgba(var(--st-attn-rgb), 0.35); }
+@media (min-width: 1024px) {
+  .step { grid-template-columns: minmax(0, 1fr); padding: 20px; gap: 10px; }
+}
+.step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 30px;
+  bottom: -13px;
+  width: 1px;
+  height: 12px;
+  background: var(--hairline-3);
+}
+@media (min-width: 1024px) {
+  .step:not(:last-child)::after { left: auto; right: -21px; bottom: auto; top: 50%; width: 20px; height: 1px; }
+}
+.stepNum {
+  grid-row: span 3;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  padding-top: 3px;
+}
+@media (min-width: 1024px) { .stepNum { grid-row: auto; padding-top: 0; } }
+.stepTitle { margin: 6px 0 0; font-family: var(--font-display); font-weight: 500; font-size: 1.25rem; letter-spacing: -0.02em; color: var(--ink); }
+.stepBody { margin: 0; font-size: 0.9375rem; line-height: 1.5; color: var(--ink-soft); }
+.chipRow { display: flex; }
+
+/* ── org chart ── */
+.chart { display: grid; justify-items: center; }
+.node {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  width: 100%;
+  max-width: 340px;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: var(--bg-3);
+  border: 1px solid var(--hairline-2);
+}
+.node[data-role="attn"] { border-color: rgba(var(--st-attn-rgb), 0.35); }
+.nodeTitle { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: 1.125rem; letter-spacing: -0.02em; color: var(--ink); }
+.nodeBody { margin: 0; font-size: 0.9rem; line-height: 1.45; color: var(--ink-soft); }
+
+.stem { width: 1px; height: 24px; background: var(--hairline-3); }
+
+.pair { display: grid; gap: 12px; width: 100%; justify-items: center; }
+@media (min-width: 640px) {
+  .pair { grid-template-columns: repeat(2, minmax(0, 340px)); justify-content: center; gap: 24px; }
+}
+
+.depts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: grid;
+  gap: 12px;
+}
+.depts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 1024px) { .depts { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; } }
+@media (min-width: 1280px) {
+  .depts { grid-template-columns: repeat(6, minmax(0, 1fr)); padding-top: 24px; position: relative; }
+  /* the bus line every department hangs from */
+  .depts::before { content: ""; position: absolute; top: 0; left: calc(100% / 12); right: calc(100% / 12); height: 1px; background: var(--hairline-3); }
+  .dept { position: relative; }
+  .dept::before { content: ""; position: absolute; top: -24px; left: 50%; width: 1px; height: 24px; background: var(--hairline-3); }
+}
+
+.dept {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 14px 12px;
+  border-radius: var(--radius-md);
+  background: var(--bg-3);
+  border: 1px solid var(--hairline-2);
+  min-width: 0;
+}
+.deptHead { display: grid; gap: 8px; justify-items: start; }
+.deptName { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: 1.0625rem; letter-spacing: -0.02em; color: var(--ink); }
+.headRole { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.workers {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 12px;
+  display: grid;
+  gap: 8px;
+  border-left: 1px solid var(--hairline-2);
+}
+.workers li { position: relative; font-size: 0.875rem; line-height: 1.35; color: var(--ink-soft); }
+.workers li::before { content: ""; position: absolute; left: -12px; top: 0.65em; width: 8px; height: 1px; background: var(--hairline-3); }
+
+@media (max-width: 639px) {
+  .deptHead > :first-child { display: none; }
+  .deptName { font-size: 1rem; }
+  .headRole { font-size: 0.625rem; letter-spacing: 0.06em; }
+  .workers li { font-size: 0.8125rem; }
+}
+@media (min-width: 640px) { .dept { padding: 16px; gap: 12px; } }

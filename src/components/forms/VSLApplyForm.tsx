@@ -90,7 +90,7 @@ const STEPS: Step[] = [
     kind: "radio",
     question: "How many enquiries do you get a month?",
     emphasis: "enquiries",
-    options: ["Under 50", "50–150", "150–400", "400–1,000", "1,000+"],
+    options: ["Under 50", "50 to 150", "150 to 400", "400 to 1,000", "1,000+"],
     required: true,
   },
   {
@@ -120,7 +120,7 @@ const STEPS: Step[] = [
     options: [
       "Yesterday - I'm losing money now",
       "Within the next month",
-      "Next 1–3 months",
+      "Next 1 to 3 months",
       "Just researching for now",
     ],
     required: true,
@@ -517,6 +517,12 @@ export function VSLApplyForm({
               </span>
             )}
           </div>
+        )}
+        {status === "form" && isLast && (
+          <p className="px-6 pb-5 text-[0.8rem] leading-[1.5] text-[color:var(--color-ink-muted)]">
+            By sending this, you agree that Verdance may use these details to contact you about your application, as set out in our{" "}
+            <a href="/privacy" className="underline underline-offset-2">privacy policy</a>. We never share them, and you can ask us to delete them at any time.
+          </p>
         )}
       </div>
       </ConicBorder>

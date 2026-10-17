@@ -91,7 +91,7 @@ export default async function ServiceCategoryPage({
             parts={category.subProducts.map((sp) => ({ name: sp.name, steps: sp.howItWorks }))}
           />
         }
-        note="Fixed quote after your free pre-audit"
+        note="Fixed quote after your free Operations Map"
       />
 
       {/* WHAT YOU GET + BEST FOR */}
@@ -132,7 +132,7 @@ export default async function ServiceCategoryPage({
                 Get your free Operations Map
                 <ArrowUpRight size={16} aria-hidden />
               </a>
-              <p className="mt-4 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)]">Fixed quote after the pre-audit</p>
+              <p className="mt-4 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)]">Fixed quote after the Operations Map</p>
             </div>
           </Reveal>
         </div>

@@ -220,6 +220,10 @@ export function BookingCard() {
               <button type="submit" disabled={step === "booking"} className="btn btn-accent w-full min-h-12 justify-center disabled:opacity-60">
                 {step === "booking" ? "Booking…" : "Confirm booking"}
               </button>
+              <p className="text-[0.8rem] leading-[1.5] text-[color:var(--color-ink-muted)]">
+                By booking, you agree that Verdance may use these details to arrange and follow up on your call, as set out in our{" "}
+                <a href="/privacy" className="underline underline-offset-2">privacy policy</a>. We never share them, and you can ask us to delete them at any time.
+              </p>
             </form>
           </>
         )}

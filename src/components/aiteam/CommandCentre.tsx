@@ -1,184 +1,489 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Check } from "lucide-react";
+import { useEffect, useReducer, useRef, useState } from "react";
+import { AnimatePresence, LayoutGroup, MotionConfig, motion } from "framer-motion";
+import { Check, Pause, PenLine, Play, RotateCcw } from "lucide-react";
 import { useReducedMotionPref } from "@/lib/useReducedMotionPref";
-import { BEST_MONTH, bestMonthTiles } from "@/data/bestMonth";
+import { DEMO_ITEMS, DEPARTMENTS, STAGES, type DemoItem } from "@/data/aiTeam";
+import { ChipSwap, type ChipRole } from "./StatusChip";
+import s from "./CommandCentre.module.css";
 
 /**
- * CommandCentre - a stylised mockup of the owner's command centre and the
- * live office. SAMPLE DATA, labelled on the frame. The agent "screens" tick
- * over while on screen (static under reduced motion).
+ * Sample command centre. Pieces of work travel Department, Reviewer,
+ * Operator, Needs you. The visitor can approve or edit what reaches them.
+ *
+ * Loop rules (design-system-v2 section 4): ticks only while at least 30% of
+ * the frame is on screen and the tab is visible, stops after 3 full cycles
+ * and holds a full frame. Reduced motion: the static best frame, no ticking.
+ * SAMPLE DATA only, labelled on the frame.
  */
 
-type Agent = { name: string; dept: string; screen: "inbox" | "research" | "draft" | "chart" | "calendar" | "docs"; status: string };
+type Stage = "dept" | "review" | "operator" | "attn";
 
-export const AGENTS: Agent[] = [
-  { name: "Inbox triage", dept: "Operations", screen: "inbox", status: "Sorting new messages" },
-  { name: "Prospect research", dept: "Sales", screen: "research", status: "Reading a prospect's website" },
-  { name: "Proposal drafts", dept: "Sales", screen: "draft", status: "Writing a proposal" },
-  { name: "Money tracking", dept: "Finance and tax", screen: "chart", status: "Matching payments" },
-  { name: "Day planning", dept: "Operations", screen: "calendar", status: "Moving a call to 15:00" },
-  { name: "Document register", dept: "Legal and compliance", screen: "docs", status: "Checking renewals" },
-];
+type Card = {
+  key: string;
+  item: DemoItem;
+  stage: Stage;
+  /** Lane it just came from, for the chip crossfade. */
+  from?: Stage;
+  fresh?: boolean;
+  /** Stagger slot for the move, 60ms apart. */
+  order?: number;
+  edited?: string;
+};
 
-const NEEDS_YOU = [
-  { title: "Approve proposal", sub: "Kitchen refit, ready to send" },
-  { title: "Reply to a supplier", sub: "Draft ready, 3 lines" },
-  { title: "An invoice is overdue", sub: "Send the polite reminder?" },
-];
+type State = {
+  cards: Card[];
+  next: number;
+  spawned: number;
+  done: number;
+  pressing: string | null;
+  editing: string | null;
+  paused: boolean;
+  ended: boolean;
+  focusNext: boolean;
+  msg: { id: number; text: string } | null;
+  announce: string;
+};
 
-function useTick(active: boolean, ms = 1400) {
-  const [t, setT] = useState(0);
+type Action =
+  | { type: "press"; key: string }
+  | { type: "approve"; key: string; auto: boolean }
+  | { type: "edit"; key: string }
+  | { type: "save"; key: string; text: string }
+  | { type: "cancel" }
+  | { type: "toggle" }
+  | { type: "replay" };
+
+const CYCLES = 3;
+const NEXT: Record<Exclude<Stage, "attn">, Stage> = { dept: "review", review: "operator", operator: "attn" };
+const ROLE: Record<Stage, ChipRole> = { dept: "dept", review: "review", operator: "operator", attn: "attn" };
+const SUB: Record<Stage, string> = { dept: "Head and workers", review: "Checks it", operator: "Plans it", attn: "You decide" };
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+/** The opening frame, also the reduced-motion frame: one piece of work per stage. */
+const OPENING: Stage[] = ["attn", "operator", "review", "dept"];
+
+function initialState(): State {
+  return {
+    cards: OPENING.map((stage, i) => ({ key: `${DEMO_ITEMS[i].id}-0`, item: DEMO_ITEMS[i], stage })),
+    next: OPENING.length,
+    spawned: 0,
+    done: 0,
+    pressing: null,
+    editing: null,
+    paused: false,
+    ended: false,
+    focusNext: false,
+    msg: null,
+    announce: "",
+  };
+}
+
+function chipLabel(stage: Stage, item: DemoItem) {
+  if (stage === "dept") return item.dept;
+  return STAGES.find((x) => x.role === ROLE[stage])?.label ?? stage;
+}
+
+/** Move every card forward one lane where the lane ahead is free, furthest first, then refill Department. */
+function cascade(state: State): State {
+  const cards: Card[] = state.cards.map((c) => ({ ...c, from: undefined, fresh: false, order: 0 }));
+  const taken = (st: Stage) => cards.some((c) => c.stage === st);
+  let order = 0;
+  for (const st of ["operator", "review", "dept"] as const) {
+    const c = cards.find((x) => x.stage === st);
+    if (c && !taken(NEXT[st])) {
+      c.from = st;
+      c.stage = NEXT[st];
+      c.order = order++;
+    }
+  }
+  let { next, spawned } = state;
+  if (!taken("dept")) {
+    const item = DEMO_ITEMS[next % DEMO_ITEMS.length];
+    cards.push({ key: `${item.id}-${next}`, item, stage: "dept", fresh: true, order: order++ });
+    next += 1;
+    spawned += 1;
+  }
+  const ended = state.ended || spawned >= DEMO_ITEMS.length * CYCLES;
+  return {
+    ...state,
+    cards,
+    next,
+    spawned,
+    ended,
+    announce: ended && !state.ended ? "Demo finished. Holding the last frame." : state.announce,
+  };
+}
+
+function reducer(state: State, a: Action): State {
+  switch (a.type) {
+    case "press":
+      return { ...state, pressing: a.key };
+    case "approve": {
+      const card = state.cards.find((c) => c.key === a.key);
+      if (!card) return state;
+      const done = state.done + 1;
+      const moved = cascade({
+        ...state,
+        cards: state.cards.filter((c) => c.key !== a.key),
+        done,
+        pressing: null,
+        editing: null,
+        focusNext: !a.auto,
+        msg: { id: done, text: a.auto ? "Approved. Sent. Logged." : "Sent. Logged." },
+      });
+      if (a.auto) return moved;
+      const nextUp = moved.cards.find((c) => c.stage === "attn");
+      return { ...moved, announce: `${card.item.title} approved. Sent. Logged.${nextUp ? ` Next: ${nextUp.item.title}.` : ""}` };
+    }
+    case "edit":
+      return { ...state, editing: a.key, pressing: null, focusNext: false };
+    case "save":
+      return {
+        ...state,
+        editing: null,
+        cards: state.cards.map((c) => (c.key === a.key ? { ...c, edited: a.text, from: undefined } : c)),
+        msg: { id: -(state.done + 1) * 1000 - state.next, text: "Edit saved. Waiting for you." },
+        announce: "Edit saved. It waits for your approval.",
+      };
+    case "cancel":
+      return { ...state, editing: null };
+    case "toggle":
+      return { ...state, paused: !state.paused, pressing: null, announce: state.paused ? "Demo playing." : "Demo paused." };
+    case "replay":
+      return { ...state, ended: false, paused: false, spawned: 0, announce: "Demo playing." };
+  }
+}
+
+/** True while at least 30% of the element is on screen and the tab is visible. */
+function useActiveOnScreen<T extends Element>() {
+  const ref = useRef<T>(null);
+  const [inView, setInView] = useState(false);
+  const [tabVisible, setTabVisible] = useState(true);
   useEffect(() => {
-    if (!active) return;
-    const id = setInterval(() => {
-      if (!document.hidden) setT((x) => x + 1);
-    }, ms);
-    return () => clearInterval(id);
-  }, [active, ms]);
-  return t;
-}
-
-function MiniScreen({ kind, t }: { kind: Agent["screen"]; t: number }) {
-  const line = (w: string, on = false, k?: string | number) => (
-    <span key={k} className="block h-[5px] rounded-full" style={{ width: w, background: on ? "rgba(var(--accent-rgb),0.75)" : "rgba(var(--hairline-rgb),0.16)" }} />
-  );
-  if (kind === "inbox")
-    return (
-      <div className="flex flex-col gap-1.5">
-        {[0, 1, 2, 3].map((i) => (
-          <span key={i} className="flex items-center gap-1.5">
-            <span className="h-[7px] w-[7px] rounded-full" style={{ background: i === t % 4 ? "var(--accent)" : "rgba(var(--hairline-rgb),0.2)" }} />
-            {line(`${60 + ((i * 13) % 30)}%`, i === t % 4)}
-          </span>
-        ))}
-      </div>
-    );
-  if (kind === "chart")
-    return (
-      <div className="flex h-full items-end gap-1">
-        {[5, 8, 6, 9, 7, 10, 8].map((h, i) => (
-          <span key={i} className="flex-1 rounded-t-[2px]" style={{ height: `${((h + ((t + i) % 3)) / 13) * 100}%`, background: i === 6 ? "var(--accent)" : "rgba(var(--accent-rgb),0.3)", transition: "height 0.6s var(--ease-out-expo)" }} />
-        ))}
-      </div>
-    );
-  if (kind === "calendar")
-    return (
-      <div className="grid grid-cols-4 gap-1">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <span key={i} className="h-[11px] rounded-[3px]" style={{ background: i === (t % 8) ? "var(--accent)" : i % 3 === 0 ? "rgba(var(--accent-rgb),0.25)" : "rgba(var(--hairline-rgb),0.1)", transition: "background 0.4s" }} />
-        ))}
-      </div>
-    );
-  // research / draft / docs: typing lines
-  const n = kind === "docs" ? 3 : 4;
-  const typed = t % (n + 1);
-  return (
-    <div className="flex flex-col gap-1.5">
-      {Array.from({ length: n }).map((_, i) => line(i < typed ? `${92 - i * 14}%` : "18%", i === typed - 1, i))}
-    </div>
-  );
-}
-
-export function AgentCard({ agent, t }: { agent: Agent; t: number }) {
-  return (
-    <div className="sheen min-w-0 rounded-2xl p-3" data-tilt="6" style={{ background: "var(--bg-3)", border: "1px solid var(--hairline-2)" }}>
-      <div className="h-[64px] overflow-hidden rounded-lg p-2.5" style={{ background: "var(--bg)", border: "1px solid var(--hairline)" }} aria-hidden>
-        <MiniScreen kind={agent.screen} t={t} />
-      </div>
-      <div className="mt-2.5 flex items-center gap-1.5">
-        <span className="relative flex h-1.5 w-1.5">
-          <span className="absolute inset-0 rounded-full animate-pulse-ring" style={{ background: "var(--signal)" }} />
-          <span className="relative h-1.5 w-1.5 rounded-full" style={{ background: "var(--signal)" }} />
-        </span>
-        <span className="truncate text-[0.82rem] font-medium text-[color:var(--color-ink)]">{agent.name}</span>
-      </div>
-      <p className="mt-0.5 truncate font-mono text-[0.62rem] uppercase tracking-[0.1em] text-[color:var(--color-ink-muted)]">{agent.dept}</p>
-      <p className="mt-1.5 truncate text-[0.75rem] text-[color:var(--color-ink-soft)]">{agent.status}</p>
-    </div>
-  );
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setInView(e.intersectionRatio >= 0.3), { threshold: [0, 0.3, 0.6] });
+    io.observe(el);
+    const onVis = () => setTabVisible(document.visibilityState === "visible");
+    document.addEventListener("visibilitychange", onVis);
+    return () => {
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVis);
+    };
+  }, []);
+  return [ref, inView && tabVisible] as const;
 }
 
 export function CommandCentre() {
   const reduce = useReducedMotionPref();
-  const [visible, setVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const [state, dispatch] = useReducer(reducer, undefined, initialState);
+  const [ref, active] = useActiveOnScreen<HTMLDivElement>();
+
+  const running = active && !reduce && !state.paused && !state.ended && !state.editing;
+  const attnKey = state.cards.find((c) => c.stage === "attn")?.key;
+  const pressing = state.pressing;
+
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.15 });
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-  const t = useTick(visible && !reduce);
-  const snapshot = bestMonthTiles();
+    if (!running || !attnKey) return;
+    // event cadence: --demo-tick randomised 2400 to 4000ms, plus --demo-hold so the Needs-you card can be read
+    const delay = pressing ? 420 : 2400 + Math.random() * 1600 + 1200;
+    const id = window.setTimeout(() => {
+      if (pressing) dispatch({ type: "approve", key: pressing, auto: true });
+      else dispatch({ type: "press", key: attnKey });
+    }, delay);
+    return () => window.clearTimeout(id);
+  }, [running, attnKey, pressing]);
+
+  const pill =
+    reduce || state.ended
+      ? { state: "idle", text: "Today" }
+      : state.editing
+        ? { state: "attn", text: "Waiting for you" }
+        : state.paused
+          ? { state: "idle", text: "Paused" }
+          : { state: "live", text: "Live" };
 
   return (
-    <div ref={ref} className="browser-frame g-border light-sweep">
-      <div className="flex items-center gap-3 px-4 py-3" style={{ borderBottom: "1px solid var(--hairline)" }}>
-        <span className="flex gap-1.5" aria-hidden>
-          {[0, 1, 2].map((i) => (
-            <i key={i} className="h-2.5 w-2.5 rounded-full" style={{ background: "rgba(var(--hairline-rgb),0.18)" }} />
-          ))}
-        </span>
-        <span className="mx-auto hidden rounded-full px-4 py-1 font-mono text-[0.7rem] text-[color:var(--color-ink-muted)] sm:block" style={{ background: "var(--surface-tint-2)" }}>
-          Command centre · your business
-        </span>
-        <span className="ml-auto shrink-0 rounded-full px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.14em] sm:ml-0" style={{ color: "var(--accent)", border: "1px solid rgba(var(--accent-rgb),0.35)" }}>
-          Sample layout
-        </span>
-      </div>
+    <MotionConfig reducedMotion="user">
+      <div ref={ref} className={s.frame} role="group" aria-label="Sample command centre, for illustration">
+        {(["tl", "tr", "bl", "br"] as const).map((c) => (
+          <span key={c} aria-hidden className={s.reg} data-c={c} />
+        ))}
 
-      <div className="grid gap-4 p-4 sm:p-5 lg:grid-cols-[0.8fr_1.5fr]">
-        {/* needs you */}
-        <div className="flex flex-col gap-4">
-          <div className="rounded-2xl p-4" style={{ background: "var(--bg-3)", border: "1px solid rgba(var(--accent-rgb),0.3)" }}>
-            <p className="flex items-center justify-between text-[0.8rem] text-[color:var(--color-ink-muted)]">
-              Needs you
-              <span className="rounded-full px-2 py-0.5 font-mono text-[0.65rem] uppercase tracking-[0.12em]" style={{ background: "rgba(var(--accent-rgb),0.15)", color: "var(--accent)" }}>Approve</span>
-            </p>
-            <ul className="mt-3 flex flex-col gap-2">
-              {NEEDS_YOU.map((n) => (
-                <li key={n.title} className="flex items-center justify-between gap-3 rounded-xl px-3 py-2.5" style={{ background: "var(--bg-2)", border: "1px solid var(--hairline)" }}>
-                  <span className="min-w-0">
-                    <span className="block truncate text-[0.85rem] text-[color:var(--color-ink)]">{n.title}</span>
-                    <span className="block truncate text-[0.72rem] text-[color:var(--color-ink-muted)]">{n.sub}</span>
-                  </span>
-                  <span className="flex h-7 shrink-0 items-center gap-1 rounded-full px-2.5 text-[0.7rem] font-medium" style={{ background: "var(--accent-3)", color: "var(--on-accent-3)" }}>
-                    <Check size={12} aria-hidden /> Approve
-                  </span>
-                </li>
+        <div className={s.bar}>
+          <span className={s.dots} aria-hidden>
+            <i />
+            <i />
+            <i />
+          </span>
+          <span className={s.title}>ashford · staff</span>
+          <div className={s.barEnd}>
+            <span className={s.pill} data-state={pill.state}>
+              <span className={s.pillDot} aria-hidden />
+              {pill.text}
+            </span>
+            {!reduce &&
+              (state.ended ? (
+                <button type="button" className={s.ctrl} onClick={() => dispatch({ type: "replay" })} aria-label="Replay the demo">
+                  <RotateCcw size={16} strokeWidth={1.5} aria-hidden />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className={s.ctrl}
+                  onClick={() => dispatch({ type: "toggle" })}
+                  aria-label="Pause the demo"
+                  aria-pressed={state.paused}
+                >
+                  {state.paused ? <Play size={16} strokeWidth={1.5} aria-hidden /> : <Pause size={16} strokeWidth={1.5} aria-hidden />}
+                </button>
               ))}
-            </ul>
           </div>
-          {snapshot && (
-            <div className="rounded-2xl p-4" style={{ background: "var(--bg-3)", border: "1px solid var(--hairline)" }}>
-              <p className="text-[0.8rem] text-[color:var(--color-ink-muted)]">Best month yet · {BEST_MONTH.client}</p>
-              <dl className="mt-3 grid grid-cols-2 gap-3">
-                {snapshot.map((t) => (
-                  <div key={t.label}>
-                    <dt className="text-[0.68rem] leading-tight text-[color:var(--color-ink-muted)]">{t.label}</dt>
-                    <dd className="mt-1 font-display text-[1.1rem] text-[color:var(--color-ink)] tabular">{t.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          )}
         </div>
 
-        {/* the office */}
-        <div className="rounded-2xl p-4" style={{ background: "var(--bg-2)", border: "1px solid var(--hairline)" }}>
-          <p className="flex items-center justify-between text-[0.8rem] text-[color:var(--color-ink-muted)]">
-            The office
-            <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em]">Agents at work</span>
-          </p>
-          <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
-            {AGENTS.map((a, i) => (
-              <AgentCard key={a.name} agent={a} t={t + i} />
-            ))}
+        <LayoutGroup id="command-centre">
+          <div className={s.board}>
+            {STAGES.map((stage, i) => {
+              const st = stage.role as Stage;
+              const cards = state.cards.filter((c) => c.stage === st);
+              const list = cards.map((c) => (
+                <CardView
+                  key={c.key}
+                  card={c}
+                  pressing={state.pressing === c.key}
+                  editing={state.editing === c.key}
+                  focusOnMount={state.focusNext}
+                  dispatch={dispatch}
+                />
+              ));
+              return (
+                <section key={st} className={s.lane} data-stage={st} aria-label={stage.label}>
+                  <div className={s.head} aria-hidden>
+                    <span className={s.headNum}>{String(i + 1).padStart(2, "0")}</span>
+                    <span className={s.headName}>{stage.label}</span>
+                    <span className={s.headSub}>{SUB[st]}</span>
+                  </div>
+                  <div className={s.body}>
+                    {cards.length === 0 && st === "attn" && <p className={s.empty}>Nothing waiting for you</p>}
+                    <ul className={s.list}>{st === "attn" ? <AnimatePresence mode="popLayout">{list}</AnimatePresence> : list}</ul>
+                  </div>
+                </section>
+              );
+            })}
           </div>
+        </LayoutGroup>
+
+        <div className={s.foot}>
+          <p className={s.label}>Sample command centre, for illustration</p>
+          <p className={s.msg} aria-hidden>
+            <AnimatePresence mode="wait" initial={false}>
+              {state.msg && (
+                <motion.span
+                  key={state.msg.id}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.2, ease: EASE }}
+                  style={{ display: "inline-flex", alignItems: "center", gap: 6, minWidth: 0 }}
+                >
+                  <Check size={14} strokeWidth={2} aria-hidden />
+                  <span>{state.msg.text}</span>
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </p>
+          <p className={s.done}>
+            Done today
+            <motion.span
+              key={state.done}
+              className={s.doneNum}
+              initial={state.done ? { opacity: 0, y: 8 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.32, ease: EASE }}
+            >
+              {state.done}
+            </motion.span>
+          </p>
         </div>
+
+        <p className="sr-only" aria-live="polite">
+          {state.announce}
+        </p>
+      </div>
+    </MotionConfig>
+  );
+}
+
+type CardProps = {
+  card: Card;
+  pressing: boolean;
+  editing: boolean;
+  focusOnMount: boolean;
+  dispatch: React.Dispatch<Action>;
+};
+
+function CardView({ card, pressing, editing, focusOnMount, dispatch }: CardProps) {
+  const { item, stage } = card;
+  const delay = (card.order ?? 0) * 0.06;
+  const head = DEPARTMENTS.find((d) => d.name === item.dept)?.head;
+
+  return (
+    <motion.li
+      layoutId={card.key}
+      layout="position"
+      className={s.card}
+      data-stage={stage}
+      initial={card.fresh ? { opacity: 0, y: 12 } : false}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, x: 28, transition: { duration: 0.22, ease: [0.4, 0, 1, 1] } }}
+      transition={{
+        layout: { duration: 0.55, ease: EASE, delay },
+        opacity: { duration: 0.32, ease: EASE, delay },
+        y: { duration: 0.32, ease: EASE, delay },
+      }}
+    >
+      <div className={s.cardTop}>
+        <ChipSwap
+          role={ROLE[stage]}
+          label={chipLabel(stage, item)}
+          from={card.from ? ROLE[card.from] : undefined}
+          fromLabel={card.from ? chipLabel(card.from, item) : undefined}
+        />
+        <span className={s.biz}>{item.biz}</span>
+      </div>
+      <p className={s.cardTitle} title={item.title}>
+        {item.title}
+      </p>
+
+      {stage === "dept" && (
+        <div className={s.detail}>
+          <dl className={s.kv}>
+            <dt>Head</dt>
+            <dd>{head}</dd>
+            <dt>Worker</dt>
+            <dd>{item.worker}</dd>
+          </dl>
+          <span className={s.progress} aria-hidden>
+            <i />
+          </span>
+        </div>
+      )}
+
+      {stage === "review" && (
+        <div className={s.detail}>
+          <ul className={s.checks}>
+            {item.check.map((c, i) => (
+              <li key={c} className={card.from ? s.tickIn : undefined} style={{ animationDelay: `${0.35 + i * 0.12}s` }}>
+                <Check size={14} strokeWidth={2} aria-hidden />
+                <span>{c}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {stage === "operator" && (
+        <div className={s.detail}>
+          <span className={s.planLabel}>Plan</span>
+          <p className={s.plan}>{item.plan}</p>
+        </div>
+      )}
+
+      {stage === "attn" && <AttnDetail card={card} pressing={pressing} editing={editing} focusOnMount={focusOnMount} dispatch={dispatch} />}
+    </motion.li>
+  );
+}
+
+function AttnDetail({ card, pressing, editing, focusOnMount, dispatch }: CardProps) {
+  const draft = card.edited ?? card.item.draft;
+  const [text, setText] = useState(draft);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const approveRef = useRef<HTMLButtonElement>(null);
+  const editRef = useRef<HTMLButtonElement>(null);
+  const wasEditing = useRef(false);
+  const focusFirst = useRef(focusOnMount);
+
+  // A visitor who just approved keeps their place on the next card.
+  useEffect(() => {
+    if (focusFirst.current) approveRef.current?.focus({ preventScroll: true });
+  }, []);
+
+  useEffect(() => {
+    if (editing) inputRef.current?.focus({ preventScroll: true });
+    else if (wasEditing.current) editRef.current?.focus({ preventScroll: true });
+    wasEditing.current = editing;
+  }, [editing]);
+
+  if (editing) {
+    return (
+      <form
+        className={s.detail}
+        onSubmit={(e) => {
+          e.preventDefault();
+          dispatch({ type: "save", key: card.key, text: text.trim() || card.item.draft });
+        }}
+      >
+        <label className="sr-only" htmlFor={`edit-${card.key}`}>
+          Edit the reply for {card.item.title}
+        </label>
+        <input
+          id={`edit-${card.key}`}
+          ref={inputRef}
+          className={s.input}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") dispatch({ type: "cancel" });
+          }}
+          autoComplete="off"
+        />
+        <div className={s.actions}>
+          <button type="submit" className={s.act} data-kind="approve">
+            <Check size={16} strokeWidth={1.5} aria-hidden />
+            Save
+          </button>
+          <button type="button" className={s.act} onClick={() => dispatch({ type: "cancel" })}>
+            Cancel
+          </button>
+        </div>
+      </form>
+    );
+  }
+
+  return (
+    <div className={s.detail}>
+      <p className={s.draft} title={draft}>
+        {card.edited && <span className={s.edited}>Edited by you · </span>}
+        {draft}
+      </p>
+      <div className={s.actions}>
+        <button
+          ref={approveRef}
+          type="button"
+          className={s.act}
+          data-kind="approve"
+          data-pressing={pressing}
+          onClick={() => dispatch({ type: "approve", key: card.key, auto: false })}
+          aria-label={`Approve: ${card.item.title}`}
+        >
+          <Check size={16} strokeWidth={1.5} aria-hidden />
+          Approve
+        </button>
+        <button
+          ref={editRef}
+          type="button"
+          className={s.act}
+          onClick={() => {
+            setText(draft);
+            dispatch({ type: "edit", key: card.key });
+          }}
+          aria-label={`Edit: ${card.item.title}`}
+        >
+          <PenLine size={16} strokeWidth={1.5} aria-hidden />
+          Edit
+        </button>
       </div>
     </div>
   );

@@ -2,16 +2,15 @@ import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
 import { GENERIC_BOOK_URL } from "@/data/niches";
 import { LeakCalculator } from "./LeakCalculator";
-import { ChannelOrbit } from "./ChannelOrbit";
+import { LazyUnifiedInbox } from "./inbox/LazyUnifiedInbox";
 
 /**
- * The niche-neutral homepage story, told with type and one simple diagram
+ * The niche-neutral homepage story, told with type and one living demo
  * (the only phone on the homepage is in the hero).
  */
 
-
 /* ------------------------------------------------------------------ */
-/* What we do: channels -> your system -> outcomes                    */
+/* What we do: every channel into one inbox, every enquiry answered   */
 /* ------------------------------------------------------------------ */
 export function WhatWeDoSection() {
   return (
@@ -29,8 +28,8 @@ export function WhatWeDoSection() {
           </p>
         </Reveal>
 
-        <div className="mt-12 md:mt-16">
-          <ChannelOrbit />
+        <div className="mt-10 md:mt-14">
+          <LazyUnifiedInbox />
         </div>
       </div>
     </section>
@@ -45,7 +44,7 @@ const STEPS = [
     n: "01",
     name: "Audit",
     title: "We measure how fast you reply today.",
-    body: "A free 30-minute pre-audit. We look at where your enquiries come from, how quickly they are answered and what that is costing you.",
+    body: "A free 30-minute Operations Map. We look at where your enquiries come from, how quickly they are answered and what that is costing you.",
     meta: "Free · 30 minutes",
   },
   {
@@ -59,7 +58,7 @@ const STEPS = [
     n: "03",
     name: "Run",
     title: "It replies, books and reports. Day or night.",
-    body: "Every enquiry answered within 5 minutes. You see it all in your dashboard, and get a short monthly report in plain words and real numbers.",
+    body: "Every enquiry answered within 60 seconds. You see it all in your dashboard, and get a short monthly report in plain words and real numbers.",
     meta: "You own all of it",
   },
 ];
@@ -106,10 +105,10 @@ export function HowItWorksSection() {
             className="font-display text-[color:var(--color-ink)]"
             style={{ fontSize: "clamp(1.5rem, 1.6vw + 1rem, 2.4rem)", lineHeight: 1.1, letterSpacing: "-0.035em" }}
           >
-            No price list. <span className="italic-accent">Fixed quote after your free pre-audit.</span>
+            No price list. <span className="italic-accent">Fixed quote after your free Operations Map.</span>
           </p>
           <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent min-h-12 shrink-0 justify-center">
-            Book the pre-audit
+            Get your free Operations Map
             <ArrowUpRight size={16} aria-hidden />
           </a>
         </Reveal>
