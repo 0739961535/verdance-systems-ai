@@ -85,7 +85,7 @@ export function NicheHero({ niche }: { niche: Niche }) {
               className="enter-fade-up mt-7 font-mono text-[0.72rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]"
               style={{ animationDelay: "0.26s" }}
             >
-              {niche.offerName} · fixed quote after your free pre-audit
+              {niche.offerName} · fixed quote after your free Operations Map
             </p>
           </div>
 

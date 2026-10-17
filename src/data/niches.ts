@@ -7,7 +7,7 @@
  * visitor sees is either our own commitment (reply time, guarantee terms,
  * price) or a number they typed into the calculator.
  *
- * Every "Book" CTA on a niche page goes to the pre-audit booking flow at
+ * Every "Book" CTA on a niche page goes to the Operations Map booking flow at
  * BOOK_BASE/<bookSlug>.
  */
 
@@ -99,7 +99,7 @@ const PROOF_LINE =
 export const PROOF = PROOF_LINE;
 
 const PRE_AUDIT_FAQ = {
-  q: "What happens on the pre-audit call?",
+  q: "What happens on the Operations Map call?",
   a: "Thirty minutes on a video call with Daniel. We look at where your enquiries come from, how fast they are answered today, and what that is likely costing you. If it is a fit, we agree a 7-day audit that sets the baseline the guarantee is measured against. If it is not a fit, we say so.",
 };
 
@@ -149,7 +149,7 @@ export const NICHES: Niche[] = [
     ],
     steps: [
       {
-        title: "Pre-audit and baseline",
+        title: "Operations Map and baseline",
         body: "A 30-minute call, then a 7-day audit. We time how fast your enquiries are answered today and count your enquiries and viewings from the last 60 days. Both sides sign the numbers.",
       },
       {
@@ -189,7 +189,7 @@ export const NICHES: Niche[] = [
       assumptions: [
         "Starting values are examples, not averages. Move them to your own numbers.",
         "It assumes a couple who waits is more likely to view another venue first. It does not assume every slow reply is lost.",
-        "Your pre-audit replaces these guesses with your real numbers from the last 60 days.",
+        "Your Operations Map replaces these guesses with your real numbers from the last 60 days.",
       ],
     },
     pricing: {
@@ -202,7 +202,7 @@ export const NICHES: Niche[] = [
           tag: "30 days",
           lines: [
             { label: "Investment", value: "Fixed quote" },
-            { label: "Quoted after", value: "Your free pre-audit" },
+            { label: "Quoted after", value: "Your Free Operations Map" },
             { label: "Surprises", value: "None, agreed in writing" },
           ],
           note: "You pay per viewing the system books that the couple actually attends. The pilot fee is credited against the Engine setup if you continue.",
@@ -213,13 +213,13 @@ export const NICHES: Niche[] = [
           tag: "Ongoing",
           lines: [
             { label: "Investment", value: "Fixed quote" },
-            { label: "Quoted after", value: "Your free pre-audit" },
+            { label: "Quoted after", value: "Your Free Operations Map" },
             { label: "Surprises", value: "None, agreed in writing" },
           ],
           note: "50% deposit on setup. The monthly fee starts at go-live. Includes the past-enquiry message, no-show rescue, review requests and the monthly report.",
         },
       ],
-      footnote: "For venues with at least 10 enquiries a month. Every system is scoped to your business, so we quote after the free pre-audit. The quote is fixed and in writing.",
+      footnote: "For venues with at least 10 enquiries a month. Every system is scoped to your business, so we quote after the free Operations Map. The quote is fixed and in writing.",
     },
     guarantee: {
       title: "Measured against your own numbers.",
@@ -249,14 +249,14 @@ export const NICHES: Niche[] = [
       BASELINE_FAQ,
       {
         q: "Do we have to change our booking system or diary?",
-        a: "No. We connect to the diary you use today where we can. If something needs to change, we tell you on the pre-audit, before you commit to anything.",
+        a: "No. We connect to the diary you use today where we can. If something needs to change, we tell you on the Operations Map, before you commit to anything.",
       },
       OWNERSHIP_FAQ,
     ],
     cta: {
       title: "Find out how fast your venue",
       accent: "really replies.",
-      body: "Book the pre-audit. Thirty minutes, no cost. You leave knowing your reply times, what they are costing you, and whether a pilot makes sense.",
+      body: "Book your free Operations Map. Thirty minutes, no cost. You leave knowing your reply times, what they are costing you, and whether a pilot makes sense.",
     },
   },
 
@@ -295,7 +295,7 @@ export const NICHES: Niche[] = [
     ],
     steps: [
       {
-        title: "Pre-audit and baseline",
+        title: "Operations Map and baseline",
         body: "A 30-minute call, then a 7-day audit across every department inbox and channel. We time the replies and count enquiries and bookings from the last 60 days.",
       },
       {
@@ -334,7 +334,7 @@ export const NICHES: Niche[] = [
       assumptions: [
         "Starting values are examples, not averages. Use your own.",
         "It does not count the value of the 24-month revival campaign, which comes on top.",
-        "Your pre-audit replaces these guesses with real numbers per department.",
+        "Your Operations Map replaces these guesses with real numbers per department.",
       ],
     },
     pricing: {
@@ -347,14 +347,14 @@ export const NICHES: Niche[] = [
           tag: "Premium",
           lines: [
             { label: "Investment", value: "Fixed quote" },
-            { label: "Quoted after", value: "Your free pre-audit" },
+            { label: "Quoted after", value: "Your Free Operations Map" },
             { label: "Surprises", value: "None, agreed in writing" },
           ],
           note: "Includes every department and channel, the 24-month revival campaign, quarterly revivals, review requests and a monthly review with Daniel.",
           featured: true,
         },
       ],
-      footnote: "Every system is scoped to your venues and departments, so we quote after the free pre-audit. The quote is fixed and in writing.",
+      footnote: "Every system is scoped to your venues and departments, so we quote after the free Operations Map. The quote is fixed and in writing.",
     },
     guarantee: {
       title: "Two promises.",
@@ -387,7 +387,7 @@ export const NICHES: Niche[] = [
     cta: {
       title: "See where your enquiries",
       accent: "are going.",
-      body: "Book the pre-audit. Thirty minutes, no cost. We look at every department's reply times and what your old enquiries are worth.",
+      body: "Book your free Operations Map. Thirty minutes, no cost. We look at every department's reply times and what your old enquiries are worth.",
     },
   },
 
@@ -426,7 +426,7 @@ export const NICHES: Niche[] = [
     ],
     steps: [
       {
-        title: "Pre-audit and baseline",
+        title: "Operations Map and baseline",
         body: "A 30-minute call, then a 7-day audit. We time how fast enquiries are answered on each channel and count enquiries and booked consults from the last 60 days. Both sides sign the numbers.",
       },
       {
@@ -466,7 +466,7 @@ export const NICHES: Niche[] = [
       assumptions: [
         "Starting values are examples, not industry averages. Use your own.",
         "This is practice revenue maths only. It says nothing about clinical results.",
-        "Your pre-audit replaces these guesses with your own numbers from the last 60 days.",
+        "Your Operations Map replaces these guesses with your own numbers from the last 60 days.",
       ],
     },
     pricing: {
@@ -479,14 +479,14 @@ export const NICHES: Niche[] = [
           tag: "Ongoing",
           lines: [
             { label: "Investment", value: "Fixed quote" },
-            { label: "Quoted after", value: "Your free pre-audit" },
+            { label: "Quoted after", value: "Your Free Operations Map" },
             { label: "Surprises", value: "None, agreed in writing" },
           ],
           note: "Includes 60-second replies, consult booking, reminders, no-show rescue, treatment-plan follow-up, recall messages and a monthly report.",
           featured: true,
         },
       ],
-      footnote: "For practices with at least 10 enquiries a month. Every system is scoped to your business, so we quote after the free pre-audit. The quote is fixed and in writing.",
+      footnote: "For practices with at least 10 enquiries a month. Every system is scoped to your business, so we quote after the free Operations Map. The quote is fixed and in writing.",
     },
     guarantee: {
       title: "Measured against your own diary.",
@@ -515,14 +515,14 @@ export const NICHES: Niche[] = [
       BASELINE_FAQ,
       {
         q: "Does it work with our practice software?",
-        a: "Where your practice software allows it, we book straight into it. Where it does not, we use a shared diary your front desk already works from. We confirm which on the pre-audit.",
+        a: "Where your practice software allows it, we book straight into it. Where it does not, we use a shared diary your front desk already works from. We confirm which on the Operations Map.",
       },
       OWNERSHIP_FAQ,
     ],
     cta: {
       title: "Find out how fast your practice",
       accent: "really replies.",
-      body: "Book the pre-audit. Thirty minutes, no cost. You leave with your reply times by channel and what a faster reply is likely worth.",
+      body: "Book your free Operations Map. Thirty minutes, no cost. You leave with your reply times by channel and what a faster reply is likely worth.",
     },
     compliance:
       "Administrative replies only. The system does not give clinical advice, make claims about treatment results or use patient testimonials.",
@@ -563,7 +563,7 @@ export const NICHES: Niche[] = [
     ],
     steps: [
       {
-        title: "Pre-audit and baseline",
+        title: "Operations Map and baseline",
         body: "A 30-minute call, then a 7-day audit. We time replies to portal, website and WhatsApp leads and count leads and viewings from the last 60 days.",
       },
       {
@@ -602,7 +602,7 @@ export const NICHES: Niche[] = [
       assumptions: [
         "Starting values are examples, not market averages. Use your own.",
         "A fraction of a sale a month still adds up over a year. That is what the yearly figure shows.",
-        "Your pre-audit replaces these guesses with your own numbers.",
+        "Your Operations Map replaces these guesses with your own numbers.",
       ],
     },
     pricing: {
@@ -615,14 +615,14 @@ export const NICHES: Niche[] = [
           tag: "Per branch",
           lines: [
             { label: "Investment", value: "Fixed quote" },
-            { label: "Quoted after", value: "Your free pre-audit" },
+            { label: "Quoted after", value: "Your Free Operations Map" },
             { label: "Surprises", value: "None, agreed in writing" },
           ],
           note: "Includes 60-second replies, qualifying questions, calendar booking, agent summaries, the seller valuation flow and old buyer revival.",
           featured: true,
         },
       ],
-      footnote: "For branches with at least 10 leads a month. Every system is scoped to your business, so we quote after the free pre-audit. The quote is fixed and in writing.",
+      footnote: "For branches with at least 10 leads a month. Every system is scoped to your business, so we quote after the free Operations Map. The quote is fixed and in writing.",
     },
     guarantee: {
       title: "Measured against your own leads.",
@@ -642,7 +642,7 @@ export const NICHES: Niche[] = [
       },
       {
         q: "Which portals does it work with?",
-        a: "Any portal that sends you a lead by email or notification can be connected. We confirm your exact sources on the pre-audit.",
+        a: "Any portal that sends you a lead by email or notification can be connected. We confirm your exact sources on the Operations Map.",
       },
       BASELINE_FAQ,
       {
@@ -654,7 +654,7 @@ export const NICHES: Niche[] = [
     cta: {
       title: "See how fast your branch",
       accent: "really replies.",
-      body: "Book the pre-audit. Thirty minutes, no cost. You leave with your reply times by lead source and what they are likely costing you in commission.",
+      body: "Book your free Operations Map. Thirty minutes, no cost. You leave with your reply times by lead source and what they are likely costing you in commission.",
     },
   },
 
@@ -693,7 +693,7 @@ export const NICHES: Niche[] = [
     ],
     steps: [
       {
-        title: "Pre-audit",
+        title: "Operations Map",
         body: "A 30-minute call. We look at how many calls and enquiries you get, how many go unanswered, and what happens to the quotes you send.",
       },
       {
@@ -731,20 +731,20 @@ export const NICHES: Niche[] = [
       assumptions: [
         "Starting values are examples, not averages. Use your own.",
         "It does not count quotes that go cold after you send them, which the follow-up also covers.",
-        "Your pre-audit replaces these guesses with your real numbers.",
+        "Your Operations Map replaces these guesses with your real numbers.",
       ],
     },
     pricing: {
       eyebrow: "Investment",
       title: "A fixed price, after one call.",
-      intro: "Trades vary a lot, from a one-van business to a team with several crews. We quote a fixed setup and monthly fee after the pre-audit, in writing, before any work starts.",
+      intro: "Trades vary a lot, from a one-van business to a team with several crews. We quote a fixed setup and monthly fee after the Operations Map, in writing, before any work starts.",
       cards: [
         {
           name: "Trades 60-Second Enquiry Engine",
           tag: "After one call",
           lines: [
             { label: "Investment", value: "Fixed quote" },
-            { label: "Quoted after", value: "Your free pre-audit" },
+            { label: "Quoted after", value: "Your Free Operations Map" },
             { label: "Surprises", value: "None, agreed in writing" },
           ],
           note: "Includes missed-call text-back, 60-second replies, quote follow-up, diary booking and review requests.",
@@ -767,7 +767,7 @@ export const NICHES: Niche[] = [
       PRE_AUDIT_FAQ,
       {
         q: "Do I need to change my phone number?",
-        a: "No. We work with the number your customers already have. We confirm the simplest way to connect it on the pre-audit.",
+        a: "No. We work with the number your customers already have. We confirm the simplest way to connect it on the Operations Map.",
       },
       {
         q: "Will it quote prices to customers?",
@@ -782,7 +782,7 @@ export const NICHES: Niche[] = [
     cta: {
       title: "Find out how many calls",
       accent: "you are missing.",
-      body: "Book the pre-audit. Thirty minutes, no cost. You leave knowing how many calls and enquiries slip through and what they are worth.",
+      body: "Book your free Operations Map. Thirty minutes, no cost. You leave knowing how many calls and enquiries slip through and what they are worth.",
     },
   },
 ];

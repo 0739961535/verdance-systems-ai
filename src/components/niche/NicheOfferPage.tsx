@@ -16,7 +16,7 @@ const SITE_URL = "https://verdancesystemsai.com";
  * NicheOfferPage - one offer, one kind of business, one action.
  * hero (their pain, a live-looking reply) -> what changes -> how it works ->
  * what is included -> their own numbers -> price -> guarantee -> proof ->
- * questions -> book. Every book button goes to the niche's pre-audit flow.
+ * questions -> book. Every book button goes to the niche's Operations Map flow.
  */
 export function NicheOfferPage({ niche }: { niche: Niche }) {
   const href = bookUrl(niche.bookSlug);
@@ -122,7 +122,8 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
       <NicheProof niche={niche} />
       <FAQControl faqs={niche.faqs} />
       <CTABand
-        eyebrow="Pre-audit · 30 minutes · no cost"
+        guarantees={false}
+        eyebrow="Free Operations Map · 30 minutes"
         title={
           <>
             {niche.cta.title} <span className="italic-accent">{niche.cta.accent}</span>

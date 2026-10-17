@@ -1,5 +1,5 @@
 /**
- * AuditReport - what the free pre-audit hands you, as a sample report.
+ * AuditReport - what the free Operations Map hands you, as a sample report.
  * Bars grow in on a loop (scaleX). Sample only, labelled.
  */
 const ROWS = [
@@ -23,7 +23,7 @@ export function AuditReport() {
         </span>
       </div>
       <div className="p-5 sm:p-6">
-        <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[color:var(--color-ink-muted)]">Pre-audit · your business</p>
+        <p className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[color:var(--color-ink-muted)]">Operations Map · your business</p>
         <p className="mt-2 font-display text-[1.5rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>How fast you reply today</p>
         <ul className="mt-5 flex flex-col gap-3.5">
           {ROWS.map((r, i) => (

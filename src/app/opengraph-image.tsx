@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { markSvg } from "@/components/brand/marks";
 
-export const alt = "Verdance Systems AI. We don't talk about AI. We ship it.";
+export const alt = "Verdance Systems AI. Every enquiry answered in 60 seconds.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -43,13 +43,13 @@ export default async function OpengraphImage() {
           <span style={{ fontSize: 38, fontFamily: "Instrument Serif", color: "#8F8B84" }}>Systems AI</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column", fontSize: 96, lineHeight: 1, letterSpacing: -4 }}>
-          <span>We don&apos;t talk about AI.</span>
+          <span>Every enquiry answered</span>
           <span style={{ display: "flex", gap: 24 }}>
-            We <span style={{ fontFamily: "Instrument Serif", color: "#6E9CFF", fontSize: 108 }}>ship</span> it.
+            in <span style={{ fontFamily: "Instrument Serif", color: "#6E9CFF", fontSize: 108 }}>60 seconds.</span>
           </span>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 24, color: "#8F8B84" }}>
-          <span>Every enquiry answered within 60 seconds, day or night.</span>
+          <span>Every follow-up done. Live in 10 working days.</span>
           <span>South Africa</span>
         </div>
       </div>

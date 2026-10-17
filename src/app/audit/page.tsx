@@ -3,14 +3,15 @@ import { Reveal } from "@/components/primitives/Reveal";
 import { PageHero } from "@/components/kit/PageHero";
 import { SectionHead } from "@/components/kit/SectionHead";
 import { CTABand } from "@/components/kit/CTABand";
+import { OfferSection } from "@/components/offer/OfferSection";
 import { AuditReport } from "@/components/visuals/hero/AuditReport";
 import { FAQControl } from "@/components/sections/v4/FAQControl";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 
-const TITLE = "The Free Pre-Audit | 30 minutes, fixed quote after | Verdance Systems AI";
+const TITLE = "The free Operations Map | 30 minutes, fixed quote after | Verdance Systems AI";
 const DESCRIPTION =
-  "A free 30-minute pre-audit: how fast you reply today on each channel, what slow replies are likely costing you, and what to fix first. A fixed quote if you want us to build it.";
+  "The free Operations Map: 30 minutes on where your time and money leak, in rand and hours. Your reply times on each channel, what slow replies cost you, and what to fix first.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -42,14 +43,14 @@ export default function AuditPage() {
   return (
     <>
       <PageHero
-        eyebrow="Free pre-audit · 30 minutes"
+        eyebrow="The Operations Map · free · 30 minutes"
         title={
           <>
-            Find out how fast you <span className="italic-accent">really reply.</span>
+            See where your time and money <span className="italic-accent">leak.</span>
           </>
         }
         lead="Thirty minutes on a video call. You leave knowing your reply times on every channel, what slow replies are likely costing you, and what to fix first."
-        crumbs={[{ href: "/", label: "Home" }, { label: "Free pre-audit" }]}
+        crumbs={[{ href: "/", label: "Home" }, { label: "Operations Map" }]}
         visual={<AuditReport />}
         note="Free · nothing to sign · fixed quote after"
       />
@@ -112,7 +113,8 @@ export default function AuditPage() {
       </section>
 
       <FAQControl faqs={FAQS} />
-      <CTABand />
+      <OfferSection />
+      <CTABand guarantees={false} />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label="Get your free Operations Map" />
     </>
   );

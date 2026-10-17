@@ -96,7 +96,7 @@ export function FinalCTASection() {
       />
       <div className="container-narrow text-left md:text-center">
         <Reveal>
-          <p className="eyebrow">Free pre-audit · 30 minutes</p>
+          <p className="eyebrow">Free Operations Map · 30 minutes</p>
           <h2
             id="final-title"
             className="mt-6 font-display text-[color:var(--color-ink)] md:mx-auto md:max-w-[16ch]"

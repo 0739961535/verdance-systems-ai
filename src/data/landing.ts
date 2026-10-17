@@ -15,7 +15,7 @@
 export const HERO = {
   eyebrow: "ANSWERING · BOOKING · FOLLOW UP",
   // Headline is rendered in the component so the accent word can be styled.
-  lead: "We build the thing that answers your phone, replies to your messages and books people into your calendar. Day or night, in seconds. You own all of it.",
+  lead: "WhatsApp, calls, your website and email, answered day or night and booked into your diary. Every quote followed up until they reply. Your team gets its hours back, and you approve anything that matters.",
   ctaPrimary: "Book a Meeting",
   ctaWhatsApp: "WhatsApp us",
 };
@@ -58,7 +58,7 @@ export const DELTAS = [
   { label: "Google review requests", before: "hit and miss", after: "after every job" },
 ];
 export const DELTAS_FOOTNOTE =
-  "Every enquiry gets a reply within 60 seconds, day or night. The rest is measured against your own numbers from the pre-audit.";
+  "Every enquiry gets a reply within 60 seconds, day or night. The rest is measured against your own numbers from the Operations Map.";
 
 export interface PillarOffer {
   name: string;
@@ -193,12 +193,12 @@ export const AUDIT = {
 
 export const LANDING_FAQS = [
   {
-    q: "What happens on the free pre-audit?",
+    q: "What happens on the free Operations Map?",
     a: "Thirty minutes on a video call. We go through how enquiries, follow-up and admin actually work in your business today, find where you are losing the most, and leave you with a list of what to fix in order. It's yours to keep whether or not we build anything.",
   },
   {
     q: "What does it cost?",
-    a: "The pre-audit is free. If you want us to build, you get a fixed quote with the written plan, agreed before any work starts. The price on the quote is the price you pay.",
+    a: "The Operations Map is free. If you want us to build, you get a fixed quote with the written plan, agreed before any work starts. The price on the quote is the price you pay.",
   },
   {
     q: "How long until it's working?",
@@ -210,7 +210,7 @@ export const LANDING_FAQS = [
   },
   {
     q: "We already have a system for our customers. Do we have to switch?",
-    a: "No. We connect to what you run today where that's the right call, and only suggest moving if it genuinely pays for itself. Working out that trade-off is exactly what the pre-audit is for.",
+    a: "No. We connect to what you run today where that's the right call, and only suggest moving if it genuinely pays for itself. Working out that trade-off is exactly what the Operations Map is for.",
   },
   {
     q: "What happens to our data?",

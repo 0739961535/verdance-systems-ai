@@ -27,7 +27,7 @@ export async function generateMetadata({
   if (!loc) return {};
 
   const title = `AI Agency in ${loc.name} | Answering, Booking and Follow Up | Verdance Systems AI`;
-  const description = `We build the thing that answers your phone, replies to your messages and books ${loc.name} customers into your calendar, day or night. ${loc.commonLoss} Free 30-minute pre-audit.`;
+  const description = `We build the thing that answers your phone, replies to your messages and books ${loc.name} customers into your calendar, day or night. ${loc.commonLoss} Free 30-minute Operations Map.`;
   const url = `${SITE_URL}/ai-agency/${slug}`;
 
   return {
@@ -141,7 +141,7 @@ export default async function LocationPage({
         crumbs={[{ href: "/ai-agency", label: "Where we work" }, { label: loc.name }]}
         visual={<LocationMap active={loc.slug} />}
         secondary={{ href: `tel:${phone.replace(/\s/g, "")}`, label: `Call ${phone}` }}
-        note="Remote first · fixed quote after your free pre-audit"
+        note="Remote first · fixed quote after your free Operations Map"
       />
 
       <section className="section-pad bg-canvas-2" aria-labelledby="pattern-title" style={{ borderTop: "1px solid var(--hairline)" }}>

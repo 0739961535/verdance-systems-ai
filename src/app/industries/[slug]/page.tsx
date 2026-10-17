@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const industry = getIndustryBySlug(slug);
   if (!industry) return {};
   const title = `Enquiry Answering and Booking for ${industry.name} | Verdance Systems AI`;
-  const description = `${industry.subheadline} Every call and message answered within 60 seconds, day or night, and booked. Fixed quote after a free pre-audit.`;
+  const description = `${industry.subheadline} Every call and message answered within 60 seconds, day or night, and booked. Fixed quote after a free Operations Map.`;
   const url = `https://verdancesystemsai.com/industries/${slug}`;
   return {
     title,
@@ -108,7 +108,7 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
             parts={[{ name: "From first message to booked", steps: industry.automationFlow.map((s) => s.label) }]}
           />
         }
-        note="Fixed quote after your free pre-audit"
+        note="Fixed quote after your free Operations Map"
       />
 
       <section className="section-pad bg-canvas-2" aria-labelledby="problems-title" style={{ borderTop: "1px solid var(--hairline)" }}>

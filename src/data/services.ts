@@ -90,7 +90,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["conversation-ai", "follow-up-nurture", "marketing-social"],
     seoTitle: "Lead Generation and Database Reactivation in South Africa",
     seoDescription:
-      "Win back old enquiries and find new customers. We message your past leads in your voice, build lists of people like your best customers and book every reply. Free pre-audit.",
+      "Win back old enquiries and find new customers. We message your past leads in your voice, build lists of people like your best customers and book every reply. Free Operations Map.",
   },
   {
     slug: "conversation-ai",
@@ -187,7 +187,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["conversation-ai", "follow-up-nurture", "booking-calendar"],
     seoTitle: "AI Receptionist and After Hours Call Answering, South Africa",
     seoDescription:
-      "A phone assistant that answers every call, day or night, books callers into your diary and passes urgent calls to you. Built for South African businesses. Free pre-audit.",
+      "A phone assistant that answers every call, day or night, books callers into your diary and passes urgent calls to you. Built for South African businesses. Free Operations Map.",
   },
   {
     slug: "crm-pipeline",
@@ -279,7 +279,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["conversation-ai", "voice-ai", "follow-up-nurture"],
     seoTitle: "Online Booking System for South African Businesses",
     seoDescription:
-      "An online booking system that works with your diary: customers book at any hour, get reminders and reschedule with one tap. Bookings inside WhatsApp too. Free pre-audit.",
+      "An online booking system that works with your diary: customers book at any hour, get reminders and reschedule with one tap. Bookings inside WhatsApp too. Free Operations Map.",
   },
   {
     slug: "follow-up-nurture",
@@ -462,7 +462,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["lead-generation", "conversation-ai", "marketing-social"],
     seoTitle: "Website Design for Small Business in South Africa",
     seoDescription:
-      "Fast websites for South African businesses that show up on Google and turn visitors into enquiries, with chat, booking and enquiry forms built in. Free pre-audit.",
+      "Fast websites for South African businesses that show up on Google and turn visitors into enquiries, with chat, booking and enquiry forms built in. Free Operations Map.",
   },
   {
     slug: "marketing-social",
@@ -548,7 +548,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["crm-pipeline", "analytics-compliance", "websites-build"],
     seoTitle: "Business Automation Services in South Africa",
     seoDescription:
-      "Custom automation for South African businesses: repetitive admin done for you, your existing tools connected, and an assistant trained on your own rules. Free pre-audit.",
+      "Custom automation for South African businesses: repetitive admin done for you, your existing tools connected, and an assistant trained on your own rules. Free Operations Map.",
   },
   {
     slug: "analytics-compliance",

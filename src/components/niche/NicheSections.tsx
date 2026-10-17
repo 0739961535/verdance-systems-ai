@@ -155,7 +155,7 @@ export function NichePricing({ niche }: { niche: Niche }) {
                 <p className="mt-5 flex-1 text-[0.9rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{c.note}</p>
 
                 <a href={href} className={`btn ${c.featured ? "btn-accent" : "btn-ghost"} mt-7 min-h-12 justify-center`}>
-                  Book your pre-audit
+                  Get your free Operations Map
                   <ArrowUpRight size={15} aria-hidden />
                 </a>
               </div>

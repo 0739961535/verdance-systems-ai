@@ -13,7 +13,7 @@ export function CalendarMock() {
   return (
     <div className="cal browser-frame g-border" aria-hidden>
       <div className="cal-head">
-        <span className="font-display text-[1rem] text-[color:var(--color-ink)]">Free pre-audit</span>
+        <span className="font-display text-[1rem] text-[color:var(--color-ink)]">Free Operations Map</span>
         <span className="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)]">30 min · video</span>
       </div>
       <div className="cal-body">
