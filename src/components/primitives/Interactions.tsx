@@ -12,7 +12,6 @@ import { usePathname } from "next/navigation";
  *                        and --mx / --my for a light sheen that follows it
  *   data-magnetic        primary buttons lean toward the pointer
  *   data-parallax="0.08" gentle vertical parallax while scrolling
- *   data-scroll-tilt     sets --orbit-tilt as the element scrolls into view
  *
  * Plus a short page transition on client-side navigation (not first load).
  *
@@ -106,8 +105,7 @@ export function Interactions() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce || window.innerWidth < 1024) return;
     const els = Array.from(document.querySelectorAll<HTMLElement>("[data-parallax]"));
-    const tilts = Array.from(document.querySelectorAll<HTMLElement>("[data-scroll-tilt]"));
-    if (!els.length && !tilts.length) return;
+    if (!els.length) return;
     let ticking = false;
     const update = () => {
       ticking = false;
@@ -118,14 +116,6 @@ export function Interactions() {
         const f = Number(el.dataset.parallax) || 0.06;
         const offset = (r.top + r.height / 2 - vh / 2) * -f;
         el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
-      }
-      // Scroll tilt: the plane lies back as it enters and settles near flat
-      // at the middle of the screen.
-      for (const el of tilts) {
-        const r = el.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > vh) continue;
-        const p = Math.min(1, Math.max(0, (vh - (r.top + r.height / 2)) / (vh / 2)));
-        el.style.setProperty("--orbit-tilt", `${(26 - p * 20).toFixed(1)}deg`);
       }
     };
     const onScroll = () => {
@@ -141,7 +131,6 @@ export function Interactions() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       els.forEach((el) => (el.style.transform = ""));
-      tilts.forEach((el) => el.style.removeProperty("--orbit-tilt"));
     };
   }, [pathname]);
 

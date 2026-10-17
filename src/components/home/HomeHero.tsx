@@ -16,7 +16,7 @@ import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
  */
 export function HomeHero() {
   return (
-    <section className="relative isolate overflow-hidden bg-canvas" aria-labelledby="hero-title">
+    <section className="relative isolate overflow-hidden bg-canvas" aria-labelledby="hero-title" data-cta-location="hero">
       <div aria-hidden className="aurora" />
       {/* one quiet light source behind the phone */}
       <div

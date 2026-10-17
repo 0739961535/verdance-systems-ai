@@ -11,6 +11,7 @@ import { FAQControl } from "@/components/sections/v4/FAQControl";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { LANDING_FAQS } from "@/data/landing";
 import { GENERIC_BOOK_URL } from "@/data/niches";
+import { SITE_URL } from "@/data/site";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     title: "Every enquiry answered in 60 seconds | Verdance Systems AI",
     description:
       "Every call and message answered within 60 seconds, day or night, and booked into your calendar. Built for you, owned by you. Free Operations Map first.",
-    url: "https://verdancesystemsai.com/",
+    url: `${SITE_URL}/`,
     type: "website",
   },
 };

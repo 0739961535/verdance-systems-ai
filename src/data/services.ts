@@ -88,7 +88,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "The cheapest new customer is often someone who already asked about you. Most businesses never follow them up.",
     outcome: "A steady flow of enquiries, including people you thought you had lost.",
     relatedSlugs: ["conversation-ai", "follow-up-nurture", "marketing-social"],
-    seoTitle: "Lead Generation and Database Reactivation in South Africa",
+    seoTitle: "Lead Reactivation and Generation, South Africa",
     seoDescription:
       "Win back old enquiries and find new customers. We message your past leads in your voice, build lists of people like your best customers and book every reply. Free Operations Map.",
   },
@@ -139,9 +139,9 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "People usually book with the first business that replies. A slow reply often means a lost customer, not a late one.",
     outcome: "Every message answered within 60 seconds, at any hour, and more of them booked.",
     relatedSlugs: ["voice-ai", "booking-calendar", "follow-up-nurture"],
-    seoTitle: "WhatsApp Auto Reply for Business in South Africa",
+    seoTitle: "WhatsApp Automation for Business, South Africa",
     seoDescription:
-      "Automatic WhatsApp, website chat, Instagram and SMS replies for South African businesses. Every message answered within 60 seconds, day or night, and booked into your diary.",
+      "WhatsApp automation for South African businesses: every WhatsApp, website chat, Instagram and SMS message answered within 60 seconds, day or night, and booked into your diary.",
   },
   {
     slug: "voice-ai",
@@ -185,9 +185,9 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "A caller who gets no answer usually rings the next business on the list. They rarely leave a voicemail.",
     outcome: "No more missed calls, and no more callers left hanging after hours.",
     relatedSlugs: ["conversation-ai", "follow-up-nurture", "booking-calendar"],
-    seoTitle: "AI Receptionist and After Hours Call Answering, South Africa",
+    seoTitle: "AI Receptionist South Africa: Every Call Answered",
     seoDescription:
-      "A phone assistant that answers every call, day or night, books callers into your diary and passes urgent calls to you. Built for South African businesses. Free Operations Map.",
+      "An AI receptionist for South African businesses: every call answered, day or night, callers booked into your diary and urgent calls passed straight to you. Free Operations Map.",
   },
   {
     slug: "crm-pipeline",
@@ -231,7 +231,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "When customer details live in five places, enquiries get forgotten and follow-ups never happen.",
     outcome: "Every customer accounted for, and everyone on the team knows what to do next.",
     relatedSlugs: ["conversation-ai", "booking-calendar", "analytics-compliance"],
-    seoTitle: "Simple CRM for Small Business in South Africa",
+    seoTitle: "CRM Setup and Automation, South Africa",
     seoDescription:
       "Keep every customer, enquiry and job in one place. Records fill themselves in from calls, messages and bookings, so nothing slips through. Set up for South African businesses.",
   },
@@ -277,7 +277,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "Every extra message between interest and a booked time loses people. The easier it is to book, the more people do.",
     outcome: "More bookings, fewer no-shows and no double-bookings.",
     relatedSlugs: ["conversation-ai", "voice-ai", "follow-up-nurture"],
-    seoTitle: "Online Booking System for South African Businesses",
+    seoTitle: "Online Booking and Reminders, South Africa",
     seoDescription:
       "An online booking system that works with your diary: customers book at any hour, get reminders and reschedule with one tap. Bookings inside WhatsApp too. Free Operations Map.",
   },
@@ -322,9 +322,9 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "Most enquiries are not lost on price. They are lost because nobody followed up.",
     outcome: "Customers you would have lost, recovered every week without anyone chasing them by hand.",
     relatedSlugs: ["conversation-ai", "lead-generation", "reputation-reviews"],
-    seoTitle: "Missed Call Text Back and Automatic Follow-up, South Africa",
+    seoTitle: "Missed Call Text Back and Follow-up, South Africa",
     seoDescription:
-      "Every missed call gets a text back in seconds, and quotes that go quiet are followed up politely in your voice. Built for South African trades and service businesses.",
+      "Every missed call gets a text back in seconds, and quotes that go quiet are followed up politely in your voice. Built for owner-led South African businesses.",
   },
   {
     slug: "payments-invoicing",
@@ -368,7 +368,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "Money gets stuck between the quote and the payment. The fewer steps for the customer, the faster you are paid.",
     outcome: "Faster payments, fewer no-shows and less time chasing.",
     relatedSlugs: ["booking-calendar", "crm-pipeline", "follow-up-nurture"],
-    seoTitle: "Payment Links and Invoice Reminders for Small Business, SA",
+    seoTitle: "Invoice Reminders and Payment Links, South Africa",
     seoDescription:
       "Send invoices and payment links by WhatsApp, SMS or email, take deposits at booking and let polite reminders chase late payments. For South African businesses.",
   },
@@ -414,7 +414,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "Good reviews bring in new customers every day. Most happy customers simply forget to leave one unless they are asked.",
     outcome: "A steady stream of new Google reviews, and unhappy customers caught before they post.",
     relatedSlugs: ["follow-up-nurture", "marketing-social", "lead-generation"],
-    seoTitle: "Get More Google Reviews for Your Business, South Africa",
+    seoTitle: "Google Review Automation, South Africa",
     seoDescription:
       "Automatic Google review requests after every job, private feedback from unhappy customers first, and alerts with replies drafted for you. For South African businesses.",
   },
@@ -457,10 +457,10 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
         howItWorks: ["Customers get an account when they first book", "They find their history without calling you", "Less admin for your team"],
       },
     ],
-    whyItMatters: "Most small business websites are digital brochures. Yours should answer, capture and book, even when you are closed.",
+    whyItMatters: "Most business websites are digital brochures. Yours should answer, capture and book, even when you are closed.",
     outcome: "A website that turns visitors into enquiries and bookings.",
     relatedSlugs: ["lead-generation", "conversation-ai", "marketing-social"],
-    seoTitle: "Website Design for Small Business in South Africa",
+    seoTitle: "Websites That Turn Visits into Enquiries, SA",
     seoDescription:
       "Fast websites for South African businesses that show up on Google and turn visitors into enquiries, with chat, booking and enquiry forms built in. Free Operations Map.",
   },
@@ -506,7 +506,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "People buy from businesses they see often. Posting regularly is the part most owners drop first when they get busy.",
     outcome: "A business that stays visible every week, and more people getting in touch.",
     relatedSlugs: ["websites-build", "lead-generation", "reputation-reviews"],
-    seoTitle: "Social Media Management for Small Business, South Africa",
+    seoTitle: "Social Media and Ads Management, South Africa",
     seoDescription:
       "Regular social media posts in your voice, Facebook, Instagram and Google adverts checked every week, and newsletters to past customers. For South African businesses.",
   },
@@ -546,7 +546,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "Ready-made tools cover most of a business. The last part, the bit only you do, is usually where the hours go.",
     outcome: "The admin your team has been asking to get rid of, finally done for them.",
     relatedSlugs: ["crm-pipeline", "analytics-compliance", "websites-build"],
-    seoTitle: "Business Automation Services in South Africa",
+    seoTitle: "Business Automation and AI Agents, South Africa",
     seoDescription:
       "Custom automation for South African businesses: repetitive admin done for you, your existing tools connected, and an assistant trained on your own rules. Free Operations Map.",
   },
@@ -592,7 +592,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "Without the numbers, decisions are guesses. With them, you can see what to fix first.",
     outcome: "Clear numbers every month, and customer data handled the right way.",
     relatedSlugs: ["crm-pipeline", "marketing-social", "custom-builds"],
-    seoTitle: "Business Dashboard and POPIA Compliance for Small Business",
+    seoTitle: "Enquiry Dashboard and POPIA Compliance, SA",
     seoDescription:
       "A live dashboard and plain monthly report on enquiries, reply times and bookings, with consent and data requests handled the way POPIA requires. South Africa.",
   },

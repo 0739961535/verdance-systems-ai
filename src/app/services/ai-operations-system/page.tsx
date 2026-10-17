@@ -11,9 +11,9 @@ import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
 import { AI_TEAM, AI_TEAM_FAQS, AI_TEAM_PATH, CAPABILITIES, CTA_LABEL, CTA_MICRO, SAFETY } from "@/data/aiTeam";
 import { GENERIC_BOOK_URL } from "@/data/booking";
-import { SITE } from "@/data/site";
+import { SITE, SITE_URL } from "@/data/site";
 
-const URL = `https://verdancesystemsai.com${AI_TEAM_PATH}`;
+const URL = `${SITE_URL}${AI_TEAM_PATH}`;
 
 export const metadata: Metadata = {
   title: AI_TEAM.meta.title,
@@ -32,7 +32,7 @@ const JSON_LD = {
       description: AI_TEAM.meta.description,
       url: URL,
       areaServed: { "@type": "Country", name: "South Africa" },
-      provider: { "@type": "Organization", name: "Verdance Systems AI", url: "https://verdancesystemsai.com" },
+      provider: { "@id": `${SITE_URL}/#organization` },
     },
     {
       "@type": "FAQPage",

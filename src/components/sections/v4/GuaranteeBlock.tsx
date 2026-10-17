@@ -47,7 +47,7 @@ export function GuaranteeBlock({
   );
 
   return (
-    <section className="section-pad" style={{ background: "var(--bg-2)", borderTop: "1px solid var(--hairline)" }} aria-labelledby="guarantee-title">
+    <section className="section-pad" style={{ background: "var(--bg-2)", borderTop: "1px solid var(--hairline)" }} aria-labelledby="guarantee-title" data-cta-location="guarantee">
       <div className="container-narrow">
         <Reveal variant="wipe" className="max-w-3xl">
           <p className="eyebrow">{eyebrow}</p>

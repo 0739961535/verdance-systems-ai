@@ -39,7 +39,7 @@ export function FAQControl({ faqs }: FAQControlProps) {
   };
 
   return (
-    <section className="section-pad bg-canvas" aria-labelledby="faq-title">
+    <section className="section-pad bg-canvas" aria-labelledby="faq-title" data-cta-location="faq">
       <div className="mx-auto w-full max-w-[880px] px-5 md:px-10">
         <Reveal>
           <p className="eyebrow">Questions</p>

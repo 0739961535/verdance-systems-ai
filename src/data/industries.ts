@@ -7,7 +7,6 @@ export interface Industry {
   problems: { title: string; description: string }[];
   relevantProducts: string[];
   automationFlow: { step: number; label: string; description: string }[];
-  outcomes: { metric: string; description: string }[];
 }
 
 export const industries: Industry[] = [
@@ -55,11 +54,6 @@ export const industries: Industry[] = [
       { step: 4, label: "Consultation Booked", description: "Smart Scheduler confirms the appointment" },
       { step: 5, label: "Review Requested", description: "Post-matter review automation fires automatically" },
     ],
-    outcomes: [
-      { metric: "100%", description: "Enquiries answered, including after hours" },
-      { metric: "20 to 30 min", description: "Admin saved per new client intake" },
-      { metric: "2 to 4x", description: "Increase in Google review volume" },
-    ],
   },
   {
     slug: "real-estate-property",
@@ -103,11 +97,6 @@ export const industries: Industry[] = [
       { step: 3, label: "Viewing Booked", description: "Smart Scheduler confirms the viewing automatically" },
       { step: 4, label: "Follow-Up Sequence", description: "Automated follow-up after viewing" },
       { step: 5, label: "Cold Leads Reactivated", description: "Monthly reactivation campaign to dormant database" },
-    ],
-    outcomes: [
-      { metric: "<5s", description: "Average lead response time, 24/7" },
-      { metric: "15 to 25%", description: "Reactivation response rate from cold database" },
-      { metric: "3h+", description: "Scheduling admin saved per agent per day" },
     ],
   },
   {
@@ -154,11 +143,6 @@ export const industries: Industry[] = [
       { step: 4, label: "Reminders Fire", description: "24h and 1h reminders reduce no-shows" },
       { step: 5, label: "Review Requested", description: "Post-visit review automation triggers" },
     ],
-    outcomes: [
-      { metric: "100%", description: "Call answer rate, no missed appointments" },
-      { metric: "40%", description: "Reduction in no-show rate" },
-      { metric: "2 to 4x", description: "Monthly Google review volume increase" },
-    ],
   },
   {
     slug: "automotive",
@@ -198,11 +182,6 @@ export const industries: Industry[] = [
       { step: 3, label: "Booking Confirmed", description: "Service or test drive booked automatically" },
       { step: 4, label: "Follow-Up Sequence", description: "Post-service follow-up and review request" },
     ],
-    outcomes: [
-      { metric: "0", description: "Missed inbound calls or messages" },
-      { metric: "15 to 25%", description: "Reactivation rate from past enquiry database" },
-      { metric: "40%", description: "Reduction in no-shows for service appointments" },
-    ],
   },
   {
     slug: "home-services-contractors",
@@ -240,11 +219,6 @@ export const industries: Industry[] = [
       { step: 2, label: "Quote Follow-Up Triggered", description: "Automated sequence follows up after quote sent" },
       { step: 3, label: "Job Booked", description: "Smart Scheduler confirms timing" },
       { step: 4, label: "Review Requested", description: "Post-job review automation fires automatically" },
-    ],
-    outcomes: [
-      { metric: "100%", description: "Enquiries captured including after hours" },
-      { metric: "3x", description: "Quote follow-up conversion improvement" },
-      { metric: "2 to 4x", description: "Google review volume increase" },
     ],
   },
   {
@@ -284,11 +258,6 @@ export const industries: Industry[] = [
       { step: 3, label: "Membership Follow-Up", description: "Automated sequence after trial to convert" },
       { step: 4, label: "Retention Sequences", description: "Re-engagement for at-risk members" },
     ],
-    outcomes: [
-      { metric: "<5s", description: "Response to every membership enquiry" },
-      { metric: "3x", description: "Trial-to-membership conversion improvement" },
-      { metric: "30%", description: "Reduction in member churn with re-engagement" },
-    ],
   },
   {
     slug: "beauty-aesthetics",
@@ -326,11 +295,6 @@ export const industries: Industry[] = [
       { step: 2, label: "Appointment Confirmed", description: "Smart Scheduler books and sends confirmation" },
       { step: 3, label: "Reminders Sent", description: "24h and 1h reminders reduce no-shows" },
       { step: 4, label: "Follow-Up & Review", description: "Post-visit message + review request" },
-    ],
-    outcomes: [
-      { metric: "40%", description: "Reduction in no-shows with automated reminders" },
-      { metric: "24/7", description: "WhatsApp enquiries answered automatically" },
-      { metric: "2 to 4x", description: "Monthly review volume growth" },
     ],
   },
   {
@@ -370,11 +334,6 @@ export const industries: Industry[] = [
       { step: 3, label: "Reminder Sent", description: "Day-before reminder reduces no-shows" },
       { step: 4, label: "Review Requested", description: "Post-visit WhatsApp message with review link" },
     ],
-    outcomes: [
-      { metric: "24/7", description: "Reservation handling with no staff required" },
-      { metric: "2 to 4x", description: "Monthly Google/TripAdvisor review increase" },
-      { metric: "30%", description: "Increase in repeat guest visits" },
-    ],
   },
   {
     slug: "education-coaching",
@@ -413,11 +372,6 @@ export const industries: Industry[] = [
       { step: 3, label: "Intake Collected", description: "Background form sent and completed via WhatsApp" },
       { step: 4, label: "Post-Session Follow-Up", description: "Resources and re-booking prompt sent automatically" },
     ],
-    outcomes: [
-      { metric: "3x", description: "Enquiry-to-enrolment conversion improvement" },
-      { metric: "0", description: "Admin time spent on scheduling coordination" },
-      { metric: "20 to 30 min", description: "Saved per client from automated intake" },
-    ],
   },
   {
     slug: "ecommerce-product-businesses",
@@ -455,11 +409,6 @@ export const industries: Industry[] = [
       { step: 2, label: "Enquiry Captured", description: "Contact details collected before they leave" },
       { step: 3, label: "Purchase Follow-Up", description: "Post-purchase message confirms and upsells" },
       { step: 4, label: "Review Requested", description: "Automated review request 48h after delivery" },
-    ],
-    outcomes: [
-      { metric: "3 to 5x", description: "Increase in website lead capture rate" },
-      { metric: "2 to 4x", description: "Monthly review volume growth" },
-      { metric: "100%", description: "Of enquiries followed up automatically" },
     ],
   },
 ];

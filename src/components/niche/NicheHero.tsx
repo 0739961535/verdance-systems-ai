@@ -16,7 +16,7 @@ import { NicheIcon } from "./NicheIcon";
 export function NicheHero({ niche }: { niche: Niche }) {
   const conversation = NICHE_CONVERSATIONS[niche.slug] ?? HOME_CONVERSATION;
   return (
-    <section className="relative isolate overflow-hidden bg-canvas" aria-labelledby="niche-hero-title">
+    <section className="relative isolate overflow-hidden bg-canvas" aria-labelledby="niche-hero-title" data-cta-location="hero">
       <div aria-hidden className="aurora" />
       <div aria-hidden className="hero-grid" />
       <div

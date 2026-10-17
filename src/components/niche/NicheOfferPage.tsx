@@ -10,8 +10,7 @@ import { NicheCalculator } from "./NicheCalculator";
 import { NicheIncluded, NicheProof, NicheSteps } from "./NicheSections";
 import { OfferSection } from "@/components/offer/OfferSection";
 import { CTABand } from "@/components/kit/CTABand";
-
-const SITE_URL = "https://verdancesystemsai.com";
+import { SITE_URL } from "@/data/site";
 
 /**
  * NicheOfferPage - one offer, one kind of business, one action.
@@ -35,7 +34,7 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
         url,
         areaServed: { "@type": "Country", name: "South Africa" },
         audience: { "@type": "BusinessAudience", name: niche.name },
-        provider: { "@type": "Organization", name: "Verdance Systems AI", url: SITE_URL },
+        provider: { "@id": `${SITE_URL}/#organization` },
       },
       {
         "@type": "FAQPage",

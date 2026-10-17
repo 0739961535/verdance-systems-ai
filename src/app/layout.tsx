@@ -13,6 +13,9 @@ import { BrandStudio } from "@/components/primitives/BrandStudio";
 import { NoPullToRefresh } from "@/components/primitives/NoPullToRefresh";
 import { RevealObserver } from "@/components/primitives/RevealObserver";
 import { Interactions } from "@/components/primitives/Interactions";
+import { SiteAnalytics } from "@/components/analytics/SiteAnalytics";
+import { SITE_URL } from "@/data/site";
+import { ORGANIZATION_LD, ORG_ID, PERSON_LD } from "@/data/entity";
 
 // Satoshi (Indian Type Foundry, ITF Free Font License): headlines and body.
 // The woff2 is fetched at build time by scripts/fetch-fonts.mjs because the
@@ -46,31 +49,29 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://verdancesystemsai.com"),
+  metadataBase: new URL(SITE_URL),
   title: "Verdance Systems AI | Every enquiry answered in 60 seconds",
   description:
     "Every enquiry answered within 60 seconds, every follow-up done, and your team's hours back. Live in 10 working days. Start with a free Operations Map.",
   applicationName: "Verdance Systems AI",
   keywords: [
-    "AI systems agency",
-    "AI automation agency",
+    "AI receptionist South Africa",
+    "WhatsApp automation for business",
+    "AI automation agency South Africa",
+    "speed to lead",
+    "lead response time",
+    "missed call text back",
+    "after hours call answering",
     "AI agents for business",
-    "conversation AI",
-    "voice AI agent",
-    "WhatsApp AI",
-    "CRM automation",
-    "AI receptionist",
-    "lead follow-up automation",
-    "MCP integrations",
   ],
-  authors: [{ name: "Daniel Bouwer", url: "https://www.linkedin.com/in/daniel-bouwer/" }],
+  authors: [{ name: "Daniel Bouwer", url: `${SITE_URL}/about` }],
   creator: "Verdance Systems AI",
   publisher: "Verdance Systems AI",
   openGraph: {
     title: "Verdance Systems AI | Every enquiry answered in 60 seconds",
     description:
-      "Every call and message answered in seconds, at any hour, and booked straight into your calendar. Built for you, owned by you. Free audit call first.",
-    url: "https://verdancesystemsai.com",
+      "Every enquiry answered within 60 seconds, every follow-up done, and your team's hours back. Live in 10 working days. Start with a free Operations Map.",
+    url: SITE_URL,
     type: "website",
     locale: "en_GB",
     siteName: "Verdance Systems AI",
@@ -79,7 +80,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Verdance Systems AI | Every enquiry answered in 60 seconds",
     description:
-      "Every call and message answered in seconds, any hour, and booked in. Free audit call first.",
+      "Every enquiry answered within 60 seconds, every follow-up done. Live in 10 working days. Start with a free Operations Map.",
   },
   robots: {
     index: true,
@@ -109,119 +110,18 @@ export const viewport: Viewport = {
 // only ever apply when JavaScript is actually running.
 const NO_FLASH = `(function(){var d=document.documentElement;d.classList.add('js');try{var t=localStorage.getItem('theme');if(!t){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}d.setAttribute('data-theme',t);}catch(e){d.setAttribute('data-theme','dark');}})();`;
 
-const SITE_URL = "https://verdancesystemsai.com";
 const JSON_LD = {
   "@context": "https://schema.org",
   "@graph": [
-    {
-      "@type": "Organization",
-      "@id": `${SITE_URL}/#organization`,
-      name: "Verdance Systems AI",
-      url: SITE_URL,
-      email: "daniel@verdancesystemsai.com",
-      logo: `${SITE_URL}/logo.png`,
-      description:
-        "An AI systems agency that designs, builds and runs marketing, sales, operations and automation systems - conversation AI, voice agents, CRM, custom AI agents and integrations.",
-      founder: { "@type": "Person", name: "Daniel Bouwer" },
-      areaServed: [
-        { "@type": "Country", name: "South Africa" },
-        { "@type": "Country", name: "United Kingdom" },
-        { "@type": "AdministrativeArea", name: "Gauteng" },
-        { "@type": "AdministrativeArea", name: "Western Cape" },
-        { "@type": "AdministrativeArea", name: "KwaZulu-Natal" },
-        { "@type": "AdministrativeArea", name: "Greater London" },
-        { "@type": "AdministrativeArea", name: "Greater Manchester" },
-        { "@type": "AdministrativeArea", name: "West Midlands" },
-      ],
-      contactPoint: [
-        {
-          "@type": "ContactPoint",
-          telephone: "+27739961535",
-          contactType: "sales",
-          areaServed: "ZA",
-          availableLanguage: ["English", "Afrikaans"],
-        },
-        {
-          "@type": "ContactPoint",
-          telephone: "+447432351517",
-          contactType: "sales",
-          areaServed: "GB",
-          availableLanguage: ["English"],
-        },
-      ],
-      // Every profile listed here is one more place an AI engine can confirm
-      // this company exists and does what it says. One link is close to no
-      // signal. Add each URL here the day the profile goes live.
-      sameAs: [
-        "https://www.linkedin.com/in/daniel-bouwer/",
-        // TODO add as they go live, in roughly this order of value:
-        //   company LinkedIn page
-        //   Google Business Profile (the maps URL)
-        //   Clutch profile
-        //   Crunchbase
-        //   YouTube channel
-      ],
-      knowsAbout: [
-        "AI automation",
-        "conversation AI",
-        "voice AI agents",
-        "AI receptionists",
-        "CRM automation",
-        "lead generation systems",
-        "Google review automation",
-        "MCP server integrations",
-        "custom AI agents",
-      ],
-      hasOfferCatalog: {
-        "@type": "OfferCatalog",
-        name: "AI systems",
-        itemListElement: [
-          {
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: "Marketing systems",
-              description:
-                "Lead generation, database reactivation, landing pages and funnels, Google review automation, websites and custom apps, and social content systems.",
-            },
-          },
-          {
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: "Sales systems",
-              description:
-                "Conversation AI across WhatsApp, SMS and social DMs, inbound and outbound voice AI agents, AI receptionists, smart scheduling and automated follow-up.",
-            },
-          },
-          {
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: "Internal operations systems",
-              description:
-                "Customised CRM and pipelines, lead scoring, payments and invoicing automation, tracking dashboards and reporting.",
-            },
-          },
-          {
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: "Automation systems",
-              description:
-                "Custom AI agents, MCP server integrations, client intake automation and workflow automation between business tools.",
-            },
-          },
-        ],
-      },
-    },
+    ORGANIZATION_LD,
+    PERSON_LD,
     {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
       url: SITE_URL,
       name: "Verdance Systems AI",
-      publisher: { "@id": `${SITE_URL}/#organization` },
-      inLanguage: "en",
+      publisher: { "@id": ORG_ID },
+      inLanguage: "en-ZA",
     },
   ],
 };
@@ -254,6 +154,7 @@ export default function RootLayout({
         {process.env.NEXT_PUBLIC_BRAND_STUDIO === "1" && <BrandStudio />}
         <Analytics />
         <SpeedInsights />
+        <SiteAnalytics />
       </body>
     </html>
   );

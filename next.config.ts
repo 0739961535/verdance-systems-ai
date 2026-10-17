@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { LOCATION_REDIRECTS } from "./src/data/locations";
 
 const isDev = process.env.NODE_ENV !== "production";
 // LOCAL_HTTP=1 → viewing the production build over plain http (localhost / LAN
@@ -17,7 +18,20 @@ const localHttp = process.env.LOCAL_HTTP === "1";
 //   content (otherwise the widget clips or shows an internal scrollbar).
 // - *.leadconnectorhq.com (script/style/font/media) + fonts.bunny.net (style/
 //   font) are the sitewide chat widget (Conversation AI) loaded by
-//   GHLChatWidget — it chains resources off widgets./stcdn./services. subdomains.
+//   GHLChatWidget: it chains resources off widgets./stcdn./services. subdomains.
+// - Google tag (GA4): googletagmanager.com loads gtag.js, which sends hits to
+//   google-analytics.com and its regional *.google-analytics.com hosts and
+//   *.analytics.google.com. Google Ads conversion hosts are listed now so the
+//   Ads tag works the day it is added. Nothing loads unless NEXT_PUBLIC_GA4_ID
+//   is set (see src/components/analytics/GoogleAnalytics.tsx).
+const googleTag = [
+  "https://www.googletagmanager.com",
+  "https://www.google-analytics.com",
+  "https://*.google-analytics.com",
+  "https://*.analytics.google.com",
+  "https://www.googleadservices.com",
+  "https://googleads.g.doubleclick.net",
+].join(" ");
 const csp = [
   "default-src 'self'",
   "base-uri 'self'",
@@ -26,9 +40,9 @@ const csp = [
   "img-src 'self' data: blob: https:",
   "font-src 'self' data: https://*.leadconnectorhq.com https://fonts.bunny.net",
   "style-src 'self' 'unsafe-inline' https://*.leadconnectorhq.com https://fonts.bunny.net",
-  `script-src 'self' 'unsafe-inline' https://link.msgsndr.com https://*.leadconnectorhq.com${isDev ? " 'unsafe-eval'" : ""}`,
+  `script-src 'self' 'unsafe-inline' https://link.msgsndr.com https://*.leadconnectorhq.com ${googleTag}${isDev ? " 'unsafe-eval'" : ""}`,
   "worker-src 'self' blob:",
-  `connect-src 'self' https:${isDev ? " ws: wss:" : ""}`,
+  `connect-src 'self' https: ${googleTag}${isDev ? " ws: wss:" : ""}`,
   "frame-src 'self' https://api.leadconnectorhq.com https://*.leadconnectorhq.com https://*.google.com",
   "form-action 'self' https://*.leadconnectorhq.com",
   "manifest-src 'self'",
@@ -81,6 +95,13 @@ const nextConfig: NextConfig = {
       { source: "/products", destination: "/services", permanent: true },
       { source: "/packages", destination: "/services", permanent: true },
       { source: "/portfolio", destination: "/#proof", permanent: true },
+      // City pages folded from 18 to 4 (SEO plan, fix 6): each retired page
+      // points at the closest kept city, or the /ai-agency index.
+      ...Object.entries(LOCATION_REDIRECTS).map(([from, to]) => ({
+        source: `/ai-agency/${from}`,
+        destination: to,
+        statusCode: 301 as const,
+      })),
     ];
   },
   async headers() {

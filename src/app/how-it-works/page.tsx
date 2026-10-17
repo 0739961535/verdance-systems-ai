@@ -11,12 +11,13 @@ import { GuaranteeBlock } from "@/components/sections/v4/GuaranteeBlock";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { NumberTicker } from "@/components/kit/NumberTicker";
+import { SITE_URL } from "@/data/site";
 export const metadata: Metadata = {
   alternates: { canonical: "/how-it-works" },
   openGraph: {
     title: "How Verdance Works | Done-for-You AI Booking",
     description: "Six steps from a free 30-minute Operations Map to a system that answers and books for you, day or night. Fixed quote, fixed launch date, and you own all of it.",
-    url: "https://verdancesystemsai.com/how-it-works",
+    url: `${SITE_URL}/how-it-works`,
     type: "website",
     siteName: "Verdance Systems AI",
   },

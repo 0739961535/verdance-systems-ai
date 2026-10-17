@@ -12,7 +12,7 @@ import { GuaranteeSeal } from "./GuaranteeSeal";
  */
 export function OfferSection({ id = "offer", seals = true, href = GENERIC_BOOK_URL }: { id?: string; seals?: boolean; href?: string }) {
   return (
-    <section id={id} className="section-pad bg-canvas-2" aria-labelledby={`${id}-title`} style={{ borderTop: "1px solid var(--hairline)", scrollMarginTop: "5rem" }}>
+    <section id={id} className="section-pad bg-canvas-2" aria-labelledby={`${id}-title`} data-cta-location="offer" style={{ borderTop: "1px solid var(--hairline)", scrollMarginTop: "5rem" }}>
       <div className="container-narrow">
         <Reveal variant="wipe" className="max-w-3xl">
           <p className="eyebrow">The offer</p>

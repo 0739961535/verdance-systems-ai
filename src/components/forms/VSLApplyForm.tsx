@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ConicBorder } from "@/components/primitives/ConicBorder";
 import { MagneticButton } from "@/components/primitives/MagneticButton";
 import { BookingCard } from "@/components/sections/v4/BookingCard";
+import { track } from "@/lib/analytics";
 
 // ─────────────────────────────────────────────────────────────────
 // QUESTION CONFIG - single source of truth for the 8-step flow
@@ -296,6 +297,7 @@ export function VSLApplyForm({
       if (!res.ok || !json?.ok) {
         throw new Error(json?.error || "Could not submit application.");
       }
+      track("form_submitted", { form_id: "apply" });
       setStatus("success");
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Something went wrong.";

@@ -9,9 +9,7 @@ import { DeltaRows } from "@/components/sections/v4/DeltaRows";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { LOCATIONS, getLocation } from "@/data/locations";
-import { SITE } from "@/data/site";
-
-const SITE_URL = "https://verdancesystemsai.com";
+import { SITE, SITE_URL } from "@/data/site";
 
 export async function generateStaticParams() {
   return LOCATIONS.map((l) => ({ location: l.slug }));
@@ -26,7 +24,7 @@ export async function generateMetadata({
   const loc = getLocation(slug);
   if (!loc) return {};
 
-  const title = `AI Agency in ${loc.name} | Answering, Booking and Follow Up | Verdance Systems AI`;
+  const title = `AI Agency ${loc.name}: Every Enquiry Answered | Verdance`;
   const description = `We build the thing that answers your phone, replies to your messages and books ${loc.name} customers into your calendar, day or night. ${loc.commonLoss} Free 30-minute Operations Map.`;
   const url = `${SITE_URL}/ai-agency/${slug}`;
 
@@ -110,7 +108,7 @@ export default async function LocationPage({
             name: "How long does it take to go live?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Most builds go live two to four weeks after the plan is signed off. Your contract includes the launch date.",
+              text: "Live in 10 working days from the day the plan is signed off. The launch date is in your contract.",
             },
           },
           {

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
 import { SITE } from "@/data/site";
+import { track } from "@/lib/analytics";
 
 /**
  * BookingCard - native booking for the AI Systems Audit. Fetches real
@@ -65,6 +66,7 @@ export function BookingCard() {
     }).catch(() => null);
 
     if (res?.ok) {
+      track("audit_booked", { booking_page: "apply" });
       setStep("done");
       return;
     }
