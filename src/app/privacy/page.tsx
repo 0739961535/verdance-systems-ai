@@ -26,7 +26,7 @@ export default function PrivacyPage() {
           <li>
             <strong>Details you give us.</strong> When you book a consult, submit
             a form, message us on WhatsApp, or email us, we collect the
-            information you provide - typically your name, business name, contact
+            information you provide, typically your name, business name, contact
             details and what you&apos;re looking for.
           </li>
           <li>
@@ -77,7 +77,7 @@ export default function PrivacyPage() {
       <LegalSection heading="How long we keep it">
         <p>
           We keep your information only as long as needed to respond to you,
-          deliver our services, and meet any legal obligations - after which we
+          deliver our services, and meet any legal obligations. After that we
           delete or anonymise it. Audit and map answers are deleted after 24
           months. If you ask us to stop contacting you, we keep only your contact
           detail on a do-not-contact list, so that we never contact you again.
@@ -95,17 +95,53 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
-      <LegalSection heading="Cookies">
+      <LegalSection heading="Cookies and advertising">
         <p>
-          We use cookies and similar tools only to keep the site working and
-          to understand how it is used. Vercel Analytics counts visits without
-          cookies. Google Analytics sets cookies so we can see which pages and
-          buttons lead to an enquiry or a booked call; Google processes that
-          data for us. We don&apos;t use any of it to build advertising
-          profiles, and we don&apos;t use an advertising pixel on this site. You
-          can block analytics cookies in your browser settings or with
-          Google&apos;s opt-out add-on.
+          We use cookies and similar tools to keep the site working, to
+          understand how it is used and to measure our advertising. Vercel
+          Analytics counts visits without cookies.
         </p>
+        <ul>
+          <li>
+            <strong>Google Analytics and the Google tag.</strong> These set
+            cookies so we can see which pages and buttons lead to an enquiry or a
+            booked call, and which of our Google ads brought you here.
+          </li>
+          <li>
+            <strong>The Meta Pixel.</strong> When it is switched on, it records
+            the pages you visit here and actions such as clicking to book or to
+            contact us, so we can tell which of our Facebook and Instagram ads
+            work and show our ads to people who have already visited this site.
+          </li>
+        </ul>
+        <p>
+          These tools record your device and browser details, the pages you
+          view, the buttons you click and the ad that brought you here. They do
+          not see what you type into our forms. Google and Meta process this data
+          for us, and they may process it outside South Africa, including in the
+          United States. We rely on our legitimate interest in
+          measuring our own website and advertising, as the Protection of
+          Personal Information Act (POPIA) allows.
+        </p>
+        <p>To opt out at any time, you can:</p>
+        <ul>
+          <li>block or clear cookies in your browser settings;</li>
+          <li>
+            install{" "}
+            <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">
+              Google&apos;s opt-out add-on
+            </a>
+            ;
+          </li>
+          <li>
+            turn off ads based on activity from other sites in your{" "}
+            <a href="https://accountscenter.facebook.com/ad_preferences" target="_blank" rel="noopener noreferrer">
+              Facebook and Instagram ad preferences
+            </a>
+            ;
+          </li>
+          <li>or email us and we will help.</li>
+        </ul>
       </LegalSection>
 
       <LegalSection heading="Contact">

@@ -23,7 +23,7 @@ const localHttp = process.env.LOCAL_HTTP === "1";
 //   google-analytics.com and its regional *.google-analytics.com hosts and
 //   *.analytics.google.com. Google Ads conversion hosts are listed now so the
 //   Ads tag works the day it is added. Nothing loads unless NEXT_PUBLIC_GA4_ID
-//   is set (see src/components/analytics/GoogleAnalytics.tsx).
+//   is set (see src/components/analytics/SiteAnalytics.tsx).
 const googleTag = [
   "https://www.googletagmanager.com",
   "https://www.google-analytics.com",
@@ -32,6 +32,11 @@ const googleTag = [
   "https://www.googleadservices.com",
   "https://googleads.g.doubleclick.net",
 ].join(" ");
+// - Meta Pixel: connect.facebook.net serves fbevents.js; hits go to
+//   www.facebook.com/tr (as an image or a fetch). img-src already allows
+//   https:. Nothing loads unless NEXT_PUBLIC_META_PIXEL_ID is set (see
+//   src/components/analytics/MetaPixel.tsx).
+const metaPixel = ["https://connect.facebook.net", "https://www.facebook.com"].join(" ");
 const csp = [
   "default-src 'self'",
   "base-uri 'self'",
@@ -40,9 +45,9 @@ const csp = [
   "img-src 'self' data: blob: https:",
   "font-src 'self' data: https://*.leadconnectorhq.com https://fonts.bunny.net",
   "style-src 'self' 'unsafe-inline' https://*.leadconnectorhq.com https://fonts.bunny.net",
-  `script-src 'self' 'unsafe-inline' https://link.msgsndr.com https://*.leadconnectorhq.com ${googleTag}${isDev ? " 'unsafe-eval'" : ""}`,
+  `script-src 'self' 'unsafe-inline' https://link.msgsndr.com https://*.leadconnectorhq.com ${googleTag} ${metaPixel}${isDev ? " 'unsafe-eval'" : ""}`,
   "worker-src 'self' blob:",
-  `connect-src 'self' https: ${googleTag}${isDev ? " ws: wss:" : ""}`,
+  `connect-src 'self' https: ${googleTag} ${metaPixel}${isDev ? " ws: wss:" : ""}`,
   "frame-src 'self' https://api.leadconnectorhq.com https://*.leadconnectorhq.com https://*.google.com",
   "form-action 'self' https://*.leadconnectorhq.com",
   "manifest-src 'self'",

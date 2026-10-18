@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { MetaPixel } from "./MetaPixel";
 import { GA4_ID, isBookingUrl, rememberUtms, track, withUtms } from "@/lib/analytics";
 
 /**
@@ -19,7 +20,9 @@ import { GA4_ID, isBookingUrl, rememberUtms, track, withUtms } from "@/lib/analy
  * cta_location comes from the nearest [data-cta-location], else the nav or
  * footer, else the nearest section id, else "page".
  *
- * Without NEXT_PUBLIC_GA4_ID nothing loads and no event is sent. UTM
+ * The same events go to the Meta Pixel (see META_EVENTS in lib/analytics).
+ * Without NEXT_PUBLIC_GA4_ID / NEXT_PUBLIC_META_PIXEL_ID that tag does not load
+ * and no event is sent to it. UTM
  * passthrough to the booking site works either way.
  */
 export function SiteAnalytics() {
@@ -77,7 +80,12 @@ export function SiteAnalytics() {
     };
   }, []);
 
-  return GA4_ID ? <GoogleAnalytics gaId={GA4_ID} /> : null;
+  return (
+    <>
+      {GA4_ID ? <GoogleAnalytics gaId={GA4_ID} /> : null}
+      <MetaPixel />
+    </>
+  );
 }
 
 function ctaLocation(el: Element): string {
