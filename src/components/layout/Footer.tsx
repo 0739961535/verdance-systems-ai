@@ -171,7 +171,7 @@ export function Footer() {
         >
           {GROUPS.map((group) => (
             <div key={group.title} className="min-w-0">
-              <h2 className="mb-4 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">
+              <h2 className="mb-4 font-mono text-[0.75rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">
                 {group.title}
               </h2>
               <ul>

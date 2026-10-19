@@ -321,15 +321,16 @@ export function FilmController() {
         el.style.transform = `scaleX(${clamp01((p - a + XFADE) / (b - a + XFADE)).toFixed(3)})`;
       });
       setStage(p < STEPS[0][0] - XFADE ? -1 : p < STEPS[1][0] - XFADE ? 0 : p < STEPS[2][0] - XFADE ? 1 : 2);
-      // the bottom edge eases into the page as the section unpins
-      fade(botWash, ramp(0.93, 0.995, p));
     };
     // before GSAP has loaded, follow the scroll directly
     let gsapLive = false;
     const direct = () => {
-      if (gsapLive) return;
       const r = root.getBoundingClientRect();
-      update(clamp01(-r.top / Math.max(1, root.offsetHeight - window.innerHeight)));
+      const raw = clamp01(-r.top / Math.max(1, root.offsetHeight - window.innerHeight));
+      // the exit dissolve follows the scrollbar exactly (no scrub lag), so
+      // the words are gone before the stage starts to scroll away
+      fade(botWash, ramp(0.93, 0.985, raw));
+      if (!gsapLive) update(raw);
     };
     window.addEventListener("scroll", direct, { passive: true });
 

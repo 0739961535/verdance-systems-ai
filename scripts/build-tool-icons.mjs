@@ -11,6 +11,8 @@ const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..")
 const out = path.join(root, "src/components/home/toolIcons.ts");
 
 // Display name, then the simple-icons slug to try (null = wordmark only).
+// Business tools only: no AI or developer vendors on a page for owners who
+// don't care about the tech (design re-review, Oct 2026).
 const TOOLS = [
   ["WhatsApp", "whatsapp"],
   ["Gmail", "gmail"],
@@ -40,11 +42,6 @@ const TOOLS = [
   ["Airtable", "airtable"],
   ["Zapier", "zapier"],
   ["Make", "make"],
-  ["Twilio", "twilio"],
-  ["OpenAI", "openai"],
-  ["Claude", "claude"],
-  ["Vercel", "vercel"],
-  ["Supabase", "supabase"],
 ];
 
 const bySlug = new Map(
