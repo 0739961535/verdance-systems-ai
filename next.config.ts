@@ -104,8 +104,16 @@ const nextConfig: NextConfig = {
       })),
     ];
   },
+  // Private prospect showcase pages live as static files in public/showcase.
+  // Serve them at clean URLs (/showcase/dulini) and keep them out of search.
+  async rewrites() {
+    return [{ source: "/showcase/:name", destination: "/showcase/:name.html" }];
+  },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      { source: "/showcase/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
+    ];
   },
 };
 

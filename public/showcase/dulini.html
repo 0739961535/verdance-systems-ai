@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Prepared for Dulini | Verdance Systems AI</title>
+<meta name="description" content="Every Dulini enquiry answered within a minute, in Dulini's voice, even on a Saturday night. Prepared for Dulini by Verdance Systems AI.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Every Dulini enquiry answered, even on a Saturday night">
+<meta property="og:description" content="Prepared for Dulini by Verdance Systems AI. A weekend in the Dulini inbox, and what changes when every enquiry is answered within a minute.">
+<meta property="og:image" content="https://static.wixstatic.com/media/67d1c5_38572f44f30e4877a93f479533eccc1b~mv2.jpg/v1/fill/w_1200,h_630,al_c,q_80/dulini-sundowners.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Every Dulini enquiry answered, even on a Saturday night">
+<meta name="twitter:description" content="Prepared for Dulini by Verdance Systems AI.">
+<meta name="theme-color" content="#120e0b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23120e0b'/%3E%3Ccircle cx='32' cy='38' r='13' fill='%23c9a35c'/%3E%3Crect x='10' y='38' width='44' height='3' fill='%23120e0b'/%3E%3Crect x='14' y='44' width='36' height='2' rx='1' fill='%23c9a35c' opacity='.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link href="https://fonts.bunny.net/css?family=cormorant-garamond:400,400i,500,500i,600|inter:300,400,500,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#0d0a08; --dusk:#16110d; --bark:#211a14; --bark-2:#2b221a;
+  --sand:#efe4d1; --sand-dim:#c9bba3; --muted:#9a8b76; --line:rgba(239,228,209,.12);
+  --gold:#c9a35c; --gold-soft:#e2c891; --ember:#d9825a; --rose:#e6a98d;
+  --green:#7fa37a; --wa:#1f2c24; --wa-in:#24302a; --wa-out:#3b3121;
+  --serif:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --sans:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --gutter:20px; --max:1120px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--night);color:var(--sand);font-family:var(--sans);font-weight:400;line-height:1.6;font-size:16px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+.eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.serif{font-family:var(--serif)}
+h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.01em;line-height:1.08}
+h2{font-size:clamp(34px,7vw,56px)}
+h2 em,h1 em{font-style:italic;color:var(--gold-soft)}
+.lede{color:var(--sand-dim);font-size:17px;max-width:600px;font-weight:300}
+section{position:relative}
+.pad{padding:96px 0}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.35;margin:0 auto;max-width:var(--max)}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;border:1px solid rgba(201,163,92,.45);color:var(--gold-soft);padding:4px 9px;border-radius:999px;background:rgba(201,163,92,.07);font-weight:500}
+
+/* top bar */
+.top{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px var(--gutter);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--sand-dim);transition:background .4s, border-color .4s;border-bottom:1px solid transparent}
+.top.solid{background:rgba(13,10,8,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
+.top b{color:var(--sand);font-weight:500}
+.top .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin-right:8px;vertical-align:middle}
+
+/* hero */
+.hero{min-height:100svh;display:flex;align-items:flex-end;position:relative;overflow:hidden;isolation:isolate}
+.hero .bg{position:absolute;inset:0;z-index:-2;background:#2a1c18 url("https://static.wixstatic.com/media/67d1c5_38572f44f30e4877a93f479533eccc1b~mv2.jpg/v1/fill/w_1920,h_1200,al_c,q_82/dulini-sundowners.jpg") center 40%/cover no-repeat;transform:scale(1.06);animation:drift 22s ease-out forwards}
+@keyframes drift{to{transform:scale(1)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:
+  linear-gradient(180deg,rgba(13,10,8,.55) 0%,rgba(13,10,8,.15) 30%,rgba(13,10,8,.55) 62%,var(--night) 100%),
+  radial-gradient(120% 70% at 50% 0%,rgba(230,169,141,.18),transparent 60%)}
+.hero .inner{padding:120px var(--gutter) 56px;max-width:var(--max);margin:0 auto;width:100%}
+.hero h1{font-size:clamp(44px,11vw,96px);max-width:900px;margin:18px 0 22px;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+.hero .lede{color:#e6d9c3;font-size:18px}
+.clock{display:inline-flex;align-items:center;gap:10px;background:rgba(13,10,8,.55);border:1px solid rgba(239,228,209,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:8px 14px 8px 10px;border-radius:999px;font-size:13px;color:var(--sand)}
+.clock .pulse{width:8px;height:8px;border-radius:50%;background:var(--ember);box-shadow:0 0 0 0 rgba(217,130,90,.7);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(217,130,90,0)}100%{box-shadow:0 0 0 0 rgba(217,130,90,0)}}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 24px;border-radius:999px;text-decoration:none;font-size:15px;font-weight:500;transition:transform .2s, background .2s, border-color .2s}
+.btn-gold{background:var(--gold);color:#1a130c}
+.btn-gold:hover{background:var(--gold-soft);transform:translateY(-1px)}
+.btn-ghost{border:1px solid rgba(239,228,209,.35);color:var(--sand)}
+.btn-ghost:hover{border-color:var(--gold)}
+@media (max-width:480px){.top{font-size:10px;letter-spacing:.14em}.top .brand{display:none}.hero .lede{font-size:16.5px}}
+@media (min-width:900px){.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(13,10,8,.7) 0%,rgba(13,10,8,.35) 45%,transparent 75%)}}
+.photo-credit{position:absolute;right:var(--gutter);bottom:14px;font-size:10px;color:rgba(239,228,209,.45);letter-spacing:.06em}
+
+/* facts strip */
+.facts{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:44px}
+.facts div{background:var(--dusk);padding:22px}
+.facts b{display:block;font-family:var(--serif);font-size:30px;font-weight:500;color:var(--gold-soft);line-height:1.1}
+.facts span{font-size:14px;color:var(--sand-dim)}
+
+/* lodges */
+.lodges{display:grid;grid-template-columns:1fr;gap:14px;margin-top:40px}
+.lodge{position:relative;padding:24px;border-radius:18px;background:linear-gradient(160deg,var(--bark) 0%,var(--dusk) 100%);border:1px solid var(--line);overflow:hidden}
+.lodge::after{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(201,163,92,.16),transparent 70%)}
+.lodge .where{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.lodge h3{font-size:28px;margin:6px 0 8px}
+.lodge p{font-size:14.5px;color:var(--sand-dim)}
+.lodge .suits{margin-top:14px;font-size:13px;color:var(--gold-soft)}
+
+/* timeline */
+.switch{display:inline-flex;background:var(--bark);border:1px solid var(--line);border-radius:999px;padding:4px;margin:32px 0 8px;position:relative}
+.switch button{appearance:none;border:0;background:transparent;color:var(--sand-dim);font:500 14px var(--sans);padding:11px 20px;border-radius:999px;cursor:pointer;position:relative;z-index:1;transition:color .3s;min-height:44px}
+.switch .knob{position:absolute;top:4px;bottom:4px;left:4px;border-radius:999px;background:var(--sand);transition:transform .45s cubic-bezier(.6,.05,.2,1), width .45s cubic-bezier(.6,.05,.2,1)}
+.switch button[aria-selected="true"]{color:#1a130c}
+.mode-note{font-size:13px;color:var(--muted);min-height:20px}
+.tl{list-style:none;margin-top:30px;position:relative}
+.tl::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:1px;background:linear-gradient(var(--gold),rgba(201,163,92,.1))}
+.tl li{position:relative;padding:0 0 30px 52px}
+.tl .node{position:absolute;left:6px;top:4px;width:19px;height:19px;border-radius:50%;background:var(--night);border:1px solid var(--gold);display:grid;place-items:center}
+.tl .node::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold);transition:background .4s}
+body[data-mode="before"] .tl .node{border-color:var(--muted)}
+body[data-mode="before"] .tl .node::after{background:var(--muted)}
+.tl .time{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+body[data-mode="before"] .tl .time{color:var(--muted)}
+.tl h3{font-size:25px;margin:4px 0 10px}
+.state{border-radius:14px;padding:16px 18px;font-size:15px;border:1px solid var(--line);background:var(--dusk);color:var(--sand-dim)}
+.state strong{color:var(--sand);font-weight:500}
+.state.with{border-color:rgba(201,163,92,.35);background:linear-gradient(160deg,rgba(201,163,92,.10),rgba(201,163,92,.02))}
+.state.before{background:rgba(255,255,255,.02)}
+body[data-mode="before"] .state.with,body[data-mode="with"] .state.before{display:none}
+.state{animation:fadeup .45s ease}
+@keyframes fadeup{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.lodge-pick{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.lodge-pick span{font-size:12.5px;padding:6px 11px;border-radius:999px;border:1px solid rgba(201,163,92,.4);color:var(--gold-soft)}
+.lodge-pick span.alt{border-color:var(--line);color:var(--sand-dim)}
+.verdict{margin-top:6px;display:grid;grid-template-columns:1fr;gap:12px}
+.verdict .card{border-radius:16px;padding:20px;border:1px solid var(--line);background:var(--dusk);transition:opacity .4s, border-color .4s}
+.verdict .card b{display:block;font-family:var(--serif);font-size:34px;font-weight:500;line-height:1.1;margin:4px 0}
+.verdict .card small{font-size:13px;color:var(--sand-dim)}
+.verdict .card.v-before b{color:var(--sand-dim)}
+.verdict .card.v-with b{color:var(--gold-soft)}
+body[data-mode="before"] .v-with,body[data-mode="with"] .v-before{opacity:.38}
+body[data-mode="with"] .v-with{border-color:rgba(201,163,92,.5)}
+
+/* board */
+.board{margin-top:22px;border-radius:20px;border:1px solid var(--line);background:#f4ecdf;color:#2a2018;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.board-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:18px 18px 14px;border-bottom:1px solid #e2d6c3}
+.board-head h4{font-family:var(--serif);font-size:24px;font-weight:600;line-height:1.1}
+.board-head p{font-size:13px;color:#6f604c;margin-top:4px}
+.board .tag{color:#7a5a22;border-color:#c9a35c;background:#efe1c4}
+.row{display:grid;grid-template-columns:1fr auto;gap:6px 12px;padding:14px 18px;border-bottom:1px solid #e9dfcf;font-size:14px}
+.row:last-child{border-bottom:0}
+.row .who{font-weight:600}
+.row .meta{grid-column:1/-1;color:#6f604c;font-size:13px}
+.pill{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:999px;align-self:start;white-space:nowrap}
+.p-warm{background:#f6dcc8;color:#9a4a22}
+.p-trade{background:#dfe6d6;color:#3f5a35}
+.p-done{background:#e8e2d8;color:#6f604c}
+
+/* chat */
+.chat-grid{display:grid;grid-template-columns:1fr;gap:40px;align-items:center;margin-top:36px}
+.phone{width:100%;max-width:390px;margin:0 auto;border-radius:38px;padding:10px;background:linear-gradient(160deg,#3a2f25,#14100c);box-shadow:0 40px 90px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.06)}
+.screen{border-radius:30px;overflow:hidden;background:var(--wa);display:flex;flex-direction:column;height:640px}
+.wa-head{display:flex;align-items:center;gap:10px;padding:16px 14px 12px;background:#18221c;border-bottom:1px solid rgba(255,255,255,.05)}
+.avatar{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 50% 65%,var(--gold) 0 34%,transparent 35%),linear-gradient(#3b2a1c,#1a130c);border:1px solid rgba(201,163,92,.5);flex:none}
+.wa-head b{display:block;font-size:15px;font-weight:600}
+.wa-head small{font-size:12px;color:#9fb3a5}
+.wa-head .tag{margin-left:auto}
+.msgs{flex:1;overflow-y:auto;padding:14px 12px 18px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth;background:
+  radial-gradient(circle at 20% 10%,rgba(201,163,92,.05),transparent 40%),var(--wa)}
+.day{align-self:center;font-size:11px;color:#b7c4ba;background:rgba(0,0,0,.25);padding:4px 10px;border-radius:8px;margin:4px 0}
+.m{max-width:84%;padding:9px 11px 6px;border-radius:12px;font-size:14px;line-height:1.45;position:relative;animation:pop .35s ease both}
+.m .t{display:block;text-align:right;font-size:10.5px;color:rgba(239,228,209,.55);margin-top:3px}
+.m.in{align-self:flex-start;background:var(--wa-in);border-top-left-radius:4px}
+.m.out{align-self:flex-end;background:var(--wa-out);border-top-right-radius:4px;border:1px solid rgba(201,163,92,.18)}
+.m.note{align-self:stretch;max-width:100%;background:rgba(201,163,92,.12);border:1px dashed rgba(201,163,92,.55);color:var(--gold-soft);font-size:12.5px;border-radius:10px}
+.typing{align-self:flex-end;background:var(--wa-out);border-radius:12px;padding:12px 14px;display:flex;gap:4px}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--sand-dim);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,60%,100%{opacity:.25}30%{opacity:1}}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+.wa-foot{padding:10px 12px 16px;background:#18221c;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#9fb3a5}
+.replay{appearance:none;border:1px solid rgba(201,163,92,.5);background:transparent;color:var(--gold-soft);border-radius:999px;padding:8px 14px;font:500 12px var(--sans);cursor:pointer;min-height:36px}
+.points{list-style:none;display:grid;gap:18px}
+.points li{padding-left:34px;position:relative;color:var(--sand-dim);font-size:15.5px}
+.points li b{color:var(--sand);font-weight:500;display:block;font-size:16px;margin-bottom:2px}
+.points li::before{content:"";position:absolute;left:0;top:6px;width:18px;height:18px;border-radius:50%;border:1px solid var(--gold);background:radial-gradient(circle,var(--gold) 0 3px,transparent 4px)}
+
+/* agents */
+.agents{background:linear-gradient(180deg,var(--night),var(--dusk) 30%,var(--dusk) 70%,var(--night))}
+.flow{display:grid;grid-template-columns:1fr;gap:14px;margin-top:40px;counter-reset:f}
+.flow .step{border:1px solid var(--line);border-radius:18px;padding:22px;background:rgba(255,255,255,.02);position:relative}
+.flow .step::before{counter-increment:f;content:"0" counter(f);font-family:var(--serif);font-size:15px;color:var(--gold);letter-spacing:.1em}
+.flow h3{font-size:26px;margin:6px 0 8px}
+.flow p{font-size:15px;color:var(--sand-dim)}
+.trade-card{margin-top:22px;border-radius:18px;border:1px solid rgba(201,163,92,.35);padding:20px;background:linear-gradient(160deg,rgba(201,163,92,.09),transparent)}
+.trade-card dl{display:grid;grid-template-columns:110px 1fr;gap:8px 14px;font-size:14px;margin-top:14px}
+.trade-card dt{color:var(--muted)}
+.trade-card dd{color:var(--sand)}
+.channels{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.channels span{font-size:12.5px;padding:7px 12px;border-radius:999px;background:var(--bark);border:1px solid var(--line);color:var(--sand-dim)}
+
+/* how */
+.how{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:40px}
+.how div{background:var(--night);padding:26px 22px}
+.how .n{font-family:var(--serif);font-size:44px;color:var(--gold);line-height:1;font-weight:400}
+.how h3{font-size:25px;margin:12px 0 8px}
+.how p{color:var(--sand-dim);font-size:15px}
+
+/* guarantees */
+.guar{display:grid;grid-template-columns:1fr;gap:16px;margin-top:40px}
+.seal{position:relative;border-radius:24px;padding:30px 24px;overflow:hidden;background:
+  radial-gradient(120% 90% at 100% 0%,rgba(230,169,141,.16),transparent 55%),
+  linear-gradient(160deg,var(--bark-2),var(--dusk));border:1px solid rgba(201,163,92,.32)}
+.seal .ring{width:84px;height:84px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center;font-family:var(--serif);font-size:30px;color:var(--gold-soft);margin-bottom:18px;position:relative}
+.seal .ring::after{content:"";position:absolute;inset:6px;border-radius:50%;border:1px dashed rgba(201,163,92,.45)}
+.seal h3{font-size:32px;margin-bottom:10px}
+.seal p{color:var(--sand-dim);font-size:15.5px}
+
+/* close */
+.close{text-align:left;overflow:hidden;isolation:isolate}
+.close::before{content:"";position:absolute;inset:0;z-index:-1;background:
+  radial-gradient(80% 60% at 50% 100%,rgba(217,130,90,.28),transparent 70%),
+  radial-gradient(60% 40% at 50% 100%,rgba(201,163,92,.25),transparent 70%)}
+.horizon{position:absolute;left:0;right:0;bottom:0;height:120px;z-index:-1;opacity:.55}
+.close h2{font-size:clamp(40px,9vw,76px);max-width:820px}
+.contact{margin-top:40px;display:flex;gap:16px;align-items:center;border-top:1px solid var(--line);padding-top:26px}
+.contact .mono{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-size:24px;color:#1a130c;background:var(--gold);flex:none}
+.contact b{display:block;font-weight:500}
+.contact small{color:var(--sand-dim);font-size:13.5px}
+footer{padding:30px 0 50px;font-size:12px;color:var(--muted);border-top:1px solid var(--line)}
+footer .wrap{display:flex;flex-direction:column;gap:8px}
+
+/* reveal */
+.js .rv{opacity:0;transform:translateY(22px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+
+@media (min-width:720px){
+  :root{--gutter:32px}
+  .pad{padding:130px 0}
+  .facts{grid-template-columns:repeat(3,1fr)}
+  .lodges{grid-template-columns:repeat(2,1fr)}
+  .lodges .lodge:first-child{grid-column:span 2}
+  .verdict{grid-template-columns:1fr 1fr}
+  .flow{grid-template-columns:repeat(3,1fr)}
+  .how{grid-template-columns:1fr 1fr}
+  .guar{grid-template-columns:1fr 1fr}
+}
+@media (min-width:1024px){
+  .lodges{grid-template-columns:repeat(6,1fr)}
+  .lodges .lodge{grid-column:span 2}
+  .lodges .lodge:nth-child(4),.lodges .lodge:nth-child(5){grid-column:span 3}
+  .lodges .lodge:first-child{grid-column:span 2}
+  .tl-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:start}
+  .tl-side{position:sticky;top:90px}
+  .chat-grid{grid-template-columns:420px 1fr;gap:72px}
+  .how{grid-template-columns:repeat(4,1fr)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .js .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body data-mode="with">
+
+<header class="top" id="top">
+  <span><span class="dot"></span><b>Prepared for Dulini</b></span>
+  <span class="brand">Verdance Systems AI</span>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="bg" role="img" aria-label="Sundowners on the Sand River at Dulini, photographed at dusk"></div>
+  <div class="inner">
+    <span class="clock"><span class="pulse"></span>Saturday, 20:40. New enquiry.</span>
+    <h1>Every Dulini enquiry answered, <em>even on a Saturday night.</em></h1>
+    <p class="lede">Families plan Sabi Sand trips on a Saturday. By Monday they may have replies from two other lodges. This page shows what happens to the enquiries that arrive while your reservations office is closed, and what it looks like when each one is answered within a minute, in Dulini's voice.</p>
+    <div class="cta-row">
+      <a class="btn btn-gold" href="#weekend">See the weekend</a>
+      <a class="btn btn-ghost" href="https://book.verdancesystemsai.com/book/lodges">Book a 20-minute call</a>
+    </div>
+  </div>
+  <span class="photo-credit">Photograph: dulini.com</span>
+</section>
+
+<!-- THEIR WORLD -->
+<section class="pad" id="world">
+  <div class="wrap">
+    <p class="eyebrow rv">Sanibonani, Dulini</p>
+    <h2 class="rv" style="margin-top:14px">Five lodges. Three countries. <em>One inbox.</em></h2>
+    <p class="lede rv" style="margin-top:18px">Every enquiry for every lodge reaches the same reservations team, by phone and by email at reservations@dulini.com.</p>
+
+    <div class="facts rv">
+      <div><b>Mon to Fri</b><span>Reservations open 08h00 to 16h00</span></div>
+      <div><b>Closed</b><span>Saturday, Sunday and public holidays</span></div>
+      <div><b>Emergencies only</b><span>The one WhatsApp line</span></div>
+    </div>
+
+    <div class="lodges">
+      <article class="lodge rv">
+        <div class="where">Sabi Sand Nature Reserve, South Africa</div>
+        <h3>Dulini Moya</h3>
+        <p>Six thatched suites beneath ancient ebony and leadwood trees, tucked into a meander of the Mabrak River. The classic safari, done with romance.</p>
+        <div class="suits">Suits couples, and families in adjacent suites</div>
+      </article>
+      <article class="lodge rv">
+        <div class="where">Sabi Sand Nature Reserve, South Africa</div>
+        <h3>Dulini Leadwood</h3>
+        <p>Four suites at the confluence of the Sand and Mabrak rivers, with the largest heated lap pool of all the lodges. Contemporary and private.</p>
+        <div class="suits">Suits honeymoons and private buyouts</div>
+      </article>
+      <article class="lodge rv">
+        <div class="where">Sabi Sand Nature Reserve, South Africa</div>
+        <h3>Dulini River</h3>
+        <p>Six double-volume suites raised above the perennial Sand River, each with a heated plunge pool and views to the savannah beyond.</p>
+        <div class="suits">Suits romance and adventure alike</div>
+      </article>
+      <article class="lodge rv">
+        <div class="where">Okavango Delta, Botswana</div>
+        <h3>Dulini Daunara</h3>
+        <p>Five tented suites, including a family suite, on a private lagoon in the Delta. Mokoro, fishing, walking safaris and helicopter flights.</p>
+        <div class="suits">Suits multi-generational families and exclusive use</div>
+      </article>
+      <article class="lodge rv">
+        <div class="where">Lower Zambezi National Park, Zambia</div>
+        <h3>Dulini Anabezi</h3>
+        <p>Twelve tented suites overlooking the Zambezi River, the floodplain or the Kulefu Channel, with a family tent of two connected rooms.</p>
+        <div class="suits">Suits families, with its family tent</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- WEEKEND TIMELINE -->
+<section class="pad" id="weekend">
+  <div class="wrap">
+    <p class="eyebrow rv">A weekend in the Dulini inbox</p>
+    <h2 class="rv" style="margin-top:14px">One enquiry. <em>Two weekends.</em></h2>
+    <p class="lede rv" style="margin-top:18px">The same family, the same Saturday night. Switch between how it runs today and how it runs with Verdance. <span class="tag" style="vertical-align:middle;margin-left:4px">Example</span></p>
+
+    <div class="tl-grid">
+      <div>
+        <div class="switch rv" role="tablist" aria-label="Compare the weekend">
+          <span class="knob" aria-hidden="true"></span>
+          <button role="tab" id="tab-before" aria-selected="false" data-mode="before">Before</button>
+          <button role="tab" id="tab-with" aria-selected="true" data-mode="with">With Verdance</button>
+        </div>
+        <p class="mode-note" id="modeNote">Every step answered or handed over. Nothing waits for Monday.</p>
+
+        <ol class="tl">
+          <li class="rv">
+            <span class="node"></span>
+            <div class="time">Saturday 20:40</div>
+            <h3>A family of five asks about the Sabi Sand in April</h3>
+            <div class="state before"><strong>It lands in the reservations inbox.</strong> The office closed at 16h00 on Friday. The next person to read it arrives on Monday at 08h00.</div>
+            <div class="state with"><strong>It is read straight away.</strong> Two adults, three children aged 9, 12 and 15, four nights in April, Sabi Sand. Logged with consent, ready for a reply.</div>
+          </li>
+          <li class="rv">
+            <span class="node"></span>
+            <div class="time">Saturday 20:40, within a minute</div>
+            <h3>Answered in Dulini's voice</h3>
+            <div class="state before"><strong>No reply.</strong> The family keeps browsing, and sends the same message to other lodges in the reserve.</div>
+            <div class="state with"><strong>A warm, personal reply goes out.</strong> It greets them the way Dulini would, confirms children over eight are welcome, and asks the one question that matters next: their dates.</div>
+          </li>
+          <li class="rv">
+            <span class="node"></span>
+            <div class="time">Saturday 20:42</div>
+            <h3>The right lodge suggested for the group</h3>
+            <div class="state before"><strong>Nobody is there to match them.</strong> They are left to compare five lodges on their own, on a phone, late on a Saturday.</div>
+            <div class="state with"><strong>Matched to how they travel.</strong> Two adjacent suites so the children are close by, at the lodge that suits a family.
+              <div class="lodge-pick"><span>Dulini River</span><span class="alt">Alternative: Dulini Moya</span></div>
+            </div>
+          </li>
+          <li class="rv">
+            <span class="node"></span>
+            <div class="time">Saturday 20:43 to Sunday</div>
+            <h3>Dates checked, questions handled or handed over</h3>
+            <div class="state before"><strong>Their questions pile up.</strong> Flights, transfers, bush walks with children. By Sunday evening, they may have heard back from two other lodges.</div>
+            <div class="state with"><strong>Dates checked against availability.</strong> Getting there is answered from your own information: Federal Air from Johannesburg into Ulusaba Airstrip, then your 4x4 transfer. Rates and the bush walk question go to a person, with the full conversation attached.</div>
+          </li>
+          <li class="rv">
+            <span class="node"></span>
+            <div class="time">Monday 08:00</div>
+            <h3>The reservations team opens the inbox</h3>
+            <div class="state before"><strong>A weekend backlog, replied to cold.</strong> The family's message is now 35 hours old, and it sits among everything else that came in since Friday.</div>
+            <div class="state with"><strong>A short list, already replied to and flagged.</strong> The warm ones are on top, each with what is needed next. Your team starts Monday by confirming, not by catching up.</div>
+          </li>
+        </ol>
+      </div>
+
+      <aside class="tl-side">
+        <div class="verdict rv">
+          <div class="card v-before">
+            <span class="eyebrow" style="color:var(--muted)">Before</span>
+            <b>35 hours</b>
+            <small>Saturday 20:40 to the first reply on Monday morning</small>
+          </div>
+          <div class="card v-with">
+            <span class="eyebrow">With Verdance</span>
+            <b>Under a minute</b>
+            <small>First reply on Saturday night, in Dulini's voice</small>
+          </div>
+        </div>
+
+        <div class="board rv" aria-label="Example Monday morning list">
+          <div class="board-head">
+            <div>
+              <h4>Monday, 08:00</h4>
+              <p>Since Friday 16h00: 5 enquiries. All replied to. 3 flagged warm.</p>
+            </div>
+            <span class="tag">Example</span>
+          </div>
+          <div class="row"><span class="who">Family of 5, Dulini River</span><span class="pill p-warm">Warm</span><span class="meta">14 to 18 April. Replied Sat 20:40. Needs: rates, bush walk ages.</span></div>
+          <div class="row"><span class="who">Honeymoon couple, Dulini Leadwood</span><span class="pill p-warm">Warm</span><span class="meta">June. Replied Sat 22:15. Needs: confirm dates.</span></div>
+          <div class="row"><span class="who">Agent, group of 8, Dulini Daunara</span><span class="pill p-trade">Trade</span><span class="meta">Exclusive use, September. Replied Sun 09:02. Routed to the Travel Desk.</span></div>
+          <div class="row"><span class="who">Family tent, Dulini Anabezi</span><span class="pill p-warm">Warm</span><span class="meta">July. Replied Sun 19:48. Needs: availability confirmed.</span></div>
+          <div class="row"><span class="who">Transfer from Skukuza</span><span class="pill p-done">Answered</span><span class="meta">Sun 14:30. No action needed.</span></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- CHAT -->
+<section class="pad" id="conversation">
+  <div class="wrap">
+    <p class="eyebrow rv">What the family sees</p>
+    <h2 class="rv" style="margin-top:14px">Saturday night, <em>in your voice.</em></h2>
+    <div class="chat-grid">
+      <div class="phone rv">
+        <div class="screen">
+          <div class="wa-head">
+            <span class="avatar" aria-hidden="true"></span>
+            <div><b>Dulini Reservations</b><small id="waStatus">online</small></div>
+            <span class="tag">Example</span>
+          </div>
+          <div class="msgs" id="msgs" aria-live="polite"></div>
+          <div class="wa-foot"><span>Example conversation, not a real guest</span><button class="replay" id="replay" type="button">Replay</button></div>
+        </div>
+      </div>
+      <div>
+        <ul class="points">
+          <li class="rv"><b>It sounds like Dulini</b>Built from the way your team already writes: the greeting, the warmth, the detail about each lodge. Never a script that reads like a bot.</li>
+          <li class="rv"><b>It knows the lodges</b>Six suites at Dulini River, four at Dulini Leadwood, the family suite at Dulini Daunara, the children's policy, how to get from Johannesburg to Ulusaba. All from your own information.</li>
+          <li class="rv"><b>It knows where to stop</b>Rates, special requests and anything it is not sure of go to a person, with the conversation so far. The guest is told who will come back to them, and when.</li>
+          <li class="rv"><b>It never pretends</b>It does not invent availability or promise what only your team can confirm.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENTS -->
+<section class="pad agents" id="trade">
+  <div class="wrap">
+    <p class="eyebrow rv">For the Dulini Travel Desk and your agents</p>
+    <h2 class="rv" style="margin-top:14px">Trade enquiries get <em>their own route.</em></h2>
+    <p class="lede rv" style="margin-top:18px">Agents already have their own doors, through the Agents Portal and the agent logins for the Sabi Sand and Anabezi. Many still write in by email or message. Those are recognised, routed and tracked, so an agent's client is never left waiting either.</p>
+
+    <div class="channels rv">
+      <span>reservations@dulini.com</span><span>Website enquiries</span><span>Agent emails</span><span>WhatsApp, if you choose</span>
+    </div>
+
+    <div class="flow">
+      <div class="step rv"><h3>Recognised</h3><p>An agent or operator enquiry is spotted from the agency, the client reference and the way it is written, and kept apart from direct guests.</p></div>
+      <div class="step rv"><h3>Routed</h3><p>It goes to whoever looks after that agent, at reservations or on the Travel Desk, with everything on one card. Anything meant for the Travel Desk goes straight there.</p></div>
+      <div class="step rv"><h3>Tracked</h3><p>Every trade enquiry has a status, from first reply to confirmed or released. Nothing depends on one person's inbox, or on someone remembering to follow up.</p></div>
+    </div>
+
+    <div class="trade-card rv">
+      <span class="tag">Example trade card</span>
+      <dl>
+        <dt>From</dt><dd>Agent, UK tour operator</dd>
+        <dt>Client</dt><dd>Group of 8, three generations</dd>
+        <dt>Lodge</dt><dd>Dulini Daunara, exclusive use</dd>
+        <dt>Dates</dt><dd>September, 4 nights</dd>
+        <dt>Status</dt><dd>Replied Sunday 09:02. Routed to the Travel Desk.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="pad" id="how">
+  <div class="wrap">
+    <p class="eyebrow rv">How it works</p>
+    <h2 class="rv" style="margin-top:14px">Your team stays <em>in charge.</em></h2>
+    <div class="how rv">
+      <div><span class="n">10</span><h3>Live in 10 working days</h3><p>We learn your lodges, your policies and your voice from what you already send, then go live on the channels you choose.</p></div>
+      <div><span class="n">i</span><h3>Your team approves what goes out</h3><p>You sign off the answers before launch. Anything new waits for approval until you are happy for it to send on its own.</p></div>
+      <div><span class="n">ii</span><h3>A person takes over when it matters</h3><p>Rates, special requests, complaints and anything unusual go straight to your team, with the whole conversation attached.</p></div>
+      <div><span class="n">iii</span><h3>POPIA built in</h3><p>Consent is recorded, guests can opt out at any time, and an operator agreement covers how their information is handled.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- GUARANTEES -->
+<section class="pad" id="guarantees">
+  <div class="wrap">
+    <p class="eyebrow rv">The guarantees</p>
+    <h2 class="rv" style="margin-top:14px">We carry the risk, <em>not you.</em></h2>
+    <div class="guar">
+      <div class="seal rv">
+        <div class="ring">60s</div>
+        <h3>The 60-Second Guarantee</h3>
+        <p>99% of enquiries answered within 60 seconds, day or night, weekend or public holiday. If we miss it, that month is credited.</p>
+      </div>
+      <div class="seal rv">
+        <div class="ring">90</div>
+        <h3>The Break-Even Exit</h3>
+        <p>At day 90 we look at your own numbers together. If it has not paid for itself by then, you can leave.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSE -->
+<section class="pad close" id="next">
+  <svg class="horizon" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 120 L0 92 C80 88 120 70 170 74 C210 78 230 60 262 58 L270 40 L278 58 C320 62 360 82 420 80 C470 78 520 66 580 70 C640 74 690 88 760 84 C800 82 820 64 850 62 L858 46 L866 62 C910 66 960 84 1040 86 C1100 88 1150 80 1200 82 L1200 120 Z" fill="#0d0a08"/>
+  </svg>
+  <div class="wrap">
+    <p class="eyebrow rv">One next step</p>
+    <h2 class="rv" style="margin-top:14px">See it on a <em>20-minute call.</em></h2>
+    <p class="lede rv" style="margin-top:18px">We will show you this working on a real Dulini-style enquiry, answer your questions, and you can decide from there. No obligation.</p>
+    <div class="cta-row rv">
+      <a class="btn btn-gold" href="https://book.verdancesystemsai.com/book/lodges">Choose a time</a>
+    </div>
+    <div class="contact rv">
+      <span class="mono">G</span>
+      <div><b>Gustav, Verdance Systems AI</b><small>Your contact. Founder: Daniel Bouwer</small></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Prepared for Dulini by Verdance Systems AI. Lodge details from dulini.com. Conversations, names and lists marked Example are illustrations, not real guests or bookings.</span>
+    <span><a href="https://verdancesystemsai.com">verdancesystemsai.com</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+
+  /* top bar */
+  var top = document.getElementById('top');
+  function onScroll(){ top.classList.toggle('solid', window.scrollY > 40); }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  /* reveal */
+  var rv = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+    rv.forEach(function(el){ io.observe(el); });
+  } else { rv.forEach(function(el){ el.classList.add('in'); }); }
+
+  /* before / with switch */
+  var notes = {
+    before: 'The office opens on Monday at 08h00. Until then, the enquiry waits.',
+    with: 'Every step answered or handed over. Nothing waits for Monday.'
+  };
+  var tabs = document.querySelectorAll('.switch button');
+  var knob = document.querySelector('.switch .knob');
+  function setMode(m, animate){
+    document.body.setAttribute('data-mode', m);
+    tabs.forEach(function(b){
+      var on = b.getAttribute('data-mode') === m;
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+      if (on){ knob.style.width = b.offsetWidth + 'px'; knob.style.transform = 'translateX(' + (b.offsetLeft - 4) + 'px)'; }
+    });
+    document.getElementById('modeNote').textContent = notes[m];
+    if (animate){ document.querySelectorAll('.state').forEach(function(s){ s.style.animation = 'none'; void s.offsetWidth; s.style.animation = ''; }); }
+  }
+  tabs.forEach(function(b){ b.addEventListener('click', function(){ setMode(b.getAttribute('data-mode'), true); }); });
+  window.addEventListener('resize', function(){ setMode(document.body.getAttribute('data-mode')); });
+  if (document.fonts && document.fonts.ready){ document.fonts.ready.then(function(){ setMode(document.body.getAttribute('data-mode')); }); }
+  setMode('with');
+
+  /* chat */
+  var script = [
+    {d:'Saturday'},
+    {who:'in', t:'20:40', x:'Hi there. We are a family of five, two adults and three children aged 9, 12 and 15. We are looking at the Sabi Sand for four nights in April. Which lodge would suit us, and is there space?'},
+    {who:'out', t:'20:40', x:'Sanibonani, and thank you for thinking of Dulini. A Sabi Sand safari with your three sounds wonderful, and at 9, 12 and 15 they are all old enough to join us.'},
+    {who:'out', t:'20:40', x:'For a family of five I would suggest Dulini River. It sits above the Sand River, and we can place you in two adjacent suites so the children are close by. Dulini Moya, under the ebony trees on the Mabrak River, is a lovely alternative. Which dates are you looking at?'},
+    {who:'in', t:'20:43', x:'Arriving 14 April, leaving 18 April. We would fly from Joburg.'},
+    {who:'out', t:'20:43', x:'Thank you. Two adjacent suites are showing as open at Dulini River for 14 to 18 April. Federal Air flies direct from Johannesburg to Ulusaba Airstrip, about 20 minutes from the lodge, and our 4x4 transfer meets you there.'},
+    {who:'in', t:'20:45', x:'Perfect. Can the children do a bush walk?'},
+    {who:'out', t:'20:45', x:'Lovely question. I have asked our reservations team to confirm what suits the children, and they will include it with your rates first thing on Monday. You are in good hands.'},
+    {who:'note', x:'Flagged warm for reservations: Dulini River, 14 to 18 April, 2 adults and 3 children, flying Federal Air from Johannesburg. A person to confirm rates and bush walk ages.'}
+  ];
+  var box = document.getElementById('msgs');
+  var status = document.getElementById('waStatus');
+  var timers = [], played = false;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function clear(){ timers.forEach(clearTimeout); timers = []; box.innerHTML = ''; }
+  function bubble(s){
+    var el = document.createElement('div');
+    if (s.d){ el.className = 'day'; el.textContent = s.d; }
+    else {
+      el.className = 'm ' + s.who;
+      el.textContent = s.x;
+      if (s.t){ var t = document.createElement('span'); t.className = 't'; t.textContent = s.t; el.appendChild(t); }
+    }
+    box.appendChild(el); box.scrollTop = box.scrollHeight;
+  }
+  function play(){
+    clear();
+    if (reduce){ script.forEach(bubble); return; }
+    var at = 300;
+    script.forEach(function(s){
+      if (s.who === 'out' || s.who === 'note'){
+        timers.push(setTimeout(function(){
+          var ty = document.createElement('div'); ty.className = 'typing'; ty.innerHTML = '<i></i><i></i><i></i>';
+          box.appendChild(ty); box.scrollTop = box.scrollHeight; status.textContent = 'typing';
+        }, at));
+        at += s.who === 'note' ? 700 : 1300;
+        timers.push(setTimeout(function(){
+          var ty = box.querySelector('.typing'); if (ty) ty.remove();
+          status.textContent = 'online'; bubble(s);
+        }, at));
+        at += 900;
+      } else {
+        timers.push(setTimeout(function(){ bubble(s); }, at));
+        at += s.d ? 400 : 1500;
+      }
+    });
+  }
+  document.getElementById('replay').addEventListener('click', play);
+  var phone = document.querySelector('.phone');
+  if ('IntersectionObserver' in window){
+    var pio = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting && played === false){ played = true; play(); } });
+    }, {threshold:0.35});
+    pio.observe(phone);
+  } else { play(); }
+})();
+</script>
+</body>
+</html>
