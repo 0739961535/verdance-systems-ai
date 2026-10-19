@@ -70,7 +70,31 @@ function useDeferredLoad() {
   return load;
 }
 
+/**
+ * The bubble only shows once the visitor is past half the page (and never
+ * over the film; see html[data-in-flight] in globals.css). Sets
+ * html[data-chat-ok], which the CSS reads.
+ */
+function useChatAfterHalfway() {
+  useEffect(() => {
+    const html = document.documentElement;
+    const check = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      html.toggleAttribute("data-chat-ok", max <= 0 || window.scrollY >= max * 0.5);
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    return () => {
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+      html.removeAttribute("data-chat-ok");
+    };
+  }, []);
+}
+
 export function GHLChatWidget() {
+  useChatAfterHalfway();
   const pathname = usePathname();
   const load = useDeferredLoad();
   const hidden =
