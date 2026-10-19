@@ -138,6 +138,10 @@ export function FilmController() {
     const hud = q<HTMLElement>(".fl-hud");
     const botWash = q<HTMLElement>(".flm-bot");
     const ctx = canvas.getContext("2d", { alpha: false });
+    // the blend layer: the next frame, faded in with CSS opacity (compositor
+    // only, no extra canvas work per scroll frame)
+    const canvasB = q<HTMLCanvasElement>(".flm-canvas-b");
+    const ctxB = canvasB.getContext("2d", { alpha: false });
     if (!ctx) return;
 
     const phoneMq = window.matchMedia("(max-width: 767px)");
@@ -165,13 +169,16 @@ export function FilmController() {
     let drawnOff = -1;
     const sizeCanvas = () => {
       // at most 2x and about 1700px tall: iOS caps canvas memory
-      dpr = Math.min(window.devicePixelRatio || 1, 2, 1700 / Math.max(1, canvas.clientHeight));
+      // never much finer than the frames themselves (no gain, more fill cost)
+      const frameW = set === PHONE ? film.phone.width : film.desktop.width;
+      dpr = Math.min(window.devicePixelRatio || 1, 2, 1700 / Math.max(1, canvas.clientHeight), (frameW * 1.25) / Math.max(1, canvas.clientWidth));
       const w = Math.round(canvas.clientWidth * dpr);
       const h = Math.round(canvas.clientHeight * dpr);
       if (w && h && (w !== cw || h !== ch)) {
-        cw = canvas.width = w;
-        ch = canvas.height = h;
+        cw = canvas.width = canvasB.width = w;
+        ch = canvas.height = canvasB.height = h;
         drawn = -1;
+        drawnB = -1;
       }
     };
     const nearestBitmap = (i: number) => {
@@ -187,34 +194,34 @@ export function FilmController() {
     // one laid over it with alpha by how far between them we are, so
     // scrubbing reads as continuous video even with few phone frames
     let blend = 0;
-    let drawnBlend = -1;
-    const place = (bmp: Frame) => {
+    let drawnB = -1;
+    const place = (c: CanvasRenderingContext2D, bmp: Frame) => {
       const { w, h } = frameSize(bmp);
       // cover-fit, held on the rocket horizontally
       const s = Math.max(cw / w, ch / h);
       const dw = w * s, dh = h * s;
       const dx = Math.min(0, Math.max(cw - dw, cw / 2 - set.focusX * dw));
       const dy = (ch - dh) / 2 + offset * dpr;
-      ctx.drawImage(bmp, dx, dy, dw, dh);
+      c.drawImage(bmp, dx, dy, dw, dh);
     };
     const draw = () => {
       const hit = nearestBitmap(target);
       if (!hit || !cw) return;
-      const next = hit.at === target ? bitmaps.get(target + 1) : undefined;
-      const a = next ? Math.round(blend * 20) / 20 : 0;
-      if (hit.at === drawn && drawnGen === generation && drawnOff === offset && a === drawnBlend) return;
-      ctx.globalAlpha = 1;
-      place(hit.bmp);
-      if (next && a > 0) {
-        ctx.globalAlpha = a;
-        place(next);
-        ctx.globalAlpha = 1;
+      if (!(hit.at === drawn && drawnGen === generation && drawnOff === offset)) {
+        place(ctx, hit.bmp);
+        drawnOff = offset;
+        drawn = hit.at;
+        drawnGen = generation;
+        if (!root.hasAttribute("data-film")) root.setAttribute("data-film", "");
       }
-      drawnOff = offset;
-      drawnBlend = a;
-      drawn = hit.at;
-      drawnGen = generation;
-      if (!root.hasAttribute("data-film")) root.setAttribute("data-film", "");
+      // the next frame on the blend layer, drawn once per frame change
+      // phones only: desktop has frames enough, and full-width draws cost more
+      const next = set === PHONE && hit.at === target ? bitmaps.get(target + 1) : undefined;
+      if (next && ctxB && drawnB !== target + 1) {
+        place(ctxB, next);
+        drawnB = target + 1;
+      }
+      canvasB.style.opacity = next && drawnB === target + 1 ? blend.toFixed(3) : "0";
     };
 
     // ---------- decode window ----------
@@ -288,6 +295,7 @@ export function FilmController() {
       abort = new AbortController();
       bitmaps.forEach(release);
       bitmaps = new Map();
+      drawnB = -1;
       blobs = new Map();
       root.removeAttribute("data-film");
       drawn = -1;

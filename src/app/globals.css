@@ -2421,3 +2421,6 @@ html.js .laptop[data-ssr] .wa-stack > * { opacity: 1; animation: none; }
   [data-reveal][data-armed] .sw { transition: none; }
   [data-reveal][data-armed]:not([data-revealed]) .sw { opacity: 1; transform: none; }
 }
+/* the film's blend layer: opacity set per scroll frame, composited only */
+.flm-canvas-b { opacity: 0; will-change: opacity; }
+.flm[data-film] .flm-canvas-b { opacity: 0; }

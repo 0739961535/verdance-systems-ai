@@ -77,6 +77,7 @@ export function FilmStory() {
               />
             </picture>
             <canvas className="flm-canvas" />
+            <canvas className="flm-canvas flm-canvas-b" />
           </div>
         </div>
         <div className="flm-bot" aria-hidden />
