@@ -263,29 +263,29 @@ export const HOME_ROTATION: { label: string; conversation: Conversation }[] = [
   {
     label: "Online store",
     conversation: {
-      business: { name: "Homeware Store", initials: "HS" },
+      business: { name: "Northvale Active", initials: "NA" },
       clock: "22:15",
       lock: {
         clock: "22:17",
         date: "Monday 12 October",
         app: "Orders",
         title: "New order",
-        body: "Linen bedding set, large. Delivery to Durban.",
+        body: "Trail running jacket, medium. Delivery to Durban.",
       },
       beats: [
-        { kind: "in", time: "22:15", text: "Hi, is the large linen set back in stock? Do you deliver to Durban?" },
+        { kind: "in", time: "22:15", text: "Hi, is the trail running jacket back in stock in medium? Do you deliver to Durban?" },
         {
           kind: "out",
           time: "22:15",
           meta: "Replied in 3s",
-          text: "It's back in stock. Delivery to Durban takes 2 to 3 working days.",
-          product: { name: "Linen bedding set, large", detail: "In stock · ships tomorrow", cta: "Buy now" },
+          text: "It's back in stock in medium. Delivery to Durban takes 2 to 3 working days.",
+          product: { name: "Trail running jacket, medium", detail: "In stock · ships tomorrow", cta: "Buy now" },
         },
         { kind: "in", time: "22:16", text: "Perfect, just ordered" },
-        { kind: "card", time: "22:16", title: "Order confirmed", lines: ["Linen bedding set, large", "Tracking link sent when it ships"] },
+        { kind: "card", time: "22:16", title: "Order confirmed", lines: ["Trail running jacket, medium", "Tracking link sent when it ships"] },
       ],
       summary:
-        "Sample conversation, online store. At 22:15 a customer asks if the large linen set is back in stock and if it delivers to Durban. The store replies in 3 seconds with stock, delivery time and a buy button. The customer orders and gets an order confirmation.",
+        "Sample conversation, online store. At 22:15 a customer asks if the trail running jacket is back in stock in medium and if it delivers to Durban. The store replies in 3 seconds with stock, delivery time and a buy button. The customer orders and gets an order confirmation.",
     },
   },
   {

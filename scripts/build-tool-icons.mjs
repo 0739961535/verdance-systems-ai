@@ -26,6 +26,9 @@ const TOOLS = [
   ["Facebook", "facebook"],
   ["Google Ads", "googleads"],
   ["HubSpot", "hubspot"],
+  // Daniel's call (Oct 2026): the CRM may be named in this logo strip only;
+  // everywhere else on the site it stays "your CRM".
+  ["GoHighLevel", null],
   ["Calendly", "calendly"],
   ["Stripe", "stripe"],
   ["PayFast", "payfast"],
