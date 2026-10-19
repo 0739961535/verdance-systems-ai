@@ -47,9 +47,8 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
       className="enter-drop fixed inset-x-0 top-0 z-50 py-3.5 transition-[background-color,border-color,backdrop-filter] duration-300"
       style={{
         // solid enough that content never ghosts through (design review fix 10)
-        background: scrolled ? "rgba(var(--bg-rgb),0.97)" : "transparent",
-        backdropFilter: scrolled ? "blur(20px)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
+        // fully opaque: nothing ever shows through (design re-review v8)
+        background: scrolled ? "var(--bg)" : "transparent",
         borderBottom: scrolled
           ? "1px solid rgba(var(--hairline-rgb),0.06)"
           : "1px solid transparent",

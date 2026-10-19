@@ -89,7 +89,7 @@ function List({ duplicate = false }: { duplicate?: boolean }) {
 /** One slim row: a short label, the moving strip and a pause control. */
 export function ToolsMarquee() {
   return (
-    <section className="tm border-y py-8 md:py-10" style={{ borderColor: "var(--hairline)" }} aria-labelledby="tools-title">
+    <section className="tm border-y py-6 md:py-10" style={{ borderColor: "var(--hairline)" }} aria-labelledby="tools-title">
       <style>{CSS}</style>
       <Symbols />
       <div className="container-wide flex items-center justify-between gap-4">

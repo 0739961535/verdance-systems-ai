@@ -113,9 +113,9 @@ export function FilmController() {
     const html = document.documentElement;
     // the site header sits over the film (transparent, light ink) until the
     // film has scrolled away from under it; see html[data-off-film] in CSS
-    // (from the moment it starts to scroll away, so the words never slide
-    // under a see-through header)
-    const headerWatch = () => html.toggleAttribute("data-off-film", root.getBoundingClientRect().bottom < window.innerHeight + 2);
+    // (from the moment the next section, which slides up over the film,
+    // reaches the header)
+    const headerWatch = () => html.toggleAttribute("data-off-film", root.getBoundingClientRect().bottom < window.innerHeight + 96);
     headerWatch();
     window.addEventListener("scroll", headerWatch, { passive: true });
     const underHeader = { disconnect: () => window.removeEventListener("scroll", headerWatch) };
@@ -354,7 +354,7 @@ export function FilmController() {
       const raw = clamp01(-r.top / Math.max(1, root.offsetHeight - window.innerHeight));
       // the exit dissolve follows the scrollbar exactly (no scrub lag), so
       // the words are gone before the stage starts to scroll away
-      fade(botWash, ramp(0.93, 0.985, raw));
+      fade(botWash, ramp(0.94, 1, raw));
       if (!gsapLive) update(raw);
     };
     window.addEventListener("scroll", direct, { passive: true });

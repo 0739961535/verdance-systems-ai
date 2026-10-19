@@ -70,7 +70,7 @@ export function SimpleHero() {
 /* ------------------------------------------------------------------ */
 export function WatchItWork() {
   return (
-    <section className="section-pad bg-canvas-2" aria-labelledby="watch-title">
+    <section className="section-pad bg-canvas-2" style={{ paddingBottom: "clamp(2.5rem, 6vw, 6rem)" }} aria-labelledby="watch-title">
       <div className="container-wide">
         <Reveal variant="wipe" className="max-w-3xl md:mx-auto md:text-center">
           <p className="eyebrow md:justify-center">Example: answering customers</p>
@@ -187,8 +187,6 @@ export function SimpleFinalCTA() {
   return (
     <section id="audit" className="close-scene relative isolate overflow-hidden" aria-labelledby="final-title" style={{ scrollMarginTop: "5rem" }}>
       <picture className="close-scene-bg">
-        <source type="image/avif" media="(max-width: 767px)" srcSet={STILL("still-m", "avif")} />
-        <source type="image/webp" media="(max-width: 767px)" srcSet={STILL("still-m", "webp")} />
         <source type="image/avif" srcSet={STILL("still-d", "avif")} />
         <img src={STILL("still-d", "webp")} alt="" width={film.desktop.width} height={film.desktop.height} loading="lazy" decoding="async" />
       </picture>

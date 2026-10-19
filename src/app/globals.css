@@ -2243,6 +2243,10 @@ picture.fl-hull img { display: block; width: 100%; height: 100%; user-select: no
 .flm { height: 380vh; height: 380svh; background: #04050A; }
 @media (min-width: 1024px) { .flm { height: 420vh; } }
 .flm::before { display: none; }
+/* the exit: the next section slides up over the pinned film (the section's
+   last screen overlaps it), so there is never a blank screen between them */
+.flm { margin-bottom: -100vh; margin-bottom: -100svh; }
+.flm + * { position: relative; z-index: 1; }
 .flm-scene { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: var(--flm-sky, #04050A); }
 /* the header and the progress line always read against the sky */
 .flm-scene::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 160px; background: linear-gradient(rgba(4, 5, 10, 0.55), rgba(4, 5, 10, 0)); }
@@ -2323,7 +2327,7 @@ html[data-in-flight] chat-widget { opacity: 0 !important; visibility: hidden !im
 
 /* ---------- the still version: reduced motion, or no JS ---------- */
 @media (prefers-reduced-motion: reduce), (scripting: none) {
-  .flm { height: auto; }
+  .flm { height: auto; margin-bottom: 0; }
   .flm .fl-stage { position: relative; height: auto; min-height: 0; padding: 0; display: block; overflow: visible; contain: none; }
   .flm .fl-stage::after, .flm-scene, .flm .fl-hud, .flm-bot { display: none; }
   .flm-hero {
@@ -2390,7 +2394,7 @@ html:has(.close-scene) footer { margin-top: 0; }
 @media (max-width: 639px) {
   .lp-pills {
     flex-wrap: nowrap; justify-content: flex-start; width: calc(100% + 40px); margin: 0 -20px; padding: 2px 20px 6px;
-    overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-inline: 20px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
   }
   .lp-pills::-webkit-scrollbar { display: none; }
   .lp-pills > * { flex: none; scroll-snap-align: start; }
@@ -2426,3 +2430,9 @@ html.js .laptop[data-ssr] .wa-stack > * { opacity: 1; animation: none; }
 .flm[data-film] .flm-canvas-b { opacity: 0; }
 /* desktop chat bubble: only after half the page, never over the film */
 html:not([data-chat-ok]) chat-widget { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+
+/* inbox pills: room at both ends of the swipe row */
+@media (max-width: 639px) { .lp-pills::after { content: ""; flex: 0 0 4px; } }
+/* closing scene on phones: the wide orbit frame, the ship placed up and to
+   the right, clear of the headline */
+@media (max-width: 767px) { .close-scene-bg img { object-position: 57% 50%; } }

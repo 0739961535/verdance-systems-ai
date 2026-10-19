@@ -36,6 +36,9 @@ function Shot({ img, alt }: { img: string; alt: string }) {
   const set = (ext: string) => `/work/slider/${img}-800.${ext} 800w, /work/slider/${img}-1280.${ext} 1280w`;
   return (
     <picture>
+      {/* phones: a close crop of the key moment, readable at card size */}
+      <source type="image/avif" media="(max-width: 767px)" srcSet={`/work/slider/${img}-m.avif`} width={800} height={600} />
+      <source type="image/webp" media="(max-width: 767px)" srcSet={`/work/slider/${img}-m.webp`} width={800} height={600} />
       <source type="image/avif" srcSet={set("avif")} sizes={SIZES} />
       <source type="image/webp" srcSet={set("webp")} sizes={SIZES} />
       <img
@@ -45,7 +48,7 @@ function Shot({ img, alt }: { img: string; alt: string }) {
         loading="lazy"
         decoding="async"
         alt={alt}
-        className="block aspect-[16/10] h-auto w-full"
+        className="block aspect-[4/3] h-auto w-full object-cover md:aspect-[16/10]"
       />
     </picture>
   );

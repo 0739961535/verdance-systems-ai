@@ -111,7 +111,7 @@ function ChatVisual() {
 
 export function RecentWork() {
   return (
-    <section className="bg-canvas-2 pt-20 pb-12 md:pt-28 md:pb-16" aria-labelledby="work-title">
+    <section className="bg-canvas-2 pt-10 pb-12 md:pt-20 md:pb-16" aria-labelledby="work-title">
       <div className="container-wide">
         <div className="max-w-3xl" data-reveal="">
           <p className="eyebrow">Recent work</p>
