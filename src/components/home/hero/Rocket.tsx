@@ -10,12 +10,12 @@ import { BoosterPlume, BOOSTER_OFFSET, rocketSet, STACK_H } from "../../rocket/R
  * On scroll: it ignites and flies away. As the visitor scrolls out of the
  * hero the rocket accelerates up and slightly right, tilts into the arc, its
  * flame grows, a jet trail stretches behind it and a few exhaust puffs bloom
- * on the pad. Driven by scroll position (Motion's `scroll`), so it reverses
+ * on the pad. Driven by scroll position, so it reverses
  * exactly when scrolling back up.
  *
- * Performance: the SVG is server-rendered at a fixed size (no layout shift,
- * never the LCP). Motion is imported only after the page has loaded, and
- * each scroll frame writes transform and opacity only. The rocket only ever
+ * Performance: fixed-size picture (no layout shift, never the LCP), a plain
+ * passive scroll listener (no animation library), and each scroll frame
+ * writes transform and opacity only. The rocket only ever
  * moves up and away from the headline and button, never over them.
  * Reduced motion: a still rocket, no flight.
  */
@@ -87,12 +87,25 @@ export function Rocket() {
       });
     };
 
-    const start = async () => {
-      const { scroll } = await import("motion");
+    // A plain passive scroll listener with one rAF per frame: no animation
+    // library to download, so nothing extra lands near the first paint.
+    const start = () => {
       if (cancelled) return;
       measure();
       render(window.scrollY);
-      stop = scroll((_: number, info: { y: { current: number } }) => render(info.y.current));
+      let frame = 0;
+      const onScroll = () => {
+        if (frame) return;
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          render(window.scrollY);
+        });
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      stop = () => {
+        cancelAnimationFrame(frame);
+        window.removeEventListener("scroll", onScroll);
+      };
     };
 
     const onResize = () => {

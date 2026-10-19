@@ -30,6 +30,15 @@ const fade = (el: HTMLElement, o: number) => {
   el.style.opacity = o.toFixed(3);
   el.style.visibility = o < 0.005 ? "hidden" : "visible";
 };
+/**
+ * Opacity for small effect layers that appear suddenly (the break-through):
+ * never fully hidden while the flight is on screen, so they are rasterised
+ * ahead of time and their first frame never stalls. Visually nothing.
+ */
+const warm = (el: HTMLElement, o: number) => {
+  el.style.opacity = Math.max(o, 0.002).toFixed(3);
+  el.style.visibility = "visible";
+};
 
 export function FlightController() {
   const markRef = useRef<HTMLSpanElement>(null);
@@ -54,6 +63,9 @@ export function FlightController() {
       lazyImages.forEach((img) => {
         if (img.dataset.srcset) img.srcset = img.dataset.srcset;
         if (img.dataset.src && !img.src) img.src = img.dataset.src;
+        // decode now, while the section is still below the fold, so the
+        // first frame that shows it never waits on an image decode
+        img.decode?.().catch(() => {});
       });
     };
     if (window.scrollY > 0) loadImages();
@@ -173,27 +185,31 @@ export function FlightController() {
       // the rocket; as it crosses the nose a collar of light ripples down the
       // body and a soft wash of light passes over the scene
       const veilY = noseY - vh * 0.2 + (p - PIERCE) * vh * 9;
-      fade(veil, pulse(PIERCE - 0.08, PIERCE - 0.025, PIERCE + 0.09, p));
+      warm(veil, pulse(PIERCE - 0.08, PIERCE - 0.025, PIERCE + 0.09, p));
       // the ripple: a ring of light racing out along the boundary from the
       // nose, riding down with it
       const rk = lin(PIERCE - 0.002, PIERCE + 0.06, p);
-      fade(ripple, rk > 0 && rk < 1 ? (1 - rk) * (1 - rk) : 0);
+      warm(ripple, rk > 0 && rk < 1 ? (1 - rk) * (1 - rk) : 0);
       ripple.style.transform = `translate3d(0, ${((p - PIERCE) * vh * 9).toFixed(1)}px, 0) scale(${(0.04 + (1 - (1 - rk) * (1 - rk)) * 1.6).toFixed(3)})`;
       veil.style.transform = `translate3d(0, ${veilY.toFixed(1)}px, 0)`;
       collars.forEach((el, i) => {
         const k = lin(PIERCE - 0.004 + i * 0.008, PIERCE + 0.05 + i * 0.008, p);
-        fade(el, k > 0 && k < 1 ? (1 - k) * (1 - k) * 0.95 : 0);
+        warm(el, k > 0 && k < 1 ? (1 - k) * (1 - k) * 0.95 : 0);
         el.style.transform = `translate3d(0, ${(k * 46).toFixed(1)}px, 0) scale(${(0.5 + k * 2.4).toFixed(3)})`;
       });
 
       // the finale burst: one confident full-power burn, then it settles
       const surge = pulse(BURST - 0.012, BURST, BURST + 0.06, p);
+      // just before the burst its layers are made (invisibly) live, so they
+      // are rasterised before the first bright frame
+      const primed = p > BURST - 0.05 && p < BURST + 0.1;
+      const burstFade = (el: HTMLElement, o: number) => (primed ? warm(el, o) : fade(el, o));
       const kFlash = pulse(BURST - 0.01, BURST + 0.002, BURST + 0.045, p);
-      fade(flash, kFlash);
+      burstFade(flash, kFlash);
       flash.style.transform = `scale(${(0.4 + lin(BURST - 0.01, BURST + 0.04, p) * 2.6).toFixed(3)})`;
       // the shockwave that fills the screen
       const bk = lin(BURST - 0.002, BURST + 0.07, p);
-      fade(blast, bk > 0 && bk < 1 ? (1 - bk) * 0.95 : 0);
+      burstFade(blast, bk > 0 && bk < 1 ? (1 - bk) * 0.95 : 0);
       blast.style.transform = `scale(${(0.03 + (1 - (1 - bk) * (1 - bk) * (1 - bk)) * 2.3).toFixed(3)})`;
       // and the trail it leaves behind, which lingers, slowly fading
       const tk = ramp(BURST - 0.006, BURST + 0.03, p);
@@ -202,11 +218,11 @@ export function FlightController() {
       shocks.forEach((el, i) => {
         const k = lin(BURST - 0.004 + i * 0.012, BURST + 0.065 + i * 0.012, p);
         const e = 1 - (1 - k) * (1 - k) * (1 - k); // fast out, slow finish
-        fade(el, k > 0 && k < 1 ? (1 - k) * (1 - k) * 0.95 : 0);
+        burstFade(el, k > 0 && k < 1 ? (1 - k) * (1 - k) * 0.95 : 0);
         el.style.transform = `scale(${(0.25 + e * 4.6).toFixed(3)})`;
       });
       mach.style.opacity = surge.toFixed(3);
-      fade(wash, Math.max(pulse(PIERCE - 0.012, PIERCE + 0.003, PIERCE + 0.05, p) * 0.6, kFlash * 0.9 + surge * 0.15));
+      warm(wash, Math.max(pulse(PIERCE - 0.012, PIERCE + 0.003, PIERCE + 0.05, p) * 0.6, kFlash * 0.9 + surge * 0.15));
       // a short, damped camera nudge on ignition (scene only, never the words)
       const sk = lin(BURST - 0.004, BURST + 0.05, p);
       if (sk > 0 && sk < 1) {

@@ -6,26 +6,48 @@ import { useEffect, useState } from "react";
 const HeroSignal = dynamic(() => import("./HeroSignal"), { ssr: false });
 
 /**
- * Waits until the page has loaded and the main thread is idle before it
- * downloads the hero overlay (and, inside it, Anime.js). The headline and
- * laptop are already painted by then, so this never touches LCP.
+ * Downloads the hero overlay (and, inside it, Anime.js) well clear of the
+ * first paint (3.5s after load, or on a tap or key press), and only in an
+ * idle moment when the visitor is not scrolling, so evaluating it never
+ * lands in the middle of the scroll story.
  */
+const WAKE = ["pointerdown", "touchstart", "keydown"] as const;
+
 export function LazyHeroSignal() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    let idleId: number | undefined;
     let timer: number | undefined;
-    const go = () => {
-      const ric = window.requestIdleCallback;
-      if (ric) idleId = ric(() => setReady(true), { timeout: 2500 });
-      else timer = window.setTimeout(() => setReady(true), 600);
+    let lastScroll = 0;
+    let scheduled = false;
+    const onScroll = () => {
+      lastScroll = performance.now();
     };
-    if (document.readyState === "complete") go();
-    else window.addEventListener("load", go, { once: true });
+    const attempt = () => {
+      if (performance.now() - lastScroll < 300) {
+        timer = window.setTimeout(attempt, 300);
+        return;
+      }
+      const ric = window.requestIdleCallback;
+      if (ric) ric(() => (performance.now() - lastScroll < 300 ? attempt() : setReady(true)), { timeout: 1500 });
+      else setReady(true);
+    };
+    const go = () => {
+      if (scheduled) return;
+      scheduled = true;
+      attempt();
+    };
+    const arm = () => {
+      timer = window.setTimeout(go, 3500);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    WAKE.forEach((e) => window.addEventListener(e, go, { passive: true, once: true }));
+    if (document.readyState === "complete") arm();
+    else window.addEventListener("load", arm, { once: true });
     return () => {
-      window.removeEventListener("load", go);
-      if (idleId !== undefined) window.cancelIdleCallback?.(idleId);
+      window.removeEventListener("scroll", onScroll);
+      WAKE.forEach((e) => window.removeEventListener(e, go));
+      window.removeEventListener("load", arm);
       if (timer !== undefined) window.clearTimeout(timer);
     };
   }, []);
