@@ -47,7 +47,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
       className="enter-drop fixed inset-x-0 top-0 z-50 py-3.5 transition-[background-color,border-color,backdrop-filter] duration-300"
       style={{
         // solid enough that content never ghosts through (design review fix 10)
-        background: scrolled ? "rgba(var(--bg-rgb),0.9)" : "transparent",
+        background: scrolled ? "rgba(var(--bg-rgb),0.97)" : "transparent",
         backdropFilter: scrolled ? "blur(20px)" : "none",
         WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
         borderBottom: scrolled
@@ -59,7 +59,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
         <Link
           href="/"
           prefetch={false}
-          className="group inline-flex items-center gap-3"
+          className="group inline-flex min-h-11 min-w-11 items-center gap-3"
           aria-label="Verdance Systems AI - home"
         >
           <LogoMark size={34} animated title={null} />

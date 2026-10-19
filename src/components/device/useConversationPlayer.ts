@@ -47,7 +47,8 @@ function buildSteps(beats: Beat[]): Step[] {
  * pause, the reply, the customer's choice, the confirmation, then a hold.
  */
 function buildCalmSteps(beats: Beat[]): Step[] {
-  const steps: Step[] = [{ t: "blank", ms: 900 }];
+  // starts mid-conversation: the enquiry is already there, never an empty panel
+  const steps: Step[] = [];
   beats.forEach((b, i) => {
     if (b.kind === "out" || b.kind === "card") {
       steps.push({ t: "typing", upTo: i, ms: b.kind === "out" ? 1600 : 1200 });
@@ -70,6 +71,7 @@ export function useConversationPlayer(items: RotationItem[], pace: "normal" | "c
   const current = items[idx].conversation;
   const steps = useMemo(() => (pace === "calm" ? buildCalmSteps : buildSteps)(current.beats), [current, pace]);
   const total = current.beats.length;
+  const holdAt = steps.findIndex((x) => x.t === "lock");
 
   // -1 = server render / not started (full conversation, CSS-held).
   const [step, setStep] = useState(-1);
@@ -78,6 +80,8 @@ export function useConversationPlayer(items: RotationItem[], pace: "normal" | "c
   const mode: "ssr" | "play" | "static" = reduce ? "static" : ready ? "play" : "ssr";
   const [visible, setVisible] = useState(false);
   const [wake, setWake] = useState(0);
+  // a visible pause control (WCAG 2.2.2): holds the current step
+  const [paused, setPaused] = useState(false);
   const rootRef = useRef<HTMLElement>(null);
 
   // Wait for load + idle before playing.
@@ -88,7 +92,9 @@ export function useConversationPlayer(items: RotationItem[], pace: "normal" | "c
     let timeoutId: ReturnType<typeof setTimeout> | undefined;
     const go = () => {
       if (cancelled) return;
-      setStep(0);
+      // calm: the first conversation is already on screen in full; hold it,
+      // then move on (never empty the panel the visitor has just read)
+      setStep(pace === "calm" ? Math.max(0, holdAt) : 0);
       setReady(true);
     };
     const schedule = () => {
@@ -105,6 +111,7 @@ export function useConversationPlayer(items: RotationItem[], pace: "normal" | "c
       const cic = (window as Window & { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback;
       if (idleId && cic) cic(idleId);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reduce]);
 
   // Pause off screen.
@@ -118,7 +125,7 @@ export function useConversationPlayer(items: RotationItem[], pace: "normal" | "c
 
   // Advance the play-head; at the end of a conversation, move to the next.
   useEffect(() => {
-    if (mode !== "play" || !visible || step < 0) return;
+    if (mode !== "play" || !visible || paused || step < 0) return;
     const s = steps[step];
     const id = setTimeout(() => {
       if (document.hidden) return; // resumes on the next visibility change
@@ -130,7 +137,7 @@ export function useConversationPlayer(items: RotationItem[], pace: "normal" | "c
       }
     }, s.ms);
     return () => clearTimeout(id);
-  }, [mode, visible, step, steps, wake, items.length]);
+  }, [mode, visible, paused, step, steps, wake, items.length]);
 
   useEffect(() => {
     const onVis = () => {
@@ -160,5 +167,6 @@ export function useConversationPlayer(items: RotationItem[], pace: "normal" | "c
   }
 
 
-  return { idx, current, shown, typing, locked, fading, mode, step, jump, rootRef };
+  const togglePause = () => setPaused((v) => !v);
+  return { idx, current, shown, typing, locked, fading, mode, step, jump, rootRef, paused, togglePause };
 }

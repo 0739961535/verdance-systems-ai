@@ -108,14 +108,14 @@ export function WhatYouGet() {
           <div className="max-w-3xl">
             <p className="eyebrow">What you get</p>
             <h2 id="get-title" className="h2 mt-5">
-              <SplitWords text="AI that does real work." />
+              <SplitWords text="Work that gets done." />
             </h2>
           </div>
           <Link
             href={AI_TEAM_PATH}
             className="group inline-flex min-h-11 items-center gap-2 font-medium text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)]"
           >
-            See the full AI team
+            See everything it takes on
             <ArrowRight size={16} aria-hidden className="transition-transform group-hover:translate-x-1" />
           </Link>
         </Reveal>
@@ -204,8 +204,8 @@ export function SimpleFinalCTA() {
           <p className="mt-6 max-w-md text-[1.0625rem] leading-[1.6] text-[rgba(234,240,255,0.84)]">
             A free 30-minute call. We look at how your business runs and show you where the time and money go. {CTA_PRIMARY_MICRO}
           </p>
-          <div className="mt-10 flex flex-wrap items-center gap-3">
-            <a href={GENERIC_BOOK_URL} className="btn btn-accent min-h-[52px] flex-1 justify-center px-7 text-[1.02rem] sm:flex-none">
+          <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+            <a href={GENERIC_BOOK_URL} className="btn btn-accent min-h-[52px] w-full justify-center px-6 text-[1.02rem] sm:w-auto">
               {CTA_PRIMARY}
               <ArrowUpRight size={17} aria-hidden />
             </a>

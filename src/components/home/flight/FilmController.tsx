@@ -322,7 +322,7 @@ export function FilmController() {
       });
       setStage(p < STEPS[0][0] - XFADE ? -1 : p < STEPS[1][0] - XFADE ? 0 : p < STEPS[2][0] - XFADE ? 1 : 2);
       // the bottom edge eases into the page as the section unpins
-      fade(botWash, ramp(0.94, 1, p));
+      fade(botWash, ramp(0.93, 0.995, p));
     };
     // before GSAP has loaded, follow the scroll directly
     let gsapLive = false;

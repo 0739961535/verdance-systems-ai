@@ -68,44 +68,50 @@ function StudioVisual() {
   );
 }
 
-const CHANNELS = [
-  { channel: "Website chat", line: "Customer question received", side: "in" },
-  { channel: "WhatsApp", line: "Order question answered", side: "out" },
-  { channel: "Email", line: "Follow-up sent", side: "out" },
+/** An illustration of the kind of thread that runs for them: made-up customer and order. */
+const THREAD = [
+  { side: "in", time: "21:14", text: "Hi, I ordered on Wednesday. Any idea when it arrives?" },
+  { side: "out", time: "21:14", text: "Hi Lerato, it left our warehouse on Friday and it's due on Tuesday. Here's your tracking link." },
+  { side: "in", time: "21:16", text: "Perfect, thank you" },
+  { side: "out", time: "21:16", text: "My pleasure. I'll message you here if anything changes." },
 ] as const;
 
 function ChatVisual() {
   return (
-    <div
-      aria-hidden
-      className="rounded-[18px] border border-[color:var(--hairline-2)] bg-canvas-2 p-4 sm:p-6"
-    >
-      <ul className="grid gap-3">
-        {CHANNELS.map(({ channel, line, side }) => (
-          <li key={channel} className={side === "out" ? "flex justify-end" : "flex justify-start"}>
-            <div
-              className={`max-w-[85%] rounded-[16px] border border-[color:var(--hairline-2)] px-4 py-3 ${
-                side === "out" ? "bg-[color:var(--surface-tint-3)]" : "bg-canvas"
-              }`}
-            >
-              <p className="text-[0.75rem] font-medium uppercase tracking-[0.08em] text-[color:var(--color-ink-muted)]">
-                {channel}
-              </p>
-              <div className="mt-2 flex flex-col gap-1.5">
-                <span className="text-[0.95rem] text-[color:var(--color-ink)]">{line}</span>
-                <span className="h-1.5 w-28 rounded-full bg-[color:var(--hairline-2)]" />
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <figure className="m-0">
+      <div aria-hidden className="overflow-hidden rounded-[18px] border border-white/[0.08] bg-[#0B0D12] text-[#E9EDEF]">
+        <div className="flex items-center gap-3 border-b border-white/[0.06] px-4 py-3">
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-[#1D3F8F] text-[0.8rem] font-semibold">S</span>
+          <span>
+            <span className="block text-[0.95rem] font-semibold">Store assistant</span>
+            <span className="block text-[0.8rem] text-[#8b93a3]">WhatsApp · Sunday evening</span>
+          </span>
+        </div>
+        <ul className="grid gap-2.5 p-4">
+          {THREAD.map((m, i) => (
+            <li key={i} className={m.side === "out" ? "flex justify-end" : "flex justify-start"}>
+              <span
+                className={`max-w-[84%] rounded-[14px] px-3.5 py-2.5 text-[0.95rem] leading-[1.45] ${
+                  m.side === "out" ? "rounded-tr-[4px] bg-[#1D3F8F]" : "rounded-tl-[4px] bg-[#1F2C34]"
+                }`}
+              >
+                {m.text}
+                <span className="ml-2 align-bottom text-[0.75rem] text-white/55">{m.time}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <figcaption className="mt-3 text-[0.8125rem] text-[color:var(--color-ink-muted)]">
+        Illustration of the kind of thread it handles. The customer and order are made up.
+      </figcaption>
+    </figure>
   );
 }
 
 export function RecentWork() {
   return (
-    <section className="section-pad bg-canvas-2" aria-labelledby="work-title">
+    <section className="bg-canvas-2 pt-20 pb-12 md:pt-28 md:pb-16" aria-labelledby="work-title">
       <div className="container-wide">
         <div className="max-w-3xl">
           <p className="eyebrow">Recent work</p>

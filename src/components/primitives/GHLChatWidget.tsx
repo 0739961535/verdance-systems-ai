@@ -42,6 +42,9 @@ function useDeferredLoad() {
   const [load, setLoad] = useState(false);
   useEffect(() => {
     if (load) return;
+    // phones: no chat bubble at all; the sticky bar carries WhatsApp
+    // (design re-review, Oct 2026). Not even downloaded.
+    if (window.innerWidth < 768) return;
     let due = false;
     const go = () => {
       due = true;

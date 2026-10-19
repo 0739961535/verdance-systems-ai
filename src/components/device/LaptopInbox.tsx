@@ -26,7 +26,6 @@ const CHANNEL: Record<string, string> = {
   Clinics: "WhatsApp",
 };
 
-const STEPS = ["Enquiry arrives", "Answered in seconds", "Customer chooses", "Confirmed"];
 
 function preview(c: Conversation) {
   const first = c.beats.find((b) => b.kind === "in" || b.kind === "missed");
@@ -61,7 +60,7 @@ function storyStep(beats: Beat[], shown: number, typing: boolean) {
 }
 
 export function LaptopInbox({ rotation }: { rotation: RotationItem[] }) {
-  const { idx, current, shown, typing, fading, mode, step, jump, rootRef } = useConversationPlayer(rotation, "calm");
+  const { idx, current, shown, typing, fading, mode, step, jump, rootRef, paused, togglePause } = useConversationPlayer(rotation, "calm");
   const { business } = current;
   const beats = useMemo(() => withOneBadge(current.beats), [current]);
   const at = storyStep(beats, shown, typing);
@@ -150,19 +149,8 @@ export function LaptopInbox({ rotation }: { rotation: RotationItem[] }) {
         </div>
       </div>
 
-      <figcaption className="mt-6 flex flex-col items-center gap-4">
-        {/* the story, in order: the step on screen is lit, the ones before it are done */}
-        <ol className="lp-steps" aria-hidden>
-          {STEPS.map((label, i) => (
-            <li key={label} data-state={i + 1 < at ? "done" : i + 1 === at ? "now" : undefined}>
-              <span className="lp-step-n">{i + 1}</span>
-              {label}
-            </li>
-          ))}
-        </ol>
-        <span className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[color:var(--color-ink-muted)]">
-          Sample conversation · {rotation[idx].label}
-        </span>
+      {/* one row of controls: the sample business, and pause */}
+      <figcaption className="mt-5">
         <span className="sr-only">{rotation.map((it) => it.conversation.summary).join(" ")}</span>
         <div className="lp-pills" role="group" aria-label="Choose a sample conversation">
           {rotation.map((it, i) => (
@@ -170,6 +158,11 @@ export function LaptopInbox({ rotation }: { rotation: RotationItem[] }) {
               {it.label}
             </button>
           ))}
+          {mode === "play" && (
+            <button type="button" onClick={togglePause} aria-pressed={paused} className="hero-chip lp-pause" aria-label={paused ? "Play the sample conversation" : "Pause the sample conversation"}>
+              {paused ? "Play" : "Pause"}
+            </button>
+          )}
         </div>
       </figcaption>
     </figure>
