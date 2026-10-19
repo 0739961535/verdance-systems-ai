@@ -9,6 +9,9 @@ export const SITE_URL = "https://verdancesystemsai.com";
 export const SITE = {
   name: "Verdance Systems AI",
   shortName: "Verdance",
+  // CIPC registration (COR14.3). Shown on the site because the ECT Act s43 asks
+  // a seller online to publish its full name, registration number and address.
+  regNumber: "2025/788107/07",
   email: "daniel@verdancesystemsai.com",
   phone: "+27 73 996 1535", // South Africa
   phoneUK: "+44 7432 351517", // United Kingdom
