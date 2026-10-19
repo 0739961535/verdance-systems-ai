@@ -85,11 +85,11 @@ export function ToolsMarquee() {
       <style>{CSS}</style>
       <Symbols />
       <div className="container-wide">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="max-w-3xl md:mx-auto md:text-center">
           <h2 id="tools-title" className="h2">
             Works with anything you already use
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">
+          <p className="mt-5 max-w-xl md:mx-auto text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">
             We connect to what you run today. Nothing to replace.
           </p>
         </div>

@@ -72,12 +72,12 @@ export function WatchItWork() {
   return (
     <section className="section-pad bg-canvas-2" aria-labelledby="watch-title">
       <div className="container-wide">
-        <Reveal variant="wipe" className="mx-auto max-w-3xl text-center">
-          <p className="eyebrow justify-center">Example: answering customers</p>
+        <Reveal variant="wipe" className="max-w-3xl md:mx-auto md:text-center">
+          <p className="eyebrow md:justify-center">Example: answering customers</p>
           <h2 id="watch-title" className="h2 mt-5">
             <SplitWords text="Watch it work. Every message answered in seconds." />
           </h2>
-          <p className="mx-auto mt-6 max-w-xl text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">
+          <p className="mt-6 max-w-xl text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)] md:mx-auto">
             Slow replies lose customers. People who wait too long ask someone else. So every message gets a reply in under a minute, day or night.
           </p>
         </Reveal>
