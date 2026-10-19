@@ -30,11 +30,23 @@ export default function HomePage() {
     <>
       <SimpleHero />
       <FlightStory />
-      <WatchItWork />
-      <ExampleChartsSection />
-      <WhatYouGet />
-      <InControl />
-      <SimpleFinalCTA />
+      {/* below the fold: skipped by layout and paint until they near the
+          screen (content-visibility), so the first paint is only the hero */}
+      <div className="cv-below">
+        <WatchItWork />
+      </div>
+      <div className="cv-below">
+        <ExampleChartsSection />
+      </div>
+      <div className="cv-below">
+        <WhatYouGet />
+      </div>
+      <div className="cv-below">
+        <InControl />
+      </div>
+      <div className="cv-below">
+        <SimpleFinalCTA />
+      </div>
       <StickyMobileCTA href={GENERIC_BOOK_URL} label={CTA_PRIMARY} />
     </>
   );

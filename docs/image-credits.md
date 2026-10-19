@@ -11,9 +11,14 @@ commercial use with credit. Never SpaceX photos (non-commercial only).
 
 ## In use
 
-None yet. The flight and hero still use our own SVG artwork.
+| Where | Source | Credit | Licence | Files |
+|---|---|---|---|---|
+| Flight: the Earth after the break-through | NASA [iss072e340644](https://images.nasa.gov/details/iss072e340644), Earth's night side and limb from the ISS, 18 Nov 2024 | NASA | Public domain (NASA media guidelines; no endorsement implied, no NASA insignia used) | public/flight/planet-*.{avif,webp}, built by `npm run flight:images` |
+| Hero and flight rocket | Our own render, generated on Verdance's Higgsfield account (gpt_image_2_5), upscaled with Higgsfield (bytedance upscale) | Verdance Systems AI | Owned by us | public/rocket/{stack,upper,booster}-*.{avif,webp} |
 
-## Shortlist for the photoreal flight (pending Daniel's OK to download)
+Downloaded but not used: NASA NHQ202211160200 and NHQ202211160030 (Artemis I launch) and iss073e1068530 (orbital sunrise). Not committed.
+
+## Shortlist checked (Daniel approved the downloads, 19 Oct 2026)
 
 | Use | NASA ID | What it shows | Credit | Licence | Original size |
 |---|---|---|---|---|---|

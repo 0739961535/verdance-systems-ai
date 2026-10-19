@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { CLOUDS, STAR_SPEEDS } from "./flightData";
+import { CLOUDS, STACK_RATIO, STAR_SPEEDS } from "./flightData";
 
 /**
  * Drives the flight (FlightStory.tsx renders the markup on the server, so
@@ -44,12 +44,16 @@ export function FlightController() {
     // from ever counting as the page's largest paint. If the page opens
     // already scrolled (restored position, anchor) they load at once.
     // Runs for every motion setting.
-    const hulls = Array.from(root.querySelectorAll<HTMLImageElement>("img[data-src]"));
+    const lazySources = Array.from(root.querySelectorAll<HTMLSourceElement>("source[data-srcset]"));
+    const lazyImages = Array.from(root.querySelectorAll<HTMLImageElement>("img[data-src], img[data-srcset]"));
     const wake = ["scroll", "touchstart", "pointerdown", "keydown"] as const;
     const loadImages = () => {
       wake.forEach((e) => window.removeEventListener(e, loadImages));
-      hulls.forEach((img) => {
-        if (!img.src) img.src = img.dataset.src!;
+      // sources first, so each <picture> picks its best format and width
+      lazySources.forEach((s) => (s.srcset = s.dataset.srcset!));
+      lazyImages.forEach((img) => {
+        if (img.dataset.srcset) img.srcset = img.dataset.srcset;
+        if (img.dataset.src && !img.src) img.src = img.dataset.src;
       });
     };
     if (window.scrollY > 0) loadImages();
@@ -73,6 +77,7 @@ export function FlightController() {
     const ripple = q<HTMLElement>(".fl-ripple");
     const trail = q<HTMLElement>(".fl-trail");
     const earthLine = q<HTMLElement>(".fl-earth");
+    const planet = q<HTMLElement>(".fl-planet");
     const mach = q<SVGGElement>(".fl-umach");
     const dusk = q<HTMLElement>(".fl-dusk");
     const glow = q<HTMLElement>(".fl-glow");
@@ -97,6 +102,10 @@ export function FlightController() {
     let desktop = false;
     let noseY = 300; // the rocket's nose, in stage pixels, once airborne
     let padDrop = 0; // how far below its flight position it stands on the pad
+    // look-around (desktop, fine pointer): the scene's layers shift with the
+    // pointer at different depths, eased, like turning your head in orbit
+    let lookX = 0, lookY = 0, aimX = 0, aimY = 0, lookRaf = 0;
+    const canLook = window.matchMedia("(pointer: fine) and (min-width: 1024px)").matches;
     let active = -1;
     let raf = 0;
     let onScreen = false;
@@ -108,7 +117,7 @@ export function FlightController() {
       travel = Math.max(1, root.offsetHeight - vh);
       desktop = window.innerWidth >= 1024;
       noseY = wrap.offsetTop;
-      padDrop = Math.max(0, earthLine.offsetTop - wrap.offsetTop - wrap.offsetWidth * 3.575 - 2);
+      padDrop = Math.max(0, earthLine.offsetTop - wrap.offsetTop - wrap.offsetWidth * STACK_RATIO - 2);
     };
 
     const setStage = (i: number) => {
@@ -138,10 +147,14 @@ export function FlightController() {
       glow.style.transform = `translate3d(0, ${(ramp(0, 0.5, p) * vh * 0.35).toFixed(1)}px, 0)`;
       // after the break-through everything slows: the silence of space
       const travelled = Math.min(p, PIERCE) + Math.max(0, p - PIERCE) * 0.35;
+      // look-around strength grows as we leave the ground (none on the pad)
+      const look = ramp(0.25, PIERCE + 0.06, p) * 22;
+      const lx = lookX * look, ly = lookY * look;
       starEls.forEach((el, i) => {
         const sp = STAR_SPEEDS[i];
+        const d = 0.25 + i * 0.3;
         el.style.opacity = (0.15 + space * 0.85).toFixed(3);
-        el.style.transform = `translate3d(0, ${(travelled * vh * sp).toFixed(1)}px, 0)`;
+        el.style.transform = `translate3d(${(-lx * d).toFixed(1)}px, ${(travelled * vh * sp - ly * d).toFixed(1)}px, 0)`;
       });
 
       // cloud layers rush past; the near ones pass in front of the rocket,
@@ -205,6 +218,12 @@ export function FlightController() {
       const climb = ramp(0.02, 0.78, p);
       earth.style.transform = `translate3d(0, ${(lerp(0, desktop ? 0.2 : -0.04, climb) * vh).toFixed(1)}px, 0) scaleY(${lerp(0.16, desktop ? 0.7 : 0.5, climb).toFixed(3)})`;
       pad.style.transform = `translate3d(0, ${(ramp(0, 0.3, p) * vh * 0.7).toFixed(1)}px, 0)`;
+      // the illustrated horizon hands over to the real Earth (NASA, from the
+      // ISS) after the break-through; it rises slowly as we pull away
+      fade(earth, 1 - ramp(PIERCE - 0.03, PIERCE + 0.07, p));
+      const rise = ramp(PIERCE - 0.04, 1, p);
+      fade(planet, ramp(PIERCE - 0.04, PIERCE + 0.08, p));
+      planet.style.transform = `translate3d(${(-lx * 1.3).toFixed(1)}px, ${((1 - rise) * vh * 0.45 - ly * 0.8).toFixed(1)}px, 0) scale(${lerp(1.12, 1, rise).toFixed(4)})`;
       fade(pad, 1 - ramp(0.15, 0.3, p));
 
       // the ship: clears the pad, gravity turn, engine cut at orbit. Weighted
@@ -216,7 +235,7 @@ export function FlightController() {
       const shipY = lerp(padDrop, 0, lift) - turn * vh * 0.04;
       // depth: it recedes a little as it climbs to orbit
       const depth = lerp(1, desktop ? 0.82 : 0.86, ramp(0.2, 0.9, p));
-      ship.style.transform = `translate3d(${shipX.toFixed(1)}px, ${shipY.toFixed(1)}px, 0) rotate(${(turn * 64).toFixed(2)}deg) scale(${depth.toFixed(4)})`;
+      ship.style.transform = `translate3d(${(shipX + lx * 0.4).toFixed(1)}px, ${(shipY + ly * 0.3).toFixed(1)}px, 0) rotate(${(turn * 64).toFixed(2)}deg) scale(${depth.toFixed(4)})`;
 
       // first stage separates between ascent and orbit: a clean break, then
       // the two drift gently apart (the stage falls back and turns away slowly)
@@ -262,6 +281,21 @@ export function FlightController() {
       setStage(p < 0.33 ? 0 : p < 0.67 ? 1 : 2);
     };
 
+    const lookStep = () => {
+      lookRaf = 0;
+      lookX += (aimX - lookX) * 0.07;
+      lookY += (aimY - lookY) * 0.07;
+      if (!raf) render();
+      if (Math.abs(aimX - lookX) > 0.002 || Math.abs(aimY - lookY) > 0.002) lookRaf = requestAnimationFrame(lookStep);
+    };
+    const onPointer = (e: PointerEvent) => {
+      if (!onScreen) return;
+      aimX = (e.clientX / window.innerWidth - 0.5) * 2;
+      aimY = (e.clientY / window.innerHeight - 0.5) * 2;
+      if (!lookRaf) lookRaf = requestAnimationFrame(lookStep);
+    };
+    if (canLook) window.addEventListener("pointermove", onPointer, { passive: true });
+
     const onScroll = () => {
       if (onScreen && !raf) raf = requestAnimationFrame(render);
     };
@@ -292,6 +326,8 @@ export function FlightController() {
     window.addEventListener("resize", onResize);
     return () => {
       cancelAnimationFrame(raf);
+      cancelAnimationFrame(lookRaf);
+      window.removeEventListener("pointermove", onPointer);
       io.disconnect();
       loader.disconnect();
       ro.disconnect();

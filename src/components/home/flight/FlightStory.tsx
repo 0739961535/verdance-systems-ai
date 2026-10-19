@@ -1,6 +1,6 @@
 import { CLOUDS, STAR_LAYERS, starSrc } from "./flightData";
 import { FlightController } from "./FlightController";
-import { BoosterPlume, BOOSTER_VIEWBOX, ROCKET_SRC, UpperPlume, UPPER_VIEWBOX } from "../../rocket/RocketArt";
+import { BoosterPlume, BOOSTER_VIEWBOX, rocketSet, UpperPlume, UPPER_VIEWBOX } from "../../rocket/RocketArt";
 
 /**
  * The flight: how we work, told as one rocket climb (docs/rocket-scroll-research.md).
@@ -46,6 +46,29 @@ const STAGES = [
 const ORBIT_TAGS = ["Answering", "Following up", "Admin done"];
 
 
+/**
+ * A responsive picture whose sources are only attached when the flight's
+ * loader runs (first scroll), so it never competes with the first paint.
+ * AVIF first, WebP fallback; fixed width/height so nothing shifts.
+ */
+function LazyPicture({ avif, webp, fallback, sizes, width, height, className, mobile }: {
+  avif: string; webp: string; fallback: string; sizes: string; width: number; height: number; className?: string;
+  mobile?: { avif: string; webp: string; sizes: string };
+}) {
+  return (
+    <picture className={className}>
+      {mobile && <source type="image/avif" media="(max-width: 767px)" data-srcset={mobile.avif} sizes={mobile.sizes} />}
+      {mobile && <source type="image/webp" media="(max-width: 767px)" data-srcset={mobile.webp} sizes={mobile.sizes} />}
+      <source type="image/avif" data-srcset={avif} sizes={sizes} />
+      { }
+      <img data-srcset={webp} data-src={fallback} sizes={sizes} alt="" width={width} height={height} decoding="async" draggable={false} />
+    </picture>
+  );
+}
+
+const ROCKET_SIZES = "(min-width: 1024px) 160px, 120px";
+const planetSet = (name: string, ws: number[], ext: string) => ws.map((w) => `/flight/${name}-${w}.${ext} ${w}w`).join(", ");
+
 function Accent({ title, accent }: { title: string; accent: string }) {
   const i = title.indexOf(accent);
   if (i < 0) return <>{title}</>;
@@ -76,6 +99,20 @@ export function FlightStory() {
           <div className="fl-glow" />
           <div className="fl-earth">
             <span className="fl-earth-body" />
+          </div>
+          {/* the real Earth from orbit (NASA, ISS, public domain): rises into
+              view after the break-through. docs/image-credits.md */}
+          <div className="fl-planet">
+            <LazyPicture
+              className="fl-planet-pic"
+              avif={planetSet("planet", [1280, 1920, 3840], "avif")}
+              webp={planetSet("planet", [1280, 1920, 3840], "webp")}
+              fallback="/flight/planet-1920.webp"
+              sizes="100vw"
+              width={3840}
+              height={1600}
+              mobile={{ avif: planetSet("planet-m", [828, 1080], "avif"), webp: planetSet("planet-m", [828, 1080], "webp"), sizes: "100vw" }}
+            />
           </div>
           <div className="fl-pad">
             <svg viewBox="0 0 120 160" width="100%" height="100%" fill="none">
@@ -115,17 +152,13 @@ export function FlightStory() {
                 <svg className="fl-plume" viewBox={UPPER_VIEWBOX} width="100%" height="100%" fill="none" overflow="visible">
                   <UpperPlume id="fl" flameClass="fl-uflame" flickerClass="fl-flicker" machClass="fl-umach" />
                 </svg>
-                {/* static hull as a cached file, kept out of the HTML (see RocketArt.tsx);
-                    src is set by FlightController as the section nears */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="fl-hull" data-src={ROCKET_SRC.upper} alt="" width={80} height={142} decoding="async" draggable={false} />
+                <LazyPicture className="fl-hull" avif={rocketSet("upper", "avif")} webp={rocketSet("upper", "webp")} fallback="/rocket/upper-360.webp" sizes={ROCKET_SIZES} width={80} height={169} />
               </div>
               <div className="fl-booster">
                 <svg className="fl-plume" viewBox={BOOSTER_VIEWBOX} width="100%" height="100%" fill="none" overflow="visible">
                   <BoosterPlume id="fl" flameClass="fl-bflame" flickerClass="fl-flicker" outerClass="fl-flicker-b" />
                 </svg>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="fl-hull" data-src={ROCKET_SRC.booster} alt="" width={80} height={168} decoding="async" draggable={false} />
+                <LazyPicture className="fl-hull" avif={rocketSet("booster", "avif")} webp={rocketSet("booster", "webp")} fallback="/rocket/booster-360.webp" sizes={ROCKET_SIZES} width={80} height={179} />
               </div>
             </div>
           </div>

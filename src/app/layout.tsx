@@ -2,7 +2,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { Instrument_Serif, Geist_Mono } from "next/font/google";
+import { Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { MEGA_MENUS, NICHE_LINKS } from "@/components/layout/navMenus";
@@ -39,14 +39,6 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
-// Labels, times and numbers.
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "swap",
-  preload: false,
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -133,7 +125,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${satoshi.variable} ${instrumentSerif.variable} ${geistMono.variable} h-full`}
+      className={`${satoshi.variable} ${instrumentSerif.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-canvas text-[color:var(--color-ink)] antialiased">
         <script dangerouslySetInnerHTML={{ __html: NO_FLASH }} />

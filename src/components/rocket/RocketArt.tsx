@@ -1,45 +1,36 @@
 import type { Ref } from "react";
 
 /**
- * The Verdance launch vehicle, drawn once and used by the hero and the flight.
+ * The Verdance launch vehicle: a photoreal studio render (generated for us on
+ * Higgsfield, upscaled to 4K, black background keyed out to clean alpha by
+ * scripts/assets/key-rocket.mjs and split at the interstage into two
+ * stages). The images ship as AVIF/WebP in public/rocket (built by
+ * scripts/assets/build-images.mjs). Only the exhaust is drawn here, as
+ * inline SVG, because it animates.
  *
- * A two-stage orbital rocket with believable proportions (about 12:1), drawn
- * as plain SVG so it stays crisp at any size and costs nothing to load:
- * - payload fairing: ogive nose, split seam, a small Verdance mark
- * - upper stage: azure livery band, vacuum engine bell (hidden by the
- *   interstage until the stages separate)
- * - first stage: space grey interstage, deployed grid fins, cable raceway,
- *   folded landing legs, three engine bells
- * - exhaust: soft glow, a faint outer plume and a white core, gradients only
- *
- * Finish, Apple product-shot style: brushed titanium white lit like a
- * studio render (crisp key highlight left, soft fill strip right, cool rim
- * light on the edge), space grey hardware, one hairline of Verdance azure.
- *
- * Geometry, in an 80-wide grid (centre line x = 40):
- *   upper stage 0..142 (nozzle exit at 141)
- *   first stage 0..168 (its top sits at upper y = 118, nozzles exit at 163)
- * Each part renders its own <defs> with an id prefix, so several rockets
- * can live on one page and a hidden SVG never breaks another's gradients.
- *
- * Split for speed: the hull (UpperBody, BoosterBody) is static, so it ships
- * as cached files in public/rocket/ (npm run rocket:svg renders RocketHull.tsx;
- * edit the hull there) and stays out of the HTML. Only the plumes, which animate,
- * are inline.
+ * Grid: 80 units wide (the body is 22 units, centred), so the plumes line up
+ * with the images at any size:
+ *   upper stage 0..UPPER_H, first stage 0..BOOSTER_H, stacked with no overlap.
+ * The plume shapes were drawn with their tops at y 141 (upper) and 163
+ * (first stage); each is shifted to sit at the bottom of its image.
  */
-export const ROCKET_SRC = { upper: "/rocket/upper.svg", booster: "/rocket/booster.svg", stack: "/rocket/stack.svg" };
-
-export const UPPER_VIEWBOX = "0 0 80 142";
-export const BOOSTER_VIEWBOX = "0 0 80 168";
+export const UPPER_H = 168.98;
+export const BOOSTER_H = 179.39;
+export const STACK_H = UPPER_H + BOOSTER_H;
+export const UPPER_VIEWBOX = `0 0 80 ${UPPER_H}`;
+export const BOOSTER_VIEWBOX = `0 0 80 ${BOOSTER_H}`;
 /** Where the first stage's top edge sits on the upper stage's grid. */
-export const BOOSTER_OFFSET = 118;
+export const BOOSTER_OFFSET = UPPER_H;
 
+/** Responsive image sources (widths in px) for a rocket part. */
+export const rocketSet = (name: "upper" | "booster" | "stack", ext: "avif" | "webp") =>
+  (name === "stack" ? [120, 240] : [360, 720]).map((w) => `/rocket/${name}-${w}.${ext} ${w}w`).join(", ");
 
 /** Vacuum plume of the upper stage (inline, animated). `flameClass` wraps it. */
 export function UpperPlume({ id, flameClass, flickerClass, machClass }: { id: string; flameClass?: string; flickerClass?: string; machClass?: string }) {
   const p = `${id}-u`;
   return (
-    <g>
+    <g transform={`translate(0 ${(UPPER_H - 141).toFixed(2)})`}>
       <defs>
         <linearGradient id={`${p}-vac`} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#DCE7FF" stopOpacity="0.7" />
@@ -91,8 +82,9 @@ export function BoosterPlume({
   outerClass?: string;
 }) {
   const p = `${id}-b`;
+  // sits under the engine cluster, a little wider than the drawn plume
   return (
-    <g>
+    <g transform={`translate(0 ${(BOOSTER_H - 163).toFixed(2)}) translate(40 0) scale(1.25 1) translate(-40 0)`}>
       <defs>
         <linearGradient id={`${p}-plume`} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#EEF3FF" stopOpacity="0.9" />

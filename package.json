@@ -9,7 +9,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "rocket:svg": "node scripts/build-rocket-svg.mjs"
+    "flight:stars": "node scripts/build-stars.mjs",
+    "flight:images": "node scripts/assets/build-images.mjs"
   },
   "dependencies": {
     "@next/third-parties": "^16.2.2",

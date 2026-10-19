@@ -292,7 +292,9 @@
   --font-display: var(--font-satoshi), 'Satoshi', system-ui, sans-serif;
   --font-body:    var(--font-satoshi), 'Satoshi', system-ui, sans-serif;
   --font-serif:   var(--font-instrument), 'Instrument Serif', Georgia, serif;
-  --font-mono:    var(--font-geist-mono), 'Geist Mono', ui-monospace, monospace;
+  /* System monospace (SF Mono, Menlo, Cascadia, Consolas): labels look the
+     same everywhere and no font file loads on first paint. */
+  --font-mono:    ui-monospace, 'SF Mono', SFMono-Regular, Menlo, 'Cascadia Mono', Consolas, 'Liberation Mono', monospace;
 
   /* ── RADIUS ──────────────────────────────────────────────── */
   --radius-xs:    4px;
@@ -1891,15 +1893,15 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
    ============================================================ */
 .rk {
   /* RocketArt grid: 80 wide, 286 tall (upper stage + first stage) */
-  --rk-w: 44px;
+  --rk-w: 38px;
   --rk-rise: 52px;
   position: relative;
   z-index: 0;
   width: var(--rk-w);
-  height: calc(var(--rk-w) * 3.575);
+  height: calc(var(--rk-w) * 4.3546);
   margin: -40px auto 0;
 }
-@media (min-width: 768px) { .rk { --rk-w: 58px; --rk-rise: 72px; margin-top: -72px; } }
+@media (min-width: 768px) { .rk { --rk-w: 50px; --rk-rise: 72px; margin-top: -72px; } }
 .rk-fly {
   position: absolute; inset: 0;
   transform-origin: 50% 60%;
@@ -2000,6 +2002,10 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   .hero-launch:has(.btn-launch:hover) .rk-ship { translate: none; }
 }
 
+/* below-the-fold home sections: no layout or paint work until they near
+   the screen. The size hint is remembered once rendered (auto). */
+.cv-below { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+
 /* ============================================================
    THE FLIGHT (Oct 2026): how we work as one rocket climb.
    FlightStory.tsx writes transform/opacity only. The scene is always
@@ -2010,10 +2016,10 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 .fl {
   --fl-ground: 74%;          /* horizon line at launch */
   --fl-ship-top: 104px;      /* where the rocket rides, just under the mission bar */
-  /* rocket grid width (the stack is 3.575x as tall): as big as the frame
+  /* rocket grid width (the stack is 4.35x as tall): as big as the frame
      allows while it still stands on the horizon at launch. FlightController
      measures how far it sits below its flight position while on the pad. */
-  --fl-w: min(120px, calc((74svh - 108px) / 3.575));
+  --fl-w: min(120px, calc((74svh - 108px) / 4.3546));
   --fl-ink: #EEF2FC;
   --fl-ink-soft: rgba(222, 230, 248, 0.74);
   --fl-blue: #86ABFF;
@@ -2024,7 +2030,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   color: var(--fl-ink);
 }
 @media (min-width: 1024px) {
-  .fl { --fl-ground: 76%; --fl-ship-top: 110px; --fl-w: min(160px, calc((76svh - 114px) / 3.575)); height: 400vh; }
+  .fl { --fl-ground: 76%; --fl-ship-top: 110px; --fl-w: min(160px, calc((76svh - 114px) / 4.3546)); height: 400vh; }
 }
 /* soft hand-off from the page canvas into the sky, and back out */
 .fl::before, .fl::after {
@@ -2071,7 +2077,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 }
 /* the tower scales with the rocket (its arm reaches to just short of it) */
 .fl-pad {
-  --pad-h: calc(var(--fl-w) * 2.9);
+  --pad-h: calc(var(--fl-w) * 3.4);
   position: absolute; height: var(--pad-h); width: calc(var(--pad-h) * 0.75);
   left: calc(50% - var(--pad-h) * 0.68); top: calc(var(--fl-ground) - var(--pad-h) + 2px);
 }
@@ -2129,14 +2135,27 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 /* RocketArt grid: upper 80x142, first stage 80x168 starting at upper y 118.
    The first stage paints over the upper stage so its interstage hides the
    upper engine until separation. */
-.fl-upper { position: relative; display: block; height: calc(var(--fl-w) * 1.775); }
+.fl-upper { position: relative; display: block; height: calc(var(--fl-w) * 2.11225); }
 .fl-booster {
   position: absolute; z-index: 1; left: 0; width: 100%;
-  top: calc(var(--fl-w) * 1.475); height: calc(var(--fl-w) * 2.1);
+  top: calc(var(--fl-w) * 2.11225 - 1.5px); height: calc(var(--fl-w) * 2.24238);
 }
+picture.fl-hull { display: block; position: relative; width: 100%; height: 100%; }
+picture.fl-hull img { display: block; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
+
+/* the real Earth (NASA photo), rising into view after the break-through */
+.fl-planet {
+  position: absolute; left: -6%; right: -6%; bottom: 0; height: 62%;
+  transform-origin: 50% 100%;
+  opacity: 0;
+}
+/* desktop: the copy sits mid-left, so the limb stays below it */
+@media (min-width: 1024px) { .fl-planet { height: 40%; } }
+.fl-planet-pic, .fl-planet-pic img { display: block; width: 100%; height: 100%; }
+.fl-planet-pic img { object-fit: cover; object-position: 50% 0; }
 .fl-ship svg { display: block; overflow: visible; }
 .fl-plume { position: absolute; inset: 0; }
-.fl-hull, .rk-hull { position: relative; display: block; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
+.rk-hull { position: relative; display: block; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
 .rk-plume { position: absolute; inset: 0; }
 .rk-hull { position: absolute; inset: 0; }
 .fl-bflame, .fl-uflame, .fl-flicker, .fl-flicker-b { transform-box: fill-box; transform-origin: 50% 0; }
@@ -2146,7 +2165,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 .fl[data-on] .fl-flicker-b { animation: fl-flick-b 2.6s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate; }
 .fl-jet {
   position: absolute; z-index: -1;
-  left: 50%; top: calc(var(--fl-w) * 3.5);
+  left: 50%; top: calc(var(--fl-w) * 4.3);
   width: 6px; margin-left: -3px; height: 42vh;
   border-radius: 6px;
   background: linear-gradient(to bottom, rgba(226, 234, 255, 0.95), rgba(91, 143, 255, 0.5) 25%, rgba(61, 126, 255, 0) 100%);
@@ -2198,14 +2217,14 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 .fl-blast {
   position: absolute; z-index: 3; pointer-events: none;
   width: 70vmax; height: 70vmax; border-radius: 50%;
-  left: calc(50% + 14px - var(--fl-w) * 0.8 - 35vmax);
-  top: calc(var(--fl-ship-top) + var(--fl-w) * 1.08 - 4% - 35vmax);
+  left: calc(50% + 14px - var(--fl-w) * 0.92 - 35vmax);
+  top: calc(var(--fl-ship-top) + var(--fl-w) * 1.29 - 4% - 35vmax);
   background:
     radial-gradient(closest-side, transparent 80%, rgba(226, 236, 255, 0.6) 88%, rgba(134, 171, 255, 0.28) 92%, transparent 97%),
     radial-gradient(closest-side, rgba(205, 222, 255, 0.12), transparent 85%);
   opacity: 0;
 }
-@media (min-width: 1024px) { .fl-blast { left: calc(64% + 40px - var(--fl-w) * 0.76 - 35vmax); } }
+@media (min-width: 1024px) { .fl-blast { left: calc(64% + 40px - var(--fl-w) * 0.9 - 35vmax); } }
 /* the break-through ripple: a flat ring racing out along the sky's edge */
 .fl-ripple {
   position: absolute; z-index: 2; pointer-events: none;
@@ -2225,7 +2244,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   position: absolute;
   width: var(--ow); height: calc(var(--ow) * 0.35);
   left: calc(50% - var(--ow) / 2);
-  top: calc(var(--fl-ship-top) + var(--fl-w) * 0.7 - var(--ow) * 0.175);
+  top: calc(var(--fl-ship-top) + var(--fl-w) * 0.85 - var(--ow) * 0.175);
   opacity: 0;
 }
 @media (min-width: 1024px) { .fl-orbit { --ow: 720px; left: calc(64% - var(--ow) / 2); } }
@@ -2247,12 +2266,12 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 
 .fl-tags {
   position: absolute; left: 0; right: 0;
-  top: calc(var(--fl-ship-top) + var(--fl-w) * 0.7 + min(112vw, 640px) * 0.175 + 14px);
+  top: calc(var(--fl-ship-top) + var(--fl-w) * 0.85 + min(112vw, 640px) * 0.175 + 14px);
   display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;
   padding: 0 16px; margin: 0; list-style: none;
 }
 @media (min-width: 1024px) {
-  .fl-tags { left: 64%; right: auto; transform: translateX(-50%); top: calc(var(--fl-ship-top) + var(--fl-w) * 0.7 + 146px); white-space: nowrap; flex-wrap: nowrap; }
+  .fl-tags { left: 64%; right: auto; transform: translateX(-50%); top: calc(var(--fl-ship-top) + var(--fl-w) * 0.85 + 146px); white-space: nowrap; flex-wrap: nowrap; }
 }
 .fl-tag {
   display: inline-flex; align-items: center; gap: 0.5rem;
@@ -2361,13 +2380,15 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   .fl-hud, .fl-pad, .fl-cloud, .fl-booster, .fl-jet, .fl-tags, .fl-glow, .fl-dusk, .fl-veil, .fl-wash, .fl-collar, .fl-shock, .fl-blast, .fl-ripple, .fl-trail { display: none; }
   /* the finale as a still: a calm burn with a soft glow at the engine */
   .fl-uflame { transform: scale(1, 1); }
+  .fl-earth { display: none; }
+  .fl-planet { opacity: 1; height: 46%; }
   .fl-flash { opacity: 0.35; will-change: auto; }
   .fl-stars { opacity: 1; }
   .fl-stars img { animation: none !important; }
   .fl-earth { top: auto; bottom: -142%; transform: none; }
   .fl-ship-wrap { top: 120px; }
   .fl-ship { transform: rotate(64deg); }
-  .fl-orbit { opacity: 1; top: calc(120px + var(--fl-w) * 0.7 - var(--ow) * 0.175); }
+  .fl-orbit { opacity: 1; top: calc(120px + var(--fl-w) * 0.85 - var(--ow) * 0.175); }
   .fl-sat { animation: none !important; }
   .fl-flicker, .fl-flicker-b { animation: none !important; }
   .fl-copy { position: relative; inset: auto; transform: none; width: auto; max-width: 34rem; }
@@ -2378,6 +2399,6 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 @media (min-width: 1024px) and (prefers-reduced-motion: reduce), (min-width: 1024px) and (scripting: none) {
   .fl-stage { padding: 160px max(40px, calc(50% - 600px)) 120px; display: flex; align-items: center; }
   .fl-ship-wrap { top: 40%; }
-  .fl-orbit { top: calc(40% + var(--fl-w) * 0.7 - var(--ow) * 0.175); }
+  .fl-orbit { top: calc(40% + var(--fl-w) * 0.85 - var(--ow) * 0.175); }
   .fl-stage::after { width: 60%; right: auto; background: linear-gradient(90deg, rgba(4, 5, 10, 0.8), rgba(4, 5, 10, 0)); }
 }

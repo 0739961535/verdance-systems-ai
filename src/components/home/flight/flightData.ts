@@ -1,9 +1,11 @@
 /** Shared by the server markup and the client controller of the flight. */
 export const STAR_SPEEDS = [0.12, 0.3, 0.6];
+/** The rocket stack's height as a multiple of its grid width (RocketArt STACK_H / 80). */
+export const STACK_RATIO = 348.37 / 80;
 
 /**
  * The three star layers (far, mid, near). Rendered once to static files in
- * public/flight/ by scripts/build-rocket-svg.mjs (npm run rocket:svg), so
+ * public/flight/ by scripts/build-stars.mjs (npm run flight:stars), so
  * the 126 stars stay out of the page's HTML. Deterministic.
  */
 export const STAR_LAYERS = [

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { BoosterPlume, BOOSTER_OFFSET, ROCKET_SRC } from "../../rocket/RocketArt";
+import { BoosterPlume, BOOSTER_OFFSET, rocketSet, STACK_H } from "../../rocket/RocketArt";
 
 /**
  * The hero's "we ship it" rocket.
@@ -136,15 +136,29 @@ export function Rocket() {
       <div className="rk-fly" ref={flyRef}>
         <span className="rk-jet" ref={jetRef} />
         <span className="rk-ship">
-          <svg className="rk-plume" viewBox={`0 0 80 ${BOOSTER_OFFSET + 168}`} width="100%" height="100%" fill="none" overflow="visible">
+          <svg className="rk-plume" viewBox={`0 0 80 ${STACK_H}`} width="100%" height="100%" fill="none" overflow="visible">
             <g transform={`translate(0 ${BOOSTER_OFFSET})`}>
               {/* flame: the outer group is scaled by scroll, the inner one flickers on load */}
               <BoosterPlume id="rk" flameRef={flameRef} flameClass="rk-flame-js" flickerClass="rk-flame" outerClass="rk-flame-b" />
             </g>
           </svg>
-          {/* static hull as a cached file, kept out of the HTML (see RocketArt.tsx) */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="rk-hull" src={ROCKET_SRC.stack} alt="" width={80} height={286} decoding="async" fetchPriority="low" draggable={false} />
+          {/* photoreal render (see RocketArt.tsx), AVIF with WebP fallback */}
+          <picture>
+            <source type="image/avif" srcSet={rocketSet("stack", "avif")} sizes="(min-width: 768px) 50px, 38px" />
+            { }
+            <img
+              className="rk-hull"
+              src="/rocket/stack-120.webp"
+              srcSet={rocketSet("stack", "webp")}
+              sizes="(min-width: 768px) 50px, 38px"
+              alt=""
+              width={80}
+              height={348}
+              decoding="async"
+              fetchPriority="low"
+              draggable={false}
+            />
+          </picture>
         </span>
       </div>
     </div>
