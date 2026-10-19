@@ -229,6 +229,7 @@ export const NICHE_CONVERSATIONS: Record<string, Conversation> = {
  * purpose. All names are invented.
  */
 export const HOME_ROTATION: { label: string; conversation: Conversation }[] = [
+  { label: "Venues", conversation: HOME_CONVERSATION },
   {
     label: "Home services",
     conversation: {
@@ -287,7 +288,6 @@ export const HOME_ROTATION: { label: string; conversation: Conversation }[] = [
         "Sample conversation, online store. At 22:15 a customer asks if the large linen set is back in stock and if it delivers to Durban. The store replies in 3 seconds with stock, delivery time and a buy button. The customer orders and gets an order confirmation.",
     },
   },
-  { label: "Venues", conversation: HOME_CONVERSATION },
   {
     label: "Clinics",
     conversation: {

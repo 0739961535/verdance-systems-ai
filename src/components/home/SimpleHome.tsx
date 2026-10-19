@@ -7,8 +7,6 @@ import { AI_TEAM_PATH } from "@/data/aiTeam";
 import { HOME_ROTATION } from "@/data/conversations";
 import { LaptopInbox } from "@/components/device/LaptopInbox";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
-import { HeroCounterCard } from "./hero/HeroCounterCard";
-import { LazyHeroSignal } from "./hero/LazyHeroSignal";
 import { Rocket } from "./hero/Rocket";
 
 /**
@@ -86,12 +84,8 @@ export function WatchItWork() {
           </p>
         </Reveal>
 
-        <div className="mx-auto mt-12 max-w-5xl md:mt-16 lg:mt-28">
-          <div data-parallax="-0.03" className="hs-stage">
-            <HeroCounterCard />
-            <LaptopInbox rotation={HOME_ROTATION} />
-            <LazyHeroSignal />
-          </div>
+        <div className="mx-auto mt-12 max-w-5xl md:mt-16">
+          <LaptopInbox rotation={HOME_ROTATION} />
         </div>
       </div>
     </section>
