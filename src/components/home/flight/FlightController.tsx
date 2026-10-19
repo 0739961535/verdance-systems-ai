@@ -37,9 +37,27 @@ export function FlightController() {
   useEffect(() => {
     const root = markRef.current?.closest<HTMLElement>(".fl");
     if (!root) return;
+    // The flight's images (hull, star layers) load on the visitor's first
+    // scroll or touch, never with the first paint: the section is always at
+    // least a screen below the fold and the files are tiny cached SVGs, so
+    // they arrive long before it is reached. This keeps the big star layer
+    // from ever counting as the page's largest paint. If the page opens
+    // already scrolled (restored position, anchor) they load at once.
+    // Runs for every motion setting.
+    const hulls = Array.from(root.querySelectorAll<HTMLImageElement>("img[data-src]"));
+    const wake = ["scroll", "touchstart", "pointerdown", "keydown"] as const;
+    const loadImages = () => {
+      wake.forEach((e) => window.removeEventListener(e, loadImages));
+      hulls.forEach((img) => {
+        if (!img.src) img.src = img.dataset.src!;
+      });
+    };
+    if (window.scrollY > 0) loadImages();
+    else wake.forEach((e) => window.addEventListener(e, loadImages, { passive: true, once: true }));
+    const loader = { disconnect: () => wake.forEach((e) => window.removeEventListener(e, loadImages)) };
     const still =
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (still) return;
+    if (still) return () => loader.disconnect();
 
     const q = <T extends Element>(sel: string) => root.querySelector<T>(sel)!;
     const qa = <T extends Element>(sel: string) => Array.from(root.querySelectorAll<T>(sel));
@@ -51,6 +69,10 @@ export function FlightController() {
     const collars = qa<HTMLElement>(".fl-collar");
     const flash = q<HTMLElement>(".fl-flash");
     const shocks = qa<HTMLElement>(".fl-shock");
+    const blast = q<HTMLElement>(".fl-blast");
+    const ripple = q<HTMLElement>(".fl-ripple");
+    const trail = q<HTMLElement>(".fl-trail");
+    const earthLine = q<HTMLElement>(".fl-earth");
     const mach = q<SVGGElement>(".fl-umach");
     const dusk = q<HTMLElement>(".fl-dusk");
     const glow = q<HTMLElement>(".fl-glow");
@@ -74,6 +96,7 @@ export function FlightController() {
     let vh = 800;
     let desktop = false;
     let noseY = 300; // the rocket's nose, in stage pixels, once airborne
+    let padDrop = 0; // how far below its flight position it stands on the pad
     let active = -1;
     let raf = 0;
     let onScreen = false;
@@ -85,6 +108,7 @@ export function FlightController() {
       travel = Math.max(1, root.offsetHeight - vh);
       desktop = window.innerWidth >= 1024;
       noseY = wrap.offsetTop;
+      padDrop = Math.max(0, earthLine.offsetTop - wrap.offsetTop - wrap.offsetWidth * 3.575 - 2);
     };
 
     const setStage = (i: number) => {
@@ -108,7 +132,7 @@ export function FlightController() {
       // sky: blue thins to indigo, then black once we are through; stars
       // come out; the horizon glow sinks away
       // most of the blue goes on the climb, the last of it at the break-through
-      const space = 0.65 * ramp(0.12, PIERCE - 0.02, p) + 0.35 * ramp(PIERCE - 0.01, PIERCE + 0.04, p);
+      const space = 0.55 * ramp(0.12, PIERCE - 0.02, p) + 0.45 * ramp(PIERCE - 0.004, PIERCE + 0.025, p);
       fade(dusk, 1 - space);
       fade(glow, 1 - ramp(0.05, 0.45, p));
       glow.style.transform = `translate3d(0, ${(ramp(0, 0.5, p) * vh * 0.35).toFixed(1)}px, 0)`;
@@ -136,7 +160,12 @@ export function FlightController() {
       // the rocket; as it crosses the nose a collar of light ripples down the
       // body and a soft wash of light passes over the scene
       const veilY = noseY - vh * 0.2 + (p - PIERCE) * vh * 9;
-      fade(veil, pulse(PIERCE - 0.08, PIERCE - 0.03, PIERCE + 0.09, p));
+      fade(veil, pulse(PIERCE - 0.08, PIERCE - 0.025, PIERCE + 0.09, p));
+      // the ripple: a ring of light racing out along the boundary from the
+      // nose, riding down with it
+      const rk = lin(PIERCE - 0.002, PIERCE + 0.06, p);
+      fade(ripple, rk > 0 && rk < 1 ? (1 - rk) * (1 - rk) : 0);
+      ripple.style.transform = `translate3d(0, ${((p - PIERCE) * vh * 9).toFixed(1)}px, 0) scale(${(0.04 + (1 - (1 - rk) * (1 - rk)) * 1.6).toFixed(3)})`;
       veil.style.transform = `translate3d(0, ${veilY.toFixed(1)}px, 0)`;
       collars.forEach((el, i) => {
         const k = lin(PIERCE - 0.004 + i * 0.008, PIERCE + 0.05 + i * 0.008, p);
@@ -148,7 +177,15 @@ export function FlightController() {
       const surge = pulse(BURST - 0.012, BURST, BURST + 0.06, p);
       const kFlash = pulse(BURST - 0.01, BURST + 0.002, BURST + 0.045, p);
       fade(flash, kFlash);
-      flash.style.transform = `scale(${(0.4 + lin(BURST - 0.01, BURST + 0.04, p) * 1.3).toFixed(3)})`;
+      flash.style.transform = `scale(${(0.4 + lin(BURST - 0.01, BURST + 0.04, p) * 2.6).toFixed(3)})`;
+      // the shockwave that fills the screen
+      const bk = lin(BURST - 0.002, BURST + 0.07, p);
+      fade(blast, bk > 0 && bk < 1 ? (1 - bk) * 0.95 : 0);
+      blast.style.transform = `scale(${(0.03 + (1 - (1 - bk) * (1 - bk) * (1 - bk)) * 2.3).toFixed(3)})`;
+      // and the trail it leaves behind, which lingers, slowly fading
+      const tk = ramp(BURST - 0.006, BURST + 0.03, p);
+      fade(trail, tk * lerp(0.95, 0.45, ramp(BURST + 0.03, 1, p)));
+      trail.style.transform = `scaleY(${(0.05 + tk * 0.95 + ramp(BURST + 0.03, 1, p) * 0.4).toFixed(3)})`;
       shocks.forEach((el, i) => {
         const k = lin(BURST - 0.004 + i * 0.012, BURST + 0.065 + i * 0.012, p);
         const e = 1 - (1 - k) * (1 - k) * (1 - k); // fast out, slow finish
@@ -156,11 +193,11 @@ export function FlightController() {
         el.style.transform = `scale(${(0.25 + e * 4.6).toFixed(3)})`;
       });
       mach.style.opacity = surge.toFixed(3);
-      fade(wash, Math.max(pulse(PIERCE - 0.02, PIERCE + 0.004, PIERCE + 0.05, p) * 0.32, kFlash * 0.55 + surge * 0.12));
+      fade(wash, Math.max(pulse(PIERCE - 0.012, PIERCE + 0.003, PIERCE + 0.05, p) * 0.6, kFlash * 0.9 + surge * 0.15));
       // a short, damped camera nudge on ignition (scene only, never the words)
       const sk = lin(BURST - 0.004, BURST + 0.05, p);
       if (sk > 0 && sk < 1) {
-        const a = (1 - sk) * (1 - sk) * (desktop ? 5 : 3.5);
+        const a = (1 - sk) * (1 - sk) * (desktop ? 8 : 5);
         scene.style.transform = `translate3d(${(Math.sin(sk * Math.PI * 7) * a).toFixed(2)}px, ${(Math.cos(sk * Math.PI * 9) * a * 0.6).toFixed(2)}px, 0)`;
       } else if (scene.style.transform) scene.style.transform = "";
 
@@ -176,7 +213,7 @@ export function FlightController() {
       const lift = ramp(0, 0.22, p);
       const turn = ramp(0.3, 0.86, p);
       const shipX = turn * (desktop ? 40 : 14);
-      const shipY = lerp(0.2, 0, lift) * vh - turn * vh * 0.04;
+      const shipY = lerp(padDrop, 0, lift) - turn * vh * 0.04;
       // depth: it recedes a little as it climbs to orbit
       const depth = lerp(1, desktop ? 0.82 : 0.86, ramp(0.2, 0.9, p));
       ship.style.transform = `translate3d(${shipX.toFixed(1)}px, ${shipY.toFixed(1)}px, 0) rotate(${(turn * 64).toFixed(2)}deg) scale(${depth.toFixed(4)})`;
@@ -256,6 +293,7 @@ export function FlightController() {
     return () => {
       cancelAnimationFrame(raf);
       io.disconnect();
+      loader.disconnect();
       ro.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);

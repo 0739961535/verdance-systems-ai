@@ -2008,11 +2008,12 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
    stages as a plain list (bottom of this block).
    ============================================================ */
 .fl {
-  --fl-w: 62px;              /* rocket grid width (the stack is 3.575x as tall) */
   --fl-ground: 74%;          /* horizon line at launch */
-  /* where the rocket rides once airborne: chosen so that on the pad (20% of
-     the stage lower, see FlightController) its engines sit on the horizon */
-  --fl-ship-top: calc(var(--fl-ground) - 20% - var(--fl-w) * 3.575 + 4px);
+  --fl-ship-top: 104px;      /* where the rocket rides, just under the mission bar */
+  /* rocket grid width (the stack is 3.575x as tall): as big as the frame
+     allows while it still stands on the horizon at launch. FlightController
+     measures how far it sits below its flight position while on the pad. */
+  --fl-w: min(120px, calc((74svh - 108px) / 3.575));
   --fl-ink: #EEF2FC;
   --fl-ink-soft: rgba(222, 230, 248, 0.74);
   --fl-blue: #86ABFF;
@@ -2023,7 +2024,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   color: var(--fl-ink);
 }
 @media (min-width: 1024px) {
-  .fl { --fl-w: 86px; --fl-ground: 76%; height: 400vh; }
+  .fl { --fl-ground: 76%; --fl-ship-top: 110px; --fl-w: min(160px, calc((76svh - 114px) / 3.575)); height: 400vh; }
 }
 /* soft hand-off from the page canvas into the sky, and back out */
 .fl::before, .fl::after {
@@ -2051,8 +2052,8 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   background: radial-gradient(closest-side, rgba(170, 196, 255, 0.55), rgba(91, 143, 255, 0.18) 55%, transparent);
 }
 .fl-stars { position: absolute; left: 0; right: 0; top: -65%; height: 165%; opacity: 0.15; }
-.fl-stars svg { display: block; }
-.fl[data-on] .fl-stars[data-layer="2"] svg { animation: fl-twinkle 2.6s ease-in-out infinite alternate; }
+.fl-stars img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.fl[data-on] .fl-stars[data-layer="2"] img { animation: fl-twinkle 2.6s ease-in-out infinite alternate; }
 
 .fl-earth {
   position: absolute; left: -45%; width: 190%; top: var(--fl-ground); height: 160%;
@@ -2070,7 +2071,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 }
 /* the tower scales with the rocket (its arm reaches to just short of it) */
 .fl-pad {
-  --pad-h: calc(var(--fl-w) * 3.3);
+  --pad-h: calc(var(--fl-w) * 2.9);
   position: absolute; height: var(--pad-h); width: calc(var(--pad-h) * 0.75);
   left: calc(50% - var(--pad-h) * 0.68); top: calc(var(--fl-ground) - var(--pad-h) + 2px);
 }
@@ -2094,7 +2095,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   position: absolute; z-index: 2; left: -10%; right: -10%; top: 0; height: 40%;
   background:
     linear-gradient(to bottom, transparent 49.55%, rgba(238, 244, 255, 0.95) 50%, transparent 50.45%),
-    linear-gradient(to bottom, transparent 28%, rgba(134, 171, 255, 0.14) 46%, rgba(205, 222, 255, 0.34) 50%, rgba(134, 171, 255, 0.1) 55%, transparent 76%);
+    linear-gradient(to bottom, transparent 20%, rgba(134, 171, 255, 0.18) 44%, rgba(214, 228, 255, 0.5) 50%, rgba(134, 171, 255, 0.16) 56%, transparent 80%);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
   opacity: 0;
@@ -2117,7 +2118,6 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 .fl-ship {
   position: relative;
   transform-origin: 50% 40%;
-  transform: translate3d(0, 20svh, 0);
 }
 /* glow behind the ship: a gradient, not a filter, so the per-frame flame
    never forces the ship to re-rasterise through a drop-shadow */
@@ -2166,7 +2166,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 }
 /* the burst: a core flash and two shockwave rings at the engine */
 .fl-flash {
-  position: absolute; z-index: 0; pointer-events: none;
+  position: absolute; z-index: 3; pointer-events: none;
   left: calc(50% - var(--fl-w) * 1.4); top: calc(100% - var(--fl-w) * 1.2);
   width: calc(var(--fl-w) * 2.8); height: calc(var(--fl-w) * 2.8);
   border-radius: 50%;
@@ -2182,7 +2182,40 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   box-shadow: 0 0 16px 2px rgba(134, 171, 255, 0.5), inset 0 0 10px rgba(134, 171, 255, 0.45);
   opacity: 0;
 }
-.fl-collar, .fl-flash, .fl-shock, .fl-veil, .fl-wash { will-change: transform, opacity; }
+/* the trail the burst leaves behind, along the rocket's axis */
+.fl-trail {
+  position: absolute; z-index: -1; pointer-events: none;
+  left: calc(50% - var(--fl-w) * 0.16); width: calc(var(--fl-w) * 0.32);
+  top: 98%; height: calc(var(--fl-w) * 7);
+  transform-origin: 50% 0;
+  background: linear-gradient(to bottom, rgba(242, 246, 255, 0.95), rgba(168, 196, 255, 0.45) 22%, rgba(91, 143, 255, 0.14) 60%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 38%, #000 62%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 38%, #000 62%, transparent);
+  opacity: 0;
+}
+/* the burst's shockwave: one ring that grows past the edges of the screen.
+   Centred where the engine sits at the burst; 70vmax drawn, scaled up. */
+.fl-blast {
+  position: absolute; z-index: 3; pointer-events: none;
+  width: 70vmax; height: 70vmax; border-radius: 50%;
+  left: calc(50% + 14px - var(--fl-w) * 0.8 - 35vmax);
+  top: calc(var(--fl-ship-top) + var(--fl-w) * 1.08 - 4% - 35vmax);
+  background:
+    radial-gradient(closest-side, transparent 80%, rgba(226, 236, 255, 0.6) 88%, rgba(134, 171, 255, 0.28) 92%, transparent 97%),
+    radial-gradient(closest-side, rgba(205, 222, 255, 0.12), transparent 85%);
+  opacity: 0;
+}
+@media (min-width: 1024px) { .fl-blast { left: calc(64% + 40px - var(--fl-w) * 0.76 - 35vmax); } }
+/* the break-through ripple: a flat ring racing out along the sky's edge */
+.fl-ripple {
+  position: absolute; z-index: 2; pointer-events: none;
+  width: 170vw; height: 20vw; border-radius: 50%;
+  left: calc(50% - 85vw); top: calc(var(--fl-ship-top) - 10vw);
+  background: radial-gradient(closest-side, transparent 70%, rgba(238, 244, 255, 0.85) 84%, rgba(134, 171, 255, 0.3) 91%, transparent);
+  opacity: 0;
+}
+@media (min-width: 1024px) { .fl-ripple { left: calc(64% - 85vw); } }
+.fl-collar, .fl-flash, .fl-shock, .fl-veil, .fl-wash, .fl-trail, .fl-blast, .fl-ripple { will-change: transform, opacity; }
 
 .fl-kick .fl-upper { animation: fl-kick 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
@@ -2195,7 +2228,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   top: calc(var(--fl-ship-top) + var(--fl-w) * 0.7 - var(--ow) * 0.175);
   opacity: 0;
 }
-@media (min-width: 1024px) { .fl-orbit { --ow: 560px; left: calc(64% - var(--ow) / 2); } }
+@media (min-width: 1024px) { .fl-orbit { --ow: 720px; left: calc(64% - var(--ow) / 2); } }
 .fl-orbit svg { display: block; position: absolute; inset: 0; }
 .fl-sat {
   position: absolute; left: 0; top: 0;
@@ -2219,7 +2252,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   padding: 0 16px; margin: 0; list-style: none;
 }
 @media (min-width: 1024px) {
-  .fl-tags { left: 64%; right: auto; transform: translateX(-50%); top: calc(var(--fl-ship-top) + var(--fl-w) * 0.7 + 112px); white-space: nowrap; flex-wrap: nowrap; }
+  .fl-tags { left: 64%; right: auto; transform: translateX(-50%); top: calc(var(--fl-ship-top) + var(--fl-w) * 0.7 + 146px); white-space: nowrap; flex-wrap: nowrap; }
 }
 .fl-tag {
   display: inline-flex; align-items: center; gap: 0.5rem;
@@ -2321,16 +2354,16 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 
 /* ---------- the still version: reduced motion, or no JS ---------- */
 @media (prefers-reduced-motion: reduce), (scripting: none) {
-  .fl { height: auto; }
+  .fl { height: auto; --fl-w: 84px; }
   .fl::after { display: none; }
   .fl-stage { position: relative; height: auto; min-height: 100svh; padding: 300px 20px 96px; }
   .fl-scene > *, .fl-ship, .fl-booster, .fl-jet, .fl-step, .fl-seg-fill { will-change: auto; }
-  .fl-hud, .fl-pad, .fl-cloud, .fl-booster, .fl-jet, .fl-tags, .fl-glow, .fl-dusk, .fl-veil, .fl-wash, .fl-collar, .fl-shock { display: none; }
+  .fl-hud, .fl-pad, .fl-cloud, .fl-booster, .fl-jet, .fl-tags, .fl-glow, .fl-dusk, .fl-veil, .fl-wash, .fl-collar, .fl-shock, .fl-blast, .fl-ripple, .fl-trail { display: none; }
   /* the finale as a still: a calm burn with a soft glow at the engine */
   .fl-uflame { transform: scale(1, 1); }
   .fl-flash { opacity: 0.35; will-change: auto; }
   .fl-stars { opacity: 1; }
-  .fl-stars svg { animation: none !important; }
+  .fl-stars img { animation: none !important; }
   .fl-earth { top: auto; bottom: -142%; transform: none; }
   .fl-ship-wrap { top: 120px; }
   .fl-ship { transform: rotate(64deg); }

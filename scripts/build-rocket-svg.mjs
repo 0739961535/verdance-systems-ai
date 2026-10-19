@@ -10,11 +10,13 @@ import ts from "typescript";
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const src = path.join(root, "src/components/rocket");
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "rocket-"));
-for (const f of ["RocketArt.tsx", "RocketHull.tsx"]) {
-  const out = ts.transpileModule(fs.readFileSync(path.join(src, f), "utf8"), {
+const flight = path.join(root, "src/components/home/flight");
+for (const f of ["RocketArt.tsx", "RocketHull.tsx", "flightData.ts"]) {
+  const dir = f === "flightData.ts" ? flight : src;
+  const out = ts.transpileModule(fs.readFileSync(path.join(dir, f), "utf8"), {
     compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
   }).outputText.replace(/from "\.\/(\w+)"/g, 'from "./$1.mjs"');
-  fs.writeFileSync(path.join(tmp, f.replace(".tsx", ".mjs")), out);
+  fs.writeFileSync(path.join(tmp, f.replace(/\.tsx?$/, ".mjs")), out);
 }
 // resolve react from the project, not the temp dir
 fs.symlinkSync(path.join(root, "node_modules"), path.join(tmp, "node_modules"));
@@ -37,4 +39,16 @@ for (const [name, C, vb] of files) {
   fs.writeFileSync(path.join(outDir, name), svg);
   console.log(name, svg.length, "bytes");
 }
+// the flight's star layers
+const fd = await import(pathToFileURL(path.join(tmp, "flightData.mjs")).href);
+const starDir = path.join(root, "public/flight");
+fs.mkdirSync(starDir, { recursive: true });
+fd.STAR_LAYERS.forEach((l, i) => {
+  const dots = fd.stars(l.seed, l.count, l.maxR)
+    .map((s) => `<circle cx="${s.x}" cy="${s.y}" r="${s.r}" fill-opacity="${s.o}"/>`)
+    .join("");
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 900" width="400" height="900" fill="#E8EEFF">${dots}</svg>\n`;
+  fs.writeFileSync(path.join(starDir, `stars-${i}.svg`), svg);
+  console.log(`stars-${i}.svg`, svg.length, "bytes");
+});
 fs.rmSync(tmp, { recursive: true, force: true });

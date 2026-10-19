@@ -58,6 +58,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
       <div className="container-wide flex items-center justify-between gap-6">
         <Link
           href="/"
+          prefetch={false}
           className="group inline-flex items-center gap-3"
           aria-label="Verdance Systems AI - home"
         >
@@ -77,6 +78,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
             const link = (
               <Link
                 href={it.href}
+                prefetch={it.href === "/" ? false : undefined}
                 className={`relative inline-flex items-center px-3.5 py-2 rounded-full text-sm font-medium transition-colors ${
                   active
                     ? "text-[color:var(--color-ink)]"

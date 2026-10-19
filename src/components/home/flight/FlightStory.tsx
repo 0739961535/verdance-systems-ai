@@ -1,4 +1,4 @@
-import { CLOUDS, STAR_SPEEDS } from "./flightData";
+import { CLOUDS, STAR_LAYERS, starSrc } from "./flightData";
 import { FlightController } from "./FlightController";
 import { BoosterPlume, BOOSTER_VIEWBOX, ROCKET_SRC, UpperPlume, UPPER_VIEWBOX } from "../../rocket/RocketArt";
 
@@ -45,18 +45,6 @@ const STAGES = [
 
 const ORBIT_TAGS = ["Answering", "Following up", "Admin done"];
 
-/* Deterministic star field (same on server and client, so no hydration diff). */
-function stars(seed: number, count: number, maxR: number) {
-  let s = seed;
-  const rnd = () => ((s = (s * 16807) % 2147483647) - 1) / 2147483646;
-  return Array.from({ length: count }, () => ({
-    x: +(rnd() * 400).toFixed(1),
-    y: +(rnd() * 900).toFixed(1),
-    r: +(0.35 + rnd() * maxR).toFixed(2),
-    o: +(0.35 + rnd() * 0.65).toFixed(2),
-  }));
-}
-const STAR_LAYERS = [stars(7, 70, 0.55), stars(31, 40, 0.85), stars(97, 16, 1.25)].map((s, i) => ({ stars: s, speed: STAR_SPEEDS[i] }));
 
 function Accent({ title, accent }: { title: string; accent: string }) {
   const i = title.indexOf(accent);
@@ -78,13 +66,11 @@ export function FlightStory() {
         {/* ---------- the scene (decorative) ---------- */}
         <div className="fl-scene" aria-hidden>
           <div className="fl-dusk" />
-          {STAR_LAYERS.map((layer, i) => (
+          {STAR_LAYERS.map((_, i) => (
             <div key={i} className="fl-stars" data-layer={i}>
-              <svg viewBox="0 0 400 900" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
-                {layer.stars.map((s, k) => (
-                  <circle key={k} cx={s.x} cy={s.y} r={s.r} fill="#E8EEFF" fillOpacity={s.o} />
-                ))}
-              </svg>
+              {/* static file, loaded as the section nears (see FlightController) */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img data-src={starSrc(i)} alt="" width={400} height={900} decoding="async" draggable={false} />
             </div>
           ))}
           <div className="fl-glow" />
@@ -103,8 +89,9 @@ export function FlightStory() {
           {CLOUDS.map((c, i) => (
             <span key={i} className={c.front ? "fl-cloud fl-cloud-near" : "fl-cloud"} style={{ left: c.x, width: c.w }} />
           ))}
-          {/* the edge of the sky the rocket breaks through */}
+          {/* the edge of the sky the rocket breaks through, and its ripple */}
           <div className="fl-veil" />
+          <span className="fl-ripple" />
 
           <div className="fl-orbit">
             <svg viewBox="0 0 400 140" width="100%" height="100%" fill="none" overflow="visible">
@@ -121,27 +108,30 @@ export function FlightStory() {
               <div className="fl-upper">
                 <span className="fl-collar" />
                 <span className="fl-collar" />
+                <span className="fl-trail" />
                 <span className="fl-flash" />
                 <span className="fl-shock" />
                 <span className="fl-shock" />
                 <svg className="fl-plume" viewBox={UPPER_VIEWBOX} width="100%" height="100%" fill="none" overflow="visible">
                   <UpperPlume id="fl" flameClass="fl-uflame" flickerClass="fl-flicker" machClass="fl-umach" />
                 </svg>
-                {/* static hull as a cached file, kept out of the HTML (see RocketArt.tsx) */}
+                {/* static hull as a cached file, kept out of the HTML (see RocketArt.tsx);
+                    src is set by FlightController as the section nears */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="fl-hull" src={ROCKET_SRC.upper} alt="" width={80} height={142} loading="lazy" decoding="async" draggable={false} />
+                <img className="fl-hull" data-src={ROCKET_SRC.upper} alt="" width={80} height={142} decoding="async" draggable={false} />
               </div>
               <div className="fl-booster">
                 <svg className="fl-plume" viewBox={BOOSTER_VIEWBOX} width="100%" height="100%" fill="none" overflow="visible">
                   <BoosterPlume id="fl" flameClass="fl-bflame" flickerClass="fl-flicker" outerClass="fl-flicker-b" />
                 </svg>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="fl-hull" src={ROCKET_SRC.booster} alt="" width={80} height={168} loading="lazy" decoding="async" draggable={false} />
+                <img className="fl-hull" data-src={ROCKET_SRC.booster} alt="" width={80} height={168} decoding="async" draggable={false} />
               </div>
             </div>
           </div>
 
-          {/* light passing over the whole scene (break-through and burst) */}
+          {/* the burst's shockwave, and light passing over the whole scene */}
+          <span className="fl-blast" />
           <div className="fl-wash" />
 
           <ul className="fl-tags">
