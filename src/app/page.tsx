@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { InControl, SimpleFinalCTA, SimpleHero, WatchItWork, WhatYouGet } from "@/components/home/SimpleHome";
+import { FilmStory } from "@/components/home/flight/FilmStory";
 import { FlightStory } from "@/components/home/flight/FlightStory";
+
+/** The flight as a scroll-scrubbed film (rocket v6). Roll back to the
+ * illustrated flight with FLIGHT_FILM=0 at build time. */
+const FLIGHT_FILM = process.env.FLIGHT_FILM !== "0";
 import { ExampleChartsSection } from "@/components/home/charts/ExampleCharts";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/niches";
@@ -29,7 +34,7 @@ export default function HomePage() {
   return (
     <>
       <SimpleHero />
-      <FlightStory />
+      {FLIGHT_FILM ? <FilmStory /> : <FlightStory />}
       {/* below the fold: skipped by layout and paint until they near the
           screen (content-visibility), so the first paint is only the hero */}
       <div className="cv-below">

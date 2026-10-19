@@ -1,4 +1,5 @@
-import { CLOUDS, STAR_LAYERS, starSrc } from "./flightData";
+import { Accent } from "./Accent";
+import { CLOUDS, STAGES, STAR_LAYERS, starSrc } from "./flightData";
 import { FlightController } from "./FlightController";
 import { BoosterPlume, BOOSTER_VIEWBOX, rocketSet, UpperPlume, UPPER_VIEWBOX } from "../../rocket/RocketArt";
 
@@ -18,30 +19,6 @@ import { BoosterPlume, BOOSTER_VIEWBOX, rocketSet, UpperPlume, UPPER_VIEWBOX } f
  * Reduced motion and no-JS: the CSS shows a still orbit scene behind the
  * three stages stacked as a normal list (see .fl in globals.css).
  */
-
-const STAGES = [
-  {
-    n: "01",
-    name: "Launch",
-    title: "We look at how your business runs.",
-    accent: "how your business runs.",
-    body: "A free 30-minute call. We find where your time goes and where customers slip away.",
-  },
-  {
-    n: "02",
-    name: "Ascent",
-    title: "AI starts doing the work.",
-    accent: "doing the work.",
-    body: "It answers customers, follows up and does the admin, on the tools you already use. Live in 10 working days.",
-  },
-  {
-    n: "03",
-    name: "Orbit",
-    title: "It runs day and night.",
-    accent: "day and night.",
-    body: "Every message gets a reply in under a minute, even at 2am. You check anything important first.",
-  },
-];
 
 const ORBIT_TAGS = ["Answering", "Following up", "Admin done"];
 
@@ -68,17 +45,6 @@ function LazyPicture({ avif, webp, fallback, sizes, width, height, className, mo
 
 const ROCKET_SIZES = "(min-width: 1024px) 160px, 120px";
 const planetSet = (name: string, ws: number[], ext: string) => ws.map((w) => `/flight/${name}-${w}.${ext} ${w}w`).join(", ");
-
-function Accent({ title, accent }: { title: string; accent: string }) {
-  const i = title.indexOf(accent);
-  if (i < 0) return <>{title}</>;
-  return (
-    <>
-      {title.slice(0, i)}
-      <span className="italic-accent">{accent}</span>
-    </>
-  );
-}
 
 export function FlightStory() {
 

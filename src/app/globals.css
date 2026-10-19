@@ -2402,3 +2402,75 @@ picture.fl-hull img { display: block; width: 100%; height: 100%; user-select: no
   .fl-orbit { top: calc(40% + var(--fl-w) * 0.85 - var(--ow) * 0.175); }
   .fl-stage::after { width: 60%; right: auto; background: linear-gradient(90deg, rgba(4, 5, 10, 0.8), rgba(4, 5, 10, 0)); }
 }
+
+/* ============================================================
+   THE FLIGHT AS A FILM (rocket v6): FilmStory.tsx + FilmController.tsx.
+   Reuses the .fl stage, mission bar, words and scrim above; the scene is
+   a poster image with a canvas on top that the controller draws frames on.
+   ============================================================ */
+.flm-scene { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: #04050A; }
+.flm-cam {
+  position: absolute; inset: 0;
+  transform: scale(1.06); transform-origin: 63% 55%;
+  will-change: transform;
+}
+@media (max-width: 767px) { .flm-cam { transform-origin: 50% 8%; } }
+.flm-poster, .flm-still { position: absolute; inset: 0; display: block; }
+.flm-poster img, .flm-still img {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover; object-position: var(--fx, 63%) 50%;
+}
+@media (max-width: 767px) { .flm-poster img, .flm-still img { object-position: 50% 50%; } }
+.flm-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; }
+.flm[data-film] .flm-canvas { opacity: 1; }
+.flm-still { display: none; }
+/* the words sit over a moving film: a slightly deeper scrim than the
+   illustrated flight, still letting the rocket read on the right */
+.flm .fl-stage::after { background: linear-gradient(rgba(4, 5, 10, 0), rgba(4, 5, 10, 0.66) 40%, rgba(4, 5, 10, 0.9)); }
+@media (min-width: 1024px) {
+  .flm .fl-stage::after { background: linear-gradient(90deg, rgba(4, 5, 10, 0.82), rgba(4, 5, 10, 0.55) 55%, rgba(4, 5, 10, 0)); }
+}
+.flm .fl-title, .flm .fl-body { text-shadow: 0 1px 18px rgba(4, 5, 10, 0.55); }
+.flm-cta { display: inline-flex; margin-top: 1.6rem; }
+.flm .fl-step { will-change: transform, opacity; }
+
+@media (prefers-reduced-motion: reduce), (scripting: none) {
+  .flm .flm-cam, .flm-canvas { display: none; }
+  .flm-still { display: block; }
+  .flm .fl-stage { padding-top: 46svh; }
+  .flm .fl-step { will-change: auto; }
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: reduce), (min-width: 1024px) and (scripting: none) {
+  .flm .fl-stage { padding-top: 160px; }
+}
+
+/* ground to space (FilmController sets these layers' opacity from scroll).
+   Light mode starts washed into the page; dark ink sits on a light scrim
+   until the rocket leaves the ground, then the usual light ink on the dark
+   scrim. The swap happens while step 1 has faded out, so it is never seen. */
+.flm-veil, .flm-top, .flm-bot, .flm-lscrim { position: absolute; pointer-events: none; opacity: 0; visibility: hidden; will-change: opacity; }
+.flm-veil { inset: 0; background: rgb(var(--bg-rgb)); }
+.flm-top { left: 0; right: 0; top: 0; height: 50%; background: linear-gradient(rgb(var(--bg-rgb)), rgba(var(--bg-rgb), 0.85) 35%, rgba(var(--bg-rgb), 0)); }
+.flm-bot { left: 0; right: 0; bottom: 0; height: 12%; z-index: 1; background: linear-gradient(rgba(var(--bg-rgb), 0), rgb(var(--bg-rgb))); }
+.flm-lscrim {
+  z-index: 1; left: 0; right: 0; bottom: 0; height: 58%;
+  background: linear-gradient(rgba(var(--bg-rgb), 0), rgba(var(--bg-rgb), 0.82) 42%, rgba(var(--bg-rgb), 0.94));
+  transition: opacity 0.3s var(--ease-out), visibility 0.3s;
+}
+@media (min-width: 1024px) {
+  .flm-lscrim { top: 0; height: auto; right: auto; width: 56%; background: linear-gradient(90deg, rgba(var(--bg-rgb), 0.9), rgba(var(--bg-rgb), 0.6) 60%, rgba(var(--bg-rgb), 0)); }
+}
+.flm .fl-stage::after { transition: opacity 0.3s var(--ease-out); }
+.flm[data-ink-dark] .flm-lscrim { opacity: 1; visibility: visible; }
+.flm[data-ink-dark] .fl-stage::after { opacity: 0; }
+.flm .fl-title, .flm .fl-body, .flm .fl-eyebrow, .flm .fl-seg-label, .flm .fl-seg-n, .flm .fl-title .italic-accent { transition: color 0.3s var(--ease-out), text-shadow 0.3s; }
+.flm[data-ink-dark] .fl-title { color: var(--ink); text-shadow: none; }
+.flm[data-ink-dark] .fl-body { color: var(--ink-soft); text-shadow: none; }
+.flm[data-ink-dark] .fl-eyebrow, .flm[data-ink-dark] .fl-title .italic-accent, .flm[data-ink-dark] .fl-seg[data-on] .fl-seg-n { color: var(--accent); }
+.flm[data-ink-dark] .fl-seg-label { color: var(--ink-muted); }
+.flm[data-ink-dark] .fl-seg[data-on] .fl-seg-label { color: var(--ink); }
+.flm[data-ink-dark] .fl-seg-track { background: rgba(var(--ink-rgb), 0.14); }
+.flm[data-ink-dark] .fl-seg-fill { background: linear-gradient(90deg, var(--accent), var(--accent-bright)); }
+@media (prefers-reduced-motion: reduce), (scripting: none) {
+  .flm-veil, .flm-top, .flm-bot, .flm-lscrim { display: none; }
+}

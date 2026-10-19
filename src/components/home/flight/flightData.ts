@@ -34,3 +34,28 @@ export const CLOUDS: { x: string; w: string; start: number; k: number; front?: b
   { x: "36%", w: "56%", start: 0.28, k: 4.6 },
   { x: "20%", w: "120%", start: 0.27, k: 7, front: true },
 ];
+
+/** The three steps of the flight, shared by FlightStory and FilmStory. */
+export const STAGES: { n: string; name: string; title: string; accent: string; body: string }[] = [
+  {
+    n: "01",
+    name: "Launch",
+    title: "We look at how your business runs.",
+    accent: "how your business runs.",
+    body: "A free 30-minute call. We find where your time goes and where customers slip away.",
+  },
+  {
+    n: "02",
+    name: "Ascent",
+    title: "AI starts doing the work.",
+    accent: "doing the work.",
+    body: "It answers customers, follows up and does the admin, on the tools you already use. Live in 10 working days.",
+  },
+  {
+    n: "03",
+    name: "Orbit",
+    title: "It runs day and night.",
+    accent: "day and night.",
+    body: "Every message gets a reply in under a minute, even at 2am. You check anything important first.",
+  },
+];
