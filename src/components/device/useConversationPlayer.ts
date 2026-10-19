@@ -47,9 +47,12 @@ function buildSteps(beats: Beat[]): Step[] {
  * pause, the reply, the customer's choice, the confirmation, then a hold.
  */
 function buildCalmSteps(beats: Beat[]): Step[] {
-  // starts mid-conversation: the enquiry is already there, never an empty panel
-  const steps: Step[] = [];
+  // starts mid-conversation: the first two messages are already there, so
+  // a new conversation never opens on a mostly empty panel
+  const pre = Math.min(2, beats.length);
+  const steps: Step[] = [{ t: "show", upTo: pre, ms: 2600 }];
   beats.forEach((b, i) => {
+    if (i < pre) return;
     if (b.kind === "out" || b.kind === "card") {
       steps.push({ t: "typing", upTo: i, ms: b.kind === "out" ? 1600 : 1200 });
     }

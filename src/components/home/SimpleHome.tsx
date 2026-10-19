@@ -95,7 +95,7 @@ export function WatchItWork() {
 /* ------------------------------------------------------------------ */
 /* Small real visuals, reused from the inbox demo and the Ashford panel
    (same sample wording, no new assets). Decorative: aria-hidden. */
-const MINI = "mt-6 max-w-[22rem] rounded-[16px] border border-white/[0.08] bg-[#0B0E15] p-3.5 text-[0.875rem] leading-[1.45] text-[#E9EDEF]";
+const MINI = "mt-6 max-w-[22rem] rounded-[16px] border border-white/[0.08] bg-[#0B0E15] p-3.5 text-[0.875rem] leading-[1.45] text-[#E9EDEF] md:mt-8 md:max-w-[28rem] md:p-5 md:text-[1rem] md:min-h-[9.5rem] md:content-center";
 const BUBBLE_IN = "w-fit max-w-[85%] rounded-[12px] rounded-tl-[4px] bg-[#1F2C34] px-3 py-2";
 const BUBBLE_OUT = "ml-auto w-fit max-w-[85%] rounded-[12px] rounded-tr-[4px] bg-[#1D3F8F] px-3 py-2";
 const TIME = "ml-2 text-[0.75rem] text-white/55";
@@ -121,7 +121,7 @@ function GetVisual({ word }: { word: string }) {
     );
   if (word === "Admin")
     return (
-      <div aria-hidden className={`${MINI} overflow-hidden p-0`}>
+      <div aria-hidden className={`${MINI} overflow-hidden p-0 md:p-0`}>
         <p className="bg-[#1D3F8F] px-3.5 py-2.5 font-semibold">Booked, Tue 07:30</p>
         <p className="px-3.5 py-2.5 text-white/75">
           Geyser repair

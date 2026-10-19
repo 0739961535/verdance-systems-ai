@@ -32,7 +32,7 @@ const STEPS: [number, number][] = [
   [0.38, 0.6],
   // the last step (with its buttons) leaves before the next section starts
   // to slide over the film (from about 0.94 of the scroll)
-  [0.67, 0.9],
+  [0.67, 0.95],
 ];
 const XFADE = 0.025;
 
@@ -317,7 +317,9 @@ export function FilmController() {
     let storyEnd = 0.75;
     const measureStory = () => {
       const travel = Math.max(1, root.offsetHeight - window.innerHeight);
-      storyEnd = clamp01(1 - window.innerHeight / travel) || 0.75;
+      // the overlap is the section's negative bottom margin (CSS)
+      const overlap = Math.max(0, -parseFloat(getComputedStyle(root).marginBottom) || 0);
+      storyEnd = clamp01(1 - (overlap || window.innerHeight) / travel) || 0.75;
     };
     measureStory();
     const update = (raw: number) => {
