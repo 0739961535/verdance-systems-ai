@@ -9,14 +9,14 @@ export const HERO_COUNT_START = 346;
  */
 export function HeroCounterCard() {
   return (
-    <div className="hs-card" data-hero-card aria-label="Example: enquiries answered today. Every reply under 60 seconds." role="img">
+    <div className="hs-card" data-hero-card aria-label="Example: messages answered today. Every reply under 60 seconds." role="img">
       <span className="hs-count" aria-hidden>
         <span className="hs-bump" data-hero-count>
           {HERO_COUNT_START}
         </span>
       </span>
       <span className="hs-count-label" aria-hidden>
-        Enquiries answered today
+        Messages answered today
         <span className="hs-example">Example</span>
       </span>
       <span className="hs-status hs-status-slot" data-hero-status aria-hidden>

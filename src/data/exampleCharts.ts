@@ -8,7 +8,7 @@
 /** Reply-time race: an example enquiry, before and with the system. */
 export const RACE = {
   before: { label: "Before", minutes: 47, note: "Seen between jobs, answered when someone is free" },
-  after: { label: "With AI", seconds: 4, note: "Answered, details taken, time offered" },
+  after: { label: "With AI", seconds: 4, note: "Answered and booked in" },
 } as const;
 
 /** Office hours used to split the hourly chart. 08:00 to 17:00. */
@@ -29,9 +29,9 @@ export function answeredBefore(hour: number, received: number) {
 
 /** Example pipeline for one month. */
 export const PIPELINE = [
-  { label: "Enquiries", value: 120 },
-  { label: "Answered in 60 s", value: 120 },
-  { label: "Qualified", value: 72 },
-  { label: "Booked", value: 41 },
-  { label: "Won", value: 17 },
+  { label: "Messages", value: 120 },
+  { label: "Answered fast", value: 120 },
+  { label: "Ready to buy", value: 72 },
+  { label: "Booked in", value: 41 },
+  { label: "New customers", value: 17 },
 ];

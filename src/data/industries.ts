@@ -16,7 +16,7 @@ export const industries: Industry[] = [
     icon: "Scale",
     headline: "Stop losing clients to slow response times.",
     subheadline:
-      "Automate intake, qualification, and follow-up so your team focuses on billable work, not admin.",
+      "New clients answered, sorted and followed up for you, so your team spends its time on paid work, not admin.",
     problems: [
       {
         title: "Slow enquiry response",
@@ -50,9 +50,9 @@ export const industries: Industry[] = [
     automationFlow: [
       { step: 1, label: "Enquiry Received", description: "Client calls or messages at any time" },
       { step: 2, label: "AI Responds Instantly", description: "Voice AI or WhatsApp agent answers immediately" },
-      { step: 3, label: "Intake Triggered", description: "Automated intake form sent via WhatsApp" },
+      { step: 3, label: "Form Sent", description: "A short form goes to them on WhatsApp" },
       { step: 4, label: "Consultation Booked", description: "Smart Scheduler confirms the appointment" },
-      { step: 5, label: "Review Requested", description: "Post-matter review automation fires automatically" },
+      { step: 5, label: "Review Requested", description: "A review request goes out by itself" },
     ],
   },
   {
@@ -61,7 +61,7 @@ export const industries: Industry[] = [
     icon: "Building2",
     headline: "More viewings. More offers. Less admin.",
     subheadline:
-      "Automate lead qualification, follow-up, and scheduling so your agents spend time closing, not chasing.",
+      "Every buyer and tenant answered, followed up and booked for a viewing, so your agents sell instead of chase.",
     problems: [
       {
         title: "Slow lead response",
@@ -81,7 +81,7 @@ export const industries: Industry[] = [
       {
         title: "Inconsistent follow-up",
         description:
-          "Leads who didn't buy immediately are rarely followed up, leaving significant pipeline unconverted.",
+          "People who didn't buy straight away are rarely followed up, so many sales are lost.",
       },
     ],
     relevantProducts: [
@@ -94,8 +94,8 @@ export const industries: Industry[] = [
     automationFlow: [
       { step: 1, label: "Lead Enquires", description: "Buyer or renter messages about a property" },
       { step: 2, label: "AI Qualifies", description: "WhatsApp AI asks budget, timeline, requirements" },
-      { step: 3, label: "Viewing Booked", description: "Smart Scheduler confirms the viewing automatically" },
-      { step: 4, label: "Follow-Up Sequence", description: "Automated follow-up after viewing" },
+      { step: 3, label: "Viewing Booked", description: "The viewing is booked and confirmed for you" },
+      { step: 4, label: "Follow-Up", description: "A friendly check-in after the viewing" },
       { step: 5, label: "Cold Leads Reactivated", description: "Monthly reactivation campaign to dormant database" },
     ],
   },
@@ -105,7 +105,7 @@ export const industries: Industry[] = [
     icon: "Heart",
     headline: "Full appointment books. Fewer no-shows. Zero missed calls.",
     subheadline:
-      "Let your admin run itself so your practitioners can focus on patients.",
+      "Bookings, reminders and questions handled for you, so your team can focus on patients.",
     problems: [
       {
         title: "High call volume",
@@ -141,7 +141,7 @@ export const industries: Industry[] = [
       { step: 2, label: "Appointment Booked", description: "Smart Scheduler confirms with live availability" },
       { step: 3, label: "Intake Sent", description: "Patient completes intake form via WhatsApp" },
       { step: 4, label: "Reminders Fire", description: "24h and 1h reminders reduce no-shows" },
-      { step: 5, label: "Review Requested", description: "Post-visit review automation triggers" },
+      { step: 5, label: "Review Requested", description: "A review request goes out by itself" },
     ],
   },
   {
@@ -150,7 +150,7 @@ export const industries: Industry[] = [
     icon: "Car",
     headline: "More service bookings. More vehicle sales. Less missed follow-up.",
     subheadline:
-      "Automate inbound enquiries, service scheduling, and lead reactivation across your dealership or workshop.",
+      "Every enquiry answered, services booked and old leads brought back, for your dealership or workshop.",
     problems: [
       {
         title: "Missed inbound calls",
@@ -179,7 +179,7 @@ export const industries: Industry[] = [
     automationFlow: [
       { step: 1, label: "Enquiry Arrives", description: "Call or WhatsApp message received" },
       { step: 2, label: "AI Handles It", description: "Voice or WhatsApp AI qualifies and captures details" },
-      { step: 3, label: "Booking Confirmed", description: "Service or test drive booked automatically" },
+      { step: 3, label: "Booking Confirmed", description: "Service or test drive booked for you" },
       { step: 4, label: "Follow-Up Sequence", description: "Post-service follow-up and review request" },
     ],
   },
@@ -189,7 +189,7 @@ export const industries: Industry[] = [
     icon: "Wrench",
     headline: "Never miss a job enquiry again.",
     subheadline:
-      "Capture every lead, book every job, and follow up every quote automatically.",
+      "Every enquiry answered, every job booked and every quote followed up, without you chasing.",
     problems: [
       {
         title: "Leads lost after hours",
@@ -216,9 +216,9 @@ export const industries: Industry[] = [
     ],
     automationFlow: [
       { step: 1, label: "Client Calls or Messages", description: "AI answers immediately, captures job details" },
-      { step: 2, label: "Quote Follow-Up Triggered", description: "Automated sequence follows up after quote sent" },
+      { step: 2, label: "Quote Followed Up", description: "Friendly check-ins after the quote goes out" },
       { step: 3, label: "Job Booked", description: "Smart Scheduler confirms timing" },
-      { step: 4, label: "Review Requested", description: "Post-job review automation fires automatically" },
+      { step: 4, label: "Review Requested", description: "A review request goes out by itself" },
     ],
   },
   {
@@ -227,7 +227,7 @@ export const industries: Industry[] = [
     icon: "Dumbbell",
     headline: "Fill your classes. Reduce cancellations. Keep members longer.",
     subheadline:
-      "Automate membership enquiries, class bookings, and retention follow-up.",
+      "Membership questions answered, classes booked and quiet members checked in on, for you.",
     problems: [
       {
         title: "Slow membership enquiry response",
@@ -255,7 +255,7 @@ export const industries: Industry[] = [
     automationFlow: [
       { step: 1, label: "Enquiry Received", description: "WhatsApp AI responds instantly with membership info" },
       { step: 2, label: "Trial Booked", description: "Smart Scheduler books the free trial class" },
-      { step: 3, label: "Membership Follow-Up", description: "Automated sequence after trial to convert" },
+      { step: 3, label: "Membership Follow-Up", description: "Friendly check-ins after the trial" },
       { step: 4, label: "Retention Sequences", description: "Re-engagement for at-risk members" },
     ],
   },
@@ -265,7 +265,7 @@ export const industries: Industry[] = [
     icon: "Sparkles",
     headline: "Fully booked. Always followed up. Zero no-shows.",
     subheadline:
-      "Let your booking, reminders, and review system run automatically while you focus on clients.",
+      "Bookings, reminders and review requests done for you, while you focus on clients.",
     problems: [
       {
         title: "No-shows and last-minute cancellations",
@@ -303,7 +303,7 @@ export const industries: Industry[] = [
     icon: "UtensilsCrossed",
     headline: "More bookings. Better reviews. Guests that come back.",
     subheadline:
-      "Automate reservations, follow-up, and reviews so your front-of-house runs itself.",
+      "Bookings, follow-ups and reviews done for you, so your front of house can look after guests.",
     problems: [
       {
         title: "Manual reservation handling",
@@ -330,7 +330,7 @@ export const industries: Industry[] = [
     ],
     automationFlow: [
       { step: 1, label: "Guest Enquires", description: "WhatsApp AI handles reservation enquiries" },
-      { step: 2, label: "Booking Confirmed", description: "Reservation booked with automated confirmation" },
+      { step: 2, label: "Booking Confirmed", description: "Booking made and confirmed for you" },
       { step: 3, label: "Reminder Sent", description: "Day-before reminder reduces no-shows" },
       { step: 4, label: "Review Requested", description: "Post-visit WhatsApp message with review link" },
     ],
@@ -341,7 +341,7 @@ export const industries: Industry[] = [
     icon: "GraduationCap",
     headline: "More enrolments. Better retention. Less admin.",
     subheadline:
-      "Automate enquiry handling, session booking, and client follow-up for coaches and educators.",
+      "Enquiries answered, sessions booked and clients followed up, for coaches and teachers.",
     problems: [
       {
         title: "Slow response to course enquiries",
@@ -370,16 +370,16 @@ export const industries: Industry[] = [
       { step: 1, label: "Enquiry Received", description: "WhatsApp AI responds with course/service info" },
       { step: 2, label: "Session Booked", description: "Smart Scheduler confirms the booking" },
       { step: 3, label: "Intake Collected", description: "Background form sent and completed via WhatsApp" },
-      { step: 4, label: "Post-Session Follow-Up", description: "Resources and re-booking prompt sent automatically" },
+      { step: 4, label: "Post-Session Follow-Up", description: "Notes and a link to book again, sent for you" },
     ],
   },
   {
     slug: "ecommerce-product-businesses",
     name: "eCommerce & Product Businesses",
     icon: "ShoppingBag",
-    headline: "More conversions. Fewer abandoned carts. Stronger reviews.",
+    headline: "More sales. Fewer abandoned carts. Better reviews.",
     subheadline:
-      "Automate customer enquiries, post-purchase follow-up, and review collection at scale.",
+      "Customer questions answered, orders followed up and reviews asked for, however busy you get.",
     problems: [
       {
         title: "High website bounce rate",
@@ -408,7 +408,7 @@ export const industries: Industry[] = [
       { step: 1, label: "Visitor Arrives", description: "Website widget proactively engages after 20 seconds" },
       { step: 2, label: "Enquiry Captured", description: "Contact details collected before they leave" },
       { step: 3, label: "Purchase Follow-Up", description: "Post-purchase message confirms and upsells" },
-      { step: 4, label: "Review Requested", description: "Automated review request 48h after delivery" },
+      { step: 4, label: "Review Requested", description: "A review request goes out 2 days after delivery" },
     ],
   },
 ];

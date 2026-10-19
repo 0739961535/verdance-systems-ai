@@ -20,8 +20,8 @@ export function PageHero({
   lead,
   crumbs,
   visual,
-  primary = { href: GENERIC_BOOK_URL, label: "Get your free Operations Map" },
-  secondary = { href: SITE.whatsapp.href, label: "WhatsApp us", whatsapp: true },
+  primary = { href: GENERIC_BOOK_URL, label: "See what AI can do for you" },
+  secondary = { href: SITE.whatsapp.href, label: "Or WhatsApp us", whatsapp: true },
   note,
   wideVisual = false,
 }: {
@@ -73,7 +73,7 @@ export function PageHero({
             <p className="enter-rise mt-7 max-w-[36rem] text-[color:var(--color-ink-soft)]" style={{ fontSize: "clamp(1.0625rem, 0.4vw + 0.98rem, 1.25rem)", lineHeight: 1.6 }}>
               {lead}
             </p>
-            <div className="enter-fade-up mt-9 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: "0.12s" }}>
+            <div className="enter-fade-up mt-9 flex flex-col gap-3 sm:flex-row sm:items-center" style={{ animationDelay: "0.12s" }}>
               {external(primary.href) ? (
                 <a href={primary.href} data-magnetic className="btn btn-accent min-h-12 justify-center px-6">
                   {primary.label}
@@ -87,12 +87,12 @@ export function PageHero({
               )}
               {secondary &&
                 (external(secondary.href) ? (
-                  <a href={secondary.href} target="_blank" rel="noopener noreferrer" className="btn btn-ghost min-h-12 justify-center px-6">
+                  <a href={secondary.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center gap-2 px-4 text-[0.95rem] text-[color:var(--color-ink-muted)] hover:text-[color:var(--color-ink)]">
                     {secondary.whatsapp && <WhatsAppIcon className="h-4 w-4" />}
                     {secondary.label}
                   </a>
                 ) : (
-                  <Link href={secondary.href} className="btn btn-ghost min-h-12 justify-center px-6">
+                  <Link href={secondary.href} className="inline-flex min-h-12 items-center justify-center gap-2 px-4 text-[0.95rem] text-[color:var(--color-ink-muted)] hover:text-[color:var(--color-ink)]">
                     {secondary.label}
                   </Link>
                 ))}

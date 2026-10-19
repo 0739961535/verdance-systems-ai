@@ -45,8 +45,7 @@ export function ExampleChartsSection() {
       id="charts"
       className="section-pad bg-canvas-2"
       aria-labelledby="charts-title"
-      style={{ borderTop: "1px solid var(--hairline)" }}
-    >
+      >
       <div className="container-wide">
         <Reveal
           variant="wipe"
@@ -55,15 +54,15 @@ export function ExampleChartsSection() {
           <div className="max-w-3xl">
             <p className="eyebrow">What changes · example numbers</p>
             <h2 id="charts-title" className="h2 mt-5">
-              <SplitWords text="Seconds, not hours." />{" "}
+              <SplitWords text="Faster replies." />{" "}
               <span className="italic-accent">
-                <SplitWords text="Day and night." start={3} />
+                <SplitWords text="Even at night." start={2} />
               </span>
             </h2>
           </div>
           <p className="max-w-sm text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">
-            One example business, before and after. The figures are
-            illustrative. The reply inside 60 seconds is our promise.
+            One example business, before and after. These numbers are
+            examples, not results.
           </p>
         </Reveal>
 
@@ -72,26 +71,26 @@ export function ExampleChartsSection() {
             className={s.race}
             area={s.raceArea}
             kicker="Reply time"
-            title="The same enquiry, two replies."
-            foot="Example enquiry. With us, every reply goes out within 60 seconds, day or night."
+            title="The same message, two replies."
+            foot="Example. With us, the reply goes out in under a minute."
           >
             <RaceIsland />
           </Card>
           <Card
             className={s.funnel}
             area={s.funnelArea}
-            kicker="Pipeline"
-            title="Nothing falls out at the top."
-            foot="Example month. Every enquiry is answered, so the rest of the pipeline gets more to work with."
+            kicker="From message to customer"
+            title="Nobody gets missed at the start."
+            foot="Example month. Every message gets an answer, so more people reach the next step."
           >
             <FunnelIsland />
           </Card>
           <Card
             className={s.hours}
             area={s.hoursArea}
-            kicker="Enquiries by hour"
-            title="Evenings are when people ask. Now someone answers."
-            foot="Example day. Before: answered within the hour only while the office is open. With AI: every hour."
+            kicker="Messages by hour"
+            title="Lots of people ask at night. Now someone answers."
+            foot="Example day. Before: answers only in office hours. With AI: every hour."
           >
             <HoursIsland />
           </Card>

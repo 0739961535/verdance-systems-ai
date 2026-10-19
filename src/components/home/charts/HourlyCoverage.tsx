@@ -91,7 +91,7 @@ export default function HourlyCoverage() {
       <div
         className={s.plot}
         role="img"
-        aria-label={`Example day: ${TOTAL} enquiries. Before, ${BEFORE} answered within the hour, office hours only. With AI, all ${TOTAL}, including ${TOTAL - BEFORE} after hours.`}
+        aria-label={`Example day: ${TOTAL} messages. Before, ${BEFORE} answered within the hour, office hours only. With AI, all ${TOTAL}, including ${TOTAL - BEFORE} after hours.`}
         onMouseLeave={() => setHover(null)}
       >
         <span aria-hidden className={s.night} style={{ left: 0, width: `${(OFFICE_OPEN / 24) * 100}%` }}>

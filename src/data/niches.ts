@@ -73,7 +73,7 @@ export interface Niche {
 }
 
 const PROOF_LINE =
-  "Running today at a South African luxury home design and build studio: website, WhatsApp AI concierge, CRM pipeline and quote generator.";
+  "Running today at a South African luxury home design and build studio: a website, a WhatsApp assistant, one list of every client and job, and quotes made for them.";
 export const PROOF = PROOF_LINE;
 
 const PRE_AUDIT_FAQ = {
@@ -159,7 +159,7 @@ export const NICHES: Niche[] = [
         { key: "enquiries", label: "Enquiries a month", hint: "All channels: website, email, WhatsApp, Instagram and phone.", min: 1, max: 150, step: 1, initial: 20, format: "int" },
         { key: "slow", label: "Share that wait more than an hour for a reply", hint: "Evenings, weekends and busy event days count. Most venues guess low here.", min: 0, max: 100, step: 5, initial: 40, format: "pct" },
         { key: "viewing", label: "Of those, the share who would have booked a viewing", hint: "If they had heard back from you first.", min: 0, max: 100, step: 5, initial: 25, format: "pct" },
-        { key: "book", label: "Viewings that turn into a booking", hint: "Your own conversion from viewing to signed booking.", min: 0, max: 100, step: 5, initial: 25, format: "pct" },
+        { key: "book", label: "Viewings that turn into a booking", hint: "Out of every 100 viewings, how many usually book.", min: 0, max: 100, step: 5, initial: 25, format: "pct" },
         { key: "value", label: "Average booking value", hint: "Venue hire plus anything you sell with it, per event.", min: 5000, max: 300000, step: 5000, initial: 40000, format: "rand" },
       ],
       steps: ["slow replies a month", "viewings you could have had", "bookings a month"],
@@ -256,7 +256,7 @@ export const NICHES: Niche[] = [
       fields: [
         { key: "enquiries", label: "Enquiries a month, all departments", hint: "Weddings, rooms, conferences and functions together.", min: 5, max: 400, step: 5, initial: 40, format: "int" },
         { key: "slow", label: "Share that wait more than an hour for a reply", hint: "After hours, weekends and shift changes count.", min: 0, max: 100, step: 5, initial: 25, format: "pct" },
-        { key: "convert", label: "Share of those you would normally book", hint: "Your own conversion from enquiry to confirmed booking.", min: 0, max: 100, step: 5, initial: 10, format: "pct" },
+        { key: "convert", label: "Share of those you would normally book", hint: "Out of every 100 enquiries, how many usually book.", min: 0, max: 100, step: 5, initial: 10, format: "pct" },
         { key: "value", label: "Average booking value", hint: "A blend across departments: a wedding, a conference, a two-night stay.", min: 2000, max: 300000, step: 1000, initial: 20000, format: "rand" },
       ],
       steps: ["slow replies a month", "bookings a month"],

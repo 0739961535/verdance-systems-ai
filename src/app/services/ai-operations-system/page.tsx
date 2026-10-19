@@ -58,19 +58,6 @@ function SectionHead({ eyebrow, title, lead, id }: { eyebrow: string; title: Rea
   );
 }
 
-/** The one CTA a content section gets: ghost, full width on phones, plus the microcopy line. */
-function SectionCTA() {
-  return (
-    <div className="mt-[var(--space-cta)] flex flex-col items-start gap-3">
-      <a href={GENERIC_BOOK_URL} className="btn btn-ghost min-h-[52px] w-full justify-center px-6 sm:w-auto">
-        {CTA_LABEL}
-        <ArrowUpRight size={16} aria-hidden />
-      </a>
-      <p className="font-mono text-[0.75rem] text-[color:var(--color-ink-muted)]">{CTA_MICRO}</p>
-    </div>
-  );
-}
-
 export default function AiOperationsTeamPage() {
   return (
     <>
@@ -82,13 +69,13 @@ export default function AiOperationsTeamPage() {
         <div className="container-wide relative pt-28 pb-[var(--space-section)] sm:pt-32 md:pt-40">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
             <div>
-              <p className="enter-fade-up eyebrow">Private operations team</p>
+              <p className="enter-fade-up eyebrow">Ashford&apos;s Staff</p>
               <h1
                 id="ai-hero-title"
                 className="enter-rise mt-6 max-w-[18ch] font-display text-[color:var(--color-ink)]"
                 style={{ fontSize: "clamp(2.4rem, 3.9vw + 1rem, 5.25rem)", lineHeight: 1, letterSpacing: "-0.045em" }}
               >
-                Ashford&apos;s Staff. A <span className="italic-accent">private</span> team that runs the business alongside you.
+                Your own <span className="italic-accent">AI team.</span> It does the work. You make the calls.
               </h1>
             </div>
             <div className="enter-fade-up" style={{ animationDelay: "0.12s" }}>
@@ -130,10 +117,10 @@ export default function AiOperationsTeamPage() {
             eyebrow="How it is organised"
             title={
               <>
-                Built like a real team. <span className="italic-accent">You</span> at the top.
+                Built like a real team. <span className="italic-accent">You</span> are the boss.
               </>
             }
-            lead="Every piece of work makes the same four stops you saw in the sample above. Nothing skips the queue."
+            lead="Every job goes through the same four steps you saw above. Nothing skips a step."
           />
           <Reveal className="mt-[var(--space-head)]">
             <FlowDiagram />
@@ -143,9 +130,8 @@ export default function AiOperationsTeamPage() {
             <OrgChart />
           </Reveal>
           <p className="mt-[var(--space-block)] max-w-[62ch] text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink)]">
-            Ashford is the system underneath. We run our own company on it.
+            Ashford is the system underneath. We run our own company on it too.
           </p>
-          <SectionCTA />
         </div>
       </section>
 
@@ -157,10 +143,10 @@ export default function AiOperationsTeamPage() {
             eyebrow="What it does"
             title={
               <>
-                The work that eats your week, <span className="italic-accent">handled.</span>
+                The jobs that eat your week, <span className="italic-accent">done.</span>
               </>
             }
-            lead="Named jobs, done the same way every day. Your team keeps the work that needs a person."
+            lead="The same jobs, done the same way every day. Your people keep the work that needs a person."
           />
           <ul className="mt-[var(--space-head)] grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
             {CAPABILITIES.map((c, i) => (
@@ -175,7 +161,6 @@ export default function AiOperationsTeamPage() {
               </li>
             ))}
           </ul>
-          <SectionCTA />
         </div>
       </section>
 
@@ -190,7 +175,7 @@ export default function AiOperationsTeamPage() {
                 It drafts. It prepares. <span className="italic-accent">You decide.</span>
               </>
             }
-            lead="Your customers only hear what you have signed off."
+            lead="Your customers only hear what you have said yes to."
           />
           <ul
             className="mt-[var(--space-head)] grid gap-px overflow-hidden rounded-[22px] sm:grid-cols-2 lg:grid-cols-4"
@@ -208,7 +193,6 @@ export default function AiOperationsTeamPage() {
               </li>
             ))}
           </ul>
-          <SectionCTA />
         </div>
       </section>
 
@@ -223,16 +207,16 @@ export default function AiOperationsTeamPage() {
       <section id="audit" className="section-pad bg-canvas-2" aria-labelledby="ai-cta-title" style={{ ...BAND, scrollMarginTop: "5rem" }}>
         <div className="container-narrow md:text-center">
           <Reveal>
-            <p className="eyebrow">Free Operations Map</p>
+            <p className="eyebrow">Free Operations Map · 30 minutes</p>
             <h2
               id="ai-cta-title"
               className="mt-6 font-display text-[color:var(--color-ink)] md:mx-auto md:max-w-[18ch]"
               style={{ fontSize: "clamp(2.25rem, 4vw + 1rem, 4.5rem)", lineHeight: 1, letterSpacing: "-0.045em" }}
             >
-              See what your team <span className="italic-accent">would</span> take off you.
+              See what AI can do <span className="italic-accent">for you.</span>
             </h2>
             <p className="mt-6 text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)] md:mx-auto md:max-w-[52ch]">
-              We map where your hours and enquiries leak, in your own numbers. You keep the map, and you get a fixed quote only if it pays for itself.
+              A free 30-minute call. We look at how your business runs and show you which jobs your AI team could take off you.
             </p>
             <div className="mt-[var(--space-cta)] flex flex-col gap-3 md:items-center">
               <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent min-h-[52px] w-full justify-center px-7 sm:w-auto">

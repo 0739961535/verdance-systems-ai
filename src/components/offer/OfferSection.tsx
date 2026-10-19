@@ -60,7 +60,7 @@ export function OfferSection({ id = "offer", href = GENERIC_BOOK_URL }: { id?: s
               </figure>
               <div className="mt-auto pt-8">
                 <a href={href} className="btn btn-accent min-h-12 w-full justify-center sm:w-auto">
-                  Get your free Operations Map
+                  See what AI can do for you
                   <ArrowUpRight size={16} aria-hidden />
                 </a>
                 <p className="mt-3 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">Free · 30 minutes · yours to keep</p>

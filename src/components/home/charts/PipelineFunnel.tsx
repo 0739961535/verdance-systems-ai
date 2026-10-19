@@ -44,7 +44,7 @@ export default function PipelineFunnel() {
       </div>
       <ol
         className="mt-2 grid grid-cols-5 gap-[5px]"
-        aria-label="Example pipeline stages"
+        aria-label="Example: from message to customer"
       >
         {PIPELINE.map((p) => (
           <li

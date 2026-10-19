@@ -3,16 +3,15 @@ import { Reveal } from "@/components/primitives/Reveal";
 import { PageHero } from "@/components/kit/PageHero";
 import { SectionHead } from "@/components/kit/SectionHead";
 import { CTABand } from "@/components/kit/CTABand";
-import { OfferSection } from "@/components/offer/OfferSection";
 import { AuditReport } from "@/components/visuals/hero/AuditReport";
 import { FAQControl } from "@/components/sections/v4/FAQControl";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
-import { SITE_URL } from "@/data/site";
+import { CTA_PRIMARY, SITE_URL } from "@/data/site";
 
-const TITLE = "The free Operations Map | 30 minutes, fixed quote after | Verdance Systems AI";
+const TITLE = "The free Operations Map | See what AI can do for your business | Verdance Systems AI";
 const DESCRIPTION =
-  "The free Operations Map: 30 minutes on where your time and money leak, in rand and hours. Your reply times on each channel, what slow replies cost you, and what to fix first.";
+  "A free 30-minute call. We look at how your business runs and show you where AI can save you time and money, and what to fix first.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -22,22 +21,22 @@ export const metadata: Metadata = {
 };
 
 const GET = [
-  { t: "Your reply times, channel by channel", b: "Website forms, WhatsApp, social messages and missed calls, timed and written down." },
-  { t: "What it is likely costing you", b: "Worked out from your own enquiries and what a customer is worth to you, in your own currency." },
-  { t: "What to fix first, second and third", b: "A short list in order. It is yours to keep whether or not we work together." },
-  { t: "A fixed quote, if you want us to build", b: "Agreed in writing before any work starts. The price on the quote is the price you pay." },
+  { t: "Where your time goes", b: "Which jobs take the most hours each week, and which ones AI can do for you." },
+  { t: "How fast you reply", b: "How long customers wait on WhatsApp, email, calls and your website." },
+  { t: "What to fix first", b: "A short list, in order. It is yours to keep, even if we never work together." },
+  { t: "A fixed price, if you want it", b: "In writing, before any work starts. The price you see is the price you pay." },
 ];
 
 const STEPS = [
   { n: "01", t: "Book a time", b: "Pick a slot that suits you. It takes a minute." },
-  { n: "02", t: "Thirty minutes on a call", b: "We walk through how enquiries reach you and what happens to them." },
-  { n: "03", t: "You get the plan", b: "Your numbers, what to fix first, and a fixed quote if you want one." },
+  { n: "02", t: "A 30-minute call", b: "We look at how your business runs and how customers reach you." },
+  { n: "03", t: "You get the plan", b: "Your numbers, what to fix first, and a fixed price if you want one." },
 ];
 
 const FAQS = [
   { q: "Is it really free?", a: "Yes. There is nothing to sign and no obligation. The plan is yours to keep either way." },
-  { q: "Do I need to prepare anything?", a: "No. It helps to know roughly how many enquiries you get a week and what a customer is worth to you, but we can work it out together." },
-  { q: "What happens after the call?", a: "You get the plan in writing. If you want us to build it, you get a fixed quote and a fixed launch date. If not, that is the end of it." },
+  { q: "Do I need to prepare anything?", a: "No. It helps to know roughly how many messages you get a week and what a customer is worth to you. We can work it out together." },
+  { q: "What happens after the call?", a: "You get the plan in writing. If you want us to build it, you get a fixed price and a start date. If not, that is the end of it." },
 ];
 
 export default function AuditPage() {
@@ -47,13 +46,13 @@ export default function AuditPage() {
         eyebrow="The Operations Map · free · 30 minutes"
         title={
           <>
-            See where your time and money <span className="italic-accent">leak.</span>
+            See what AI can do <span className="italic-accent">for your business.</span>
           </>
         }
-        lead="Thirty minutes on a video call. You leave knowing your reply times on every channel, what slow replies are likely costing you, and what to fix first."
+        lead="A free 30-minute video call. We look at how your business runs and show you where AI can save you time and money."
         crumbs={[{ href: "/", label: "Home" }, { label: "Operations Map" }]}
         visual={<AuditReport />}
-        note="Free · nothing to sign · fixed quote after"
+        note="Free · 30 minutes · nothing to sign"
       />
 
       <section className="section-pad bg-canvas-2" aria-labelledby="get-title" style={{ borderTop: "1px solid var(--hairline)" }}>
@@ -114,9 +113,8 @@ export default function AuditPage() {
       </section>
 
       <FAQControl faqs={FAQS} />
-      <OfferSection />
       <CTABand />
-      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Get your free Operations Map" />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label={CTA_PRIMARY} />
     </>
   );
 }

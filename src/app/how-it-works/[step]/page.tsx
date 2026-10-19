@@ -202,7 +202,7 @@ export default async function ProcessStepPage({
           </>
         }
       />
-      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Get your free Operations Map" />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="See what AI can do for you" />
     </>
   );
 }

@@ -126,7 +126,7 @@ export function Footer() {
                 className="btn btn-outline w-full justify-center text-sm sm:w-auto"
                 style={{ minHeight: 52 }}
               >
-                Get your free Operations Map
+                See what AI can do for you
                 <ArrowUpRight size={16} strokeWidth={1.5} aria-hidden />
               </a>
               <span className="font-mono text-xs text-[color:var(--color-ink-muted)]">

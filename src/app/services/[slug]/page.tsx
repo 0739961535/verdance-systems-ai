@@ -92,7 +92,7 @@ export default async function ServiceCategoryPage({
             parts={category.subProducts.map((sp) => ({ name: sp.name, steps: sp.howItWorks }))}
           />
         }
-        note="Fixed quote after your free Operations Map"
+        note="Free 30-minute call · nothing to sign"
       />
 
       {/* WHAT YOU GET + BEST FOR */}
@@ -130,7 +130,7 @@ export default async function ServiceCategoryPage({
                 {category.bestFor}
               </p>
               <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent mt-7 min-h-12">
-                Get your free Operations Map
+                See what AI can do for you
                 <ArrowUpRight size={16} aria-hidden />
               </a>
               <p className="mt-4 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)]">Fixed quote after the Operations Map</p>
@@ -198,7 +198,7 @@ export default async function ServiceCategoryPage({
                 {category.outcome}
               </p>
               <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent mt-8 min-h-12">
-                Get your free Operations Map
+                See what AI can do for you
                 <ArrowUpRight size={16} aria-hidden />
               </a>
             </div>
@@ -241,7 +241,7 @@ export default async function ServiceCategoryPage({
       )}
 
       <CTABand />
-      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Get your free Operations Map" />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="See what AI can do for you" />
     </>
   );
 }

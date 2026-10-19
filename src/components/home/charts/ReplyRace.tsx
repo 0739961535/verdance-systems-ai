@@ -79,7 +79,7 @@ export default function ReplyRace() {
                 <Check size={13} strokeWidth={2.4} aria-hidden /> Replied. {RACE.after.note}
               </motion.span>
             ) : (
-              "Enquiry lands"
+              "Message comes in"
             )}
           </p>
         </div>
