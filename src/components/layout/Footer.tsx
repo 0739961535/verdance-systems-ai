@@ -190,7 +190,7 @@ export function Footer() {
           style={{ borderColor: "var(--color-hairline)" }}
         >
           <p>
-            © {year} {SITE.name}
+            © {year} {SITE.name}. Registered in South Africa, registration number {SITE.regNumber}.
           </p>
           <p>Built in South Africa. Your data stays in accounts you own. POPIA-ready.</p>
         </div>

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { clientIp, clip, tooMany } from "@/lib/api-guard";
 
 /**
  * /api/vsl-submit
@@ -103,24 +104,29 @@ export async function POST(req: Request) {
     return bad("Server not configured.", 500);
   }
 
+  if (tooMany(`vsl:${clientIp(req)}`, 8, 10 * 60_000)) {
+    return bad("Too many submissions. Please try again in a few minutes.", 429);
+  }
+
   let body: Payload;
   try {
     body = (await req.json()) as Payload;
   } catch {
     return bad("Invalid JSON body.");
   }
+  if (!body || typeof body !== "object") return bad("Invalid JSON body.");
 
-  const {
-    firstName = "",
-    businessName = "",
-    industry = "",
-    leadVolume = "",
-    pains = [],
-    urgency = "",
-    email = "",
-    phone = "",
-    notes = "",
-  } = body;
+  // Everything is coerced to a capped string: the body is untrusted, and the
+  // values end up in the CRM and in a note.
+  const firstName = clip(body.firstName, 80);
+  const businessName = clip(body.businessName, 160);
+  const industry = clip(body.industry, 80);
+  const leadVolume = clip(body.leadVolume, 80);
+  const pains = (Array.isArray(body.pains) ? body.pains : []).slice(0, 12).map((p) => clip(p, 80)).filter(Boolean);
+  const urgency = clip(body.urgency, 80);
+  const email = clip(body.email, 160);
+  const phone = clip(body.phone, 40);
+  const notes = clip(body.notes, 2000);
 
   // ── Validate required fields ──────────────────────────────────
   const required: Array<[string, string]> = [
@@ -217,11 +223,7 @@ export async function POST(req: Request) {
           await updateContactTags(found, token, tags, customFields);
         } else {
           return NextResponse.json(
-            {
-              ok: false,
-              error: "Could not create contact",
-              detail: parsed.message || raw.slice(0, 200),
-            },
+            { ok: false, error: "Could not create contact" },
             { status: 502 }
           );
         }

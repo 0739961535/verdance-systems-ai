@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { clientIp, clip, tooMany } from "@/lib/api-guard";
 
 /**
  * POST /api/booking/book
@@ -16,19 +17,28 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "booking_unavailable" }, { status: 503 });
   }
 
-  let body: { name?: string; email?: string; phone?: string; slot?: string };
+  if (tooMany(`book:${clientIp(req)}`, 5, 10 * 60_000)) {
+    return NextResponse.json({ error: "too_many_requests" }, { status: 429 });
+  }
+
+  let body: { name?: unknown; email?: unknown; phone?: unknown; slot?: unknown };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "invalid_request" }, { status: 400 });
   }
+  if (!body || typeof body !== "object") return NextResponse.json({ error: "invalid_request" }, { status: 400 });
 
-  const name = (body.name || "").trim().slice(0, 120);
-  const email = (body.email || "").trim().slice(0, 160);
-  const phone = (body.phone || "").trim().slice(0, 40);
-  const slot = (body.slot || "").trim();
+  const name = clip(body.name, 120);
+  const email = clip(body.email, 160);
+  const phone = clip(body.phone, 40);
+  const slot = clip(body.slot, 40);
 
-  if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || !/^\d{4}-\d{2}-\d{2}T/.test(slot)) {
+  // The slot must be a real timestamp in the window the calendar offers
+  // (now to 15 days ahead), not any string that starts like a date.
+  const slotMs = Date.parse(slot);
+  const validSlot = /^\d{4}-\d{2}-\d{2}T/.test(slot) && Number.isFinite(slotMs) && slotMs > Date.now() && slotMs < Date.now() + 15 * 86_400_000;
+  if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || !validSlot) {
     return NextResponse.json({ error: "invalid_request" }, { status: 400 });
   }
 
