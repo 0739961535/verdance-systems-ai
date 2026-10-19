@@ -93,7 +93,7 @@ export function BuiltForUs() {
   return (
     <section className="py-20 md:py-28" style={{ background: C.bg, color: C.ink }} aria-labelledby="ours-title">
       <div className="container-wide grid gap-10 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-16">
-        <div>
+        <div data-reveal="">
           <p className="text-[0.8125rem] font-medium uppercase tracking-[0.14em]" style={{ color: C.accent }}>
             Built for our own business
           </p>
@@ -123,7 +123,9 @@ export function BuiltForUs() {
             <ArrowRight size={16} aria-hidden />
           </Link>
         </div>
-        <CommandPanel />
+        <div data-reveal="" style={{ ["--reveal-delay" as string]: "0.08s" }}>
+          <CommandPanel />
+        </div>
       </div>
     </section>
   );

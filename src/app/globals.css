@@ -2405,3 +2405,19 @@ html.js .laptop[data-ssr] .wa-stack > * { opacity: 1; animation: none; }
 
 /* nothing under 12px (accessibility pass, v8) */
 .lp-time, .lp-channel, .lp-status { font-size: max(12px, 0.75em); }
+
+/* ============================================================
+   ONE ENTRANCE (v8): every reveal is the same quiet rise, once:
+   opacity and 16px, 600ms, ease-out. No wipes, scales or per-word
+   stagger. Never on the film. Reduced motion: nothing is hidden.
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal][data-armed], [data-reveal="wipe"][data-armed], [data-reveal="scale"][data-armed], [data-reveal="wipe"][data-armed]:has(.sw) {
+    transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0s), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0s);
+  }
+  [data-reveal][data-armed]:not([data-revealed]), [data-reveal="wipe"][data-armed]:not([data-revealed]), [data-reveal="scale"][data-armed]:not([data-revealed]) {
+    opacity: 0; transform: translate3d(0, 16px, 0);
+  }
+  [data-reveal][data-armed] .sw { transition: none; }
+  [data-reveal][data-armed]:not([data-revealed]) .sw { opacity: 1; transform: none; }
+}

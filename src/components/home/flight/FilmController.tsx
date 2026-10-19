@@ -183,23 +183,35 @@ export function FilmController() {
       }
       return null;
     };
-    const draw = () => {
-      const hit = nearestBitmap(target);
-      if (!hit || (hit.at === drawn && drawnGen === generation && drawnOff === offset) || !cw) return;
-      const { bmp } = hit;
+    // frame blending: the file just before the film position, and the next
+    // one laid over it with alpha by how far between them we are, so
+    // scrubbing reads as continuous video even with few phone frames
+    let blend = 0;
+    let drawnBlend = -1;
+    const place = (bmp: Frame) => {
       const { w, h } = frameSize(bmp);
       // cover-fit, held on the rocket horizontally
       const s = Math.max(cw / w, ch / h);
       const dw = w * s, dh = h * s;
       const dx = Math.min(0, Math.max(cw - dw, cw / 2 - set.focusX * dw));
-      // phones: on the pad the film sits a little lower so the nose clears
-      // the header; the band above is the sky's own colour (its top-left
-      // corner, stretched)
-      const off = offset * dpr;
-      const dy = (ch - dh) / 2 + off;
-      if (dy > 0) ctx.drawImage(bmp, 0, 0, Math.max(1, Math.round(w * 0.05)), 2, 0, 0, cw, Math.ceil(dy) + 1);
+      const dy = (ch - dh) / 2 + offset * dpr;
       ctx.drawImage(bmp, dx, dy, dw, dh);
+    };
+    const draw = () => {
+      const hit = nearestBitmap(target);
+      if (!hit || !cw) return;
+      const next = hit.at === target ? bitmaps.get(target + 1) : undefined;
+      const a = next ? Math.round(blend * 20) / 20 : 0;
+      if (hit.at === drawn && drawnGen === generation && drawnOff === offset && a === drawnBlend) return;
+      ctx.globalAlpha = 1;
+      place(hit.bmp);
+      if (next && a > 0) {
+        ctx.globalAlpha = a;
+        place(next);
+        ctx.globalAlpha = 1;
+      }
       drawnOff = offset;
+      drawnBlend = a;
       drawn = hit.at;
       drawnGen = generation;
       if (!root.hasAttribute("data-film")) root.setAttribute("data-film", "");
@@ -292,7 +304,12 @@ export function FilmController() {
     const update = (p: number) => {
       // scroll is linear in film time; the file is the nearest one to it.
       // The film ends at FILM_END and its last frame holds after that.
-      const f = fileFor(set, clamp01(p / FILM_END) * LAST);
+      const pos = clamp01(p / FILM_END) * LAST;
+      // the file at or just before the position, and how far to the next
+      let f = fileFor(set, pos);
+      if (set.frames[f] > pos && f > 0) f--;
+      const nextSrc = set.frames[f + 1];
+      blend = nextSrc !== undefined ? clamp01((pos - set.frames[f]) / (nextSrc - set.frames[f])) : 0;
       if (f !== target) {
         target = f;
         pump();

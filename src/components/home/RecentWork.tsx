@@ -113,7 +113,7 @@ export function RecentWork() {
   return (
     <section className="bg-canvas-2 pt-20 pb-12 md:pt-28 md:pb-16" aria-labelledby="work-title">
       <div className="container-wide">
-        <div className="max-w-3xl">
+        <div className="max-w-3xl" data-reveal="">
           <p className="eyebrow">Recent work</p>
           <h2 id="work-title" className="h2 mt-5">
             Built and running for South African businesses.
@@ -125,7 +125,7 @@ export function RecentWork() {
 
         <ul className="mt-12 grid gap-6 md:mt-16 md:gap-8">
           <li>
-            <article className={CARD} aria-labelledby="work-studio">
+            <article className={CARD} aria-labelledby="work-studio" data-reveal="">
               <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr] lg:items-center lg:gap-14">
                 <div className="sm:pb-8">
                   <StudioVisual />
@@ -152,7 +152,7 @@ export function RecentWork() {
           </li>
 
           <li>
-            <article className={CARD} aria-labelledby="work-ecom">
+            <article className={CARD} aria-labelledby="work-ecom" data-reveal="">
               <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr] lg:items-center lg:gap-14">
                 <ChatVisual />
                 <div>

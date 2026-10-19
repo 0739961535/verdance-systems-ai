@@ -79,7 +79,7 @@ export function OurWorkSlider() {
         </div>
         <div className="mt-5 ow-scroller" role="region" aria-label="Our own demos" tabIndex={0}>
           {SLIDES.map((s, i) => (
-            <figure key={s.key} className="ow-slide m-0" aria-label={`${i + 1} of ${SLIDES.length}: ${s.title}`}>
+            <figure key={s.key} data-reveal="" className="ow-slide m-0" aria-label={`${i + 1} of ${SLIDES.length}: ${s.title}`}>
               <div className="overflow-hidden rounded-[14px] border border-[color:var(--hairline-2)] bg-[#141414]">
                 <Shot img={s.img} alt={s.alt} />
               </div>

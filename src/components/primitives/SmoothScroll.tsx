@@ -8,8 +8,8 @@ import { useEffect } from "react";
  * Lenis is skipped entirely (not even downloaded) under reduced motion, on
  * touch devices and below 1024px: native momentum scrolling is already
  * smooth there, and Lenis intercepting touch can strand iOS Safari users.
- * Nothing on the site pins or scrubs with GSAP any more (the stories use
- * CSS sticky + IntersectionObserver), so Lenis runs on its own rAF loop.
+ * The home film scrubs with GSAP ScrollTrigger, so Lenis runs on GSAP's
+ * ticker and updates ScrollTrigger on every scroll.
  */
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
@@ -21,28 +21,34 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     if (reduce || isTouchDevice || isNarrow) return;
 
     let cancelled = false;
-    let rafId = 0;
     let destroy = () => {};
 
-    import("lenis").then(({ default: Lenis }) => {
-      if (cancelled) return;
-      const lenis = new Lenis({
-        duration: 1.15,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smoothWheel: true,
-        wheelMultiplier: 1,
-      });
-      const loop = (time: number) => {
-        lenis.raf(time);
-        rafId = requestAnimationFrame(loop);
-      };
-      rafId = requestAnimationFrame(loop);
-      destroy = () => lenis.destroy();
-    });
+    // Lenis driven by GSAP's ticker and feeding ScrollTrigger, per the
+    // official integration, so the scrubbed film and smooth scroll share one
+    // clock (no double rAF, no drift).
+    Promise.all([import("lenis"), import("gsap"), import("gsap/ScrollTrigger")]).then(
+      ([{ default: Lenis }, { gsap }, { ScrollTrigger }]) => {
+        if (cancelled) return;
+        gsap.registerPlugin(ScrollTrigger);
+        const lenis = new Lenis({
+          duration: 1.15,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          wheelMultiplier: 1,
+        });
+        lenis.on("scroll", ScrollTrigger.update);
+        const tick = (time: number) => lenis.raf(time * 1000);
+        gsap.ticker.add(tick);
+        gsap.ticker.lagSmoothing(0);
+        destroy = () => {
+          gsap.ticker.remove(tick);
+          lenis.destroy();
+        };
+      },
+    );
 
     return () => {
       cancelled = true;
-      cancelAnimationFrame(rafId);
       destroy();
     };
   }, []);
