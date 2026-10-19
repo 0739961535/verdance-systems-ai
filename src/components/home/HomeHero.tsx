@@ -5,6 +5,8 @@ import { GENERIC_BOOK_URL } from "@/data/niches";
 import { HOME_ROTATION } from "@/data/conversations";
 import { LaptopInbox } from "@/components/device/LaptopInbox";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
+import { HeroCounterCard } from "./hero/HeroCounterCard";
+import { LazyHeroSignal } from "./hero/LazyHeroSignal";
 
 /**
  * HomeHero - the claim, and the thing itself doing the work.
@@ -13,6 +15,11 @@ import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
  * a short CSS entrance, and nothing it depends on waits for JavaScript. The
  * phone is a fixed-size box (no layout shift) that only starts playing after
  * the page has loaded. Mobile first: the phone sits under the copy.
+ *
+ * Signature moment: channel chips around the laptop send example enquiries
+ * into the inbox and an example counter ticks as each one is answered
+ * (HeroSignal, loaded after the page has loaded; the counter card itself is
+ * server-rendered so its space is reserved from the first paint).
  */
 export function HomeHero() {
   return (
@@ -45,7 +52,7 @@ export function HomeHero() {
                 animationDuration: "0.7s",
               }}
             >
-              Every enquiry answered in <span className="italic-accent">60 seconds.</span>
+              Every enquiry answered in <span className="italic-accent accent-sheen">60 seconds.</span>
             </h1>
 
             <p
@@ -82,8 +89,10 @@ export function HomeHero() {
           </div>
 
           <div className="enter-fade min-w-0 lg:order-first" style={{ animationDelay: "0.35s" }}>
-            <div data-parallax="-0.05">
+            <div data-parallax="-0.05" className="hs-stage">
+              <HeroCounterCard />
               <LaptopInbox rotation={HOME_ROTATION} />
+              <LazyHeroSignal />
             </div>
           </div>
         </div>

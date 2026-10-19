@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { AnimatePresence, MotionConfig, motion, type Transition } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion, type Transition } from "motion/react";
 import { Check } from "lucide-react";
 import { useReducedMotionPref } from "@/lib/useReducedMotionPref";
 import { CHANNELS, addSecs, type Channel } from "./channels";
@@ -38,9 +38,11 @@ type State = { entries: Entry[]; phase: number; advances: number; auto: boolean;
 const SEED: Entry[] = [HOME, 1, 0, 6, 5].map((ch, i) => ({ id: -1 - i, ch }));
 const INITIAL: State = { entries: SEED, phase: FINAL, advances: 0, auto: true, nextId: 1 };
 
-const EASE_OUT: Transition["ease"] = [0.16, 1, 0.3, 1];
-const T_BASE: Transition = { duration: 0.32, ease: EASE_OUT };
-const T_FLY: Transition = { duration: 0.56, ease: EASE_OUT };
+// Springs, not tweens: rows settle with a little weight, and the channel
+// mark overshoots a touch as it lands in the inbox.
+const T_BASE: Transition = { type: "spring", visualDuration: 0.38, bounce: 0.14 };
+const T_FLY: Transition = { type: "spring", visualDuration: 0.62, bounce: 0.28 };
+const T_SEL: Transition = { type: "spring", visualDuration: 0.45, bounce: 0.18 };
 
 const tint = (c: Channel) => ({ ["--tint" as string]: c.tint }) as CSSProperties;
 
@@ -198,11 +200,14 @@ export function UnifiedInbox() {
                         layout
                         className={s.row}
                         data-on={e.id === featured.id ? "" : undefined}
-                        initial={{ opacity: 0, y: -12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, transition: { duration: 0.16 } }}
+                        initial={{ opacity: 0, y: -14, scale: 0.97 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.16 } }}
                         transition={T_BASE}
                       >
+                        {e.id === featured.id && (
+                          <motion.span layoutId="inbox-selected" className={s.sel} transition={T_SEL} aria-hidden />
+                        )}
                         <motion.span layoutId={`pk-${e.id}`} className="inline-grid" transition={{ layout: T_FLY }}>
                           <Mark c={c} />
                         </motion.span>

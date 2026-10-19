@@ -1638,3 +1638,246 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 .seal-corner.bl { bottom: 10px; left: 10px; border-bottom-width: 1px; border-left-width: 1px; }
 .seal-corner.br { bottom: 10px; right: 10px; border-bottom-width: 1px; border-right-width: 1px; }
 .offer-sheet { box-shadow: var(--shadow-card), 0 0 0 1px rgba(var(--accent-rgb), 0.04); }
+
+/* ============================================================
+   MOTION UPGRADE (Oct 2026)
+   ============================================================ */
+
+/* Hero accent: a slow sweep of brighter light through "60 seconds."
+   The text is painted from the first frame (the gradient includes the
+   accent colour), so the LCP is unaffected. */
+.accent-sheen {
+  background-image: linear-gradient(100deg, var(--highlight) 0%, var(--highlight) 38%, var(--accent-bright) 50%, var(--highlight) 62%, var(--highlight) 100%);
+  background-size: 260% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-right: 0.12em;
+  margin-right: -0.08em;
+  animation: accent-sheen 7s var(--ease-inout, ease-in-out) 1.2s infinite;
+}
+@keyframes accent-sheen {
+  0% { background-position: 100% 0; }
+  28%, 100% { background-position: 0% 0; }
+}
+
+/* Staggered headings: words rise in one after another as the heading's
+   reveal fires. Only ever hidden once RevealObserver has armed the block
+   (below the fold, JS running, motion allowed). */
+.sw { display: inline-block; }
+[data-reveal][data-armed] .sw {
+  transition:
+    transform 0.9s var(--ease-out) calc(var(--reveal-delay, 0s) + var(--i, 0) * 45ms),
+    opacity 0.7s var(--ease-out) calc(var(--reveal-delay, 0s) + var(--i, 0) * 45ms);
+}
+[data-reveal][data-armed]:not([data-revealed]) .sw {
+  opacity: 0;
+  transform: translate3d(0, 0.5em, 0) rotate(1.5deg);
+}
+[data-reveal="wipe"][data-armed]:has(.sw) { transition: transform 1s var(--ease-out) var(--reveal-delay, 0s), opacity 0.3s linear var(--reveal-delay, 0s); }
+
+/* Magnetic buttons: the rAF loop in Interactions owns the transform while
+   the pointer is near, so the CSS transform transition steps aside. */
+[data-magnetic].mag-on { transition-property: box-shadow, background, color, border-color; }
+[data-magnetic] > svg { transform: translate3d(var(--mag-x, 0), var(--mag-y, 0), 0); transition: transform 0.5s var(--ease-out); }
+[data-magnetic].mag-on > svg { transition: none; }
+
+/* Page transitions: hairline of accent light across the top. */
+.route-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, var(--accent-bright) 30%, var(--accent) 70%, transparent);
+  box-shadow: 0 0 12px rgba(var(--accent-glow-rgb), 0.7);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accent-sheen { animation: none; background-position: 50% 0; }
+  [data-reveal][data-armed]:not([data-revealed]) .sw { opacity: 1; transform: none; }
+  .route-line { display: none; }
+}
+
+/* ============================================================
+   HERO SIGNAL (in globals so it ships in the main stylesheet,
+   not as an extra render-blocking CSS file)
+   ============================================================ */
+
+
+.hs-stage { position: relative; }
+
+/* ---------- counter card (server-rendered, updated in place) ---------- */
+.hs-card {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 0.85rem;
+  row-gap: 0.2rem;
+  margin: 0 auto 1rem;
+  width: 92%;
+  max-width: 44rem;
+  padding: 0.7rem 0.95rem;
+  border-radius: 16px;
+  background: var(--bg-glass);
+  border: 1px solid var(--hairline-glow);
+  box-shadow: var(--shadow-card), 0 0 0 1px rgba(var(--accent-rgb), 0.04), 0 18px 50px -20px rgba(var(--accent-glow-rgb), 0.45);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  min-height: 4.25rem;
+}
+@media (min-width: 1024px) {
+  .hs-card {
+    position: absolute;
+    right: 2%;
+    top: -4.4rem;
+    margin: 0;
+    width: auto;
+    min-width: 19.5rem;
+  }
+}
+
+.hs-count {
+  grid-row: span 2;
+  font-family: var(--font-display, inherit);
+  font-size: 2.1rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  min-width: 3ch;
+}
+.hs-count-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+  line-height: 1.2;
+}
+.hs-example {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  border: 1px solid var(--hairline-2);
+  border-radius: 999px;
+  padding: 0.12rem 0.45rem;
+  white-space: nowrap;
+}
+.hs-status {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 1.1rem;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--signal-ink);
+}
+.hs-live-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--signal);
+  box-shadow: 0 0 0 0 rgba(61, 214, 140, 0.5);
+  animation: hs-live 2s var(--ease-out) infinite;
+}
+@keyframes hs-live {
+  0% { box-shadow: 0 0 0 0 rgba(61, 214, 140, 0.55); }
+  80%, 100% { box-shadow: 0 0 0 7px rgba(61, 214, 140, 0); }
+}
+/* The server text stays until the live loader mounts into the slot. */
+.hs-status-slot[data-live] > .hs-status-static { display: none; }
+.hs-status-static { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+
+.hs-bump { display: inline-block; }
+
+/* ---------- overlay (client, lazy) ---------- */
+.hs-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  /* own compositor layer: the trails repaint here, never the laptop below */
+  will-change: transform;
+}
+.hs-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.hs-trail { fill: none; stroke-width: 2; stroke-linecap: round; }
+.hs-rail { fill: none; stroke: rgba(var(--accent-rgb), 0.14); stroke-width: 1; stroke-dasharray: 2 5; }
+
+.hs-chip {
+  position: absolute;
+  translate: -50% -50%;
+  /* no backdrop blur here: chips scale, and blurring under a moving
+     element costs a repaint every frame */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem;
+  border-radius: 999px;
+  background: var(--bg-glass);
+  border: 1px solid var(--hairline-2);
+  box-shadow: var(--shadow-card);
+  color: var(--ink);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out);
+  will-change: transform;
+}
+.hs-chip[data-in] { opacity: 1; }
+@media (min-width: 1024px) { .hs-chip { padding: 0.3rem 0.75rem 0.3rem 0.3rem; } }
+.hs-chip-mark {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  color: rgb(var(--tint));
+  background: rgba(var(--tint), 0.14);
+  box-shadow: inset 0 0 0 1px rgba(var(--tint), 0.3);
+}
+.hs-chip-mark svg { width: 14px; height: 14px; }
+.hs-chip-label { display: none; }
+@media (min-width: 1024px) { .hs-chip-label { display: inline; } }
+.hs-chip-ring {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1.5px solid rgb(var(--tint));
+  opacity: 0;
+}
+
+.hs-tag {
+  position: absolute;
+  left: 0;
+  top: 0;
+  translate: -50% -100%;
+  padding: 0.28rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(var(--bg-rgb), 0.88);
+  border: 1px solid rgba(61, 214, 140, 0.45);
+  box-shadow: 0 6px 20px -6px rgba(61, 214, 140, 0.45);
+  color: var(--signal-ink);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hs-live-dot { animation: none; }
+  .hs-chip { transition: none; }
+}

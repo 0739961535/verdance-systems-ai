@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useRef, useState, type KeyboardEvent } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight, Minus, Plus } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
 import { SITE } from "@/data/site";
@@ -9,7 +9,7 @@ import { SITE } from "@/data/site";
 /**
  * FAQControl: editorial-width accordion. One panel open at a time.
  * Panels stay mounted (so aria-controls always resolves) and animate
- * height with framer-motion; closed panels are inert so hidden links
+ * height with Motion; closed panels are inert so hidden links
  * cannot take focus. Arrow keys, Home and End move between questions.
  * Reduced motion: panels switch instantly.
  */

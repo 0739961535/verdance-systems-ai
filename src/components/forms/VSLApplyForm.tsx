@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ConicBorder } from "@/components/primitives/ConicBorder";
 import { MagneticButton } from "@/components/primitives/MagneticButton";
 import { BookingCard } from "@/components/sections/v4/BookingCard";

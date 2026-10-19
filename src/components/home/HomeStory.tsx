@@ -1,5 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
-import { Reveal } from "@/components/primitives/Reveal";
+import { Reveal, SplitWords } from "@/components/primitives/Reveal";
 import { GENERIC_BOOK_URL } from "@/data/niches";
 import { LeakCalculator } from "./LeakCalculator";
 import { LazyUnifiedInbox } from "./inbox/LazyUnifiedInbox";
@@ -20,7 +20,10 @@ export function WhatWeDoSection() {
           <div className="max-w-3xl">
             <p className="eyebrow">What we do</p>
             <h2 id="what-title" className="h2 mt-5">
-              If your business runs on enquiries, <span className="italic-accent">none of them wait.</span>
+              <SplitWords text="If your business runs on enquiries," />{" "}
+              <span className="italic-accent">
+                <SplitWords text="none of them wait." start={6} />
+              </span>
             </h2>
           </div>
           <p className="max-w-sm text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">
@@ -70,7 +73,10 @@ export function HowItWorksSection() {
         <Reveal variant="wipe" className="max-w-3xl">
           <p className="eyebrow">How it works</p>
           <h2 id="how-title" className="h2 mt-5">
-            Audit. Build. <span className="italic-accent">Run.</span>
+            <SplitWords text="Audit. Build." />{" "}
+            <span className="italic-accent">
+              <SplitWords text="Run." start={2} />
+            </span>
           </h2>
         </Reveal>
 
@@ -127,7 +133,10 @@ export function CostSection() {
         <Reveal variant="wipe" className="max-w-3xl">
           <p className="eyebrow">Your numbers</p>
           <h2 id="cost-title" className="h2 mt-5">
-            What a slow reply <span className="italic-accent">costs you.</span>
+            <SplitWords text="What a slow reply" />{" "}
+            <span className="italic-accent">
+              <SplitWords text="costs you." start={4} />
+            </span>
           </h2>
           <p className="mt-6 max-w-xl text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">
             Most people who get no answer do not wait. They try the next business. Two numbers about yours:

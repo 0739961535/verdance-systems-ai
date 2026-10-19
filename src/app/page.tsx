@@ -4,6 +4,7 @@ import { CapabilityMarquee } from "@/components/home/CapabilityMarquee";
 import { CostSection, HowItWorksSection, WhatWeDoSection } from "@/components/home/HomeStory";
 import { NicheGrid } from "@/components/niche/NicheGrid";
 import { PowerOfAI } from "@/components/aiteam/PowerOfAI";
+import { ExampleChartsSection } from "@/components/home/charts/ExampleCharts";
 import { ClientViewSection, FinalCTASection, ProofSection } from "@/components/home/HomeSections";
 import { CommitmentBlock } from "@/components/sections/v4/CommitmentBlock";
 import { OfferSection } from "@/components/offer/OfferSection";
@@ -39,6 +40,7 @@ const FAQ_JSON_LD = {
  * Home - one story:
  * the claim (one phone, cycling through real kinds of enquiry) -> what we do
  * for any business that runs on enquiries -> Ashford's Staff (the AI team) ->
+ * example charts (reply time, after-hours cover, pipeline) ->
  * the offer -> how it works -> what you see as a client -> what slow replies cost you ->
  * proof -> current offers ->
  * clear terms -> questions -> book. The hero phone is the only phone here.
@@ -51,6 +53,7 @@ export default function HomePage() {
       <CapabilityMarquee />
       <WhatWeDoSection />
       <PowerOfAI variant="short" />
+      <ExampleChartsSection />
       <OfferSection />
       <CommitmentBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="Get your free Operations Map" />
       <HowItWorksSection />

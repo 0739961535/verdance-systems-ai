@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from "react";
+import { Fragment, type CSSProperties, type ReactNode } from "react";
 
 /**
  * Reveal / RevealWords / RevealLines - progressive-enhancement scroll reveals.
@@ -101,5 +101,28 @@ export function RevealLines({
         </div>
       ))}
     </div>
+  );
+}
+
+/**
+ * SplitWords - wraps each word in a `.sw` span with its index, so a heading
+ * inside a <Reveal> staggers word by word when it scrolls into view. Plain
+ * text with real spaces, so it reads normally everywhere. `start` continues
+ * the count across an accent span: <SplitWords text="Audit. Build." /> then
+ * <span className="italic-accent"><SplitWords text="Run." start={2} /></span>.
+ */
+export function SplitWords({ text, start = 0 }: { text: string; start?: number }) {
+  const words = text.split(" ");
+  return (
+    <>
+      {words.map((w, i) => (
+        <Fragment key={i}>
+          <span className="sw" style={{ ["--i" as string]: start + i }}>
+            {w}
+          </span>
+          {i < words.length - 1 ? " " : null}
+        </Fragment>
+      ))}
+    </>
   );
 }

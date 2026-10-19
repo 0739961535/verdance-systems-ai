@@ -1,5 +1,5 @@
 import { ArrowUpRight, Check } from "lucide-react";
-import { Reveal } from "@/components/primitives/Reveal";
+import { Reveal, SplitWords } from "@/components/primitives/Reveal";
 import { SITE } from "@/data/site";
 import { GENERIC_BOOK_URL } from "@/data/niches";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
@@ -17,7 +17,10 @@ export function ClientViewSection() {
           <div className="max-w-3xl">
             <p className="eyebrow">What you see as a client</p>
             <h2 id="client-title" className="h2 mt-5">
-              Every conversation, <span className="italic-accent">in one place.</span>
+              <SplitWords text="Every conversation," />{" "}
+              <span className="italic-accent">
+                <SplitWords text="in one place." start={2} />
+              </span>
             </h2>
           </div>
           <p className="max-w-sm text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">
@@ -102,7 +105,10 @@ export function FinalCTASection() {
             className="mt-6 font-display text-[color:var(--color-ink)] md:mx-auto md:max-w-[16ch]"
             style={{ fontSize: "clamp(2.6rem, 5vw + 1rem, 5.5rem)", lineHeight: 0.98, letterSpacing: "-0.045em" }}
           >
-            Find out what your silence <span className="italic-accent">costs.</span>
+            <SplitWords text="Find out what your silence" />{" "}
+            <span className="italic-accent">
+              <SplitWords text="costs." start={5} />
+            </span>
           </h2>
           <ul className="mt-8 grid gap-3 text-left md:mx-auto md:max-w-md">
             {[

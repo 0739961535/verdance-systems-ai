@@ -10,7 +10,8 @@ import { usePathname } from "next/navigation";
  *
  *   data-tilt[="6"]      perspective tilt toward the pointer (max degrees),
  *                        and --mx / --my for a light sheen that follows it
- *   data-magnetic        primary buttons lean toward the pointer
+ *   data-magnetic        primary buttons lean toward the pointer, with
+ *                        inertia, and their icon leans a little further
  *   data-parallax="0.08" gentle vertical parallax while scrolling
  *
  * Plus a short page transition on client-side navigation (not first load).
@@ -32,10 +33,26 @@ export function Interactions() {
     const main = document.querySelector("main");
     main?.animate(
       [
-        { opacity: 0, transform: "translate3d(0, 14px, 0)" },
-        { opacity: 1, transform: "none" },
+        { opacity: 0, transform: "translate3d(0, 14px, 0)", filter: "blur(4px)" },
+        { opacity: 1, transform: "none", filter: "blur(0)" },
       ],
-      { duration: 420, easing: "cubic-bezier(0.19, 1, 0.22, 1)" },
+      { duration: 480, easing: "cubic-bezier(0.19, 1, 0.22, 1)" },
+    );
+    // A hairline of accent light sweeps across the top as the new page lands.
+    let line = document.querySelector<HTMLElement>(".route-line");
+    if (!line) {
+      line = document.createElement("div");
+      line.className = "route-line";
+      line.setAttribute("aria-hidden", "true");
+      document.body.appendChild(line);
+    }
+    line.animate(
+      [
+        { transform: "scaleX(0)", opacity: 1, transformOrigin: "0 50%" },
+        { transform: "scaleX(1)", opacity: 1, transformOrigin: "0 50%", offset: 0.7 },
+        { transform: "scaleX(1)", opacity: 0, transformOrigin: "0 50%" },
+      ],
+      { duration: 700, easing: "cubic-bezier(0.16, 1, 0.3, 1)" },
     );
   }, [pathname]);
 
@@ -47,6 +64,49 @@ export function Interactions() {
 
     let tiltEl: HTMLElement | null = null;
     let magEl: HTMLElement | null = null;
+
+    // Magnetic buttons ease toward their target with a little inertia
+    // (critically damped lerp on rAF), and the icon inside leans a touch
+    // further than the button for depth. Transform only.
+    type Mag = { x: number; y: number; tx: number; ty: number };
+    const mags = new Map<HTMLElement, Mag>();
+    let magRaf = 0;
+    const magLoop = () => {
+      magRaf = 0;
+      let moving = false;
+      for (const [el, m] of mags) {
+        m.x += (m.tx - m.x) * 0.16;
+        m.y += (m.ty - m.y) * 0.16;
+        const settled = Math.abs(m.tx - m.x) < 0.05 && Math.abs(m.ty - m.y) < 0.05;
+        if (settled) {
+          m.x = m.tx;
+          m.y = m.ty;
+        } else moving = true;
+        if (settled && m.tx === 0 && m.ty === 0) {
+          el.style.transform = "";
+          el.style.removeProperty("--mag-x");
+          el.style.removeProperty("--mag-y");
+          el.classList.remove("mag-on");
+          mags.delete(el);
+          continue;
+        }
+        el.style.transform = `translate3d(${m.x.toFixed(2)}px, ${m.y.toFixed(2)}px, 0)`;
+        el.style.setProperty("--mag-x", `${(m.x * 0.45).toFixed(2)}px`);
+        el.style.setProperty("--mag-y", `${(m.y * 0.45).toFixed(2)}px`);
+      }
+      if (moving) magRaf = requestAnimationFrame(magLoop);
+    };
+    const pull = (el: HTMLElement, tx: number, ty: number) => {
+      let m = mags.get(el);
+      if (!m) {
+        m = { x: 0, y: 0, tx: 0, ty: 0 };
+        mags.set(el, m);
+        el.classList.add("mag-on");
+      }
+      m.tx = tx;
+      m.ty = ty;
+      if (!magRaf) magRaf = requestAnimationFrame(magLoop);
+    };
 
     const resetTilt = (el: HTMLElement) => {
       el.style.transform = "";
@@ -77,18 +137,20 @@ export function Interactions() {
       }
 
       const mag = t?.closest<HTMLElement>("[data-magnetic]") ?? null;
-      if (magEl && magEl !== mag) magEl.style.transform = "";
+      if (magEl && magEl !== mag) pull(magEl, 0, 0);
       magEl = mag;
       if (mag) {
         const r = mag.getBoundingClientRect();
-        const dx = (e.clientX - (r.left + r.width / 2)) * 0.2;
-        const dy = (e.clientY - (r.top + r.height / 2)) * 0.3;
-        mag.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
+        // measure against the resting position, not the pulled one
+        const m = mags.get(mag);
+        const cx = r.left - (m?.x ?? 0) + r.width / 2;
+        const cy = r.top - (m?.y ?? 0) + r.height / 2;
+        pull(mag, (e.clientX - cx) * 0.22, (e.clientY - cy) * 0.32);
       }
     };
     const onLeaveDoc = () => {
       if (tiltEl) resetTilt(tiltEl);
-      if (magEl) magEl.style.transform = "";
+      if (magEl) pull(magEl, 0, 0);
       tiltEl = magEl = null;
     };
 
@@ -97,6 +159,12 @@ export function Interactions() {
     return () => {
       document.removeEventListener("pointermove", onMove);
       document.documentElement.removeEventListener("pointerleave", onLeaveDoc);
+      cancelAnimationFrame(magRaf);
+      for (const el of mags.keys()) {
+        el.style.transform = "";
+        el.classList.remove("mag-on");
+      }
+      mags.clear();
     };
   }, []);
 

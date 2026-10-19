@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useSpring, useReducedMotion } from "framer-motion";
+import { motion, useScroll, useSpring, useReducedMotion } from "motion/react";
 
 /**
  * A hairline that fills across the top as you read down the page.
