@@ -16,6 +16,15 @@ const ramp = (a: number, b: number, v: number) => {
   return t * t * (3 - 2 * t);
 };
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+/** 0 to 1 between a and b, linear (for things that travel at constant speed). */
+const lin = (a: number, b: number, v: number) => clamp01((v - a) / (b - a));
+/** A one-shot pulse: up quickly from a to peak, then an eased fall to end. */
+const pulse = (a: number, peak: number, end: number, v: number) =>
+  v <= a || v >= end ? 0 : v < peak ? ramp(a, peak, v) : 1 - ramp(peak, end, v);
+
+/* Story beats, as scroll progress (0 to 1). */
+const PIERCE = 0.48; // the rocket breaks through the sky into space
+const BURST = 0.87; // the finale: the upper stage's full-power burn
 /** Opacity, and out of the compositor entirely once fully faded. */
 const fade = (el: HTMLElement, o: number) => {
   el.style.opacity = o.toFixed(3);
@@ -35,6 +44,14 @@ export function FlightController() {
     const q = <T extends Element>(sel: string) => root.querySelector<T>(sel)!;
     const qa = <T extends Element>(sel: string) => Array.from(root.querySelectorAll<T>(sel));
     const stage = q<HTMLElement>(".fl-stage");
+    const scene = q<HTMLElement>(".fl-scene");
+    const wrap = q<HTMLElement>(".fl-ship-wrap");
+    const veil = q<HTMLElement>(".fl-veil");
+    const wash = q<HTMLElement>(".fl-wash");
+    const collars = qa<HTMLElement>(".fl-collar");
+    const flash = q<HTMLElement>(".fl-flash");
+    const shocks = qa<HTMLElement>(".fl-shock");
+    const mach = q<SVGGElement>(".fl-umach");
     const dusk = q<HTMLElement>(".fl-dusk");
     const glow = q<HTMLElement>(".fl-glow");
     const starEls = qa<HTMLElement>(".fl-stars");
@@ -56,6 +73,7 @@ export function FlightController() {
     let travel = 1;
     let vh = 800;
     let desktop = false;
+    let noseY = 300; // the rocket's nose, in stage pixels, once airborne
     let active = -1;
     let raf = 0;
     let onScreen = false;
@@ -66,6 +84,7 @@ export function FlightController() {
       vh = stage.clientHeight || window.innerHeight;
       travel = Math.max(1, root.offsetHeight - vh);
       desktop = window.innerWidth >= 1024;
+      noseY = wrap.offsetTop;
     };
 
     const setStage = (i: number) => {
@@ -86,25 +105,64 @@ export function FlightController() {
       raf = 0;
       const p = clamp01((window.scrollY - top) / travel);
 
-      // sky: dusk fades into space, stars come out, horizon glow sinks
-      const space = ramp(0.12, 0.6, p);
+      // sky: blue thins to indigo, then black once we are through; stars
+      // come out; the horizon glow sinks away
+      // most of the blue goes on the climb, the last of it at the break-through
+      const space = 0.65 * ramp(0.12, PIERCE - 0.02, p) + 0.35 * ramp(PIERCE - 0.01, PIERCE + 0.04, p);
       fade(dusk, 1 - space);
       fade(glow, 1 - ramp(0.05, 0.45, p));
       glow.style.transform = `translate3d(0, ${(ramp(0, 0.5, p) * vh * 0.35).toFixed(1)}px, 0)`;
+      // after the break-through everything slows: the silence of space
+      const travelled = Math.min(p, PIERCE) + Math.max(0, p - PIERCE) * 0.35;
       starEls.forEach((el, i) => {
         const sp = STAR_SPEEDS[i];
         el.style.opacity = (0.15 + space * 0.85).toFixed(3);
-        el.style.transform = `translate3d(0, ${(p * vh * sp).toFixed(1)}px, 0)`;
+        el.style.transform = `translate3d(0, ${(travelled * vh * sp).toFixed(1)}px, 0)`;
       });
 
-      // clouds rush down past the rocket during launch and ascent
+      // cloud layers rush past; the near ones pass in front of the rocket,
+      // faster and growing as they come at the viewer (depth)
       cloudEls.forEach((el, i) => {
         const c = CLOUDS[i];
-        const y = (p - c.start) * c.k * vh;
-        const o = ramp(0.02, 0.12, p) * (1 - ramp(0.4, 0.58, p));
-        fade(el, o * 0.9);
-        el.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0)`;
+        const t = p - c.start;
+        const y = t * c.k * vh;
+        const s = c.front ? lerp(0.9, 1.9, clamp01(t * 3)) : lerp(0.9, 1.25, clamp01(t * 3));
+        const o = ramp(0.02, 0.1, p) * (1 - ramp(0.36, 0.46, p));
+        fade(el, o * (c.front ? 0.55 : 0.9));
+        el.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0) scale(${s.toFixed(3)})`;
       });
+
+      // the break-through: a luminous boundary in the sky sweeps down past
+      // the rocket; as it crosses the nose a collar of light ripples down the
+      // body and a soft wash of light passes over the scene
+      const veilY = noseY - vh * 0.2 + (p - PIERCE) * vh * 9;
+      fade(veil, pulse(PIERCE - 0.08, PIERCE - 0.03, PIERCE + 0.09, p));
+      veil.style.transform = `translate3d(0, ${veilY.toFixed(1)}px, 0)`;
+      collars.forEach((el, i) => {
+        const k = lin(PIERCE - 0.004 + i * 0.008, PIERCE + 0.05 + i * 0.008, p);
+        fade(el, k > 0 && k < 1 ? (1 - k) * (1 - k) * 0.95 : 0);
+        el.style.transform = `translate3d(0, ${(k * 46).toFixed(1)}px, 0) scale(${(0.5 + k * 2.4).toFixed(3)})`;
+      });
+
+      // the finale burst: one confident full-power burn, then it settles
+      const surge = pulse(BURST - 0.012, BURST, BURST + 0.06, p);
+      const kFlash = pulse(BURST - 0.01, BURST + 0.002, BURST + 0.045, p);
+      fade(flash, kFlash);
+      flash.style.transform = `scale(${(0.4 + lin(BURST - 0.01, BURST + 0.04, p) * 1.3).toFixed(3)})`;
+      shocks.forEach((el, i) => {
+        const k = lin(BURST - 0.004 + i * 0.012, BURST + 0.065 + i * 0.012, p);
+        const e = 1 - (1 - k) * (1 - k) * (1 - k); // fast out, slow finish
+        fade(el, k > 0 && k < 1 ? (1 - k) * (1 - k) * 0.95 : 0);
+        el.style.transform = `scale(${(0.25 + e * 4.6).toFixed(3)})`;
+      });
+      mach.style.opacity = surge.toFixed(3);
+      fade(wash, Math.max(pulse(PIERCE - 0.02, PIERCE + 0.004, PIERCE + 0.05, p) * 0.32, kFlash * 0.55 + surge * 0.12));
+      // a short, damped camera nudge on ignition (scene only, never the words)
+      const sk = lin(BURST - 0.004, BURST + 0.05, p);
+      if (sk > 0 && sk < 1) {
+        const a = (1 - sk) * (1 - sk) * (desktop ? 5 : 3.5);
+        scene.style.transform = `translate3d(${(Math.sin(sk * Math.PI * 7) * a).toFixed(2)}px, ${(Math.cos(sk * Math.PI * 9) * a * 0.6).toFixed(2)}px, 0)`;
+      } else if (scene.style.transform) scene.style.transform = "";
 
       // ground falls away and curves into the Earth's rim
       const climb = ramp(0.02, 0.78, p);
@@ -112,22 +170,29 @@ export function FlightController() {
       pad.style.transform = `translate3d(0, ${(ramp(0, 0.3, p) * vh * 0.7).toFixed(1)}px, 0)`;
       fade(pad, 1 - ramp(0.15, 0.3, p));
 
-      // the ship: clears the pad, gravity turn, engine cut at orbit
+      // the ship: clears the pad, gravity turn, engine cut at orbit. Weighted
+      // and exact: every value is a pure function of scroll (no springs, no
+      // wobble), so it tracks the scrollbar like a product film being scrubbed.
       const lift = ramp(0, 0.22, p);
       const turn = ramp(0.3, 0.86, p);
-      const sway = Math.sin(p * 26) * 2.5 * (1 - turn);
-      const shipX = sway + turn * (desktop ? 40 : 18);
+      const shipX = turn * (desktop ? 40 : 14);
       const shipY = lerp(0.2, 0, lift) * vh - turn * vh * 0.04;
-      ship.style.transform = `translate3d(${shipX.toFixed(1)}px, ${shipY.toFixed(1)}px, 0) rotate(${(turn * 64).toFixed(2)}deg)`;
+      // depth: it recedes a little as it climbs to orbit
+      const depth = lerp(1, desktop ? 0.82 : 0.86, ramp(0.2, 0.9, p));
+      ship.style.transform = `translate3d(${shipX.toFixed(1)}px, ${shipY.toFixed(1)}px, 0) rotate(${(turn * 64).toFixed(2)}deg) scale(${depth.toFixed(4)})`;
 
-      // first stage separates between ascent and orbit
-      const sep = ramp(0.6, 0.78, p);
-      booster.style.transform = `translate3d(${(-sep * 26).toFixed(1)}px, ${(sep * vh * 0.42).toFixed(1)}px, 0) rotate(${(-sep * 38).toFixed(2)}deg)`;
-      fade(booster, 1 - ramp(0.66, 0.8, p));
+      // first stage separates between ascent and orbit: a clean break, then
+      // the two drift gently apart (the stage falls back and turns away slowly)
+      const sep = ramp(0.6, 0.84, p);
+      const drift = sep * sep;
+      booster.style.transform = `translate3d(${(-drift * 10).toFixed(1)}px, ${(2 + sep * vh * 0.22).toFixed(1)}px, 0) rotate(${(-drift * 12).toFixed(2)}deg)`;
+      fade(booster, 1 - ramp(0.7, 0.86, p));
       const thrust = lerp(0.85, 1.5, ramp(0.05, 0.45, p)) * (1 - ramp(0.56, 0.62, p));
       boostFlame.style.transform = `scale(${(0.8 + thrust * 0.2).toFixed(3)}, ${thrust.toFixed(3)})`;
-      const upper = ramp(0.6, 0.64, p) * (1 - ramp(0.8, 0.86, p));
-      upFlame.style.transform = `scale(1, ${(upper * 1.2).toFixed(3)})`;
+      // upper stage: a soft light-up after separation, the burst, then a calm burn
+      const upper = ramp(0.62, 0.68, p);
+      const settle = 0.75 + 0.3 * ramp(BURST, BURST + 0.08, p);
+      upFlame.style.transform = `scale(${(1 + surge * 0.55).toFixed(3)}, ${(upper * (settle + surge * 1.9)).toFixed(3)})`;
       fade(jet, ramp(0.02, 0.1, p) * (1 - ramp(0.55, 0.62, p)));
       jet.style.transform = `scaleY(${(0.4 + thrust * 0.9).toFixed(3)})`;
 
@@ -136,7 +201,7 @@ export function FlightController() {
       fade(orbit, orb);
       orbit.style.transform = `scale(${lerp(0.86, 1, orb).toFixed(3)})`;
       tags.forEach((el, i) => {
-        const t = ramp(0.78 + i * 0.04, 0.86 + i * 0.04, p);
+        const t = ramp(BURST + 0.04 + i * 0.025, BURST + 0.08 + i * 0.025, p);
         fade(el, t);
         el.style.transform = `translate3d(0, ${((1 - t) * 10).toFixed(1)}px, 0)`;
       });

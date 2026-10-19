@@ -8,7 +8,8 @@
     "prebuild": "node scripts/fetch-fonts.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "rocket:svg": "node scripts/build-rocket-svg.mjs"
   },
   "dependencies": {
     "@next/third-parties": "^16.2.2",

@@ -1,5 +1,6 @@
 import { CLOUDS, STAR_SPEEDS } from "./flightData";
 import { FlightController } from "./FlightController";
+import { BoosterPlume, BOOSTER_VIEWBOX, ROCKET_SRC, UpperPlume, UPPER_VIEWBOX } from "../../rocket/RocketArt";
 
 /**
  * The flight: how we work, told as one rocket climb (docs/rocket-scroll-research.md).
@@ -100,8 +101,10 @@ export function FlightStory() {
             </svg>
           </div>
           {CLOUDS.map((c, i) => (
-            <span key={i} className="fl-cloud" style={{ left: c.x, width: c.w }} />
+            <span key={i} className={c.front ? "fl-cloud fl-cloud-near" : "fl-cloud"} style={{ left: c.x, width: c.w }} />
           ))}
+          {/* the edge of the sky the rocket breaks through */}
+          <div className="fl-veil" />
 
           <div className="fl-orbit">
             <svg viewBox="0 0 400 140" width="100%" height="100%" fill="none" overflow="visible">
@@ -115,78 +118,31 @@ export function FlightStory() {
           <div className="fl-ship-wrap">
             <div className="fl-ship">
               <span className="fl-jet" />
-              <div className="fl-booster">
-                <svg viewBox="0 0 80 90" width="100%" height="100%" fill="none" overflow="visible">
-                  <defs>
-                    <linearGradient id="fl-b-body" x1="27" y1="0" x2="53" y2="0" gradientUnits="userSpaceOnUse">
-                      <stop offset="0" stopColor="#FFFFFF" />
-                      <stop offset="0.5" stopColor="#E7EBF3" />
-                      <stop offset="1" stopColor="#AEB9CE" />
-                    </linearGradient>
-                    <linearGradient id="fl-b-flame" x1="40" y1="70" x2="40" y2="128" gradientUnits="userSpaceOnUse">
-                      <stop offset="0" stopColor="#FFFFFF" />
-                      <stop offset="0.25" stopColor="#B9CEFF" />
-                      <stop offset="0.6" stopColor="#5B8FFF" stopOpacity="0.5" />
-                      <stop offset="1" stopColor="#5B8FFF" stopOpacity="0" />
-                    </linearGradient>
-                  </defs>
-                  <g className="fl-bflame">
-                    <g className="fl-flicker">
-                      <path d="M31 70 C30 90 35.5 110 40 128 C44.5 110 50 90 49 70 Z" fill="url(#fl-b-flame)" />
-                      <path d="M35.5 70 C35.5 80 38 89 40 96 C42 89 44.5 80 44.5 70 Z" fill="#FFFFFF" fillOpacity="0.9" />
-                    </g>
-                  </g>
-                  <path d="M27 38 C19 44 15 54 14 70 L27 62 Z" fill="#2554D4" />
-                  <path d="M53 38 C61 44 65 54 66 70 L53 62 Z" fill="#173A9E" />
-                  <path d="M31 62 H49 L47 71 H33 Z" fill="#1B2233" />
-                  <rect x="27" y="2" width="26" height="61" rx="2" fill="url(#fl-b-body)" stroke="#1B2A4F" strokeOpacity="0.25" />
-                  <rect x="27" y="2" width="26" height="5" fill="#1B2233" fillOpacity="0.8" />
-                  <path d="M30.5 12 V56" stroke="#FFFFFF" strokeOpacity="0.9" strokeWidth="1.6" strokeLinecap="round" />
-                  <path d="M27 30 H53" stroke="#1B2A4F" strokeOpacity="0.16" />
-                </svg>
-              </div>
               <div className="fl-upper">
-                <svg viewBox="0 0 80 112" width="100%" height="100%" fill="none" overflow="visible">
-                  <defs>
-                    <linearGradient id="fl-u-body" x1="23" y1="0" x2="57" y2="0" gradientUnits="userSpaceOnUse">
-                      <stop offset="0" stopColor="#FFFFFF" />
-                      <stop offset="0.42" stopColor="#F3F5FA" />
-                      <stop offset="0.78" stopColor="#D9DFEA" />
-                      <stop offset="1" stopColor="#B9C3D6" />
-                    </linearGradient>
-                    <linearGradient id="fl-u-accent" x1="0" y1="6" x2="0" y2="110" gradientUnits="userSpaceOnUse">
-                      <stop offset="0" stopColor="#6E9CFF" />
-                      <stop offset="1" stopColor="#1F45B8" />
-                    </linearGradient>
-                    <radialGradient id="fl-u-glass" cx="37" cy="47" r="10" gradientUnits="userSpaceOnUse">
-                      <stop offset="0" stopColor="#9DBBFF" />
-                      <stop offset="0.55" stopColor="#2F5FE0" />
-                      <stop offset="1" stopColor="#0F1E4D" />
-                    </radialGradient>
-                  </defs>
-                  <g className="fl-uflame">
-                    <path d="M34 104 C34 113 37.5 121 40 128 C42.5 121 46 113 46 104 Z" fill="#B9CEFF" fillOpacity="0.85" />
-                  </g>
-                  <path d="M26.6 70 C17.5 78 12.6 90 12 107 C15.6 102.5 20.6 99.5 27 98.2 Z" fill="#2554D4" />
-                  <path d="M53.4 70 C62.5 78 67.4 90 68 107 C64.4 102.5 59.4 99.5 53 98.2 Z" fill="#173A9E" />
-                  <path d="M31.5 97 H48.5 L46.5 105 H33.5 Z" fill="#1B2233" />
-                  <path
-                    d="M40 6 C52.5 18 58.2 38 57.2 62 C56.7 76 55.2 88 53 98.5 H27 C24.8 88 23.3 76 22.8 62 C21.8 38 27.5 18 40 6 Z"
-                    fill="url(#fl-u-body)"
-                    stroke="#1B2A4F"
-                    strokeOpacity="0.28"
-                  />
-                  <path d="M40 6 C46.6 12.4 50.9 20.4 53.4 29.2 C45.2 26.6 34.8 26.6 26.6 29.2 C29.1 20.4 33.4 12.4 40 6 Z" fill="url(#fl-u-accent)" />
-                  <path d="M29.4 34 C27.4 46 27.2 62 28.6 84" stroke="#FFFFFF" strokeOpacity="0.9" strokeWidth="2" strokeLinecap="round" />
-                  <path d="M24.4 81.5 C34.5 83.6 45.5 83.6 55.6 81.5" stroke="#1B2A4F" strokeOpacity="0.18" strokeWidth="0.9" />
-                  <circle cx="40" cy="50" r="9.4" fill="#E6EBF4" stroke="#9AA6BE" strokeWidth="1.2" />
-                  <circle cx="40" cy="50" r="6.6" fill="url(#fl-u-glass)" />
-                  <ellipse cx="37.6" cy="47.4" rx="2.3" ry="1.5" fill="#FFFFFF" fillOpacity="0.85" transform="rotate(-35 37.6 47.4)" />
-                  <rect x="38.6" y="86" width="2.8" height="19" rx="1.4" fill="url(#fl-u-accent)" />
+                <span className="fl-collar" />
+                <span className="fl-collar" />
+                <span className="fl-flash" />
+                <span className="fl-shock" />
+                <span className="fl-shock" />
+                <svg className="fl-plume" viewBox={UPPER_VIEWBOX} width="100%" height="100%" fill="none" overflow="visible">
+                  <UpperPlume id="fl" flameClass="fl-uflame" flickerClass="fl-flicker" machClass="fl-umach" />
                 </svg>
+                {/* static hull as a cached file, kept out of the HTML (see RocketArt.tsx) */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="fl-hull" src={ROCKET_SRC.upper} alt="" width={80} height={142} loading="lazy" decoding="async" draggable={false} />
+              </div>
+              <div className="fl-booster">
+                <svg className="fl-plume" viewBox={BOOSTER_VIEWBOX} width="100%" height="100%" fill="none" overflow="visible">
+                  <BoosterPlume id="fl" flameClass="fl-bflame" flickerClass="fl-flicker" outerClass="fl-flicker-b" />
+                </svg>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="fl-hull" src={ROCKET_SRC.booster} alt="" width={80} height={168} loading="lazy" decoding="async" draggable={false} />
               </div>
             </div>
           </div>
+
+          {/* light passing over the whole scene (break-through and burst) */}
+          <div className="fl-wash" />
 
           <ul className="fl-tags">
             {ORBIT_TAGS.map((t) => (

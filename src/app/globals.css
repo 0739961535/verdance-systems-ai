@@ -1890,15 +1890,16 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
    .rk-jet, .rk-flame-js and .rk-smoke). Reduced motion = still.
    ============================================================ */
 .rk {
-  --rk-w: 46px;
+  /* RocketArt grid: 80 wide, 286 tall (upper stage + first stage) */
+  --rk-w: 44px;
   --rk-rise: 52px;
   position: relative;
   z-index: 0;
   width: var(--rk-w);
-  height: calc(var(--rk-w) * 1.75);
-  margin: 0 auto;
+  height: calc(var(--rk-w) * 3.575);
+  margin: -40px auto 0;
 }
-@media (min-width: 768px) { .rk { --rk-w: 62px; --rk-rise: 72px; } }
+@media (min-width: 768px) { .rk { --rk-w: 58px; --rk-rise: 72px; margin-top: -72px; } }
 .rk-fly {
   position: absolute; inset: 0;
   transform-origin: 50% 60%;
@@ -1906,21 +1907,28 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 }
 .rk-ship {
   position: absolute; inset: 0; display: block;
-  filter: drop-shadow(0 12px 18px rgba(var(--accent-glow-rgb), 0.26)) drop-shadow(0 2px 3px rgba(15, 25, 60, 0.18));
-  animation: rk-lift 1.5s var(--ease-out-expo) 0.35s both;
+  animation: rk-lift 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
   transition: translate 0.5s var(--ease-out-expo);
 }
 .rk-ship svg { display: block; overflow: visible; }
-.rk-flame-js { transform-box: fill-box; transform-origin: 50% 0; }
+.rk-flame-js { transform-box: fill-box; transform-origin: 50% 0; transform: scale(0.9, 0.45); }
+/* studio glow behind the hull: a gradient, not a filter, so the animated
+   plume never re-rasterises a blur (it was a drop-shadow before) */
+.rk-ship::before {
+  content: ""; position: absolute; z-index: -1;
+  left: -110%; right: -110%; top: 8%; bottom: 4%;
+  background: radial-gradient(closest-side, rgba(var(--accent-glow-rgb), 0.16), transparent);
+}
+.rk-flame-b { transform-box: fill-box; transform-origin: 50% 0; animation: rk-flicker-b 1.3s cubic-bezier(0.45, 0, 0.55, 1) 0.35s 2 alternate; }
 .rk-flame {
   transform-box: fill-box;
   transform-origin: 50% 0;
-  animation: rk-flicker 0.12s ease-in-out 0.35s 12 alternate, rk-settle 0.6s ease 1.8s forwards;
+  animation: rk-flicker 0.7s cubic-bezier(0.45, 0, 0.55, 1) 0.35s 2 alternate, rk-settle 0.9s cubic-bezier(0.45, 0, 0.55, 1) 1.75s forwards;
   transition: scale 0.4s var(--ease-out-expo);
 }
 .rk-jet {
   position: absolute; z-index: -1;
-  left: 50%; top: 94%;
+  left: 50%; top: 97%;
   width: 7px; height: 120px; margin-left: -3.5px;
   border-radius: 7px;
   background: linear-gradient(to bottom, rgba(214, 227, 255, 0.95), rgba(var(--accent-glow-rgb), 0.5) 30%, rgba(var(--accent-glow-rgb), 0) 100%);
@@ -1930,7 +1938,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   opacity: 0;
   will-change: transform, opacity;
 }
-.rk-pad { position: absolute; z-index: -1; left: 50%; top: 96%; width: 0; height: 0; }
+.rk-pad { position: absolute; z-index: -1; left: 50%; top: 99%; width: 0; height: 0; }
 .rk-smoke {
   position: absolute; left: -15px; top: -15px; width: 30px; height: 30px;
   border-radius: 999px;
@@ -1940,7 +1948,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 }
 .rk-trail {
   position: absolute; z-index: -1;
-  left: 50%; top: 80%;
+  left: 50%; top: 90%;
   width: 2px; height: calc(var(--rk-rise) + 18px);
   margin-left: -1px;
   border-radius: 2px;
@@ -1951,7 +1959,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 }
 .rk-puff {
   position: absolute; z-index: -1;
-  left: 50%; top: calc(80% + var(--rk-rise));
+  left: 50%; top: calc(92% + var(--rk-rise));
   width: 22px; height: 22px; margin: -11px 0 0 -11px;
   border-radius: 999px;
   background: radial-gradient(circle, rgba(var(--accent-glow-rgb), 0.22), transparent 70%);
@@ -1967,13 +1975,13 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 .hero-launch:has(.btn-launch:focus-visible) .rk-flame { scale: 1 1.6; }
 
 @keyframes rk-lift {
-  0% { transform: translateY(var(--rk-rise)) scale(0.9); opacity: 0; }
-  12% { opacity: 1; }
-  70% { transform: translateY(-5px) scale(1); }
+  0% { transform: translateY(var(--rk-rise)) scale(0.96); opacity: 0; }
+  20% { opacity: 1; }
   100% { transform: translateY(0) scale(1); opacity: 1; }
 }
-@keyframes rk-flicker { from { transform: scaleY(0.85); } to { transform: scaleY(1.15); } }
-@keyframes rk-settle { from { transform: scaleY(1); opacity: 1; } to { transform: scaleY(0.6); opacity: 0.85; } }
+@keyframes rk-flicker { from { transform: scaleY(0.9); } to { transform: scaleY(1.1); } }
+@keyframes rk-flicker-b { from { transform: scale(0.97, 0.95); } to { transform: scale(1.02, 1.05); } }
+@keyframes rk-settle { from { transform: scaleY(1); opacity: 1; } to { transform: scaleY(0.7); opacity: 0.9; } }
 @keyframes rk-trail {
   0% { transform: scaleY(0); opacity: 0; }
   10% { opacity: 1; }
@@ -1986,7 +1994,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   100% { transform: scale(2.4); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .rk-ship, .rk-flame, .rk-trail, .rk-puff { animation: none; transition: none; }
+  .rk-ship, .rk-flame, .rk-flame-b, .rk-trail, .rk-puff { animation: none; transition: none; }
   .rk-flame { transform: scaleY(0.6); opacity: 0.85; }
   .rk-trail, .rk-puff, .rk-jet, .rk-smoke { opacity: 0; }
   .hero-launch:has(.btn-launch:hover) .rk-ship { translate: none; }
@@ -2000,20 +2008,22 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
    stages as a plain list (bottom of this block).
    ============================================================ */
 .fl {
-  --fl-w: 52px;              /* rocket width */
-  --fl-ship-top: 36%;        /* where the rocket rides once airborne */
+  --fl-w: 62px;              /* rocket grid width (the stack is 3.575x as tall) */
   --fl-ground: 74%;          /* horizon line at launch */
+  /* where the rocket rides once airborne: chosen so that on the pad (20% of
+     the stage lower, see FlightController) its engines sit on the horizon */
+  --fl-ship-top: calc(var(--fl-ground) - 20% - var(--fl-w) * 3.575 + 4px);
   --fl-ink: #EEF2FC;
   --fl-ink-soft: rgba(222, 230, 248, 0.74);
   --fl-blue: #86ABFF;
   position: relative;
-  height: 340vh;
-  height: 340svh;
+  height: 380vh;
+  height: 380svh;
   background: #04050A;
   color: var(--fl-ink);
 }
 @media (min-width: 1024px) {
-  .fl { --fl-w: 62px; --fl-ship-top: 34%; --fl-ground: 76%; height: 360vh; }
+  .fl { --fl-w: 86px; --fl-ground: 76%; height: 400vh; }
 }
 /* soft hand-off from the page canvas into the sky, and back out */
 .fl::before, .fl::after {
@@ -2058,17 +2068,44 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
     0 -6px 18px rgba(134, 171, 255, 0.55),
     0 -34px 90px rgba(61, 126, 255, 0.3);
 }
+/* the tower scales with the rocket (its arm reaches to just short of it) */
 .fl-pad {
-  position: absolute; width: 96px; height: 128px;
-  left: calc(50% - 90px); top: calc(var(--fl-ground) - 126px);
+  --pad-h: calc(var(--fl-w) * 3.3);
+  position: absolute; height: var(--pad-h); width: calc(var(--pad-h) * 0.75);
+  left: calc(50% - var(--pad-h) * 0.68); top: calc(var(--fl-ground) - var(--pad-h) + 2px);
 }
-@media (min-width: 1024px) { .fl-pad { left: calc(64% - 104px); width: 110px; height: 146px; top: calc(var(--fl-ground) - 144px); } }
+@media (min-width: 1024px) { .fl-pad { left: calc(64% - var(--pad-h) * 0.68); } }
 .fl-cloud {
   position: absolute; top: -22%; height: 16%;
   border-radius: 50%;
   background: radial-gradient(closest-side, rgba(226, 234, 255, 0.42), rgba(160, 188, 250, 0.14) 55%, transparent);
   opacity: 0;
 }
+
+/* near cloud layers pass in front of the rocket */
+.fl-cloud-near {
+  z-index: 2; top: -30%; height: 26%;
+  background: radial-gradient(closest-side, rgba(232, 239, 255, 0.5), rgba(170, 195, 250, 0.16) 60%, transparent);
+}
+
+/* the edge of the sky: a thin luminous boundary with a soft glow either
+   side, faded out at the screen edges. Moved by script (transform only). */
+.fl-veil {
+  position: absolute; z-index: 2; left: -10%; right: -10%; top: 0; height: 40%;
+  background:
+    linear-gradient(to bottom, transparent 49.55%, rgba(238, 244, 255, 0.95) 50%, transparent 50.45%),
+    linear-gradient(to bottom, transparent 28%, rgba(134, 171, 255, 0.14) 46%, rgba(205, 222, 255, 0.34) 50%, rgba(134, 171, 255, 0.1) 55%, transparent 76%);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+  opacity: 0;
+}
+/* light passing over the scene: break-through and burst */
+.fl-wash {
+  position: absolute; z-index: 3; inset: 0; pointer-events: none;
+  background: radial-gradient(60% 40% at 50% 36%, rgba(214, 228, 255, 0.5), rgba(91, 143, 255, 0.14) 42%, transparent 70%);
+  opacity: 0;
+}
+@media (min-width: 1024px) { .fl-wash { background: radial-gradient(36% 42% at 64% 32%, rgba(214, 228, 255, 0.5), rgba(91, 143, 255, 0.14) 42%, transparent 70%); } }
 
 /* ---------- the ship ---------- */
 .fl-ship-wrap {
@@ -2089,18 +2126,27 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   left: -60%; right: -60%; top: 10%; height: 120%;
   background: radial-gradient(closest-side, rgba(91, 143, 255, 0.28), transparent);
 }
-.fl-upper { position: relative; display: block; height: calc(var(--fl-w) * 1.4); }
+/* RocketArt grid: upper 80x142, first stage 80x168 starting at upper y 118.
+   The first stage paints over the upper stage so its interstage hides the
+   upper engine until separation. */
+.fl-upper { position: relative; display: block; height: calc(var(--fl-w) * 1.775); }
 .fl-booster {
-  position: absolute; left: 0; width: 100%;
-  top: calc(var(--fl-w) * 1.28); height: calc(var(--fl-w) * 1.125);
+  position: absolute; z-index: 1; left: 0; width: 100%;
+  top: calc(var(--fl-w) * 1.475); height: calc(var(--fl-w) * 2.1);
 }
 .fl-ship svg { display: block; overflow: visible; }
-.fl-bflame, .fl-uflame, .fl-flicker { transform-box: fill-box; transform-origin: 50% 0; }
+.fl-plume { position: absolute; inset: 0; }
+.fl-hull, .rk-hull { position: relative; display: block; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
+.rk-plume { position: absolute; inset: 0; }
+.rk-hull { position: absolute; inset: 0; }
+.fl-bflame, .fl-uflame, .fl-flicker, .fl-flicker-b { transform-box: fill-box; transform-origin: 50% 0; }
 .fl-uflame { transform: scale(1, 0); }
-.fl[data-on] .fl-flicker { animation: fl-flick 0.11s ease-in-out infinite alternate; }
+/* the plume breathes slowly, two layers out of step: calm, never flickery */
+.fl[data-on] .fl-flicker { animation: fl-flick 1.7s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate; }
+.fl[data-on] .fl-flicker-b { animation: fl-flick-b 2.6s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate; }
 .fl-jet {
   position: absolute; z-index: -1;
-  left: 50%; top: calc(var(--fl-w) * 2.5);
+  left: 50%; top: calc(var(--fl-w) * 3.5);
   width: 6px; margin-left: -3px; height: 42vh;
   border-radius: 6px;
   background: linear-gradient(to bottom, rgba(226, 234, 255, 0.95), rgba(91, 143, 255, 0.5) 25%, rgba(61, 126, 255, 0) 100%);
@@ -2108,7 +2154,37 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   transform-origin: 50% 0;
   opacity: 0;
 }
-.fl-kick .fl-upper { animation: fl-kick 0.5s var(--ease-out) both; }
+/* break-through collar: a ring of light that slides down the body */
+.fl-collar {
+  position: absolute; z-index: 2; pointer-events: none;
+  left: calc(50% - var(--fl-w) * 0.55); top: calc(var(--fl-w) * 0.3);
+  width: calc(var(--fl-w) * 1.1); height: calc(var(--fl-w) * 0.3);
+  border-radius: 50%;
+  border: 1px solid rgba(228, 237, 255, 0.85);
+  box-shadow: 0 0 14px 1px rgba(134, 171, 255, 0.55), inset 0 0 8px rgba(134, 171, 255, 0.45);
+  opacity: 0;
+}
+/* the burst: a core flash and two shockwave rings at the engine */
+.fl-flash {
+  position: absolute; z-index: 0; pointer-events: none;
+  left: calc(50% - var(--fl-w) * 1.4); top: calc(100% - var(--fl-w) * 1.2);
+  width: calc(var(--fl-w) * 2.8); height: calc(var(--fl-w) * 2.8);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, #FFFFFF, rgba(214, 228, 255, 0.9) 18%, rgba(91, 143, 255, 0.32) 45%, transparent);
+  opacity: 0;
+}
+.fl-shock {
+  position: absolute; z-index: 2; pointer-events: none;
+  left: calc(50% - var(--fl-w) * 0.6); top: calc(100% - var(--fl-w) * 0.16);
+  width: calc(var(--fl-w) * 1.2); height: calc(var(--fl-w) * 0.36);
+  border-radius: 50%;
+  border: 1.5px solid rgba(232, 240, 255, 0.9);
+  box-shadow: 0 0 16px 2px rgba(134, 171, 255, 0.5), inset 0 0 10px rgba(134, 171, 255, 0.45);
+  opacity: 0;
+}
+.fl-collar, .fl-flash, .fl-shock, .fl-veil, .fl-wash { will-change: transform, opacity; }
+
+.fl-kick .fl-upper { animation: fl-kick 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
 /* ---------- orbit ---------- */
 .fl-orbit {
@@ -2228,13 +2304,13 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 }
 @media (min-width: 1024px) { .fl-title { margin-top: 1.4rem; } .fl-body { margin-top: 1.4rem; font-size: 1.15rem; } }
 
-@keyframes fl-flick { from { transform: scaleY(0.9); } to { transform: scaleY(1.08); } }
+@keyframes fl-flick { from { transform: scaleY(0.96); } to { transform: scaleY(1.04); } }
+@keyframes fl-flick-b { from { transform: scale(0.98, 0.96); opacity: 0.85; } to { transform: scale(1.02, 1.04); opacity: 1; } }
 @keyframes fl-twinkle { from { opacity: 0.55; } to { opacity: 1; } }
 @keyframes fl-orbit { to { offset-distance: 100%; } }
 @keyframes fl-kick {
   0% { transform: translate3d(0, 0, 0); }
-  25% { transform: translate3d(0, -4px, 0); }
-  55% { transform: translate3d(0, 2px, 0); }
+  30% { transform: translate3d(0, -2px, 0); }
   100% { transform: translate3d(0, 0, 0); }
 }
 @keyframes fl-pop {
@@ -2249,7 +2325,10 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   .fl::after { display: none; }
   .fl-stage { position: relative; height: auto; min-height: 100svh; padding: 300px 20px 96px; }
   .fl-scene > *, .fl-ship, .fl-booster, .fl-jet, .fl-step, .fl-seg-fill { will-change: auto; }
-  .fl-hud, .fl-pad, .fl-cloud, .fl-booster, .fl-jet, .fl-tags, .fl-glow, .fl-dusk { display: none; }
+  .fl-hud, .fl-pad, .fl-cloud, .fl-booster, .fl-jet, .fl-tags, .fl-glow, .fl-dusk, .fl-veil, .fl-wash, .fl-collar, .fl-shock { display: none; }
+  /* the finale as a still: a calm burn with a soft glow at the engine */
+  .fl-uflame { transform: scale(1, 1); }
+  .fl-flash { opacity: 0.35; will-change: auto; }
   .fl-stars { opacity: 1; }
   .fl-stars svg { animation: none !important; }
   .fl-earth { top: auto; bottom: -142%; transform: none; }
@@ -2257,7 +2336,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   .fl-ship { transform: rotate(64deg); }
   .fl-orbit { opacity: 1; top: calc(120px + var(--fl-w) * 0.7 - var(--ow) * 0.175); }
   .fl-sat { animation: none !important; }
-  .fl-flicker { animation: none !important; }
+  .fl-flicker, .fl-flicker-b { animation: none !important; }
   .fl-copy { position: relative; inset: auto; transform: none; width: auto; max-width: 34rem; }
   .fl-steps { display: flex; flex-direction: column; gap: 3rem; }
   .fl-step, .fl-step + .fl-step { opacity: 1; visibility: visible; align-self: stretch; }
