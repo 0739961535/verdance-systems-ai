@@ -2314,3 +2314,11 @@ picture.fl-hull img { display: block; width: 100%; height: 100%; user-select: no
   .flm-poster { background: var(--flm-sky, #04050A); }
   .flm-poster img { transform: translateY(56px); }
 }
+
+/* while the film fills the screen, the chat bubble steps aside (it would sit
+   on the words), and on phones the sticky action bar is hidden too
+   (StickyMobileCTA), so the words can sit lower and the film gets the room */
+html[data-in-flight] chat-widget { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; transition: opacity 0.3s, visibility 0.3s; }
+@media (max-width: 767px) {
+  .flm .fl-copy { bottom: calc(40px + env(safe-area-inset-bottom)); }
+}

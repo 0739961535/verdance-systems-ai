@@ -123,7 +123,9 @@ export function GHLChatWidget() {
       if (!root.querySelector(`#${STYLE_ID}`)) {
         const style = document.createElement("style");
         style.id = STYLE_ID;
-        style.textContent = `.${LIFTED}{bottom:88px !important;}`;
+        // phones: no "Have a question?" greeting card; on a 390px screen it
+        // sits over the page's content. The bubble itself stays.
+        style.textContent = `.${LIFTED}{bottom:88px !important;}@media (max-width:767px){.lc_text-widget--prompt{display:none !important;}}`;
         root.appendChild(style);
       }
 

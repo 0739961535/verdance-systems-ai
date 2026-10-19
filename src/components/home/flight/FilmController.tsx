@@ -391,6 +391,11 @@ export function FilmController() {
       { rootMargin: "150% 0px" },
     );
     io.observe(root);
+    // while the flight fills the screen, the chat bubble steps aside (CSS)
+    const inFlight = new IntersectionObserver(([e]) => html.toggleAttribute("data-in-flight", e.isIntersecting), {
+      rootMargin: "-30% 0px -30% 0px",
+    });
+    inFlight.observe(root);
     if (window.scrollY > 0) goReady();
     const ro = new ResizeObserver(() => {
       sizeCanvas();
@@ -404,6 +409,8 @@ export function FilmController() {
       generation++;
       abort.abort();
       io.disconnect();
+      inFlight.disconnect();
+      html.removeAttribute("data-in-flight");
       window.removeEventListener("scroll", goReady);
       window.removeEventListener("load", whenIdle);
       window.clearTimeout(idleId);

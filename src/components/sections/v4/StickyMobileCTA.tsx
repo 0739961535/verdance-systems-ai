@@ -8,7 +8,8 @@ import { WhatsAppIcon } from "./WhatsAppIcon";
 /**
  * StickyMobileCTA - bottom action bar, mobile only. Appears after the
  * hero's own CTAs scroll away; hides while the audit section (whose
- * calendar it points at) or the footer is on screen. Fixed + transform
+ * calendar it points at) or the footer is on screen, and while the pinned
+ * rocket flight fills the screen (its Orbit step has its own button). Fixed + transform
  * only, so it can never cause layout shift.
  */
 interface StickyMobileCTAProps {
@@ -23,8 +24,9 @@ export function StickyMobileCTA({ href = "/contact", label = "Book a Meeting" }:
     let heroGone = false;
     let auditVisible = false;
     let footerVisible = false;
+    let flightVisible = false;
 
-    const update = () => setShow(heroGone && !auditVisible && !footerVisible);
+    const update = () => setShow(heroGone && !auditVisible && !footerVisible && !flightVisible);
 
     const hero = document.querySelector("section"); // first section = hero
     const audit = document.getElementById("audit");
@@ -42,6 +44,11 @@ export function StickyMobileCTA({ href = "/contact", label = "Book a Meeting" }:
     if (footer) {
       const io = new IntersectionObserver(([e]) => { footerVisible = e.isIntersecting; update(); }, { threshold: 0.05 });
       io.observe(footer); ios.push(io);
+    }
+    const flight = document.querySelector(".fl");
+    if (flight) {
+      const io = new IntersectionObserver(([e]) => { flightVisible = e.isIntersecting; update(); }, { rootMargin: "-30% 0px -30% 0px" });
+      io.observe(flight); ios.push(io);
     }
     return () => ios.forEach((io) => io.disconnect());
   }, []);
