@@ -2240,8 +2240,10 @@ picture.fl-hull img { display: block; width: 100%; height: 100%; user-select: no
    The home page opens on the launch pad, full screen, always dark. Reuses
    the .fl stage, progress bar, words and scrim above.
    ============================================================ */
-.flm { height: 380vh; height: 380svh; background: #04050A; }
-@media (min-width: 1024px) { .flm { height: 420vh; } }
+/* the last screen of the section is the hand-over (the next section slides
+   over the film); the story uses the scroll before it */
+.flm { height: 460vh; height: 460svh; background: #04050A; }
+@media (min-width: 1024px) { .flm { height: 500vh; } }
 .flm::before { display: none; }
 /* the exit: the next section slides up over the pinned film (the section's
    last screen overlaps it), so there is never a blank screen between them */
@@ -2259,7 +2261,7 @@ picture.fl-hull img { display: block; width: 100%; height: 100%; user-select: no
 .flm[data-film] .flm-canvas { opacity: 1; }
 /* the exit: the held orbit frame dissolves into the next section's colour
    (no gradient band); FilmController ramps it over the last of the scroll */
-.flm-bot { position: absolute; inset: 0; z-index: 4; pointer-events: none; opacity: 0; visibility: hidden; background: var(--bg-2); }
+.flm-bot { position: absolute; inset: 0; z-index: 4; pointer-events: none; opacity: 0; visibility: hidden; background: #04050A; }
 .flm::after { display: none; }
 
 /* scrims: the words always read over the moving picture */
@@ -2436,3 +2438,18 @@ html:not([data-chat-ok]) chat-widget { opacity: 0 !important; visibility: hidden
 /* closing scene on phones: the wide orbit frame, the ship placed up and to
    the right, clear of the headline */
 @media (max-width: 767px) { .close-scene-bg img { object-position: 57% 50%; } }
+
+/* v10 */
+/* inbox pills: the right edge fades, so the cut-off pill reads as "swipe" */
+@media (max-width: 639px) {
+  .lp-pills { -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent); mask-image: linear-gradient(90deg, #000 82%, transparent); }
+}
+/* closing scene on phones: the orbit frame as a band at the top with the
+   ship in it, the heading straight below on dark; no empty sky */
+@media (max-width: 767px) {
+  .close-scene { min-height: 0; padding-top: 0; display: block; }
+  .close-scene-bg { position: relative; inset: auto; display: block; height: 42svh; z-index: 0; }
+  .close-scene-bg img { position: absolute; inset: 0; object-position: 58% 30%; }
+  .close-scene::after { z-index: 1; pointer-events: none; background: linear-gradient(rgba(4, 5, 10, 0) 0, rgba(4, 5, 10, 0) 26svh, #04050A 42svh); }
+  .close-scene > .container-wide { margin-top: -2rem; z-index: 2; padding-bottom: 4.5rem; }
+}

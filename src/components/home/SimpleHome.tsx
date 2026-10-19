@@ -93,6 +93,56 @@ export function WatchItWork() {
 /* ------------------------------------------------------------------ */
 /* What you get: four big scenes, one word each (design review fix 8)  */
 /* ------------------------------------------------------------------ */
+/* Small real visuals, reused from the inbox demo and the Ashford panel
+   (same sample wording, no new assets). Decorative: aria-hidden. */
+const MINI = "mt-6 max-w-[22rem] rounded-[16px] border border-white/[0.08] bg-[#0B0E15] p-3.5 text-[0.875rem] leading-[1.45] text-[#E9EDEF]";
+const BUBBLE_IN = "w-fit max-w-[85%] rounded-[12px] rounded-tl-[4px] bg-[#1F2C34] px-3 py-2";
+const BUBBLE_OUT = "ml-auto w-fit max-w-[85%] rounded-[12px] rounded-tr-[4px] bg-[#1D3F8F] px-3 py-2";
+const TIME = "ml-2 text-[0.75rem] text-white/55";
+
+function GetVisual({ word }: { word: string }) {
+  if (word === "Answer")
+    return (
+      <div aria-hidden className={`${MINI} grid gap-2`}>
+        <p className={BUBBLE_IN}>
+          Do you deliver to Durban?<span className={TIME}>22:15</span>
+        </p>
+        <p className={BUBBLE_OUT}>
+          Yes, it takes 2 to 3 working days.<span className={TIME}>22:15</span>
+        </p>
+      </div>
+    );
+  if (word === "Follow up")
+    return (
+      <div aria-hidden className={`${MINI} flex items-center justify-between gap-3`}>
+        <span>Follow-up to a quiet lead</span>
+        <span className="shrink-0 rounded-full border border-[rgba(61,214,140,0.4)] px-2.5 py-1 text-[0.8125rem] text-[#3DD68C]">Approved</span>
+      </div>
+    );
+  if (word === "Admin")
+    return (
+      <div aria-hidden className={`${MINI} overflow-hidden p-0`}>
+        <p className="bg-[#1D3F8F] px-3.5 py-2.5 font-semibold">Booked, Tue 07:30</p>
+        <p className="px-3.5 py-2.5 text-white/75">
+          Geyser repair
+          <br />
+          Reminder tonight at 20:00
+        </p>
+      </div>
+    );
+  return (
+    <div aria-hidden className={`${MINI} flex items-center justify-between gap-3`}>
+      <span>
+        Monthly report
+        <svg viewBox="0 0 96 24" width={96} height={24} className="mt-1.5 block" fill="none">
+          <path d="M1 20 L14 16 L27 18 L40 11 L53 13 L66 7 L79 9 L95 3" stroke="#8FB0FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </span>
+      <span className="shrink-0 rounded-full border border-white/[0.12] px-2.5 py-1 text-[0.8125rem] text-white/70">Sent</span>
+    </div>
+  );
+}
+
 const GETS = [
   { word: "Answer", title: "Every customer, fast", body: "Every message gets a reply in under a minute. Day or night." },
   { word: "Follow up", title: "No one slips away", body: "It checks in with people who went quiet, so they don't forget you." },
@@ -128,6 +178,7 @@ export function WhatYouGet() {
                 </p>
                 <h3 className="mt-4 text-[1.0625rem] font-semibold text-[color:var(--color-ink)]">{title}</h3>
                 <p className="mt-1.5 max-w-[34ch] text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{body}</p>
+                <GetVisual word={word} />
               </Reveal>
             </li>
           ))}
@@ -164,9 +215,19 @@ export function InControl() {
             <li key={text}>
               <Reveal delay={i * 0.06} className="flex items-start gap-5">
                 <Icon size={26} strokeWidth={1.6} aria-hidden className="mt-0.5 shrink-0 text-[color:var(--color-accent)]" />
-                <p className="font-display text-[color:var(--color-ink)]" style={{ fontSize: "clamp(1.25rem, 0.8vw + 1rem, 1.6rem)", lineHeight: 1.25, letterSpacing: "-0.02em" }}>
-                  {text}
-                </p>
+                <div>
+                  <p className="font-display text-[color:var(--color-ink)]" style={{ fontSize: "clamp(1.25rem, 0.8vw + 1rem, 1.6rem)", lineHeight: 1.25, letterSpacing: "-0.02em" }}>
+                    {text}
+                  </p>
+                  {i === 0 && (
+                    <div aria-hidden className={`${MINI} mt-4 flex items-center justify-between gap-3`}>
+                      <span>Reply to a new enquiry</span>
+                      <span className="shrink-0 rounded-full border border-[rgba(242,196,109,0.4)] px-2.5 py-1 text-[0.8125rem] text-[#F2C46D]">
+                        Waiting for your approval
+                      </span>
+                    </div>
+                  )}
+                </div>
               </Reveal>
             </li>
           ))}

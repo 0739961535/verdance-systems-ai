@@ -28,9 +28,11 @@ const FILM_END = 0.86;
 const HERO_OUT = [0.015, 0.06];
 /** Each step's span of the scroll [fully in, starts leaving], and the hand-over length. */
 const STEPS: [number, number][] = [
-  [0.1, 0.33],
-  [0.4, 0.63],
-  [0.7, 1],
+  [0.1, 0.31],
+  [0.38, 0.6],
+  // the last step (with its buttons) leaves before the next section starts
+  // to slide over the film (from about 0.94 of the scroll)
+  [0.67, 0.9],
 ];
 const XFADE = 0.025;
 
@@ -309,7 +311,17 @@ export function FilmController() {
       root.dataset.stage = String(i);
       segs.forEach((s, k) => s.toggleAttribute("data-on", k === i));
     };
-    const update = (p: number) => {
+    // The section's last screen is where the next section slides up over the
+    // film (CSS: negative margin). The story runs over the scroll before
+    // that point, so nothing is covered while it is still being read.
+    let storyEnd = 0.75;
+    const measureStory = () => {
+      const travel = Math.max(1, root.offsetHeight - window.innerHeight);
+      storyEnd = clamp01(1 - window.innerHeight / travel) || 0.75;
+    };
+    measureStory();
+    const update = (raw: number) => {
+      const p = clamp01(raw / storyEnd);
       // scroll is linear in film time; the file is the nearest one to it.
       // The film ends at FILM_END and its last frame holds after that.
       const pos = clamp01(p / FILM_END) * LAST;
@@ -337,7 +349,7 @@ export function FilmController() {
       // hand-overs are short and never overlap, so nothing sits half-faded
       copies.forEach((el, i) => {
         const [a, b] = STEPS[i];
-        const o = ramp(a - XFADE, a, p) * (i < STEPS.length - 1 ? 1 - ramp(b, b + XFADE, p) : 1);
+        const o = ramp(a - XFADE, a, p) * (1 - ramp(b, b + XFADE, p));
         fade(el, o);
         el.style.transform = `translate3d(0, ${((1 - o) * (p > b ? -14 : 14)).toFixed(1)}px, 0)`;
       });
@@ -354,7 +366,8 @@ export function FilmController() {
       const raw = clamp01(-r.top / Math.max(1, root.offsetHeight - window.innerHeight));
       // the exit dissolve follows the scrollbar exactly (no scrub lag), so
       // the words are gone before the stage starts to scroll away
-      fade(botWash, ramp(0.94, 1, raw));
+      // while the next section slides over, the held frame dims under it
+      fade(botWash, 0.6 * ramp(storyEnd, 1, raw));
       if (!gsapLive) update(raw);
     };
     window.addEventListener("scroll", direct, { passive: true });
@@ -439,6 +452,7 @@ export function FilmController() {
     inFlight.observe(root);
     if (window.scrollY > 0) goReady();
     const ro = new ResizeObserver(() => {
+      measureStory();
       sizeCanvas();
       draw();
     });
