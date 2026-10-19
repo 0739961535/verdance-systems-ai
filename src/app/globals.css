@@ -1883,34 +1883,62 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 }
 
 /* ============================================================
-   HERO ROCKET (Oct 2026 simplify): "We ship it." One lift-off on
-   load, a soft trail that fades, then still. Hovering the main button
-   nudges it up. Transform and opacity only; reduced motion = still.
+   HERO ROCKET (Oct 2026): "We ship it." One lift-off on load, then a
+   scroll-driven flight (Rocket.tsx writes transform/opacity on .rk-fly,
+   .rk-jet, .rk-flame-js and .rk-smoke). Reduced motion = still.
    ============================================================ */
 .rk {
-  --rk-w: 44px;
+  --rk-w: 46px;
   --rk-rise: 52px;
   position: relative;
+  z-index: 0;
   width: var(--rk-w);
-  height: calc(var(--rk-w) * 1.5625);
+  height: calc(var(--rk-w) * 1.75);
   margin: 0 auto;
 }
-@media (min-width: 768px) { .rk { --rk-w: 60px; --rk-rise: 72px; } }
+@media (min-width: 768px) { .rk { --rk-w: 62px; --rk-rise: 72px; } }
+.rk-fly {
+  position: absolute; inset: 0;
+  transform-origin: 50% 60%;
+  will-change: transform;
+}
 .rk-ship {
   position: absolute; inset: 0; display: block;
-  filter: drop-shadow(0 10px 18px rgba(var(--accent-glow-rgb), 0.28));
+  filter: drop-shadow(0 12px 18px rgba(var(--accent-glow-rgb), 0.26)) drop-shadow(0 2px 3px rgba(15, 25, 60, 0.18));
   animation: rk-lift 1.5s var(--ease-out-expo) 0.35s both;
   transition: translate 0.5s var(--ease-out-expo);
 }
+.rk-ship svg { display: block; overflow: visible; }
+.rk-flame-js { transform-box: fill-box; transform-origin: 50% 0; }
 .rk-flame {
   transform-box: fill-box;
   transform-origin: 50% 0;
   animation: rk-flicker 0.12s ease-in-out 0.35s 12 alternate, rk-settle 0.6s ease 1.8s forwards;
   transition: scale 0.4s var(--ease-out-expo);
 }
+.rk-jet {
+  position: absolute; z-index: -1;
+  left: 50%; top: 94%;
+  width: 7px; height: 120px; margin-left: -3.5px;
+  border-radius: 7px;
+  background: linear-gradient(to bottom, rgba(214, 227, 255, 0.95), rgba(var(--accent-glow-rgb), 0.5) 30%, rgba(var(--accent-glow-rgb), 0) 100%);
+  filter: blur(1.5px);
+  transform-origin: 50% 0;
+  transform: scaleY(0.1);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.rk-pad { position: absolute; z-index: -1; left: 50%; top: 96%; width: 0; height: 0; }
+.rk-smoke {
+  position: absolute; left: -15px; top: -15px; width: 30px; height: 30px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(var(--accent-glow-rgb), 0.3), rgba(var(--accent-glow-rgb), 0.08) 55%, transparent 72%);
+  opacity: 0;
+  will-change: transform, opacity;
+}
 .rk-trail {
   position: absolute; z-index: -1;
-  left: 50%; top: 88%;
+  left: 50%; top: 80%;
   width: 2px; height: calc(var(--rk-rise) + 18px);
   margin-left: -1px;
   border-radius: 2px;
@@ -1921,7 +1949,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 }
 .rk-puff {
   position: absolute; z-index: -1;
-  left: 50%; top: calc(88% + var(--rk-rise));
+  left: 50%; top: calc(80% + var(--rk-rise));
   width: 22px; height: 22px; margin: -11px 0 0 -11px;
   border-radius: 999px;
   background: radial-gradient(circle, rgba(var(--accent-glow-rgb), 0.22), transparent 70%);
@@ -1943,7 +1971,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   100% { transform: translateY(0) scale(1); opacity: 1; }
 }
 @keyframes rk-flicker { from { transform: scaleY(0.85); } to { transform: scaleY(1.15); } }
-@keyframes rk-settle { from { transform: scaleY(1); opacity: 1; } to { transform: scaleY(0.5); opacity: 0.75; } }
+@keyframes rk-settle { from { transform: scaleY(1); opacity: 1; } to { transform: scaleY(0.6); opacity: 0.85; } }
 @keyframes rk-trail {
   0% { transform: scaleY(0); opacity: 0; }
   10% { opacity: 1; }
@@ -1957,7 +1985,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 }
 @media (prefers-reduced-motion: reduce) {
   .rk-ship, .rk-flame, .rk-trail, .rk-puff { animation: none; transition: none; }
-  .rk-flame { transform: scaleY(0.5); opacity: 0.75; }
-  .rk-trail, .rk-puff { opacity: 0; }
+  .rk-flame { transform: scaleY(0.6); opacity: 0.85; }
+  .rk-trail, .rk-puff, .rk-jet, .rk-smoke { opacity: 0; }
   .hero-launch:has(.btn-launch:hover) .rk-ship { translate: none; }
 }

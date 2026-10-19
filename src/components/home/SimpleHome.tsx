@@ -28,27 +28,27 @@ export function SimpleHero() {
 
         <h1
           id="hero-title"
-          className="enter-rise font-display mx-auto mt-5 text-[color:var(--color-ink)] md:mt-7"
+          className="enter-rise relative z-[1] font-display mx-auto mt-5 text-[color:var(--color-ink)] md:mt-7"
           style={{ fontSize: "clamp(2.6rem, 5.2vw + 1rem, 6.25rem)", lineHeight: 0.98, letterSpacing: "-0.045em", animationDuration: "0.7s" }}
         >
           We don&apos;t talk about AI. <span className="italic-accent block whitespace-nowrap">We ship it.</span>
         </h1>
 
         <p
-          className="enter-rise mx-auto mt-6 max-w-[22ch] font-display text-[color:var(--color-ink)] md:mt-8 md:max-w-none"
+          className="enter-rise relative z-[1] mx-auto mt-6 max-w-[22ch] font-display text-[color:var(--color-ink)] md:mt-8 md:max-w-none"
           style={{ fontSize: "clamp(1.3rem, 1.1vw + 1rem, 1.9rem)", lineHeight: 1.25, letterSpacing: "-0.025em", animationDelay: "0.08s" }}
         >
           Find out what AI can really do for your business.
         </p>
 
         <p
-          className="mx-auto mt-4 max-w-[36rem] text-[color:var(--color-ink-soft)]"
+          className="relative z-[1] mx-auto mt-4 max-w-[36rem] text-[color:var(--color-ink-soft)]"
           style={{ fontSize: "clamp(1.02rem, 0.3vw + 0.95rem, 1.15rem)", lineHeight: 1.6 }}
         >
           We look at how your business runs. Then we set up AI that does the work for you: answering customers, following up, admin and reports. You stay in control.
         </p>
 
-        <div className="enter-fade-up mt-8 flex flex-col items-center gap-4 md:mt-10" style={{ animationDelay: "0.2s" }}>
+        <div className="enter-fade-up relative z-[1] mt-8 flex flex-col items-center gap-4 md:mt-10" style={{ animationDelay: "0.2s" }}>
           <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent btn-launch min-h-[52px] w-full justify-center px-7 text-[1.02rem] sm:w-auto">
             {CTA_PRIMARY}
             <ArrowUpRight size={17} aria-hidden />
