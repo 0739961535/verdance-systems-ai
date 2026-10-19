@@ -99,52 +99,6 @@ export function WatchItWork() {
 }
 
 /* ------------------------------------------------------------------ */
-/* 3. How it works: three steps                                        */
-/* ------------------------------------------------------------------ */
-const STEPS = [
-  { n: "1", title: "We look", body: "A free 30-minute call. We see how your business runs and where time gets lost." },
-  { n: "2", title: "We set it up", body: "We set up AI on the tools you already use, like WhatsApp, email and your diary. Live in 10 working days." },
-  { n: "3", title: "It does the work", body: "It answers, follows up and does the admin. You check anything important first." },
-];
-
-export function ThreeSteps() {
-  return (
-    <section className="section-pad bg-canvas" aria-labelledby="how-title">
-      <div className="container-wide">
-        <Reveal variant="wipe" className="max-w-3xl">
-          <p className="eyebrow">How it works</p>
-          <h2 id="how-title" className="h2 mt-5">
-            <SplitWords text="Three simple" />{" "}
-            <span className="italic-accent">
-              <SplitWords text="steps." start={2} />
-            </span>
-          </h2>
-        </Reveal>
-        <ol className="mt-12 grid gap-12 md:mt-16 md:grid-cols-3 md:gap-10">
-          {STEPS.map((s, i) => (
-            <li key={s.n}>
-              <Reveal delay={i * 0.08}>
-                <span
-                  className="flex h-12 w-12 items-center justify-center rounded-full font-display text-[1.25rem] text-[color:var(--color-accent)]"
-                  style={{ background: "rgba(var(--accent-rgb), 0.08)", border: "1px solid var(--hairline-glow)" }}
-                  aria-hidden
-                >
-                  {s.n}
-                </span>
-                <h3 className="mt-6 font-display text-[color:var(--color-ink)]" style={{ fontSize: "clamp(1.6rem, 1.2vw + 1.2rem, 2.1rem)", lineHeight: 1.1, letterSpacing: "-0.03em" }}>
-                  {s.title}
-                </h3>
-                <p className="mt-3 max-w-[22rem] text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{s.body}</p>
-              </Reveal>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
 /* 5. What you get: four plain cards                                   */
 /* ------------------------------------------------------------------ */
 const GETS = [

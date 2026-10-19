@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { InControl, SimpleFinalCTA, SimpleHero, ThreeSteps, WatchItWork, WhatYouGet } from "@/components/home/SimpleHome";
+import { InControl, SimpleFinalCTA, SimpleHero, WatchItWork, WhatYouGet } from "@/components/home/SimpleHome";
+import { FlightStory } from "@/components/home/flight/FlightStory";
 import { ExampleChartsSection } from "@/components/home/charts/ExampleCharts";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/niches";
@@ -19,16 +20,17 @@ export const metadata: Metadata = {
 /**
  * Home, kept simple on purpose (docs/simplicity-review.md): seven sections,
  * one idea each, one main button.
- * 1 hero (tagline + rocket) -> 2 watch it work (the enquiry demo) ->
- * 3 three steps -> 4 example charts -> 5 what you get -> 6 you stay in
- * control -> 7 final call to action.
+ * 1 hero (tagline + rocket) -> 2 the flight (how it works as a rocket
+ * climb: launch, ascent, orbit; docs/rocket-scroll-research.md) ->
+ * 3 watch it work (the enquiry demo, "in orbit") -> 4 example charts ->
+ * 5 what you get -> 6 you stay in control -> 7 final call to action.
  */
 export default function HomePage() {
   return (
     <>
       <SimpleHero />
+      <FlightStory />
       <WatchItWork />
-      <ThreeSteps />
       <ExampleChartsSection />
       <WhatYouGet />
       <InControl />

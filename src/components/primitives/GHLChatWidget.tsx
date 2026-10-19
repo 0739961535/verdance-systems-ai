@@ -23,19 +23,40 @@ const WIDGET_ID = "6a7337fa97ea74e60aff69a1";
  * button on phones. So the loader only runs after LOAD_AFTER_MS, or sooner
  * once the visitor scrolls past the hero (they have seen it and are reading
  * on). Daniel approved the 20-second delay, Oct 2026.
+ *
+ * On the home page the pinned rocket flight (.fl) follows the hero. The
+ * widget's script costs 50 to 200ms of main thread as it boots and its
+ * bubble covers the flight's words, so while the flight is on screen the
+ * load waits, and it happens as soon as the visitor scrolls out of it.
  */
 const LOAD_AFTER_MS = 20_000;
+
+function inFlight() {
+  const fl = document.querySelector(".fl");
+  if (!fl) return false;
+  const r = fl.getBoundingClientRect();
+  return r.top < window.innerHeight && r.bottom > 0;
+}
 
 function useDeferredLoad() {
   const [load, setLoad] = useState(false);
   useEffect(() => {
     if (load) return;
-    const go = () => setLoad(true);
+    let due = false;
+    const go = () => {
+      due = true;
+      if (!inFlight()) setLoad(true);
+    };
     const timer = window.setTimeout(go, LOAD_AFTER_MS);
     const onScroll = () => {
+      const fl = document.querySelector(".fl");
       const hero = document.querySelector("main section, section");
-      const pastHero = hero ? hero.getBoundingClientRect().bottom < window.innerHeight * 0.25 : window.scrollY > 600;
-      if (pastHero) go();
+      const past = fl
+        ? fl.getBoundingClientRect().bottom < window.innerHeight * 0.25
+        : hero
+          ? hero.getBoundingClientRect().bottom < window.innerHeight * 0.25
+          : window.scrollY > 600;
+      if (past || (due && !inFlight())) go();
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
