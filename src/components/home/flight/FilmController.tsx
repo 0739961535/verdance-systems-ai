@@ -248,7 +248,7 @@ export function FilmController() {
         while (next < order.length && gen === generation && !disposed) {
           const i = order[next++];
           try {
-            const res = await fetch(url(i), { signal });
+            const res = await fetch(url(i), { signal, priority: "low" } as RequestInit);
             // anything but an image (an auth or error page) is skipped, loudly
             if (!res.ok || !(res.headers.get("content-type") || "").startsWith("image/")) {
               console.warn("[film] frame", i, "not an image:", res.status, res.headers.get("content-type"));
@@ -371,7 +371,7 @@ export function FilmController() {
 
     root.setAttribute("data-live", "");
     update(0);
-    // Frames and GSAP load once the page has loaded and gone idle (or on
+    // Frames and GSAP load about two seconds after the page has loaded (or on
     // the first scroll, if sooner), and only when the section is within
     // about a screen and a half. The poster <img> is already showing.
     let ready = false;
@@ -388,7 +388,9 @@ export function FilmController() {
     };
     const whenIdle = () => {
       const ric = (window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }).requestIdleCallback;
-      idleId = ric ? ric(goReady, { timeout: 1500 }) : window.setTimeout(goReady, 1500);
+      // a moment after load, so the frames never compete with the first
+      // paint (the poster already shows the pad); a scroll starts it sooner
+      idleId = window.setTimeout(() => (ric ? ric(goReady, { timeout: 1000 }) : goReady()), 2000);
     };
     if (document.readyState === "complete") whenIdle();
     else window.addEventListener("load", whenIdle, { once: true });
