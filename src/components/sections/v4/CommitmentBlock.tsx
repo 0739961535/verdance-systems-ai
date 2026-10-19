@@ -30,7 +30,7 @@ export function CommitmentBlock({
   columns = CLAUSES,
   note,
   ctaHref = "/contact",
-  ctaLabel = "See what AI can do for you",
+  ctaLabel = "Book a free 30-minute call",
 }: CommitmentBlockProps = {}) {
   const external = ctaHref.startsWith("http");
   const cta = external ? (

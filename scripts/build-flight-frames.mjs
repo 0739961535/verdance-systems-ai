@@ -53,7 +53,10 @@ const cfg = {
 };
 const shotsDir = expand(cfg.shots);
 const DW = 1600;
-const PW = 540, PH = 960;
+// phone frames: `phoneAspect` (width / height) matches modern phones' tall
+// screens (9:19.5) so a portrait viewport shows the whole crop, no cover cut
+const PHONE_ASPECT = cfg.phoneAspect ?? 9 / 16;
+const PW = 540, PH = Math.round(PW / PHONE_ASPECT / 2) * 2;
 const Q = { webpDesktop: 66, webpPhone: 70, avif: 52, webpPoster: 74 };
 
 const outDir = path.join(root, "public", "flight", "film");
@@ -90,7 +93,7 @@ function pick(count, step) {
 }
 
 // phone crop: centre x (fraction of width) per source frame, linear between keyframes
-const cropW = Math.round((H * 9) / 16) & ~1;
+const cropW = Math.round(H * PHONE_ASPECT) & ~1;
 const cxAt = (n) => {
   const k = cfg.cx;
   if (n <= k[0][0]) return k[0][1];
@@ -159,7 +162,7 @@ async function still(name, image, n) {
   if (image) {
     const src = sharp(expand(image));
     const { width: iw, height: ih } = await src.metadata();
-    const cw = Math.round((ih * 9) / 16);
+    const cw = Math.round(ih * PHONE_ASPECT);
     const left = Math.max(0, Math.min(iw - cw, Math.round(iw * cxAt(n) - cw / 2)));
     d = src.clone().resize({ width: DW, height: DH, fit: "cover" });
     m = src.clone().extract({ left, top: 0, width: cw, height: ih }).resize({ width: PW, height: PH, fit: "cover" });
@@ -186,6 +189,8 @@ async function topColour(file) {
 const stillN = cfg.stillFrame ?? Math.round((total - 1) * cfg.stillAt);
 await still("poster", cfg.poster, 0);
 await still("still", cfg.still, stillN);
+// optional middle still (reduced motion shows launch, ascent and orbit)
+if (cfg.mid || cfg.midFrame != null) await still("mid", cfg.mid, cfg.midFrame ?? Math.round((total - 1) * 0.45));
 
 const posterSky = await topColour(path.join(outDir, "poster-m.webp"));
 const manifest = {

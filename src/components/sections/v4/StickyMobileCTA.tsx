@@ -26,7 +26,12 @@ export function StickyMobileCTA({ href = "/contact", label = "Book a Meeting" }:
     let footerVisible = false;
     let flightVisible = false;
 
-    const update = () => setShow(heroGone && !auditVisible && !footerVisible && !flightVisible);
+    const update = () => {
+      const on = heroGone && !auditVisible && !footerVisible && !flightVisible;
+      setShow(on);
+      // one thing at the bottom of a phone screen: the chat bubble hides while the bar shows (CSS)
+      document.documentElement.toggleAttribute("data-sticky-bar", on);
+    };
 
     const hero = document.querySelector("section"); // first section = hero
     const audit = document.getElementById("audit");
@@ -50,7 +55,10 @@ export function StickyMobileCTA({ href = "/contact", label = "Book a Meeting" }:
       const io = new IntersectionObserver(([e]) => { flightVisible = e.isIntersecting; update(); }, { rootMargin: "-30% 0px -30% 0px" });
       io.observe(flight); ios.push(io);
     }
-    return () => ios.forEach((io) => io.disconnect());
+    return () => {
+      ios.forEach((io) => io.disconnect());
+      document.documentElement.removeAttribute("data-sticky-bar");
+    };
   }, []);
 
   return (
@@ -70,11 +78,11 @@ export function StickyMobileCTA({ href = "/contact", label = "Book a Meeting" }:
     >
       <div className="flex items-center gap-2 px-4 py-3">
         {href.startsWith("http") ? (
-          <a href={href} className="btn btn-accent flex-1 justify-center min-h-12 text-[0.95rem]">
+          <a href={href} className="btn btn-accent min-w-0 flex-1 justify-center whitespace-nowrap min-h-12 px-4 text-[0.92rem]" style={{ whiteSpace: "nowrap", paddingInline: 14 }}>
             {label}
           </a>
         ) : (
-          <Link href={href} className="btn btn-accent flex-1 justify-center min-h-12 text-[0.95rem]">
+          <Link href={href} className="btn btn-accent min-w-0 flex-1 justify-center whitespace-nowrap min-h-12 px-4 text-[0.92rem]" style={{ whiteSpace: "nowrap", paddingInline: 14 }}>
             {label}
           </Link>
         )}
@@ -82,11 +90,11 @@ export function StickyMobileCTA({ href = "/contact", label = "Book a Meeting" }:
           href={SITE.whatsapp.href}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Chat on WhatsApp"
-          className="flex items-center justify-center w-12 h-12 rounded-full text-[color:var(--color-accent)]"
+          className="inline-flex min-h-12 shrink-0 items-center justify-center gap-1.5 rounded-full px-3.5 text-[0.9rem] font-medium text-[color:var(--color-ink)]"
           style={{ border: "1px solid var(--hairline-2)" }}
         >
-          <WhatsAppIcon className="w-5 h-5" />
+          <WhatsAppIcon className="h-4 w-4 text-[color:var(--color-accent)]" />
+          WhatsApp
         </a>
       </div>
     </nav>

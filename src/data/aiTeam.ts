@@ -22,7 +22,7 @@ export const AI_TEAM = {
   },
 };
 
-export const CTA_LABEL = "See what AI can do for you";
+export const CTA_LABEL = "Book a free 30-minute call";
 export const CTA_MICRO = "Free 30-minute call. Nothing to sign.";
 
 /* ── Org chart ─────────────────────────────────────────────── */

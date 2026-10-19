@@ -106,7 +106,7 @@ export default function LocationsIndexPage() {
           </>
         }
       />
-      <StickyMobileCTA href={GENERIC_BOOK_URL} label="See what AI can do for you" />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free 30-minute call" />
     </>
   );
 }

@@ -103,7 +103,7 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
       </section>
 
       <OfferSection href={href} />
-      <CommitmentBlock ctaHref={href} ctaLabel="See what AI can do for you" />
+      <CommitmentBlock ctaHref={href} ctaLabel="Book a free 30-minute call" />
 
       <NicheProof niche={niche} />
       <FAQControl faqs={niche.faqs} />
@@ -121,7 +121,7 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
         ]}
         href={href}
       />
-      <StickyMobileCTA href={href} label="See what AI can do for you" />
+      <StickyMobileCTA href={href} label="Book a free 30-minute call" />
     </>
   );
 }

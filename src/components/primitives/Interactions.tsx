@@ -19,6 +19,9 @@ import { usePathname } from "next/navigation";
  * All of it is off for touch / coarse pointers and reduced motion, and
  * parallax is desktop-width only. Transforms only, no layout work.
  */
+/** Magnetic buttons are off (design review, Oct 2026); flip to bring them back. */
+const MAGNETIC = false as boolean;
+
 export function Interactions() {
   const pathname = usePathname();
   const first = useRef(true);
@@ -136,7 +139,8 @@ export function Interactions() {
         tilt.style.setProperty("--my", `${py * 100}%`);
       }
 
-      const mag = t?.closest<HTMLElement>("[data-magnetic]") ?? null;
+      // magnetic buttons retired (design review, Oct 2026): buttons stay put
+      const mag = MAGNETIC ? (t?.closest<HTMLElement>("[data-magnetic]") ?? null) : null;
       if (magEl && magEl !== mag) pull(magEl, 0, 0);
       magEl = mag;
       if (mag) {

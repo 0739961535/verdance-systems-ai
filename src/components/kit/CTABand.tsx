@@ -22,7 +22,7 @@ export function CTABand({
     "A fixed price, if you want us to build it",
   ],
   href = GENERIC_BOOK_URL,
-  label = "See what AI can do for you",
+  label = "Book a free 30-minute call",
 }: {
   eyebrow?: string;
   title?: ReactNode;

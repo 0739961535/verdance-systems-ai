@@ -1,77 +1,99 @@
+import { ArrowUpRight } from "lucide-react";
 import { BOOK_BASE } from "@/data/booking";
-import { Accent } from "./Accent";
+import { CTA_PRIMARY, SITE } from "@/data/site";
+import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
 import { FilmController } from "./FilmController";
 import film from "./film-manifest.json";
 import { STAGES } from "./flightData";
 
 /**
- * The flight as a film (Oct 2026, rocket v6): a real rocket launch, rendered
- * as video and scrubbed by scroll like an Apple product page.
- * docs: growth-lab/ROCKET_NEXT_LEVEL_COUNCIL.md
+ * The home page opens on the film (rocket v7, design review Oct 2026):
+ * the launch pad at night, full screen, with the tagline and one button.
+ * The first scroll lifts off and the flight tells how we work in three
+ * steps: launch, ascent, orbit. Always dark, whatever the site theme.
  *
  * A tall section with a sticky, full-screen stage (the pin, in CSS, so it
  * works before any script and never shifts layout). FilmController draws the
  * frame for the scroll position onto a canvas: frames come from
- * public/flight/film (npm run flight:frames -- <shotsDir>), phones get their
- * own 9:16 set. The first frame is a plain <img> under the canvas, so the
- * section is never blank before the canvas is ready.
+ * public/flight/film (npm run flight:frames -- dark), phones get their own
+ * tall portrait set. The first frame is a plain <img> under the canvas, so
+ * the opening is never blank before the canvas is ready.
  *
- * Reduced motion and no-JS: an orbit still behind the three steps as a list.
- * Rollback: FLIGHT_FILM=0 brings back the illustrated FlightStory.
+ * Reduced motion and no-JS: the opening over the launch still, then the
+ * three steps over the launch, ascent and orbit stills, as a plain list.
+ * Rollback: FLIGHT_FILM=0 brings back the old hero and illustrated flight.
  */
 
 const BOOK_CALL_URL = `${BOOK_BASE}/book/audit`;
 const src = (name: string, ext: string) => `/flight/film/${name}.${ext}?v=${film.v}`;
+/** CSS backgrounds for the reduced-motion stills (phone and desktop crops). */
+const stillVars = (name: string) => ({
+  [`--${name}-m` as string]: `image-set(url("${src(`${name}-m`, "avif")}") type("image/avif"), url("${src(`${name}-m`, "webp")}") type("image/webp"))`,
+  [`--${name}-d` as string]: `image-set(url("${src(`${name}-d`, "avif")}") type("image/avif"), url("${src(`${name}-d`, "webp")}") type("image/webp"))`,
+});
 
-/**
- * A responsive still. The poster (frame 1) loads eagerly at low priority so
- * the start of the flight is never blank, and stays under the canvas until
- * the first frame is drawn; the reduced-motion still is lazy.
- */
-function Still({ name, className, focusX, poster }: { name: "poster" | "still"; className: string; focusX: number; poster?: boolean }) {
+function Actions({ where }: { where: "hero" | "orbit" }) {
   return (
-    <picture className={className}>
-      <source type="image/avif" media="(max-width: 767px)" srcSet={src(`${name}-m`, "avif")} />
-      <source type="image/webp" media="(max-width: 767px)" srcSet={src(`${name}-m`, "webp")} />
-      <source type="image/avif" srcSet={src(`${name}-d`, "avif")} />
-      <img
-        src={src(`${name}-d`, "webp")}
-        alt=""
-        width={film.desktop.width}
-        height={film.desktop.height}
-        loading={poster ? "eager" : "lazy"}
-        fetchPriority={poster ? "low" : undefined}
-        decoding="async"
-        draggable={false}
-        style={{ ["--fx" as string]: `${focusX * 100}%` }}
-      />
-    </picture>
+    <div className="flm-actions" data-cta-location={where === "hero" ? "hero" : "flight_orbit"}>
+      <a href={BOOK_CALL_URL} className="btn btn-accent min-h-[52px] justify-center px-7 text-[1.02rem]">
+        {CTA_PRIMARY}
+        <ArrowUpRight size={17} aria-hidden />
+      </a>
+      <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="flm-wa">
+        <WhatsAppIcon className="h-4 w-4" />
+        WhatsApp us
+      </a>
+    </div>
   );
 }
 
 export function FilmStory() {
   return (
-    <section className="fl flm" aria-labelledby="flight-title" data-stage="0" style={{ ["--flm-sky" as string]: film.posterSky }}>
+    <section
+      className="fl flm"
+      aria-labelledby="hero-title"
+      data-stage="-1"
+      style={{ ["--flm-sky" as string]: film.posterSky, ...stillVars("poster"), ...stillVars("mid"), ...stillVars("still") }}
+    >
       <FilmController />
       <div className="fl-stage">
         <div className="flm-scene" aria-hidden>
           <div className="flm-cam">
-            <Still name="poster" className="flm-poster" focusX={film.desktop.focusX} poster />
+            {/* frame 1: the largest paint, so it loads first */}
+            <picture className="flm-poster">
+              <source type="image/avif" media="(max-width: 767px)" srcSet={src("poster-m", "avif")} />
+              <source type="image/webp" media="(max-width: 767px)" srcSet={src("poster-m", "webp")} />
+              <source type="image/avif" srcSet={src("poster-d", "avif")} />
+              <img
+                src={src("poster-d", "webp")}
+                alt=""
+                width={film.desktop.width}
+                height={film.desktop.height}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                draggable={false}
+                style={{ ["--fx" as string]: `${film.desktop.focusX * 100}%` }}
+              />
+            </picture>
             <canvas className="flm-canvas" />
           </div>
-          <Still name="still" className="flm-still" focusX={film.desktop.focusX} />
-          {/* ground to space: the light-mode wash over the pad (see FilmController) */}
-          <div className="flm-veil" />
-          <div className="flm-top" />
         </div>
-        {/* light scrim for dark ink (light mode, on the ground), and the exit feather */}
-        <div className="flm-lscrim" aria-hidden />
         <div className="flm-bot" aria-hidden />
 
-        {/* ---------- mission bar ---------- */}
+        {/* ---------- the opening ---------- */}
+        <div className="flm-hero">
+          <h1 id="hero-title" className="flm-h1">
+            We don&apos;t talk about AI. <span className="italic-accent">We ship it.</span>
+          </h1>
+          <p className="flm-sub">Find out what AI can really do for your business.</p>
+          <Actions where="hero" />
+        </div>
+
+        {/* ---------- progress through the three steps ---------- */}
         <div className="fl-hud" aria-hidden>
-          {STAGES.map((s, i) => (
-            <span key={s.n} className="fl-seg" data-on={i === 0 ? "" : undefined}>
+          {STAGES.map((s) => (
+            <span key={s.n} className="fl-seg">
               <span className="fl-seg-track">
                 <span className="fl-seg-fill" />
               </span>
@@ -84,25 +106,19 @@ export function FilmStory() {
 
         {/* ---------- the words ---------- */}
         <div className="fl-copy">
-          <h2 id="flight-title" className="sr-only">
-            How it works, in three steps
-          </h2>
+          <h2 className="sr-only">How it works, in three steps</h2>
           <ol className="fl-steps">
             {STAGES.map((s, i) => (
-              <li key={s.n} className="fl-step">
+              <li key={s.n} className="fl-step" data-still={i === 1 ? "mid" : i === 2 ? "still" : undefined}>
                 <p className="fl-eyebrow">
                   <span className="fl-eyebrow-rule" />
-                  <span>Step {i + 1} of 3</span>
+                  <span>
+                    Step {i + 1} of 3 · {s.name}
+                  </span>
                 </p>
-                <h3 className="fl-title">
-                  <Accent title={s.title} accent={s.accent} />
-                </h3>
+                <h3 className="fl-title">{s.title}</h3>
                 <p className="fl-body">{s.body}</p>
-                {i === STAGES.length - 1 && (
-                  <a href={BOOK_CALL_URL} className="btn btn-accent flm-cta min-h-[52px] justify-center px-7 text-[1.02rem]">
-                    Book a call
-                  </a>
-                )}
+                {i === STAGES.length - 1 && <Actions where="orbit" />}
               </li>
             ))}
           </ol>

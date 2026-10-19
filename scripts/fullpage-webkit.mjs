@@ -1,4 +1,4 @@
-// Full home page on a phone in WebKit (the iOS Safari engine): top to
+// Full home page on a phone (or desktop, width >= 768) in WebKit (the iOS Safari engine): top to
 // footer, recorded, dark and light; screenshots every screen; and an overlap
 // check inside the flight (sticky bar / chat bubble vs the words and button).
 // Usage: node scripts/fullpage-webkit.mjs <baseUrl> <outDir> [dark,light] [390]
@@ -9,11 +9,12 @@ import fs from "node:fs";
 const [base = "http://localhost:3100", out = "/tmp/fullpage-webkit", schemes = "dark,light", w = "390"] = process.argv.slice(2);
 fs.mkdirSync(out, { recursive: true });
 const width = Number(w);
-const vp = { width, height: Math.round(width * 2.164) };
+const phone = width < 768;
+const vp = phone ? { width, height: Math.round(width * 2.164) } : { width, height: 900 };
 const b = await webkit.launch();
 const report = {};
 for (const scheme of schemes.split(",")) {
-  const ctx = await b.newContext({ ...devices["iPhone 15 Pro Max"], viewport: vp, screen: vp, colorScheme: scheme, recordVideo: { dir: out, size: vp } });
+  const ctx = await b.newContext({ ...(phone ? devices["iPhone 15 Pro Max"] : {}), viewport: vp, screen: vp, colorScheme: scheme, recordVideo: { dir: out, size: vp } });
   await ctx.route(/_vercel\//, (r) => r.abort());
   const p = await ctx.newPage();
   const logs = [];

@@ -25,8 +25,14 @@ const PHONE: FrameSet = { prefix: "m", ...film.phone };
 const LAST = film.source.frames - 1;
 /** The film plays over this much of the scroll; the last frame then holds while "Book a call" shows. */
 const FILM_END = 0.86;
-/** Light mode: dark ink on a light scrim while still on the ground, until this point (step 1 has faded by then). */
-const LIGHT_INK_UNTIL = 0.318;
+const HERO_OUT = [0.015, 0.06];
+/** Each step's span of the scroll [fully in, starts leaving], and the hand-over length. */
+const STEPS: [number, number][] = [
+  [0.1, 0.33],
+  [0.4, 0.63],
+  [0.7, 1],
+];
+const XFADE = 0.025;
 
 /** The file nearest to source frame `src` (binary search). */
 function fileFor(set: FrameSet, src: number) {
@@ -80,8 +86,7 @@ async function decodeFrame(blob: Blob): Promise<Frame> {
   return img;
 }
 
-/** Phones: how far down (CSS px) the film sits at launch, so the rocket's nose clears the site header. */
-const PHONE_HEADER_OFFSET = 56;
+
 
 /** Every 8th frame, then every 4th, every 2nd, then the rest. */
 function coarseToFine(count: number) {
@@ -105,8 +110,22 @@ export function FilmController() {
   useEffect(() => {
     const root = markRef.current?.closest<HTMLElement>(".flm");
     if (!root) return;
+    const html = document.documentElement;
+    // the site header sits over the film (transparent, light ink) until the
+    // film has scrolled away from under it; see html[data-off-film] in CSS
+    // (from the moment it starts to scroll away, so the words never slide
+    // under a see-through header)
+    const headerWatch = () => html.toggleAttribute("data-off-film", root.getBoundingClientRect().bottom < window.innerHeight + 2);
+    headerWatch();
+    window.addEventListener("scroll", headerWatch, { passive: true });
+    const underHeader = { disconnect: () => window.removeEventListener("scroll", headerWatch) };
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (reduce.matches) return;
+    if (reduce.matches) {
+      return () => {
+        underHeader.disconnect();
+        html.removeAttribute("data-off-film");
+      };
+    }
 
     const q = <T extends Element>(sel: string) => root.querySelector<T>(sel)!;
     const qa = <T extends Element>(sel: string) => Array.from(root.querySelectorAll<T>(sel));
@@ -115,14 +134,9 @@ export function FilmController() {
     const copies = qa<HTMLElement>(".fl-step");
     const fills = qa<HTMLElement>(".fl-seg-fill");
     const segs = qa<HTMLElement>(".fl-seg");
-    const veil = q<HTMLElement>(".flm-veil");
-    const topWash = q<HTMLElement>(".flm-top");
+    const hero = q<HTMLElement>(".flm-hero");
+    const hud = q<HTMLElement>(".fl-hud");
     const botWash = q<HTMLElement>(".flm-bot");
-    const html = document.documentElement;
-    const isLight = () =>
-      html.dataset.theme ? html.dataset.theme === "light" : window.matchMedia("(prefers-color-scheme: light)").matches;
-    let light = isLight();
-    let lastP = 0;
     const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
@@ -147,7 +161,8 @@ export function FilmController() {
 
     // ---------- drawing ----------
     let cw = 0, ch = 0, dpr = 1;
-    let offset = 0, drawnOff = -1;
+    const offset = 0;
+    let drawnOff = -1;
     const sizeCanvas = () => {
       // at most 2x and about 1700px tall: iOS caps canvas memory
       dpr = Math.min(window.devicePixelRatio || 1, 2, 1700 / Math.max(1, canvas.clientHeight));
@@ -275,11 +290,9 @@ export function FilmController() {
       segs.forEach((s, k) => s.toggleAttribute("data-on", k === i));
     };
     const update = (p: number) => {
-      lastP = p;
       // scroll is linear in film time; the file is the nearest one to it.
       // The film ends at FILM_END and its last frame holds after that.
       const f = fileFor(set, clamp01(p / FILM_END) * LAST);
-      offset = set === PHONE ? Math.round(PHONE_HEADER_OFFSET * (1 - ramp(0.2, 0.34, p)) * 2) / 2 : 0;
       if (f !== target) {
         target = f;
         pump();
@@ -290,36 +303,35 @@ export function FilmController() {
       // higher it goes
       const e = p < 0.5 ? 2 * p * p : 1 - (-2 * p + 2) ** 2 / 2;
       cam.style.transform = `scale(${(1.06 - 0.06 * e).toFixed(4)})`;
-      // words: one step at a time, entering from below, leaving upward
-      const o = [1 - ramp(0.26, 0.32, p), ramp(0.34, 0.4, p) * (1 - ramp(0.6, 0.66, p)), ramp(0.68, 0.74, p)];
+      // the opening holds on the pad, then gives way as the rocket lifts
+      const h = 1 - ramp(HERO_OUT[0], HERO_OUT[1], p);
+      fade(hero, h);
+      hero.style.transform = `translate3d(0, ${((1 - h) * -24).toFixed(1)}px, 0)`;
+      fade(hud, ramp(HERO_OUT[1] - 0.01, STEPS[0][0], p));
+      // words: one step at a time and fully legible for most of it; the
+      // hand-overs are short and never overlap, so nothing sits half-faded
       copies.forEach((el, i) => {
-        const leaving = (i === 0 && p > 0.2) || (i === 1 && p > 0.5);
-        fade(el, o[i]);
-        el.style.transform = `translate3d(0, ${((1 - o[i]) * (leaving ? -18 : 18)).toFixed(1)}px, 0)`;
+        const [a, b] = STEPS[i];
+        const o = ramp(a - XFADE, a, p) * (i < STEPS.length - 1 ? 1 - ramp(b, b + XFADE, p) : 1);
+        fade(el, o);
+        el.style.transform = `translate3d(0, ${((1 - o) * (p > b ? -14 : 14)).toFixed(1)}px, 0)`;
       });
       fills.forEach((el, i) => {
-        el.style.transform = `scaleX(${clamp01((p - i / 3) * 3).toFixed(3)})`;
+        const [a, b] = STEPS[i];
+        el.style.transform = `scaleX(${clamp01((p - a + XFADE) / (b - a + XFADE)).toFixed(3)})`;
       });
-      setStage(p < 0.33 ? 0 : p < 0.67 ? 1 : 2);
-
-      // ground to space. Light mode: the pad starts washed into the light
-      // page and the wash lifts as the rocket climbs into dark space. Both
-      // modes: the bottom edge eases into the page as the section unpins
-      // (the section's own ::before/::after feather its entry and exit).
-      fade(veil, light ? 0.5 * (1 - ramp(0.04, 0.3, p)) : 0);
-      fade(topWash, light ? 1 - ramp(0.2, 0.33, p) : 0);
+      setStage(p < STEPS[0][0] - XFADE ? -1 : p < STEPS[1][0] - XFADE ? 0 : p < STEPS[2][0] - XFADE ? 1 : 2);
+      // the bottom edge eases into the page as the section unpins
       fade(botWash, ramp(0.94, 1, p));
-      root.toggleAttribute("data-ink-dark", light && p < LIGHT_INK_UNTIL);
     };
-    // follow the site's theme toggle
-    const themeWatch = new MutationObserver(() => {
-      const next = isLight();
-      if (next !== light) {
-        light = next;
-        update(lastP);
-      }
-    });
-    themeWatch.observe(html, { attributes: true, attributeFilter: ["data-theme"] });
+    // before GSAP has loaded, follow the scroll directly
+    let gsapLive = false;
+    const direct = () => {
+      if (gsapLive) return;
+      const r = root.getBoundingClientRect();
+      update(clamp01(-r.top / Math.max(1, root.offsetHeight - window.innerHeight)));
+    };
+    window.addEventListener("scroll", direct, { passive: true });
 
     const start = async () => {
       if (started) return;
@@ -353,6 +365,7 @@ export function FilmController() {
           update(st.progress);
         }
       }, root);
+      gsapLive = true;
       killGsap = () => gctx.revert();
     };
 
@@ -415,7 +428,9 @@ export function FilmController() {
       window.removeEventListener("load", whenIdle);
       window.clearTimeout(idleId);
       ro.disconnect();
-      themeWatch.disconnect();
+      underHeader.disconnect();
+      html.removeAttribute("data-off-film");
+      window.removeEventListener("scroll", direct);
       phoneMq.removeEventListener("change", switchSet);
       killGsap();
       bitmaps.forEach(release);

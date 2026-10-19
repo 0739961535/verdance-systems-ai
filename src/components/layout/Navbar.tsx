@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LogoMark } from "@/components/brand/LogoMark";
-import { ThemeToggle } from "@/components/primitives/ThemeToggle";
 import { CTA_PRIMARY, NAV_ITEMS, SITE } from "@/data/site";
 import { GENERIC_BOOK_URL, bookUrl } from "@/data/booking";
 
@@ -47,9 +46,10 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
     <header
       className="enter-drop fixed inset-x-0 top-0 z-50 py-3.5 transition-[background-color,border-color,backdrop-filter] duration-300"
       style={{
-        background: scrolled ? "rgba(var(--bg-rgb),0.72)" : "transparent",
-        backdropFilter: scrolled ? "blur(16px)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
+        // solid enough that content never ghosts through (design review fix 10)
+        background: scrolled ? "rgba(var(--bg-rgb),0.9)" : "transparent",
+        backdropFilter: scrolled ? "blur(20px)" : "none",
+        WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
         borderBottom: scrolled
           ? "1px solid rgba(var(--hairline-rgb),0.06)"
           : "1px solid transparent",
@@ -71,7 +71,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
           </span>
         </Link>
 
-        <nav className="relative hidden md:flex items-center gap-1">
+        <nav className="relative hidden lg:flex items-center gap-1">
           {NAV_ITEMS.map((it) => {
             const active = pathname === it.href;
             const menu = menus[it.href];
@@ -199,8 +199,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
           })}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
-          <ThemeToggle />
+        <div className="hidden lg:flex items-center gap-3">
           <a
             href={SITE.whatsapp.href}
             target="_blank"
@@ -219,12 +218,11 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
           </a>
           <a href={bookHref} className="btn btn-accent">
             <span className="hidden xl:inline">{CTA_PRIMARY}</span>
-            <span className="xl:hidden">See what AI can do</span>
+            <span className="xl:hidden">Book a free call</span>
           </a>
         </div>
 
-        <div className="md:hidden flex items-center gap-2">
-          <ThemeToggle />
+        <div className="lg:hidden flex items-center gap-2">
           <button
             className="inline-flex h-11 w-11 items-center justify-center rounded-full border"
             style={{ borderColor: "var(--color-hairline-2)" }}
@@ -249,7 +247,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
       </div>
 
       {open && (
-        <div className="md:hidden mt-3 mx-4 surface p-4 flex flex-col gap-1.5">
+        <div className="lg:hidden mt-3 mx-4 surface p-4 flex flex-col gap-1.5">
           {NAV_ITEMS.map((it) => (
             <Link
               key={it.href}

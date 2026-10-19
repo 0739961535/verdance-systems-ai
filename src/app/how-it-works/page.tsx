@@ -110,9 +110,9 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      <CommitmentBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="See what AI can do for you" />
+      <CommitmentBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="Book a free 30-minute call" />
       <CTABand />
-      <StickyMobileCTA href={GENERIC_BOOK_URL} label="See what AI can do for you" />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free 30-minute call" />
     </>
   );
 }

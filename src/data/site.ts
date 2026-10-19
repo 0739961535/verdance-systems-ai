@@ -34,5 +34,5 @@ export const NAV_ITEMS = [
 ];
 
 /** The one main button on every page. Always goes to the free Operations Map. */
-export const CTA_PRIMARY = "See what AI can do for you";
-export const CTA_PRIMARY_MICRO = "Free 30-minute call. Nothing to sign.";
+export const CTA_PRIMARY = "Book a free 30-minute call";
+export const CTA_PRIMARY_MICRO = "Nothing to sign.";

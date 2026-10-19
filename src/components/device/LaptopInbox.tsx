@@ -164,7 +164,7 @@ export function LaptopInbox({ rotation }: { rotation: RotationItem[] }) {
           Sample conversation · {rotation[idx].label}
         </span>
         <span className="sr-only">{rotation.map((it) => it.conversation.summary).join(" ")}</span>
-        <div className="flex flex-wrap justify-center gap-1.5" role="group" aria-label="Choose a sample conversation">
+        <div className="lp-pills" role="group" aria-label="Choose a sample conversation">
           {rotation.map((it, i) => (
             <button key={it.label} type="button" onClick={() => jump(i)} aria-pressed={i === idx} className="hero-chip">
               {it.label}

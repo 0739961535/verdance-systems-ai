@@ -4,6 +4,7 @@ import { NICHES } from "@/data/niches";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { Logo } from "@/components/brand/LogoMark";
 import { SITE } from "@/data/site";
+import { ThemeToggle } from "@/components/primitives/ThemeToggle";
 
 /**
  * Footer: a closing band (promise, one CTA, direct contact) above a tidy
@@ -120,13 +121,13 @@ export function Footer() {
               Every enquiry answered within 60 seconds.{" "}
               <span className="whitespace-nowrap text-[color:var(--color-ink-muted)]">Every follow-up done.</span>
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
+            <div className="footer-cta mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
               <a
                 href={GENERIC_BOOK_URL}
                 className="btn btn-outline w-full justify-center text-sm sm:w-auto"
                 style={{ minHeight: 52 }}
               >
-                See what AI can do for you
+                Book a free 30-minute call
                 <ArrowUpRight size={16} strokeWidth={1.5} aria-hidden />
               </a>
               <span className="font-mono text-xs text-[color:var(--color-ink-muted)]">
@@ -162,15 +163,15 @@ export function Footer() {
           </ul>
         </div>
 
-        {/* Link index */}
+        {/* Link index: open columns from tablet up, folded groups on phones */}
         <nav
           aria-label="Footer"
-          className="mt-14 grid grid-cols-2 gap-x-6 gap-y-10 border-t pt-10 md:mt-20 md:grid-cols-3 md:pt-14 lg:grid-cols-5"
+          className="mt-14 hidden grid-cols-3 gap-x-6 gap-y-10 border-t pt-10 md:mt-20 md:grid md:pt-14 lg:grid-cols-5"
           style={{ borderColor: "var(--color-hairline)" }}
         >
           {GROUPS.map((group) => (
             <div key={group.title} className="min-w-0">
-              <h2 className="mb-2 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)] md:mb-4">
+              <h2 className="mb-4 font-mono text-[0.6875rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">
                 {group.title}
               </h2>
               <ul>
@@ -183,6 +184,23 @@ export function Footer() {
             </div>
           ))}
         </nav>
+        <nav aria-label="Footer" className="mt-12 border-t md:hidden" style={{ borderColor: "var(--color-hairline)" }}>
+          {GROUPS.map((group) => (
+            <details key={group.title} className="footer-fold border-b" style={{ borderColor: "var(--color-hairline)" }}>
+              <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between py-3 text-[0.95rem] font-medium text-[color:var(--color-ink)]">
+                {group.title}
+                <span aria-hidden className="footer-fold-mark text-[color:var(--color-ink-muted)]">+</span>
+              </summary>
+              <ul className="pb-3">
+                {group.links.map((link) => (
+                  <li key={link.href}>
+                    <FooterAnchor link={link} />
+                  </li>
+                ))}
+              </ul>
+            </details>
+          ))}
+        </nav>
 
         {/* Bottom line */}
         <div
@@ -193,6 +211,7 @@ export function Footer() {
             © {year} {SITE.name}. Registered in South Africa, registration number {SITE.regNumber}.
           </p>
           <p>Built in South Africa. Your data stays in accounts you own. POPIA-ready.</p>
+          <ThemeToggle />
         </div>
       </div>
     </footer>

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, ChartColumn, ClipboardCheck, KeyRound, MessageCircle, Repeat, ShieldCheck, UserRound } from "lucide-react";
+import { ArrowRight, ArrowUpRight, KeyRound, ShieldCheck, UserRound } from "lucide-react";
+import film from "./flight/film-manifest.json";
 import { Reveal, SplitWords } from "@/components/primitives/Reveal";
 import { CTA_PRIMARY, CTA_PRIMARY_MICRO, SITE } from "@/data/site";
 import { GENERIC_BOOK_URL } from "@/data/niches";
@@ -74,10 +75,7 @@ export function WatchItWork() {
         <Reveal variant="wipe" className="mx-auto max-w-3xl text-center">
           <p className="eyebrow justify-center">Example: answering customers</p>
           <h2 id="watch-title" className="h2 mt-5">
-            <SplitWords text="Watch it work. Every message answered" />{" "}
-            <span className="italic-accent">
-              <SplitWords text="in seconds." start={6} />
-            </span>
+            <SplitWords text="Watch it work. Every message answered in seconds." />
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">
             Slow replies lose customers. People who wait too long ask someone else. So every message gets a reply in under a minute, day or night.
@@ -93,13 +91,13 @@ export function WatchItWork() {
 }
 
 /* ------------------------------------------------------------------ */
-/* 5. What you get: four plain cards                                   */
+/* What you get: four big scenes, one word each (design review fix 8)  */
 /* ------------------------------------------------------------------ */
 const GETS = [
-  { icon: MessageCircle, title: "Answers every customer fast", body: "Every message gets a reply in under a minute. Day or night." },
-  { icon: Repeat, title: "Follows up so no one slips away", body: "It checks in with people who went quiet, so they don't forget you." },
-  { icon: ClipboardCheck, title: "Does the admin", body: "Bookings, notes and forms get filled in for you. No more typing things twice." },
-  { icon: ChartColumn, title: "Tells you what's working", body: "A short report each month, in plain words and real numbers." },
+  { word: "Answer", title: "Every customer, fast", body: "Every message gets a reply in under a minute. Day or night." },
+  { word: "Follow up", title: "No one slips away", body: "It checks in with people who went quiet, so they don't forget you." },
+  { word: "Admin", title: "Done for you", body: "Bookings, notes and forms get filled in. No more typing things twice." },
+  { word: "Report", title: "What's working", body: "A short report each month, in plain words and real numbers." },
 ];
 
 export function WhatYouGet() {
@@ -110,10 +108,7 @@ export function WhatYouGet() {
           <div className="max-w-3xl">
             <p className="eyebrow">What you get</p>
             <h2 id="get-title" className="h2 mt-5">
-              <SplitWords text="AI that does" />{" "}
-              <span className="italic-accent">
-                <SplitWords text="real work." start={3} />
-              </span>
+              <SplitWords text="AI that does real work." />
             </h2>
           </div>
           <Link
@@ -124,15 +119,15 @@ export function WhatYouGet() {
             <ArrowRight size={16} aria-hidden className="transition-transform group-hover:translate-x-1" />
           </Link>
         </Reveal>
-        <ul className="mt-12 grid gap-x-10 gap-y-12 sm:grid-cols-2 md:mt-16 lg:grid-cols-4">
-          {GETS.map(({ icon: Icon, title, body }, i) => (
-            <li key={title}>
-              <Reveal delay={i * 0.06}>
-                <Icon size={28} strokeWidth={1.6} aria-hidden className="text-[color:var(--color-accent)]" />
-                <h3 className="mt-5 font-display text-[1.4rem] text-[color:var(--color-ink)]" style={{ lineHeight: 1.15, letterSpacing: "-0.025em" }}>
-                  {title}
-                </h3>
-                <p className="mt-3 text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{body}</p>
+        <ul className="mt-10 grid md:mt-14 md:grid-cols-2" style={{ borderTop: "1px solid var(--hairline-2)" }}>
+          {GETS.map(({ word, title, body }, i) => (
+            <li key={word} className="get-row">
+              <Reveal delay={i * 0.05}>
+                <p className="font-display text-[color:var(--color-ink)]" style={{ fontSize: "clamp(2.75rem, 4vw + 1.2rem, 4.75rem)", lineHeight: 0.95, letterSpacing: "-0.045em" }}>
+                  {word}
+                </p>
+                <h3 className="mt-4 text-[1.0625rem] font-semibold text-[color:var(--color-ink)]">{title}</h3>
+                <p className="mt-1.5 max-w-[34ch] text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{body}</p>
               </Reveal>
             </li>
           ))}
@@ -158,12 +153,9 @@ export function InControl() {
         <Reveal variant="wipe">
           <p className="eyebrow">Your business, your rules</p>
           <h2 id="control-title" className="h2 mt-5">
-            <SplitWords text="You stay" />{" "}
-            <span className="italic-accent">
-              <SplitWords text="in control." start={2} />
-            </span>
+            <SplitWords text="You stay in control." />
           </h2>
-          <p className="mt-6 max-w-md text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">
+          <p className="mt-6 max-w-md font-display text-[color:var(--color-ink)]" style={{ fontSize: "clamp(1.25rem, 0.6vw + 1.05rem, 1.5rem)", lineHeight: 1.3, letterSpacing: "-0.015em" }}>
             It already runs every day at a South African luxury home design and build studio.
           </p>
         </Reveal>
@@ -185,39 +177,41 @@ export function InControl() {
 }
 
 /* ------------------------------------------------------------------ */
-/* 7. Final call to action. id="audit" so StickyMobileCTA steps aside. */
+/* The closing scene: one line, one button, WhatsApp beside it, over   */
+/* the film's orbit frame (design review fix 9). id="audit" so the     */
+/* sticky bar steps aside; the footer drops its own button on home.    */
 /* ------------------------------------------------------------------ */
+const STILL = (n: string, ext: string) => `/flight/film/${n}.${ext}?v=${film.v}`;
+
 export function SimpleFinalCTA() {
   return (
-    <section id="audit" className="relative isolate overflow-hidden section-pad bg-canvas" aria-labelledby="final-title" style={{ scrollMarginTop: "5rem" }}>
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-full -z-10 h-[520px] w-[900px] max-w-[160vw] -translate-x-1/2 -translate-y-1/2 rounded-full"
-        style={{ background: "radial-gradient(closest-side, rgba(var(--accent-glow-rgb),0.18), transparent)" }}
-      />
-      <div className="container-narrow text-center">
+    <section id="audit" className="close-scene relative isolate overflow-hidden" aria-labelledby="final-title" style={{ scrollMarginTop: "5rem" }}>
+      <picture className="close-scene-bg">
+        <source type="image/avif" media="(max-width: 767px)" srcSet={STILL("still-m", "avif")} />
+        <source type="image/webp" media="(max-width: 767px)" srcSet={STILL("still-m", "webp")} />
+        <source type="image/avif" srcSet={STILL("still-d", "avif")} />
+        <img src={STILL("still-d", "webp")} alt="" width={film.desktop.width} height={film.desktop.height} loading="lazy" decoding="async" />
+      </picture>
+      <div className="container-wide relative">
         <Reveal>
           <h2
             id="final-title"
-            className="mx-auto max-w-[14ch] font-display text-[color:var(--color-ink)]"
-            style={{ fontSize: "clamp(2.6rem, 5vw + 1rem, 5.5rem)", lineHeight: 0.98, letterSpacing: "-0.045em" }}
+            className="max-w-[12ch] font-display text-[#F2F5FC]"
+            style={{ fontSize: "clamp(2.75rem, 5vw + 1rem, 5.75rem)", lineHeight: 0.96, letterSpacing: "-0.045em" }}
           >
-            <SplitWords text="See what AI can do" />{" "}
-            <span className="italic-accent">
-              <SplitWords text="for you." start={5} />
-            </span>
+            <SplitWords text="Find out where your hours go." />
           </h2>
-          <p className="mx-auto mt-6 max-w-lg text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">
-            A free 30-minute call. We look at how your business runs and show you where AI can save you time.
+          <p className="mt-6 max-w-md text-[1.0625rem] leading-[1.6] text-[rgba(234,240,255,0.84)]">
+            A free 30-minute call. We look at how your business runs and show you where the time and money go. {CTA_PRIMARY_MICRO}
           </p>
-          <div className="mt-10 flex flex-col items-center gap-4">
-            <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent min-h-[52px] w-full justify-center px-7 text-[1.02rem] sm:w-auto">
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            <a href={GENERIC_BOOK_URL} className="btn btn-accent min-h-[52px] flex-1 justify-center px-7 text-[1.02rem] sm:flex-none">
               {CTA_PRIMARY}
               <ArrowUpRight size={17} aria-hidden />
             </a>
-            <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 text-[0.95rem] text-[color:var(--color-ink-muted)] hover:text-[color:var(--color-ink)]">
+            <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="flm-wa">
               <WhatsAppIcon className="h-4 w-4" />
-              Or WhatsApp us
+              WhatsApp us
             </a>
           </div>
         </Reveal>

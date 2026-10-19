@@ -6,7 +6,10 @@ import { FlightStory } from "@/components/home/flight/FlightStory";
 /** The flight as a scroll-scrubbed film (rocket v6). Roll back to the
  * illustrated flight with FLIGHT_FILM=0 at build time. */
 const FLIGHT_FILM = process.env.FLIGHT_FILM !== "0";
-import { ExampleChartsSection } from "@/components/home/charts/ExampleCharts";
+import { BuiltForUs } from "@/components/home/BuiltForUs";
+import { OurWorkSlider } from "@/components/home/OurWorkSlider";
+import { RecentWork } from "@/components/home/RecentWork";
+import { ToolsMarquee } from "@/components/home/ToolsMarquee";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/niches";
 import { CTA_PRIMARY, SITE_URL } from "@/data/site";
@@ -23,35 +26,65 @@ export const metadata: Metadata = {
 };
 
 /**
- * Home, kept simple on purpose (docs/simplicity-review.md): seven sections,
- * one idea each, one main button.
- * 1 hero (tagline + rocket) -> 2 the flight (how it works as a rocket
- * climb: launch, ascent, orbit; docs/rocket-scroll-research.md) ->
- * 3 watch it work (the enquiry demo, "in orbit") -> 4 example charts ->
- * 5 what you get -> 6 you stay in control -> 7 final call to action.
+ * Home (rocket v7, design review Oct 2026: growth-lab/WEBSITE_NEXT_LEVEL_REVIEW.md).
+ * Film, one demo, two proofs, the tools, four services, our own system,
+ * one promise, one ending:
+ * 1 the film (opens on the launch pad with the tagline, then how we work in
+ * three steps) -> 2 watch it work -> 3 recent work, then the work slider
+ * -> 4 works with your tools -> 5 what you get -> 6 built for our own business -> 7 you stay in
+ * control -> 8 the closing scene.
+ *
+ * TODO(Daniel): real numbers for the proof. The example charts were removed
+ * (they read as "no results"); add the e-commerce brand's figures to
+ * RecentWork once Peter gives written OK.
  */
 export default function HomePage() {
+  if (!FLIGHT_FILM) {
+    return (
+      <>
+        <SimpleHero />
+        <FlightStory />
+        <div className="cv-below">
+          <WatchItWork />
+        </div>
+        <div className="cv-below">
+          <WhatYouGet />
+        </div>
+        <div className="cv-below">
+          <InControl />
+        </div>
+        <div className="cv-below">
+          <SimpleFinalCTA />
+        </div>
+        <StickyMobileCTA href={GENERIC_BOOK_URL} label={CTA_PRIMARY} />
+      </>
+    );
+  }
   return (
     <>
-      <SimpleHero />
-      {FLIGHT_FILM ? <FilmStory /> : <FlightStory />}
-      {/* below the fold: skipped by layout and paint until they near the
-          screen (content-visibility), so the first paint is only the hero */}
+      <FilmStory />
+      {/* below the film: skipped by layout and paint until they near the
+          screen (content-visibility) */}
       <div className="cv-below">
         <WatchItWork />
       </div>
       <div className="cv-below">
-        <ExampleChartsSection />
+        <RecentWork />
       </div>
+      <div className="cv-below">
+        <OurWorkSlider />
+      </div>
+      <ToolsMarquee />
       <div className="cv-below">
         <WhatYouGet />
       </div>
       <div className="cv-below">
-        <InControl />
+        <BuiltForUs />
       </div>
       <div className="cv-below">
-        <SimpleFinalCTA />
+        <InControl />
       </div>
+      <SimpleFinalCTA />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label={CTA_PRIMARY} />
     </>
   );
