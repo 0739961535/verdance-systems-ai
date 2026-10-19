@@ -175,12 +175,22 @@ async function still(name, image, n) {
     console.log(`${name}-${suffix}: avif ${(a.length / 1024).toFixed(0)}K, webp ${(b.length / 1024).toFixed(0)}K${image ? " (from " + path.basename(image) + ")" : ""}`);
   }
 }
+// the sky colour at the very top of the phone poster: fills the band above
+// the film on phones while the rocket is on the pad (see FilmController)
+async function topColour(file) {
+  const img = sharp(file);
+  const { width, height } = await img.metadata();
+  const { channels } = await img.extract({ left: 0, top: 0, width: Math.round(width * 0.05) || 1, height: Math.max(1, Math.round(height * 0.004)) }).stats();
+  return "#" + channels.slice(0, 3).map((c) => Math.round(c.mean).toString(16).padStart(2, "0")).join("");
+}
 const stillN = cfg.stillFrame ?? Math.round((total - 1) * cfg.stillAt);
 await still("poster", cfg.poster, 0);
 await still("still", cfg.still, stillN);
 
+const posterSky = await topColour(path.join(outDir, "poster-m.webp"));
 const manifest = {
   v: hash.digest("hex").slice(0, 10),
+  posterSky,
   source: { width: W, height: H, frames: total, dense: cfg.dense },
   desktop: { count: desktopIdx.length, width: DW, height: DH, focusX: cfg.focusX ?? 0.63, frames: desktopIdx },
   phone: { count: phoneIdx.length, width: PW, height: PH, focusX: 0.5, frames: phoneIdx },

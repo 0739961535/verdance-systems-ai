@@ -2474,3 +2474,11 @@ picture.fl-hull img { display: block; width: 100%; height: 100%; user-select: no
 @media (prefers-reduced-motion: reduce), (scripting: none) {
   .flm-veil, .flm-top, .flm-bot, .flm-lscrim { display: none; }
 }
+
+/* phones: on the pad the film sits 56px lower so the rocket's nose clears
+   the site header (FilmController draws the canvas the same way); the band
+   above is the sky's own colour */
+@media (max-width: 767px) {
+  .flm-poster { background: var(--flm-sky, #04050A); }
+  .flm-poster img { transform: translateY(56px); }
+}

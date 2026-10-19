@@ -14,8 +14,7 @@ import { STAGES } from "./flightData";
  * frame for the scroll position onto a canvas: frames come from
  * public/flight/film (npm run flight:frames -- <shotsDir>), phones get their
  * own 9:16 set. The first frame is a plain <img> under the canvas, so the
- * section looks right before the canvas is ready; it loads on first scroll,
- * so the page's largest paint stays the hero headline.
+ * section is never blank before the canvas is ready.
  *
  * Reduced motion and no-JS: an orbit still behind the three steps as a list.
  * Rollback: FLIGHT_FILM=0 brings back the illustrated FlightStory.
@@ -25,24 +24,23 @@ const BOOK_CALL_URL = `${BOOK_BASE}/book/audit`;
 const src = (name: string, ext: string) => `/flight/film/${name}.${ext}?v=${film.v}`;
 
 /**
- * A responsive still. `deferred`: its sources are attached by FilmController
- * on the visitor's first scroll or touch, so the full-screen poster never
- * competes with (or becomes) the page's largest paint; the section sits
- * right under the hero, partly on screen at load on some phones.
+ * A responsive still. The poster (frame 1) loads eagerly at low priority so
+ * the start of the flight is never blank, and stays under the canvas until
+ * the first frame is drawn; the reduced-motion still is lazy.
  */
-function Still({ name, className, focusX, deferred }: { name: "poster" | "still"; className: string; focusX: number; deferred?: boolean }) {
-  const attr = (v: string) => (deferred ? { "data-srcset": v } : { srcSet: v });
+function Still({ name, className, focusX, poster }: { name: "poster" | "still"; className: string; focusX: number; poster?: boolean }) {
   return (
     <picture className={className}>
-      <source type="image/avif" media="(max-width: 767px)" {...attr(src(`${name}-m`, "avif"))} />
-      <source type="image/webp" media="(max-width: 767px)" {...attr(src(`${name}-m`, "webp"))} />
-      <source type="image/avif" {...attr(src(`${name}-d`, "avif"))} />
+      <source type="image/avif" media="(max-width: 767px)" srcSet={src(`${name}-m`, "avif")} />
+      <source type="image/webp" media="(max-width: 767px)" srcSet={src(`${name}-m`, "webp")} />
+      <source type="image/avif" srcSet={src(`${name}-d`, "avif")} />
       <img
-        {...(deferred ? { "data-src": src(`${name}-d`, "webp") } : { src: src(`${name}-d`, "webp") })}
+        src={src(`${name}-d`, "webp")}
         alt=""
         width={film.desktop.width}
         height={film.desktop.height}
-        loading="lazy"
+        loading={poster ? "eager" : "lazy"}
+        fetchPriority={poster ? "low" : undefined}
         decoding="async"
         draggable={false}
         style={{ ["--fx" as string]: `${focusX * 100}%` }}
@@ -53,12 +51,12 @@ function Still({ name, className, focusX, deferred }: { name: "poster" | "still"
 
 export function FilmStory() {
   return (
-    <section className="fl flm" aria-labelledby="flight-title" data-stage="0">
+    <section className="fl flm" aria-labelledby="flight-title" data-stage="0" style={{ ["--flm-sky" as string]: film.posterSky }}>
       <FilmController />
       <div className="fl-stage">
         <div className="flm-scene" aria-hidden>
           <div className="flm-cam">
-            <Still name="poster" className="flm-poster" focusX={film.desktop.focusX} deferred />
+            <Still name="poster" className="flm-poster" focusX={film.desktop.focusX} poster />
             <canvas className="flm-canvas" />
           </div>
           <Still name="still" className="flm-still" focusX={film.desktop.focusX} />

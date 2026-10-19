@@ -51,6 +51,38 @@ const fade = (el: HTMLElement, o: number) => {
 };
 const pad = (i: number) => String(i).padStart(3, "0");
 
+/** A decoded frame: an ImageBitmap, or a decoded <img> where ImageBitmap fails (some Safari versions). */
+type Frame = ImageBitmap | HTMLImageElement;
+const frameSize = (f: Frame) =>
+  f instanceof HTMLImageElement ? { w: f.naturalWidth, h: f.naturalHeight } : { w: f.width, h: f.height };
+const release = (f: Frame) => {
+  if (f instanceof HTMLImageElement) f.removeAttribute("src");
+  else f.close();
+};
+let bitmapOk = typeof createImageBitmap === "function";
+/** Decodes off the main thread where the browser can; falls back to img.decode() for good on the first failure. */
+async function decodeFrame(blob: Blob): Promise<Frame> {
+  if (bitmapOk) {
+    try {
+      return await createImageBitmap(blob);
+    } catch {
+      bitmapOk = false;
+    }
+  }
+  const src = URL.createObjectURL(blob);
+  const img = new Image();
+  img.src = src;
+  try {
+    await img.decode();
+  } finally {
+    URL.revokeObjectURL(src);
+  }
+  return img;
+}
+
+/** Phones: how far down (CSS px) the film sits at launch, so the rocket's nose clears the site header. */
+const PHONE_HEADER_OFFSET = 56;
+
 /** Every 8th frame, then every 4th, every 2nd, then the rest. */
 function coarseToFine(count: number) {
   const seen = new Set<number>();
@@ -99,7 +131,7 @@ export function FilmController() {
     // decoded window either side of the current frame
     let radius = set === PHONE ? 12 : 8;
     let blobs = new Map<number, Blob>();
-    let bitmaps = new Map<number, ImageBitmap>();
+    let bitmaps = new Map<number, Frame>();
     const decoding = new Set<number>();
     let generation = 0;
     let abort = new AbortController();
@@ -114,9 +146,11 @@ export function FilmController() {
     const url = (i: number) => `/flight/film/${set.prefix}-${pad(i)}.webp?v=${film.v}`;
 
     // ---------- drawing ----------
-    let cw = 0, ch = 0;
+    let cw = 0, ch = 0, dpr = 1;
+    let offset = 0, drawnOff = -1;
     const sizeCanvas = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // at most 2x and about 1700px tall: iOS caps canvas memory
+      dpr = Math.min(window.devicePixelRatio || 1, 2, 1700 / Math.max(1, canvas.clientHeight));
       const w = Math.round(canvas.clientWidth * dpr);
       const h = Math.round(canvas.clientHeight * dpr);
       if (w && h && (w !== cw || h !== ch)) {
@@ -136,13 +170,21 @@ export function FilmController() {
     };
     const draw = () => {
       const hit = nearestBitmap(target);
-      if (!hit || (hit.at === drawn && drawnGen === generation) || !cw) return;
+      if (!hit || (hit.at === drawn && drawnGen === generation && drawnOff === offset) || !cw) return;
       const { bmp } = hit;
+      const { w, h } = frameSize(bmp);
       // cover-fit, held on the rocket horizontally
-      const s = Math.max(cw / bmp.width, ch / bmp.height);
-      const dw = bmp.width * s, dh = bmp.height * s;
+      const s = Math.max(cw / w, ch / h);
+      const dw = w * s, dh = h * s;
       const dx = Math.min(0, Math.max(cw - dw, cw / 2 - set.focusX * dw));
-      ctx.drawImage(bmp, dx, (ch - dh) / 2, dw, dh);
+      // phones: on the pad the film sits a little lower so the nose clears
+      // the header; the band above is the sky's own colour (its top-left
+      // corner, stretched)
+      const off = offset * dpr;
+      const dy = (ch - dh) / 2 + off;
+      if (dy > 0) ctx.drawImage(bmp, 0, 0, Math.max(1, Math.round(w * 0.05)), 2, 0, 0, cw, Math.ceil(dy) + 1);
+      ctx.drawImage(bmp, dx, dy, dw, dh);
+      drawnOff = offset;
       drawn = hit.at;
       drawnGen = generation;
       if (!root.hasAttribute("data-film")) root.setAttribute("data-film", "");
@@ -155,7 +197,7 @@ export function FilmController() {
       // evict what has left the window
       for (const [i, bmp] of bitmaps) {
         if (Math.abs(i - target) > radius + 2 && i !== drawn) {
-          bmp.close();
+          release(bmp);
           bitmaps.delete(i);
         }
       }
@@ -166,13 +208,13 @@ export function FilmController() {
           const blob = blobs.get(i);
           if (!blob || bitmaps.has(i) || decoding.has(i)) continue;
           decoding.add(i);
-          createImageBitmap(blob)
+          decodeFrame(blob)
             .then((bmp) => {
-              if (disposed || gen !== generation) return bmp.close();
+              if (disposed || gen !== generation) return release(bmp);
               bitmaps.set(i, bmp);
               draw();
             })
-            .catch(() => {})
+            .catch((err) => console.warn("[film] frame", i, "did not decode", err))
             .finally(() => {
               decoding.delete(i);
               if (gen === generation) pump();
@@ -192,7 +234,11 @@ export function FilmController() {
           const i = order[next++];
           try {
             const res = await fetch(url(i), { signal });
-            if (!res.ok) continue;
+            // anything but an image (an auth or error page) is skipped, loudly
+            if (!res.ok || !(res.headers.get("content-type") || "").startsWith("image/")) {
+              console.warn("[film] frame", i, "not an image:", res.status, res.headers.get("content-type"));
+              continue;
+            }
             const blob = await res.blob();
             if (gen !== generation) return;
             blobs.set(i, blob);
@@ -213,7 +259,7 @@ export function FilmController() {
       generation++;
       abort.abort();
       abort = new AbortController();
-      bitmaps.forEach((b) => b.close());
+      bitmaps.forEach(release);
       bitmaps = new Map();
       blobs = new Map();
       root.removeAttribute("data-film");
@@ -233,11 +279,12 @@ export function FilmController() {
       // scroll is linear in film time; the file is the nearest one to it.
       // The film ends at FILM_END and its last frame holds after that.
       const f = fileFor(set, clamp01(p / FILM_END) * LAST);
+      offset = set === PHONE ? Math.round(PHONE_HEADER_OFFSET * (1 - ramp(0.2, 0.34, p)) * 2) / 2 : 0;
       if (f !== target) {
         target = f;
-        draw();
         pump();
       }
+      draw();
       // a gentle camera pull-back across the whole climb (1.06 to 1.0,
       // eased in and out): with the footage, the rocket feels smaller the
       // higher it goes
@@ -311,25 +358,28 @@ export function FilmController() {
 
     root.setAttribute("data-live", "");
     update(0);
-    // Nothing loads with the first paint. On the first scroll, touch or key
-    // the poster is attached; the frames and GSAP follow once the section
-    // is also within about a screen and a half. Opened already scrolled
-    // (restored position, a link): at once.
-    let woke = false;
+    // Frames and GSAP load once the page has loaded and gone idle (or on
+    // the first scroll, if sooner), and only when the section is within
+    // about a screen and a half. The poster <img> is already showing.
+    let ready = false;
     let near = false;
-    const wakeEvents = ["scroll", "touchstart", "pointerdown", "keydown"] as const;
+    let idleId = 0;
     const maybeStart = () => {
-      if (woke && near) void start();
+      if (ready && near) void start();
     };
-    const wake = () => {
-      if (woke) return;
-      woke = true;
-      wakeEvents.forEach((e) => window.removeEventListener(e, wake));
-      qa<HTMLSourceElement>(".flm-poster source[data-srcset]").forEach((s) => (s.srcset = s.dataset.srcset!));
-      const img = q<HTMLImageElement>(".flm-poster img");
-      if (img.dataset.src && !img.getAttribute("src")) img.src = img.dataset.src;
+    const goReady = () => {
+      if (ready) return;
+      ready = true;
+      window.removeEventListener("scroll", goReady);
       maybeStart();
     };
+    const whenIdle = () => {
+      const ric = (window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }).requestIdleCallback;
+      idleId = ric ? ric(goReady, { timeout: 1500 }) : window.setTimeout(goReady, 1500);
+    };
+    if (document.readyState === "complete") whenIdle();
+    else window.addEventListener("load", whenIdle, { once: true });
+    window.addEventListener("scroll", goReady, { passive: true });
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) {
@@ -341,8 +391,7 @@ export function FilmController() {
       { rootMargin: "150% 0px" },
     );
     io.observe(root);
-    if (window.scrollY > 0) wake();
-    else wakeEvents.forEach((e) => window.addEventListener(e, wake, { passive: true }));
+    if (window.scrollY > 0) goReady();
     const ro = new ResizeObserver(() => {
       sizeCanvas();
       draw();
@@ -355,12 +404,14 @@ export function FilmController() {
       generation++;
       abort.abort();
       io.disconnect();
-      wakeEvents.forEach((e) => window.removeEventListener(e, wake));
+      window.removeEventListener("scroll", goReady);
+      window.removeEventListener("load", whenIdle);
+      window.clearTimeout(idleId);
       ro.disconnect();
       themeWatch.disconnect();
       phoneMq.removeEventListener("change", switchSet);
       killGsap();
-      bitmaps.forEach((b) => b.close());
+      bitmaps.forEach(release);
       bitmaps.clear();
       blobs.clear();
     };
