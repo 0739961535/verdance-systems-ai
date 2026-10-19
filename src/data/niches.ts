@@ -4,7 +4,7 @@
  * Copy rules (same as landing.ts): plain, short sentences, South African
  * English, rand, no em dashes, no exclamation marks, no hype words, never name
  * the CRM vendor, never name a client. No invented statistics: any number a
- * visitor sees is either our own commitment (reply time, guarantee terms,
+ * visitor sees is either our own commitment (reply time, launch time,
  * price) or a number they typed into the calculator.
  *
  * Every "Book" CTA on a niche page goes to the Operations Map booking flow at
@@ -78,12 +78,12 @@ export const PROOF = PROOF_LINE;
 
 const PRE_AUDIT_FAQ = {
   q: "What happens on the Operations Map call?",
-  a: "Thirty minutes on a video call with Daniel. We look at where your enquiries come from, how fast they are answered today, and what that is likely costing you. If it is a fit, we agree a 7-day audit that sets the baseline both guarantees are measured against. If it is not a fit, we say so.",
+  a: "Thirty minutes on a video call with Daniel. We look at where your enquiries come from, how fast they are answered today, and what that is likely costing you. If it is a fit, we agree a 7-day audit that sets the baseline your results are measured against. If it is not a fit, we say so.",
 };
 
 const BASELINE_FAQ = {
   q: "How is the baseline measured?",
-  a: "Before you sign, we run a 7-day audit. We send test enquiries through each channel and time the replies, and we count your enquiries and bookings from the last 60 days using your own inbox and diary. Both sides sign the baseline, so the 60-Second Guarantee and the Break-Even Exit are measured against numbers you agreed to.",
+  a: "Before you sign, we run a 7-day audit. We send test enquiries through each channel and time the replies, and we count your enquiries and bookings from the last 60 days using your own inbox and diary. Both sides sign the baseline, so your results are measured against numbers you agreed to.",
 };
 
 const OWNERSHIP_FAQ = {
@@ -480,7 +480,7 @@ export const NICHES: Niche[] = [
       PRE_AUDIT_FAQ,
       {
         q: "We already have a chatbot. What is different?",
-        a: "Most chatbots reply. This replies, asks the questions your agents need answered, and puts the viewing in the right agent's calendar. We build it and run it for you, and it comes with two guarantees measured against your own numbers.",
+        a: "Most chatbots reply. This replies, asks the questions your agents need answered, and puts the viewing in the right agent's calendar. We build it and run it for you, and it is measured against your own numbers.",
       },
       {
         q: "Which portals does it work with?",

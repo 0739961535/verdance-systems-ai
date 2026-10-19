@@ -42,10 +42,6 @@ const HOW = [
     b: "From the day the plan is signed off. The launch date goes in your contract, and you test it yourself before a real customer touches it.",
   },
   {
-    t: "Two guarantees, in writing",
-    b: "The 60-Second Guarantee: if fewer than 99% of enquiries are answered within 60 seconds in a month, that month is credited. The Break-Even Exit: if it hasn't paid for itself by day 90, you can leave.",
-  },
-  {
     t: "A person when it matters",
     b: "It writes in your voice and hands over to your team the moment a conversation needs a human. You approve what matters from one screen.",
   },
@@ -58,7 +54,6 @@ const HOW = [
 const NOT = [
   "No prices on the website. Every quote is fixed, in writing, and comes after the Operations Map.",
   "No invented results and no made-up reviews. When we show numbers, they will be real ones, shared with permission.",
-  "No being stuck with a system that isn't paying. That is what the Break-Even Exit is for.",
 ];
 
 export default function AboutPage() {
@@ -151,11 +146,11 @@ export default function AboutPage() {
             eyebrow="How we work"
             title={
               <>
-                Five things <span className="italic-accent">you can hold us to.</span>
+                Four things <span className="italic-accent">you can hold us to.</span>
               </>
             }
           />
-          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 md:mt-16">
+          <ul className="mt-12 grid gap-4 sm:grid-cols-2 md:mt-16">
             {HOW.map((h, i) => (
               <li key={h.t}>
                 <Reveal delay={Math.min(i * 0.06, 0.3)} className="h-full">

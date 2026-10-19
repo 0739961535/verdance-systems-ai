@@ -5,7 +5,7 @@ import { CostSection, HowItWorksSection, WhatWeDoSection } from "@/components/ho
 import { NicheGrid } from "@/components/niche/NicheGrid";
 import { PowerOfAI } from "@/components/aiteam/PowerOfAI";
 import { ClientViewSection, FinalCTASection, ProofSection } from "@/components/home/HomeSections";
-import { GuaranteeBlock } from "@/components/sections/v4/GuaranteeBlock";
+import { CommitmentBlock } from "@/components/sections/v4/CommitmentBlock";
 import { OfferSection } from "@/components/offer/OfferSection";
 import { FAQControl } from "@/components/sections/v4/FAQControl";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
@@ -39,9 +39,9 @@ const FAQ_JSON_LD = {
  * Home - one story:
  * the claim (one phone, cycling through real kinds of enquiry) -> what we do
  * for any business that runs on enquiries -> Ashford's Staff (the AI team) ->
- * the offer and the two guarantees -> how it works -> what you see as a client -> what slow replies cost you ->
+ * the offer -> how it works -> what you see as a client -> what slow replies cost you ->
  * proof -> current offers ->
- * guarantee -> questions -> book. The hero phone is the only phone here.
+ * clear terms -> questions -> book. The hero phone is the only phone here.
  */
 export default function HomePage() {
   return (
@@ -51,8 +51,8 @@ export default function HomePage() {
       <CapabilityMarquee />
       <WhatWeDoSection />
       <PowerOfAI variant="short" />
-      <OfferSection seals={false} />
-      <GuaranteeBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="Get your free Operations Map" />
+      <OfferSection />
+      <CommitmentBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="Get your free Operations Map" />
       <HowItWorksSection />
       <ClientViewSection />
       <CostSection />

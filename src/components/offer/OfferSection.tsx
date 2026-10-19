@@ -1,23 +1,22 @@
 import { ArrowUpRight, Check } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
 import { GENERIC_BOOK_URL } from "@/data/booking";
-import { GUARANTEES, OPERATIONS_MAP, REVENUE_TEAM } from "@/data/offer";
-import { GuaranteeSeal } from "./GuaranteeSeal";
+import { OPERATIONS_MAP, REVENUE_TEAM } from "@/data/offer";
 
 /**
  * OfferSection - the whole offer on one screen, read like a spec sheet:
  * the free Operations Map (the door), The Revenue Team (the build, framed by
- * outcome, likelihood, time and effort) and the two guarantees. No prices,
+ * outcome, likelihood, time and effort). No prices,
  * by rule. One CTA. See docs/design-system-v2.md section 2.
  */
-export function OfferSection({ id = "offer", seals = true, href = GENERIC_BOOK_URL }: { id?: string; seals?: boolean; href?: string }) {
+export function OfferSection({ id = "offer", href = GENERIC_BOOK_URL }: { id?: string; href?: string }) {
   return (
     <section id={id} className="section-pad bg-canvas-2" aria-labelledby={`${id}-title`} data-cta-location="offer" style={{ borderTop: "1px solid var(--hairline)", scrollMarginTop: "5rem" }}>
       <div className="container-narrow">
         <Reveal variant="wipe" className="max-w-3xl">
           <p className="eyebrow">The offer</p>
           <h2 id={`${id}-title`} className="h2 mt-5">
-            Two steps. <span className="italic-accent">Two guarantees.</span>
+            Two steps. <span className="italic-accent">No guesswork.</span>
           </h2>
           <p className="mt-6 max-w-[52ch] text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">
             Start with a free map of where your business leaks time and money. If the numbers say it pays back, we build the team that fixes it. If they do not, we tell you.
@@ -114,13 +113,6 @@ export function OfferSection({ id = "offer", seals = true, href = GENERIC_BOOK_U
                     </li>
                   ))}
                 </ul>
-                {seals && (
-                  <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                    {GUARANTEES.map((g) => (
-                      <GuaranteeSeal key={g.key} g={g} compact />
-                    ))}
-                  </div>
-                )}
                 <p className="mt-5 text-[0.88rem] leading-[1.55] text-[color:var(--color-ink-muted)]">
                   No price list. Every team is scoped to your business, so the quote comes after your Operations Map. It is fixed and in writing.
                 </p>

@@ -9,7 +9,7 @@ export const ORG_ID = `${SITE_URL}/#organization`;
 export const PERSON_ID = `${SITE_URL}/about#daniel-bouwer`;
 
 export const ORG_DESCRIPTION =
-  "Verdance Systems AI builds The Revenue Team for owner-led South African businesses: every enquiry answered within 60 seconds, every follow-up done, and the team's hours back. Live in 10 working days, backed by the 60-Second Guarantee and the Break-Even Exit at day 90. It starts with a free Operations Map.";
+  "Verdance Systems AI builds The Revenue Team for owner-led South African businesses: every enquiry answered within 60 seconds, every follow-up done, and the team's hours back. Live in 10 working days. It starts with a free Operations Map.";
 
 export const PERSON_LD = {
   "@type": "Person",
@@ -84,7 +84,7 @@ export const ORGANIZATION_LD = {
           "@type": "Service",
           name: "The Revenue Team",
           description:
-            "Every enquiry on WhatsApp, phone, website, email and social answered within 60 seconds, every follow-up done, and a person brought in the moment it matters. Live in 10 working days. 60-Second Guarantee: if fewer than 99% of enquiries are answered within 60 seconds in a month, that month is credited. Break-Even Exit: if it has not paid for itself by day 90, you can leave at the day-90 review.",
+            "Every enquiry on WhatsApp, phone, website, email and social answered within 60 seconds, every follow-up done, and a person brought in the moment it matters. Live in 10 working days.",
         },
       },
     ],
