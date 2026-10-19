@@ -6,13 +6,24 @@
  * 8.1). Change a name there and here together, never one side alone: GA4
  * history stays under the old name.
  *
- * Everything here is a no-op until NEXT_PUBLIC_GA4_ID is set, so the site can
- * ship with tracking wired but dormant.
+ * Everything here is a no-op until NEXT_PUBLIC_GA4_ID (Google) or
+ * NEXT_PUBLIC_META_PIXEL_ID (Meta) is set, so the site can ship with tracking
+ * wired but dormant. track() is the one place conversions fire; it mirrors the
+ * events in META_EVENTS to the Meta Pixel.
  */
 import { sendGAEvent } from "@next/third-parties/google";
 import { BOOK_BASE } from "@/data/booking";
 
 export const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID ?? "";
+
+/** Meta Pixel (dataset) ID. Digits only; empty means the pixel never loads. */
+export const META_PIXEL_ID = (process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "").replace(/\D/g, "");
+
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+  }
+}
 
 export const WEB_EVENTS = {
   audit_booked: ["niche", "booking_page"],
@@ -30,6 +41,19 @@ export const WEB_EVENTS = {
 } as const satisfies Record<string, readonly string[]>;
 
 export type WebEvent = keyof typeof WEB_EVENTS;
+
+/**
+ * Which site events Meta also sees, mirrored from track() so there is one
+ * place that fires conversions. Standard events where one fits.
+ */
+const META_EVENTS: Partial<Record<WebEvent, ["track" | "trackCustom", string]>> = {
+  audit_click: ["trackCustom", "AuditClick"],
+  whatsapp_click: ["track", "Contact"],
+  phone_click: ["track", "Contact"],
+  email_click: ["track", "Contact"],
+  form_submitted: ["track", "Lead"],
+  audit_booked: ["track", "Schedule"],
+};
 
 /**
  * Event-scoped custom dimensions. Register each one in GA4 Admin (Custom
@@ -77,7 +101,10 @@ export function nicheFromPath(pathname: string): string | undefined {
  * when the event takes them and the caller did not set them.
  */
 export function track<E extends WebEvent>(event: E, params: EventParams<E> = {}): void {
-  if (!GA4_ID || typeof window === "undefined") return;
+  if (typeof window === "undefined") return;
+  const meta = META_EVENTS[event];
+  if (META_PIXEL_ID && meta) window.fbq?.(meta[0], meta[1]);
+  if (!GA4_ID) return;
   const allowed = WEB_EVENTS[event] as readonly ParamName[];
   const path = window.location.pathname;
   const auto: Partial<Record<ParamName, string>> = {
