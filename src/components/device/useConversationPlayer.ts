@@ -41,13 +41,34 @@ function buildSteps(beats: Beat[]): Step[] {
   return steps;
 }
 
+/**
+ * Calm pace (the homepage laptop): one thing at a time, each step held for
+ * about 1.5 to 2.5 seconds so the story reads in order: the enquiry, a
+ * pause, the reply, the customer's choice, the confirmation, then a hold.
+ */
+function buildCalmSteps(beats: Beat[]): Step[] {
+  const steps: Step[] = [{ t: "blank", ms: 900 }];
+  beats.forEach((b, i) => {
+    if (b.kind === "out" || b.kind === "card") {
+      steps.push({ t: "typing", upTo: i, ms: b.kind === "out" ? 1600 : 1200 });
+    }
+    let ms = 2200;
+    if (b.kind === "out") ms = Math.min(4200, 2000 + b.text.length * 8 + (b.options ? 600 : 0) + (b.product ? 600 : 0));
+    else if (b.kind === "card") ms = 2400;
+    steps.push({ t: "show", upTo: i + 1, ms });
+  });
+  steps.push({ t: "lock", ms: 3200 });
+  steps.push({ t: "fade", ms: 800 });
+  return steps;
+}
+
 export type RotationItem = { label: string; conversation: Conversation };
 
 
-export function useConversationPlayer(items: RotationItem[]) {
+export function useConversationPlayer(items: RotationItem[], pace: "normal" | "calm" = "normal") {
   const [idx, setIdx] = useState(0);
   const current = items[idx].conversation;
-  const steps = useMemo(() => buildSteps(current.beats), [current]);
+  const steps = useMemo(() => (pace === "calm" ? buildCalmSteps : buildSteps)(current.beats), [current, pace]);
   const total = current.beats.length;
 
   // -1 = server render / not started (full conversation, CSS-held).
