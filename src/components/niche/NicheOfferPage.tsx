@@ -1,6 +1,6 @@
 import { Reveal } from "@/components/primitives/Reveal";
 import { DeltaRows } from "@/components/sections/v4/DeltaRows";
-import { GuaranteeBlock } from "@/components/sections/v4/GuaranteeBlock";
+import { CommitmentBlock } from "@/components/sections/v4/CommitmentBlock";
 import { FAQControl } from "@/components/sections/v4/FAQControl";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { bookUrl, type Niche } from "@/data/niches";
@@ -15,7 +15,7 @@ import { SITE_URL } from "@/data/site";
 /**
  * NicheOfferPage - one offer, one kind of business, one action.
  * hero (their pain, a live-looking reply) -> what changes -> how it works ->
- * what is included -> their own numbers -> price -> guarantee -> proof ->
+ * what is included -> their own numbers -> price -> clear terms -> proof ->
  * questions -> book. Every book button goes to the niche's Operations Map flow.
  */
 export function NicheOfferPage({ niche }: { niche: Niche }) {
@@ -102,13 +102,12 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
         </div>
       </section>
 
-      <OfferSection href={href} seals={false} />
-      <GuaranteeBlock ctaHref={href} ctaLabel="Get your free Operations Map" />
+      <OfferSection href={href} />
+      <CommitmentBlock ctaHref={href} ctaLabel="Get your free Operations Map" />
 
       <NicheProof niche={niche} />
       <FAQControl faqs={niche.faqs} />
       <CTABand
-        guarantees={false}
         eyebrow="Free Operations Map · 30 minutes"
         title={
           <>

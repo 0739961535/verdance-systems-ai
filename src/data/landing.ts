@@ -145,27 +145,6 @@ export const PILLARS: Pillar[] = [
   },
 ];
 
-export const GUARANTEE = {
-  eyebrow: "OUR COMMITMENT",
-  columns: [
-    {
-      n: "01",
-      label: "Fixed quote",
-      text: "The price is agreed in writing before any work begins, and it does not change.",
-    },
-    {
-      n: "02",
-      label: "Fixed launch date",
-      text: "Your go-live date is part of the contract, with visible progress every week.",
-    },
-    {
-      n: "03",
-      label: "Full ownership",
-      text: "Every account, agent and automation is registered in your name from day one.",
-    },
-  ],
-};
-
 export const AUDIT = {
   eyebrow: "FREE · 30 MINUTES",
   title: "The Free Audit Call",

@@ -115,7 +115,7 @@ export default function AuditPage() {
 
       <FAQControl faqs={FAQS} />
       <OfferSection />
-      <CTABand guarantees={false} />
+      <CTABand />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label="Get your free Operations Map" />
     </>
   );

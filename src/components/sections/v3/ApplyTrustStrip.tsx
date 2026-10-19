@@ -17,7 +17,7 @@ const FAQS = [
   },
   {
     q: "Is there a cost?",
-    a: "The walkthrough and the Operations Map are free, and the map is yours to keep. If you want us to build, you get a fixed quote in writing, and two guarantees: every month that misses 99% of enquiries answered within 60 seconds is credited, and you can leave at day 90 if it has not paid for itself.",
+    a: "The walkthrough and the Operations Map are free, and the map is yours to keep. If you want us to build, you get a fixed quote in writing, and we only propose it if your own numbers show it pays back.",
   },
   {
     q: "How long is the call?",

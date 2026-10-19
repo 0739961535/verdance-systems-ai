@@ -4,8 +4,6 @@ import { Reveal } from "@/components/primitives/Reveal";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { SITE } from "@/data/site";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
-import { GUARANTEES } from "@/data/offer";
-import { GuaranteeSeal } from "@/components/offer/GuaranteeSeal";
 
 /**
  * CTABand - the closing call to action on every page. id="audit" so the
@@ -25,15 +23,12 @@ export function CTABand({
   ],
   href = GENERIC_BOOK_URL,
   label = "Get your free Operations Map",
-  guarantees = true,
 }: {
   eyebrow?: string;
   title?: ReactNode;
   points?: string[];
   href?: string;
   label?: string;
-  /** Show the two guarantees under the CTA. */
-  guarantees?: boolean;
 }) {
   return (
     <section
@@ -76,13 +71,6 @@ export function CTABand({
             Free · nothing to sign · fixed quote after
           </p>
         </Reveal>
-        {guarantees && (
-          <Reveal delay={0.08} className="mt-12 grid gap-3 text-left md:mx-auto md:max-w-3xl md:grid-cols-2">
-            {GUARANTEES.map((g) => (
-              <GuaranteeSeal key={g.key} g={g} compact />
-            ))}
-          </Reveal>
-        )}
       </div>
     </section>
   );

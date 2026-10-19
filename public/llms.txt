@@ -17,10 +17,6 @@ Contact: daniel@verdancesystemsai.com · WhatsApp and phone: +27 73 996 1535
   enquiry followed up until the customer replies. A person takes over the
   moment it matters.
 - How fast: live in 10 working days from the day the plan is signed off.
-- The 60-Second Guarantee: if fewer than 99% of enquiries are answered within
-  60 seconds in a month, that month is credited.
-- The Break-Even Exit: if the system has not paid for itself by day 90, the
-  client can leave at the day-90 review.
 - How it starts: a free 30-minute Operations Map. It shows where time and
   money leak in enquiries, follow-up and admin, in rand and hours, and what to
   fix first. The client keeps it whether or not they go ahead.
@@ -36,7 +32,7 @@ Contact: daniel@verdancesystemsai.com · WhatsApp and phone: +27 73 996 1535
 
 ## Key pages
 
-- https://verdancesystemsai.com/ : the offer, the guarantees and booking
+- https://verdancesystemsai.com/ : the offer and booking
 - https://verdancesystemsai.com/about : Daniel Bouwer and how Verdance works
 - https://verdancesystemsai.com/audit : the free Operations Map
 - https://verdancesystemsai.com/services/ai-operations-system : the AI team, with a live sample

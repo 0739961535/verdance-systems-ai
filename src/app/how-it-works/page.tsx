@@ -7,7 +7,7 @@ import { PageHero } from "@/components/kit/PageHero";
 import { SectionHead } from "@/components/kit/SectionHead";
 import { CTABand } from "@/components/kit/CTABand";
 import { ProcessTrack } from "@/components/visuals/hero/ProcessTrack";
-import { GuaranteeBlock } from "@/components/sections/v4/GuaranteeBlock";
+import { CommitmentBlock } from "@/components/sections/v4/CommitmentBlock";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { NumberTicker } from "@/components/kit/NumberTicker";
@@ -110,8 +110,8 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      <GuaranteeBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="Get your free Operations Map" />
-      <CTABand guarantees={false} />
+      <CommitmentBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="Get your free Operations Map" />
+      <CTABand />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label="Get your free Operations Map" />
     </>
   );

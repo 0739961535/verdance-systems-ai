@@ -1,9 +1,9 @@
 /**
- * The offer, in one place. Used by the homepage offer section, the guarantee
- * seals and the audit page.
+ * The offer, in one place. Used by the homepage offer section and the audit
+ * page.
  *
  * Rules: no prices, no invented numbers, no client names. Every figure here is
- * our own commitment (60 seconds, 10 working days, day 90), not a result.
+ * our own commitment (60 seconds, 10 working days), not a result.
  */
 
 export const OPERATIONS_MAP = {
@@ -62,28 +62,3 @@ export const REVENUE_TEAM = {
     "A short report in plain words each month",
   ],
 };
-
-export type Guarantee = {
-  key: "sixty" | "breakeven";
-  n: string;
-  name: string;
-  ifText: string;
-  thenText: string;
-};
-
-export const GUARANTEES: Guarantee[] = [
-  {
-    key: "sixty",
-    n: "01",
-    name: "The 60-Second Guarantee",
-    ifText: "fewer than 99% of your enquiries are answered within 60 seconds in a month",
-    thenText: "that month is credited.",
-  },
-  {
-    key: "breakeven",
-    n: "02",
-    name: "The Break-Even Exit",
-    ifText: "the system has not paid for itself by day 90",
-    thenText: "you can leave at the day-90 review.",
-  },
-];
