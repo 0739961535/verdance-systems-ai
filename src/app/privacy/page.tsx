@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { LegalLayout, LegalSection } from "@/components/layout/LegalLayout";
+import { SITE } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Verdance Systems AI",
@@ -21,6 +22,19 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
+      <LegalSection heading="Who we are">
+        <p>
+          The responsible party for the information collected on this website is
+          Verdance Systems AI, a private company registered in South Africa
+          (registration number {SITE.regNumber}). Our Information Officer is Daniel
+          Bouwer, reachable at{" "}
+          <a href="mailto:daniel@verdancesystemsai.com">daniel@verdancesystemsai.com</a>.
+          When we build and run systems for a client, we handle that
+          client&apos;s customers&apos; information only on the client&apos;s
+          instructions, as their operator, and not for our own purposes.
+        </p>
+      </LegalSection>
+
       <LegalSection heading="What we collect">
         <ul>
           <li>
@@ -39,6 +53,12 @@ export default function PrivacyPage() {
             <strong>Public business details.</strong> When we email a business about
             our services, we use business contact details it publishes itself, such
             as on its own website.
+          </li>
+          <li>
+            <strong>Chat messages.</strong> The chat assistant on this site is an
+            automated assistant provided through our CRM, GoHighLevel. What you
+            type, and any contact details you give it, is stored with that
+            provider and in our CRM so that a person can follow up.
           </li>
           <li>
             <strong>Basic usage data.</strong> Like most websites, our hosting
@@ -69,8 +89,24 @@ export default function PrivacyPage() {
           tools, hosting and the AI tools we build with), and only so we can respond
           to and serve you. Some of these providers process information outside
           South Africa, including in the European Union and the United States; we
-          use them under data processing agreements that protect your information.
+          rely on the data processing terms of each provider to protect your information.
           We may also disclose information if required by law.
+        </p>
+      </LegalSection>
+
+      <LegalSection heading="Children">
+        <p>
+          This website and our services are for businesses and adults. We do not
+          knowingly collect information about anyone under 18.
+        </p>
+      </LegalSection>
+
+      <LegalSection heading="Keeping it safe">
+        <p>
+          We keep access to your information limited to the people and tools that
+          need it. If we ever find that your information has been accessed
+          without permission, we will tell the Information Regulator and the
+          people affected, as the law requires.
         </p>
       </LegalSection>
 
