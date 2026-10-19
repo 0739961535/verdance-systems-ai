@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Reveal } from "@/components/primitives/Reveal";
+import { Reveal, SplitWords } from "@/components/primitives/Reveal";
 import { AI_TEAM_PATH, CTA_LABEL, CTA_MICRO, MOMENTS, POWER } from "@/data/aiTeam";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { MomentCard } from "./MomentCard";
@@ -26,7 +26,11 @@ export function PowerOfAI({ variant = "full" }: { variant?: "full" | "short" }) 
           <div className="max-w-3xl">
             <p className="eyebrow">{POWER.eyebrow}</p>
             <h2 id="power-title" className="h2 mt-5 max-w-[20ch]">
-              Same moment. A <span className="italic-accent">different</span> ending.
+              <SplitWords text="Same moment. A" />{" "}
+              <span className="italic-accent">
+                <SplitWords text="different" start={3} />
+              </span>{" "}
+              <SplitWords text="ending." start={4} />
             </h2>
           </div>
           <p className="max-w-[26rem] text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{POWER.intro}</p>

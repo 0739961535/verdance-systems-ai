@@ -7,7 +7,7 @@
 
 import Script from "next/script";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 /**
  * Routes where the floating widget is suppressed: on the form pages the
@@ -18,8 +18,58 @@ const HIDE_ON = ["/contact", "/apply"];
 
 const WIDGET_ID = "6a7337fa97ea74e60aff69a1";
 
+/**
+ * The widget opens with a greeting bubble that sits over the hero's main
+ * button on phones. So the loader only runs after LOAD_AFTER_MS, or sooner
+ * once the visitor scrolls past the hero (they have seen it and are reading
+ * on). Daniel approved the 20-second delay, Oct 2026.
+ *
+ * On the home page the pinned rocket flight (.fl) follows the hero. The
+ * widget's script costs 50 to 200ms of main thread as it boots and its
+ * bubble covers the flight's words, so while the flight is on screen the
+ * load waits, and it happens as soon as the visitor scrolls out of it.
+ */
+const LOAD_AFTER_MS = 20_000;
+
+function inFlight() {
+  const fl = document.querySelector(".fl");
+  if (!fl) return false;
+  const r = fl.getBoundingClientRect();
+  return r.top < window.innerHeight && r.bottom > 0;
+}
+
+function useDeferredLoad() {
+  const [load, setLoad] = useState(false);
+  useEffect(() => {
+    if (load) return;
+    let due = false;
+    const go = () => {
+      due = true;
+      if (!inFlight()) setLoad(true);
+    };
+    const timer = window.setTimeout(go, LOAD_AFTER_MS);
+    const onScroll = () => {
+      const fl = document.querySelector(".fl");
+      const hero = document.querySelector("main section, section");
+      const past = fl
+        ? fl.getBoundingClientRect().bottom < window.innerHeight * 0.25
+        : hero
+          ? hero.getBoundingClientRect().bottom < window.innerHeight * 0.25
+          : window.scrollY > 600;
+      if (past || (due && !inFlight())) go();
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [load]);
+  return load;
+}
+
 export function GHLChatWidget() {
   const pathname = usePathname();
+  const load = useDeferredLoad();
   const hidden =
     !!pathname && HIDE_ON.some((p) => pathname === p || pathname.startsWith(p + "/"));
 
@@ -46,6 +96,7 @@ export function GHLChatWidget() {
    * can.
    */
   useEffect(() => {
+    if (!load) return;
     const LIFT_BELOW = 768;
     const STYLE_ID = "verdance-widget-lift";
     const LIFTED = "verdance-lifted";
@@ -114,7 +165,7 @@ export function GHLChatWidget() {
       observer?.disconnect();
       window.removeEventListener("resize", apply);
     };
-  }, []);
+  }, [load]);
 
   return (
     <>
@@ -122,12 +173,14 @@ export function GHLChatWidget() {
           CSS (rather than unmounting the script) survives client-side route
           changes in both directions. */}
       {hidden && <style>{`chat-widget{display:none !important;}`}</style>}
-      <Script
-        src="https://widgets.leadconnectorhq.com/loader.js"
-        data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
-        data-widget-id={WIDGET_ID}
-        strategy="lazyOnload"
-      />
+      {load && (
+        <Script
+          src="https://widgets.leadconnectorhq.com/loader.js"
+          data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+          data-widget-id={WIDGET_ID}
+          strategy="afterInteractive"
+        />
+      )}
     </>
   );
 }

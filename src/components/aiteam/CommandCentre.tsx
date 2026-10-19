@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useReducer, useRef, useState } from "react";
-import { AnimatePresence, LayoutGroup, MotionConfig, motion } from "framer-motion";
+import { AnimatePresence, LayoutGroup, MotionConfig, motion } from "motion/react";
 import { Check, Pause, PenLine, Play, RotateCcw } from "lucide-react";
 import { useReducedMotionPref } from "@/lib/useReducedMotionPref";
 import { DEMO_ITEMS, DEPARTMENTS, STAGES, type DemoItem } from "@/data/aiTeam";
@@ -337,11 +337,13 @@ function CardView({ card, pressing, editing, focusOnMount, dispatch }: CardProps
       data-stage={stage}
       initial={card.fresh ? { opacity: 0, y: 12 } : false}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, x: 28, transition: { duration: 0.22, ease: [0.4, 0, 1, 1] } }}
+      exit={{ opacity: 0, x: 32, rotate: 1.5, scale: 0.98, transition: { duration: 0.24, ease: [0.4, 0, 1, 1] } }}
+      whileHover={{ y: -2 }}
       transition={{
-        layout: { duration: 0.55, ease: EASE, delay },
+        // springs give the cards weight as they hand off between lanes
+        layout: { type: "spring", visualDuration: 0.6, bounce: 0.2, delay },
         opacity: { duration: 0.32, ease: EASE, delay },
-        y: { duration: 0.32, ease: EASE, delay },
+        y: { type: "spring", visualDuration: 0.4, bounce: 0.25, delay },
       }}
     >
       <div className={s.cardTop}>

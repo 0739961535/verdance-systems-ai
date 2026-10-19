@@ -640,7 +640,7 @@ export const SERVICE_PILLARS: ServicePillar[] = [
     index: "04",
     slug: "automations",
     title: "The Custom Work",
-    promise: "The jobs only your business has, done without anyone doing them.",
+    promise: "The jobs only your business has, done for you.",
     slugs: ["custom-builds"],
   },
 ];

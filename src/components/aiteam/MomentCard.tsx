@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { animate, motion, useInView } from "framer-motion";
+import { animate, motion, useInView } from "motion/react";
 import type { Moment } from "@/data/aiTeam";
 import { useReducedMotionPref } from "@/lib/useReducedMotionPref";
 import m from "./moments.module.css";

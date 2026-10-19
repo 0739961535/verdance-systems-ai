@@ -109,7 +109,7 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
             parts={[{ name: "From first message to booked", steps: industry.automationFlow.map((s) => s.label) }]}
           />
         }
-        note="Fixed quote after your free Operations Map"
+        note="Free 30-minute call · nothing to sign"
       />
 
       <section className="section-pad bg-canvas-2" aria-labelledby="problems-title" style={{ borderTop: "1px solid var(--hairline)" }}>
@@ -209,7 +209,7 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
       )}
 
       <CTABand />
-      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Get your free Operations Map" />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="See what AI can do for you" />
     </>
   );
 }

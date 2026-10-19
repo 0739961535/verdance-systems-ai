@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { SITE } from "@/data/site";
+import { CTA_PRIMARY, SITE } from "@/data/site";
 import { bookUrl, type Niche } from "@/data/niches";
 import { NICHE_CONVERSATIONS, HOME_CONVERSATION } from "@/data/conversations";
 import { ChatPhone } from "@/components/device/ChatPhone";
@@ -70,14 +70,14 @@ export function NicheHero({ niche }: { niche: Niche }) {
               {niche.hero.lead}
             </p>
 
-            <div className="enter-fade-up mt-9 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: "0.18s" }}>
+            <div className="enter-fade-up mt-9 flex flex-col gap-3 sm:flex-row sm:items-center" style={{ animationDelay: "0.18s" }}>
               <a href={bookUrl(niche.bookSlug)} data-magnetic className="btn btn-accent min-h-12 justify-center px-6">
-                Get your free Operations Map
+                {CTA_PRIMARY}
                 <ArrowUpRight size={16} aria-hidden />
               </a>
-              <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="btn btn-ghost min-h-12 justify-center px-6">
+              <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center gap-2 px-4 text-[0.95rem] text-[color:var(--color-ink-muted)] hover:text-[color:var(--color-ink)]">
                 <WhatsAppIcon className="h-4 w-4" />
-                WhatsApp Daniel
+                Or WhatsApp Daniel
               </a>
             </div>
 

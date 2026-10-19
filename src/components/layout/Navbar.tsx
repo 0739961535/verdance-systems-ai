@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LogoMark } from "@/components/brand/LogoMark";
 import { ThemeToggle } from "@/components/primitives/ThemeToggle";
-import { NAV_ITEMS, SITE } from "@/data/site";
+import { CTA_PRIMARY, NAV_ITEMS, SITE } from "@/data/site";
 import { GENERIC_BOOK_URL, bookUrl } from "@/data/booking";
 
 export type MegaMenuItem = { slug: string; name: string; number: string };
@@ -216,7 +216,8 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
             WhatsApp
           </a>
           <a href={bookHref} className="btn btn-accent">
-            Free Operations Map
+            <span className="hidden xl:inline">{CTA_PRIMARY}</span>
+            <span className="xl:hidden">See what AI can do</span>
           </a>
         </div>
 
@@ -287,7 +288,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
               WhatsApp
             </a>
             <Link href={bookHref} className="btn btn-accent flex-1 text-sm py-3">
-              Free Operations Map
+              {CTA_PRIMARY}
             </Link>
           </div>
         </div>

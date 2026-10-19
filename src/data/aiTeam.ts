@@ -14,7 +14,7 @@ export const AI_TEAM = {
   name: "Ashford's Staff",
   eyebrow: "Ashford's Staff",
   lead:
-    "It answers enquiries, chases quotes, clears the admin and tells you what needs a decision. Nothing goes out until you say yes.",
+    "It answers customers, follows up, does the admin and tells you what needs you. Nothing goes out until you say yes.",
   meta: {
     title: "Ashford's Staff | A private team that runs the business alongside you | Verdance Systems AI",
     description:
@@ -22,8 +22,8 @@ export const AI_TEAM = {
   },
 };
 
-export const CTA_LABEL = "Get your free Operations Map";
-export const CTA_MICRO = "No sales pitch. You keep the map either way.";
+export const CTA_LABEL = "See what AI can do for you";
+export const CTA_MICRO = "Free 30-minute call. Nothing to sign.";
 
 /* ── Org chart ─────────────────────────────────────────────── */
 
@@ -42,7 +42,7 @@ export type DeptName = (typeof DEPARTMENTS)[number]["name"];
 export const STAGES = [
   { role: "dept", label: "Department", body: "A head and its workers do the work." },
   { role: "review", label: "Reviewer", body: "Checks every piece before it moves on." },
-  { role: "operator", label: "Operator", body: "Turns it into a short plan for you." },
+  { role: "operator", label: "Planner", body: "Turns it into a short plan for you." },
   { role: "attn", label: "Needs you", body: "You approve, change it, or say no." },
 ] as const;
 
@@ -157,22 +157,19 @@ export const DEMO_ITEMS: DemoItem[] = [
 /* ── Capabilities and safety ───────────────────────────────── */
 
 export const CAPABILITIES = [
-  { title: "Answers every enquiry", body: "WhatsApp, email and web forms answered in your voice, day and night, inside the answers you have signed off. Anything new comes to you." },
-  { title: "Chases every quote", body: "Friendly follow-ups on the right days, and a nudge to you the moment they reply." },
-  { title: "Clears the inbox", body: "Every message read and sorted, with replies drafted before you open the thread." },
-  { title: "Handles order and returns questions", body: "Where is my order, can I swap this, when is it back in stock. Answered from your own records." },
-  { title: "Preps calls and proposals", body: "A one-page brief before every call, and a proposal draft after it." },
-  { title: "Plans your day", body: "Builds the day around your calendar and moves things when plans change." },
-  { title: "Tracks the pipeline and money", body: "Who owes what, which deals are moving and what cash is coming in." },
-  { title: "Keeps the paperwork current", body: "Contracts, consent records and renewals in one register, with reminders before anything lapses." },
-  { title: "Reports in plain words", body: "A short daily and weekly note: what happened, what it means, what needs a decision." },
+  { title: "Answers every customer", body: "WhatsApp, email and website messages answered in your voice, day and night. Anything new comes to you." },
+  { title: "Follows up every quote", body: "Friendly check-ins on the right days. You hear the moment they reply." },
+  { title: "Sorts your inbox", body: "Every message read and sorted, with a reply ready before you open it." },
+  { title: "Answers order questions", body: "Where is my order? Can I swap this? Answered from your own records." },
+  { title: "Does the paperwork", body: "Invoices, contracts and renewals kept up to date, with a reminder before anything runs out." },
+  { title: "Tells you what matters", body: "A short note each day and week: what happened, and what needs you." },
 ];
 
 export const SAFETY = [
   { title: "Nothing goes out without you", body: "No message is sent and no money is spent until you approve it." },
-  { title: "Your data stays yours", body: "It lives in accounts you own, encrypted, and each part of the team only sees what it needs." },
-  { title: "Spending is capped", body: "The team works inside a monthly limit you set. It stops at the cap." },
-  { title: "Everything is logged", body: "Every action is recorded with who did it and why, so you can check any decision later." },
+  { title: "Your data stays yours", body: "It lives in accounts you own, locked and private. Each part of the team only sees what it needs." },
+  { title: "Spending has a limit", body: "You set a monthly limit. The team stops when it gets there." },
+  { title: "Everything is written down", body: "Every action is recorded with who did it and why, so you can check it later." },
 ];
 
 /* ── Before / With AI moments ──────────────────────────────── */
@@ -216,14 +213,14 @@ export const MOMENTS: Moment[] = [
     title: "A big decision",
     quote: "Can we afford a second coordinator?",
     before: { clock: "6 h 30 m", caption: "pulling numbers together", steps: ["Numbers in five places", "Spreadsheet until late"], outcome: "Decided on gut feel" },
-    after: { clock: "15 m", caption: "to a clear answer", steps: ["16:00 one page ready", "16:04 pipeline, cash and what is working", "16:15 decided with the numbers"] },
+    after: { clock: "15 m", caption: "to a clear answer", steps: ["16:00 one page ready", "16:04 sales, cash and what is working", "16:15 decided with the numbers"] },
     delta: "A decision made on numbers, not on a hunch.",
   },
 ];
 
 export const POWER = {
   eyebrow: "Before and after",
-  intro: "Four ordinary moments in a week. The difference is who picks them up, and how fast.",
+  intro: "Four normal moments in a week. What changes is who picks them up, and how fast.",
 };
 
 export const AI_TEAM_FAQS = [
@@ -233,18 +230,18 @@ export const AI_TEAM_FAQS = [
   },
   {
     q: "What does it cost?",
-    a: "Every team is scoped to your business, so we quote after your free Operations Map. The quote is fixed and in writing, and we only propose it if your own numbers show it pays for itself.",
+    a: "Every team is built for your business, so we give you a price after the free call. The price is fixed and in writing. We only suggest it if your own numbers show it pays for itself.",
   },
   {
     q: "Do I need to change the tools I use?",
-    a: "Usually not. It works with your email, WhatsApp, calendar, accounts and the systems you already run. If something needs to change, we tell you on the map, before you commit.",
+    a: "Usually not. It works with your email, WhatsApp, diary and the tools you already use. If something needs to change, we tell you first.",
   },
   {
     q: "Where does my data go?",
-    a: "Into accounts that are yours, encrypted. Each part of the team only sees what it needs, and every action is logged.",
+    a: "Into accounts that are yours, locked and private. Each part of the team only sees what it needs, and every action is written down.",
   },
   {
     q: "Who is it for?",
-    a: "Owners who are the bottleneck in their own business: too many messages, too much admin, and decisions made without the numbers. It suits teams that want to grow without hiring for every new task.",
+    a: "Owners with too many messages, too much admin and not enough time. It suits teams that want to grow without hiring for every new job.",
   },
 ];

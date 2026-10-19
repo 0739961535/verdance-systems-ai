@@ -13,16 +13,16 @@ export function CTABand({
   eyebrow = "Free Operations Map · 30 minutes",
   title = (
     <>
-      Find out what slow replies <span className="italic-accent">cost you.</span>
+      See what AI can do <span className="italic-accent">for you.</span>
     </>
   ),
   points = [
-    "How fast you reply today, channel by channel",
-    "What slow replies are likely costing you, in real money",
-    "A fixed quote, if you want us to build it",
+    "Where your time goes each week",
+    "Which jobs AI can take off you",
+    "A fixed price, if you want us to build it",
   ],
   href = GENERIC_BOOK_URL,
-  label = "Get your free Operations Map",
+  label = "See what AI can do for you",
 }: {
   eyebrow?: string;
   title?: ReactNode;
@@ -57,18 +57,18 @@ export function CTABand({
               </li>
             ))}
           </ul>
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row md:justify-center">
-            <a href={href} data-magnetic className="btn btn-accent min-h-12 justify-center px-7">
+          <div className="mt-10 flex flex-col items-start gap-3 md:items-center">
+            <a href={href} data-magnetic className="btn btn-accent min-h-[52px] w-full justify-center px-7 sm:w-auto">
               {label}
               <ArrowUpRight size={16} aria-hidden />
             </a>
-            <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="btn btn-ghost min-h-12 justify-center px-7">
+            <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 text-[0.95rem] text-[color:var(--color-ink-muted)] hover:text-[color:var(--color-ink)]">
               <WhatsAppIcon className="h-4 w-4" />
-              WhatsApp us
+              Or WhatsApp us
             </a>
           </div>
           <p className="mt-6 font-mono text-[0.72rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">
-            Free · nothing to sign · fixed quote after
+            Free · 30 minutes · nothing to sign
           </p>
         </Reveal>
       </div>

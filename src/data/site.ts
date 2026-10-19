@@ -32,3 +32,7 @@ export const NAV_ITEMS = [
   { label: "How It Works", href: "/how-it-works" },
   { label: "Contact", href: "/contact" },
 ];
+
+/** The one main button on every page. Always goes to the free Operations Map. */
+export const CTA_PRIMARY = "See what AI can do for you";
+export const CTA_PRIMARY_MICRO = "Free 30-minute call. Nothing to sign.";

@@ -5,14 +5,12 @@ import { Reveal } from "@/components/primitives/Reveal";
 import { PageHero } from "@/components/kit/PageHero";
 import { SectionHead } from "@/components/kit/SectionHead";
 import { CTABand } from "@/components/kit/CTABand";
-import { OfferSection } from "@/components/offer/OfferSection";
 import { NumberTicker } from "@/components/kit/NumberTicker";
 import { SystemStack } from "@/components/visuals/hero/SystemStack";
-import { PowerOfAI } from "@/components/aiteam/PowerOfAI";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { SERVICE_PILLARS, PILLAR_CATEGORIES, SERVICE_CATEGORIES } from "@/data/services";
 import { GENERIC_BOOK_URL } from "@/data/booking";
-import { SITE_URL } from "@/data/site";
+import { CTA_PRIMARY, SITE_URL } from "@/data/site";
 
 const TITLE = "Services: WhatsApp Replies, Phone Answering, Online Booking and More | Verdance Systems AI";
 const DESCRIPTION =
@@ -43,13 +41,13 @@ export default function ServicesPage() {
         eyebrow="Services"
         title={
           <>
-            Four pillars. <span className="italic-accent">One system.</span>
+            What we can set up <span className="italic-accent">for you.</span>
           </>
         }
-        lead="Getting found, answering and booking, running the business, and the custom work only you have. Every part talks to the others. Start with the one that is costing you most."
+        lead="Help to find customers, answer them, book them in and run the business. Every part works together. Start with the one that costs you the most."
         crumbs={[{ href: "/", label: "Home" }, { label: "Services" }]}
         visual={<SystemStack />}
-        note={`${SERVICE_CATEGORIES.length} services · fixed quote after your free Operations Map`}
+        note={`${SERVICE_CATEGORIES.length} services · start with a free 30-minute call`}
       />
 
       {/* pillar quick-nav */}
@@ -132,7 +130,6 @@ export default function ServicesPage() {
         );
       })}
 
-      <PowerOfAI variant="short" />
 
       <section className="section-pad bg-canvas" aria-labelledby="start-title" style={{ borderTop: "1px solid var(--hairline)" }}>
         <div className="container-wide">
@@ -141,12 +138,12 @@ export default function ServicesPage() {
             eyebrow="Where to start"
             title={
               <>
-                Not sure which? <span className="italic-accent">That is what the Operations Map is for.</span>
+                Not sure which? <span className="italic-accent">We will help you pick.</span>
               </>
             }
             intro={
               <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent min-h-12 justify-center">
-                Get your free Operations Map
+                {CTA_PRIMARY}
                 <ArrowUpRight size={16} aria-hidden />
               </a>
             }
@@ -154,9 +151,8 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <OfferSection />
       <CTABand />
-      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Get your free Operations Map" />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label={CTA_PRIMARY} />
     </>
   );
 }
