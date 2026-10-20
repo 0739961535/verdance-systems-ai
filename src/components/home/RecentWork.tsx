@@ -96,6 +96,28 @@ function ChatVisual() {
   );
 }
 
+/**
+ * The copy for each case lives in one place, keyed by case, so a spread can only
+ * ever show its own "What we built" and "What it does" lines.
+ */
+const CASES = {
+  ecom: {
+    built: "Replies to every order question across website chat, WhatsApp and email, after hours included.",
+    does: "Order questions and follow-ups handled, with a person taking over when it matters.",
+  },
+  studio: {
+    built: "A premium website and a project brief form.",
+    does: "Enquiries arrive with the details needed to quote.",
+  },
+} as const;
+
+function rowsFor(c: { built: string; does: string }): [string, string][] {
+  return [
+    ["What we built", c.built],
+    ["What it does", c.does],
+  ];
+}
+
 /** One case as an editorial spread: a big picture, then what we built and what it does. */
 function Spread({ id, title, visual, caption, rows, flip }: { id: string; title: string; visual: React.ReactNode; caption: string; rows: [string, string][]; flip?: boolean }) {
   return (
@@ -110,7 +132,7 @@ function Spread({ id, title, visual, caption, rows, flip }: { id: string; title:
         </h3>
         <dl className="mt-6 grid">
           {rows.map(([k, v]) => (
-            <div key={k} className="border-t border-[color:var(--hairline-2)] py-4">
+            <div key={`${id}-${k}`} className="border-t border-[color:var(--hairline-2)] py-4">
               <dt className="font-mono text-[0.75rem] text-[color:var(--color-ink-muted)]">{k}</dt>
               <dd className={`mt-1 ${BODY}`}>{v}</dd>
             </div>
@@ -153,10 +175,7 @@ export function RecentWork() {
             title="A South African e-commerce brand"
             visual={<ChatVisual />}
             caption="The customer and order in this picture are made up. The system is real."
-            rows={[
-              ["What we built", "Replies to every order question across website chat, WhatsApp and email, after hours included."],
-              ["What it does", "Order questions and follow-ups handled, with a person taking over when it matters."],
-            ]}
+            rows={rowsFor(CASES.ecom)}
           />
           <Spread
             id="work-studio"
@@ -164,10 +183,7 @@ export function RecentWork() {
             title="A South African luxury home design and build studio"
             visual={<StudioVisual />}
             caption="Website and project brief form, built by Verdance. Name hidden at the client's request."
-            rows={[
-              ["What we built", "A premium website and a project brief form."],
-              ["What it does", "Enquiries arrive with the details needed to quote."],
-            ]}
+            rows={rowsFor(CASES.studio)}
           />
         </div>
 
