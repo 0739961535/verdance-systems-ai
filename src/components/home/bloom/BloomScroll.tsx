@@ -10,13 +10,14 @@ import { useEffect, useRef } from "react";
  * the scroll comes to rest. Phones use their own lighter set.
  * Reduced motion: nothing runs; the first frame and the last line show.
  */
+const STOPS = [0.15, 0.3, 0.45, 0.6, 1.01];
+
 export function BloomScroll({ v, desktop, phone }: { v: string; desktop: number; phone: number }) {
   const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const el = ref.current?.closest<HTMLElement>(".bl");
     if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const words = 5;
     const small = window.matchMedia("(max-width: 767px)").matches;
     const prefix = small ? "m" : "d";
     const count = small ? phone : desktop;
@@ -89,7 +90,8 @@ export function BloomScroll({ v, desktop, phone }: { v: string; desktop: number;
       const d = goal - shown;
       shown = Math.abs(d) < 0.0008 ? goal : shown + d * 0.18;
       el.style.setProperty("--p", shown.toFixed(4));
-      el.dataset.word = String(Math.min(words - 1, Math.floor(shown * words * 0.999)));
+      // four lines in equal turns, then the last one lands and holds longest
+      el.dataset.word = String(STOPS.findIndex((t) => shown < t));
       draw();
       if (shown !== goal) raf = requestAnimationFrame(tick);
     };

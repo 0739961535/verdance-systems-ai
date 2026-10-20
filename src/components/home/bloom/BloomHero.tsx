@@ -115,17 +115,25 @@ const CSS = `
 .bl-petal-o { --o: clamp(0, calc((var(--p) - var(--k) * 0.035) / 0.7), 1); opacity: calc(0.6 + var(--o) * 0.4); }
 .bl-petal-i { --o: clamp(0, calc((var(--p) - 0.12 - var(--k) * 0.03) / 0.6), 1); }
 .bl-heart { transform-box: fill-box; transform-origin: center; transform: scale(calc(0.6 + var(--p) * 0.4)); }
-.bl-left, .bl-right { position: absolute; top: 50%; transform: translateY(-50%); margin: 0; font-size: clamp(0.75rem, 0.5vw + 0.6rem, 1rem); font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--color-ink); }
-.bl-left { left: max(24px, calc(50% - 600px)); }
-.bl-right { right: max(24px, calc(50% - 600px)); display: grid; text-align: right; }
-.bl-word { grid-area: 1 / 1; opacity: 0; transform: translate3d(0, 8px, 0); transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); color: var(--color-accent); }
+/* the words: a confident display size with tight tracking. "We make AI"
+   holds beside the flower; the line opposite slides up out of a mask, word
+   by word, and the last line lands larger, in the brand blue, and holds */
+.bl-left, .bl-right { position: absolute; top: 50%; margin: 0; font-family: var(--font-display); font-weight: 600; text-transform: uppercase;
+  font-size: clamp(1.5rem, 1.5vw + 1rem, 2.75rem); line-height: 1; letter-spacing: -0.02em; }
+.bl-left { color: #0E0E10; right: calc(50% + min(46vw, 39svh) * 0.8); transform: translateY(-50%); text-align: right; white-space: nowrap; z-index: 2; }
+.bl-right { z-index: 2; left: calc(50% + min(46vw, 39svh) * 0.8); right: 24px; transform: translateY(-50%); display: grid; overflow: hidden; padding: 0.12em 0; }
+.bl-word { grid-area: 1 / 1; max-width: 11ch; color: #2554D4; transform: translate3d(0, 110%, 0); opacity: 0;
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease; }
+.bl-word[data-i="4"] { font-size: 1.18em; letter-spacing: -0.03em; color: #1D3F8F; background: linear-gradient(90deg, #1D3F8F, #4D7CFF); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .bl[data-word="0"] .bl-word[data-i="0"], .bl[data-word="1"] .bl-word[data-i="1"], .bl[data-word="2"] .bl-word[data-i="2"],
 .bl[data-word="3"] .bl-word[data-i="3"], .bl[data-word="4"] .bl-word[data-i="4"] { opacity: 1; transform: none; }
+/* the word that just left slides on up and out */
+.bl[data-word="1"] .bl-word[data-i="0"], .bl[data-word="2"] .bl-word[data-i="1"], .bl[data-word="3"] .bl-word[data-i="2"], .bl[data-word="4"] .bl-word[data-i="3"] { transform: translate3d(0, -110%, 0); }
 @media (max-width: 767px) {
-  .bl-left, .bl-right { left: 0; right: 0; transform: none; text-align: center; }
-  .bl-left { top: 18svh; }
-  .bl-right { top: auto; bottom: 18svh; }
-  .bl-word { justify-self: center; }
+  .bl-left, .bl-right { left: 20px; right: 20px; transform: none; text-align: center; font-size: clamp(1.6rem, 7.4vw, 2.2rem); }
+  .bl-left { top: calc(50% - min(46vw, 39svh) - 3.2em); }
+  .bl-right { top: calc(50% + min(46vw, 39svh) + 0.6em); justify-items: center; }
+  .bl-word { max-width: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .bl { height: 100svh; }
