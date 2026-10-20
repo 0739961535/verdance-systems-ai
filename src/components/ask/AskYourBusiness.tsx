@@ -14,26 +14,10 @@ const POINTS = [
   { title: "Private to your team.", body: "Set up in your accounts, for the people you choose." },
 ];
 
-const CSS = `
-.ask-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-@media (max-width: 639px) {
-  .ask-chips { flex-wrap: nowrap; overflow-x: auto; width: calc(100% + 40px); margin: 0 -20px; padding: 2px 20px 6px; scroll-padding-inline: 20px; scroll-snap-type: x proximity; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent); mask-image: linear-gradient(90deg, #000 82%, transparent); }
-  .ask-chips::-webkit-scrollbar { display: none; }
-  .ask-chips > * { flex: none; scroll-snap-align: start; }
-}
-.ask-caret { display: inline-block; width: 0.5em; height: 1em; margin-left: 2px; vertical-align: -0.12em; background: #8FB0FF; opacity: 0.8; }
-.ask-more { opacity: 0; transform: translate3d(0, 6px, 0); transition: opacity 0.35s ease-out, transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
-.ask-more.is-on { opacity: 1; transform: none; }
-.ask-bar { transform-origin: 0 50%; }
-.ask-more.is-on .ask-bar { animation: ask-grow 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
-@keyframes ask-grow { from { transform: scaleX(0); } }
-@media (prefers-reduced-motion: reduce) { .ask-more { transition: none; } .ask-more.is-on .ask-bar { animation: none; } .ask-caret { display: none; } }
-`;
 
 export function AskYourBusiness({ compact = false }: { compact?: boolean }) {
   return (
     <section className="band-night chapter-pad" aria-labelledby="ask-title">
-      <style>{CSS}</style>
       <div className="container-wide grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
         <div className="min-w-0" data-reveal="">
           <p className="eyebrow">

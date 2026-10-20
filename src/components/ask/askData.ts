@@ -23,8 +23,10 @@ export const ASK_ITEMS: AskItem[] = [
     visual: {
       kind: "bars",
       items: [
-        { label: "September", value: 430, display: "R430,000" },
-        { label: "October", value: 482, display: "R482,000", now: true },
+        { label: "Jul", value: 396, display: "R396,000" },
+        { label: "Aug", value: 412, display: "R412,000" },
+        { label: "Sep", value: 430, display: "R430,000" },
+        { label: "Oct", value: 482, display: "R482,000", now: true },
       ],
     },
     sources: ["Shopify"],
