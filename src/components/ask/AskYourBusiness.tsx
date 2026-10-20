@@ -35,7 +35,7 @@ export function AskYourBusiness({ compact = false }: { compact?: boolean }) {
     <section className="band-night chapter-pad" aria-labelledby="ask-title">
       <style>{CSS}</style>
       <div className="container-wide grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
-        <div data-reveal="">
+        <div className="min-w-0" data-reveal="">
           <p className="eyebrow">
             <span className="chap-n">09</span> Ask
           </p>
@@ -53,7 +53,7 @@ export function AskYourBusiness({ compact = false }: { compact?: boolean }) {
             </ul>
           )}
         </div>
-        <div>
+        <div className="min-w-0">
           <AskPanel compact={compact} />
           <p className="museum mt-3">Sample questions and answers.</p>
         </div>
