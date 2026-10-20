@@ -1,7 +1,7 @@
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, Inter, Newsreader } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { MEGA_MENUS, NICHE_LINKS } from "@/components/layout/navMenus";
@@ -16,31 +16,38 @@ import { SiteAnalytics } from "@/components/analytics/SiteAnalytics";
 import { SITE_URL } from "@/data/site";
 import { ORGANIZATION_LD, ORG_ID, PERSON_LD } from "@/data/entity";
 
-// Type (design review "Path to 9.5", Oct 2026), all OFL and self-hosted by
-// next/font, Latin subset:
-// - Inter with its optical-size axis: display sizes pick the tight "Display"
-//   cut automatically (font-optical-sizing), the closest free face to SF.
-// - Newsreader italic (optical sizes 6 to 72): only "We ship it." and at most
-//   one word per section.
-// - Geist Mono: timestamps and chapter markers only; not preloaded.
-const inter = Inter({
+// Type (design review "Path to 9.5", Oct 2026), all OFL, self-hosted and
+// subset to Latin by hand (src/fonts/README.md) so the first paint stays fast:
+// - Inter, weight 400 to 600: display at 600 with tight tracking, the closest
+//   free face to SF. The only file preloaded.
+// - Newsreader italic, display cut: only "We ship it." (and at most one word
+//   per section elsewhere).
+// - Geist Mono: chapter markers and timestamps only.
+const inter = localFont({
+  src: "../fonts/inter/Inter-400-600-latin.woff2",
   variable: "--font-inter",
-  subsets: ["latin"],
-  axes: ["opsz"],
+  weight: "400 600",
   display: "swap",
+  fallback: ["system-ui", "Helvetica Neue", "Arial", "sans-serif"],
+  adjustFontFallback: "Arial",
 });
-const newsreader = Newsreader({
+const newsreader = localFont({
+  src: "../fonts/newsreader/Newsreader-Italic-Display-latin.woff2",
   variable: "--font-newsreader",
-  subsets: ["latin"],
-  style: ["italic"],
-  axes: ["opsz"],
+  weight: "400",
+  style: "italic",
   display: "swap",
+  fallback: ["Georgia", "serif"],
+  adjustFontFallback: "Times New Roman",
 });
-const geistMono = Geist_Mono({
+const geistMono = localFont({
+  src: "../fonts/geist-mono/GeistMono-400-500-latin.woff2",
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: "400 500",
   display: "swap",
   preload: false,
+  fallback: ["ui-monospace", "Menlo", "monospace"],
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
