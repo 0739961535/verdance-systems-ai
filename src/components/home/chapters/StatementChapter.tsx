@@ -1,5 +1,6 @@
 import film from "../flight/film-manifest.json";
 import { StatementFill } from "./StatementFill";
+import { ProofRow } from "./ProofRow";
 
 /**
  * 04 Promise: the outcome, once, very big, under the earth from orbit (the
@@ -8,12 +9,6 @@ import { StatementFill } from "./StatementFill";
  */
 const v = film.v;
 const WORDS = "Every enquiry answered. Every follow-up done. Your team's hours".split(" ");
-
-const FACTS = [
-  { title: "Answered in under a minute.", body: "On WhatsApp, email, website chat and calls." },
-  { title: "Day, night and weekends.", body: "The enquiries you lose after hours stop getting lost." },
-  { title: "Live in 10 working days.", body: "Set up in your accounts, in your voice." },
-];
 
 const CSS = `
 .st-plate { position: relative; height: 320px; overflow: hidden; }
@@ -56,14 +51,7 @@ export function StatementChapter() {
             </span>
           </h2>
         </StatementFill>
-        <ul className="mt-12 grid gap-0 lg:mt-24 lg:grid-cols-3 lg:gap-6">
-          {FACTS.map((f) => (
-            <li key={f.title} className="border-t border-white/[0.1] py-5 lg:pt-6">
-              <p className="text-[1.375rem] font-semibold tracking-[-0.02em] lg:text-[1.75rem]">{f.title}</p>
-              <p className="mt-1.5 text-[1.0625rem] leading-[1.55] text-[rgba(234,240,255,0.76)] lg:text-[1.125rem]">{f.body}</p>
-            </li>
-          ))}
-        </ul>
+        <ProofRow />
       </div>
     </section>
   );
