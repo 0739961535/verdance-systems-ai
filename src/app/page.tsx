@@ -7,6 +7,7 @@ import { FilmStory } from "@/components/home/flight/FilmStory";
 import { FlightStory } from "@/components/home/flight/FlightStory";
 import { LaunchHero } from "@/components/home/hero/LaunchHero";
 import { BloomHero } from "@/components/home/bloom/BloomHero";
+import { WatchArrives } from "@/components/home/bloom/WatchArrives";
 
 /** The illustrated flight is the old fallback (FLIGHT_FILM=0). The scroll
  * film (real footage) is off for now: HERO_FILM=1 at build time brings it
@@ -85,7 +86,7 @@ export default function HomePage() {
         <StatementChapter />
       </div>
       <div className="cv-below">
-        <WatchItWork />
+        <WatchArrives />
       </div>
       <div className="cv-below">
         <WhatYouGet />
