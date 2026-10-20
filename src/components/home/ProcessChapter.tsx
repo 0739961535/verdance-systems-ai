@@ -14,23 +14,23 @@ import { ProcessTimeline, type ProcessStep } from "./ProcessTimeline";
 const STILL = (n: string, ext: string) => `/flight/film/${n}.${ext}?v=${film.v}`;
 
 const STEPS: ProcessStep[] = [
-  { n: "01", word: "Call", icon: "call", timing: "30 minutes", sentence: "We hear how enquiries reach you today and where they get stuck." },
-  { n: "02", word: "Map", icon: "map", timing: "Free", sentence: "We show you where time and money leak, in hours and money." },
+  { n: "01", word: "Call", icon: "call", timing: "30 minutes", sentence: "We trace how enquiries reach you today and where they stall before a reply." },
+  { n: "02", word: "Map", icon: "map", timing: "Free", sentence: "A time and capacity audit: where hours and revenue leak, measured." },
   {
     n: "03",
     word: "Plan",
     icon: "plan",
     timing: "You decide",
-    sentence: "A written plan: what we build first and what it should bring back. If the numbers don't work, we say so.",
+    sentence: "A written implementation plan: what we build first, the timeline to go-live and the expected return. If the numbers don't work, we say so.",
   },
   {
     n: "04",
     word: "Build",
     icon: "build",
     timing: "10 working days",
-    sentence: "We set it up in your accounts, in your voice, and test it on real enquiries.",
+    sentence: "We configure it in your accounts, train it on your voice and test it on real enquiries before go-live.",
   },
-  { n: "05", word: "Review", icon: "review", timing: "Day 90", sentence: "We sit down with your numbers and decide the next phase together." },
+  { n: "05", word: "Review", icon: "review", timing: "Day 90", sentence: "We review response times and outcomes against the baseline and agree the next phase." },
 ];
 
 const CSS = `
@@ -96,7 +96,7 @@ export function ProcessChapter() {
       <div className="pc-body container-wide">
         <div data-reveal="">
           <p className="eyebrow">
-            <span className="chap-n">08</span> Process
+            <span className="chap-n">06</span> Process
           </p>
           <h2 id="process-title" className="h2 pc-h2">
             <SplitWords text="From first call to" />{" "}

@@ -101,7 +101,6 @@ const nextConfig: NextConfig = {
       { source: "/packages", destination: "/services", permanent: true },
       // the old per-step pages (six steps, older copy) fold into the one page
       { source: "/how-it-works/:step", destination: "/how-it-works", permanent: true },
-      { source: "/portfolio", destination: "/#proof", permanent: true },
       // One booking page, ours. Old links like /book/book/audit or
       // /book/venues (from the old booking site's paths) land on /book,
       // keeping which offer sent them. /contact was a CRM calendar embed.

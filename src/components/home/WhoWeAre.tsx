@@ -37,8 +37,8 @@ const CSS = `
 
 const CALL = [
   "Thirty minutes on a video call, at a time that suits you.",
-  "We look at how enquiries, follow-ups and admin run in your business today.",
-  "We show you where time and money leak, in hours and rand.",
+  "We map how enquiries, follow-ups and admin run today, including response and onboarding times.",
+  "We show where time and revenue leak, in hours and rand.",
   "If we are not the right fit, we say so plainly. You keep what we found either way.",
 ];
 
@@ -50,7 +50,7 @@ export function WhoWeAre() {
         <div className="who-grid">
           <div className="who-side" data-reveal="">
             <p className="eyebrow">
-              <span className="chap-n">10</span> Who we are
+              <span className="chap-n">08</span> Who we are
             </p>
             <h2 id="who-title" className="h2 who-h2">
               Who we are, and <span>how</span> we work.
@@ -68,8 +68,8 @@ export function WhoWeAre() {
 
           <div className="who-main" data-reveal="" style={{ ["--reveal-delay" as string]: "0.12s" }}>
             <p className="who-p">
-              Verdance builds AI systems for owner-led businesses. We set up the parts that answer your
-              customers, follow up and do the admin, connected to the tools you already use.
+              Verdance builds AI systems for owner-led businesses. They answer your customers, follow up and run
+              the admin, connected to the CRM (customer records), inbox and calendar you already use.
             </p>
             <p className="who-p">
               We keep it small on purpose. You deal with the people who build your system, and you stay in control of

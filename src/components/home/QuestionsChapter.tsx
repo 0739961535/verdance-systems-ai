@@ -22,7 +22,7 @@ const QUESTIONS: QA[] = [
   },
   {
     q: "What happens when it doesn't know the answer?",
-    a: "It says so politely, takes the details and hands it to the right person on your team, with the whole conversation attached.",
+    a: "It says so politely, takes the details and routes it to the right person on your team (a handover), with the whole conversation attached.",
   },
   {
     q: "Is it worth the money for a business our size?",
@@ -46,11 +46,11 @@ const QUESTIONS: QA[] = [
   },
   {
     q: "What about POPIA?",
-    a: "Consent records, opt-outs and an operator agreement are part of every build. Your customers' details stay in accounts in your business's name.",
+    a: "Consent records, opt-outs and an operator agreement are part of every build. Customer data stays in accounts registered to your business.",
   },
   {
     q: "Do we have to change our software?",
-    a: "No. We connect to what you already use, like WhatsApp, email, your calendar and your online store. If something can't connect, we tell you before we start.",
+    a: "No. We integrate with what you already use: WhatsApp, email, your calendar, your CRM and your online store. If something can't connect, we tell you before we start.",
   },
 ];
 
@@ -145,7 +145,7 @@ export function QuestionsChapter() {
           <div className="qc-side">
             <div data-reveal="">
               <p className="eyebrow">
-                <span className="chap-n">09</span> Questions
+                <span className="chap-n">07</span> Questions
               </p>
               <h2 id="questions-title" className="h2 qc-h2">
                 <SplitWords text="What owners ask us" />{" "}

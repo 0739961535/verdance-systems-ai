@@ -7,7 +7,6 @@ import { GENERIC_BOOK_URL } from "@/data/niches";
 import { HOME_ROTATION } from "@/data/conversations";
 import { LaptopInbox } from "@/components/device/LaptopInbox";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
-import { Rocket } from "./hero/Rocket";
 import { GetVisual, WorkVisualsStyle } from "./inbox/WorkVisuals";
 
 /**
@@ -23,7 +22,6 @@ export function SimpleHero() {
     <section className="hero-launch relative isolate overflow-hidden bg-canvas" aria-labelledby="hero-title" data-cta-location="hero">
       <div aria-hidden className="aurora" />
       <div className="container-narrow relative pt-24 pb-20 text-center sm:pt-32 md:pt-40 md:pb-28">
-        <Rocket />
 
         <h1
           id="hero-title"
@@ -97,10 +95,30 @@ export function WatchItWork() {
 const MINI = "mt-6 max-w-[22rem] rounded-[14px] border border-white/[0.08] bg-[#0A1226] p-3.5 text-[0.875rem] leading-[1.45] text-[#E9EDEF] md:mt-8 md:max-w-[28rem] md:p-5 md:text-[1rem] md:min-h-[9.5rem] md:content-center";
 
 const GETS = [
-  { word: "Answer", title: "Every customer, fast", body: "Every enquiry answered within 60 seconds. Day or night.", href: "/services/conversation-ai" },
-  { word: "Follow up", title: "No one slips away", body: "It checks in with people who went quiet, so they don't forget you.", href: "/services/follow-up-nurture" },
-  { word: "Admin", title: "Done for you", body: "Bookings, notes and forms get filled in. No more typing things twice.", href: "/services/booking-calendar" },
-  { word: "Report", title: "What's working", body: "A short report each month, in plain words and real numbers.", href: "/services/analytics-compliance" },
+  {
+    word: "Answer",
+    title: "Every customer, fast",
+    body: "Every enquiry gets a reply within 60 seconds, in your voice, day or night. Someone asks at 22:15 if you deliver to Durban and has an answer before they put the phone down. You see every conversation and can take over at any point.",
+    href: "/services/conversation-ai",
+  },
+  {
+    word: "Follow up",
+    title: "No one slips away",
+    body: "When someone goes quiet after a quote, a friendly check-in is drafted for you. You approve it with one tap and it goes out at a sensible hour, like 09:00 the next morning. Nobody is forgotten because the week got busy.",
+    href: "/services/follow-up-nurture",
+  },
+  {
+    word: "Admin",
+    title: "Done for you",
+    body: "Bookings land in your calendar with the address, notes and photos already attached. A customer picks Tuesday at 07:30 and gets a reminder the night before. Nobody types the same details twice.",
+    href: "/services/booking-calendar",
+  },
+  {
+    word: "Report",
+    title: "What's working",
+    body: "On the 1st of each month you get a short report in plain words. It shows how many enquiries came in, how fast they were answered and which ones became work. You see what to keep and what to fix next.",
+    href: "/services/analytics-compliance",
+  },
 ];
 
 export function WhatYouGet({ showAll = true }: { showAll?: boolean } = {}) {
@@ -134,7 +152,7 @@ export function WhatYouGet({ showAll = true }: { showAll?: boolean } = {}) {
                   {word}
                 </p>
                 <h3 className="mt-4 text-[1.0625rem] font-semibold text-[color:var(--color-ink)]">{title}</h3>
-                <p className="mt-1.5 max-w-[34ch] text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{body}</p>
+                <p className="mt-1.5 max-w-[40ch] text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{body}</p>
                 <Link
                   href={href}
                   aria-label={`How it works: ${word}`}

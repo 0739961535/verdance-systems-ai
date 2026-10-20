@@ -24,7 +24,7 @@ const ECOM_TABS: ProofTab[] = [
     label: "Chat",
     icon: MessageCircle,
     panel: (
-      <Frame icon={MessageCircle} title="Store assistant" sub="Website chat · replies in under a minute">
+      <Frame icon={MessageCircle} title="Store assistant" sub="Website chat · replies in under a minute" stagger={0.9}>
         <Msg side="in">Hi, where&apos;s my order? It&apos;s #10482.</Msg>
         <Msg side="out">Hi James, I&apos;ve found it. It&apos;s with the courier now:</Msg>
         <OrderCard />
@@ -38,15 +38,23 @@ const ECOM_TABS: ProofTab[] = [
     label: "Pipeline",
     icon: Columns3,
     panel: (
-      <Frame icon={Columns3} title="Enquiry pipeline" sub="Every conversation has a stage">
+      <Frame icon={Columns3} title="Enquiry pipeline" sub="Every conversation has a stage" stagger={0.08}>
         <Pipeline
-          lanes={[
-            { stage: "New enquiry", count: 3, name: "Lerato", note: "Bulk order for an event", tag: "Email" },
-            { stage: "Answered", count: 8, name: "James", note: "Delivery times to Durban", tag: "Chat" },
-            { stage: "Order question", count: 5, name: "Thabo", note: "Order #10517 tracking", tag: "WhatsApp" },
-            { stage: "Follow-up", count: 2, name: "Anna", note: "Left a cart, asked about sizes", tag: "Email" },
-            { stage: "Won / Closed", count: 12, name: "Sipho", note: "Reordered, thanked the team", tag: "WhatsApp" },
+          columns={[
+            { stage: "New", count: 2, cards: [
+              { name: "Thabo", note: "Order #10517 tracking", tag: "WA" },
+              { name: "Anna", note: "Asked about sizes", tag: "Email" },
+            ] },
+            { stage: "Answered", count: 7, cards: [
+              { name: "James", note: "Delivery times to Durban", tag: "Chat" },
+              { name: "Zanele", note: "Return label sent", tag: "WA" },
+            ] },
+            { stage: "Won", count: 11, cards: [
+              { name: "Sipho", note: "Reordered, thanked the team", tag: "WA" },
+              { name: "Megan", note: "Paid for a gift set", tag: "Chat" },
+            ] },
           ]}
+          mover={{ name: "Lerato", tag: "Email", notes: ["Bulk order for an event", "Replied in under a minute", "Order placed"] }}
         />
       </Frame>
     ),
@@ -89,7 +97,7 @@ const STUDIO_TABS: ProofTab[] = [
     label: "Chat",
     icon: MessageCircle,
     panel: (
-      <Frame icon={MessageCircle} title="Studio assistant" sub="Website chat · replies in under a minute">
+      <Frame icon={MessageCircle} title="Studio assistant" sub="Website chat · replies in under a minute" stagger={0.9}>
         <Msg side="in">Hi, we&apos;d like to build a custom home. How does it start?</Msg>
         <Msg side="out">Lovely. Three quick questions so the team can prepare.</Msg>
         <Item className="flex justify-end">
@@ -126,13 +134,21 @@ const STUDIO_TABS: ProofTab[] = [
     panel: (
       <Frame icon={Columns3} title="Project pipeline" sub="From first brief to signed">
         <Pipeline
-          lanes={[
-            { stage: "New brief", count: 2, name: "Naledi", note: "New build, four bedrooms", tag: "Form" },
-            { stage: "Qualified", count: 3, name: "James", note: "Renovation, plans approved", tag: "Chat" },
-            { stage: "Site meeting", count: 1, name: "Lerato", note: "Thursday 10:00 at the plot", tag: "Booked" },
-            { stage: "Proposal", count: 2, name: "David", note: "Proposal sent, call next week", tag: "Email" },
-            { stage: "Signed", count: 1, name: "Anna", note: "Design stage started", tag: "Won" },
+          columns={[
+            { stage: "New brief", count: 1, cards: [
+              { name: "David", note: "Extension, plans drawn", tag: "Form" },
+              { name: "Anna", note: "Renovation in Constantia", tag: "Chat" },
+            ] },
+            { stage: "Qualified", count: 2, cards: [
+              { name: "James", note: "Renovation, plans approved", tag: "Chat" },
+              { name: "Thandi", note: "Coastal plot, design first", tag: "Form" },
+            ] },
+            { stage: "Booked", count: 1, cards: [
+              { name: "Bongani", note: "Site meeting Tuesday 14:00" },
+              { name: "Lindiwe", note: "Design call, proposal next" },
+            ] },
           ]}
+          mover={{ name: "Naledi", tag: "Form", notes: ["New build, four bedrooms", "Plot, budget and timeline in", "Site meeting Thursday 10:00"] }}
         />
       </Frame>
     ),

@@ -12,11 +12,9 @@ import { LaunchHero } from "@/components/home/hero/LaunchHero";
  * back; otherwise the still hero ships and the film's frames never load. */
 const FLIGHT_FILM = process.env.FLIGHT_FILM !== "0";
 const HERO_FILM = process.env.HERO_FILM === "1";
-import { AskYourBusiness } from "@/components/ask/AskYourBusiness";
 import { BuiltForUs } from "@/components/home/BuiltForUs";
-import { RecentWork } from "@/components/home/RecentWork";
+import { HomePortfolio } from "@/components/home/portfolio/HomePortfolio";
 import { ToolsMarquee } from "@/components/home/ToolsMarquee";
-import { WebsitesChapter } from "@/components/home/WebsitesChapter";
 import { WhoWeAre } from "@/components/home/WhoWeAre";
 import { BookingSection } from "@/components/booking/BookingSection";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
@@ -86,13 +84,7 @@ export default function HomePage() {
       </div>
       <ToolsMarquee className="band-orbit" />
       <div className="cv-below">
-        <WebsitesChapter />
-      </div>
-      <div className="cv-below">
-        <RecentWork />
-      </div>
-      <div className="cv-below">
-        <AskYourBusiness compact />
+        <HomePortfolio />
       </div>
       <div className="cv-below">
         <BuiltForUs />

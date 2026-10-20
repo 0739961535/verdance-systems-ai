@@ -23,8 +23,8 @@ const C = {
 const DOES = [
   // confirmed claims only (spec, Oct 2026); the voice, portal and nightly
   // review lines come back once Daniel confirms them
-  { title: "Anything important waits for our yes.", body: "Replies, follow-ups and reports are drafted. Whatever matters waits for approval." },
-  { title: "Every enquiry is tracked.", body: "From the first message to the booked call." },
+  { title: "Anything important waits for our yes.", body: "Routine replies follow agreed rules. Quotes, refunds and anything sensitive wait for approval." },
+  { title: "Every enquiry is tracked.", body: "Each one moves through pipeline stages, from first message to booked call." },
 ];
 
 const QUEUE = [
@@ -95,7 +95,7 @@ export function BuiltForUs() {
       <div className="container-wide relative z-[1] grid gap-10 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-16">
         <div data-reveal="">
           <p className="eyebrow" style={{ color: C.muted }}>
-            <span style={{ color: C.accent }}>07</span> Ours
+            <span style={{ color: C.accent }}>05</span> Ours
           </p>
           <h2 id="ours-title" className="h2 mt-4" style={{ color: C.ink }}>
             <SplitWords text="We run Verdance on the" /> <span>same</span> <SplitWords text="system." />
