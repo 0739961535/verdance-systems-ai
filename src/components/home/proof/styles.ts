@@ -30,4 +30,13 @@ export const PROOF_CSS = `
 .pv-chip-ghost { color: #C9D2E3; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.14); }
 .pv-skel { display: inline-block; height: 10px; border-radius: 4px; background: rgba(143,176,255,0.16); }
 .pv-hatch { background-image: repeating-linear-gradient(135deg, rgba(143,176,255,0.22) 0 2px, rgba(143,176,255,0.07) 2px 7px); }
+
+/* entrances (CSS only): hidden until the card has data-play, staggered by --i */
+.pv-i, .pv-l, .pv-b { transition-delay: calc(60ms + var(--i, 0) * var(--st, 70ms)); }
+.pv-i { opacity: 0; transform: translate3d(0, 8px, 0); transition-property: opacity, transform; transition-duration: 0.32s; transition-timing-function: ease-out; }
+.pv-l { transform: scaleY(0); transition: transform 0.24s ease-out; transition-delay: calc(60ms + var(--i, 0) * var(--st, 70ms)); }
+.pv-b { transform: scaleY(0); transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: calc(60ms + var(--i, 0) * var(--st, 70ms)); }
+.pv-card[data-play] .pv-i { opacity: 1; transform: none; }
+.pv-card[data-play] .pv-l, .pv-card[data-play] .pv-b { transform: none; }
+@media (prefers-reduced-motion: reduce) { .pv-i, .pv-l, .pv-b { opacity: 1; transform: none; transition: none; } }
 `;

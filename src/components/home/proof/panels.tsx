@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import { Check, UserRound, type LucideIcon } from "lucide-react";
 import { usePlay } from "./ProofTabs";
 
@@ -9,25 +9,8 @@ import { usePlay } from "./ProofTabs";
  * Every customer name and order number here is made up, and each card says so in its footer.
  */
 
-const EASE_OUT = [0.22, 1, 0.36, 1] as const;
-
-const frameV = (stagger: number): Variants => ({
-  hide: {},
-  show: { transition: { staggerChildren: stagger, delayChildren: 0.06 } },
-});
-const itemV: Variants = {
-  hide: { opacity: 0, y: 8 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.32, ease: "easeOut" } },
-};
-const lineV: Variants = {
-  hide: { scaleY: 0 },
-  show: { scaleY: 1, transition: { duration: 0.24, ease: "easeOut" } },
-};
-const barV: Variants = {
-  hide: { scaleY: 0 },
-  show: { scaleY: 1, transition: { duration: 0.55, ease: EASE_OUT } },
-};
-
+/* Entrances are plain CSS transitions (see .pv-i / .pv-l / .pv-b in styles.ts):
+   each animated piece gets its order (--i) and plays when the card has data-play. */
 /** Dark app card with a header, a body that staggers in, and the illustration label. */
 export function Frame({
   icon: Icon,
@@ -43,12 +26,24 @@ export function Frame({
   children: React.ReactNode;
 }) {
   const { play, reduce } = usePlay();
+  const ref = useRef<HTMLDivElement>(null);
+  const [on, setOn] = useState(false);
+  // number the animated pieces in reading order, then start one frame later
+  // so the hidden state paints first and the transition runs
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.querySelectorAll<HTMLElement>(".pv-i, .pv-l, .pv-b").forEach((n, i) => n.style.setProperty("--i", String(i)));
+    if (!(play || reduce)) return;
+    const r = requestAnimationFrame(() => requestAnimationFrame(() => setOn(true)));
+    return () => cancelAnimationFrame(r);
+  }, [play, reduce]);
   return (
-    <motion.div
+    <div
+      ref={ref}
       className="pv-card"
-      variants={frameV(stagger)}
-      initial={reduce ? false : "hide"}
-      animate={play || reduce ? "show" : "hide"}
+      data-play={on || reduce ? "" : undefined}
+      style={{ ["--st" as string]: `${Math.round(stagger * 1000)}ms` }}
     >
       <div className="pv-head">
         <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#1D3F8F] text-[#DCE6FF]" aria-hidden>
@@ -61,7 +56,7 @@ export function Frame({
       </div>
       <div className="pv-body">{children}</div>
       <div className="pv-foot">Illustration, details changed</div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -69,7 +64,7 @@ export function Frame({
 
 export function Msg({ side, children }: { side: "in" | "out"; children: React.ReactNode }) {
   return (
-    <motion.div variants={itemV} className={side === "out" ? "flex justify-end" : "flex justify-start"}>
+    <div className={`pv-i ${side === "out" ? "flex justify-end" : "flex justify-start"}`}>
       <span
         className={`max-w-[86%] rounded-[14px] px-3 py-2 text-[0.84rem] leading-[1.4] ${
           side === "out" ? "pv-out rounded-tr-[4px]" : "pv-in rounded-tl-[4px]"
@@ -77,15 +72,15 @@ export function Msg({ side, children }: { side: "in" | "out"; children: React.Re
       >
         {children}
       </span>
-    </motion.div>
+    </div>
   );
 }
 
 export function Item({ className = "", children }: { className?: string; children: React.ReactNode }) {
   return (
-    <motion.div variants={itemV} className={className}>
+    <div className={`pv-i ${className}`}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -137,7 +132,7 @@ export function Pipeline({ lanes }: { lanes: Lane[] }) {
   return (
     <ol className="grid gap-2" aria-label="Pipeline stages">
       {lanes.map((l, i) => (
-        <motion.li key={l.stage} variants={itemV} className="grid grid-cols-[minmax(0,104px)_minmax(0,1fr)] items-center gap-2.5">
+        <li key={l.stage} className="pv-i grid grid-cols-[minmax(0,104px)_minmax(0,1fr)] items-center gap-2.5">
           <span className="flex min-w-0 items-center gap-2">
             <span
               className="h-2 w-2 shrink-0 rounded-full"
@@ -156,7 +151,7 @@ export function Pipeline({ lanes }: { lanes: Lane[] }) {
             </span>
             <span className="pv-muted block truncate text-[0.72rem]">{l.note}</span>
           </span>
-        </motion.li>
+        </li>
       ))}
     </ol>
   );
@@ -175,13 +170,12 @@ export function Flow({ steps }: { steps: Step[] }) {
         return (
           <li key={s.title} className="grid">
             {i > 0 ? (
-              <motion.span
+              <span
                 aria-hidden
-                variants={lineV}
-                className="ml-[17px] block h-3.5 w-[2px] origin-top rounded-full bg-gradient-to-b from-[#4D7CFF] to-[#8FB0FF]"
+                className="pv-l ml-[17px] block h-3.5 w-[2px] origin-top rounded-full bg-gradient-to-b from-[#4D7CFF] to-[#8FB0FF]"
               />
             ) : null}
-            <motion.span variants={itemV} className="flex items-center gap-3">
+            <span className="pv-i flex items-center gap-3">
               <span
                 className={`grid h-9 w-9 shrink-0 place-items-center rounded-[10px] ${
                   s.trigger ? "bg-[#4D7CFF] text-white" : "pv-inner text-[#B9CCFF]"
@@ -197,7 +191,7 @@ export function Flow({ steps }: { steps: Step[] }) {
                 </span>
                 <span className="pv-muted block truncate text-[0.72rem] leading-snug">{s.note}</span>
               </span>
-            </motion.span>
+            </span>
           </li>
         );
       })}
@@ -232,7 +226,7 @@ export function Report() {
         </span>
         <div className="mt-3 grid min-h-[120px] flex-1 grid-cols-6 items-end gap-2" aria-hidden>
           {SHAPES.map((h, i) => (
-            <motion.span key={i} variants={barV} className="pv-hatch block origin-bottom rounded-t-[5px]" style={{ height: `${h * 100}%` }} />
+            <span key={i} className="pv-b pv-hatch block origin-bottom rounded-t-[5px]" style={{ height: `${h * 100}%` }} />
           ))}
         </div>
         <div className="mt-1.5 grid grid-cols-6 gap-2">

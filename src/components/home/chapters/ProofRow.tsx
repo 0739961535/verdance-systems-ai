@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useReducedMotion } from "motion/react";
+import { useReducedMotionPref } from "@/lib/useReducedMotionPref";
 
 /**
  * Promise proof row: three facts, each with a small live element.
@@ -194,7 +194,7 @@ function TenDays({ fill }: { fill: boolean }) {
 
 export function ProofRow() {
   const { ref, on, seen } = useOnScreen<HTMLUListElement>();
-  const reduced = useReducedMotion() ?? false;
+  const reduced = useReducedMotionPref();
   const visuals = [
     <ReplyTimer key="a" on={on} reduced={reduced} />,
     <DayNight key="b" on={on && !reduced} />,

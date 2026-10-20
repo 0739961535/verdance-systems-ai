@@ -1,7 +1,7 @@
 "use client";
 
-import { createContext, useCallback, useContext, useId, useRef, useState, useSyncExternalStore } from "react";
-import { useInView, useReducedMotion } from "motion/react";
+import { createContext, useCallback, useContext, useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
+import { useReducedMotionPref } from "@/lib/useReducedMotionPref";
 import type { LucideIcon } from "lucide-react";
 
 /**
@@ -30,9 +30,22 @@ const useDesktop = () =>
 export function ProofTabs({ label, tabs }: { label: string; tabs: ProofTab[] }) {
   const uid = useId();
   const rootRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(rootRef, { once: true, amount: 0.2 });
+  // plays once, when a fifth of it is on screen (no animation library: CSS transitions)
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el || inView) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        setInView(true);
+        io.disconnect();
+      }
+    }, { threshold: 0.2 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [inView]);
   const desktop = useDesktop();
-  const reduce = useReducedMotion() ?? false;
+  const reduce = useReducedMotionPref();
   const [active, setActive] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const touch = useRef<{ x: number; y: number } | null>(null);
