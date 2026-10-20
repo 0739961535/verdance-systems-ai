@@ -55,7 +55,7 @@ export function HomeHero() {
       <style>{CSS}</style>
       <div className="container-wide hh-grid">
         <div>
-          <h1 id="hero-title" className="hh-h1 enter-rise">
+          <h1 id="hero-title" className="hh-h1">
             We don&apos;t talk about AI. <span className="italic-accent">We ship it.</span>
           </h1>
           <p className="hh-sub">Find out what AI can really do for your business.</p>
