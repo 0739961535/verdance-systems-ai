@@ -15,6 +15,7 @@ import { SITE_URL } from "@/data/site";
 export const metadata: Metadata = {
   alternates: { canonical: "/industries" },
   openGraph: {
+    images: ["/opengraph-image"],
     title: "Industries | Verdance Systems AI",
     description: "Five current offers, each built around how one kind of business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
     url: `${SITE_URL}/industries`,

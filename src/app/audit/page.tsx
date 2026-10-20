@@ -17,7 +17,8 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/audit" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: `${SITE_URL}/audit`, type: "website" },
+  openGraph: {
+images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: `${SITE_URL}/audit`, type: "website" },
 };
 
 const GET = [

@@ -18,7 +18,8 @@ export const metadata: Metadata = {
   title: AI_TEAM.meta.title,
   description: AI_TEAM.meta.description,
   alternates: { canonical: AI_TEAM_PATH },
-  openGraph: { title: AI_TEAM.meta.title, description: AI_TEAM.meta.description, url: URL, type: "website" },
+  openGraph: {
+images: ["/opengraph-image"], title: AI_TEAM.meta.title, description: AI_TEAM.meta.description, url: URL, type: "website" },
 };
 
 const JSON_LD = {

@@ -7,6 +7,7 @@ import { SITE_URL } from "@/data/site";
 export const metadata: Metadata = {
   alternates: { canonical: "/apply" },
   openGraph: {
+    images: ["/opengraph-image"],
     title: "Book your free Operations Map | Verdance Systems AI",
     description: "Watch the 6-minute walkthrough, then book your free Operations Map: where your enquiries, follow-ups and admin leak time and money.",
     url: `${SITE_URL}/apply`,

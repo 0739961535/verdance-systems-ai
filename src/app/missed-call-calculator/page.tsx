@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     "Work out what missed calls and unanswered messages are costing your business a year. Three numbers, no sign-up. Then see what it takes to stop it.",
   alternates: { canonical: "/missed-call-calculator" },
   openGraph: {
+    images: ["/opengraph-image"],
     title: "What are missed calls costing you?",
     description:
       "Three numbers and you have the answer. Most owners are surprised by the yearly figure.",

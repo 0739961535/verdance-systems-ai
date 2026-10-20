@@ -23,7 +23,7 @@ const GROUPS: FooterGroup[] = [
       { href: "/about", label: "About" },
       { href: "/how-it-works", label: "How it works" },
       { href: "/ai-agency", label: "Where we work" },
-      { href: "/contact", label: "Contact" },
+      { href: "/book", label: "Contact" },
       { href: SITE.linkedin, label: "LinkedIn", external: true },
       { href: "/privacy", label: "Privacy policy" },
       { href: "/terms", label: "Terms" },

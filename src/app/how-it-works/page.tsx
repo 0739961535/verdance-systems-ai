@@ -14,7 +14,8 @@ const DESCRIPTION =
 
 export const metadata: Metadata = {
   alternates: { canonical: "/how-it-works" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: `${SITE_URL}/how-it-works`, type: "website", siteName: "Verdance Systems AI" },
+  openGraph: {
+  images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: `${SITE_URL}/how-it-works`, type: "website", siteName: "Verdance Systems AI" },
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
   title: TITLE,
   description: DESCRIPTION,

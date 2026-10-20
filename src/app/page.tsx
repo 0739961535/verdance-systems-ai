@@ -26,6 +26,7 @@ import { CTA_PRIMARY, SITE_URL } from "@/data/site";
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
+    images: ["/opengraph-image"],
     title: "We don't talk about AI. We ship it. | Verdance Systems AI",
     description:
       "Find out what AI can really do for your business. Verdance answers your customers, follows up, does the admin and reports back. You stay in control.",

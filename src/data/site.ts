@@ -4,7 +4,7 @@
  * is a one-line change. It must match the primary domain set in Vercel
  * (Daniel is making the apex primary, with www redirecting to it).
  */
-export const SITE_URL = "https://verdancesystemsai.com";
+export const SITE_URL = "https://www.verdancesystemsai.com";
 
 export const SITE = {
   name: "Verdance Systems AI",
@@ -30,7 +30,7 @@ export const NAV_ITEMS = [
   { label: "Services", href: "/services" },
   { label: "Industries", href: "/industries" },
   { label: "How It Works", href: "/how-it-works" },
-  { label: "Contact", href: "/contact" },
+  { label: "Contact", href: "/book" },
 ];
 
 /** The one main button on every page. Always goes to the free Operations Map. */

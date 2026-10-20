@@ -34,7 +34,8 @@ export async function generateMetadata({
     title,
     description,
     alternates: { canonical: `/how-it-works/${slug}` },
-    openGraph: { title, description, url, type: "article", siteName: "Verdance Systems AI" },
+    openGraph: {
+    images: ["/opengraph-image"], title, description, url, type: "article", siteName: "Verdance Systems AI" },
     twitter: { card: "summary_large_image", title, description },
   };
 }

@@ -10,7 +10,8 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/book" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: `${SITE_URL}/book`, type: "website", siteName: "Verdance Systems AI" },
+  openGraph: {
+  images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: `${SITE_URL}/book`, type: "website", siteName: "Verdance Systems AI" },
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 

@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     "We build the thing that answers your phone, replies to your messages and books customers into your calendar. Remote first across South Africa, with city pages for Johannesburg, Cape Town, Stellenbosch and Durban. Free 30-minute Operations Map.",
   alternates: { canonical: "/ai-agency" },
   openGraph: {
+    images: ["/opengraph-image"],
     title: "Where We Work | Verdance Systems AI",
     description:
       "Every enquiry answered within 60 seconds, for owner-led businesses across South Africa.",
