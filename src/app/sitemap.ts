@@ -33,7 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/about", priority: 0.8, freq: "monthly", updated: UPDATED.about },
     { path: "/industries", priority: 0.8, freq: "monthly", updated: UPDATED.site },
     { path: "/how-it-works", priority: 0.8, freq: "monthly", updated: UPDATED.site },
-    { path: "/contact", priority: 0.7, freq: "yearly", updated: UPDATED.contact },
+    { path: "/book", priority: 0.8, freq: "monthly", updated: UPDATED.site },
     { path: "/apply", priority: 0.8, freq: "monthly", updated: UPDATED.site },
     { path: "/ai-agency", priority: 0.85, freq: "monthly", updated: UPDATED.site },
     { path: "/missed-call-calculator", priority: 0.9, freq: "monthly", updated: UPDATED.calculator },

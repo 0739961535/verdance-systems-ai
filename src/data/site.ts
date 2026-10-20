@@ -22,7 +22,7 @@ export const SITE = {
   },
   linkedin: "https://www.linkedin.com/in/daniel-bouwer/",
   ghlBooking: "https://api.leadconnectorhq.com/widget/booking/yLGPT8nNF78G32doGmoW",
-  tagline: "Verdance - capture every lead, book every chance.",
+  tagline: "We don't talk about AI. We ship it.",
 };
 
 export const NAV_ITEMS = [

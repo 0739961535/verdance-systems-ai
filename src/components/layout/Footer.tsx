@@ -33,7 +33,7 @@ const GROUPS: FooterGroup[] = [
     title: "What we build",
     links: [
       { href: "/services", label: "All services" },
-      { href: "/services/ai-operations-system", label: "The Revenue Team" },
+      { href: "/services/ai-operations-system", label: "Operations Team" },
       { href: "/services/conversation-ai", label: "Message replies" },
       { href: "/services/voice-ai", label: "Phone answering" },
       { href: "/services/follow-up-nurture", label: "Follow-up" },
@@ -121,7 +121,7 @@ export function Footer() {
                 <ArrowUpRight size={16} strokeWidth={1.5} aria-hidden />
               </a>
               <span className="font-mono text-xs text-[color:var(--color-ink-muted)]">
-                No sales pitch.
+                Free. Nothing to sign.
               </span>
             </div>
           </div>

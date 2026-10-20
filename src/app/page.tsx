@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { InControl, SimpleFinalCTA, SimpleHero, WatchItWork, WhatYouGet } from "@/components/home/SimpleHome";
-import { StatementChapter } from "@/components/home/chapters/StatementChapter";
 import { ProcessChapter } from "@/components/home/ProcessChapter";
 import { QuestionsChapter } from "@/components/home/QuestionsChapter";
 import { FilmStory } from "@/components/home/flight/FilmStory";
@@ -9,12 +8,8 @@ import { FlightStory } from "@/components/home/flight/FlightStory";
 /** The flight as a scroll-scrubbed film (rocket v6). Roll back to the
  * illustrated flight with FLIGHT_FILM=0 at build time. */
 const FLIGHT_FILM = process.env.FLIGHT_FILM !== "0";
-import { AskYourBusiness } from "@/components/ask/AskYourBusiness";
-import { BuiltForUs } from "@/components/home/BuiltForUs";
 import { RecentWork } from "@/components/home/RecentWork";
-import { ToolsMarquee } from "@/components/home/ToolsMarquee";
-import { WebsitesChapter } from "@/components/home/WebsitesChapter";
-import { WhoWeAre } from "@/components/home/WhoWeAre";
+import { WhatWeBuild } from "@/components/home/WhatWeBuild";
 import { BookingSection } from "@/components/booking/BookingSection";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/niches";
@@ -25,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "We don't talk about AI. We ship it. | Verdance Systems AI",
     description:
-      "Find out what AI can really do for your business. We set up AI that answers customers, follows up, does the admin and reports back. You stay in control.",
+      "Find out what AI can really do for your business. Verdance answers your customers, follows up, does the admin and reports back. You stay in control.",
     url: `${SITE_URL}/`,
     type: "website",
   },
@@ -69,29 +64,20 @@ export default function HomePage() {
   return (
     <>
       <FilmStory />
-      {/* 04 to 13 below the film (growth-lab/BELOW_THE_FOLD_SPEC.md); each
-          skipped by layout and paint until it nears the screen */}
-      <div className="cv-below">
-        <StatementChapter />
-      </div>
+      {/* Seven sections (V20 brief): film, demo, what we build, proof,
+          process, questions, book. Each below-the-film section is skipped
+          by layout and paint until it nears the screen. Detail that used to
+          live here moved: the four jobs and the websites chapter to
+          /services, "built for our own business" to /about, the promise
+          statement to /how-it-works. */}
       <div className="cv-below">
         <WatchItWork />
       </div>
       <div className="cv-below">
-        <WhatYouGet />
-      </div>
-      <ToolsMarquee className="band-orbit" />
-      <div className="cv-below">
-        <WebsitesChapter />
+        <WhatWeBuild />
       </div>
       <div className="cv-below">
         <RecentWork />
-      </div>
-      <div className="cv-below">
-        <AskYourBusiness compact />
-      </div>
-      <div className="cv-below">
-        <BuiltForUs />
       </div>
       <div className="cv-below">
         <ProcessChapter />
@@ -99,11 +85,9 @@ export default function HomePage() {
       <div className="cv-below">
         <QuestionsChapter />
       </div>
-      {/* 13 who we are, 14 the booking flow (id="book"; the page's booking
-          links scroll here). Not in .cv-below: the flow measures itself. */}
-      <WhoWeAre />
+      {/* id="book": the page's booking links scroll here. Not in .cv-below:
+          the flow measures itself. */}
       <BookingSection />
-      <SimpleFinalCTA />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label={CTA_PRIMARY} />
     </>
   );

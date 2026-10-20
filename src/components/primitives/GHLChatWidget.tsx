@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
  * qualifying form IS the conversion, and the fixed bottom-right bubble
  * physically overlaps the form's submit control.
  */
-const HIDE_ON = ["/contact", "/apply"];
+const HIDE_ON = ["/book", "/apply"];
 
 const WIDGET_ID = "6a7337fa97ea74e60aff69a1";
 

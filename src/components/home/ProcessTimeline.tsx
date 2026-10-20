@@ -1,12 +1,12 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import { CalendarCheck, Check, ClipboardList, Hammer, Map as MapIcon, Phone, type LucideIcon } from "lucide-react";
+import { CalendarCheck, ClipboardList, Hammer, Map as MapIcon, Phone, type LucideIcon } from "lucide-react";
 
 /**
  * The five-step timeline for chapter 11. A glowing engine-blue line fills as
  * the section scrolls past (vertical on phones, horizontal from 1024px), a
- * bright head rides its tip, and each node lights (ring, glow and a check)
+ * bright head rides its tip, and each node lights (ring and glow)
  * as the fill reaches it. The step the fill last passed is "active": its
  * title is full ink, steps still ahead sit dimmer.
  *
@@ -57,7 +57,7 @@ const CSS = `
 .pt-head-h { left: 0; top: 1px; }
 .pt-tl[data-armed][data-moving] .pt-head { opacity: 1; }
 
-/* Node: a dark disc with the step icon. Lit: blue ring, glow, check badge. */
+/* Node: a dark disc with the step icon. Lit: blue ring and glow. */
 .pt-node {
   position: absolute; left: 0; top: 0; width: var(--node); height: var(--node); border-radius: 999px;
   display: grid; place-items: center; color: #8F8B84;
@@ -260,9 +260,6 @@ export function ProcessTimeline({ steps }: { steps: ProcessStep[] }) {
             <li key={s.n} className="pt-step" data-step data-s={i === last ? "active" : "done"}>
               <span className="pt-node" data-node aria-hidden>
                 <Icon strokeWidth={1.75} />
-                <span className="pt-check">
-                  <Check strokeWidth={3} />
-                </span>
               </span>
               <p className="pt-meta">
                 <span className="pt-num">{s.n}</span>

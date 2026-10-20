@@ -214,7 +214,7 @@ export default async function ServiceCategoryPage({
               eyebrow="Works well with"
               title={
                 <>
-                  Stack it with <span className="italic-accent">these.</span>
+                  Pairs well with <span className="italic-accent">these.</span>
                 </>
               }
             />

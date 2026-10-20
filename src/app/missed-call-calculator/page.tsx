@@ -183,7 +183,7 @@ export default function MissedCallCalculatorPage() {
             </p>
           </Reveal>
           <Reveal delay={0.12}>
-            <Link href="/contact" className="btn btn-accent justify-center min-h-12 mt-8 inline-flex">
+            <Link href="/book" className="btn btn-accent justify-center min-h-12 mt-8 inline-flex">
               Book a free audit call
               <ArrowUpRight size={15} aria-hidden />
             </Link>

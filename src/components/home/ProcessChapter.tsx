@@ -15,7 +15,7 @@ const STILL = (n: string, ext: string) => `/flight/film/${n}.${ext}?v=${film.v}`
 
 const STEPS: ProcessStep[] = [
   { n: "01", word: "Call", icon: "call", timing: "30 minutes", sentence: "We hear how enquiries reach you today and where they get stuck." },
-  { n: "02", word: "Map", icon: "map", timing: "Free", sentence: "We show you where time and money leak, in rand and hours." },
+  { n: "02", word: "Map", icon: "map", timing: "Free", sentence: "We show you where time and money leak, in hours and money." },
   {
     n: "03",
     word: "Plan",
@@ -96,7 +96,7 @@ export function ProcessChapter() {
       <div className="pc-body container-wide">
         <div data-reveal="">
           <p className="eyebrow">
-            <span className="chap-n">11</span> Process
+            Process
           </p>
           <h2 id="process-title" className="h2 pc-h2">
             <SplitWords text="From first call to" />{" "}
@@ -106,7 +106,7 @@ export function ProcessChapter() {
             ,{" "}
             <SplitWords text="step by step." start={5} />
           </h2>
-          <p className="pc-intro">Five steps. You make two decisions. We do the rest.</p>
+          <p className="pc-intro">Five steps. You make two decisions: whether to go ahead, and what comes next. We do the rest.</p>
         </div>
 
         <div data-reveal="" style={{ ["--reveal-delay" as string]: "0.12s" }}>

@@ -28,22 +28,22 @@ const SERVICE_GROUPS: MegaMenuGroup[] = [
 
 export const MEGA_MENUS: Record<string, MegaMenu> = {
   "/services": {
-    eyebrow: "Four pillars",
-    heading: "Every system -",
-    headingAccent: "one operator.",
+    eyebrow: "Services",
+    heading: "Twelve services.",
+    headingAccent: "One team behind them.",
     base: "/services",
     items: SERVICE_CATEGORIES.map((c) => ({ slug: c.slug, name: c.name, number: c.number })),
     groups: SERVICE_GROUPS,
     feature: {
       href: "/services/ai-operations-system",
-      label: "Ashford's Staff",
-      note: "Your private AI operations team, with a live command centre",
+      label: "Operations Team",
+      note: "Answers, chases and does the admin. You choose what goes out.",
     },
   },
   "/industries": {
-    eyebrow: "Built for how you work",
-    heading: "Every industry -",
-    headingAccent: "one system.",
+    eyebrow: "Industries",
+    heading: "Built around",
+    headingAccent: "how your enquiries arrive.",
     base: "/industries",
     items: INDUSTRY_ITEMS,
     groups: INDUSTRY_GROUPS,

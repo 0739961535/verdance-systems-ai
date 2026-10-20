@@ -50,7 +50,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     slug: "lead-generation",
     number: "01",
-    name: "Finding New Customers",
+    name: "Finding new customers",
     headline: "More people enquiring,",
     italicWord: "and old leads coming back.",
     promise: "We bring back people who enquired before and find new ones who match your best customers.",
@@ -95,7 +95,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     slug: "conversation-ai",
     number: "02",
-    name: "Instant Message Replies",
+    name: "Instant message replies",
     headline: "Every message answered,",
     italicWord: "day or night.",
     promise: "WhatsApp, website chat, Instagram, Facebook and SMS answered within 60 seconds, usually in seconds.",
@@ -141,12 +141,12 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["voice-ai", "booking-calendar", "follow-up-nurture"],
     seoTitle: "WhatsApp Automation for Business, South Africa",
     seoDescription:
-      "WhatsApp automation for South African businesses: every WhatsApp, website chat, Instagram and SMS message answered within 60 seconds, day or night, and booked into your diary.",
+      "WhatsApp automation for owner-led businesses: every WhatsApp, website chat, Instagram and SMS message answered within 60 seconds, day or night, and booked into your diary.",
   },
   {
     slug: "voice-ai",
     number: "03",
-    name: "Phone Answering",
+    name: "Phone answering",
     headline: "Every call answered,",
     italicWord: "even after hours.",
     promise: "A phone assistant that picks up when you cannot, answers questions and books the caller in.",
@@ -187,12 +187,12 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["conversation-ai", "follow-up-nurture", "booking-calendar"],
     seoTitle: "AI Receptionist South Africa: Every Call Answered",
     seoDescription:
-      "An AI receptionist for South African businesses: every call answered, day or night, callers booked into your diary and urgent calls passed straight to you. Free Operations Map.",
+      "An AI receptionist for owner-led businesses: every call answered, day or night, callers booked into your diary and urgent calls passed straight to you. Free Operations Map.",
   },
   {
     slug: "crm-pipeline",
     number: "04",
-    name: "One Place for Every Customer",
+    name: "One place for every customer",
     headline: "Every customer and every job,",
     italicWord: "in one place.",
     promise: "All your customers, enquiries and jobs in one place, so nothing slips through the cracks.",
@@ -233,12 +233,12 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["conversation-ai", "booking-calendar", "analytics-compliance"],
     seoTitle: "CRM Setup and Automation, South Africa",
     seoDescription:
-      "Keep every customer, enquiry and job in one place. Records fill themselves in from calls, messages and bookings, so nothing slips through. Set up for South African businesses.",
+      "Keep every customer, enquiry and job in one place. Records fill themselves in from calls, messages and bookings, so nothing slips through. Set up for owner-led businesses.",
   },
   {
     slug: "booking-calendar",
     number: "05",
-    name: "Online Booking",
+    name: "Online booking",
     headline: "Customers book themselves in,",
     italicWord: "without the back and forth.",
     promise: "Customers book a time that suits them, day or night, and get reminders so they turn up.",
@@ -284,7 +284,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     slug: "follow-up-nurture",
     number: "06",
-    name: "Follow-up and Missed Call Text Back",
+    name: "Follow-up and missed call text back",
     headline: "No enquiry left",
     italicWord: "to go cold.",
     promise: "Missed calls get a text back in seconds, and every quote and quiet enquiry is followed up politely.",
@@ -324,12 +324,12 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["conversation-ai", "lead-generation", "reputation-reviews"],
     seoTitle: "Missed Call Text Back and Follow-up, South Africa",
     seoDescription:
-      "Every missed call gets a text back in seconds, and quotes that go quiet are followed up politely in your voice. Built for owner-led South African businesses.",
+      "Every missed call gets a text back in seconds, and quotes that go quiet are followed up politely in your voice. Built for owner-led businesses.",
   },
   {
     slug: "payments-invoicing",
     number: "07",
-    name: "Invoices and Payment Links",
+    name: "Invoices and payment links",
     headline: "Send the invoice,",
     italicWord: "get paid sooner.",
     promise: "Invoices and payment links sent the moment the work is done, then followed up until they are paid.",
@@ -370,12 +370,12 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["booking-calendar", "crm-pipeline", "follow-up-nurture"],
     seoTitle: "Invoice Reminders and Payment Links, South Africa",
     seoDescription:
-      "Send invoices and payment links by WhatsApp, SMS or email, take deposits at booking and let polite reminders chase late payments. For South African businesses.",
+      "Send invoices and payment links by WhatsApp, SMS or email, take deposits at booking and let polite reminders chase late payments. For owner-led businesses.",
   },
   {
     slug: "reputation-reviews",
     number: "08",
-    name: "Google Reviews",
+    name: "Google reviews",
     headline: "More good reviews,",
     italicWord: "without having to ask.",
     promise: "Every happy customer is asked for a Google review at the right moment, and problems come to you first.",
@@ -416,12 +416,12 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["follow-up-nurture", "marketing-social", "lead-generation"],
     seoTitle: "Google Review Automation, South Africa",
     seoDescription:
-      "Automatic Google review requests after every job, private feedback from unhappy customers first, and alerts with replies drafted for you. For South African businesses.",
+      "Automatic Google review requests after every job, private feedback from unhappy customers first, and alerts with replies drafted for you. For owner-led businesses.",
   },
   {
     slug: "websites-build",
     number: "09",
-    name: "Websites that Bring in Enquiries",
+    name: "Websites that bring in enquiries",
     headline: "A website that",
     italicWord: "books customers.",
     promise: "A fast website that people find on Google and that turns visitors into enquiries and bookings.",
@@ -444,7 +444,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Upgrading your current site",
         description: "Add chat, booking and enquiry tracking to the site you already have.",
-        howItWorks: ["We look at your current site", "We add chat, booking and tracking", "Done in days, without rebuilding"],
+        howItWorks: ["We look at your current site", "We add chat, booking and tracking", "Added to your site, without rebuilding it"],
       },
       {
         name: "Landing pages",
@@ -462,12 +462,12 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["lead-generation", "conversation-ai", "marketing-social"],
     seoTitle: "Websites That Turn Visits into Enquiries, SA",
     seoDescription:
-      "Fast websites for South African businesses that show up on Google and turn visitors into enquiries, with chat, booking and enquiry forms built in. Free Operations Map.",
+      "Fast websites for owner-led businesses that show up on Google and turn visitors into enquiries, with chat, booking and enquiry forms built in. Free Operations Map.",
   },
   {
     slug: "marketing-social",
     number: "10",
-    name: "Social Media and Ads",
+    name: "Social media and ads",
     headline: "Show up every week,",
     italicWord: "without the effort.",
     promise: "Your social media keeps posting and your adverts keep working, even in your busiest weeks.",
@@ -508,12 +508,12 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["websites-build", "lead-generation", "reputation-reviews"],
     seoTitle: "Social Media and Ads Management, South Africa",
     seoDescription:
-      "Regular social media posts in your voice, Facebook, Instagram and Google adverts checked every week, and newsletters to past customers. For South African businesses.",
+      "Regular social media posts in your voice, Facebook, Instagram and Google adverts checked every week, and newsletters to past customers. For owner-led businesses.",
   },
   {
     slug: "custom-builds",
     number: "11",
-    name: "Custom Automation",
+    name: "Custom automation",
     headline: "The jobs only your business has,",
     italicWord: "done for you.",
     promise: "We automate the repetitive work that is unique to your business and connect the tools you already use.",
@@ -548,7 +548,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["crm-pipeline", "analytics-compliance", "websites-build"],
     seoTitle: "Business Automation and AI Agents, South Africa",
     seoDescription:
-      "Custom automation for South African businesses: repetitive admin done for you, your existing tools connected, and an assistant trained on your own rules. Free Operations Map.",
+      "Custom automation for owner-led businesses: repetitive admin done for you, your existing tools connected, and an assistant trained on your own rules. Free Operations Map.",
   },
   {
     slug: "analytics-compliance",
@@ -558,10 +558,10 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     italicWord: "and stay on the right side of POPIA.",
     promise: "A clear monthly report on enquiries, bookings and money, with customer data handled the way POPIA requires.",
     description:
-      "You see how many people enquired, how fast they were answered and how many booked, in plain words and in rand. Customer data is collected with consent and can be exported or deleted on request, as POPIA (South Africa's privacy law) requires. Each month we suggest one thing to improve.",
+      "You see how many people enquired, how fast they were answered and how many booked, in plain words and in money terms. Customer data is collected with consent and can be exported or deleted on request, as POPIA (South Africa's privacy law) requires. Each month we suggest one thing to improve.",
     whatYouGet: [
       "A live dashboard of enquiries, reply times and bookings",
-      "A short monthly report in plain words, with the value in rand",
+      "A short monthly report in plain words, with the value in money terms",
       "Consent captured on every form, as POPIA requires",
       "Customer data that can be exported or deleted on request",
       "One clear suggestion each month on what to improve",
@@ -618,28 +618,28 @@ export const SERVICE_PILLARS: ServicePillar[] = [
   {
     index: "01",
     slug: "marketing",
-    title: "Getting Found",
+    title: "Getting found",
     promise: "More of the right people find you, and more of them get in touch.",
     slugs: ["lead-generation", "marketing-social", "reputation-reviews", "websites-build"],
   },
   {
     index: "02",
     slug: "sales",
-    title: "Answering and Booking",
+    title: "Answering and booking",
     promise: "Every call and message answered within 60 seconds, at any hour, and booked in.",
     slugs: ["conversation-ai", "voice-ai", "booking-calendar", "follow-up-nurture"],
   },
   {
     index: "03",
     slug: "operations",
-    title: "Running the Business",
+    title: "Running the business",
     promise: "Customers, payments and your numbers, kept in order without the admin.",
     slugs: ["crm-pipeline", "payments-invoicing", "analytics-compliance"],
   },
   {
     index: "04",
     slug: "automations",
-    title: "The Custom Work",
+    title: "Custom work",
     promise: "The jobs only your business has, done for you.",
     slugs: ["custom-builds"],
   },

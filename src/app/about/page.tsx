@@ -10,6 +10,8 @@ import { GENERIC_BOOK_URL } from "@/data/booking";
 import { LOCATIONS } from "@/data/locations";
 import { SITE, SITE_URL } from "@/data/site";
 import { ORG_ID, PERSON_ID, PERSON_LD } from "@/data/entity";
+import { BuiltForUs } from "@/components/home/BuiltForUs";
+import { FounderPortrait } from "@/components/brand/FounderPortrait";
 
 const TITLE = "About Daniel Bouwer and Verdance Systems AI";
 const DESCRIPTION =
@@ -26,7 +28,8 @@ export const metadata: Metadata = {
 const FACTS = [
   { k: "Founder", v: "Daniel Bouwer" },
   { k: "Based in", v: "South Africa, remote first" },
-  { k: "Builds", v: "The Revenue Team" },
+  { k: "Works with", v: "Businesses in South Africa and the UK" },
+  { k: "Builds", v: "AI systems and the Operations Team" },
   { k: "Promise", v: "Every enquiry answered within 60 seconds" },
   { k: "Live in", v: "10 working days" },
   { k: "Starts with", v: "A free Operations Map" },
@@ -43,7 +46,7 @@ const HOW = [
   },
   {
     t: "A person when it matters",
-    b: "It writes in your voice and hands over to your team the moment a conversation needs a human. You approve what matters from one screen.",
+    b: "Verdance writes in your voice and hands over to your team the moment a conversation needs a person. You choose what goes out on its own and approve what matters from one screen.",
   },
   {
     t: "POPIA built in",
@@ -52,7 +55,7 @@ const HOW = [
 ];
 
 const NOT = [
-  "No prices on the website. Every quote is fixed, in writing, and comes after the Operations Map.",
+  "Every quote is fixed and in writing, and it comes after the Operations Map. No hourly rates.",
   "No invented results and no made-up reviews. When we show numbers, they will be real ones, shared with permission.",
 ];
 
@@ -113,7 +116,7 @@ export default function AboutPage() {
             eyebrow="Why Verdance exists"
             title={
               <>
-                Customers leave in <span className="italic-accent">the gap.</span>
+                Customers leave in the gap.
               </>
             }
           />
@@ -146,7 +149,7 @@ export default function AboutPage() {
             eyebrow="How we work"
             title={
               <>
-                Four things <span className="italic-accent">you can hold us to.</span>
+                Four things you can hold us to.
               </>
             }
           />
@@ -168,6 +171,8 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <BuiltForUs />
+
       <section className="section-pad bg-canvas-2" aria-labelledby="not-title" style={{ borderTop: "1px solid var(--hairline)" }}>
         <div className="container-wide grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
           <SectionHead
@@ -175,7 +180,7 @@ export default function AboutPage() {
             eyebrow="What we won't do"
             title={
               <>
-                Plain dealing, <span className="italic-accent">every time.</span>
+                Plain dealing, every time.
               </>
             }
           />
@@ -199,7 +204,7 @@ export default function AboutPage() {
             eyebrow="Where we are"
             title={
               <>
-                South Africa, <span className="italic-accent">remote first.</span>
+                South Africa, remote first.
               </>
             }
           />
@@ -266,10 +271,14 @@ export default function AboutPage() {
   );
 }
 
-/** The hero visual: the facts, as a small card. No photo until a real one exists. */
+/**
+ * The hero visual: Daniel's portrait (a clean placeholder until the real
+ * photo is set in src/data/founder.ts), then the facts as a small card.
+ */
 function FactSheet() {
   return (
     <div className="browser-frame g-border p-6 md:p-8">
+      <FounderPortrait className="mb-6" />
       <p className="font-mono text-[0.66rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">Verdance Systems AI</p>
       <dl className="mt-5 divide-y" style={{ borderColor: "var(--hairline)" }}>
         {FACTS.map((f) => (

@@ -1,4 +1,4 @@
-import { BOOK_BASE } from "@/data/booking";
+import { GENERIC_BOOK_URL } from "@/data/booking";
 import { SplitWords } from "@/components/primitives/Reveal";
 import { WebsitesScroll } from "./WebsitesScroll";
 
@@ -26,7 +26,7 @@ const MUTED = "#5E5B55";
 const HAIRLINE = "rgba(14,14,16,0.12)";
 const SHADOW = "0 48px 96px rgba(14,14,16,0.18)";
 
-const BOOK = `${BOOK_BASE}/book/audit`;
+const BOOK = GENERIC_BOOK_URL;
 
 const INCLUDED = [
   {
@@ -35,7 +35,7 @@ const INCLUDED = [
   },
   {
     title: "Every form goes somewhere.",
-    line: "Enquiries land in your inbox and your customer records, and get a reply in under a minute.",
+    line: "Enquiries land in your inbox and your customer records, and get a reply within 60 seconds.",
   },
   {
     title: "Written for your buyers.",
@@ -165,7 +165,7 @@ export function WebsitesChapter() {
         {/* Left column: scrolls past the stage on desktop, the whole story on mobile */}
         <div className="lg:col-span-4">
           <p className="eyebrow" style={{ color: MUTED }}>
-            <span className="chap-n" style={{ color: "#2A50C4" }}>07</span> Websites
+            Websites
           </p>
           <h2
             id="websites-title"
