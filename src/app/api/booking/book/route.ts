@@ -1,10 +1,15 @@
 import { NextResponse } from "next/server";
 import { clientIp, clip, tooMany } from "@/lib/api-guard";
+import { answersNote, cleanAnswers } from "@/components/booking/questions";
 
 /**
  * POST /api/booking/book
  * Books an audit call: upserts the contact in the CRM, then creates the
- * appointment on the calendar. Body: { name, email, phone, slot }.
+ * appointment on the calendar. Body: { name, email, phone, slot }, plus,
+ * from the home page booking flow, { answers, consent }. When answers are
+ * sent, consent must be true; the answers are validated against the listed
+ * options and saved as a note on the contact. A failed note never fails
+ * the booking.
  */
 
 const CALENDAR_ID = process.env.GHL_CALENDAR_ID || "yLGPT8nNF78G32doGmoW";
@@ -21,7 +26,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "too_many_requests" }, { status: 429 });
   }
 
-  let body: { name?: unknown; email?: unknown; phone?: unknown; slot?: unknown };
+  let body: { name?: unknown; email?: unknown; phone?: unknown; slot?: unknown; answers?: unknown; consent?: unknown };
   try {
     body = await req.json();
   } catch {
@@ -41,6 +46,13 @@ export async function POST(req: Request) {
   if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) || !validSlot) {
     return NextResponse.json({ error: "invalid_request" }, { status: 400 });
   }
+
+  // Answers from the booking flow: only with consent, only listed options.
+  const withAnswers = body.answers !== undefined;
+  if (withAnswers && body.consent !== true) {
+    return NextResponse.json({ error: "consent_required" }, { status: 400 });
+  }
+  const answers = withAnswers ? cleanAnswers(body.answers) : null;
 
   // 1. Upsert the contact so the booking lands on a real CRM record.
   const [firstName, ...rest] = name.split(/\s+/);
@@ -88,6 +100,26 @@ export async function POST(req: Request) {
   });
   if (!apptRes.ok) {
     return NextResponse.json({ error: "slot_taken" }, { status: 409 });
+  }
+
+  // 3. One extra call: the answers as a note on the contact. Best effort:
+  // the booking already exists, so a failure here is logged, not returned.
+  if (answers) {
+    try {
+      const noteRes = await fetch(`${API}/contacts/${encodeURIComponent(contactId)}/notes`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Version: "2021-07-28",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ body: answersNote(answers) }),
+        signal: AbortSignal.timeout(8000),
+      });
+      if (!noteRes.ok) console.warn("booking note not saved", noteRes.status);
+    } catch {
+      console.warn("booking note not saved");
+    }
   }
 
   return NextResponse.json({ ok: true });

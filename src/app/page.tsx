@@ -15,6 +15,7 @@ import { RecentWork } from "@/components/home/RecentWork";
 import { ToolsMarquee } from "@/components/home/ToolsMarquee";
 import { WebsitesChapter } from "@/components/home/WebsitesChapter";
 import { WhoWeAre } from "@/components/home/WhoWeAre";
+import { BookingSection } from "@/components/booking/BookingSection";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/niches";
 import { CTA_PRIMARY, SITE_URL } from "@/data/site";
@@ -98,8 +99,10 @@ export default function HomePage() {
       <div className="cv-below">
         <QuestionsChapter />
       </div>
-      {/* 13 who we are, right before the booking */}
+      {/* 13 who we are, 14 the booking flow (id="book"; the page's booking
+          links scroll here). Not in .cv-below: the flow measures itself. */}
       <WhoWeAre />
+      <BookingSection />
       <SimpleFinalCTA />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label={CTA_PRIMARY} />
     </>
