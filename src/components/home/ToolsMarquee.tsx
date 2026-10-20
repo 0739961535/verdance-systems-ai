@@ -72,10 +72,10 @@ function Item({ tool }: { tool: ToolIcon }) {
   );
 }
 
-function List({ duplicate = false }: { duplicate?: boolean }) {
+function List({ duplicate = false, still = false }: { duplicate?: boolean; still?: boolean }) {
   return (
     <ul
-      className={`tm-list flex shrink-0 items-center gap-8 pr-8 md:gap-12 md:pr-12${duplicate ? " tm-dup" : ""}`}
+      className={still ? "grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3 lg:grid-cols-6" : `tm-list flex shrink-0 items-center gap-8 pr-8 md:gap-12 md:pr-12${duplicate ? " tm-dup" : ""}`}
       aria-hidden={duplicate || undefined}
       aria-label={duplicate ? undefined : "Tools we connect to"}
     >
@@ -86,32 +86,43 @@ function List({ duplicate = false }: { duplicate?: boolean }) {
   );
 }
 
-/** One slim row: a short label, the moving strip and a pause control. */
-export function ToolsMarquee() {
+/**
+ * One slim row: a short label, the moving strip and a pause control. With
+ * `still`, a static greyscale grid instead (the services page).
+ */
+export function ToolsMarquee({ still = false, className = "" }: { still?: boolean; className?: string }) {
   return (
-    <section className="tm border-y py-6 md:py-10" style={{ borderColor: "var(--hairline)" }} aria-labelledby="tools-title">
+    <section className={`tm border-y py-6 md:py-10 ${className}`} style={{ borderColor: "var(--hairline)" }} aria-labelledby="tools-title">
       <style>{CSS}</style>
       <Symbols />
       <div className="container-wide flex items-center justify-between gap-4">
         <h2 id="tools-title" className="text-[0.95rem] font-medium text-[color:var(--color-ink)]">
           Works with anything you already use
         </h2>
-        <label className="tm-pause">
-          <input type="checkbox" aria-label="Pause the moving logos" />
-          <span className="tm-off" aria-hidden>
-            Pause
-          </span>
-          <span className="tm-on" aria-hidden>
-            Play
-          </span>
-        </label>
+        {!still && (
+          <label className="tm-pause">
+            <input type="checkbox" aria-label="Pause the moving logos" />
+            <span className="tm-off" aria-hidden>
+              Pause
+            </span>
+            <span className="tm-on" aria-hidden>
+              Play
+            </span>
+          </label>
+        )}
       </div>
-      <div className="tm-viewport mt-5 overflow-hidden py-1">
-        <div className="tm-track flex w-max">
-          <List />
-          <List duplicate />
+      {still ? (
+        <div className="container-wide mt-6">
+          <List still />
         </div>
-      </div>
+      ) : (
+        <div className="tm-viewport mt-5 overflow-hidden py-1">
+          <div className="tm-track flex w-max">
+            <List />
+            <List duplicate />
+          </div>
+        </div>
+      )}
     </section>
   );
 }

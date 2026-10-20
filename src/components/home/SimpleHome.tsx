@@ -4,7 +4,6 @@ import film from "./flight/film-manifest.json";
 import { Reveal, SplitWords } from "@/components/primitives/Reveal";
 import { CTA_PRIMARY, CTA_PRIMARY_MICRO, SITE } from "@/data/site";
 import { GENERIC_BOOK_URL } from "@/data/niches";
-import { AI_TEAM_PATH } from "@/data/aiTeam";
 import { HOME_ROTATION } from "@/data/conversations";
 import { LaptopInbox } from "@/components/device/LaptopInbox";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
@@ -70,20 +69,19 @@ export function SimpleHero() {
 /* ------------------------------------------------------------------ */
 export function WatchItWork() {
   return (
-    <section className="section-pad bg-canvas-2" style={{ paddingBottom: "clamp(2.5rem, 6vw, 6rem)" }} aria-labelledby="watch-title">
-      <div className="container-wide">
-        <Reveal variant="wipe" className="max-w-3xl">
-          <p className="eyebrow"><span className="chap-n">04</span> Demo</p>
-          <h2 id="watch-title" className="h2 mt-5">
-            <SplitWords text="Watch it work. Every message answered in seconds." />
+    <section className="band-night chapter-pad" aria-labelledby="watch-title">
+      <div className="container-wide grid gap-12 lg:grid-cols-[1fr_1.55fr] lg:items-center lg:gap-16">
+        <Reveal variant="wipe" className="max-w-xl">
+          <p className="eyebrow"><span className="chap-n">05</span> Demo</p>
+          <h2 id="watch-title" className="h2 mt-4">
+            <SplitWords text="Watch it work." />
           </h2>
-          <p className="mt-6 max-w-xl text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">
-            Slow replies lose customers. People who wait too long ask someone else. So every message gets a reply in under a minute, day or night.
-          </p>
+          <p className="lead mt-6">A customer messages at 21:41. This is what they get back.</p>
         </Reveal>
 
-        <div className="mx-auto mt-12 max-w-5xl md:mt-16">
+        <div className="inbox-stage">
           <LaptopInbox rotation={HOME_ROTATION} />
+          <p className="museum mt-4">Sample conversations. The businesses and customers are made up.</p>
         </div>
       </div>
     </section>
@@ -152,33 +150,36 @@ const GETS = [
 
 export function WhatYouGet() {
   return (
-    <section className="section-pad bg-canvas" aria-labelledby="get-title">
+    <section className="band-orbit chapter-pad" aria-labelledby="get-title">
       <div className="container-wide">
         <Reveal variant="wipe" className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
           <div className="max-w-3xl">
-            <p className="eyebrow"><span className="chap-n">06</span> Services</p>
-            <h2 id="get-title" className="h2 mt-5">
-              <SplitWords text="Work that gets done." />
+            <p className="eyebrow"><span className="chap-n">06</span> Work done</p>
+            <h2 id="get-title" className="h2 mt-4">
+              <SplitWords text="Work that gets" /> <span className="italic-accent">done.</span>
             </h2>
+            <p className="lead mt-6">Four jobs your team does every day. We take them off their plate.</p>
           </div>
           <Link
-            href={AI_TEAM_PATH}
+            href="/services"
             className="group inline-flex min-h-11 items-center gap-2 font-medium text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)]"
           >
-            See everything it takes on
+            See all 12 services
             <ArrowRight size={16} aria-hidden className="transition-transform group-hover:translate-x-1" />
           </Link>
         </Reveal>
-        <ul className="mt-10 grid md:mt-14 md:grid-cols-2" style={{ borderTop: "1px solid var(--hairline-2)" }}>
+        <ul className="get-list mt-12 md:mt-16">
           {GETS.map(({ word, title, body }, i) => (
             <li key={word} className="get-row">
-              <Reveal delay={i * 0.05}>
+              <Reveal delay={i * 0.05} className="get-row-in">
                 <p className="font-display text-[color:var(--color-ink)]" style={{ fontSize: "clamp(2.75rem, 4vw + 1.2rem, 4.75rem)", lineHeight: 0.95, letterSpacing: "-0.045em" }}>
                   {word}
                 </p>
                 <h3 className="mt-4 text-[1.0625rem] font-semibold text-[color:var(--color-ink)]">{title}</h3>
                 <p className="mt-1.5 max-w-[34ch] text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{body}</p>
-                <GetVisual word={word} />
+                <div className="get-vis">
+                  <GetVisual word={word} />
+                </div>
               </Reveal>
             </li>
           ))}
@@ -246,7 +247,7 @@ export function InControl() {
 /* ------------------------------------------------------------------ */
 const STILL = (n: string, ext: string) => `/flight/film/${n}.${ext}?v=${film.v}`;
 
-export function SimpleFinalCTA() {
+export function SimpleFinalCTA({ title = ["Find out where your", "hours", "go."] }: { title?: [string, string, string] }) {
   return (
     <section id="audit" className="close-scene relative isolate overflow-hidden" aria-labelledby="final-title" style={{ scrollMarginTop: "5rem" }}>
       <picture className="close-scene-bg">
@@ -260,10 +261,10 @@ export function SimpleFinalCTA() {
             className="max-w-[12ch] font-display text-[#F2F5FC]"
             style={{ fontSize: "clamp(2.75rem, 5vw + 1rem, 5.75rem)", lineHeight: 0.96, letterSpacing: "-0.045em" }}
           >
-            <SplitWords text="Find out where your hours go." />
+            <SplitWords text={title[0]} /> <span className="italic-accent">{title[1]}</span> <SplitWords text={title[2]} />
           </h2>
           <p className="mt-6 max-w-md text-[1.0625rem] leading-[1.6] text-[rgba(234,240,255,0.84)]">
-            A free 30-minute call. We look at how your business runs and show you where the time and money go. {CTA_PRIMARY_MICRO}
+            A free 30-minute call. We look at how enquiries reach you today and show you what we would build first.
           </p>
           <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
             <a href={GENERIC_BOOK_URL} className="btn btn-accent min-h-[52px] w-full justify-center px-6 text-[1.02rem] sm:w-auto">

@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import { InControl, SimpleFinalCTA, SimpleHero, WatchItWork, WhatYouGet } from "@/components/home/SimpleHome";
+import { StatementChapter } from "@/components/home/chapters/StatementChapter";
+import { ProcessChapter } from "@/components/home/ProcessChapter";
+import { QuestionsChapter } from "@/components/home/QuestionsChapter";
 import { FilmStory } from "@/components/home/flight/FilmStory";
 import { FlightStory } from "@/components/home/flight/FlightStory";
 
 /** The flight as a scroll-scrubbed film (rocket v6). Roll back to the
  * illustrated flight with FLIGHT_FILM=0 at build time. */
 const FLIGHT_FILM = process.env.FLIGHT_FILM !== "0";
+import { AskYourBusiness } from "@/components/ask/AskYourBusiness";
 import { BuiltForUs } from "@/components/home/BuiltForUs";
-import { OurWorkSlider } from "@/components/home/OurWorkSlider";
 import { RecentWork } from "@/components/home/RecentWork";
 import { ToolsMarquee } from "@/components/home/ToolsMarquee";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
@@ -63,26 +66,33 @@ export default function HomePage() {
   return (
     <>
       <FilmStory />
-      {/* below the film: skipped by layout and paint until they near the
-          screen (content-visibility) */}
+      {/* 04 to 13 below the film (growth-lab/BELOW_THE_FOLD_SPEC.md); each
+          skipped by layout and paint until it nears the screen */}
+      <div className="cv-below">
+        <StatementChapter />
+      </div>
       <div className="cv-below">
         <WatchItWork />
       </div>
       <div className="cv-below">
+        <WhatYouGet />
+      </div>
+      <ToolsMarquee className="band-orbit" />
+      {/* WEBSITES_CHAPTER */}
+      <div className="cv-below">
         <RecentWork />
       </div>
       <div className="cv-below">
-        <OurWorkSlider />
-      </div>
-      <ToolsMarquee />
-      <div className="cv-below">
-        <WhatYouGet />
+        <AskYourBusiness compact />
       </div>
       <div className="cv-below">
         <BuiltForUs />
       </div>
       <div className="cv-below">
-        <InControl />
+        <ProcessChapter />
+      </div>
+      <div className="cv-below">
+        <QuestionsChapter />
       </div>
       <SimpleFinalCTA />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label={CTA_PRIMARY} />

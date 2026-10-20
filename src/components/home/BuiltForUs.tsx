@@ -21,11 +21,10 @@ const C = {
 };
 
 const DOES = [
-  { title: "We call it from the phone.", body: "It reads out new leads and the day's tasks, then gets on with them." },
+  // confirmed claims only (spec, Oct 2026); the voice, portal and nightly
+  // review lines come back once Daniel confirms them
   { title: "Nothing goes out until we say yes.", body: "Replies, follow-ups and reports are drafted and wait for approval." },
   { title: "Every enquiry is tracked.", body: "From the first message to the booked call." },
-  { title: "Clients see their results live.", body: "Each client has a portal with their own numbers." },
-  { title: "It gets better every night.", body: "It reviews our playbooks overnight and suggests what to change." },
 ];
 
 const QUEUE = [
@@ -84,7 +83,7 @@ function CommandPanel() {
         ))}
       </ul>
       <p className="px-5 py-3 text-[0.8125rem] italic" style={{ color: C.muted }}>
-        Illustration. The wording is made up.
+        Our own command centre, drawn. Details hidden, wording made up.
       </p>
     </div>
   );
@@ -92,19 +91,16 @@ function CommandPanel() {
 
 export function BuiltForUs() {
   return (
-    <section className="grain-dark py-20 md:py-28" style={{ background: C.bg, color: C.ink }} aria-labelledby="ours-title">
+    <section className="band-night grain-dark chapter-pad" style={{ background: C.bg, color: C.ink }} aria-labelledby="ours-title">
       <div className="container-wide relative z-[1] grid gap-10 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-16">
         <div data-reveal="">
           <p className="eyebrow" style={{ color: C.muted }}>
-            <span style={{ color: C.accent }}>07</span> Built for our own business
+            <span style={{ color: C.accent }}>10</span> Ours
           </p>
-          <h2
-            id="ours-title"
-            className="mt-4 font-display"
-            style={{ fontSize: "clamp(2rem, 2.2vw + 1.3rem, 3.25rem)", lineHeight: 1.04, letterSpacing: "-0.035em", color: C.ink }}
-          >
-            <SplitWords text="We run our own company on the same systems we build for you." />
+          <h2 id="ours-title" className="h2 mt-4" style={{ color: C.ink }}>
+            <SplitWords text="We run Verdance on the" /> <span className="italic-accent">same</span> <SplitWords text="system." />
           </h2>
+          <p className="lead mt-6">Every enquiry, follow-up and report we send goes through it first.</p>
           <ul className="mt-8 grid gap-4">
             {DOES.map((d) => (
               <li key={d.title} className="text-[1rem] leading-[1.5]" style={{ color: C.soft }}>

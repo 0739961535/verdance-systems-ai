@@ -1,26 +1,15 @@
+import { ArrowUpRight } from "lucide-react";
+import { CTA_PRIMARY } from "@/data/site";
+import { GENERIC_BOOK_URL } from "@/data/booking";
 import { SplitWords } from "@/components/primitives/Reveal";
 /**
- * Recent work: two anonymised proof cards.
+ * 08 Proof: two anonymised builds as editorial spreads on the paper band.
  * Rules: no client names, logos, URLs, phone numbers, faces, invented numbers or testimonials.
  * Screenshots in /public/work have the studio's logo and location line blurred.
  * Server component, no client JS, no animation.
  */
 
 const BODY = "text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]";
-const CARD =
-  "rounded-[22px] border border-[color:var(--hairline-2)] bg-canvas p-5 sm:p-8 md:p-10";
-
-function Detail({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div className="border-t border-[color:var(--hairline-2)] pt-4">
-      <dt className="text-[0.8rem] font-medium uppercase tracking-[0.08em] text-[color:var(--color-ink-muted)]">
-        {label}
-      </dt>
-      <dd className={`mt-1.5 ${BODY}`}>{children}</dd>
-    </div>
-  );
-}
-
 function StudioVisual() {
   return (
     <div className="relative">
@@ -103,83 +92,91 @@ function ChatVisual() {
           ))}
         </ul>
       </div>
-      <figcaption className="mt-3 text-[0.8125rem] italic text-[color:var(--color-ink-muted)]">
-        Illustration of the kind of thread it handles. The customer and order are made up.
-      </figcaption>
     </figure>
   );
 }
 
+/** One case as an editorial spread: a big picture, then what we built and what it does. */
+function Spread({ id, title, visual, caption, rows, flip }: { id: string; title: string; visual: React.ReactNode; caption: string; rows: [string, string][]; flip?: boolean }) {
+  return (
+    <article aria-labelledby={id} data-reveal="" className={`work-spread ${flip ? "is-flip" : ""}`}>
+      <figure className="work-pic m-0">
+        {visual}
+        <figcaption className="museum mt-3">{caption}</figcaption>
+      </figure>
+      <div className="work-text">
+        <h3 id={id} className="font-display text-[1.375rem] text-[color:var(--color-ink)] lg:text-[1.75rem]" style={{ lineHeight: 1.2, letterSpacing: "-0.02em" }}>
+          {title}
+        </h3>
+        <dl className="mt-6 grid">
+          {rows.map(([k, v]) => (
+            <div key={k} className="border-t border-[color:var(--hairline-2)] py-4">
+              <dt className="font-mono text-[0.75rem] text-[color:var(--color-ink-muted)]">{k}</dt>
+              <dd className={`mt-1 ${BODY}`}>{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </article>
+  );
+}
+
+const CSS = `
+.work-spread { display: grid; gap: 24px; }
+.work-spread + .work-spread { margin-top: 64px; }
+@media (min-width: 1024px) {
+  .work-spread { grid-template-columns: 7fr 4fr; column-gap: 8.5%; align-items: center; }
+  .work-spread.is-flip { grid-template-columns: 4fr 7fr; }
+  .work-spread.is-flip .work-pic { order: 2; }
+  .work-spread + .work-spread { margin-top: 128px; }
+}
+`;
+
 export function RecentWork() {
   return (
-    <section className="bg-canvas-2 pt-10 pb-12 md:pt-20 md:pb-16" aria-labelledby="work-title">
+    <section className="band-paper chapter-pad" aria-labelledby="work-title">
+      <style>{CSS}</style>
       <div className="container-wide">
         <div className="max-w-3xl" data-reveal="">
-          <p className="eyebrow"><span className="chap-n">05</span> Proof</p>
-          <h2 id="work-title" className="h2 mt-5">
-            <SplitWords text="Built and running for South African businesses." />
+          <p className="eyebrow"><span className="chap-n">08</span> Proof</p>
+          <h2 id="work-title" className="h2 mt-4">
+            <SplitWords text="Built and running for South African" /> <span className="italic-accent">businesses.</span>
           </h2>
-          <p className={`mt-6 max-w-xl ${BODY}`}>
-            Two recent builds. Client names are kept private.
-          </p>
+          <p className="lead mt-6">Two recent builds. Client names stay private.</p>
         </div>
 
-        <ul className="mt-12 grid gap-6 md:mt-16 md:gap-8">
-          <li>
-            <article className={`${CARD} lift`} aria-labelledby="work-studio" data-reveal="">
-              <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr] lg:items-center lg:gap-14">
-                <div className="sm:pb-8">
-                  <StudioVisual />
-                </div>
-                <div>
-                  <h3
-                    id="work-studio"
-                    className="font-display text-[1.4rem] text-[color:var(--color-ink)] sm:text-[1.6rem]"
-                    style={{ lineHeight: 1.15, letterSpacing: "-0.025em" }}
-                  >
-                    A South African luxury home design and build studio
-                  </h3>
-                  <dl className="mt-6 grid gap-4">
-                    <Detail label="What we built">A premium website and a project-brief form.</Detail>
-                    <Detail label="What it does">
-                      The form asks for budget, estate and timeline. Every enquiry goes straight into
-                      their sales pipeline.
-                    </Detail>
-                    <Detail label="Result">Enquiries arrive qualified, with the details needed to quote.</Detail>
-                  </dl>
-                </div>
-              </div>
-            </article>
-          </li>
+        <div className="mt-12 lg:mt-16">
+          {/* TODO(Daniel): add a "Since" row (month and year) to each case, and one real
+              number for the e-commerce brand once Peter gives written OK. Nothing shows until then. */}
+          <Spread
+            id="work-ecom"
+            title="A South African e-commerce brand"
+            visual={<ChatVisual />}
+            caption="The customer and order in this picture are made up. The system is real."
+            rows={[
+              ["What we built", "Replies to every order question across website chat, WhatsApp and email, after hours included."],
+              ["What it does", "Order questions and follow-ups handled, with a person taking over when it matters."],
+            ]}
+          />
+          <Spread
+            id="work-studio"
+            flip
+            title="A South African luxury home design and build studio"
+            visual={<StudioVisual />}
+            caption="Website and project brief form, built by Verdance. Name hidden at the client's request."
+            rows={[
+              ["What we built", "A premium website and a project brief form."],
+              ["What it does", "Enquiries arrive with the details needed to quote."],
+            ]}
+          />
+        </div>
 
-          <li>
-            <article className={`${CARD} lift`} aria-labelledby="work-ecom" data-reveal="">
-              <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr] lg:items-center lg:gap-14">
-                <ChatVisual />
-                <div>
-                  <h3
-                    id="work-ecom"
-                    className="font-display text-[1.4rem] text-[color:var(--color-ink)] sm:text-[1.6rem]"
-                    style={{ lineHeight: 1.15, letterSpacing: "-0.025em" }}
-                  >
-                    A South African e-commerce brand
-                  </h3>
-                  <dl className="mt-6 grid gap-4">
-                    <Detail label="What runs">
-                      Every customer message answered across website chat, WhatsApp and email, after
-                      hours included.
-                    </Detail>
-                    <Detail label="What it does">
-                      Order questions and follow-ups handled, with a person taking over when it matters.
-                    </Detail>
-                    {/* TODO(Daniel): add "464 conversations in September, 138 after hours or at weekends" once Peter gives written OK. Do not publish before. */}
-                    <Detail label="Result">Live and answering every day.</Detail>
-                  </dl>
-                </div>
-              </div>
-            </article>
-          </li>
-        </ul>
+        <div className="mt-16 lg:mt-24">
+          <a href={GENERIC_BOOK_URL} className="btn btn-accent min-h-[52px] w-full justify-center px-7 text-[1.02rem] sm:w-auto">
+            {CTA_PRIMARY}
+            <ArrowUpRight size={17} aria-hidden />
+          </a>
+        </div>
       </div>
     </section>
   );

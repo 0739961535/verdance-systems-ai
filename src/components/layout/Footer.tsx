@@ -206,9 +206,17 @@ export function Footer() {
           className="mt-14 flex flex-col gap-3 border-t pt-6 text-[0.8125rem] text-[color:var(--color-ink-muted)] md:mt-20 md:flex-row md:items-center md:justify-between"
           style={{ borderColor: "var(--color-hairline)" }}
         >
-          <p>
-            © {year} {SITE.name}. Registered in South Africa, registration number {SITE.regNumber}.
-          </p>
+          <div className="grid gap-1">
+            <p>
+              © {year} {SITE.name} (Pty) Ltd. Registered in South Africa, registration number {SITE.regNumber}.
+            </p>
+            {/* TODO(Daniel): registered address (required by ECT Act s43) and the PAIA
+                manual link go here once supplied. Nothing shows until then. */}
+            <p>
+              Information Officer: Daniel Bouwer. <Link href="/privacy" className="underline underline-offset-4">Privacy policy</Link> ·{" "}
+              <Link href="/terms" className="underline underline-offset-4">Terms</Link>
+            </p>
+          </div>
           <p>Built in South Africa. Your data stays in accounts you own. POPIA-ready.</p>
           <ThemeToggle />
         </div>
