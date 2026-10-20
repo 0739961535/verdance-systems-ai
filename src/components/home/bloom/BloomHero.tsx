@@ -8,20 +8,23 @@ import { BloomScroll } from "./BloomScroll";
  * fixed on the left and the words on the right changing with the scroll.
  * Phones: "WE MAKE AI" above the flower, the changing words below.
  *
- * BloomScroll writes --p (0 to 1) and data-word; everything else is CSS.
+ * BloomScroll writes --p (0 to 1) and data-word, and draws the frame for
+ * the scroll (public/bloom, built by scripts/build-bloom-frames.mjs from
+ * the 4K film): low WebP frames while moving, an HD AVIF at rest. The ground
+ * is the film's own paper colour and the frame's edges are feathered, so no
+ * rectangle shows.
  * Reduced motion or no JS: the open flower and the last line, still.
  */
 
 export const BLOOM_WORDS = ["That answers", "That follows up", "That runs the admin", "That sounds like you", "To run your business"];
 
-const hasFrames = manifest.count > 0;
-const frameSrc = (i: number, ext: string) => `/bloom/f-${String(i).padStart(3, "0")}.${ext}?v=${manifest.v}`;
+const hasFrames = manifest.desktop.count > 0;
 
 export function BloomHero() {
   return (
     <section className="bl" aria-label="We make AI that answers, follows up, runs the admin, sounds like you, to run your business" data-word={BLOOM_WORDS.length - 1}>
       <style>{CSS}</style>
-      <BloomScroll count={manifest.count} v={manifest.v} />
+      <BloomScroll v={manifest.v} desktop={manifest.desktop.count} phone={manifest.phone.count} />
       <div className="bl-stage">
         <span aria-hidden className="bl-glow" />
         <p className="bl-left" aria-hidden>
@@ -32,10 +35,12 @@ export function BloomHero() {
             <>
               {/* the first frame paints at once (small), the canvas takes over */}
               <picture>
-                <source type="image/avif" srcSet={frameSrc(0, "avif")} />
-                <img className="bl-first" src={frameSrc(0, "webp")} alt="" width={manifest.width} height={manifest.height} fetchPriority="high" />
+                <source type="image/avif" media="(max-width: 767px)" srcSet={`/bloom/first-640.avif?v=${manifest.v}`} />
+                <source type="image/avif" srcSet={`/bloom/first-960.avif?v=${manifest.v}`} />
+                <source media="(max-width: 767px)" srcSet={`/bloom/first-640.webp?v=${manifest.v}`} />
+                <img className="bl-first" src={`/bloom/first-960.webp?v=${manifest.v}`} alt="" width={960} height={960} fetchPriority="high" />
               </picture>
-              <canvas className="bl-canvas" width={manifest.width} height={manifest.height} />
+              <canvas className="bl-canvas" width={960} height={960} />
             </>
           ) : (
             <Placeholder />
@@ -86,11 +91,13 @@ function Placeholder() {
 }
 
 const CSS = `
-.bl { --p: 1; position: relative; height: 250svh; background: var(--bg); }
+.bl { --p: 1; position: relative; height: 250svh; background: #F9F4E8; color: #0E0E10; }
+.bl .bl-left { color: #0E0E10; }
 .bl-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; display: grid; place-items: center; isolation: isolate; }
-.bl-glow { position: absolute; left: 50%; top: 50%; width: min(80vw, 760px); aspect-ratio: 1; transform: translate(-50%, -50%) scale(calc(0.7 + var(--p) * 0.5)); border-radius: 50%; z-index: -1;
+.bl-glow { display: none; position: absolute; left: 50%; top: 50%; width: min(80vw, 760px); aspect-ratio: 1; transform: translate(-50%, -50%) scale(calc(0.7 + var(--p) * 0.5)); border-radius: 50%; z-index: -1;
   background: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.18), rgba(var(--accent-rgb), 0)); opacity: calc(0.4 + var(--p) * 0.6); }
-.bl-flower { position: relative; width: min(64vw, 56svh); aspect-ratio: 1; }
+.bl-flower { position: relative; width: min(92vw, 78svh); aspect-ratio: 1; }
+.bl-first, .bl-canvas { -webkit-mask-image: radial-gradient(closest-side, #000 72%, transparent); mask-image: radial-gradient(closest-side, #000 72%, transparent); }
 .bl-first, .bl-canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 .bl-canvas { opacity: 0; }
 .bl[data-live] .bl-canvas { opacity: 1; }
