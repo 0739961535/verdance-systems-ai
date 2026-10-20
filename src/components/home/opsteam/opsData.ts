@@ -32,7 +32,7 @@ export const OPS_CAPABILITIES: Capability[] = [
   {
     icon: Plug,
     title: "Connected to your tools",
-    body: "CRM, WhatsApp, email, calendar, store and accounting. It works with anything that has a way in.",
+    body: "Integrates with your CRM, WhatsApp, email, calendar, store and accounting. Anything with an API (a way for software to connect) can be added.",
     href: "/services/custom-builds",
   },
   {
@@ -44,7 +44,7 @@ export const OPS_CAPABILITIES: Capability[] = [
   {
     icon: Sunrise,
     title: "Morning brief and weekly report",
-    body: "A short note each morning and a report each week: what happened, and what needs you.",
+    body: "A short brief each morning and a report each week: response times, outcomes, and what needs you.",
     href: "/services/analytics-compliance",
   },
   {
@@ -78,10 +78,10 @@ export const OPS_CAPABILITIES: Capability[] = [
 
 export const OPS_DEPTH_LEVELS = [
   { word: "Answer", body: "Every enquiry answered within 60 seconds, day, night and weekends." },
-  { word: "Follow up", body: "Quiet quotes and enquiries get a polite nudge, and it stops when they reply." },
+  { word: "Follow up", body: "Open quotes and quiet enquiries get a timed follow-up, and it stops the moment they reply." },
   { word: "Run the admin", body: "Bookings, notes, invoices and reminders done and kept up to date." },
   { word: "Report", body: "A morning brief and a plain report, with one thing to improve." },
-  { word: "A full Operations Team", body: "Every department covered and working together, with you approving what matters." },
+  { word: "A full Operations Team", body: "Answering, follow-up, admin and reporting working together, with you approving what matters." },
 ] as const;
 
 /* ── Sample command centre (illustration only) ─────────────── */

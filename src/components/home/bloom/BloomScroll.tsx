@@ -5,8 +5,8 @@ import { useEffect, useRef } from "react";
 /**
  * Drives the bloom: --p (0 to 1) and data-word on the .bl section from the
  * scroll, eased with one animation frame per change, and draws the flower
- * frame for the scroll to the canvas. Frames load after the page has loaded
- * (coarse to fine): low WebP while moving, the HD AVIF of the frame where
+ * frame for the scroll to the canvas. Frames load on the first scroll or a
+ * few seconds after load (coarse to fine): low WebP while moving, the HD AVIF of the frame where
  * the scroll comes to rest. Phones use their own lighter set.
  * Reduced motion: nothing runs; the first frame and the last line show.
  */
@@ -143,11 +143,25 @@ export function BloomScroll({ v, desktop, phone }: { v: string; desktop: number;
       };
       await Promise.all([worker(), worker(), worker()]);
     };
+    // Frames wait for the first scroll, or for a quiet moment a few seconds
+    // after load, so they never compete with the first paint.
     let startTimer = 0;
+    let begun = false;
+    const begin = () => {
+      if (begun) return;
+      begun = true;
+      window.removeEventListener("scroll", begin);
+      void load();
+    };
     const start = () => {
-      startTimer = window.setTimeout(() => void load(), 300);
+      startTimer = window.setTimeout(() => {
+        const ric = (window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }).requestIdleCallback;
+        if (ric) ric(begin, { timeout: 1500 });
+        else begin();
+      }, 3000);
     };
     if (count) {
+      window.addEventListener("scroll", begin, { passive: true, once: true });
       if (document.readyState === "complete") start();
       else window.addEventListener("load", start, { once: true });
     }
@@ -157,6 +171,7 @@ export function BloomScroll({ v, desktop, phone }: { v: string; desktop: number;
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("load", start);
+      window.removeEventListener("scroll", begin);
       window.clearTimeout(rest);
       window.clearTimeout(startTimer);
       if (raf) cancelAnimationFrame(raf);
