@@ -8,7 +8,7 @@
  * the playhead; nothing heavy runs in its scroll frames.
  *
  * Messages in:
- *   { type: "init", canvas, set, v }      set: { prefix, count, focusX, phone, left: { x, scale } }
+ *   { type: "init", canvas, set, v }      set: { prefix, count, focusX, phone, pad }
  *   { type: "size", w, h }                canvas backing size in device pixels
  *   { type: "pos", target, zoom, shift, settled }
  * Messages out:
@@ -54,6 +54,49 @@ function coarseToFine(count) {
   return order;
 }
 
+// Phones: same maths as placePhone() in FilmController.tsx (keep in step).
+function placePhone(bmp, w, h) {
+  const P = set.pad;
+  const t = shift * shift * (3 - 2 * shift);
+  const sCover = Math.max(cw / w, ch / h);
+  const sPad = (P.rocket * ch) / P.span / h;
+  const s = sCover + (sPad - sCover) * t;
+  const dw = w * s;
+  const dh = h * s;
+  const dxC = Math.min(0, Math.max(cw - dw, cw / 2 - set.focusX * dw));
+  const dyC = 0.08 * ch;
+  const dxP = P.x * cw - 0.5 * dw;
+  const dyP = P.nose * ch - P.top * dh;
+  const dx = Math.round(dxC + (dxP - dxC) * t);
+  const dy = Math.round(dyC + (dyP - dyC) * t);
+  const W = Math.round(dw);
+  const H = Math.round(dh);
+  const open = dx > 0 || dy > 0 || dx + W < cw || dy + H < ch;
+  if (open) {
+    ctx.fillStyle = P.bg;
+    if (dy > 0) ctx.fillRect(0, 0, cw, dy);
+    if (dy + H < ch) ctx.fillRect(0, dy + H, cw, ch - dy - H);
+    if (dx > 0) ctx.fillRect(0, 0, dx, ch);
+    if (dx + W < cw) ctx.fillRect(dx + W, 0, cw - dx - W, ch);
+  }
+  ctx.drawImage(bmp, dx, dy, W, H);
+  if (!open) return;
+  const fx = Math.round(W * P.featherX * t);
+  const fy = Math.round(H * P.featherY * t);
+  const edge = (x0, y0, x1, y1, rx, ry, rw, rh) => {
+    const g = ctx.createLinearGradient(x0, y0, x1, y1);
+    g.addColorStop(0, P.bg);
+    g.addColorStop(1, "rgba(1, 5, 15, 0)");
+    ctx.fillStyle = g;
+    ctx.fillRect(rx, ry, rw, rh);
+  };
+  if (fx > 0 && dx > 0) edge(dx, 0, dx + fx, 0, dx, dy, fx, H);
+  if (fx > 0 && dx + W < cw) edge(dx + W, 0, dx + W - fx, 0, dx + W - fx, dy, fx, H);
+  const fyTop = Math.max(fy, Math.round(H * 0.05));
+  if (dy > 0) edge(0, dy, 0, dy + fyTop, dx, dy, W, fyTop);
+  if (fy > 0 && dy + H < ch) edge(0, dy + H, 0, dy + H - fy, dx, dy + H - fy, W, fy);
+}
+
 function place(bmp) {
   const w = bmp.width;
   const h = bmp.height;
@@ -63,14 +106,7 @@ function place(bmp) {
   const dx0 = Math.min(0, Math.max(cw - dw0, cw / 2 - set.focusX * dw0));
   const dy0 = (ch - dh0) / 2;
   if (set.phone) {
-    const S = zoom * (1 + (set.left.scale - 1) * shift);
-    const dw = dw0 * S;
-    const dh = dh0 * S;
-    const cx = 0.5 + (set.left.x - 0.5) * shift;
-    const dx = Math.round(Math.min(0, Math.max(cw - dw, cx * cw - 0.5 * dw)));
-    const oy = ch * 0.4;
-    const dy = Math.round(oy - (oy - dy0) * S);
-    ctx.drawImage(bmp, dx, dy, Math.round(dw), Math.round(dh));
+    placePhone(bmp, w, h);
     return;
   }
   const ox = cw * 0.63;
@@ -94,7 +130,7 @@ function draw() {
   if (at < 0) return;
   const hd = settled && at === target ? hi.get(target) : undefined;
   // the zoom only matters when the frame changes, or at rest
-  const key = `${at}|${hd ? 1 : 0}|${cw}x${ch}|${settled ? zoom + shift : ""}`;
+  const key = `${at}|${hd ? 1 : 0}|${cw}x${ch}|${settled ? zoom + shift : set.phone ? shift : ""}`;
   if (key === drawnKey) return;
   drawnKey = key;
   ctx.imageSmoothingQuality = settled ? "high" : "low";

@@ -2263,7 +2263,21 @@ picture.fl-hull img { display: block; width: 100%; height: 100%; user-select: no
 /* phones: the poster matches the canvas's first frame exactly (rocket at
    68% of the width: cover from the left edge, scaled 1.06 x 1.12 about
    25% / 40%; see PHONE_LEFT in FilmController) */
-@media (max-width: 767px) { .flm-poster img { object-position: 0% 50%; transform: scale(1.1872); transform-origin: 25% 40%; } }
+/* phones: the poster matches the canvas's first frame exactly (PHONE_PAD in
+   FilmController): the whole rocket, 60% of the screen's height, its centre
+   at 65% of the width, nose at 17%; the frame's edges feathered into the
+   night. Frame height = 0.6 / 0.73 = 82.19% of the screen; width 0.5652 of that. */
+@media (max-width: 767px) {
+  .flm-poster { background: #01050f; }
+  .flm .flm-poster img {
+    position: absolute; transform: none; object-fit: fill;
+    height: 82.19%; width: 46.45svh; top: 7.96%; left: calc(65% - 23.23svh);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent), linear-gradient(transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent), linear-gradient(transparent, #000 8%, #000 92%, transparent);
+    mask-composite: intersect;
+  }
+}
 .flm-poster { position: absolute; inset: 0; display: block; }
 .flm-poster img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 63%) 50%; }
 @media (max-width: 767px) { .flm-poster img { object-position: 50% 50%; } }
@@ -2501,7 +2515,11 @@ html:has(.flm) .site-grain { display: none; }
 /* ignition (1.4s on load, then the first scroll flares the engines) */
 .flm-ignite { position: absolute; inset: 0; z-index: 1; pointer-events: none; --bx: 62%; --by: 90%; --ly: 92.5%; }
 /* phones: the vertical film's pad sits a little higher */
-@media (max-width: 767px) { .flm-ignite { --bx: 68%; --by: 91%; --ly: 96%; } }
+/* phones: the pad under the rocket at 65% of the width (see PHONE_PAD) */
+@media (max-width: 767px) {
+  .flm-ignite { --bx: 65%; --by: 77%; --ly: 81%; }
+  .flm-lights { left: calc(65% - 20svh); right: auto; width: 40svh; }
+}
 .flm-glow {
   position: absolute; left: var(--bx); top: var(--by); width: 52vmin; height: 30vmin;
   background: radial-gradient(closest-side, rgba(220, 230, 255, 0.8), rgba(77, 124, 255, 0.35) 45%, rgba(77, 124, 255, 0));
@@ -2569,23 +2587,20 @@ html:has(.flm) .site-grain { display: none; }
 @media (max-width: 767px) { .flm-bar { height: 5vh; height: 5svh; } }
 @media (prefers-reduced-motion: reduce), (scripting: none) { .flm-bar { display: none; } }
 
-/* phones: the film stays clean; each step's words sit in a calm band at
-   the bottom of the screen (desktop keeps the overlay) */
+/* phones: the steps travel with the scroll (FilmController) and hold low,
+   below the rocket; a soft scrim sits behind the words only, never a band.
+   The opening gets the same local scrim where it overlaps the rocket. */
 @media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
   .flm .fl-stage::after { display: none; }
-  .flm .fl-copy {
-    left: 0; right: 0; bottom: 0; z-index: 3;
-    padding: 2.25rem 20px calc(1.75rem + env(safe-area-inset-bottom));
+  .flm .fl-copy { left: 20px; right: 20px; bottom: calc(12svh + env(safe-area-inset-bottom)); }
+  .flm .fl-step { position: relative; isolation: isolate; }
+  .flm .fl-step::before, .flm-hero::before {
+    content: ""; position: absolute; z-index: -1; inset: -36px -28px -32px -28px; pointer-events: none;
+    background: radial-gradient(ellipse 72% 62% at 40% 52%, rgba(1, 5, 15, 0.78), rgba(1, 5, 15, 0.5) 55%, rgba(1, 5, 15, 0) 100%);
   }
-  .flm .fl-copy::before {
-    content: ""; position: absolute; inset: 0; z-index: -1;
-    background: linear-gradient(rgba(6, 11, 26, 0), rgba(6, 11, 26, 0.94) 1.75rem, #060B1A);
-    opacity: 0; transition: opacity 0.45s ease-out;
-  }
-  .flm:not([data-stage="-1"]) .fl-copy::before { opacity: 1; }
-  .flm .fl-title { font-size: 1.75rem; margin-top: 0.6rem; }
-  .flm .fl-body { font-size: 1rem; margin-top: 0.6rem; text-shadow: none; }
-  .flm .fl-title { text-shadow: none; }
+  .flm-hero { isolation: isolate; }
+  .flm .fl-title { font-size: 1.85rem; }
+  .flm .fl-body { font-size: 1rem; }
   .flm .fl-step .flm-actions { margin-top: 1rem; }
 }
 

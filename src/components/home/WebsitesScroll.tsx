@@ -8,7 +8,8 @@ import { useEffect, useRef } from "react";
  * Renders nothing visible. It finds its parent <section> and scrolls every
  * screenshot marked `[data-ws-shot]` inside it with a transform:
  * - data-mode="stage": progress of the whole sticky section (desktop stage).
- * - data-mode="self": progress of the frame itself through the viewport (phone).
+ * - data-mode="pin": progress of its [data-ws-pin] wrapper while the frame is
+ *   pinned (sticky) inside it, with a short hold at each end (phone).
  * - data-speed: 1 by default, 1.2 for the phone so it runs a little ahead.
  *
  * One passive scroll listener, attached only while the section is on screen,
@@ -40,10 +41,15 @@ export function WebsitesScroll() {
         const travel = img.offsetHeight - frame.clientHeight;
         if (travel <= 0) continue;
         let p = stageP;
-        if (frame.dataset.mode === "self") {
-          const r = frame.getBoundingClientRect();
-          // From the frame's top at 75% of the screen to its bottom at 25%.
-          p = clamp((vh * 0.75 - r.top) / (vh * 0.5 + r.height));
+        if (frame.dataset.mode === "pin") {
+          const pin = frame.closest<HTMLElement>("[data-ws-pin]");
+          const sticky = frame.parentElement;
+          if (!pin || !sticky) continue;
+          const r = pin.getBoundingClientRect();
+          const top = parseFloat(getComputedStyle(sticky).top) || 0;
+          const raw = (top - r.top) / Math.max(1, r.height - sticky.offsetHeight);
+          // hold the top of the site a moment, and its end
+          p = clamp((raw - 0.06) / 0.86);
         }
         const speed = Number(frame.dataset.speed || 1);
         const y = Math.min(1, p * speed) * travel;

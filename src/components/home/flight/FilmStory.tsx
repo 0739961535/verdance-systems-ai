@@ -55,6 +55,12 @@ export function FilmStory() {
       data-stage="-1"
       style={{ ["--flm-sky" as string]: film.posterSky, ...stillVars("poster"), ...stillVars("mid"), ...stillVars("still") }}
     >
+      {/* open at the top, never mid-flight (see FilmController) */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: "if(!location.hash&&'scrollRestoration'in history)history.scrollRestoration='manual'",
+        }}
+      />
       <FilmController />
       <div className="fl-stage">
         <div className="flm-scene" aria-hidden>

@@ -39,10 +39,67 @@ const STEPS: [number, number][] = [
   [0.67, 0.95],
 ];
 const XFADE = 0.025;
-/** Phones, on the pad: the rocket's centre at 68% of the width, drawn 1.12x (1.187x with the pull-back); matches the poster's CSS. */
-const PHONE_LEFT = { x: 0.68, scale: 1.12 };
+/**
+ * Phones, on the pad: the whole vehicle in view, nose to engines, about 60%
+ * of the screen's height, its centre at 65% of the width and its nose well
+ * below the header. The frame is smaller than the screen there, so the sky
+ * around it is filled with the film's own night colour and the frame's
+ * edges are feathered into it. As the rocket climbs the shot eases to a
+ * full-screen, centred frame. The poster's CSS matches this exactly.
+ * In the frames the rocket runs from 11% (nose) to 84% (engines) of the height.
+ */
+const PHONE_PAD = { x: 0.65, rocket: 0.6, nose: 0.17, top: 0.11, span: 0.73, featherX: 0.14, featherY: 0.08, bg: "#01050f" };
+/** Phones: each step's words hold here; they arrive from below and leave upward with the scroll. */
+const PHONE_STEPS: [number, number][] = [
+  [0.12, 0.28],
+  [0.4, 0.57],
+  [0.69, 0.95],
+];
 /** Crossfade to the next frame while scrolling (phones). Off: it cost a second full draw per frame change. */
 const BLEND = false as boolean;
+
+/**
+ * Phones: where the frame goes for a shift of `t` (1 on the pad, 0 from the
+ * Ascent on). Same maths in public/flight/film-worker.js.
+ */
+function placePhone(c: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, bmp: CanvasImageSource, w: number, h: number, cw: number, ch: number, shift: number, focusX: number) {
+  const P = PHONE_PAD;
+  const t = shift * shift * (3 - 2 * shift);
+  const sCover = Math.max(cw / w, ch / h);
+  const sPad = (P.rocket * ch) / P.span / h;
+  const s = sCover + (sPad - sCover) * t;
+  const dw = w * s, dh = h * s;
+  // full screen from the Ascent on, but nudged down by 8% so the nose never
+  // climbs under the header (the strip above is night sky, feathered)
+  const dxC = Math.min(0, Math.max(cw - dw, cw / 2 - focusX * dw)), dyC = 0.08 * ch;
+  const dxP = P.x * cw - 0.5 * dw, dyP = P.nose * ch - P.top * dh;
+  const dx = Math.round(dxC + (dxP - dxC) * t), dy = Math.round(dyC + (dyP - dyC) * t);
+  const W = Math.round(dw), H = Math.round(dh);
+  const open = dx > 0 || dy > 0 || dx + W < cw || dy + H < ch;
+  if (open) {
+    c.fillStyle = P.bg;
+    if (dy > 0) c.fillRect(0, 0, cw, dy);
+    if (dy + H < ch) c.fillRect(0, dy + H, cw, ch - dy - H);
+    if (dx > 0) c.fillRect(0, 0, dx, ch);
+    if (dx + W < cw) c.fillRect(dx + W, 0, cw - dx - W, ch);
+  }
+  c.drawImage(bmp, dx, dy, W, H);
+  if (!open) return;
+  // feather the frame's edges into the night (only the edges on screen)
+  const fx = Math.round(W * P.featherX * t), fy = Math.round(H * P.featherY * t);
+  const edge = (x0: number, y0: number, x1: number, y1: number, rx: number, ry: number, rw: number, rh: number) => {
+    const g = c.createLinearGradient(x0, y0, x1, y1);
+    g.addColorStop(0, P.bg);
+    g.addColorStop(1, "rgba(1, 5, 15, 0)");
+    c.fillStyle = g;
+    c.fillRect(rx, ry, rw, rh);
+  };
+  if (fx > 0 && dx > 0) edge(dx, 0, dx + fx, 0, dx, dy, fx, H);
+  if (fx > 0 && dx + W < cw) edge(dx + W, 0, dx + W - fx, 0, dx + W - fx, dy, fx, H);
+  const fyTop = Math.max(fy, Math.round(H * 0.05));
+  if (dy > 0) edge(0, dy, 0, dy + fyTop, dx, dy, W, fyTop);
+  if (fy > 0 && dy + H < ch) edge(0, dy + H, 0, dy + H - fy, dx, dy + H - fy, W, fy);
+}
 
 /** The file nearest to source frame `src` (binary search). */
 function fileFor(set: FrameSet, src: number) {
@@ -163,6 +220,18 @@ function coarseToFine(count: number) {
 export function FilmController() {
   const markRef = useRef<HTMLSpanElement>(null);
 
+  // The home page always opens at the top, on the pad: the browser's own
+  // scroll restoration would otherwise drop a returning visitor mid-flight.
+  // (An inline script in FilmStory sets this before the page loads, too.)
+  useEffect(() => {
+    if (location.hash || !("scrollRestoration" in history)) return;
+    history.scrollRestoration = "manual";
+    if (window.scrollY > 0) window.scrollTo(0, 0);
+    return () => {
+      history.scrollRestoration = "auto";
+    };
+  }, []);
+
   useEffect(() => {
     const root = markRef.current?.closest<HTMLElement>(".flm");
     if (!root) return;
@@ -279,6 +348,8 @@ export function FilmController() {
     let zoom = 1.06;
     let shiftT = 1;
     let drawnZoom = 0;
+    // phones: the pad-to-full-screen move changes the framing between frames
+    let drawnShift = -1;
     const place = (c: CanvasRenderingContext2D, bmp: Frame) => {
       const { w, h } = frameSize(bmp);
       // cover-fit, held on the rocket horizontally
@@ -287,16 +358,7 @@ export function FilmController() {
       const dx0 = Math.min(0, Math.max(cw - dw0, cw / 2 - set.focusX * dw0));
       const dy0 = (ch - dh0) / 2 + offset * dpr;
       if (set === PHONE) {
-        // phones: on the pad and early launch the rocket sits right of
-        // centre (headline on clean sky to its left): drawn a little larger
-        // and shifted, easing back to centre by the Ascent
-        const S = zoom * (1 + (PHONE_LEFT.scale - 1) * shiftT);
-        const dw = dw0 * S, dh = dh0 * S;
-        const cx = 0.5 + (PHONE_LEFT.x - 0.5) * shiftT;
-        const dx = Math.round(Math.min(0, Math.max(cw - dw, cx * cw - 0.5 * dw)));
-        const oy = ch * 0.4;
-        const dy = Math.round(oy - (oy - dy0) * S);
-        c.drawImage(bmp, dx, dy, Math.round(dw), Math.round(dh));
+        placePhone(c, bmp, w, h, cw, ch, shiftT, set.focusX);
         return;
       }
       // zoom about a point on the rocket, then snap to whole pixels
@@ -357,7 +419,7 @@ export function FilmController() {
       // redraw only when the frame (or its HD version) changes: the zoom
       // rides along with frame changes, so no full-canvas paint per scroll
       // frame; settling redraws at the exact zoom
-      if (!(hit.at === drawn && drawnGen === generation && drawnOff === offset && drawnHi === (hd ? target : -1))) {
+      if (!(hit.at === drawn && drawnGen === generation && drawnOff === offset && drawnHi === (hd ? target : -1) && (set !== PHONE || drawnShift === shiftT))) {
         // "high" resampling is costly per draw: only for the frame at rest
         ctx.imageSmoothingQuality = settled ? "high" : "low";
         place(ctx, hd ?? hit.bmp);
@@ -365,6 +427,7 @@ export function FilmController() {
         drawn = hit.at;
         drawnGen = generation;
         drawnZoom = zoom + shiftT;
+        drawnShift = shiftT;
         drawnHi = hd ? target : -1;
         drawnB = -1;
         if (!root.hasAttribute("data-film")) root.setAttribute("data-film", "");
@@ -516,7 +579,7 @@ export function FilmController() {
       const h = 1 - ramp(HERO_OUT[0], HERO_OUT[1], p);
       fade(hero, h);
       hero.style.transform = `translate3d(0, ${((1 - h) * -24).toFixed(1)}px, 0)`;
-      fade(hud, ramp(HERO_OUT[1] - 0.01, STEPS[0][0], p));
+      fade(hud, ramp(HERO_OUT[1] - 0.01, (set === PHONE ? PHONE_STEPS : STEPS)[0][0], p));
       // the ignition glow and pad lights give way as the rocket lifts
       fade(ignite, 1 - ramp(0.02, 0.14, p));
       // ignition: a tiny camera shake on the first frames of the lift-off
@@ -528,14 +591,27 @@ export function FilmController() {
       const lb = ramp(0.05, 0.13, p) * (1 - ramp(0.6, 0.7, p));
       bars.forEach((b) => (b.style.transform = `scaleY(${lb.toFixed(3)})`));
       // words: one step at a time and fully legible for most of it; the
-      // hand-overs are short and never overlap, so nothing sits half-faded
+      // hand-overs are short and never overlap, so nothing sits half-faded.
+      // Phones: each step travels with the scroll, in from below, a short
+      // hold beside the rocket, then out upward (a soft scrim behind the
+      // words only). Desktop: the steps hold in place and cross over.
+      const phone = set === PHONE;
+      const ST = phone ? PHONE_STEPS : STEPS;
       copies.forEach((el, i) => {
-        const [a, b] = STEPS[i];
-        const o = ramp(a - XFADE, a, p) * (1 - ramp(b, b + XFADE, p));
-        fade(el, o);
+        const [a, b] = ST[i];
+        const inLen = phone ? 0.07 : XFADE * 2.2;
+        const outLen = phone ? 0.05 : XFADE;
+        const enter = ramp(a - inLen, a, p);
+        const leave = ramp(b, b + outLen, p);
+        if (phone) {
+          fade(el, ramp(a - inLen, a - inLen * 0.4, p) * (1 - ramp(b + outLen * 0.35, b + outLen, p)));
+          const y = (1 - enter) * 0.42 * vh - leave * 0.34 * vh;
+          el.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0)`;
+        } else {
+          fade(el, ramp(a - XFADE, a, p) * (1 - leave));
+          if (el.style.transform) el.style.transform = "";
+        }
         // words: in from below as the step arrives, staggered; out upward
-        const enter = ramp(a - XFADE * 2.2, a, p);
-        const leave = ramp(b, b + XFADE, p);
         const ws = titleWords[i];
         ws.forEach((w, j) => {
           const t = clamp01(enter * (1 + ws.length * 0.18) - j * 0.18);
@@ -544,22 +620,23 @@ export function FilmController() {
           w.style.transform = `translate3d(0, ${y.toFixed(1)}%, 0)`;
         });
         const body = bodies[i];
-        if (body) body.style.opacity = (ramp(a - XFADE * 0.6, a + XFADE * 0.4, p) * (1 - leave)).toFixed(3);
+        if (body) body.style.opacity = (ramp(a - inLen * 0.3, a + XFADE * 0.4, p) * (1 - leave)).toFixed(3);
       });
       fills.forEach((el, i) => {
-        const [a, b] = STEPS[i];
+        const [a, b] = ST[i];
         el.style.transform = `scaleX(${clamp01((p - a + XFADE) / (b - a + XFADE)).toFixed(3)})`;
       });
-      setStage(p < STEPS[0][0] - XFADE ? -1 : p < STEPS[1][0] - XFADE ? 0 : p < STEPS[2][0] - XFADE ? 1 : 2);
+      setStage(p < ST[0][0] - XFADE ? -1 : p < ST[1][0] - XFADE ? 0 : p < ST[2][0] - XFADE ? 1 : 2);
     };
     // The scroll drives the film through one requestAnimationFrame loop: the
     // shown progress eases toward the scroll position (0.18 of the way each
     // frame, like a camera on a rig), and the canvas only repaints when the
     // frame changes. No React and no library in the scroll path.
-    let rootTop = 0, travel = 1;
+    let rootTop = 0, travel = 1, vh = window.innerHeight;
     const measureScroll = () => {
       rootTop = root.getBoundingClientRect().top + window.scrollY;
       travel = Math.max(1, root.offsetHeight - window.innerHeight);
+      vh = window.innerHeight;
     };
     measureScroll();
     let goal = 0, shown = 0, loop = 0;
@@ -581,7 +658,7 @@ export function FilmController() {
     };
     window.addEventListener("scroll", direct, { passive: true });
 
-    const workerSet = () => ({ prefix: set.prefix, count: set.count, focusX: set.focusX, phone: set === PHONE, left: PHONE_LEFT });
+    const workerSet = () => ({ prefix: set.prefix, count: set.count, focusX: set.focusX, phone: set === PHONE, pad: PHONE_PAD });
     const start = () => {
       if (started) return;
       started = true;

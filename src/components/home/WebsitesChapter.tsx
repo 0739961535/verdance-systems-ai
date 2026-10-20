@@ -6,16 +6,18 @@ import { WebsitesScroll } from "./WebsitesScroll";
  * 07 Websites: the one light (paper) chapter. Sells websites as a service and
  * proves it with the studio's live site, shown full length.
  *
- * Mobile: a phone frame with the phone screenshot scrolling inside it, then
- * the desktop screenshot full bleed at 16:10, then what every site includes.
+ * Mobile: a large phone frame pins under the header while its screen
+ * scrolls through the site at a calm pace (about 1.4x the page), then the
+ * desktop version in a browser frame, then what every site includes.
  * Desktop (lg): a sticky stage. The left column scrolls past while a browser
  * frame and a phone frame hold still and their screenshots scroll with the
  * section (WebsitesScroll, transform only, off under reduced motion).
  *
  * Paper colours are fixed here on purpose: below the fold is art directed and
  * renders the same in both site themes.
- * Screenshots have the studio's name, logo, location line, founder, address,
- * team photos and a house number blurred. No client names anywhere.
+ * The screenshots leave out the studio's "about" section entirely (name,
+ * founder, address, team photos); the logo and a house number are blurred.
+ * No client names anywhere.
  */
 
 const PAPER = "#F4F1EA";
@@ -53,11 +55,11 @@ const PHONE_ALT =
 function DesktopShot({ className, scrolling }: { className?: string; scrolling?: boolean }) {
   return (
     <picture>
-      <source srcSet="/work/studio-full-desktop.avif" type="image/avif" />
+      <source srcSet="/work/studio-desktop.avif" type="image/avif" />
       <img
-        src="/work/studio-full-desktop.webp"
+        src="/work/studio-desktop.webp"
         width={1440}
-        height={2820}
+        height={1795}
         loading="lazy"
         decoding="async"
         alt={DESKTOP_ALT}
@@ -71,11 +73,11 @@ function DesktopShot({ className, scrolling }: { className?: string; scrolling?:
 function PhoneShot() {
   return (
     <picture>
-      <source srcSet="/work/studio-full-phone.avif" type="image/avif" />
+      <source srcSet="/work/studio-phone.avif" type="image/avif" />
       <img
-        src="/work/studio-full-phone.webp"
+        src="/work/studio-phone.webp"
         width={780}
-        height={6752}
+        height={4790}
         loading="lazy"
         decoding="async"
         alt={PHONE_ALT}
@@ -86,14 +88,14 @@ function PhoneShot() {
   );
 }
 
-/** Phone frame, 240 x 500, radius 32, 1px ink hairline. */
-function PhoneFrame({ mode, className }: { mode: "stage" | "self"; className?: string }) {
+/** Phone frame, radius 32, 1px ink hairline. 240 x 500 on the desktop stage; 9:16 and large when pinned on a phone. */
+function PhoneFrame({ mode, className }: { mode: "stage" | "pin"; className?: string }) {
   return (
     <div
       data-ws-shot=""
       data-mode={mode}
-      data-speed="1.2"
-      className={`aspect-[240/500] overflow-hidden rounded-[32px] bg-[#0E0E10] ${className ?? ""}`}
+      data-speed={mode === "stage" ? "1.2" : "1"}
+      className={`${mode === "pin" ? "aspect-[9/16]" : "aspect-[240/500]"} overflow-hidden rounded-[32px] bg-[#0E0E10] ${className ?? ""}`}
       style={{ border: `1px solid ${HAIRLINE}`, boxShadow: SHADOW }}
     >
       <PhoneShot />
@@ -184,12 +186,26 @@ export function WebsitesChapter() {
             booking and follow-ups are built in from the first day.
           </p>
 
-          {/* Mobile: phone, then the desktop shot full bleed */}
-          <div className="mt-12 lg:hidden">
-            <PhoneFrame mode="self" className="relative mx-auto w-[240px]" />
-            <div className="-mx-6 mt-12 aspect-[16/10] overflow-hidden">
-              <DesktopShot className="block h-full w-full object-cover object-top" />
+          {/* Mobile: the phone pins under the header while its screen scrolls
+              (WebsitesScroll), then the desktop version in a browser frame */}
+          <div className="lg:hidden">
+            <div data-ws-pin="" className="relative mt-10 h-[210svh]">
+              <div className="sticky top-[calc(64px+3svh)]">
+                <PhoneFrame mode="pin" className="relative mx-auto w-[min(82vw,340px,calc((100svh-200px)*0.5625))]" />
+              </div>
             </div>
+            <div
+              className="mt-12 overflow-hidden rounded-[12px] bg-white"
+              style={{ border: `1px solid ${HAIRLINE}`, boxShadow: SHADOW }}
+            >
+              <div aria-hidden className="h-6" style={{ background: "#E9E5DC", borderBottom: `1px solid ${HAIRLINE}` }} />
+              <div className="aspect-[16/10] overflow-hidden bg-[#0E0E10]">
+                <DesktopShot className="block h-full w-full object-cover object-top" />
+              </div>
+            </div>
+            <p className="font-serif mt-3 text-[14px]" style={{ color: MUTED }}>
+              The same site on a laptop.
+            </p>
           </div>
 
           <div className="mt-12 lg:mt-24">
