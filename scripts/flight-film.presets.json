@@ -1,7 +1,9 @@
 {
   "dark": {
     "shots": "~/Verdance systems Ai /website-preview/rocket-v6/shots/dark",
-    "poster": "~/Verdance systems Ai /website-preview/rocket-v6/starship/k1-b.png",
+    "phoneShots": "~/Verdance systems Ai /website-preview/rocket-v6/shots/vertical",
+    "phoneEnd": 590,
+    "phoneDense": [340, 384],
     "still": "~/Verdance systems Ai /website-preview/rocket-v6/starship/k3-b.png",
     "stillFrame": 480,
     "mid": "~/Verdance systems Ai /website-preview/rocket-v6/starship/k2-b.png",

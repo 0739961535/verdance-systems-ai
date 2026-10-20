@@ -19,10 +19,14 @@ import film from "./film-manifest.json";
  */
 
 /** frames[i] = the film's source frame that file i shows (denser at the climax). */
-type FrameSet = { prefix: "d" | "m"; count: number; focusX: number; frames: number[] };
+/**
+ * A device's frames: a low set for scrubbing (WebP) and an HD set (10-bit
+ * AVIF) loaded only where the visitor stops. frames[i] = the source frame
+ * file i shows; `last` = that film's last source frame.
+ */
+type FrameSet = { prefix: "d" | "m"; count: number; focusX: number; frames: number[]; last: number; hi: { width: number; height: number } };
 const DESKTOP: FrameSet = { prefix: "d", ...film.desktop };
 const PHONE: FrameSet = { prefix: "m", ...film.phone };
-const LAST = film.source.frames - 1;
 /** The film plays over this much of the scroll; the last frame then holds while "Book a call" shows. */
 const FILM_END = 0.86;
 const HERO_OUT = [0.015, 0.06];
@@ -132,7 +136,6 @@ export function FilmController() {
     const q = <T extends Element>(sel: string) => root.querySelector<T>(sel)!;
     const qa = <T extends Element>(sel: string) => Array.from(root.querySelectorAll<T>(sel));
     const canvas = q<HTMLCanvasElement>(".flm-canvas");
-    const cam = q<HTMLElement>(".flm-cam");
     const copies = qa<HTMLElement>(".fl-step");
     // each step's headline words rise out of a mask with the film
     const titleWords = copies.map((c) => Array.from(c.querySelectorAll<HTMLElement>(".fw-i")));
@@ -168,23 +171,27 @@ export function FilmController() {
     let killGsap = () => {};
 
     const url = (i: number) => `/flight/film/${set.prefix}-${pad(i)}.webp?v=${film.v}`;
+    const hiUrl = (i: number) => `/flight/film/${set.prefix}h-${pad(i)}.avif?v=${film.v}`;
 
     // ---------- drawing ----------
     let cw = 0, ch = 0, dpr = 1;
     const offset = 0;
     let drawnOff = -1;
     const sizeCanvas = () => {
-      // at most 2x and about 1700px tall: iOS caps canvas memory
-      // never much finer than the frames themselves (no gain, more fill cost)
-      const frameW = set === PHONE ? film.phone.width : film.desktop.width;
-      dpr = Math.min(window.devicePixelRatio || 1, 2, 1700 / Math.max(1, canvas.clientHeight), (frameW * 1.25) / Math.max(1, canvas.clientWidth));
-      const w = Math.round(canvas.clientWidth * dpr);
-      const h = Math.round(canvas.clientHeight * dpr);
+      // the device's full pixel density: up to 3x on phones (capped at an
+      // iPhone Pro Max screen, 1290x2796), up to 2x on desktop (capped at 4K)
+      const cwCss = Math.max(1, canvas.clientWidth), chCss = Math.max(1, canvas.clientHeight);
+      const maxW = set === PHONE ? 1290 : 3840, maxH = set === PHONE ? 2796 : 2400;
+      dpr = Math.min(window.devicePixelRatio || 1, set === PHONE ? 3 : 2, maxW / cwCss, maxH / chCss);
+      const w = Math.round(cwCss * dpr);
+      const h = Math.round(chCss * dpr);
       if (w && h && (w !== cw || h !== ch)) {
         cw = canvas.width = canvasB.width = w;
         ch = canvas.height = canvasB.height = h;
+        for (const c of [ctx, ctxB]) if (c) { c.imageSmoothingEnabled = true; c.imageSmoothingQuality = "high"; }
         drawn = -1;
         drawnB = -1;
+        drawnHi = -1;
       }
     };
     const nearestBitmap = (i: number) => {
@@ -201,23 +208,69 @@ export function FilmController() {
     // scrubbing reads as continuous video even with few phone frames
     let blend = 0;
     let drawnB = -1;
+    // the camera pull-back (1.06 to 1.0 across the climb) is drawn into the
+    // canvas, never a CSS scale on it: scaling a canvas element blurs it
+    let zoom = 1.06;
+    let drawnZoom = 0;
     const place = (c: CanvasRenderingContext2D, bmp: Frame) => {
       const { w, h } = frameSize(bmp);
       // cover-fit, held on the rocket horizontally
       const s = Math.max(cw / w, ch / h);
-      const dw = w * s, dh = h * s;
-      const dx = Math.min(0, Math.max(cw - dw, cw / 2 - set.focusX * dw));
-      const dy = (ch - dh) / 2 + offset * dpr;
-      c.drawImage(bmp, dx, dy, dw, dh);
+      const dw0 = w * s, dh0 = h * s;
+      const dx0 = Math.min(0, Math.max(cw - dw0, cw / 2 - set.focusX * dw0));
+      const dy0 = (ch - dh0) / 2 + offset * dpr;
+      // zoom about a point on the rocket, then snap to whole pixels
+      const ox = cw * (set === PHONE ? 0.5 : 0.63), oy = ch * (set === PHONE ? 0.4 : 0.55);
+      const dx = Math.round(ox - (ox - dx0) * zoom), dy = Math.round(oy - (oy - dy0) * zoom);
+      c.drawImage(bmp, dx, dy, Math.round(dw0 * zoom), Math.round(dh0 * zoom));
+    };
+    // HD: where the scroll comes to rest, the HD frame replaces the low one
+    let settled = false;
+    let settleTimer = 0;
+    let drawnHi = -1;
+    const hiBitmaps = new Map<number, Frame>();
+    const hiPending = new Set<number>();
+    const wantHi = () => set === PHONE || cw > film.desktop.width * 1.05;
+    const loadHi = (i: number) => {
+      if (i < 0 || i >= set.count || hiBitmaps.has(i) || hiPending.has(i) || !wantHi()) return;
+      const gen = generation;
+      hiPending.add(i);
+      fetch(hiUrl(i), { signal: abort.signal })
+        .then((r) => (r.ok && (r.headers.get("content-type") || "").startsWith("image/") ? r.blob() : Promise.reject(new Error(`HD ${i}: ${r.status}`))))
+        .then(decodeFrame)
+        .then((bmp) => {
+          if (disposed || gen !== generation) return release(bmp);
+          hiBitmaps.set(i, bmp);
+          // keep a few: the current one and its neighbours
+          for (const [k, b] of hiBitmaps) if (Math.abs(k - target) > 2) { release(b); hiBitmaps.delete(k); }
+          if (settled && i === target) draw();
+        })
+        .catch(() => {})
+        .finally(() => hiPending.delete(i));
+    };
+    const settle = () => {
+      settleTimer = 0;
+      // snap to the nearer single frame: no blend left on screen
+      if (blend > 0.5 && target + 1 < set.count && bitmaps.has(target + 1)) target++;
+      blend = 0;
+      settled = true;
+      draw();
+      loadHi(target);
+      loadHi(target + 1);
+      loadHi(target - 1);
     };
     const draw = () => {
       const hit = nearestBitmap(target);
       if (!hit || !cw) return;
-      if (!(hit.at === drawn && drawnGen === generation && drawnOff === offset)) {
-        place(ctx, hit.bmp);
+      const hd = settled && hit.at === target ? hiBitmaps.get(target) : undefined;
+      if (!(hit.at === drawn && drawnGen === generation && drawnOff === offset && drawnZoom === zoom && drawnHi === (hd ? target : -1))) {
+        place(ctx, hd ?? hit.bmp);
         drawnOff = offset;
         drawn = hit.at;
         drawnGen = generation;
+        drawnZoom = zoom;
+        drawnHi = hd ? target : -1;
+        drawnB = -1;
         if (!root.hasAttribute("data-film")) root.setAttribute("data-film", "");
       }
       // the next frame on the blend layer, drawn once per frame change
@@ -227,7 +280,7 @@ export function FilmController() {
         place(ctxB, next);
         drawnB = target + 1;
       }
-      canvasB.style.opacity = next && drawnB === target + 1 ? blend.toFixed(3) : "0";
+      canvasB.style.opacity = !settled && next && drawnB === target + 1 ? blend.toFixed(3) : "0";
     };
 
     // ---------- decode window ----------
@@ -301,6 +354,8 @@ export function FilmController() {
       abort = new AbortController();
       bitmaps.forEach(release);
       bitmaps = new Map();
+      hiBitmaps.forEach(release);
+      hiBitmaps.clear();
       drawnB = -1;
       blobs = new Map();
       root.removeAttribute("data-film");
@@ -330,29 +385,32 @@ export function FilmController() {
       const p = clamp01(raw / storyEnd);
       // scroll is linear in film time; the file is the nearest one to it.
       // The film ends at FILM_END and its last frame holds after that.
-      const pos = clamp01(p / FILM_END) * LAST;
+      const pos = clamp01(p / FILM_END) * set.last;
       // the file at or just before the position, and how far to the next
       let f = fileFor(set, pos);
       if (set.frames[f] > pos && f > 0) f--;
       const nextSrc = set.frames[f + 1];
       blend = nextSrc !== undefined ? clamp01((pos - set.frames[f]) / (nextSrc - set.frames[f])) : 0;
+      // a gentle camera pull-back across the whole climb (1.06 to 1.0,
+      // eased in and out): the rocket feels smaller the higher it goes
+      const e = p < 0.5 ? 2 * p * p : 1 - (-2 * p + 2) ** 2 / 2;
+      zoom = Math.round((1.06 - 0.06 * e) * 2000) / 2000;
       if (f !== target) {
         target = f;
         pump();
       }
+      // moving: low frames (and the blend layer); at rest: snap and go HD
+      settled = false;
+      if (settleTimer) window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(settle, 160);
       draw();
-      // a gentle camera pull-back across the whole climb (1.06 to 1.0,
-      // eased in and out): with the footage, the rocket feels smaller the
-      // higher it goes
-      const e = p < 0.5 ? 2 * p * p : 1 - (-2 * p + 2) ** 2 / 2;
-      cam.style.transform = `scale(${(1.06 - 0.06 * e).toFixed(4)})`;
       // the opening holds on the pad, then gives way as the rocket lifts
       const h = 1 - ramp(HERO_OUT[0], HERO_OUT[1], p);
       fade(hero, h);
       hero.style.transform = `translate3d(0, ${((1 - h) * -24).toFixed(1)}px, 0)`;
       fade(hud, ramp(HERO_OUT[1] - 0.01, STEPS[0][0], p));
       // the ignition glow and pad lights give way as the rocket lifts
-      ignite.style.opacity = (1 - ramp(0.02, 0.14, p)).toFixed(3);
+      fade(ignite, 1 - ramp(0.02, 0.14, p));
       // words: one step at a time and fully legible for most of it; the
       // hand-overs are short and never overlap, so nothing sits half-faded
       copies.forEach((el, i) => {
