@@ -151,8 +151,9 @@ export function LaunchHero() {
         </span>
       </section>
       <OurBelief />
-      <OpsTeamShowcase />
+      {/* the light page dissolves into the dark, then the Operations Team */}
       <EarthRise />
+      <OpsTeamShowcase />
     </>
   );
 }
