@@ -7,7 +7,6 @@ import { GENERIC_BOOK_URL } from "@/data/niches";
 import { HOME_ROTATION } from "@/data/conversations";
 import { LaptopInbox } from "@/components/device/LaptopInbox";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
-import { Rocket } from "./hero/Rocket";
 import { GetVisual, WorkVisualsStyle } from "./inbox/WorkVisuals";
 
 /**
@@ -23,7 +22,6 @@ export function SimpleHero() {
     <section className="hero-launch relative isolate overflow-hidden bg-canvas" aria-labelledby="hero-title" data-cta-location="hero">
       <div aria-hidden className="aurora" />
       <div className="container-narrow relative pt-24 pb-20 text-center sm:pt-32 md:pt-40 md:pb-28">
-        <Rocket />
 
         <h1
           id="hero-title"

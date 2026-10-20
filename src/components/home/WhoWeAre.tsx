@@ -50,7 +50,7 @@ export function WhoWeAre() {
         <div className="who-grid">
           <div className="who-side" data-reveal="">
             <p className="eyebrow">
-              <span className="chap-n">10</span> Who we are
+              <span className="chap-n">08</span> Who we are
             </p>
             <h2 id="who-title" className="h2 who-h2">
               Who we are, and <span>how</span> we work.

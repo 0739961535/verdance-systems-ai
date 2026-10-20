@@ -64,7 +64,7 @@ export function BookingSection({ as = "section" }: { as?: "section" | "page" }) 
       <div className="container-wide">
         <div className="bks-grid">
           <div className="bks-head" data-reveal="">
-            <p className="eyebrow">{as === "section" ? <><span className="chap-n">11</span> </> : null}Book a call</p>
+            <p className="eyebrow">{as === "section" ? <><span className="chap-n">09</span> </> : null}Book a call</p>
             <Title id="book-title" className="h2 bks-h">
               Thirty minutes on your business.
             </Title>
