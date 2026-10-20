@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 const FACTS = [
   { k: "Founder", v: "Daniel Bouwer" },
   { k: "Based in", v: "South Africa, remote first" },
-  { k: "Works with", v: "Businesses in South Africa and the UK" },
+  { k: "Works with", v: "Owner-led businesses" },
   { k: "Builds", v: "AI systems and the Operations Team" },
   { k: "Promise", v: "Every enquiry answered within 60 seconds" },
   { k: "Live in", v: "10 working days" },

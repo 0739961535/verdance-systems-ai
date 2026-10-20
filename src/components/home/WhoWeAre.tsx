@@ -68,7 +68,7 @@ export function WhoWeAre() {
 
           <div className="who-main" data-reveal="" style={{ ["--reveal-delay" as string]: "0.12s" }}>
             <p className="who-p">
-              Verdance builds AI systems for owner-led businesses in South Africa and the UK. We set up the parts that answer your
+              Verdance builds AI systems for owner-led businesses. We set up the parts that answer your
               customers, follow up and do the admin, connected to the tools you already use.
             </p>
             <p className="who-p">
