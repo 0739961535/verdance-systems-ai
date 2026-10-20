@@ -19,7 +19,7 @@ export function CTABand({
   points = [
     "Where your time goes each week",
     "Which jobs Verdance can take off you",
-    "A fixed price, if you want us to build it",
+    "What we would build first, and what it should bring back",
   ],
   href = GENERIC_BOOK_URL,
   label = "Book a free 30-minute call",

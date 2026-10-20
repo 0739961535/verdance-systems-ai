@@ -24,19 +24,19 @@ const GET = [
   { t: "Where your time goes", b: "Which jobs take the most hours each week, and which ones Verdance can do for you." },
   { t: "How fast you reply", b: "How long customers wait on WhatsApp, email, calls and your website." },
   { t: "What to fix first", b: "A short list, in order. It is yours to keep, even if we never work together." },
-  { t: "A fixed price, if you want it", b: "In writing, before any work starts. The price you see is the price you pay." },
+  { t: "A plan in writing", b: "What we would build first, and what it should bring back. Nothing starts until you say yes." },
 ];
 
 const STEPS = [
   { n: "01", t: "Book a time", b: "Pick a slot that suits you. It takes a minute." },
   { n: "02", t: "A 30-minute call", b: "We look at how your business runs and how customers reach you." },
-  { n: "03", t: "You get the plan", b: "Your numbers, what to fix first, and a fixed price if you want one." },
+  { n: "03", t: "You get the plan", b: "Your numbers, what to fix first, and what it should bring back." },
 ];
 
 const FAQS = [
   { q: "Is it really free?", a: "Yes. There is nothing to sign and no obligation. The plan is yours to keep either way." },
   { q: "Do I need to prepare anything?", a: "No. It helps to know roughly how many messages you get a week and what a customer is worth to you. We can work it out together." },
-  { q: "What happens after the call?", a: "You get the plan in writing. If you want us to build it, you get a fixed price and a start date. If not, that is the end of it." },
+  { q: "What happens after the call?", a: "You get the plan in writing. It shows what we would build first and what it should bring back. If you want us to build it, we agree the first phase and a start date. If not, that is the end of it." },
 ];
 
 export default function AuditPage() {
