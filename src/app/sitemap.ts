@@ -3,7 +3,6 @@ import { SERVICE_CATEGORIES } from "@/data/services";
 import { industries } from "@/data/industries";
 import { NICHES } from "@/data/niches";
 import { LOCATIONS } from "@/data/locations";
-import { PROCESS } from "@/data/process";
 import { SITE_URL } from "@/data/site";
 
 type Freq = MetadataRoute.Sitemap[number]["changeFrequency"];
@@ -75,14 +74,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     updated: UPDATED.site,
   }));
 
-  const processRoutes: Route[] = PROCESS.map((s) => ({
-    path: `/how-it-works/${s.slug}`,
-    priority: 0.75,
-    freq: "monthly",
-    updated: UPDATED.site,
-  }));
+  // /how-it-works/<step> pages redirect to /how-it-works (next.config), so none are listed
 
-  return [...staticRoutes, ...nicheRoutes, ...serviceRoutes, ...industryRoutes, ...locationRoutes, ...processRoutes].map(
+  return [...staticRoutes, ...nicheRoutes, ...serviceRoutes, ...industryRoutes, ...locationRoutes].map(
     ({ path, priority, freq, updated }) => ({
       url: `${SITE_URL}${path}`,
       lastModified: new Date(`${updated}T00:00:00Z`),

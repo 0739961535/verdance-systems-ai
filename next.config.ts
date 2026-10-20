@@ -99,6 +99,8 @@ const nextConfig: NextConfig = {
       { source: "/products/:slug*", destination: "/services", permanent: true },
       { source: "/products", destination: "/services", permanent: true },
       { source: "/packages", destination: "/services", permanent: true },
+      // the old per-step pages (six steps, older copy) fold into the one page
+      { source: "/how-it-works/:step", destination: "/how-it-works", permanent: true },
       { source: "/portfolio", destination: "/#proof", permanent: true },
       // City pages folded from 18 to 4 (SEO plan, fix 6): each retired page
       // points at the closest kept city, or the /ai-agency index.
