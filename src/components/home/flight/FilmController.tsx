@@ -30,7 +30,7 @@ const DESKTOP: FrameSet = { prefix: "d", ...film.desktop };
 const PHONE: FrameSet = { prefix: "m", ...film.phone };
 /** The film plays over this much of the scroll; the last frame then holds while "Book a call" shows. */
 const FILM_END = 0.86;
-const HERO_OUT = [0.015, 0.06];
+const HERO_OUT = [0.006, 0.024];
 /** Each step's span of the scroll [fully in, starts leaving], and the hand-over length. */
 const STEPS: [number, number][] = DAY_BEATS.map((d) => d.at);
 const XFADE = 0.014;

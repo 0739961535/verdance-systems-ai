@@ -2597,7 +2597,7 @@ html:has(.flm) .site-grain { display: none; }
   .flm .fl-step { position: relative; isolation: isolate; }
   .flm .fl-step::before, .flm-hero::before {
     content: ""; position: absolute; z-index: -1; inset: -36px -28px -32px -28px; pointer-events: none;
-    background: radial-gradient(ellipse 72% 62% at 40% 52%, rgba(1, 5, 15, 0.78), rgba(1, 5, 15, 0.5) 55%, rgba(1, 5, 15, 0) 100%);
+    background: radial-gradient(ellipse 78% 70% at 40% 50%, rgba(1, 5, 15, 0.88), rgba(1, 5, 15, 0.62) 55%, rgba(1, 5, 15, 0) 100%);
   }
   .flm-hero { isolation: isolate; }
   .flm .fl-title { font-size: 1.85rem; }
@@ -2652,4 +2652,16 @@ html:has(.flm) .site-grain { display: none; }
   .get-row-in { display: grid; grid-template-columns: 5fr 7fr; column-gap: 4rem; align-items: center; }
   .get-row-in > .get-vis { grid-column: 2; grid-row: 1 / span 3; }
   .get-row-in .get-vis > * { margin-top: 0; max-width: 35rem; min-height: 15rem; font-size: 1.0625rem; }
+}
+
+/* the day beats: the time reads clearly, and every headline holds strong
+   contrast over bright footage (city lights, cloud, the sun) */
+.flm .fl-eyebrow .chap-n { font-size: 1rem; font-weight: 600; letter-spacing: 0.06em; color: #DCE6FF; }
+@media (min-width: 1024px) { .flm .fl-eyebrow .chap-n { font-size: 1.125rem; } }
+.flm .fl-title { text-shadow: 0 2px 22px rgba(1, 5, 15, 0.75), 0 0 2px rgba(1, 5, 15, 0.6); }
+.flm .fl-body { text-shadow: 0 1px 14px rgba(1, 5, 15, 0.8); }
+@media (min-width: 768px) {
+  .flm .fl-step { position: relative; isolation: isolate; }
+  .flm .fl-step::before { content: ""; position: absolute; z-index: -1; inset: -48px -64px -48px -64px; pointer-events: none;
+    background: radial-gradient(ellipse 70% 70% at 40% 50%, rgba(1, 5, 15, 0.7), rgba(1, 5, 15, 0.4) 55%, rgba(1, 5, 15, 0) 100%); }
 }
