@@ -86,6 +86,9 @@ export function FilmStory() {
           </div>
         </div>
         <div className="flm-bot" aria-hidden />
+        {/* cinematic letterbox: in as the rocket lifts off, out at orbit */}
+        <span className="flm-bar flm-bar-top" aria-hidden />
+        <span className="flm-bar flm-bar-bottom" aria-hidden />
 
         {/* ---------- the opening ---------- */}
         <div className="flm-hero">

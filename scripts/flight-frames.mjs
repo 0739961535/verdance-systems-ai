@@ -89,6 +89,7 @@ for (const width of (process.env.WIDTHS || "390,1440").split(",").map(Number)) {
     p95Ms: +sorted[Math.floor(sorted.length * 0.95)].toFixed(1),
     over33ms: ft.filter((v) => v > 33.4).length,
     over50ms: ft.filter((v) => v > 50).length,
+    over20ms: ft.filter((v) => v > 20).length,
     maxMs: +sorted[sorted.length - 1].toFixed(1),
     cls,
     errors: errs,

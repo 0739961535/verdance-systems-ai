@@ -98,6 +98,52 @@ async function decodeFrame(blob: Blob): Promise<Frame> {
 
 
 
+/**
+ * Frames decode in a worker (off the main thread, so a decode never lands
+ * in the middle of a scroll frame); the ImageBitmap is transferred back.
+ * Falls back to decodeFrame on the main thread where workers cannot decode.
+ */
+const WORKER_SRC = `self.onmessage = async (e) => {
+  const { id, blob } = e.data;
+  try { const bmp = await createImageBitmap(blob); self.postMessage({ id, bmp }, [bmp]); }
+  catch (err) { self.postMessage({ id, error: String(err) }); }
+};`;
+function makeDecoder() {
+  let worker: Worker | null = null;
+  try {
+    if (typeof Worker === "function" && typeof createImageBitmap === "function") {
+      worker = new Worker(URL.createObjectURL(new Blob([WORKER_SRC], { type: "text/javascript" })));
+    }
+  } catch {
+    worker = null;
+  }
+  let seq = 0;
+  const pending = new Map<number, { ok: (f: Frame) => void; fail: (e: unknown) => void; blob: Blob }>();
+  if (worker) {
+    worker.onmessage = (e: MessageEvent<{ id: number; bmp?: ImageBitmap; error?: string }>) => {
+      const job = pending.get(e.data.id);
+      if (!job) return;
+      pending.delete(e.data.id);
+      if (e.data.bmp) job.ok(e.data.bmp);
+      else decodeFrame(job.blob).then(job.ok, job.fail); // this format: decode here instead
+    };
+  }
+  return {
+    decode(blob: Blob): Promise<Frame> {
+      if (!worker) return decodeFrame(blob);
+      const id = ++seq;
+      return new Promise((ok, fail) => {
+        pending.set(id, { ok, fail, blob });
+        worker!.postMessage({ id, blob });
+      });
+    },
+    stop() {
+      worker?.terminate();
+      pending.clear();
+    },
+  };
+}
+
 /** Every 8th frame, then every 4th, every 2nd, then the rest. */
 function coarseToFine(count: number) {
   const seen = new Set<number>();
@@ -147,15 +193,24 @@ export function FilmController() {
     const fills = qa<HTMLElement>(".fl-seg-fill");
     const segs = qa<HTMLElement>(".fl-seg");
     const hero = q<HTMLElement>(".flm-hero");
+    const cam = q<HTMLElement>(".flm-cam");
+    const bars = qa<HTMLElement>(".flm-bar");
+    const decoder = makeDecoder();
     const ignite = q<HTMLElement>(".flm-ignite");
     const hud = q<HTMLElement>(".fl-hud");
     const botWash = q<HTMLElement>(".flm-bot");
-    const ctx = canvas.getContext("2d", { alpha: false });
+    // Where the browser can, the canvas is handed to a worker that fetches,
+    // decodes and draws the frames (public/flight/film-worker.js): the page
+    // only posts the playhead, so scrolling never waits on the film.
+    const filmWorker: Worker | null =
+      "transferControlToOffscreen" in canvas && typeof Worker === "function" ? new Worker(`/flight/film-worker.js?v=${film.v}`) : null;
+    let workerReady = false;
+    const ctx = filmWorker ? null : canvas.getContext("2d", { alpha: false });
     // the blend layer: the next frame, faded in with CSS opacity (compositor
     // only, no extra canvas work per scroll frame)
     const canvasB = q<HTMLCanvasElement>(".flm-canvas-b");
     const ctxB = canvasB.getContext("2d", { alpha: false });
-    if (!ctx) return;
+    if (!ctx && !filmWorker) return;
 
     const phoneMq = window.matchMedia("(max-width: 767px)");
     let set = phoneMq.matches ? PHONE : DESKTOP;
@@ -172,7 +227,6 @@ export function FilmController() {
     let activeStage = -1;
     let disposed = false;
     let started = false;
-    let killGsap = () => {};
 
     const url = (i: number) => `/flight/film/${set.prefix}-${pad(i)}.webp?v=${film.v}`;
     const hiUrl = (i: number) => `/flight/film/${set.prefix}h-${pad(i)}.avif?v=${film.v}`;
@@ -189,6 +243,14 @@ export function FilmController() {
       dpr = Math.min(window.devicePixelRatio || 1, set === PHONE ? 3 : 2, maxW / cwCss, maxH / chCss);
       const w = Math.round(cwCss * dpr);
       const h = Math.round(chCss * dpr);
+      if (filmWorker) {
+        if (workerReady && w && h && (w !== cw || h !== ch)) {
+          cw = w;
+          ch = h;
+          filmWorker.postMessage({ type: "size", w, h, wantHi: set === PHONE || w > film.desktop.width * 1.05 });
+        }
+        return;
+      }
       if (w && h && (w !== cw || h !== ch)) {
         cw = canvas.width = canvasB.width = w;
         ch = canvas.height = canvasB.height = h;
@@ -255,7 +317,7 @@ export function FilmController() {
       hiPending.add(i);
       fetch(hiUrl(i), { signal: abort.signal })
         .then((r) => (r.ok && (r.headers.get("content-type") || "").startsWith("image/") ? r.blob() : Promise.reject(new Error(`HD ${i}: ${r.status}`))))
-        .then(decodeFrame)
+        .then((b) => decoder.decode(b))
         .then((bmp) => {
           if (disposed || gen !== generation) return release(bmp);
           hiBitmaps.set(i, bmp);
@@ -268,6 +330,11 @@ export function FilmController() {
     };
     const settle = () => {
       settleTimer = 0;
+      if (filmWorker) {
+        settled = true;
+        draw();
+        return;
+      }
       // snap to the nearer single frame: no blend left on screen
       if (blend > 0.5 && target + 1 < set.count && bitmaps.has(target + 1)) target++;
       blend = 0;
@@ -279,6 +346,11 @@ export function FilmController() {
       loadHi(target - 1);
     };
     const draw = () => {
+      if (filmWorker) {
+        if (workerReady) filmWorker.postMessage({ type: "pos", target, zoom, shift: shiftT, settled });
+        return;
+      }
+      if (!ctx) return;
       const hit = nearestBitmap(target);
       if (!hit || !cw) return;
       const hd = settled && hit.at === target ? hiBitmaps.get(target) : undefined;
@@ -310,7 +382,7 @@ export function FilmController() {
 
     // ---------- decode window ----------
     const pump = () => {
-      if (disposed) return;
+      if (disposed || filmWorker) return;
       const gen = generation;
       // evict what has left the window
       for (const [i, bmp] of bitmaps) {
@@ -326,7 +398,7 @@ export function FilmController() {
           const blob = blobs.get(i);
           if (!blob || bitmaps.has(i) || decoding.has(i)) continue;
           decoding.add(i);
-          decodeFrame(blob)
+          decoder.decode(blob)
             .then((bmp) => {
               if (disposed || gen !== generation) return release(bmp);
               bitmaps.set(i, bmp);
@@ -343,6 +415,7 @@ export function FilmController() {
 
     // ---------- loading ----------
     const load = () => {
+      if (filmWorker) return;
       const gen = generation;
       const order = coarseToFine(set.count);
       const signal = abort.signal;
@@ -374,6 +447,15 @@ export function FilmController() {
       if (next === set) return;
       set = next;
       radius = set === PHONE ? 12 : 8;
+      if (filmWorker) {
+        if (workerReady) {
+          filmWorker.postMessage({ type: "set", set: workerSet() });
+          cw = ch = 0;
+          sizeCanvas();
+          draw();
+        }
+        return;
+      }
       generation++;
       abort.abort();
       abort = new AbortController();
@@ -437,6 +519,14 @@ export function FilmController() {
       fade(hud, ramp(HERO_OUT[1] - 0.01, STEPS[0][0], p));
       // the ignition glow and pad lights give way as the rocket lifts
       fade(ignite, 1 - ramp(0.02, 0.14, p));
+      // ignition: a tiny camera shake on the first frames of the lift-off
+      // only (whole pixels, so the film stays sharp)
+      const shk = p > 0.004 && p < 0.07 ? (1 - p / 0.07) * 3 : 0;
+      cam.style.transform = shk ? `translate3d(${Math.round(Math.sin(p * 900) * shk)}px, ${Math.round(Math.cos(p * 1300) * shk)}px, 0)` : "";
+      // cinematic letterbox: the bars come in as the rocket lifts off and
+      // open again at orbit
+      const lb = ramp(0.05, 0.13, p) * (1 - ramp(0.6, 0.7, p));
+      bars.forEach((b) => (b.style.transform = `scaleY(${lb.toFixed(3)})`));
       // words: one step at a time and fully legible for most of it; the
       // hand-overs are short and never overlap, so nothing sits half-faded
       copies.forEach((el, i) => {
@@ -462,55 +552,52 @@ export function FilmController() {
       });
       setStage(p < STEPS[0][0] - XFADE ? -1 : p < STEPS[1][0] - XFADE ? 0 : p < STEPS[2][0] - XFADE ? 1 : 2);
     };
-    // before GSAP has loaded, follow the scroll directly
-    let gsapLive = false;
+    // The scroll drives the film through one requestAnimationFrame loop: the
+    // shown progress eases toward the scroll position (0.18 of the way each
+    // frame, like a camera on a rig), and the canvas only repaints when the
+    // frame changes. No React and no library in the scroll path.
+    let rootTop = 0, travel = 1;
+    const measureScroll = () => {
+      rootTop = root.getBoundingClientRect().top + window.scrollY;
+      travel = Math.max(1, root.offsetHeight - window.innerHeight);
+    };
+    measureScroll();
+    let goal = 0, shown = 0, loop = 0;
+    const tick = () => {
+      loop = 0;
+      const d = goal - shown;
+      shown = Math.abs(d) < 0.0003 ? goal : shown + d * 0.18;
+      update(shown);
+      if (shown !== goal) loop = requestAnimationFrame(tick);
+    };
     const direct = () => {
-      const r = root.getBoundingClientRect();
-      const raw = clamp01(-r.top / Math.max(1, root.offsetHeight - window.innerHeight));
+      const raw = clamp01((window.scrollY - rootTop) / travel);
+      goal = raw;
       // the first scroll "presses the button": the engines flare
       if (raw > 0.001 && !root.hasAttribute("data-launched")) root.setAttribute("data-launched", "");
-      // the exit dissolve follows the scrollbar exactly (no scrub lag), so
-      // the words are gone before the stage starts to scroll away
       // while the next section slides over, the held frame dims under it
       fade(botWash, 0.6 * ramp(storyEnd, 1, raw));
-      if (!gsapLive) update(raw);
+      if (!loop) loop = requestAnimationFrame(tick);
     };
     window.addEventListener("scroll", direct, { passive: true });
 
-    const start = async () => {
+    const workerSet = () => ({ prefix: set.prefix, count: set.count, focusX: set.focusX, phone: set === PHONE, left: PHONE_LEFT });
+    const start = () => {
       if (started) return;
       started = true;
+      if (filmWorker) {
+        const off = canvas.transferControlToOffscreen();
+        filmWorker.onmessage = (e: MessageEvent<{ type: string }>) => {
+          if (e.data.type === "drawn") root.setAttribute("data-film", "");
+        };
+        filmWorker.postMessage({ type: "init", canvas: off, set: workerSet(), v: film.v }, [off]);
+        workerReady = true;
+        sizeCanvas();
+        draw();
+        return;
+      }
       sizeCanvas();
       load();
-      const [{ gsap }, { ScrollTrigger }] = await Promise.all([import("gsap"), import("gsap/ScrollTrigger")]);
-      if (disposed) return;
-      gsap.registerPlugin(ScrollTrigger);
-      const gctx = gsap.context(() => {
-        const state = { p: 0 };
-        const tween = gsap.to(state, {
-          p: 1,
-          ease: "none",
-          onUpdate: () => update(state.p),
-          scrollTrigger: {
-            id: "flight-film",
-            trigger: root,
-            start: "top top",
-            end: "bottom bottom",
-            // numeric scrub: the film eases into place, like a camera on a rig
-            scrub: 0.6,
-            invalidateOnRefresh: true,
-          },
-        });
-        // opened mid-section (restored scroll or a link): start in place
-        const st = tween.scrollTrigger;
-        if (st) {
-          state.p = st.progress;
-          tween.progress(st.progress);
-          update(st.progress);
-        }
-      }, root);
-      gsapLive = true;
-      killGsap = () => gctx.revert();
     };
 
     root.setAttribute("data-live", "");
@@ -555,9 +642,15 @@ export function FilmController() {
       rootMargin: "-30% 0px -30% 0px",
     });
     inFlight.observe(root);
-    if (window.scrollY > 0) goReady();
+    if (window.scrollY > 0) {
+      goReady();
+      // opened mid-section (restored scroll or a link): start in place
+      goal = shown = clamp01((window.scrollY - rootTop) / travel);
+      update(shown);
+    }
     const ro = new ResizeObserver(() => {
       measureStory();
+      measureScroll();
       sizeCanvas();
       draw();
     });
@@ -579,7 +672,9 @@ export function FilmController() {
       html.removeAttribute("data-off-film");
       window.removeEventListener("scroll", direct);
       phoneMq.removeEventListener("change", switchSet);
-      killGsap();
+      cancelAnimationFrame(loop);
+      decoder.stop();
+      filmWorker?.terminate();
       bitmaps.forEach(release);
       bitmaps.clear();
       blobs.clear();

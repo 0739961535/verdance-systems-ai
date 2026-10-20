@@ -2559,3 +2559,32 @@ html:has(.flm) .site-grain { display: none; }
 .lp-pills .hero-chip { position: relative; z-index: 1; }
 .lp-pills[data-slide] .hero-chip[aria-pressed="true"] { background: transparent; border-color: transparent; }
 @media (prefers-reduced-motion: reduce) { .lp-pill-bg { transition: none; } }
+
+/* ============================================================
+   FLIGHT v15: letterbox, and the phone caption band
+   ============================================================ */
+.flm-bar { position: absolute; left: 0; right: 0; z-index: 1; height: 7vh; background: #000; pointer-events: none; transform: scaleY(0); will-change: transform; }
+.flm-bar-top { top: 0; transform-origin: 50% 0; }
+.flm-bar-bottom { bottom: 0; transform-origin: 50% 100%; }
+@media (max-width: 767px) { .flm-bar { height: 5vh; height: 5svh; } }
+@media (prefers-reduced-motion: reduce), (scripting: none) { .flm-bar { display: none; } }
+
+/* phones: the film stays clean; each step's words sit in a calm band at
+   the bottom of the screen (desktop keeps the overlay) */
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+  .flm .fl-stage::after { display: none; }
+  .flm .fl-copy {
+    left: 0; right: 0; bottom: 0; z-index: 3;
+    padding: 2.25rem 20px calc(1.75rem + env(safe-area-inset-bottom));
+  }
+  .flm .fl-copy::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(rgba(6, 11, 26, 0), rgba(6, 11, 26, 0.94) 1.75rem, #060B1A);
+    opacity: 0; transition: opacity 0.45s ease-out;
+  }
+  .flm:not([data-stage="-1"]) .fl-copy::before { opacity: 1; }
+  .flm .fl-title { font-size: 1.75rem; margin-top: 0.6rem; }
+  .flm .fl-body { font-size: 1rem; margin-top: 0.6rem; text-shadow: none; }
+  .flm .fl-title { text-shadow: none; }
+  .flm .fl-step .flm-actions { margin-top: 1rem; }
+}

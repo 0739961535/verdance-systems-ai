@@ -45,6 +45,12 @@ const cfg = { desktop: 168, phone: 72, cx: [[0, 0.63]], dense: null, stillAt: 0.
 
 const Q = { low: 72, hi: 60, still: 55, stillWebp: 76 };
 const CRISP = "unsharp=5:5:0.6:5:5:0,noise=alls=2:allf=t+u";
+// the filmic look, baked into every frame (no live blur on the page):
+// slightly deeper blacks and a touch more colour, then a gentle bloom on
+// the brightest light (the engines): the highlights alone, blurred and
+// screened back over the frame
+const LOOK = cfg.look === false ? "" :
+  "eq=saturation=1.06,format=gbrp,curves=all='0/0 0.07/0.04 0.5/0.5 1/1',split[lk1][lk2];[lk2]curves=all='0/0 0.74/0 1/1',gblur=sigma=16[lkg];[lk1][lkg]blend=all_mode=screen:all_opacity=0.3,format=yuv444p,";
 const outDir = path.join(root, "public", "flight", "film");
 const manifestPath = path.join(root, "src", "components", "home", "flight", "film-manifest.json");
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "flight-frames-"));
@@ -85,7 +91,7 @@ function decodeAll(f, name, vf) {
   const dir = path.join(tmp, name);
   fs.mkdirSync(dir);
   execFileSync("ffmpeg", ["-v", "error", "-y", ...f.shots.flatMap((s) => ["-i", s]),
-    "-filter_complex", `${f.join};[f]${vf}[o]`, "-map", "[o]", "-fps_mode", "passthrough", "-q:v", "1",
+    "-filter_complex", `${f.join};[f]${LOOK}${vf}[o]`, "-map", "[o]", "-fps_mode", "passthrough", "-q:v", "1",
     path.join(dir, "%04d.jpg")], { stdio: "inherit" });
   const n = fs.readdirSync(dir).length;
   if (n !== f.total) throw new Error(`${name}: decoded ${n} frames, expected ${f.total}`);
