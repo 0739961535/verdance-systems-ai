@@ -1,0 +1,121 @@
+import manifest from "./bloom-manifest.json";
+import { BloomScroll } from "./BloomScroll";
+
+/**
+ * The opening: a sticky scroll scene on the warm light ground. A blue flower
+ * opens from bud to full bloom as you scroll (a frame sequence when
+ * public/bloom/ has one, otherwise a drawn placeholder), with "WE MAKE AI"
+ * fixed on the left and the words on the right changing with the scroll.
+ * Phones: "WE MAKE AI" above the flower, the changing words below.
+ *
+ * BloomScroll writes --p (0 to 1) and data-word; everything else is CSS.
+ * Reduced motion or no JS: the open flower and the last line, still.
+ */
+
+export const BLOOM_WORDS = ["That answers", "That follows up", "That runs the admin", "That sounds like you", "To run your business"];
+
+const hasFrames = manifest.count > 0;
+const frameSrc = (i: number, ext: string) => `/bloom/f-${String(i).padStart(3, "0")}.${ext}?v=${manifest.v}`;
+
+export function BloomHero() {
+  return (
+    <section className="bl" aria-label="We make AI that answers, follows up, runs the admin, sounds like you, to run your business" data-word={BLOOM_WORDS.length - 1}>
+      <style>{CSS}</style>
+      <BloomScroll count={manifest.count} v={manifest.v} />
+      <div className="bl-stage">
+        <span aria-hidden className="bl-glow" />
+        <p className="bl-left" aria-hidden>
+          We make AI
+        </p>
+        <div className="bl-flower" aria-hidden>
+          {hasFrames ? (
+            <>
+              {/* the first frame paints at once (small), the canvas takes over */}
+              <picture>
+                <source type="image/avif" srcSet={frameSrc(0, "avif")} />
+                <img className="bl-first" src={frameSrc(0, "webp")} alt="" width={manifest.width} height={manifest.height} fetchPriority="high" />
+              </picture>
+              <canvas className="bl-canvas" width={manifest.width} height={manifest.height} />
+            </>
+          ) : (
+            <Placeholder />
+          )}
+        </div>
+        <div className="bl-right" aria-hidden>
+          {BLOOM_WORDS.map((w, i) => (
+            <span key={w} className="bl-word" data-i={i}>
+              {w}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** A drawn blue flower (placeholder until the footage lands): petals open with --p. */
+function Placeholder() {
+  const outer = Array.from({ length: 8 }, (_, i) => i * 45);
+  const inner = Array.from({ length: 6 }, (_, i) => i * 60 + 30);
+  return (
+    <svg viewBox="-100 -100 200 200" className="bl-svg">
+      <defs>
+        <radialGradient id="bl-petal" cx="0" cy="-30" r="70" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#DCE6FF" />
+          <stop offset="0.45" stopColor="#7FA3FF" />
+          <stop offset="1" stopColor="#1D3F8F" />
+        </radialGradient>
+        <radialGradient id="bl-heart" cx="0" cy="0" r="16" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#F2F5FC" />
+          <stop offset="1" stopColor="#4D7CFF" />
+        </radialGradient>
+      </defs>
+      {outer.map((a, i) => (
+        <g key={`o${a}`} transform={`rotate(${a})`}>
+          <path className="bl-petal bl-petal-o" style={{ ["--k" as string]: i }} d="M0 0 C 26 -18, 22 -62, 0 -76 C -22 -62, -26 -18, 0 0 Z" fill="url(#bl-petal)" />
+        </g>
+      ))}
+      {inner.map((a, i) => (
+        <g key={`i${a}`} transform={`rotate(${a})`}>
+          <path className="bl-petal bl-petal-i" style={{ ["--k" as string]: i }} d="M0 0 C 18 -12, 15 -42, 0 -52 C -15 -42, -18 -12, 0 0 Z" fill="url(#bl-petal)" />
+        </g>
+      ))}
+      <circle r="12" fill="url(#bl-heart)" className="bl-heart" />
+    </svg>
+  );
+}
+
+const CSS = `
+.bl { --p: 1; position: relative; height: 250svh; background: var(--bg); }
+.bl-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; display: grid; place-items: center; isolation: isolate; }
+.bl-glow { position: absolute; left: 50%; top: 50%; width: min(80vw, 760px); aspect-ratio: 1; transform: translate(-50%, -50%) scale(calc(0.7 + var(--p) * 0.5)); border-radius: 50%; z-index: -1;
+  background: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.18), rgba(var(--accent-rgb), 0)); opacity: calc(0.4 + var(--p) * 0.6); }
+.bl-flower { position: relative; width: min(64vw, 56svh); aspect-ratio: 1; }
+.bl-first, .bl-canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.bl-canvas { opacity: 0; }
+.bl[data-live] .bl-canvas { opacity: 1; }
+.bl[data-live] .bl-first { visibility: hidden; }
+.bl-svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 18px 40px rgba(29, 63, 143, 0.25)); }
+/* petals open from a closed bud: each scales up and leans out a little later than the last */
+.bl-petal { transform-box: view-box; transform-origin: 0 0;
+  transform: rotate(calc((1 - var(--o)) * 0deg)) scale(calc(0.18 + var(--o) * 0.82), calc(0.42 + var(--o) * 0.58)); }
+.bl-petal-o { --o: clamp(0, calc((var(--p) - var(--k) * 0.035) / 0.7), 1); opacity: calc(0.6 + var(--o) * 0.4); }
+.bl-petal-i { --o: clamp(0, calc((var(--p) - 0.12 - var(--k) * 0.03) / 0.6), 1); }
+.bl-heart { transform-box: fill-box; transform-origin: center; transform: scale(calc(0.6 + var(--p) * 0.4)); }
+.bl-left, .bl-right { position: absolute; top: 50%; transform: translateY(-50%); margin: 0; font-size: clamp(0.75rem, 0.5vw + 0.6rem, 1rem); font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--color-ink); }
+.bl-left { left: max(24px, calc(50% - 600px)); }
+.bl-right { right: max(24px, calc(50% - 600px)); display: grid; text-align: right; }
+.bl-word { grid-area: 1 / 1; opacity: 0; transform: translate3d(0, 8px, 0); transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); color: var(--color-accent); }
+.bl[data-word="0"] .bl-word[data-i="0"], .bl[data-word="1"] .bl-word[data-i="1"], .bl[data-word="2"] .bl-word[data-i="2"],
+.bl[data-word="3"] .bl-word[data-i="3"], .bl[data-word="4"] .bl-word[data-i="4"] { opacity: 1; transform: none; }
+@media (max-width: 767px) {
+  .bl-left, .bl-right { left: 0; right: 0; transform: none; text-align: center; }
+  .bl-left { top: 18svh; }
+  .bl-right { top: auto; bottom: 18svh; }
+  .bl-word { justify-self: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bl { height: 100svh; }
+  .bl-word { transition: none; }
+}
+`;

@@ -3,6 +3,7 @@ import { GENERIC_BOOK_URL } from "@/data/booking";
 import { SITE } from "@/data/site";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
 import { EarthRise } from "./EarthRise";
+import { OurBelief } from "../bloom/OurBelief";
 
 /**
  * The home hero: the opening that is live on verdancesystemsai.com (the warm
@@ -148,6 +149,7 @@ export function LaunchHero() {
           <i />
         </span>
       </section>
+      <OurBelief />
       <EarthRise />
     </>
   );
