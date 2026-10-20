@@ -15,7 +15,7 @@ const errs = [];
 p.on("pageerror", (e) => errs.push(e.message));
 await p.goto(base + "/", { waitUntil: "load" });
 await p.waitForTimeout(3000);
-const end = await p.evaluate(() => { const el = document.getElementById("websites"); return el.getBoundingClientRect().bottom + scrollY - innerHeight + 40; });
+const end = await p.evaluate(() => { const el = document.getElementById("websites") || document.querySelector(".flm"); return el.getBoundingClientRect().bottom + scrollY + (el.id ? 40 - innerHeight : innerHeight * 0.6); });
 const t0 = Date.now();
 // timed stills while the page scrolls itself (headless WebKit's video
 // capture stalls behind the worker-drawn canvas, so the stills are the
