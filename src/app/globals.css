@@ -1730,16 +1730,15 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
    .rk-jet, .rk-flame-js and .rk-smoke). Reduced motion = still.
    ============================================================ */
 .rk {
-  /* RocketArt grid: 80 wide, 286 tall (upper stage + first stage) */
-  --rk-w: 38px;
+  --rk-w: 46px;
   --rk-rise: 52px;
   position: relative;
   z-index: 0;
   width: var(--rk-w);
-  height: calc(var(--rk-w) * 4.3546);
-  margin: -40px auto 0;
+  height: calc(var(--rk-w) * 1.75);
+  margin: 0 auto;
 }
-@media (min-width: 768px) { .rk { --rk-w: 50px; --rk-rise: 72px; margin-top: -72px; } }
+@media (min-width: 768px) { .rk { --rk-w: 62px; --rk-rise: 72px; } }
 .rk-fly {
   position: absolute; inset: 0;
   transform-origin: 50% 60%;
@@ -1747,28 +1746,21 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 }
 .rk-ship {
   position: absolute; inset: 0; display: block;
-  animation: rk-lift 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+  filter: drop-shadow(0 12px 18px rgba(var(--accent-glow-rgb), 0.26)) drop-shadow(0 2px 3px rgba(15, 25, 60, 0.18));
+  animation: rk-lift 1.5s var(--ease-out-expo) 0.35s both;
   transition: translate 0.5s var(--ease-out-expo);
 }
 .rk-ship svg { display: block; overflow: visible; }
-.rk-flame-js { transform-box: fill-box; transform-origin: 50% 0; transform: scale(0.9, 0.45); }
-/* studio glow behind the hull: a gradient, not a filter, so the animated
-   plume never re-rasterises a blur (it was a drop-shadow before) */
-.rk-ship::before {
-  content: ""; position: absolute; z-index: -1;
-  left: -110%; right: -110%; top: 8%; bottom: 4%;
-  background: radial-gradient(closest-side, rgba(var(--accent-glow-rgb), 0.16), transparent);
-}
-.rk-flame-b { transform-box: fill-box; transform-origin: 50% 0; animation: rk-flicker-b 1.3s cubic-bezier(0.45, 0, 0.55, 1) 0.35s 2 alternate; }
+.rk-flame-js { transform-box: fill-box; transform-origin: 50% 0; }
 .rk-flame {
   transform-box: fill-box;
   transform-origin: 50% 0;
-  animation: rk-flicker 0.7s cubic-bezier(0.45, 0, 0.55, 1) 0.35s 2 alternate, rk-settle 0.9s cubic-bezier(0.45, 0, 0.55, 1) 1.75s forwards;
+  animation: rk-flicker 0.12s ease-in-out 0.35s 12 alternate, rk-settle 0.6s ease 1.8s forwards;
   transition: scale 0.4s var(--ease-out-expo);
 }
 .rk-jet {
   position: absolute; z-index: -1;
-  left: 50%; top: 97%;
+  left: 50%; top: 94%;
   width: 7px; height: 120px; margin-left: -3.5px;
   border-radius: 7px;
   background: linear-gradient(to bottom, rgba(214, 227, 255, 0.95), rgba(var(--accent-glow-rgb), 0.5) 30%, rgba(var(--accent-glow-rgb), 0) 100%);
@@ -1778,7 +1770,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   opacity: 0;
   will-change: transform, opacity;
 }
-.rk-pad { position: absolute; z-index: -1; left: 50%; top: 99%; width: 0; height: 0; }
+.rk-pad { position: absolute; z-index: -1; left: 50%; top: 96%; width: 0; height: 0; }
 .rk-smoke {
   position: absolute; left: -15px; top: -15px; width: 30px; height: 30px;
   border-radius: 999px;
@@ -1788,7 +1780,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 }
 .rk-trail {
   position: absolute; z-index: -1;
-  left: 50%; top: 90%;
+  left: 50%; top: 80%;
   width: 2px; height: calc(var(--rk-rise) + 18px);
   margin-left: -1px;
   border-radius: 2px;
@@ -1799,7 +1791,7 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 }
 .rk-puff {
   position: absolute; z-index: -1;
-  left: 50%; top: calc(92% + var(--rk-rise));
+  left: 50%; top: calc(80% + var(--rk-rise));
   width: 22px; height: 22px; margin: -11px 0 0 -11px;
   border-radius: 999px;
   background: radial-gradient(circle, rgba(var(--accent-glow-rgb), 0.22), transparent 70%);
@@ -1815,13 +1807,13 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
 .hero-launch:has(.btn-launch:focus-visible) .rk-flame { scale: 1 1.6; }
 
 @keyframes rk-lift {
-  0% { transform: translateY(var(--rk-rise)) scale(0.96); opacity: 0; }
-  20% { opacity: 1; }
+  0% { transform: translateY(var(--rk-rise)) scale(0.9); opacity: 0; }
+  12% { opacity: 1; }
+  70% { transform: translateY(-5px) scale(1); }
   100% { transform: translateY(0) scale(1); opacity: 1; }
 }
-@keyframes rk-flicker { from { transform: scaleY(0.9); } to { transform: scaleY(1.1); } }
-@keyframes rk-flicker-b { from { transform: scale(0.97, 0.95); } to { transform: scale(1.02, 1.05); } }
-@keyframes rk-settle { from { transform: scaleY(1); opacity: 1; } to { transform: scaleY(0.7); opacity: 0.9; } }
+@keyframes rk-flicker { from { transform: scaleY(0.85); } to { transform: scaleY(1.15); } }
+@keyframes rk-settle { from { transform: scaleY(1); opacity: 1; } to { transform: scaleY(0.6); opacity: 0.85; } }
 @keyframes rk-trail {
   0% { transform: scaleY(0); opacity: 0; }
   10% { opacity: 1; }
@@ -1834,15 +1826,11 @@ a.card-x:active, button.card-x:active { transform: scale(0.985); transition-dura
   100% { transform: scale(2.4); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .rk-ship, .rk-flame, .rk-flame-b, .rk-trail, .rk-puff { animation: none; transition: none; }
+  .rk-ship, .rk-flame, .rk-trail, .rk-puff { animation: none; transition: none; }
   .rk-flame { transform: scaleY(0.6); opacity: 0.85; }
   .rk-trail, .rk-puff, .rk-jet, .rk-smoke { opacity: 0; }
   .hero-launch:has(.btn-launch:hover) .rk-ship { translate: none; }
 }
-
-/* below-the-fold home sections: no layout or paint work until they near
-   the screen. The size hint is remembered once rendered (auto). */
-.cv-below { content-visibility: auto; contain-intrinsic-size: auto 900px; }
 
 /* ============================================================
    THE FLIGHT (Oct 2026): how we work as one rocket climb.
