@@ -33,7 +33,7 @@ const FILM_END = 0.86;
 const HERO_OUT = [0.015, 0.06];
 /** Each step's span of the scroll [fully in, starts leaving], and the hand-over length. */
 const STEPS: [number, number][] = DAY_BEATS.map((d) => d.at);
-const XFADE = 0.025;
+const XFADE = 0.014;
 /**
  * Phones: the frame always covers the screen edge to edge (never a gap), at
  * the smallest scale that covers, top-aligned so the whole vehicle shows
@@ -555,13 +555,13 @@ export function FilmController() {
       const ST = phone ? PHONE_STEPS : STEPS;
       copies.forEach((el, i) => {
         const [a, b] = ST[i];
-        const inLen = phone ? 0.07 : XFADE * 2.2;
-        const outLen = phone ? 0.05 : XFADE;
+        const inLen = phone ? 0.018 : XFADE * 1.2;
+        const outLen = phone ? 0.015 : XFADE;
         const enter = ramp(a - inLen, a, p);
         const leave = ramp(b, b + outLen, p);
         if (phone) {
           fade(el, ramp(a - inLen, a - inLen * 0.4, p) * (1 - ramp(b + outLen * 0.35, b + outLen, p)));
-          const y = (1 - enter) * 0.22 * vh - leave * 0.2 * vh;
+          const y = (1 - enter) * 0.12 * vh - leave * 0.1 * vh;
           el.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0)`;
         } else {
           fade(el, ramp(a - XFADE, a, p) * (1 - leave));
