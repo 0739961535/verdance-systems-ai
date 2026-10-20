@@ -2,9 +2,9 @@ import film from "../flight/film-manifest.json";
 import { StatementFill } from "./StatementFill";
 
 /**
- * 04 Promise: the outcome, once, very big, under a cloud plate from the
- * film (continuity, darker so it is not a second hero). Words fill with
- * ink as the section scrolls into view (StatementFill sets --p).
+ * 04 Promise: the outcome, once, very big, under the earth from orbit (the
+ * film's last scene without the rocket, darker so it is not a second hero).
+ * Words fill with ink as the section scrolls into view (StatementFill sets --p).
  */
 const v = film.v;
 const WORDS = "Every enquiry answered. Every follow-up done. Your team's hours".split(" ");
@@ -29,9 +29,11 @@ export function StatementChapter() {
     <section className="st relative bg-[#060B1A] pb-24 text-[#F2F5FC] lg:pb-40" aria-labelledby="promise-title">
       <style>{CSS}</style>
       <div className="st-plate" aria-hidden>
+        {/* the earth from orbit, with no rocket in it: the film's last frame
+            already shows the rocket, so a second one here read as a glitch */}
         <picture>
-          <source media="(max-width: 767px)" srcSet={`/flight/film/m-059.webp?v=${v}`} />
-          <img src={`/flight/film/d-054.webp?v=${v}`} alt="" width={1600} height={904} loading="lazy" decoding="async" />
+          <source type="image/avif" srcSet={`/flight/plate-earth.avif?v=${v}`} />
+          <img src={`/flight/plate-earth.webp?v=${v}`} alt="" width={1600} height={330} loading="lazy" decoding="async" />
         </picture>
       </div>
       <div className="container-wide relative -mt-16 lg:-mt-24">
