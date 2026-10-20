@@ -2425,7 +2425,7 @@ html.js .laptop[data-ssr] .wa-stack > * { opacity: 1; animation: none; }
    stagger. Never on the film. Reduced motion: nothing is hidden.
    ============================================================ */
 @media (prefers-reduced-motion: no-preference) {
-  [data-reveal][data-armed], [data-reveal="wipe"][data-armed], [data-reveal="scale"][data-armed], [data-reveal="wipe"][data-armed]:has(.sw) {
+  [data-reveal][data-armed], [data-reveal="wipe"][data-armed], [data-reveal="scale"][data-armed] {
     transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0s), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0s);
   }
   [data-reveal][data-armed]:not([data-revealed]), [data-reveal="wipe"][data-armed]:not([data-revealed]), [data-reveal="scale"][data-armed]:not([data-revealed]) {
@@ -2491,25 +2491,21 @@ html:has(.flm) .site-grain { display: none; }
 .sw { display: inline-block; overflow: clip; vertical-align: top; padding-bottom: 0.1em; margin-bottom: -0.1em; }
 .sw-i { display: inline-block; }
 @media (prefers-reduced-motion: no-preference) {
-  [data-reveal][data-armed]:has(.sw), [data-reveal="wipe"][data-armed]:has(.sw) { transition: none; }
-  [data-reveal][data-armed]:has(.sw):not([data-revealed]) { opacity: 1; transform: none; }
   [data-reveal][data-armed] .sw-i { transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--reveal-delay, 0s) + var(--i, 0) * 60ms); }
   [data-reveal][data-armed]:not([data-revealed]) .sw-i { transform: translate3d(0, 105%, 0); }
-  /* the rest of a revealed block fades in after the words */
-  [data-reveal][data-armed]:has(.sw) > :not(h2):not(h3) { transition: opacity 0.6s ease-out calc(var(--reveal-delay, 0s) + 0.35s); }
-  [data-reveal][data-armed]:has(.sw):not([data-revealed]) > :not(h2):not(h3) { opacity: 0; }
 }
 
 /* ignition (1.4s on load, then the first scroll flares the engines) */
-.flm-ignite { position: absolute; inset: 0; z-index: 1; pointer-events: none; --bx: 62%; --by: 90%; }
-@media (max-width: 767px) { .flm-ignite { --bx: 50%; --by: 91%; } }
+.flm-ignite { position: absolute; inset: 0; z-index: 1; pointer-events: none; --bx: 62%; --by: 90%; --ly: 92.5%; }
+/* phones: the vertical film's pad sits a little higher */
+@media (max-width: 767px) { .flm-ignite { --bx: 50%; --by: 83%; --ly: 87.5%; } }
 .flm-glow {
   position: absolute; left: var(--bx); top: var(--by); width: 52vmin; height: 30vmin;
   background: radial-gradient(closest-side, rgba(220, 230, 255, 0.8), rgba(77, 124, 255, 0.35) 45%, rgba(77, 124, 255, 0));
   opacity: 0; transform: translate(-50%, -50%) scale(0.6);
 }
 .flm-lights {
-  position: absolute; left: 0; right: 0; top: 92.5%; height: 12px; transform: translateY(-50%);
+  position: absolute; left: 0; right: 0; top: var(--ly); height: 12px; transform: translateY(-50%);
   background: radial-gradient(circle, rgba(255, 214, 160, 0.95) 0 1.5px, rgba(255, 214, 160, 0) 4px) 0 50% / 74px 12px repeat-x;
   opacity: 0.85;
   -webkit-mask-image: linear-gradient(90deg, #000 50%, transparent 50%); mask-image: linear-gradient(90deg, #000 50%, transparent 50%);

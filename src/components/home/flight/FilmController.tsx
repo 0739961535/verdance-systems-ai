@@ -39,6 +39,8 @@ const STEPS: [number, number][] = [
   [0.67, 0.95],
 ];
 const XFADE = 0.025;
+/** Crossfade to the next frame while scrolling (phones). Off: it cost a second full draw per frame change. */
+const BLEND = false as boolean;
 
 /** The file nearest to source frame `src` (binary search). */
 function fileFor(set: FrameSet, src: number) {
@@ -188,7 +190,7 @@ export function FilmController() {
       if (w && h && (w !== cw || h !== ch)) {
         cw = canvas.width = canvasB.width = w;
         ch = canvas.height = canvasB.height = h;
-        for (const c of [ctx, ctxB]) if (c) { c.imageSmoothingEnabled = true; c.imageSmoothingQuality = "high"; }
+        for (const c of [ctx, ctxB]) if (c) c.imageSmoothingEnabled = true;
         drawn = -1;
         drawnB = -1;
         drawnHi = -1;
@@ -254,6 +256,7 @@ export function FilmController() {
       if (blend > 0.5 && target + 1 < set.count && bitmaps.has(target + 1)) target++;
       blend = 0;
       settled = true;
+      if (drawnZoom !== zoom) drawn = -1;
       draw();
       loadHi(target);
       loadHi(target + 1);
@@ -263,7 +266,12 @@ export function FilmController() {
       const hit = nearestBitmap(target);
       if (!hit || !cw) return;
       const hd = settled && hit.at === target ? hiBitmaps.get(target) : undefined;
-      if (!(hit.at === drawn && drawnGen === generation && drawnOff === offset && drawnZoom === zoom && drawnHi === (hd ? target : -1))) {
+      // redraw only when the frame (or its HD version) changes: the zoom
+      // rides along with frame changes, so no full-canvas paint per scroll
+      // frame; settling redraws at the exact zoom
+      if (!(hit.at === drawn && drawnGen === generation && drawnOff === offset && drawnHi === (hd ? target : -1))) {
+        // "high" resampling is costly per draw: only for the frame at rest
+        ctx.imageSmoothingQuality = settled ? "high" : "low";
         place(ctx, hd ?? hit.bmp);
         drawnOff = offset;
         drawn = hit.at;
@@ -275,8 +283,9 @@ export function FilmController() {
       }
       // the next frame on the blend layer, drawn once per frame change
       // phones only: desktop has frames enough, and full-width draws cost more
-      const next = set === PHONE && hit.at === target ? bitmaps.get(target + 1) : undefined;
+      const next = BLEND && set === PHONE && hit.at === target ? bitmaps.get(target + 1) : undefined;
       if (next && ctxB && drawnB !== target + 1) {
+        ctxB.imageSmoothingQuality = "low";
         place(ctxB, next);
         drawnB = target + 1;
       }
