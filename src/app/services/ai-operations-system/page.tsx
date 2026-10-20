@@ -30,7 +30,10 @@ const JSON_LD = {
       serviceType: "Business operations team",
       description: AI_TEAM.meta.description,
       url: URL,
-      areaServed: { "@type": "Country", name: "South Africa" },
+      areaServed: [
+        { "@type": "Country", name: "South Africa" },
+        { "@type": "Country", name: "United Kingdom" },
+      ],
       provider: { "@id": `${SITE_URL}/#organization` },
     },
     {

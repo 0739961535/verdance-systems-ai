@@ -43,8 +43,8 @@ const BUILDS = [
 ] as const;
 
 const INCLUDES = [
-  ["Your numbers first", "A map of where time and money leak, in hours and rand, before anything is built."],
-  ["A plan in writing", "What we build first and what it should bring back, with a fixed price."],
+  ["Your numbers first", "A map of where time and money leak, in hours and money, before anything is built."],
+  ["A plan in writing", "What we build first, and what it should bring back."],
   ["Your voice", "Trained on your own answers and the way your team already talks."],
   ["Tested before it is live", "You try it yourself before a real customer sees it."],
   ["In your name", "Accounts, numbers and data are set up in your business's name."],

@@ -1,4 +1,4 @@
-import { CalendarCheck, Check, ClipboardList, Hammer, Map as MapIcon, Phone, type LucideIcon } from "lucide-react";
+import { CalendarCheck, ClipboardList, Hammer, Map as MapIcon, Phone, type LucideIcon } from "lucide-react";
 import { Reveal, SplitWords } from "@/components/primitives/Reveal";
 import { WorkVisualsStyle } from "@/components/home/inbox/WorkVisuals";
 import { HOW_VISUALS_CSS, HowVisual, type HowVisualKey } from "./HowVisuals";
@@ -51,7 +51,7 @@ const STEPS: Step[] = [
     word: "Map",
     timing: "Free",
     title: "Where time and money leak.",
-    body: "We put each gap in rand and hours, in order of what pays back fastest. The map is yours to keep, whatever you decide.",
+    body: "We put each gap in hours and money, in order of what pays back fastest. The map is yours to keep, whatever you decide.",
     bring: "Nothing. We do the sums.",
     vis: true,
   },
@@ -195,9 +195,6 @@ export function HowSteps() {
                 </span>
                 <span className="hs-node" aria-hidden>
                   <Icon strokeWidth={1.75} />
-                  <span className="hs-check">
-                    <Check strokeWidth={3} />
-                  </span>
                 </span>
                 <div className="hs-in" data-split={s.vis ? "" : undefined}>
                   <div>

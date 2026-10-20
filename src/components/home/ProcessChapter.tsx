@@ -15,7 +15,7 @@ const STILL = (n: string, ext: string) => `/flight/film/${n}.${ext}?v=${film.v}`
 
 const STEPS: ProcessStep[] = [
   { n: "01", word: "Call", icon: "call", timing: "30 minutes", sentence: "We hear how enquiries reach you today and where they get stuck." },
-  { n: "02", word: "Map", icon: "map", timing: "Free", sentence: "We show you where time and money leak, in rand and hours." },
+  { n: "02", word: "Map", icon: "map", timing: "Free", sentence: "We show you where time and money leak, in hours and money." },
   {
     n: "03",
     word: "Plan",

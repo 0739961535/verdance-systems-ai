@@ -32,7 +32,10 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
         serviceType: "Enquiry response and booking system",
         description: niche.meta.description,
         url,
-        areaServed: { "@type": "Country", name: "South Africa" },
+        areaServed: [
+        { "@type": "Country", name: "South Africa" },
+        { "@type": "Country", name: "United Kingdom" },
+      ],
         audience: { "@type": "BusinessAudience", name: niche.name },
         provider: { "@id": `${SITE_URL}/#organization` },
       },

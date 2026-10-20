@@ -30,7 +30,7 @@ const QUESTIONS: QA[] = [
   },
   {
     q: "What does it cost to find out?",
-    a: "Nothing. The call and the Operations Map are free, and you keep the map. If you want us to build, you get a fixed price in writing first.",
+    a: "Nothing. The call and the Operations Map are free, and you keep the map. If you want us to build, you get a written plan and the price for the first phase before anything starts.",
   },
   {
     q: "How much of my time does it take?",

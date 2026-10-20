@@ -51,7 +51,7 @@ const CSS = `
 
 const CALL = [
   "We look at how enquiries, follow-ups and admin run in your business today.",
-  "We show you where time and money leak, in hours and rand.",
+  "We show you where time and money leak, in hours and money.",
   "We tell you what we would build first, and what it should bring back.",
   "If we are not the right fit, we say so plainly. You keep what we found either way.",
 ];
@@ -78,7 +78,7 @@ export function BookingSection({ as = "section" }: { as?: "section" | "page" }) 
                 <div className="bks-who-n">You speak with Daniel Bouwer</div>
                 <div className="bks-who-r">Founder, Verdance Systems AI</div>
                 <p className="bks-who-p">
-                  Verdance builds AI systems for owner-led South African businesses. They answer your customers, follow up and do the
+                  Verdance builds AI systems for owner-led businesses. They answer your customers, follow up and do the
                   admin, on the tools you already use. The person on the call is the person who designs your build.
                 </p>
               </div>

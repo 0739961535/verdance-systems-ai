@@ -9,7 +9,7 @@ export const ORG_ID = `${SITE_URL}/#organization`;
 export const PERSON_ID = `${SITE_URL}/about#daniel-bouwer`;
 
 export const ORG_DESCRIPTION =
-  "Verdance Systems AI builds AI systems and the Operations Team for owner-led South African businesses: every enquiry answered within 60 seconds, every follow-up done, and the team's hours back. Live in 10 working days. It starts with a free Operations Map.";
+  "Verdance Systems AI builds AI systems and the Operations Team for owner-led businesses: every enquiry answered within 60 seconds, every follow-up done, and the team's hours back. Live in 10 working days. It starts with a free Operations Map.";
 
 export const PERSON_LD = {
   "@type": "Person",
@@ -17,7 +17,7 @@ export const PERSON_LD = {
   name: "Daniel Bouwer",
   jobTitle: "Founder",
   description:
-    "Founder of Verdance Systems AI. Builds AI systems that answer enquiries and follow up for owner-led businesses in South Africa.",
+    "Founder of Verdance Systems AI. Builds AI systems that answer enquiries and follow up for owner-led businesses.",
   url: `${SITE_URL}/about`,
   worksFor: { "@id": ORG_ID },
   nationality: { "@type": "Country", name: "South Africa" },
@@ -37,6 +37,7 @@ export const ORGANIZATION_LD = {
   founder: { "@id": PERSON_ID },
   areaServed: [
     { "@type": "Country", name: "South Africa" },
+    { "@type": "Country", name: "United Kingdom" },
     { "@type": "AdministrativeArea", name: "Gauteng" },
     { "@type": "AdministrativeArea", name: "Western Cape" },
     { "@type": "AdministrativeArea", name: "KwaZulu-Natal" },
@@ -75,7 +76,7 @@ export const ORGANIZATION_LD = {
           "@type": "Service",
           name: "The Operations Map",
           description:
-            "A free 30-minute call that shows where time and money leak in your enquiries, follow-up and admin, in rand and hours, and what to fix first.",
+            "A free 30-minute call that shows where time and money leak in your enquiries, follow-up and admin, in hours and money, and what to fix first.",
         },
       },
       {

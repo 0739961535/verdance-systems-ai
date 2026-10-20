@@ -153,6 +153,24 @@ const consentLine = (yes: boolean) =>
     ? `Text and WhatsApp consent: yes, ticked on the booking page ("${TEXT_CONSENT}")`
     : "Text and WhatsApp consent: not given. Contact by email about this call only.";
 
+/** An IANA time zone name from the browser, or "". */
+export function cleanZone(raw: unknown): string {
+  if (typeof raw !== "string" || !/^[A-Za-z_]+(\/[A-Za-z0-9_+-]+){0,2}$/.test(raw) || raw.length > 64) return "";
+  try {
+    new Intl.DateTimeFormat("en-GB", { timeZone: raw });
+    return raw;
+  } catch {
+    return "";
+  }
+}
+
+const visitorTime = (slot: string, tz: string) => {
+  const ms = Date.parse(slot);
+  if (!tz || tz === "Africa/Johannesburg" || !Number.isFinite(ms)) return "";
+  const f = new Intl.DateTimeFormat("en-GB", { weekday: "long", hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: tz, timeZoneName: "short" });
+  return `Their time: ${f.format(ms)} (${tz})`;
+};
+
 /** The booking as a plain-text CRM note. */
 export function bookingNote(p: {
   name: string;
@@ -162,10 +180,12 @@ export function bookingNote(p: {
   timeTaker: TimeTaker;
   source: string;
   utms: Record<string, string>;
+  tz?: string;
 }): string {
   const lines = [
     "Website booking",
     `Call: ${fmtWhen(p.slot)}`,
+    ...(visitorTime(p.slot, p.tz ?? "") ? [visitorTime(p.slot, p.tz ?? "")] : []),
     `Name: ${p.name}`,
     `Business: ${p.business}`,
     `What takes up the team's time: ${timeLine(p.timeTaker)}`,

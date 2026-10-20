@@ -82,7 +82,7 @@ export function RecentWork() {
         <div className="max-w-3xl" data-reveal="">
           <p className="eyebrow">Proof</p>
           <h2 id="work-title" className="h2 mt-4">
-            <SplitWords text="Built and running for South African" /> <span>businesses.</span>
+            <SplitWords text="Built and running for owner-led" /> <span>businesses.</span>
           </h2>
           <p className="lead mt-6">Two recent builds. Client names stay private.</p>
         </div>

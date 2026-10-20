@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { clientIp, clip, tooMany } from "@/lib/api-guard";
 import { addNote, createAppointment, creds, dryRun, signTicket, upsertContact } from "@/lib/booking-server";
-import { bookingNote, cleanSource, cleanTimeTaker, cleanUtms } from "@/components/booking/questions";
+import { bookingNote, cleanSource, cleanTimeTaker, cleanUtms, cleanZone } from "@/components/booking/questions";
 
 /**
  * POST /api/booking/book
@@ -59,7 +59,7 @@ export async function POST(req: Request) {
   const booked = await createAppointment(cr, { contactId, slot, title: `Call: ${name} (${business})` });
   if (!booked) return NextResponse.json({ error: "slot_taken" }, { status: 409 });
 
-  const saved = await addNote(cr, contactId, bookingNote({ name, business, slot, textConsent, timeTaker, source, utms }));
+  const saved = await addNote(cr, contactId, bookingNote({ name, business, slot, textConsent, timeTaker, source, utms, tz: cleanZone(body.tz) }));
   if (!saved) console.warn("booking note not saved");
 
   return NextResponse.json({ ok: true, ticket: signTicket(contactId), ...(dryRun() ? { dryRun: true } : {}) });

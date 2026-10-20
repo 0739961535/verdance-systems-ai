@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/industries" },
   openGraph: {
     title: "Industries | Verdance Systems AI",
-    description: "Five current offers, each built around how one kind of South African business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
+    description: "Five current offers, each built around how one kind of business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
     url: `${SITE_URL}/industries`,
     type: "website",
     siteName: "Verdance Systems AI",
@@ -24,11 +24,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Industries | Verdance Systems AI",
-    description: "Five current offers, each built around how one kind of South African business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
+    description: "Five current offers, each built around how one kind of business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
   },
   title: "Industries | Verdance Systems AI",
   description:
-    "Five current offers, each built around how one kind of South African business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
+    "Five current offers, each built around how one kind of business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
 };
 
 const PAIN: Record<string, string> = Object.fromEntries(MORE_ENTRIES.map((e) => [e.slug, e.pain]));

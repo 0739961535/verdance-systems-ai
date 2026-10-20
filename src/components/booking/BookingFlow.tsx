@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { SITE } from "@/data/site";
 import { isBookingUrl, track } from "@/lib/analytics";
@@ -32,24 +32,58 @@ type Day = { date: string; slots: string[] };
 type SlotState = "idle" | "loading" | "ready" | "error";
 type Step = "time" | "details" | "done" | "prepared" | "requested";
 
-const TZ = "Africa/Johannesburg";
+const SA = "Africa/Johannesburg";
 const fmtWeekday = new Intl.DateTimeFormat("en-GB", { weekday: "short", timeZone: "UTC" });
 const fmtDayNum = new Intl.DateTimeFormat("en-GB", { day: "numeric", timeZone: "UTC" });
 const fmtMonth = new Intl.DateTimeFormat("en-GB", { month: "long", year: "numeric", timeZone: "UTC" });
 const fmtDayLong = new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" });
-const fmtLong = new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: TZ });
-const fmtTime = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: TZ });
+const fmtSA = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: SA });
 
 const noon = (date: string) => new Date(`${date}T12:00:00Z`);
-const timeLabel = (slot: string) => {
-  const ms = Date.parse(slot);
-  return Number.isFinite(ms) ? fmtTime.format(ms) : slot.slice(11, 16);
+/** The visitor's time zone: Daniel's (SAST) on the server and during hydration, theirs after. */
+const noopSubscribe = () => () => {};
+const browserZone = () => {
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone || SA;
+  } catch {
+    return SA;
+  }
 };
-const longLabel = (slot: string) => {
-  const ms = Date.parse(slot);
-  return Number.isFinite(ms) ? `${fmtLong.format(ms)} at ${fmtTime.format(ms)}` : slot;
-};
-const todaySA = () => new Intl.DateTimeFormat("en-CA", { timeZone: TZ }).format(new Date());
+function useVisitorZone(): string {
+  return useSyncExternalStore(noopSubscribe, browserZone, () => SA);
+}
+
+/** Formatting for one time zone: slot times, long dates, the zone's name and abbreviation. */
+function zoneTools(tz: string) {
+  let zone = tz;
+  try {
+    new Intl.DateTimeFormat("en-GB", { timeZone: zone });
+  } catch {
+    zone = SA;
+  }
+  const time = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: zone });
+  const long = new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: zone });
+  const ymd = new Intl.DateTimeFormat("en-CA", { timeZone: zone });
+  const short = new Intl.DateTimeFormat("en-GB", { timeZone: zone, timeZoneName: "short" });
+  const abbr = (ms = Date.now()) => (zone === SA ? "SAST" : (short.formatToParts(ms).find((p) => p.type === "timeZoneName")?.value ?? ""));
+  const name =
+    zone === SA
+      ? "South African time"
+      : zone === "Europe/London"
+        ? "UK time"
+        : `${(zone.split("/").pop() || zone).replace(/_/g, " ")} time`;
+  const ms = (slot: string) => Date.parse(slot);
+  return {
+    zone,
+    isSA: zone === SA,
+    name,
+    abbr,
+    dateOf: (slot: string) => ymd.format(ms(slot)),
+    today: () => ymd.format(new Date()),
+    timeLabel: (slot: string) => (Number.isFinite(ms(slot)) ? time.format(ms(slot)) : slot.slice(11, 16)),
+    longLabel: (slot: string) => (Number.isFinite(ms(slot)) ? `${long.format(ms(slot))} at ${time.format(ms(slot))}` : slot),
+  };
+}
 const addDays = (date: string, n: number) => new Date(noon(date).getTime() + n * 86_400_000).toISOString().slice(0, 10);
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
@@ -69,6 +103,8 @@ function storedUtms(): Record<string, string> {
 }
 
 export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
+  const tz = useVisitorZone();
+  const z = useMemo(() => zoneTools(tz), [tz]);
   const [step, setStep] = useState<Step>("time");
   const [slotState, setSlotState] = useState<SlotState>("idle");
   const [days, setDays] = useState<Day[]>([]);
@@ -110,7 +146,7 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
         const list = (d.days ?? []).filter((x) => x.slots?.length);
         if (!list.length) throw new Error("empty");
         setDays(list);
-        setDate((cur) => (cur && list.some((x) => x.date === cur) ? cur : list[0].date));
+        setDate(null);
         setTestMode(!!d.dryRun);
         setSlotState("ready");
       })
@@ -199,19 +235,31 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
   }, [step, prepState]);
 
   /* ---------- calendar grid: two weeks from this Monday ---------- */
+  // The calendar's days in the visitor's own zone: a slot can fall on a
+  // different date there than in South Africa.
+  const localDays = useMemo<Day[]>(() => {
+    const map = new Map<string, string[]>();
+    for (const d of days) for (const t of d.slots) {
+      const key = z.dateOf(t);
+      map.set(key, [...(map.get(key) ?? []), t]);
+    }
+    return [...map.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([date, slots]) => ({ date, slots }));
+  }, [days, z]);
+  const activeDate = date && localDays.some((d) => d.date === date) ? date : (localDays[0]?.date ?? null);
+
   const grid = useMemo(() => {
-    const today = todaySA();
+    const today = z.today();
     const wd = (noon(today).getUTCDay() + 6) % 7; // Monday = 0
     const start = addDays(today, -wd);
-    const byDate = new Map(days.map((d) => [d.date, d]));
-    const last = days.length ? days[days.length - 1].date : today;
+    const byDate = new Map(localDays.map((d) => [d.date, d]));
+    const last = localDays.length ? localDays[localDays.length - 1].date : today;
     const weeks = Math.min(3, Math.max(2, Math.ceil(((noon(last).getTime() - noon(start).getTime()) / 86_400_000 + 1) / 7)));
     return Array.from({ length: weeks * 7 }, (_, i) => {
       const dt = addDays(start, i);
       return { date: dt, day: byDate.get(dt) ?? null, past: dt < today };
     });
-  }, [days]);
-  const selectedDay = days.find((d) => d.date === date) ?? null;
+  }, [localDays, z]);
+  const selectedDay = localDays.find((d) => d.date === activeDate) ?? null;
   const monthLabel = (() => {
     if (!grid.length) return "";
     const first = fmtMonth.format(noon(grid[0].date));
@@ -238,6 +286,7 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
     timeTaker: { picks, other: other.trim() },
     source: source.current,
     utm: storedUtms(),
+    tz: z.zone,
     website: honey,
   });
 
@@ -328,7 +377,7 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
           <FounderPortrait size="face" />
           <div className="bk-host-t">
             <span className="bk-host-n">Free 30-minute call with {FOUNDER.name.split(" ")[0]}</span>
-            <span className="bk-meta">Video call · South African time · Nothing to sign</span>
+            <span className="bk-meta">Video call · {z.name} · Nothing to sign</span>
           </div>
         </div>
         {testMode && <p className="bk-test">Test mode. Nothing is booked and no one is contacted.</p>}
@@ -390,7 +439,7 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
                           type="button"
                           className="bk-dc"
                           disabled={!open}
-                          aria-pressed={open ? c.date === date : undefined}
+                          aria-pressed={open ? c.date === activeDate : undefined}
                           aria-label={`${fmtDayLong.format(noon(c.date))}${open ? `, ${c.day!.slots.length} times free` : ", no times"}`}
                           onClick={() => {
                             setDate(c.date);
@@ -410,18 +459,20 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
                     <div className="bk-times" role="group" aria-label={`Times on ${fmtDayLong.format(noon(selectedDay.date))}`}>
                       {selectedDay.slots.map((t) => (
                         <button key={t} type="button" className="bk-time" aria-pressed={slot === t} onClick={() => setSlot(t)}>
-                          {timeLabel(t)}
+                          {z.timeLabel(t)}
                         </button>
                       ))}
                     </div>
-                    <p className="bk-meta bk-tz">South African time (SAST, GMT+2)</p>
+                    <p className="bk-meta bk-tz">
+                      Times shown in {z.name} ({z.abbr()}).{!z.isSA && " Daniel is in South Africa (SAST)."}
+                    </p>
                   </div>
                 )}
               </div>
             )}
             {slotState === "ready" && (
               <button type="button" className="btn btn-accent bk-primary" disabled={!slot} onClick={() => go("details")}>
-                {slot ? `Continue with ${fmtWeekday.format(noon(slot.slice(0, 10)))} ${timeLabel(slot)}` : "Choose a time to continue"}
+                {slot ? `Continue with ${fmtWeekday.format(noon(z.dateOf(slot)))} ${z.timeLabel(slot)}` : "Choose a time to continue"}
                 {slot && <ArrowRight size={16} aria-hidden />}
               </button>
             )}
@@ -451,7 +502,7 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
                 </h3>
                 {slot && (
                   <p className="bk-chosen">
-                    <Check size={15} aria-hidden /> {longLabel(slot)} <span className="bk-meta">SAST</span>
+                    <Check size={15} aria-hidden /> {z.longLabel(slot)} <When slot={slot} z={z} />
                   </p>
                 )}
               </>
@@ -480,7 +531,7 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
                   <input id="bk-email" className="bk-input" type="email" inputMode="email" autoComplete="email" maxLength={160} value={email} onChange={(e) => setEmail(e.target.value)} aria-invalid={showErrors && !!errs.email} aria-describedby={showErrors && errs.email ? "bk-email-err" : undefined} />
                 </Field>
                 <Field id="bk-phone" label="Mobile (optional)" err={showErrors ? errs.phone : ""}>
-                  <input id="bk-phone" className="bk-input" type="tel" inputMode="tel" autoComplete="tel" maxLength={40} placeholder="+27" value={phone} onChange={(e) => setPhone(e.target.value)} aria-invalid={showErrors && !!errs.phone} aria-describedby={showErrors && errs.phone ? "bk-phone-err" : undefined} />
+                  <input id="bk-phone" className="bk-input" type="tel" inputMode="tel" autoComplete="tel" maxLength={40} placeholder={z.zone === "Europe/London" ? "+44" : "+27"} value={phone} onChange={(e) => setPhone(e.target.value)} aria-invalid={showErrors && !!errs.phone} aria-describedby={showErrors && errs.phone ? "bk-phone-err" : undefined} />
                 </Field>
               </div>
               <label className="bk-consent">
@@ -550,7 +601,7 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
               Your call is booked.
             </h3>
             <p className="bk-when">
-              {longLabel(slot)} <span className="bk-meta">SAST</span>
+              {z.longLabel(slot)} <When slot={slot} z={z} />
             </p>
             <p className="bk-p">An invitation with the video link is on its way to {email.trim()}.</p>
 
@@ -610,7 +661,7 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
                   Thank you. An honest note.
                 </h3>
                 <p className="bk-p">
-                  Your call on {longLabel(slot)} is still booked. From your answers, a full system may be more than your business needs right
+                  Your call on {z.longLabel(slot)} ({z.abbr(Date.parse(slot))}) is still booked. From your answers, a full system may be more than your business needs right
                   now. We do our best work with teams handling a steady flow of enquiries every week.
                 </p>
                 <p className="bk-p">We will still tell you plainly what is worth doing at your size, even if that is nothing from us yet. If you would rather not use the time, a quick WhatsApp is enough to cancel.</p>
@@ -633,7 +684,7 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
                   {prepState === "sent" ? "Thank you. We will come prepared." : "All set."}
                 </h3>
                 <p className="bk-when">
-                  {longLabel(slot)} <span className="bk-meta">SAST</span>
+                  {z.longLabel(slot)} <When slot={slot} z={z} />
                 </p>
                 <NextSteps />
               </>
@@ -657,6 +708,17 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
         )}
       </div>
     </div>
+  );
+}
+
+/** The zone after a chosen time, plus Daniel's SAST time when the visitor is elsewhere. */
+function When({ slot, z }: { slot: string; z: ReturnType<typeof zoneTools> }) {
+  const ms = Date.parse(slot);
+  return (
+    <span className="bk-meta">
+      {z.abbr(ms)}
+      {!z.isSA && Number.isFinite(ms) && ` · ${fmtSA.format(ms)} SAST for Daniel`}
+    </span>
   );
 }
 

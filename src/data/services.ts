@@ -141,7 +141,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["voice-ai", "booking-calendar", "follow-up-nurture"],
     seoTitle: "WhatsApp Automation for Business, South Africa",
     seoDescription:
-      "WhatsApp automation for South African businesses: every WhatsApp, website chat, Instagram and SMS message answered within 60 seconds, day or night, and booked into your diary.",
+      "WhatsApp automation for owner-led businesses: every WhatsApp, website chat, Instagram and SMS message answered within 60 seconds, day or night, and booked into your diary.",
   },
   {
     slug: "voice-ai",
@@ -187,7 +187,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["conversation-ai", "follow-up-nurture", "booking-calendar"],
     seoTitle: "AI Receptionist South Africa: Every Call Answered",
     seoDescription:
-      "An AI receptionist for South African businesses: every call answered, day or night, callers booked into your diary and urgent calls passed straight to you. Free Operations Map.",
+      "An AI receptionist for owner-led businesses: every call answered, day or night, callers booked into your diary and urgent calls passed straight to you. Free Operations Map.",
   },
   {
     slug: "crm-pipeline",
@@ -233,7 +233,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["conversation-ai", "booking-calendar", "analytics-compliance"],
     seoTitle: "CRM Setup and Automation, South Africa",
     seoDescription:
-      "Keep every customer, enquiry and job in one place. Records fill themselves in from calls, messages and bookings, so nothing slips through. Set up for South African businesses.",
+      "Keep every customer, enquiry and job in one place. Records fill themselves in from calls, messages and bookings, so nothing slips through. Set up for owner-led businesses.",
   },
   {
     slug: "booking-calendar",
@@ -324,7 +324,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["conversation-ai", "lead-generation", "reputation-reviews"],
     seoTitle: "Missed Call Text Back and Follow-up, South Africa",
     seoDescription:
-      "Every missed call gets a text back in seconds, and quotes that go quiet are followed up politely in your voice. Built for owner-led South African businesses.",
+      "Every missed call gets a text back in seconds, and quotes that go quiet are followed up politely in your voice. Built for owner-led businesses.",
   },
   {
     slug: "payments-invoicing",
@@ -370,7 +370,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["booking-calendar", "crm-pipeline", "follow-up-nurture"],
     seoTitle: "Invoice Reminders and Payment Links, South Africa",
     seoDescription:
-      "Send invoices and payment links by WhatsApp, SMS or email, take deposits at booking and let polite reminders chase late payments. For South African businesses.",
+      "Send invoices and payment links by WhatsApp, SMS or email, take deposits at booking and let polite reminders chase late payments. For owner-led businesses.",
   },
   {
     slug: "reputation-reviews",
@@ -416,7 +416,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["follow-up-nurture", "marketing-social", "lead-generation"],
     seoTitle: "Google Review Automation, South Africa",
     seoDescription:
-      "Automatic Google review requests after every job, private feedback from unhappy customers first, and alerts with replies drafted for you. For South African businesses.",
+      "Automatic Google review requests after every job, private feedback from unhappy customers first, and alerts with replies drafted for you. For owner-led businesses.",
   },
   {
     slug: "websites-build",
@@ -462,7 +462,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["lead-generation", "conversation-ai", "marketing-social"],
     seoTitle: "Websites That Turn Visits into Enquiries, SA",
     seoDescription:
-      "Fast websites for South African businesses that show up on Google and turn visitors into enquiries, with chat, booking and enquiry forms built in. Free Operations Map.",
+      "Fast websites for owner-led businesses that show up on Google and turn visitors into enquiries, with chat, booking and enquiry forms built in. Free Operations Map.",
   },
   {
     slug: "marketing-social",
@@ -508,7 +508,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["websites-build", "lead-generation", "reputation-reviews"],
     seoTitle: "Social Media and Ads Management, South Africa",
     seoDescription:
-      "Regular social media posts in your voice, Facebook, Instagram and Google adverts checked every week, and newsletters to past customers. For South African businesses.",
+      "Regular social media posts in your voice, Facebook, Instagram and Google adverts checked every week, and newsletters to past customers. For owner-led businesses.",
   },
   {
     slug: "custom-builds",
@@ -548,7 +548,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["crm-pipeline", "analytics-compliance", "websites-build"],
     seoTitle: "Business Automation and AI Agents, South Africa",
     seoDescription:
-      "Custom automation for South African businesses: repetitive admin done for you, your existing tools connected, and an assistant trained on your own rules. Free Operations Map.",
+      "Custom automation for owner-led businesses: repetitive admin done for you, your existing tools connected, and an assistant trained on your own rules. Free Operations Map.",
   },
   {
     slug: "analytics-compliance",
@@ -558,10 +558,10 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     italicWord: "and stay on the right side of POPIA.",
     promise: "A clear monthly report on enquiries, bookings and money, with customer data handled the way POPIA requires.",
     description:
-      "You see how many people enquired, how fast they were answered and how many booked, in plain words and in rand. Customer data is collected with consent and can be exported or deleted on request, as POPIA (South Africa's privacy law) requires. Each month we suggest one thing to improve.",
+      "You see how many people enquired, how fast they were answered and how many booked, in plain words and in money terms. Customer data is collected with consent and can be exported or deleted on request, as POPIA (South Africa's privacy law) requires. Each month we suggest one thing to improve.",
     whatYouGet: [
       "A live dashboard of enquiries, reply times and bookings",
-      "A short monthly report in plain words, with the value in rand",
+      "A short monthly report in plain words, with the value in money terms",
       "Consent captured on every form, as POPIA requires",
       "Customer data that can be exported or deleted on request",
       "One clear suggestion each month on what to improve",

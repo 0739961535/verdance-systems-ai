@@ -17,7 +17,7 @@ import { CTA_PRIMARY, SITE_URL } from "@/data/site";
 
 const TITLE = "Services: WhatsApp, Calls and Bookings | Verdance";
 const DESCRIPTION =
-  "Twelve services for South African businesses: instant WhatsApp and message replies, phone answering, online booking, missed call text back, Google reviews, websites and more. Fixed quote after a free Operations Map.";
+  "Twelve services for owner-led businesses: instant WhatsApp and message replies, phone answering, online booking, missed call text back, Google reviews, websites and more. Fixed quote after a free Operations Map.";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/services" },
