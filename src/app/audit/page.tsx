@@ -22,10 +22,10 @@ images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: `${SI
 };
 
 const GET = [
-  { t: "Where your time goes", b: "Which jobs take the most hours each week, and which ones Verdance can do for you." },
-  { t: "How fast you reply", b: "How long customers wait on WhatsApp, email, calls and your website." },
-  { t: "What to fix first", b: "A short list, in order. It is yours to keep, even if we never work together." },
-  { t: "A plan in writing", b: "What we would build first, and what it should bring back. Nothing starts until you say yes." },
+  { t: "Time and capacity audit", b: "Which tasks consume the most hours each week, and which of them Verdance can take over." },
+  { t: "Response, delivery and onboarding times", b: "How long enquiries wait for a first response, and how long it takes to quote, deliver and onboard a new customer, across WhatsApp, email, calls and your website." },
+  { t: "Priority fixes", b: "A ranked shortlist of what to fix first. Yours to keep, even if we never work together." },
+  { t: "Written implementation plan", b: "What we would build first, the timeline to go-live and what it should return." },
 ];
 
 const STEPS = [
