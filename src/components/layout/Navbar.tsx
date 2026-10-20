@@ -42,6 +42,47 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // The header takes the tone of the section under it: dark glass with
+  // light text over navy and night bands, the cream bar over light ones.
+  // It samples the page just below the header, at most every 120ms while
+  // scrolling (no per-section markup needed, works on every page).
+  useEffect(() => {
+    const html = document.documentElement;
+    const header = document.querySelector<HTMLElement>("header");
+    let last = 0, timer = 0;
+    const bgOf = (start: Element | null) => {
+      for (let el = start; el && el !== document.body; el = el.parentElement) {
+        const c = getComputedStyle(el).backgroundColor;
+        const m = c.match(/rgba?\(([^)]+)\)/);
+        if (!m) continue;
+        const [r, g, b, a = 1] = m[1].split(/[ ,/]+/).map(Number);
+        if (a < 0.5) continue;
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      }
+      return 255;
+    };
+    const sample = () => {
+      timer = 0;
+      last = performance.now();
+      const y = (header?.offsetHeight ?? 64) + 4;
+      const under = document.elementsFromPoint(window.innerWidth / 2, y).find((el) => !header?.contains(el)) ?? null;
+      html.toggleAttribute("data-header-dark", bgOf(under) < 90);
+    };
+    const onScroll = () => {
+      if (timer) return;
+      timer = window.setTimeout(sample, Math.max(0, 120 - (performance.now() - last)));
+    };
+    sample();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (timer) window.clearTimeout(timer);
+      html.removeAttribute("data-header-dark");
+    };
+  }, [pathname]);
+
   return (
     <header
       className="enter-drop fixed inset-x-0 top-0 z-50 py-3.5 transition-[background-color,border-color,backdrop-filter] duration-300"
