@@ -79,7 +79,7 @@ const THREAD = [
 function ChatVisual() {
   return (
     <figure className="m-0">
-      <div aria-hidden className="overflow-hidden rounded-[18px] border border-white/[0.08] bg-[#0B0D12] text-[#E9EDEF]">
+      <div aria-hidden className="overflow-hidden rounded-[14px] border border-white/[0.08] bg-[#0A1226] text-[#E9EDEF]">
         <div className="flex items-center gap-3 border-b border-white/[0.06] px-4 py-3">
           <span className="grid h-9 w-9 place-items-center rounded-full bg-[#1D3F8F] text-[0.8rem] font-semibold">S</span>
           <span>
@@ -102,7 +102,7 @@ function ChatVisual() {
           ))}
         </ul>
       </div>
-      <figcaption className="mt-3 text-[0.8125rem] text-[color:var(--color-ink-muted)]">
+      <figcaption className="mt-3 text-[0.8125rem] italic text-[color:var(--color-ink-muted)]">
         Illustration of the kind of thread it handles. The customer and order are made up.
       </figcaption>
     </figure>
@@ -114,7 +114,7 @@ export function RecentWork() {
     <section className="bg-canvas-2 pt-10 pb-12 md:pt-20 md:pb-16" aria-labelledby="work-title">
       <div className="container-wide">
         <div className="max-w-3xl" data-reveal="">
-          <p className="eyebrow">Recent work</p>
+          <p className="eyebrow"><span className="chap-n">05</span> Proof</p>
           <h2 id="work-title" className="h2 mt-5">
             Built and running for South African businesses.
           </h2>

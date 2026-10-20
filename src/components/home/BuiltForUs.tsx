@@ -9,8 +9,8 @@ import { ArrowRight } from "lucide-react";
  */
 
 const C = {
-  bg: "#07090E",
-  panel: "#0B0E15",
+  bg: "#060B1A",
+  panel: "#0A1226",
   line: "rgba(255,255,255,0.08)",
   ink: "#EDEFF3",
   soft: "rgba(237,239,243,0.76)",
@@ -39,7 +39,7 @@ function CommandPanel() {
     <div
       role="img"
       aria-label="Illustration of our command centre: a morning brief, and drafted messages waiting for approval"
-      className="overflow-hidden rounded-[20px]"
+      className="overflow-hidden rounded-[22px]"
       style={{ background: C.panel, border: `1px solid ${C.line}` }}
     >
       <div className="flex items-center justify-between px-5 py-3.5" style={{ borderBottom: `1px solid ${C.line}` }}>
@@ -82,7 +82,7 @@ function CommandPanel() {
           </li>
         ))}
       </ul>
-      <p className="px-5 py-3 text-[0.8125rem]" style={{ color: C.muted }}>
+      <p className="px-5 py-3 text-[0.8125rem] italic" style={{ color: C.muted }}>
         Illustration. The wording is made up.
       </p>
     </div>
@@ -91,11 +91,11 @@ function CommandPanel() {
 
 export function BuiltForUs() {
   return (
-    <section className="py-20 md:py-28" style={{ background: C.bg, color: C.ink }} aria-labelledby="ours-title">
-      <div className="container-wide grid gap-10 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-16">
+    <section className="grain-dark py-20 md:py-28" style={{ background: C.bg, color: C.ink }} aria-labelledby="ours-title">
+      <div className="container-wide relative z-[1] grid gap-10 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-16">
         <div data-reveal="">
-          <p className="text-[0.8125rem] font-medium uppercase tracking-[0.14em]" style={{ color: C.accent }}>
-            Built for our own business
+          <p className="eyebrow" style={{ color: C.muted }}>
+            <span style={{ color: C.accent }}>07</span> Built for our own business
           </p>
           <h2
             id="ours-title"

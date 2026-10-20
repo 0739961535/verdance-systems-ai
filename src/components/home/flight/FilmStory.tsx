@@ -112,9 +112,8 @@ export function FilmStory() {
             {STAGES.map((s, i) => (
               <li key={s.n} className="fl-step" data-still={i === 1 ? "mid" : i === 2 ? "still" : undefined}>
                 <p className="fl-eyebrow">
-                  <span className="fl-eyebrow-rule" />
                   <span>
-                    Step {i + 1} of 3 · {s.name}
+                    <span className="chap-n">{s.n}</span> {s.name}
                   </span>
                 </p>
                 <h3 className="fl-title">{s.title}</h3>

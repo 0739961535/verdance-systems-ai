@@ -66,7 +66,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
             <span className="font-display text-[1.15rem] text-[color:var(--color-ink)]" style={{ fontWeight: 600, letterSpacing: "-0.035em" }}>
               Verdance
             </span>
-            <span className="font-serif text-[1.1rem] text-[color:var(--color-ink-muted)]">Systems AI</span>
+            <span className="font-display text-[0.7rem] font-medium uppercase tracking-[0.08em] text-[color:var(--color-ink-muted)]">Systems AI</span>
           </span>
         </Link>
 

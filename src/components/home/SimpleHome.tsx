@@ -72,12 +72,12 @@ export function WatchItWork() {
   return (
     <section className="section-pad bg-canvas-2" style={{ paddingBottom: "clamp(2.5rem, 6vw, 6rem)" }} aria-labelledby="watch-title">
       <div className="container-wide">
-        <Reveal variant="wipe" className="max-w-3xl md:mx-auto md:text-center">
-          <p className="eyebrow md:justify-center">Example: answering customers</p>
+        <Reveal variant="wipe" className="max-w-3xl">
+          <p className="eyebrow"><span className="chap-n">04</span> Demo</p>
           <h2 id="watch-title" className="h2 mt-5">
             <SplitWords text="Watch it work. Every message answered in seconds." />
           </h2>
-          <p className="mt-6 max-w-xl text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)] md:mx-auto">
+          <p className="mt-6 max-w-xl text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">
             Slow replies lose customers. People who wait too long ask someone else. So every message gets a reply in under a minute, day or night.
           </p>
         </Reveal>
@@ -95,7 +95,7 @@ export function WatchItWork() {
 /* ------------------------------------------------------------------ */
 /* Small real visuals, reused from the inbox demo and the Ashford panel
    (same sample wording, no new assets). Decorative: aria-hidden. */
-const MINI = "mt-6 max-w-[22rem] rounded-[16px] border border-white/[0.08] bg-[#0B0E15] p-3.5 text-[0.875rem] leading-[1.45] text-[#E9EDEF] md:mt-8 md:max-w-[28rem] md:p-5 md:text-[1rem] md:min-h-[9.5rem] md:content-center";
+const MINI = "mt-6 max-w-[22rem] rounded-[14px] border border-white/[0.08] bg-[#0A1226] p-3.5 text-[0.875rem] leading-[1.45] text-[#E9EDEF] md:mt-8 md:max-w-[28rem] md:p-5 md:text-[1rem] md:min-h-[9.5rem] md:content-center";
 const BUBBLE_IN = "w-fit max-w-[85%] rounded-[12px] rounded-tl-[4px] bg-[#1F2C34] px-3 py-2";
 const BUBBLE_OUT = "ml-auto w-fit max-w-[85%] rounded-[12px] rounded-tr-[4px] bg-[#1D3F8F] px-3 py-2";
 const TIME = "ml-2 text-[0.75rem] text-white/55";
@@ -156,7 +156,7 @@ export function WhatYouGet() {
       <div className="container-wide">
         <Reveal variant="wipe" className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
           <div className="max-w-3xl">
-            <p className="eyebrow">What you get</p>
+            <p className="eyebrow"><span className="chap-n">06</span> Services</p>
             <h2 id="get-title" className="h2 mt-5">
               <SplitWords text="Work that gets done." />
             </h2>
@@ -202,7 +202,7 @@ export function InControl() {
     <section className="section-pad bg-canvas-2" aria-labelledby="control-title">
       <div className="container-wide grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
         <Reveal variant="wipe">
-          <p className="eyebrow">Your business, your rules</p>
+          <p className="eyebrow"><span className="chap-n">08</span> Control</p>
           <h2 id="control-title" className="h2 mt-5">
             <SplitWords text="You stay in control." />
           </h2>
@@ -211,10 +211,12 @@ export function InControl() {
           </p>
         </Reveal>
         <ul className="grid gap-8 self-center">
-          {CONTROL.map(({ icon: Icon, text }, i) => (
+          {CONTROL.map(({ text }, i) => (
             <li key={text}>
               <Reveal delay={i * 0.06} className="flex items-start gap-5">
-                <Icon size={26} strokeWidth={1.6} aria-hidden className="mt-0.5 shrink-0 text-[color:var(--color-accent)]" />
+                <span aria-hidden className="mt-1 w-7 shrink-0 font-mono text-[0.875rem] text-[color:var(--color-accent)]">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
                 <div>
                   <p className="font-display text-[color:var(--color-ink)]" style={{ fontSize: "clamp(1.25rem, 0.8vw + 1rem, 1.6rem)", lineHeight: 1.25, letterSpacing: "-0.02em" }}>
                     {text}

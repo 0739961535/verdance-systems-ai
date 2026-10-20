@@ -25,6 +25,8 @@ const GROUPS: FooterGroup[] = [
       { href: "/ai-agency", label: "Where we work" },
       { href: "/contact", label: "Contact" },
       { href: SITE.linkedin, label: "LinkedIn", external: true },
+      { href: "/privacy", label: "Privacy policy" },
+      { href: "/terms", label: "Terms" },
     ],
   },
   {
@@ -35,6 +37,8 @@ const GROUPS: FooterGroup[] = [
       { href: "/services/conversation-ai", label: "Message replies" },
       { href: "/services/voice-ai", label: "Phone answering" },
       { href: "/services/follow-up-nurture", label: "Follow-up" },
+      { href: "/audit", label: "Free Operations Map" },
+      { href: "/missed-call-calculator", label: "Missed call calculator" },
     ],
   },
   {
@@ -46,20 +50,6 @@ const GROUPS: FooterGroup[] = [
         // Long niche names read better trimmed at the colon in a footer.
         label: n.name.split(":")[0],
       })),
-    ],
-  },
-  {
-    title: "Free tools",
-    links: [
-      { href: "/audit", label: "Free Operations Map" },
-      { href: "/missed-call-calculator", label: "Missed call calculator" },
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      { href: "/privacy", label: "Privacy policy" },
-      { href: "/terms", label: "Terms" },
     ],
   },
 ];
@@ -166,7 +156,7 @@ export function Footer() {
         {/* Link index: open columns from tablet up, folded groups on phones */}
         <nav
           aria-label="Footer"
-          className="mt-14 hidden grid-cols-3 gap-x-6 gap-y-10 border-t pt-10 md:mt-20 md:grid md:pt-14 lg:grid-cols-5"
+          className="mt-14 hidden grid-cols-3 gap-x-10 gap-y-10 border-t pt-10 md:mt-20 md:grid md:pt-14"
           style={{ borderColor: "var(--color-hairline)" }}
         >
           {GROUPS.map((group) => (
@@ -201,6 +191,15 @@ export function Footer() {
             </details>
           ))}
         </nav>
+
+        {/* The signature ending: the tagline, large, cropped by the page edge */}
+        <p
+          aria-hidden
+          className="font-display mt-16 select-none overflow-hidden whitespace-nowrap text-[color:var(--color-ink)] md:mt-24"
+          style={{ fontSize: "clamp(3rem, 9.5vw, 8rem)", lineHeight: 0.9, letterSpacing: "-0.045em" }}
+        >
+          We don&apos;t talk about AI. <span className="italic-accent">We ship it.</span>
+        </p>
 
         {/* Bottom line */}
         <div
