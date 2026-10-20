@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import film from "./film-manifest.json";
+import { DAY_BEATS } from "./dayBeats";
 
 /**
  * Drives FilmStory: scroll progress (GSAP ScrollTrigger, scrubbed) picks a
@@ -31,13 +32,7 @@ const PHONE: FrameSet = { prefix: "m", ...film.phone };
 const FILM_END = 0.86;
 const HERO_OUT = [0.015, 0.06];
 /** Each step's span of the scroll [fully in, starts leaving], and the hand-over length. */
-const STEPS: [number, number][] = [
-  [0.1, 0.31],
-  [0.38, 0.6],
-  // the last step (with its buttons) leaves before the next section starts
-  // to slide over the film (from about 0.94 of the scroll)
-  [0.67, 0.95],
-];
+const STEPS: [number, number][] = DAY_BEATS.map((d) => d.at);
 const XFADE = 0.025;
 /**
  * Phones: the frame always covers the screen edge to edge (never a gap), at
@@ -47,13 +42,9 @@ const XFADE = 0.025;
  * choosing which part of the frame is shown, never by moving the frame off
  * an edge; it eases to centre as it climbs. The poster's CSS matches.
  */
-const PHONE_PAD = { x: 0.65 };
+const PHONE_PAD = { x: 0.5 };
 /** Phones: each step's words hold here; they arrive from below and leave upward with the scroll. */
-const PHONE_STEPS: [number, number][] = [
-  [0.12, 0.28],
-  [0.4, 0.57],
-  [0.69, 0.95],
-];
+const PHONE_STEPS = STEPS;
 /** Crossfade to the next frame while scrolling (phones). Off: it cost a second full draw per frame change. */
 const BLEND = false as boolean;
 
@@ -231,10 +222,8 @@ export function FilmController() {
     const fills = qa<HTMLElement>(".fl-seg-fill");
     const segs = qa<HTMLElement>(".fl-seg");
     const hero = q<HTMLElement>(".flm-hero");
-    const cam = q<HTMLElement>(".flm-cam");
     const bars = qa<HTMLElement>(".flm-bar");
     const decoder = makeDecoder();
-    const ignite = q<HTMLElement>(".flm-ignite");
     const hud = q<HTMLElement>(".fl-hud");
     const botWash = q<HTMLElement>(".flm-bot");
     // Where the browser can, the canvas is handed to a worker that fetches,
@@ -550,11 +539,9 @@ export function FilmController() {
       hero.style.transform = `translate3d(0, ${((1 - h) * -24).toFixed(1)}px, 0)`;
       fade(hud, ramp(HERO_OUT[1] - 0.01, (set === PHONE ? PHONE_STEPS : STEPS)[0][0], p));
       // the ignition glow and pad lights give way as the rocket lifts
-      fade(ignite, 1 - ramp(0.02, 0.14, p));
       // ignition: a tiny camera shake on the first frames of the lift-off
       // only (whole pixels, so the film stays sharp)
-      const shk = p > 0.004 && p < 0.07 ? (1 - p / 0.07) * 3 : 0;
-      cam.style.transform = shk ? `translate3d(${Math.round(Math.sin(p * 900) * shk)}px, ${Math.round(Math.cos(p * 1300) * shk)}px, 0)` : "";
+
       // cinematic letterbox: the bars come in as the rocket lifts off and
       // open again at orbit
       const lb = ramp(0.05, 0.13, p) * (1 - ramp(0.6, 0.7, p));
@@ -595,7 +582,11 @@ export function FilmController() {
         const [a, b] = ST[i];
         el.style.transform = `scaleX(${clamp01((p - a + XFADE) / (b - a + XFADE)).toFixed(3)})`;
       });
-      setStage(p < ST[0][0] - XFADE ? -1 : p < ST[1][0] - XFADE ? 0 : p < ST[2][0] - XFADE ? 1 : 2);
+      let stage = -1;
+      ST.forEach(([a], i) => {
+        if (p >= a - XFADE) stage = i;
+      });
+      setStage(stage);
     };
     // The scroll drives the film through one requestAnimationFrame loop: the
     // shown progress eases toward the scroll position (0.18 of the way each

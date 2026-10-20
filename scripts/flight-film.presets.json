@@ -1,10 +1,24 @@
 {
+  "earth": {
+    "shots": "~/Verdance systems Ai /website-preview/earth-iss/b-desktop-4k.mp4",
+    "phoneShots": "~/Verdance systems Ai /website-preview/earth-iss/b-phone-2160.mp4",
+    "look": false,
+    "desktop": 240,
+    "phone": 200,
+    "focusX": 0.5,
+    "stillFrame": 1620,
+    "midFrame": 900,
+    "phoneHiWidth": 1216
+  },
   "dark": {
     "shots": "~/Verdance systems Ai /website-preview/rocket-v6/shots/dark",
     "phoneShots": "~/Verdance systems Ai /website-preview/rocket-v6/shots/vertical",
     "phoneEnd": 590,
     "phoneHiWidth": 1800,
-    "phoneDense": [340, 384],
+    "phoneDense": [
+      340,
+      384
+    ],
     "still": "~/Verdance systems Ai /website-preview/rocket-v6/starship/k3-b.png",
     "stillFrame": 480,
     "mid": "~/Verdance systems Ai /website-preview/rocket-v6/starship/k2-b.png",
@@ -14,13 +28,70 @@
     "desktop": 180,
     "phone": 160,
     "focusX": 0.64,
-    "dense": [306, 342],
-    "cx": [[0, 0.66], [120, 0.66], [160, 0.63], [240, 0.6], [330, 0.59], [350, 0.6], [400, 0.62], [480, 0.65], [520, 0.6], [560, 0.53], [640, 0.45], [720, 0.42]]
+    "dense": [
+      306,
+      342
+    ],
+    "cx": [
+      [
+        0,
+        0.66
+      ],
+      [
+        120,
+        0.66
+      ],
+      [
+        160,
+        0.63
+      ],
+      [
+        240,
+        0.6
+      ],
+      [
+        330,
+        0.59
+      ],
+      [
+        350,
+        0.6
+      ],
+      [
+        400,
+        0.62
+      ],
+      [
+        480,
+        0.65
+      ],
+      [
+        520,
+        0.6
+      ],
+      [
+        560,
+        0.53
+      ],
+      [
+        640,
+        0.45
+      ],
+      [
+        720,
+        0.42
+      ]
+    ]
   },
   "white": {
     "shots": "~/Verdance systems Ai /website-preview/rocket-v6/shots/white-backup",
     "desktop": 168,
     "phone": 72,
-    "cx": [[0, 0.63]]
+    "cx": [
+      [
+        0,
+        0.63
+      ]
+    ]
   }
 }

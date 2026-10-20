@@ -2248,8 +2248,9 @@ picture.fl-hull img { display: block; width: 100%; height: 100%; user-select: no
    ============================================================ */
 /* the last screen of the section is the hand-over (the next section slides
    over the film); the story uses the scroll before it */
-.flm { height: 420vh; height: 420svh; background: #060B1A; }
-@media (min-width: 1024px) { .flm { height: 500vh; } }
+/* a whole day to scroll through: seven beats, each with room to read */
+.flm { height: 820vh; height: 820svh; background: #060B1A; }
+@media (min-width: 1024px) { .flm { height: 900vh; } }
 .flm::before { display: none; }
 /* the exit: the next section slides up over the pinned film (the section's
    last screen overlaps it), so there is never a blank screen between them */
@@ -2262,13 +2263,13 @@ picture.fl-hull img { display: block; width: 100%; height: 100%; user-select: no
 /* no CSS scale on the film (it would blur the canvas): the pull-back is
    drawn into the canvas; the poster matches its first frame (1.06) */
 .flm-cam { position: absolute; inset: 0; }
-.flm-poster img { transform: scale(1.06); transform-origin: 63% 55%; }
+.flm-poster img { transform: scale(1.06); transform-origin: 50% 55%; }
 /* phones: the poster matches the canvas's first frame exactly (PHONE_PAD in
    FilmController): cover edge to edge, top-aligned, and as far right as
    the frame allows, which on phones is its left edge at the screen's. */
-@media (max-width: 767px) { .flm .flm-poster img { transform: none; object-position: 0% 0%; } }
+@media (max-width: 767px) { .flm .flm-poster img { transform: none; object-position: 50% 0%; } }
 .flm-poster { position: absolute; inset: 0; display: block; }
-.flm-poster img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 63%) 50%; }
+.flm-poster img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) 50%; }
 @media (max-width: 767px) { .flm-poster img { object-position: 50% 50%; } }
 .flm-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; }
 .flm[data-film] .flm-canvas { opacity: 1; }

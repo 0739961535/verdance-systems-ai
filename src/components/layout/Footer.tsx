@@ -218,7 +218,10 @@ export function Footer() {
               <Link href="/terms" className="underline underline-offset-4">Terms</Link>
             </p>
           </div>
-          <p>Built in South Africa. Your data stays in accounts you own. POPIA-ready.</p>
+          <div className="grid gap-1">
+            <p>Built in South Africa. Your data stays in accounts you own. POPIA-ready.</p>
+            <p>Launch footage and Earth imagery: NASA.</p>
+          </div>
           <ThemeToggle />
         </div>
       </div>

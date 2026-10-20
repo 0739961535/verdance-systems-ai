@@ -4,7 +4,7 @@ import { CTA_PRIMARY, SITE } from "@/data/site";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
 import { FilmController } from "./FilmController";
 import film from "./film-manifest.json";
-import { STAGES } from "./flightData";
+import { DAY_BEATS } from "./dayBeats";
 
 /**
  * The home page opens on the film (rocket v7, design review Oct 2026):
@@ -85,10 +85,6 @@ export function FilmStory() {
             <canvas className="flm-canvas" />
             <canvas className="flm-canvas flm-canvas-b" />
             {/* ignition: pad lights come on left to right, the engines glow */}
-            <div className="flm-ignite">
-              <span className="flm-lights" />
-              <span className="flm-glow" />
-            </div>
           </div>
         </div>
         <div className="flm-bot" aria-hidden />
@@ -105,19 +101,19 @@ export function FilmStory() {
           <Actions where="hero" />
           <p className="flm-cue" aria-hidden>
             <span className="flm-cue-tick" />
-            Scroll to launch
+            Scroll through a day
           </p>
         </div>
 
-        {/* ---------- progress through the three steps ---------- */}
+        {/* ---------- progress through the day ---------- */}
         <div className="fl-hud" aria-hidden>
-          {STAGES.map((s) => (
-            <span key={s.n} className="fl-seg">
+          {DAY_BEATS.filter((b) => !b.end).map((b) => (
+            <span key={b.time} className="fl-seg">
               <span className="fl-seg-track">
                 <span className="fl-seg-fill" />
               </span>
               <span className="fl-seg-label">
-                <span className="fl-seg-n">{s.n}</span> {s.name}
+                <span className="fl-seg-n">{b.time}</span>
               </span>
             </span>
           ))}
@@ -125,17 +121,19 @@ export function FilmStory() {
 
         {/* ---------- the words ---------- */}
         <div className="fl-copy">
-          <h2 className="sr-only">How it works, in three steps</h2>
+          <h2 className="sr-only">A day in your business, with Verdance</h2>
           <ol className="fl-steps">
-            {STAGES.map((s, i) => (
-              <li key={s.n} className="fl-step" data-still={i === 1 ? "mid" : i === 2 ? "still" : undefined}>
-                <p className="fl-eyebrow">
-                  <span>
-                    <span className="chap-n">{s.n}</span> {s.name}
-                  </span>
-                </p>
-                <h3 className="fl-title" aria-label={s.title}>
-                  {s.title.split(" ").map((w, k, all) => (
+            {DAY_BEATS.map((b, i) => (
+              <li key={b.title} className="fl-step" data-still={i === 2 ? "mid" : i === 4 ? "still" : undefined}>
+                {b.time ? (
+                  <p className="fl-eyebrow">
+                    <span>
+                      <span className="chap-n">{b.time}</span>
+                    </span>
+                  </p>
+                ) : null}
+                <h3 className="fl-title" aria-label={b.time ? `${b.time}. ${b.title}` : b.title}>
+                  {b.title.split(" ").map((w, k, all) => (
                     <span key={k} aria-hidden>
                       <span className="fw">
                         <span className="fw-i">{w}</span>
@@ -144,8 +142,8 @@ export function FilmStory() {
                     </span>
                   ))}
                 </h3>
-                <p className="fl-body">{s.body}</p>
-                {i === STAGES.length - 1 && <Actions where="orbit" />}
+                <p className="fl-body">{b.body}</p>
+                {b.end && <Actions where="orbit" />}
               </li>
             ))}
           </ol>
