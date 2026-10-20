@@ -1,117 +1,42 @@
 import type { Metadata } from "next";
-import { Reveal } from "@/components/primitives/Reveal";
-import Link from "next/link";
-import { PROCESS } from "@/data/process";
-import { ArrowUpRight as Arrow } from "lucide-react";
-import { PageHero } from "@/components/kit/PageHero";
-import { SectionHead } from "@/components/kit/SectionHead";
-import { CTABand } from "@/components/kit/CTABand";
-import { ProcessTrack } from "@/components/visuals/hero/ProcessTrack";
-import { CommitmentBlock } from "@/components/sections/v4/CommitmentBlock";
+import { HowHero } from "@/components/how/HowHero";
+import { HowSteps } from "@/components/how/HowSteps";
+import { HowYouDo } from "@/components/how/HowYouDo";
+import { SimpleFinalCTA } from "@/components/home/SimpleHome";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
-import { NumberTicker } from "@/components/kit/NumberTicker";
 import { SITE_URL } from "@/data/site";
+
+const TITLE = "How Verdance Works | From First Call to Live";
+const DESCRIPTION =
+  "Five steps: a free 30-minute call, a free map of where time and money leak, a written plan you decide on, a build that is live in 10 working days, and a review at day 90.";
+
 export const metadata: Metadata = {
   alternates: { canonical: "/how-it-works" },
-  openGraph: {
-    title: "How Verdance Works | Done-for-You AI Booking",
-    description: "Six steps from a free 30-minute Operations Map to a system that answers and books for you, day or night. Fixed quote, fixed launch date, and you own all of it.",
-    url: `${SITE_URL}/how-it-works`,
-    type: "website",
-    siteName: "Verdance Systems AI",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "How Verdance Works | Done-for-You AI Booking",
-    description: "Six steps from a free 30-minute Operations Map to a system that answers and books for you, day or night. Fixed quote, fixed launch date, and you own all of it.",
-  },
-  title: "How Verdance Works | Done-for-You AI Booking",
-  description:
-    "Six steps from a free 30-minute Operations Map to a system that answers and books for you, day or night. Fixed quote, fixed launch date, and you own all of it.",
+  openGraph: { title: TITLE, description: DESCRIPTION, url: `${SITE_URL}/how-it-works`, type: "website", siteName: "Verdance Systems AI" },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+  title: TITLE,
+  description: DESCRIPTION,
 };
 
+/**
+ * /how-it-works in the home page's design system: a night hero, the five
+ * steps on an orbit band with a glowing rail and one sample screen per
+ * step, what is asked of the owner, then the closing scene.
+ * The older six /how-it-works/[step] detail pages still resolve for links
+ * and search, they are just no longer listed here.
+ */
 export default function HowItWorksPage() {
   return (
     <>
-      <PageHero
-        eyebrow="How it works"
-        title={
-          <>
-            Simple to start. <span className="italic-accent">Built to keep running.</span>
-          </>
-        }
-        lead="Six steps from a free 30-minute Operations Map to a system that answers and books for you, day or night. You keep working the way you always have. The building is on us."
-        crumbs={[{ href: "/", label: "Home" }, { label: "How it works" }]}
-        visual={<ProcessTrack />}
-        note="Fixed quote · fixed launch date · you own all of it"
-      />
-
-      <section className="section-pad bg-canvas-2" aria-labelledby="steps-title" style={{ borderTop: "1px solid var(--hairline)" }}>
-        <div className="container-wide">
-          <SectionHead
-            id="steps-title"
-            eyebrow="The six steps"
-            title={
-              <>
-                Each one names what you get, <span className="italic-accent">and when.</span>
-              </>
-            }
-            intro="Open any step to see exactly what happens in it, what you leave with, and what we need from you."
-          />
-          <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 md:mt-16">
-            {PROCESS.map((step, i) => (
-              <li key={step.slug}>
-                <Reveal delay={i * 0.06} className="h-full">
-                  <Link href={`/how-it-works/${step.slug}`} className="card-x group flex h-full flex-col p-6 md:p-7">
-                    <div className="flex items-center justify-between">
-                      <span className="font-display text-[2.4rem] leading-none text-[color:var(--color-accent)]" style={{ letterSpacing: "-0.04em" }}>
-                        <NumberTicker value={Number(step.n)} pad={2} />
-                      </span>
-                      <Arrow size={17} aria-hidden className="nudge text-[color:var(--color-ink-muted)] group-hover:text-[color:var(--color-accent)]" />
-                    </div>
-                    <h3 className="mt-6 font-display text-[1.4rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
-                      {step.name}
-                    </h3>
-                    <p className="mt-2 flex-1 text-[0.95rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{step.promise}</p>
-                    <p className="mt-5 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-[color:var(--color-ink-muted)]">{step.duration}</p>
-                  </Link>
-                </Reveal>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section className="section-pad bg-canvas" aria-labelledby="you-title" style={{ borderTop: "1px solid var(--hairline)" }}>
-        <div className="container-wide grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
-          <Reveal variant="wipe">
-            <p className="eyebrow">What you do</p>
-            <h2 id="you-title" className="h2 mt-5">
-              Answer a few questions. <span className="italic-accent">Then get on with your day.</span>
-            </h2>
-          </Reveal>
-          <ul className="grid gap-3">
-            {[
-              ["You don't need to be technical", "You never touch the system. It answers, books and tells you what it did."],
-              ["You don't change how you work", "It fits around your diary, your channels and your team."],
-              ["You decide on anything unusual", "Custom requests, complaints and pricing go straight to a person."],
-            ].map(([t, b], i) => (
-              <li key={t}>
-                <Reveal delay={i * 0.06}>
-                  <div className="card-x p-5 md:p-6">
-                    <p className="font-display text-[1.15rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.02em" }}>{t}</p>
-                    <p className="mt-1.5 text-[0.95rem] leading-[1.55] text-[color:var(--color-ink-soft)]">{b}</p>
-                  </div>
-                </Reveal>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <CommitmentBlock ctaHref={GENERIC_BOOK_URL} ctaLabel="Book a free 30-minute call" />
-      <CTABand />
+      <HowHero />
+      <div className="cv-below">
+        <HowSteps />
+      </div>
+      <div className="cv-below">
+        <HowYouDo />
+      </div>
+      <SimpleFinalCTA title={["Start with a", "free", "call."]} />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free 30-minute call" />
     </>
   );
