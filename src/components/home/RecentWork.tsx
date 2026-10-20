@@ -80,7 +80,7 @@ export function RecentWork() {
       <style>{CSS + PROOF_CSS}</style>
       <div className="container-wide">
         <div className="max-w-3xl" data-reveal="">
-          <p className="eyebrow"><span className="chap-n">08</span> Proof</p>
+          <p className="eyebrow"><span className="chap-n">05</span> Proof</p>
           <h2 id="work-title" className="h2 mt-4">
             <SplitWords text="Built and running for owner-led" /> <span>businesses.</span>
           </h2>

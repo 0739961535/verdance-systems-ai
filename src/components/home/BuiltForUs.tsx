@@ -95,7 +95,7 @@ export function BuiltForUs() {
       <div className="container-wide relative z-[1] grid gap-10 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-16">
         <div data-reveal="">
           <p className="eyebrow" style={{ color: C.muted }}>
-            <span style={{ color: C.accent }}>10</span> Ours
+            <span style={{ color: C.accent }}>07</span> Ours
           </p>
           <h2 id="ours-title" className="h2 mt-4" style={{ color: C.ink }}>
             <SplitWords text="We run Verdance on the" /> <span>same</span> <SplitWords text="system." />

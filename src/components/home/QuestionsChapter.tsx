@@ -145,7 +145,7 @@ export function QuestionsChapter() {
           <div className="qc-side">
             <div data-reveal="">
               <p className="eyebrow">
-                <span className="chap-n">12</span> Questions
+                <span className="chap-n">09</span> Questions
               </p>
               <h2 id="questions-title" className="h2 qc-h2">
                 <SplitWords text="What owners ask us" />{" "}

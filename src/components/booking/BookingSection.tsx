@@ -64,7 +64,7 @@ export function BookingSection({ as = "section" }: { as?: "section" | "page" }) 
       <div className="container-wide">
         <div className="bks-grid">
           <div className="bks-head" data-reveal="">
-            <p className="eyebrow"><span className="chap-n">14</span> Book a call</p>
+            <p className="eyebrow"><span className="chap-n">11</span> Book a call</p>
             <Title id="book-title" className="h2 bks-h">
               Thirty minutes on your business.
             </Title>
