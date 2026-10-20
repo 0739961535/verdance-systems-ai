@@ -47,7 +47,7 @@ export function IndustryDemoSwitch() {
             </p>
             <h2 id="ds-title" className="h2 mt-4 max-w-[14ch]">
               <SplitWords text="Pick your business." />{" "}
-              <span className="italic-accent" style={{ color: "#8FB0FF" }}>
+              <span>
                 <SplitWords text="Watch it reply." start={3} />
               </span>
             </h2>

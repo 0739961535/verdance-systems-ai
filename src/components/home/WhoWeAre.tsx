@@ -53,7 +53,7 @@ export function WhoWeAre() {
               <span className="chap-n">13</span> Who we are
             </p>
             <h2 id="who-title" className="h2 who-h2">
-              Who we are, and <span className="italic-accent">how</span> we work.
+              Who we are, and <span>how</span> we work.
             </h2>
             <div className="who-card">
               <span className="who-mono" aria-hidden>

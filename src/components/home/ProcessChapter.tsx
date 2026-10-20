@@ -100,7 +100,7 @@ export function ProcessChapter() {
           </p>
           <h2 id="process-title" className="h2 pc-h2">
             <SplitWords text="From first call to" />{" "}
-            <span className="italic-accent">
+            <span>
               <SplitWords text="live" start={4} />
             </span>
             ,{" "}

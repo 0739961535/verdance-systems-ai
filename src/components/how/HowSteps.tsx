@@ -155,7 +155,7 @@ const CSS = `
   [data-reveal][data-armed]:not([data-revealed]) .hs-node { color: #8F8B84; background: #0E1A3A; box-shadow: inset 0 0 0 1px rgba(242, 239, 233, 0.16); }
   [data-reveal][data-armed] .hs-check { transition: transform 0.35s cubic-bezier(.34,1.56,.64,1) 0.45s; }
   [data-reveal][data-armed]:not([data-revealed]) .hs-check { transform: scale(0); }
-  [data-reveal][data-armed] .hs-fill { transition: transform 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s; }
+  [data-reveal][data-armed] .hs-fill { transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.15s; }
   [data-reveal][data-armed]:not([data-revealed]) .hs-fill { transform: scaleY(0); }
   .hs-pulse { animation: hs-pulse 3.6s cubic-bezier(0.4, 0, 0.6, 1) 2s infinite; }
   [data-reveal][data-armed]:not([data-revealed]) .hs-pulse { animation: none; }
@@ -179,7 +179,7 @@ export function HowSteps() {
             <span className="chap-n">01</span> The five steps
           </p>
           <h2 id="steps-title" className="h2 mt-4">
-            <SplitWords text="What happens," /> <span className="italic-accent"><SplitWords text="and when." start={2} /></span>
+            <SplitWords text="What happens," /> <span><SplitWords text="and when." start={2} /></span>
           </h2>
           <p className="lead mt-6">Each step names what you get. Two of them are yours to decide.</p>
         </Reveal>

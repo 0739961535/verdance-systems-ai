@@ -141,7 +141,7 @@ export function QuestionsChapter() {
               </p>
               <h2 id="questions-title" className="h2 qc-h2">
                 <SplitWords text="What owners ask us" />{" "}
-                <span className="italic-accent">
+                <span>
                   <SplitWords text="first" start={4} />
                 </span>
                 .

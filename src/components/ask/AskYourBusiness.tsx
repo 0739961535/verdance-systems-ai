@@ -24,7 +24,7 @@ export function AskYourBusiness({ compact = false }: { compact?: boolean }) {
             <span className="chap-n">09</span> Ask
           </p>
           <h2 id="ask-title" className="h2 mt-4">
-            <SplitWords text="Ask your business" /> <span className="italic-accent">anything.</span>
+            <SplitWords text="Ask your business" /> <span>anything.</span>
           </h2>
           <p className="lead mt-6">Ask in plain words. Get the answer from your own store, inbox and diary.</p>
           {!compact && (

@@ -112,7 +112,7 @@ export function WhatYouGet() {
           <div className="max-w-3xl">
             <p className="eyebrow"><span className="chap-n">06</span> Work done</p>
             <h2 id="get-title" className="h2 mt-4">
-              <SplitWords text="Work that gets" /> <span className="italic-accent">done.</span>
+              <SplitWords text="Work that gets" /> <span>done.</span>
             </h2>
             <p className="lead mt-6">Four jobs your team does every day. We take them off their plate.</p>
           </div>

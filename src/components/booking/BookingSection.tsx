@@ -37,7 +37,7 @@ export function BookingSection() {
               <span className="chap-n">14</span> Book
             </p>
             <h2 id="book-title" className="h2 bks-h2">
-              Book your <span className="italic-accent">call</span>.
+              Book your <span>call</span>.
             </h2>
             <p className="lead bks-lead">
               Seven quick taps about your business, your details, then a time. About two minutes, and the call starts on

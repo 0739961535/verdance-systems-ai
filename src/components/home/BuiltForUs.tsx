@@ -98,7 +98,7 @@ export function BuiltForUs() {
             <span style={{ color: C.accent }}>10</span> Ours
           </p>
           <h2 id="ours-title" className="h2 mt-4" style={{ color: C.ink }}>
-            <SplitWords text="We run Verdance on the" /> <span className="italic-accent">same</span> <SplitWords text="system." />
+            <SplitWords text="We run Verdance on the" /> <span>same</span> <SplitWords text="system." />
           </h2>
           <p className="lead mt-6">Every enquiry, follow-up and report we send goes through it first.</p>
           <ul className="mt-8 grid gap-4">

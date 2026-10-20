@@ -61,7 +61,7 @@ export default function IndustriesPage() {
             eyebrow="More industries"
             title={
               <>
-                Not on the list? <span className="italic-accent">We still build it.</span>
+                Not on the list? We still build it.
               </>
             }
             intro="The same system adapts to most businesses that run on enquiries. See how it works in yours."

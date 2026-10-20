@@ -37,7 +37,7 @@ export function HowYouDo() {
           </p>
           <h2 id="you-title" className="h2 mt-4">
             <SplitWords text="Answer a few questions." />{" "}
-            <span className="italic-accent">
+            <span>
               <SplitWords text="Then get on with your day." start={4} />
             </span>
           </h2>
