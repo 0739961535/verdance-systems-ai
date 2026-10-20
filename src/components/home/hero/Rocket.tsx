@@ -3,7 +3,9 @@
 import { useEffect, useRef } from "react";
 
 /**
- * The hero's "we ship it" rocket.
+ * The hero's "we ship it" rocket: a small, blacked-out stainless stack
+ * (hand-drawn vector), with a white ring and nose tip and a faint blue
+ * engine glow.
  *
  * On load: one CSS lift-off with a soft trail, then it holds still.
  * On scroll: it ignites and flies away. As the visitor scrolls out of the
@@ -148,33 +150,23 @@ export function Rocket() {
         <span className="rk-ship">
           <svg viewBox="0 0 80 140" width="100%" height="100%" fill="none" overflow="visible">
             <defs>
-              <linearGradient id="rk-body" x1="23" y1="0" x2="57" y2="0" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stopColor="#FFFFFF" />
-                <stop offset="0.42" stopColor="#F3F5FA" />
-                <stop offset="0.78" stopColor="#D9DFEA" />
-                <stop offset="1" stopColor="#B9C3D6" />
+              {/* graphite body: lit from the left, falling to near black */}
+              <linearGradient id="rk-body" x1="27" y1="0" x2="53" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stopColor="#3A3F49" />
+                <stop offset="0.28" stopColor="#23272F" />
+                <stop offset="0.7" stopColor="#14171C" />
+                <stop offset="1" stopColor="#0A0B0E" />
               </linearGradient>
-              <linearGradient id="rk-accent" x1="0" y1="6" x2="0" y2="110" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stopColor="#6E9CFF" />
-                <stop offset="1" stopColor="#1F45B8" />
+              <linearGradient id="rk-fin" x1="0" y1="0" x2="80" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stopColor="#2A2E36" />
+                <stop offset="1" stopColor="#0C0D10" />
               </linearGradient>
-              <linearGradient id="rk-fin-l" x1="12" y1="0" x2="27" y2="0" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stopColor="#5B8FFF" />
-                <stop offset="1" stopColor="#2554D4" />
-              </linearGradient>
-              <linearGradient id="rk-fin-r" x1="53" y1="0" x2="68" y2="0" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stopColor="#2554D4" />
-                <stop offset="1" stopColor="#173A9E" />
-              </linearGradient>
-              <linearGradient id="rk-nozzle" x1="30" y1="0" x2="50" y2="0" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stopColor="#3A4560" />
-                <stop offset="0.5" stopColor="#1B2233" />
-                <stop offset="1" stopColor="#0D111B" />
-              </linearGradient>
-              <radialGradient id="rk-glass" cx="37" cy="47" r="10" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stopColor="#9DBBFF" />
-                <stop offset="0.55" stopColor="#2F5FE0" />
-                <stop offset="1" stopColor="#0F1E4D" />
+              <pattern id="rk-hex" width="4.6" height="4" patternUnits="userSpaceOnUse">
+                <path d="M0 2 L1.15 0 H3.45 L4.6 2 L3.45 4 H1.15 Z" fill="none" stroke="#FFFFFF" strokeOpacity="0.07" strokeWidth="0.35" />
+              </pattern>
+              <radialGradient id="rk-glow" cx="40" cy="108" r="14" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stopColor="#8FB0FF" stopOpacity="0.55" />
+                <stop offset="1" stopColor="#4D7CFF" stopOpacity="0" />
               </radialGradient>
               <linearGradient id="rk-flame-outer" x1="40" y1="106" x2="40" y2="142" gradientUnits="userSpaceOnUse">
                 <stop offset="0" stopColor="#86ABFF" />
@@ -196,37 +188,33 @@ export function Rocket() {
               </g>
             </g>
 
-            {/* fins behind the body */}
-            <path d="M26.6 70 C17.5 78 12.6 90 12 107 C15.6 102.5 20.6 99.5 27 98.2 Z" fill="url(#rk-fin-l)" />
-            <path d="M53.4 70 C62.5 78 67.4 90 68 107 C64.4 102.5 59.4 99.5 53 98.2 Z" fill="url(#rk-fin-r)" />
+            {/* faint engine glow under the base */}
+            <ellipse cx="40" cy="108" rx="14" ry="6" fill="url(#rk-glow)" />
 
-            {/* nozzle */}
-            <path d="M30.5 98 H49.5 L47 107 H33 Z" fill="url(#rk-nozzle)" />
-            <path d="M33 107 H47" stroke="#0A0D15" strokeWidth="1" strokeLinecap="round" />
+            {/* small aft flaps, behind the body */}
+            <path d="M28.5 82 L22 92 L22.5 101 L28.5 99 Z" fill="url(#rk-fin)" />
+            <path d="M51.5 82 L58 92 L57.5 101 L51.5 99 Z" fill="url(#rk-fin)" />
+            {/* forward flaps */}
+            <path d="M30.2 26 L26.4 33 L26.8 40 L30.6 38.5 Z" fill="url(#rk-fin)" />
+            <path d="M49.8 26 L53.6 33 L53.2 40 L49.4 38.5 Z" fill="url(#rk-fin)" />
 
-            {/* body */}
+            {/* engines */}
+            <path d="M33 103 H47 L45.6 107.5 H34.4 Z" fill="#0A0B0E" />
+
+            {/* body: one slim stainless stack, blacked out */}
             <path
-              d="M40 6 C52.5 18 58.2 38 57.2 62 C56.7 76 55.2 88 53 98.5 H27 C24.8 88 23.3 76 22.8 62 C21.8 38 27.5 18 40 6 Z"
+              className="rk-hull-path"
+              d="M40 4 C46.4 9.5 50 17 50.6 26 L51.6 103.5 H28.4 L29.4 26 C30 17 33.6 9.5 40 4 Z"
               fill="url(#rk-body)"
-              stroke="#1B2A4F"
-              strokeOpacity="0.28"
-              strokeWidth="1"
             />
-            {/* nose cap */}
-            <path d="M40 6 C46.6 12.4 50.9 20.4 53.4 29.2 C45.2 26.6 34.8 26.6 26.6 29.2 C29.1 20.4 33.4 12.4 40 6 Z" fill="url(#rk-accent)" />
-            {/* specular highlight */}
-            <path d="M29.4 34 C27.4 46 27.2 62 28.6 84" stroke="#FFFFFF" strokeOpacity="0.9" strokeWidth="2" strokeLinecap="round" />
-            {/* panel seams */}
-            <path d="M24.4 81.5 C34.5 83.6 45.5 83.6 55.6 81.5" stroke="#1B2A4F" strokeOpacity="0.18" strokeWidth="0.9" />
-            <path d="M25.9 93 C35 94.6 45 94.6 54.1 93" stroke="#1B2A4F" strokeOpacity="0.14" strokeWidth="0.9" />
-
-            {/* window */}
-            <circle cx="40" cy="50" r="9.4" fill="#E6EBF4" stroke="#9AA6BE" strokeWidth="1.2" />
-            <circle cx="40" cy="50" r="6.6" fill="url(#rk-glass)" />
-            <ellipse cx="37.6" cy="47.4" rx="2.3" ry="1.5" fill="#FFFFFF" fillOpacity="0.85" transform="rotate(-35 37.6 47.4)" />
-
-            {/* centre fin, seen edge on */}
-            <rect x="38.6" y="86" width="2.8" height="21" rx="1.4" fill="url(#rk-accent)" />
+            {/* heat-tile hint on the shadow side */}
+            <path d="M40 4 C46.4 9.5 50 17 50.6 26 L51.6 103.5 H40 Z" fill="url(#rk-hex)" />
+            {/* rim light along the lit edge (stronger in dark mode, CSS) */}
+            <path className="rk-rim rk-rim-a" d="M31.2 24 C32.6 15.5 35.6 9.5 40 5" stroke="#FFFFFF" strokeOpacity="0.35" strokeWidth="0.8" strokeLinecap="round" />
+            <path className="rk-rim rk-rim-b" d="M29.6 30 L28.9 101" stroke="#FFFFFF" strokeOpacity="0.16" strokeWidth="0.8" strokeLinecap="round" />
+            {/* the white ring at the stage join, and a white nose tip */}
+            <path d="M29.15 58.5 C35.5 59.7 44.5 59.7 50.85 58.5 L50.9 61.2 C44.5 62.4 35.5 62.4 29.1 61.2 Z" fill="#E9EDF4" fillOpacity="0.9" />
+            <path d="M40 4 C42.1 5.8 43.8 7.8 45 10 C41.8 9.3 38.2 9.3 35 10 C36.2 7.8 37.9 5.8 40 4 Z" fill="#E9EDF4" />
           </svg>
         </span>
       </div>
