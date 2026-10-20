@@ -46,7 +46,7 @@ const CSS = `
 .pr-seg > i { position: absolute; inset: 0; background: #4D7CFF; transform: scaleX(0); transform-origin: left; transition: transform 260ms ease-out; }
 .pr-seg:last-child > i { background: #8FB0FF; }
 .pr-fill .pr-seg > i { transform: scaleX(1); }
-.pr-live { background: rgba(143,176,255,0.16); color: #DCE6FF; box-shadow: inset 0 0 0 1px rgba(143,176,255,0.4); transition: opacity 360ms ease-out 1.25s, transform 360ms ease-out 1.25s; opacity: 0; transform: translateY(4px); }
+.pr-live { background: rgba(143,176,255,0.16); color: #DCE6FF; box-shadow: inset 0 0 0 1px rgba(143,176,255,0.4); transition: opacity 360ms ease-out 0.7s, transform 360ms ease-out 0.7s; opacity: 0; transform: translateY(4px); }
 .pr-fill .pr-live { opacity: 1; transform: none; }
 .pr-dot { width: 6px; height: 6px; border-radius: 50%; background: #8FB0FF; }
 

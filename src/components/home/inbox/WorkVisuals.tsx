@@ -80,7 +80,7 @@ const CSS = `
   [data-reveal][data-armed]:not([data-revealed]) .gv-in { opacity: 0; transform: translate3d(0, 8px, 0); }
   [data-reveal][data-armed] .gv-pop { transition: opacity 0.3s ease-out var(--d, 0.6s), transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d, 0.6s); }
   [data-reveal][data-armed]:not([data-revealed]) .gv-pop { opacity: 0; transform: scale(0.8); }
-  [data-reveal][data-armed] .gv-draw { transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.45s; }
+  [data-reveal][data-armed] .gv-draw { transition: stroke-dashoffset 0.75s cubic-bezier(0.4, 0, 0.2, 1) 0.15s; }
   [data-reveal][data-armed]:not([data-revealed]) .gv-draw { stroke-dashoffset: 1; }
   [data-reveal][data-armed] .gv-fill { transition: opacity 0.8s ease-out 0.9s; }
   [data-reveal][data-armed]:not([data-revealed]) .gv-fill { opacity: 0; }

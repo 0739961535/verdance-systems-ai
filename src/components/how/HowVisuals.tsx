@@ -37,7 +37,7 @@ export const HOW_VISUALS_CSS = `
 @media (min-width: 768px) { .hv-build { max-width: 30rem; } }
 
 @media (prefers-reduced-motion: no-preference) {
-  [data-reveal][data-armed] .hv-bar i { transition: transform 1s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0.4s); }
+  [data-reveal][data-armed] .hv-bar i { transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0.15s); }
   [data-reveal][data-armed]:not([data-revealed]) .hv-bar i { transform: scaleX(0); }
   [data-reveal][data-armed]   [data-reveal][data-armed]:not([data-revealed]) }
 `;
