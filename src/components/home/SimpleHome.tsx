@@ -97,10 +97,10 @@ export function WatchItWork() {
 const MINI = "mt-6 max-w-[22rem] rounded-[14px] border border-white/[0.08] bg-[#0A1226] p-3.5 text-[0.875rem] leading-[1.45] text-[#E9EDEF] md:mt-8 md:max-w-[28rem] md:p-5 md:text-[1rem] md:min-h-[9.5rem] md:content-center";
 
 const GETS = [
-  { word: "Answer", title: "Every customer, fast", body: "Every enquiry answered within 60 seconds. Day or night." },
-  { word: "Follow up", title: "No one slips away", body: "It checks in with people who went quiet, so they don't forget you." },
-  { word: "Admin", title: "Done for you", body: "Bookings, notes and forms get filled in. No more typing things twice." },
-  { word: "Report", title: "What's working", body: "A short report each month, in plain words and real numbers." },
+  { word: "Answer", title: "Every customer, fast", body: "Every enquiry answered within 60 seconds. Day or night.", href: "/services/conversation-ai" },
+  { word: "Follow up", title: "No one slips away", body: "It checks in with people who went quiet, so they don't forget you.", href: "/services/follow-up-nurture" },
+  { word: "Admin", title: "Done for you", body: "Bookings, notes and forms get filled in. No more typing things twice.", href: "/services/booking-calendar" },
+  { word: "Report", title: "What's working", body: "A short report each month, in plain words and real numbers.", href: "/services/analytics-compliance" },
 ];
 
 export function WhatYouGet({ showAll = true }: { showAll?: boolean } = {}) {
@@ -127,7 +127,7 @@ export function WhatYouGet({ showAll = true }: { showAll?: boolean } = {}) {
           )}
         </Reveal>
         <ul className="get-list mt-12 md:mt-16">
-          {GETS.map(({ word, title, body }, i) => (
+          {GETS.map(({ word, title, body, href }, i) => (
             <li key={word} className="get-row">
               <Reveal delay={i * 0.05} className="get-row-in">
                 <p className="font-display text-[color:var(--color-ink)]" style={{ fontSize: "clamp(2.75rem, 4vw + 1.2rem, 4.75rem)", lineHeight: 0.95, letterSpacing: "-0.045em" }}>
@@ -135,7 +135,15 @@ export function WhatYouGet({ showAll = true }: { showAll?: boolean } = {}) {
                 </p>
                 <h3 className="mt-4 text-[1.0625rem] font-semibold text-[color:var(--color-ink)]">{title}</h3>
                 <p className="mt-1.5 max-w-[34ch] text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{body}</p>
-                <div className="get-vis">
+                <Link
+                  href={href}
+                  aria-label={`How it works: ${word}`}
+                  className="group mt-2 inline-flex min-h-11 items-center gap-1.5 text-[1rem] font-medium text-[color:var(--color-accent)] hover:text-[color:var(--color-ink)]"
+                >
+                  How it works
+                  <ArrowRight size={16} aria-hidden className="transition-transform group-hover:translate-x-1" />
+                </Link>
+                <div className="get-vis" style={{ gridRow: "1 / span 4" }}>
                   <GetVisual word={word} />
                 </div>
               </Reveal>
