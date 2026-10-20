@@ -48,11 +48,11 @@ export const industries: Industry[] = [
       "google-review-automation",
     ],
     automationFlow: [
-      { step: 1, label: "Enquiry Received", description: "Client calls or messages at any time" },
-      { step: 2, label: "AI Responds Instantly", description: "Voice AI or WhatsApp agent answers immediately" },
-      { step: 3, label: "Form Sent", description: "A short form goes to them on WhatsApp" },
-      { step: 4, label: "Consultation Booked", description: "Smart Scheduler confirms the appointment" },
-      { step: 5, label: "Review Requested", description: "A review request goes out by itself" },
+      { step: 1, label: "Enquiry received", description: "Client calls or messages at any time" },
+      { step: 2, label: "Answered straight away", description: "Verdance answers the call or WhatsApp within 60 seconds" },
+      { step: 3, label: "Form sent", description: "A short form goes to them on WhatsApp" },
+      { step: 4, label: "Consultation booked", description: "The appointment is confirmed from your live diary" },
+      { step: 5, label: "Review requested", description: "A review request goes out by itself" },
     ],
   },
   {
@@ -92,18 +92,18 @@ export const industries: Industry[] = [
       "crm-and-pipeline",
     ],
     automationFlow: [
-      { step: 1, label: "Lead Enquires", description: "Buyer or renter messages about a property" },
-      { step: 2, label: "AI Qualifies", description: "WhatsApp AI asks budget, timeline, requirements" },
-      { step: 3, label: "Viewing Booked", description: "The viewing is booked and confirmed for you" },
-      { step: 4, label: "Follow-Up", description: "A friendly check-in after the viewing" },
-      { step: 5, label: "Cold Leads Reactivated", description: "Monthly reactivation campaign to dormant database" },
+      { step: 1, label: "Lead enquires", description: "Buyer or renter messages about a property" },
+      { step: 2, label: "Questions asked", description: "Verdance asks about budget, timing and what they need" },
+      { step: 3, label: "Viewing booked", description: "The viewing is booked and confirmed for you" },
+      { step: 4, label: "Follow-up", description: "A friendly check-in after the viewing" },
+      { step: 5, label: "Old leads woken up", description: "A monthly message to past enquiries who went quiet" },
     ],
   },
   {
     slug: "medical-wellness",
     name: "Medical & Wellness",
     icon: "Heart",
-    headline: "Full appointment books. Fewer no-shows. Zero missed calls.",
+    headline: "Full appointment books. Every call answered or texted back.",
     subheadline:
       "Bookings, reminders and questions handled for you, so your team can focus on patients.",
     problems: [
@@ -137,11 +137,11 @@ export const industries: Industry[] = [
       "post-interaction-messenger",
     ],
     automationFlow: [
-      { step: 1, label: "Patient Calls", description: "Voice AI answers immediately, 24/7" },
-      { step: 2, label: "Appointment Booked", description: "Smart Scheduler confirms with live availability" },
-      { step: 3, label: "Intake Sent", description: "Patient completes intake form via WhatsApp" },
-      { step: 4, label: "Reminders Fire", description: "24h and 1h reminders reduce no-shows" },
-      { step: 5, label: "Review Requested", description: "A review request goes out by itself" },
+      { step: 1, label: "Patient calls", description: "Verdance answers every call, day or night" },
+      { step: 2, label: "Appointment booked", description: "The appointment is confirmed from your live diary" },
+      { step: 3, label: "Intake sent", description: "Patient completes the intake form on WhatsApp" },
+      { step: 4, label: "Reminders sent", description: "A reminder the day before and an hour before, so fewer people miss it" },
+      { step: 5, label: "Review requested", description: "A review request goes out by itself" },
     ],
   },
   {
@@ -177,17 +177,17 @@ export const industries: Industry[] = [
       "google-review-automation",
     ],
     automationFlow: [
-      { step: 1, label: "Enquiry Arrives", description: "Call or WhatsApp message received" },
-      { step: 2, label: "AI Handles It", description: "Voice or WhatsApp AI qualifies and captures details" },
-      { step: 3, label: "Booking Confirmed", description: "Service or test drive booked for you" },
-      { step: 4, label: "Follow-Up Sequence", description: "Post-service follow-up and review request" },
+      { step: 1, label: "Enquiry arrives", description: "Call or WhatsApp message received" },
+      { step: 2, label: "Answered and sorted", description: "Verdance answers, asks the right questions and takes the details" },
+      { step: 3, label: "Booking confirmed", description: "Service or test drive booked for you" },
+      { step: 4, label: "Follow-up", description: "A check-in after the service, and a review request" },
     ],
   },
   {
     slug: "home-services-contractors",
     name: "Home Services & Contractors",
     icon: "Wrench",
-    headline: "Never miss a job enquiry again.",
+    headline: "Every job enquiry answered and followed up.",
     subheadline:
       "Every enquiry answered, every job booked and every quote followed up, without you chasing.",
     problems: [
@@ -215,10 +215,10 @@ export const industries: Industry[] = [
       "google-review-automation",
     ],
     automationFlow: [
-      { step: 1, label: "Client Calls or Messages", description: "AI answers immediately, captures job details" },
-      { step: 2, label: "Quote Followed Up", description: "Friendly check-ins after the quote goes out" },
-      { step: 3, label: "Job Booked", description: "Smart Scheduler confirms timing" },
-      { step: 4, label: "Review Requested", description: "A review request goes out by itself" },
+      { step: 1, label: "Client calls or messages", description: "Verdance answers straight away and takes the job details" },
+      { step: 2, label: "Quote followed up", description: "Friendly check-ins after the quote goes out" },
+      { step: 3, label: "Job booked", description: "The time is confirmed from your live diary" },
+      { step: 4, label: "Review requested", description: "A review request goes out by itself" },
     ],
   },
   {
@@ -253,17 +253,17 @@ export const industries: Industry[] = [
       "google-review-automation",
     ],
     automationFlow: [
-      { step: 1, label: "Enquiry Received", description: "WhatsApp AI responds instantly with membership info" },
-      { step: 2, label: "Trial Booked", description: "Smart Scheduler books the free trial class" },
-      { step: 3, label: "Membership Follow-Up", description: "Friendly check-ins after the trial" },
-      { step: 4, label: "Retention Sequences", description: "Re-engagement for at-risk members" },
+      { step: 1, label: "Enquiry received", description: "Verdance replies on WhatsApp within 60 seconds, with membership details" },
+      { step: 2, label: "Trial booked", description: "The trial class is booked and confirmed from your live diary" },
+      { step: 3, label: "Membership follow-up", description: "Friendly check-ins after the trial" },
+      { step: 4, label: "Quiet members checked in on", description: "A friendly message to members who have stopped coming" },
     ],
   },
   {
     slug: "beauty-aesthetics",
     name: "Beauty & Aesthetics",
     icon: "Sparkles",
-    headline: "Fully booked. Always followed up. Zero no-shows.",
+    headline: "Every enquiry followed up. Reminders before every booking.",
     subheadline:
       "Bookings, reminders and review requests done for you, while you focus on clients.",
     problems: [
@@ -291,10 +291,10 @@ export const industries: Industry[] = [
       "website-conversion-widget",
     ],
     automationFlow: [
-      { step: 1, label: "Booking Request", description: "WhatsApp AI responds instantly, captures details" },
-      { step: 2, label: "Appointment Confirmed", description: "Smart Scheduler books and sends confirmation" },
-      { step: 3, label: "Reminders Sent", description: "24h and 1h reminders reduce no-shows" },
-      { step: 4, label: "Follow-Up & Review", description: "Post-visit message + review request" },
+      { step: 1, label: "Booking request", description: "Verdance replies on WhatsApp within 60 seconds and takes the details" },
+      { step: 2, label: "Appointment confirmed", description: "The booking is confirmed from your live diary" },
+      { step: 3, label: "Reminders sent", description: "A reminder the day before and an hour before, so fewer people miss it" },
+      { step: 4, label: "Follow-up and review", description: "A thank-you message after the visit, and a review request" },
     ],
   },
   {
@@ -329,10 +329,10 @@ export const industries: Industry[] = [
       "website-conversion-widget",
     ],
     automationFlow: [
-      { step: 1, label: "Guest Enquires", description: "WhatsApp AI handles reservation enquiries" },
-      { step: 2, label: "Booking Confirmed", description: "Booking made and confirmed for you" },
-      { step: 3, label: "Reminder Sent", description: "Day-before reminder reduces no-shows" },
-      { step: 4, label: "Review Requested", description: "Post-visit WhatsApp message with review link" },
+      { step: 1, label: "Guest enquires", description: "Verdance replies on WhatsApp within 60 seconds and handles the reservation" },
+      { step: 2, label: "Booking confirmed", description: "Booking made and confirmed for you" },
+      { step: 3, label: "Reminder sent", description: "A reminder the day before, so fewer guests miss it" },
+      { step: 4, label: "Review requested", description: "A WhatsApp after the visit with a review link" },
     ],
   },
   {
@@ -367,10 +367,10 @@ export const industries: Industry[] = [
       "post-interaction-messenger",
     ],
     automationFlow: [
-      { step: 1, label: "Enquiry Received", description: "WhatsApp AI responds with course/service info" },
-      { step: 2, label: "Session Booked", description: "Smart Scheduler confirms the booking" },
-      { step: 3, label: "Intake Collected", description: "Background form sent and completed via WhatsApp" },
-      { step: 4, label: "Post-Session Follow-Up", description: "Notes and a link to book again, sent for you" },
+      { step: 1, label: "Enquiry received", description: "Verdance replies on WhatsApp within 60 seconds, with course details" },
+      { step: 2, label: "Session booked", description: "The booking is confirmed from your live diary" },
+      { step: 3, label: "Intake collected", description: "A background form sent and completed on WhatsApp" },
+      { step: 4, label: "Follow-up after the session", description: "Notes and a link to book again, sent for you" },
     ],
   },
   {
@@ -405,10 +405,10 @@ export const industries: Industry[] = [
       "post-interaction-messenger",
     ],
     automationFlow: [
-      { step: 1, label: "Visitor Arrives", description: "Website widget proactively engages after 20 seconds" },
-      { step: 2, label: "Enquiry Captured", description: "Contact details collected before they leave" },
-      { step: 3, label: "Purchase Follow-Up", description: "Post-purchase message confirms and upsells" },
-      { step: 4, label: "Review Requested", description: "A review request goes out 2 days after delivery" },
+      { step: 1, label: "Visitor arrives", description: "A chat opens and offers help after 20 seconds" },
+      { step: 2, label: "Enquiry captured", description: "Contact details collected before they leave" },
+      { step: 3, label: "Purchase follow-up", description: "A thank-you message confirms the order and suggests what goes with it" },
+      { step: 4, label: "Review requested", description: "A review request goes out 2 days after delivery" },
     ],
   },
 ];

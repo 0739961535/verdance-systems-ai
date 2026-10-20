@@ -9,12 +9,12 @@ import { useEffect, useRef } from "react";
  * On scroll: it ignites and flies away. As the visitor scrolls out of the
  * hero the rocket accelerates up and slightly right, tilts into the arc, its
  * flame grows, a jet trail stretches behind it and a few exhaust puffs bloom
- * on the pad. Driven by scroll position (Motion's `scroll`), so it reverses
+ * on the pad. Driven by scroll position (one passive listener), so it reverses
  * exactly when scrolling back up.
  *
  * Performance: the SVG is server-rendered at a fixed size (no layout shift,
- * never the LCP). Motion is imported only after the page has loaded, and
- * each scroll frame writes transform and opacity only. The rocket only ever
+ * never the LCP). It starts after the page has loaded, and each scroll
+ * frame writes transform and opacity only. The rocket only ever
  * moves up and away from the headline and button, never over them.
  * Reduced motion: a still rocket, no flight.
  */
@@ -85,12 +85,24 @@ export function Rocket() {
       });
     };
 
+    // one passive listener and one animation frame per scroll (no library)
     const start = async () => {
-      const { scroll } = await import("motion");
       if (cancelled) return;
       measure();
       render(window.scrollY);
-      stop = scroll((_: number, info: { y: { current: number } }) => render(info.y.current));
+      let raf = 0;
+      const onScroll = () => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = 0;
+          render(window.scrollY);
+        });
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      stop = () => {
+        window.removeEventListener("scroll", onScroll);
+        if (raf) cancelAnimationFrame(raf);
+      };
     };
 
     const onResize = () => {

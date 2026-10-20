@@ -9,34 +9,35 @@ import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { CTA_PRIMARY, SITE_URL } from "@/data/site";
 
-const TITLE = "The free Operations Map | See what AI can do for your business | Verdance Systems AI";
+const TITLE = "The free Operations Map: where your time and money go | Verdance";
 const DESCRIPTION =
-  "A free 30-minute call. We look at how your business runs and show you where AI can save you time and money, and what to fix first.";
+  "A free 30-minute call. We look at how your business runs and show you where Verdance can save you time and money, and what to fix first.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/audit" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: `${SITE_URL}/audit`, type: "website" },
+  openGraph: {
+images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: `${SITE_URL}/audit`, type: "website" },
 };
 
 const GET = [
-  { t: "Where your time goes", b: "Which jobs take the most hours each week, and which ones AI can do for you." },
+  { t: "Where your time goes", b: "Which jobs take the most hours each week, and which ones Verdance can do for you." },
   { t: "How fast you reply", b: "How long customers wait on WhatsApp, email, calls and your website." },
   { t: "What to fix first", b: "A short list, in order. It is yours to keep, even if we never work together." },
-  { t: "A fixed price, if you want it", b: "In writing, before any work starts. The price you see is the price you pay." },
+  { t: "A plan in writing", b: "What we would build first, and what it should bring back. Nothing starts until you say yes." },
 ];
 
 const STEPS = [
   { n: "01", t: "Book a time", b: "Pick a slot that suits you. It takes a minute." },
   { n: "02", t: "A 30-minute call", b: "We look at how your business runs and how customers reach you." },
-  { n: "03", t: "You get the plan", b: "Your numbers, what to fix first, and a fixed price if you want one." },
+  { n: "03", t: "You get the plan", b: "Your numbers, what to fix first, and what it should bring back." },
 ];
 
 const FAQS = [
   { q: "Is it really free?", a: "Yes. There is nothing to sign and no obligation. The plan is yours to keep either way." },
   { q: "Do I need to prepare anything?", a: "No. It helps to know roughly how many messages you get a week and what a customer is worth to you. We can work it out together." },
-  { q: "What happens after the call?", a: "You get the plan in writing. If you want us to build it, you get a fixed price and a start date. If not, that is the end of it." },
+  { q: "What happens after the call?", a: "You get the plan in writing. It shows what we would build first and what it should bring back. If you want us to build it, we agree the first phase and a start date. If not, that is the end of it." },
 ];
 
 export default function AuditPage() {
@@ -46,10 +47,10 @@ export default function AuditPage() {
         eyebrow="The Operations Map · free · 30 minutes"
         title={
           <>
-            See what AI can do <span className="italic-accent">for your business.</span>
+            See what Verdance can do <span className="italic-accent">for your business.</span>
           </>
         }
-        lead="A free 30-minute video call. We look at how your business runs and show you where AI can save you time and money."
+        lead="A free 30-minute video call. We look at how your business runs and show you where Verdance can save you time and money."
         crumbs={[{ href: "/", label: "Home" }, { label: "Operations Map" }]}
         visual={<AuditReport />}
         note="Free · 30 minutes · nothing to sign"

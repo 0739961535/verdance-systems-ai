@@ -38,6 +38,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description: niche.meta.description,
       alternates: { canonical: `/industries/${slug}` },
       openGraph: {
+        images: ["/opengraph-image"],
         title: niche.meta.ogTitle,
         description: niche.meta.description,
         url,
@@ -58,7 +59,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title,
     description,
     alternates: { canonical: `/industries/${slug}` },
-    openGraph: { title, description, url, type: "website", siteName: "Verdance Systems AI" },
+    openGraph: {
+    images: ["/opengraph-image"], title, description, url, type: "website", siteName: "Verdance Systems AI" },
     twitter: { card: "summary_large_image", title, description },
   };
 }
@@ -209,7 +211,7 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
       )}
 
       <CTABand />
-      <StickyMobileCTA href={GENERIC_BOOK_URL} label="See what AI can do for you" />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free 30-minute call" />
     </>
   );
 }

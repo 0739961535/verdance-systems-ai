@@ -2,7 +2,6 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { Instrument_Serif, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { MEGA_MENUS, NICHE_LINKS } from "@/components/layout/navMenus";
@@ -17,35 +16,38 @@ import { SiteAnalytics } from "@/components/analytics/SiteAnalytics";
 import { SITE_URL } from "@/data/site";
 import { ORGANIZATION_LD, ORG_ID, PERSON_LD } from "@/data/entity";
 
-// Satoshi (Indian Type Foundry, ITF Free Font License): headlines and body.
-// The woff2 is fetched at build time by scripts/fetch-fonts.mjs because the
-// licence forbids publishing the file in this public repository.
-const satoshi = localFont({
-  src: "../fonts/satoshi/Satoshi-Variable.woff2",
-  variable: "--font-satoshi",
-  weight: "300 900",
-  style: "normal",
+// Type (design review "Path to 9.5", Oct 2026), all OFL, self-hosted and
+// subset to Latin by hand (src/fonts/README.md) so the first paint stays fast:
+// - Inter, weight 400 to 600: display at 600 with tight tracking, the closest
+//   free face to SF. The only file preloaded.
+// - Newsreader italic, display cut: only "We ship it." (and at most one word
+//   per section elsewhere).
+// - Geist Mono: chapter markers and timestamps only.
+const inter = localFont({
+  src: "../fonts/inter/Inter-400-600-latin.woff2",
+  variable: "--font-inter",
+  weight: "400 600",
   display: "swap",
   fallback: ["system-ui", "Helvetica Neue", "Arial", "sans-serif"],
   adjustFontFallback: "Arial",
 });
-
-// The accent word ("ship"). Instrument Serif only ships one weight.
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument",
-  subsets: ["latin"],
+const newsreader = localFont({
+  src: "../fonts/newsreader/Newsreader-Italic-Display-latin.woff2",
+  variable: "--font-newsreader",
   weight: "400",
-  style: ["italic"],
+  style: "italic",
   display: "swap",
+  fallback: ["Georgia", "serif"],
+  adjustFontFallback: "Times New Roman",
 });
-
-// Labels, times and numbers.
-const geistMono = Geist_Mono({
+const geistMono = localFont({
+  src: "../fonts/geist-mono/GeistMono-400-500-latin.woff2",
   variable: "--font-geist-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: "400 500",
   display: "swap",
   preload: false,
+  fallback: ["ui-monospace", "Menlo", "monospace"],
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
@@ -133,7 +135,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${satoshi.variable} ${instrumentSerif.variable} ${geistMono.variable} h-full`}
+      className={`${inter.variable} ${newsreader.variable} ${geistMono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-canvas text-[color:var(--color-ink)] antialiased">
         <script dangerouslySetInnerHTML={{ __html: NO_FLASH }} />

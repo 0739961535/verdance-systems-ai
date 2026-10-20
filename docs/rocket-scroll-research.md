@@ -42,3 +42,21 @@ No code was copied from any reference. Ideas only. Everything in the flight is o
 | 2 Ascent | Clouds rush past, the sky goes dark, the first stage drops away | AI starts doing the work: answering, following up, admin. |
 | 3 Orbit | Engine off, black space, the Earth's rim, three small lights circle | It runs day and night. Then "Watch it work" shows it. |
 | 4 You stay in control | The existing "You stay in control" section and the final button | One main button, same words as the hero. |
+
+## Rocket redesign v3 (October 2026)
+
+Ideas only, nothing copied.
+
+| Reference | What we took |
+|---|---|
+| [SpaceX Falcon 9](https://www.spacex.com/vehicles/falcon-9/) | Believable two-stage proportions (about 12:1), ogive fairing, dark interstage, grid fins, folded legs, three visible engine bells. |
+| [Smithsonian NASM: Falcon 9 grid fin](https://airandspace.si.edu/collection-objects/grid-fin-rocket-launch-vehicle-falcon-9/nasm_A20220607000) | The lattice fin as the one piece of hardware that says "real rocket" at a glance. |
+| [Apple product pages (iPhone Pro titanium)](https://www.apple.com/iphone/) | One studio-lit object: brushed titanium white, crisp key highlight, soft fill strip, cool rim light; space grey hardware; a single hairline accent; motion that is scrubbed exactly by scroll, slow and weighted, with one confident moment. |
+
+What changed in the flight: the rocket is about 1.35 to 1.5 times bigger, a sky boundary the rocket breaks through at 48% (collar of light, soft wash, then everything slows), near cloud layers pass in front of it, a gentler stage separation, and a single burst at 87% (core flash, two shockwave rings, shock diamonds, a light wash and a short damped nudge) before the hand-off. v5 replaced the drawn hull with a photoreal render (see below); only the plumes are inline SVG.
+
+## v5: photoreal rocket and real space (October 2026)
+
+- Rocket: our own render, generated on Higgsfield (titanium white, azure hairline, V on the fairing), upscaled to 4K, black background keyed to alpha by `scripts/assets/key-rocket.mjs` and split at the interstage for stage separation. Built to AVIF/WebP by `npm run flight:images`.
+- Space: the night side of the Earth with its glowing limb, photographed from the ISS (NASA iss072e340644, public domain; see docs/image-credits.md). It rises into view after the break-through. On desktop the scene's layers follow the pointer at different depths (look-around); phones get the still image.
+- No 3D globe: a lazy three.js Earth would cost about 150KB of script and main-thread time for little gain over the photo, so it was left out to protect the speed score.

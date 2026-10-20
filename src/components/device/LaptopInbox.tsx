@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import type { Beat, Conversation } from "@/data/conversations";
 import { BeatView } from "./screens";
 import { useConversationPlayer, type RotationItem } from "./useConversationPlayer";
+import { LAPTOP_INBOX_CSS } from "./laptopInboxCss";
 
 /**
  * LaptopInbox - the homepage "watch it work" device: a laptop (CSS only,
@@ -26,7 +27,6 @@ const CHANNEL: Record<string, string> = {
   Clinics: "WhatsApp",
 };
 
-const STEPS = ["Enquiry arrives", "Answered in seconds", "Customer chooses", "Confirmed"];
 
 function preview(c: Conversation) {
   const first = c.beats.find((b) => b.kind === "in" || b.kind === "missed");
@@ -61,14 +61,31 @@ function storyStep(beats: Beat[], shown: number, typing: boolean) {
 }
 
 export function LaptopInbox({ rotation }: { rotation: RotationItem[] }) {
-  const { idx, current, shown, typing, fading, mode, step, jump, rootRef } = useConversationPlayer(rotation, "calm");
+  const { idx, current, shown, typing, fading, mode, step, jump, rootRef, paused, togglePause } = useConversationPlayer(rotation, "calm");
   const { business } = current;
   const beats = useMemo(() => withOneBadge(current.beats), [current]);
   const at = storyStep(beats, shown, typing);
   const channel = CHANNEL[rotation[idx].label] ?? "WhatsApp";
+  // Industry pills. The old sliding background was a separate layer placed
+  // with offsetLeft/offsetWidth DOM writes. Measured while the section was
+  // skipped by content-visibility (or before fonts settled, or mid-swipe), it
+  // landed between pills and sat over a neighbour. Each pill now carries its
+  // own selected state; the row only scrolls the chosen pill into view.
+  const pillsRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const row = pillsRef.current;
+    const el = row?.querySelectorAll<HTMLElement>("[data-pill]")[idx];
+    if (!row || !el || row.scrollWidth <= row.clientWidth) return;
+    const left = el.offsetLeft - 20;
+    if (Math.abs(row.scrollLeft - left) < 4) return;
+    const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    row.scrollTo({ left: Math.max(0, left), behavior: smooth ? "smooth" : "auto" });
+  }, [idx]);
 
   return (
-    <figure ref={rootRef} className="m-0 w-full">
+    <figure ref={rootRef} className="lpx m-0 w-full">
+      <style>{LAPTOP_INBOX_CSS}</style>
+      <span aria-hidden className="lpx-glow" />
       <div className="chatphone laptop" data-ssr={mode === "ssr" ? "" : undefined} aria-hidden>
         <div className="laptop-lid">
           <span className="laptop-cam" />
@@ -82,7 +99,7 @@ export function LaptopInbox({ rotation }: { rotation: RotationItem[] }) {
                   <i />
                 </span>
                 <span className="lp-title">Inbox · all channels</span>
-                <span className="lp-chip">Replies within 60 s</span>
+                <span className="lpx-live">Live</span>
               </div>
 
               <div className="lp-body">
@@ -115,10 +132,12 @@ export function LaptopInbox({ rotation }: { rotation: RotationItem[] }) {
                 <div className="lp-chat">
                   <div className="chat-fade lp-chat-inner" data-out={fading ? "" : undefined}>
                     <div className="lp-head">
-                      <span className="wa-avatar lp-av">{business.initials}</span>
+                      <span className="lpx-av-wrap">
+                        <span className="wa-avatar lp-av">{business.initials}</span>
+                      </span>
                       <span className="min-w-0">
                         <span className="block truncate font-semibold">{business.name}</span>
-                        <span className="lp-status">{typing ? "typing…" : `${channel} · after hours`}</span>
+                        <span className="lp-status" data-typing={typing ? "" : undefined}>{typing ? "typing…" : `${channel} · after hours`}</span>
                       </span>
                     </div>
                     <div className="lp-msgs">
@@ -138,6 +157,11 @@ export function LaptopInbox({ rotation }: { rotation: RotationItem[] }) {
                     </div>
                     <div className="lp-composer">
                       <span>Reply…</span>
+                      <span className="lpx-send">
+                        <svg viewBox="0 0 16 16" width="0.95em" height="0.95em" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M8 13V3M3.5 7.5 8 3l4.5 4.5" />
+                        </svg>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -150,26 +174,21 @@ export function LaptopInbox({ rotation }: { rotation: RotationItem[] }) {
         </div>
       </div>
 
-      <figcaption className="mt-6 flex flex-col items-center gap-4">
-        {/* the story, in order: the step on screen is lit, the ones before it are done */}
-        <ol className="lp-steps" aria-hidden>
-          {STEPS.map((label, i) => (
-            <li key={label} data-state={i + 1 < at ? "done" : i + 1 === at ? "now" : undefined}>
-              <span className="lp-step-n">{i + 1}</span>
-              {label}
-            </li>
-          ))}
-        </ol>
-        <span className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[color:var(--color-ink-muted)]">
-          Sample conversation · {rotation[idx].label}
-        </span>
+      {/* one row of controls: the sample business, and pause */}
+      <figcaption className="mt-5">
         <span className="sr-only">{rotation.map((it) => it.conversation.summary).join(" ")}</span>
-        <div className="flex flex-wrap justify-center gap-1.5" role="group" aria-label="Choose a sample conversation">
+        <div ref={pillsRef} className="lp-pills" role="group" aria-label="Choose a sample conversation">
           {rotation.map((it, i) => (
-            <button key={it.label} type="button" onClick={() => jump(i)} aria-pressed={i === idx} className="hero-chip">
+            <button key={it.label} type="button" data-pill onClick={() => jump(i)} aria-pressed={i === idx} className="hero-chip">
+              <span aria-hidden className="lpx-dot" />
               {it.label}
             </button>
           ))}
+          {mode === "play" && (
+            <button type="button" onClick={togglePause} aria-pressed={paused} className="hero-chip lp-pause" aria-label={paused ? "Play the sample conversation" : "Pause the sample conversation"}>
+              {paused ? "Play" : "Pause"}
+            </button>
+          )}
         </div>
       </figcaption>
     </figure>

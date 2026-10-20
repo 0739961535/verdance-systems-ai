@@ -32,7 +32,8 @@ export async function generateMetadata({
     title,
     description,
     alternates: { canonical: `/ai-agency/${slug}` },
-    openGraph: { title, description, url, type: "website", siteName: "Verdance Systems AI" },
+    openGraph: {
+    images: ["/opengraph-image"], title, description, url, type: "website", siteName: "Verdance Systems AI" },
     twitter: { card: "summary_large_image", title, description },
   };
 }
@@ -186,7 +187,7 @@ export default async function LocationPage({
           </>
         }
       />
-      <StickyMobileCTA href={GENERIC_BOOK_URL} label="See what AI can do for you" />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free 30-minute call" />
     </>
   );
 }

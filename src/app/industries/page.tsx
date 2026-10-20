@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/primitives/Reveal";
 import { IndustryCard } from "@/components/industries/IndustryCard";
+import { IndustryDemoSwitch } from "@/components/industries/IndustryDemoSwitch";
+import { MORE_ENTRIES } from "@/components/industries/industryDemos";
 import { industries } from "@/data/industries";
 import { NicheGrid } from "@/components/niche/NicheGrid";
 import { PageHero } from "@/components/kit/PageHero";
@@ -13,8 +15,9 @@ import { SITE_URL } from "@/data/site";
 export const metadata: Metadata = {
   alternates: { canonical: "/industries" },
   openGraph: {
+    images: ["/opengraph-image"],
     title: "Industries | Verdance Systems AI",
-    description: "Five current offers, each built around how one kind of South African business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
+    description: "Five current offers, each built around how one kind of business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
     url: `${SITE_URL}/industries`,
     type: "website",
     siteName: "Verdance Systems AI",
@@ -22,12 +25,14 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Industries | Verdance Systems AI",
-    description: "Five current offers, each built around how one kind of South African business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
+    description: "Five current offers, each built around how one kind of business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
   },
   title: "Industries | Verdance Systems AI",
   description:
-    "Five current offers, each built around how one kind of South African business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
+    "Five current offers, each built around how one kind of business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
 };
+
+const PAIN: Record<string, string> = Object.fromEntries(MORE_ENTRIES.map((e) => [e.slug, e.pain]));
 
 export default function IndustriesPage() {
   return (
@@ -42,19 +47,22 @@ export default function IndustriesPage() {
         lead="A wedding venue, a clinic and a plumber get very different messages. Each offer is built around one kind of business, its channels and its busy hours."
         crumbs={[{ href: "/", label: "Home" }, { label: "Industries" }]}
         visual={<CardFan />}
-        note="Five current offers · every one replies within 60 seconds"
+        note="Five current offers · every enquiry answered within 60 seconds"
       />
 
       <NicheGrid tone="canvas-2" />
 
-      <section className="section-pad bg-canvas" aria-labelledby="more-title" style={{ borderTop: "1px solid var(--hairline)" }}>
+      {/* the one demo on the page: pick a business, watch it reply */}
+      <IndustryDemoSwitch />
+
+      <section className="section-pad bg-canvas" aria-labelledby="more-title" >
         <div className="container-wide">
           <SectionHead
             id="more-title"
             eyebrow="More industries"
             title={
               <>
-                Not on the list? <span className="italic-accent">We still build it.</span>
+                Not on the list? We still build it.
               </>
             }
             intro="The same system adapts to most businesses that run on enquiries. See how it works in yours."
@@ -63,7 +71,7 @@ export default function IndustriesPage() {
             {industries.map((industry, i) => (
               <li key={industry.slug}>
                 <Reveal delay={Math.min(i * 0.05, 0.3)} className="h-full">
-                  <IndustryCard industry={industry} />
+                  <IndustryCard industry={industry} pain={PAIN[industry.slug]} />
                 </Reveal>
               </li>
             ))}
@@ -72,7 +80,7 @@ export default function IndustriesPage() {
       </section>
 
       <CTABand />
-      <StickyMobileCTA href={GENERIC_BOOK_URL} label="See what AI can do for you" />
+      <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free 30-minute call" />
     </>
   );
 }

@@ -20,7 +20,7 @@ export function PageHero({
   lead,
   crumbs,
   visual,
-  primary = { href: GENERIC_BOOK_URL, label: "See what AI can do for you" },
+  primary = { href: GENERIC_BOOK_URL, label: "Book a free 30-minute call" },
   secondary = { href: SITE.whatsapp.href, label: "Or WhatsApp us", whatsapp: true },
   note,
   wideVisual = false,

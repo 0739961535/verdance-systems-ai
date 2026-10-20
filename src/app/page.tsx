@@ -1,7 +1,24 @@
 import type { Metadata } from "next";
 import { InControl, SimpleFinalCTA, SimpleHero, WatchItWork, WhatYouGet } from "@/components/home/SimpleHome";
+import { StatementChapter } from "@/components/home/chapters/StatementChapter";
+import { ProcessChapter } from "@/components/home/ProcessChapter";
+import { QuestionsChapter } from "@/components/home/QuestionsChapter";
+import { FilmStory } from "@/components/home/flight/FilmStory";
 import { FlightStory } from "@/components/home/flight/FlightStory";
-import { ExampleChartsSection } from "@/components/home/charts/ExampleCharts";
+import { LaunchHero } from "@/components/home/hero/LaunchHero";
+
+/** The illustrated flight is the old fallback (FLIGHT_FILM=0). The scroll
+ * film (real footage) is off for now: HERO_FILM=1 at build time brings it
+ * back; otherwise the still hero ships and the film's frames never load. */
+const FLIGHT_FILM = process.env.FLIGHT_FILM !== "0";
+const HERO_FILM = process.env.HERO_FILM === "1";
+import { AskYourBusiness } from "@/components/ask/AskYourBusiness";
+import { BuiltForUs } from "@/components/home/BuiltForUs";
+import { RecentWork } from "@/components/home/RecentWork";
+import { ToolsMarquee } from "@/components/home/ToolsMarquee";
+import { WebsitesChapter } from "@/components/home/WebsitesChapter";
+import { WhoWeAre } from "@/components/home/WhoWeAre";
+import { BookingSection } from "@/components/booking/BookingSection";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/niches";
 import { CTA_PRIMARY, SITE_URL } from "@/data/site";
@@ -9,31 +26,87 @@ import { CTA_PRIMARY, SITE_URL } from "@/data/site";
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
+    images: ["/opengraph-image"],
     title: "We don't talk about AI. We ship it. | Verdance Systems AI",
     description:
-      "Find out what AI can really do for your business. We set up AI that answers customers, follows up, does the admin and reports back. You stay in control.",
+      "Find out what AI can really do for your business. Verdance answers your customers, follows up, does the admin and reports back. You stay in control.",
     url: `${SITE_URL}/`,
     type: "website",
   },
 };
 
 /**
- * Home, kept simple on purpose (docs/simplicity-review.md): seven sections,
- * one idea each, one main button.
- * 1 hero (tagline + rocket) -> 2 the flight (how it works as a rocket
- * climb: launch, ascent, orbit; docs/rocket-scroll-research.md) ->
- * 3 watch it work (the enquiry demo, "in orbit") -> 4 example charts ->
- * 5 what you get -> 6 you stay in control -> 7 final call to action.
+ * Home (rocket v7, design review Oct 2026: growth-lab/WEBSITE_NEXT_LEVEL_REVIEW.md).
+ * Film, one demo, two proofs, the tools, four services, our own system,
+ * one promise, one ending:
+ * 1 the film (opens on the launch pad with the tagline, then how we work in
+ * three steps) -> 2 watch it work -> 3 recent work, then the work slider
+ * -> 4 works with your tools -> 5 what you get -> 6 built for our own business -> 7 you stay in
+ * control -> 8 the closing scene.
+ *
+ * TODO(Daniel): real numbers for the proof. The example charts were removed
+ * (they read as "no results"); add the e-commerce brand's figures to
+ * RecentWork once Peter gives written OK.
  */
 export default function HomePage() {
+  if (!FLIGHT_FILM) {
+    return (
+      <>
+        <SimpleHero />
+        <FlightStory />
+        <div className="cv-below">
+          <WatchItWork />
+        </div>
+        <div className="cv-below">
+          <WhatYouGet />
+        </div>
+        <div className="cv-below">
+          <InControl />
+        </div>
+        <div className="cv-below">
+          <SimpleFinalCTA />
+        </div>
+        <StickyMobileCTA href={GENERIC_BOOK_URL} label={CTA_PRIMARY} />
+      </>
+    );
+  }
   return (
     <>
-      <SimpleHero />
-      <FlightStory />
-      <WatchItWork />
-      <ExampleChartsSection />
-      <WhatYouGet />
-      <InControl />
+      {HERO_FILM ? <FilmStory /> : <LaunchHero />}
+      {/* 04 to 13 below the film (growth-lab/BELOW_THE_FOLD_SPEC.md); each
+          skipped by layout and paint until it nears the screen */}
+      <div className="cv-below">
+        <StatementChapter />
+      </div>
+      <div className="cv-below">
+        <WatchItWork />
+      </div>
+      <div className="cv-below">
+        <WhatYouGet />
+      </div>
+      <ToolsMarquee className="band-orbit" />
+      <div className="cv-below">
+        <WebsitesChapter />
+      </div>
+      <div className="cv-below">
+        <RecentWork />
+      </div>
+      <div className="cv-below">
+        <AskYourBusiness compact />
+      </div>
+      <div className="cv-below">
+        <BuiltForUs />
+      </div>
+      <div className="cv-below">
+        <ProcessChapter />
+      </div>
+      <div className="cv-below">
+        <QuestionsChapter />
+      </div>
+      {/* 13 who we are, 14 the booking flow (id="book"; the page's booking
+          links scroll here). Not in .cv-below: the flow measures itself. */}
+      <WhoWeAre />
+      <BookingSection />
       <SimpleFinalCTA />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label={CTA_PRIMARY} />
     </>

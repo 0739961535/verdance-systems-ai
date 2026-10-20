@@ -32,9 +32,11 @@ const iconMap: Record<string, IconComponent> = {
 
 interface IndustryCardProps {
   industry: Industry;
+  /** the pain in the owner's words (a general line, not a quote from a real person) */
+  pain?: string;
 }
 
-export function IndustryCard({ industry }: IndustryCardProps) {
+export function IndustryCard({ industry, pain }: IndustryCardProps) {
   const Icon = iconMap[industry.icon] ?? Scale;
 
   return (
@@ -56,6 +58,9 @@ export function IndustryCard({ industry }: IndustryCardProps) {
         <h3 className="mt-6 font-display text-lg font-medium leading-tight text-[color:var(--color-ink)]">
           {industry.name}
         </h3>
+        {pain ? (
+          <p className="mt-3 font-serif text-[1.125rem] italic leading-snug text-[color:var(--color-ink)]">&ldquo;{pain}&rdquo;</p>
+        ) : null}
         <p className="mt-2.5 text-[color:var(--color-ink-soft)] text-[13px] leading-relaxed flex-1">
           {industry.headline}
         </p>

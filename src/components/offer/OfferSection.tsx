@@ -5,7 +5,7 @@ import { OPERATIONS_MAP, REVENUE_TEAM } from "@/data/offer";
 
 /**
  * OfferSection - the whole offer on one screen, read like a spec sheet:
- * the free Operations Map (the door), The Revenue Team (the build, framed by
+ * the free Operations Map (the door), the Operations Team (the build, framed by
  * outcome, likelihood, time and effort). No prices,
  * by rule. One CTA. See docs/design-system-v2.md section 2.
  */
@@ -60,7 +60,7 @@ export function OfferSection({ id = "offer", href = GENERIC_BOOK_URL }: { id?: s
               </figure>
               <div className="mt-auto pt-8">
                 <a href={href} className="btn btn-accent min-h-12 w-full justify-center sm:w-auto">
-                  See what AI can do for you
+                  Book a free 30-minute call
                   <ArrowUpRight size={16} aria-hidden />
                 </a>
                 <p className="mt-3 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">Free · 30 minutes · yours to keep</p>

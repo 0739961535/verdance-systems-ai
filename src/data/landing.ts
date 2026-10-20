@@ -100,10 +100,10 @@ export const PILLARS: Pillar[] = [
     slug: "sales",
     name: "Answering and Booking",
     icon: "message-circle",
-    promise: "Every call and message answered in seconds, at any hour, and booked in.",
+    promise: "Every call and message answered within 60 seconds, at any hour, and booked in.",
     capabilities: ["Answering messages", "Answering the phone", "Booking and chasing"],
     offers: [
-      { name: "WhatsApp and Texts", outcome: "Replies in seconds, and works out what they need while it chats", href: "/services/conversation-ai" },
+      { name: "WhatsApp and Texts", outcome: "Replies within 60 seconds, and works out what they need while it chats", href: "/services/conversation-ai" },
       { name: "Chat On Your Website", outcome: "Talks to people while they are still on the page, and books them", href: "/services/conversation-ai" },
       { name: "Answering The Phone", outcome: "Picks up every call, at any hour, and sounds like a person", href: "/services/voice-ai" },
       { name: "A Receptionist That Never Sleeps", outcome: "Answers, takes the details, books the job, tells you about it", href: "/products/ai-receptionist" },
@@ -151,7 +151,7 @@ export const AUDIT = {
   checklist: [
     "Where you are losing customers right now",
     "What to fix first, second and third. Yours to keep.",
-    "A fixed price, if you want us to build it",
+    "A written plan and the price for the first phase, if you want us to build it",
   ],
   microcopy: "Free, and there is nothing to sign. The plan is yours to keep either way.",
   aiChips: [
@@ -182,10 +182,6 @@ export const LANDING_FAQS = [
   {
     q: "How long until it's working?",
     a: "Live in 10 working days from the day the plan is signed off. The launch date is in your contract, and we build in stages so you see it working early, not at the end.",
-  },
-  {
-    q: "Who owns it once it's built?",
-    a: "You do. Every account, automation and piece of data is set up in your name from day one. If we part ways, everything keeps working and stays yours.",
   },
   {
     q: "We already have a system for our customers. Do we have to switch?",

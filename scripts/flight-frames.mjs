@@ -7,15 +7,17 @@ import fs from "node:fs";
 
 const [base = "http://localhost:3123", out = "/tmp/flight", quick] = process.argv.slice(2);
 fs.mkdirSync(out, { recursive: true });
-const STEPS = [0, 0.08, 0.16, 0.24, 0.3, 0.38, 0.46, 0.55, 0.62, 0.7, 0.8, 0.9, 1];
+const STEPS = [0, 0.08, 0.16, 0.24, 0.3, 0.34, 0.4, 0.46, 0.55, 0.62, 0.7, 0.8, 0.9, 0.97, 1];
 const b = await chromium.launch();
 const report = {};
 
+for (const scheme of (process.env.SCHEMES || "dark").split(","))
 for (const width of (process.env.WIDTHS || "390,1440").split(",").map(Number)) {
+  const tag = `${width}-${scheme}`;
   const mobile = width < 768;
   const vp = { width, height: mobile ? 844 : 900 };
   const ctx = await b.newContext({
-    viewport: vp, deviceScaleFactor: mobile ? 2 : 1, isMobile: mobile, hasTouch: mobile,
+    colorScheme: scheme, viewport: vp, deviceScaleFactor: mobile ? 2 : 1, isMobile: mobile, hasTouch: mobile,
     ...(quick ? {} : { recordVideo: { dir: out, size: vp } }),
   });
   if (process.env.BLOCK_WIDGET) await ctx.route(/leadconnectorhq|msgsndr/, (r) => r.abort());
@@ -34,8 +36,8 @@ for (const width of (process.env.WIDTHS || "390,1440").split(",").map(Number)) {
   const frames = [];
   for (const s of STEPS) {
     await p.evaluate((y) => window.scrollTo(0, y), Math.round(geo.top + s * geo.travel));
-    await p.waitForTimeout(220);
-    const f = `${out}/flight-${width}-${String(Math.round(s * 100)).padStart(3, "0")}.png`;
+    await p.waitForTimeout(Number(process.env.SETTLE || 1000)); // scrubbed film eases into place
+    const f = `${out}/flight-${tag}-${String(Math.round(s * 100)).padStart(3, "0")}.png`;
     await p.screenshot({ path: f });
     frames.push({ s, f });
   }
@@ -61,8 +63,8 @@ for (const width of (process.env.WIDTHS || "390,1440").split(",").map(Number)) {
   // fresh context with no video capture (recording itself costs frames).
   const video = quick ? null : p.video();
   await ctx.close();
-  if (video) fs.renameSync(await video.path(), `${out}/scroll-${width}.webm`);
-  const tctx = await b.newContext({ viewport: vp, deviceScaleFactor: mobile ? 2 : 1, isMobile: mobile, hasTouch: mobile });
+  if (video) fs.renameSync(await video.path(), `${out}/scroll-${tag}.webm`);
+  const tctx = await b.newContext({ colorScheme: scheme, viewport: vp, deviceScaleFactor: mobile ? 2 : 1, isMobile: mobile, hasTouch: mobile });
   const tp = await tctx.newPage();
   await tp.goto(base + "/", { waitUntil: "networkidle" });
   await tp.waitForTimeout(1500);
@@ -81,11 +83,14 @@ for (const width of (process.env.WIDTHS || "390,1440").split(",").map(Number)) {
   const ft = await tp.evaluate(() => window.__ft.slice(1));
   await cdp.send("Emulation.setCPUThrottlingRate", { rate: 1 });
   const sorted = [...ft].sort((a, c) => a - c);
-  report[width] = {
+  report[tag] = {
     frames: ft.length,
     medianMs: +sorted[Math.floor(sorted.length / 2)].toFixed(1),
     p95Ms: +sorted[Math.floor(sorted.length * 0.95)].toFixed(1),
     over33ms: ft.filter((v) => v > 33.4).length,
+    over50ms: ft.filter((v) => v > 50).length,
+    over20ms: ft.filter((v) => v > 20).length,
+    maxMs: +sorted[sorted.length - 1].toFixed(1),
     cls,
     errors: errs,
   };
@@ -96,21 +101,21 @@ for (const width of (process.env.WIDTHS || "390,1440").split(",").map(Number)) {
   const imgs = frames.map(({ s, f }) => `<figure><img src="data:image/png;base64,${fs.readFileSync(f).toString("base64")}"><figcaption>flight ${Math.round(s * 100)}%</figcaption></figure>`).join("");
   await sheet.setContent(`<style>body{margin:0;padding:20px;background:#111;font:13px system-ui;color:#bbb}main{display:grid;grid-template-columns:repeat(${mobile ? 7 : 4},1fr);gap:12px}img{width:100%;display:block;border-radius:6px}figure{margin:0}figcaption{padding:4px 0}</style><main>${imgs}</main>`);
   await sheet.waitForTimeout(300);
-  await sheet.screenshot({ path: `${out}/sheet-${width}.png`, fullPage: true });
+  await sheet.screenshot({ path: `${out}/sheet-${tag}.png`, fullPage: true });
   await sheet.close();
 
   // reduced motion still
-  const rctx = await b.newContext({ viewport: vp, deviceScaleFactor: mobile ? 2 : 1, reducedMotion: "reduce" });
+  const rctx = await b.newContext({ colorScheme: scheme, viewport: vp, deviceScaleFactor: mobile ? 2 : 1, reducedMotion: "reduce" });
   const rp = await rctx.newPage();
   const rerr = [];
   rp.on("pageerror", (e) => rerr.push(e.message));
   await rp.goto(base + "/", { waitUntil: "networkidle" });
   await rp.evaluate(() => document.querySelector(".fl").scrollIntoView());
   await rp.waitForTimeout(400);
-  await rp.screenshot({ path: `${out}/reduced-${width}.png`, fullPage: false });
+  await rp.screenshot({ path: `${out}/reduced-${tag}.png`, fullPage: false });
   const h = await rp.evaluate(() => document.querySelector(".fl").offsetHeight);
-  await rp.screenshot({ path: `${out}/reduced-${width}-full.png`, clip: { x: 0, y: await rp.evaluate(() => document.querySelector(".fl").getBoundingClientRect().top + scrollY), width, height: h } , fullPage: true });
-  report[width].reduced = { height: h, errors: rerr };
+  await rp.screenshot({ path: `${out}/reduced-${tag}-full.png`, clip: { x: 0, y: await rp.evaluate(() => document.querySelector(".fl").getBoundingClientRect().top + scrollY), width, height: h } , fullPage: true });
+  report[tag].reduced = { height: h, errors: rerr };
   await rctx.close();
 }
 await b.close();

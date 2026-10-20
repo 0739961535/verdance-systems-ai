@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LogoMark } from "@/components/brand/LogoMark";
-import { ThemeToggle } from "@/components/primitives/ThemeToggle";
 import { CTA_PRIMARY, NAV_ITEMS, SITE } from "@/data/site";
 import { GENERIC_BOOK_URL, bookUrl } from "@/data/booking";
 
@@ -43,13 +42,54 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // The header takes the tone of the section under it: dark glass with
+  // light text over navy and night bands, the cream bar over light ones.
+  // It samples the page just below the header, at most every 120ms while
+  // scrolling (no per-section markup needed, works on every page).
+  useEffect(() => {
+    const html = document.documentElement;
+    const header = document.querySelector<HTMLElement>("header");
+    let last = 0, timer = 0;
+    const bgOf = (start: Element | null) => {
+      for (let el = start; el && el !== document.body; el = el.parentElement) {
+        const c = getComputedStyle(el).backgroundColor;
+        const m = c.match(/rgba?\(([^)]+)\)/);
+        if (!m) continue;
+        const [r, g, b, a = 1] = m[1].split(/[ ,/]+/).map(Number);
+        if (a < 0.5) continue;
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      }
+      return 255;
+    };
+    const sample = () => {
+      timer = 0;
+      last = performance.now();
+      const y = (header?.offsetHeight ?? 64) + 4;
+      const under = document.elementsFromPoint(window.innerWidth / 2, y).find((el) => !header?.contains(el)) ?? null;
+      html.toggleAttribute("data-header-dark", bgOf(under) < 90);
+    };
+    const onScroll = () => {
+      if (timer) return;
+      timer = window.setTimeout(sample, Math.max(0, 120 - (performance.now() - last)));
+    };
+    sample();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (timer) window.clearTimeout(timer);
+      html.removeAttribute("data-header-dark");
+    };
+  }, [pathname]);
+
   return (
     <header
       className="enter-drop fixed inset-x-0 top-0 z-50 py-3.5 transition-[background-color,border-color,backdrop-filter] duration-300"
       style={{
-        background: scrolled ? "rgba(var(--bg-rgb),0.72)" : "transparent",
-        backdropFilter: scrolled ? "blur(16px)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
+        // solid enough that content never ghosts through (design review fix 10)
+        // fully opaque: nothing ever shows through (design re-review v8)
+        background: scrolled ? "var(--bg)" : "transparent",
         borderBottom: scrolled
           ? "1px solid rgba(var(--hairline-rgb),0.06)"
           : "1px solid transparent",
@@ -58,7 +98,8 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
       <div className="container-wide flex items-center justify-between gap-6">
         <Link
           href="/"
-          className="group inline-flex items-center gap-3"
+          prefetch={false}
+          className="group inline-flex min-h-11 min-w-11 items-center gap-3"
           aria-label="Verdance Systems AI - home"
         >
           <LogoMark size={34} animated title={null} />
@@ -66,17 +107,18 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
             <span className="font-display text-[1.15rem] text-[color:var(--color-ink)]" style={{ fontWeight: 600, letterSpacing: "-0.035em" }}>
               Verdance
             </span>
-            <span className="font-serif text-[1.1rem] text-[color:var(--color-ink-muted)]">Systems AI</span>
+            <span className="font-display text-[0.7rem] font-medium uppercase tracking-[0.08em] text-[color:var(--color-ink-muted)]">Systems AI</span>
           </span>
         </Link>
 
-        <nav className="relative hidden md:flex items-center gap-1">
+        <nav className="relative hidden lg:flex items-center gap-1">
           {NAV_ITEMS.map((it) => {
             const active = pathname === it.href;
             const menu = menus[it.href];
             const link = (
               <Link
                 href={it.href}
+                prefetch={it.href === "/" ? false : undefined}
                 className={`relative inline-flex items-center px-3.5 py-2 rounded-full text-sm font-medium transition-colors ${
                   active
                     ? "text-[color:var(--color-ink)]"
@@ -197,8 +239,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
           })}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
-          <ThemeToggle />
+        <div className="hidden lg:flex items-center gap-3">
           <a
             href={SITE.whatsapp.href}
             target="_blank"
@@ -217,12 +258,11 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
           </a>
           <a href={bookHref} className="btn btn-accent">
             <span className="hidden xl:inline">{CTA_PRIMARY}</span>
-            <span className="xl:hidden">See what AI can do</span>
+            <span className="xl:hidden">Book a free call</span>
           </a>
         </div>
 
-        <div className="md:hidden flex items-center gap-2">
-          <ThemeToggle />
+        <div className="lg:hidden flex items-center gap-2">
           <button
             className="inline-flex h-11 w-11 items-center justify-center rounded-full border"
             style={{ borderColor: "var(--color-hairline-2)" }}
@@ -247,7 +287,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
       </div>
 
       {open && (
-        <div className="md:hidden mt-3 mx-4 surface p-4 flex flex-col gap-1.5">
+        <div className="lg:hidden mt-3 mx-4 surface p-4 flex flex-col gap-1.5">
           {NAV_ITEMS.map((it) => (
             <Link
               key={it.href}
@@ -263,7 +303,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
             onClick={() => setOpen(false)}
             className="block rounded-lg px-3 py-2.5 text-sm font-medium text-[color:var(--color-ink)] hover:bg-[color:var(--surface-tint-2)]"
           >
-            Ashford&apos;s Staff <span className="ml-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-accent)]">New</span>
+            Operations Team <span className="ml-1 font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-accent)]">New</span>
           </Link>
           <div className="mt-2 px-3 pt-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[color:var(--color-accent)]">
             Current offers

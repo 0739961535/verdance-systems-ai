@@ -3,7 +3,6 @@ import { SERVICE_CATEGORIES } from "@/data/services";
 import { industries } from "@/data/industries";
 import { NICHES } from "@/data/niches";
 import { LOCATIONS } from "@/data/locations";
-import { PROCESS } from "@/data/process";
 import { SITE_URL } from "@/data/site";
 
 type Freq = MetadataRoute.Sitemap[number]["changeFrequency"];
@@ -34,7 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/about", priority: 0.8, freq: "monthly", updated: UPDATED.about },
     { path: "/industries", priority: 0.8, freq: "monthly", updated: UPDATED.site },
     { path: "/how-it-works", priority: 0.8, freq: "monthly", updated: UPDATED.site },
-    { path: "/contact", priority: 0.7, freq: "yearly", updated: UPDATED.contact },
+    { path: "/book", priority: 0.8, freq: "monthly", updated: UPDATED.site },
     { path: "/apply", priority: 0.8, freq: "monthly", updated: UPDATED.site },
     { path: "/ai-agency", priority: 0.85, freq: "monthly", updated: UPDATED.site },
     { path: "/missed-call-calculator", priority: 0.9, freq: "monthly", updated: UPDATED.calculator },
@@ -75,14 +74,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     updated: UPDATED.site,
   }));
 
-  const processRoutes: Route[] = PROCESS.map((s) => ({
-    path: `/how-it-works/${s.slug}`,
-    priority: 0.75,
-    freq: "monthly",
-    updated: UPDATED.site,
-  }));
+  // /how-it-works/<step> pages redirect to /how-it-works (next.config), so none are listed
 
-  return [...staticRoutes, ...nicheRoutes, ...serviceRoutes, ...industryRoutes, ...locationRoutes, ...processRoutes].map(
+  return [...staticRoutes, ...nicheRoutes, ...serviceRoutes, ...industryRoutes, ...locationRoutes].map(
     ({ path, priority, freq, updated }) => ({
       url: `${SITE_URL}${path}`,
       lastModified: new Date(`${updated}T00:00:00Z`),

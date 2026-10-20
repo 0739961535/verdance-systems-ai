@@ -13,7 +13,7 @@ export function CardFan() {
       {NICHES.map((niche, i) => {
         const k = i - (n - 1) / 2;
         return (
-          <div key={niche.slug} className="fan-card" style={{ ["--k" as string]: k, zIndex: 10 - Math.abs(Math.round(k)) }}>
+          <div key={niche.slug} className="fan-card" data-front={k === 0 ? "" : undefined} style={{ ["--k" as string]: k, zIndex: 10 - Math.abs(Math.round(k)) }}>
             <span className="fan-icon">
               <NicheIcon icon={niche.icon} size={18} />
             </span>

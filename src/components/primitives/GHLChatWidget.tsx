@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
  * qualifying form IS the conversion, and the fixed bottom-right bubble
  * physically overlaps the form's submit control.
  */
-const HIDE_ON = ["/contact", "/apply"];
+const HIDE_ON = ["/book", "/apply"];
 
 const WIDGET_ID = "6a7337fa97ea74e60aff69a1";
 
@@ -42,6 +42,9 @@ function useDeferredLoad() {
   const [load, setLoad] = useState(false);
   useEffect(() => {
     if (load) return;
+    // phones: no chat bubble at all; the sticky bar carries WhatsApp
+    // (design re-review, Oct 2026). Not even downloaded.
+    if (window.innerWidth < 768) return;
     let due = false;
     const go = () => {
       due = true;
@@ -67,7 +70,31 @@ function useDeferredLoad() {
   return load;
 }
 
+/**
+ * The bubble only shows once the visitor is past half the page (and never
+ * over the film; see html[data-in-flight] in globals.css). Sets
+ * html[data-chat-ok], which the CSS reads.
+ */
+function useChatAfterHalfway() {
+  useEffect(() => {
+    const html = document.documentElement;
+    const check = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      html.toggleAttribute("data-chat-ok", max <= 0 || window.scrollY >= max * 0.5);
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    return () => {
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+      html.removeAttribute("data-chat-ok");
+    };
+  }, []);
+}
+
 export function GHLChatWidget() {
+  useChatAfterHalfway();
   const pathname = usePathname();
   const load = useDeferredLoad();
   const hidden =
@@ -123,7 +150,9 @@ export function GHLChatWidget() {
       if (!root.querySelector(`#${STYLE_ID}`)) {
         const style = document.createElement("style");
         style.id = STYLE_ID;
-        style.textContent = `.${LIFTED}{bottom:88px !important;}`;
+        // no "Have a question?" greeting card that opens by itself, on any
+        // device: it sits over the page's content. The bubble itself stays.
+        style.textContent = `.${LIFTED}{bottom:88px !important;}.lc_text-widget--prompt{display:none !important;}`;
         root.appendChild(style);
       }
 

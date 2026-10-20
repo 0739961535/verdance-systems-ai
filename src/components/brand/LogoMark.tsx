@@ -47,7 +47,7 @@ export function LogoMark({
   );
 }
 
-/** Mark + wordmark: "Verdance" in Satoshi, "Systems AI" in Instrument Serif italic. */
+/** Mark + wordmark: "Verdance" in the display face, "Systems AI" small and tracked out. */
 export function Logo({ size = 32, concept = MARK_DEFAULT, wordmark = true, animated = false }: { size?: number; concept?: MarkConcept; wordmark?: boolean; animated?: boolean }) {
   return (
     <span className="inline-flex items-center gap-2.5">
@@ -57,7 +57,7 @@ export function Logo({ size = 32, concept = MARK_DEFAULT, wordmark = true, anima
           <span className="font-display text-[color:var(--color-ink)]" style={{ fontSize: size * 0.56, fontWeight: 600, letterSpacing: "-0.035em" }}>
             Verdance
           </span>
-          <span className="font-serif text-[color:var(--color-ink-muted)]" style={{ fontSize: size * 0.56 }}>
+          <span className="font-display uppercase text-[color:var(--color-ink-muted)]" style={{ fontSize: size * 0.34, fontWeight: 500, letterSpacing: "0.08em" }}>
             Systems AI
           </span>
         </span>

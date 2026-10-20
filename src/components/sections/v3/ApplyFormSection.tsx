@@ -39,7 +39,7 @@ export function ApplyFormSection() {
               className="inline-block h-1.5 w-1.5 rounded-full"
               style={{ background: "var(--color-accent)" }}
             />
-            Apply · For owner-led South African businesses where the team spends the day answering customers
+            Apply · For owner-led businesses where the team spends the day answering customers
           </span>
         </Reveal>
         <Reveal delay={0.05}>

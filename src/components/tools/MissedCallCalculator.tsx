@@ -202,7 +202,7 @@ export function MissedCallCalculator() {
         </p>
 
         <Link
-          href="/contact"
+          href="/book"
           className="btn btn-accent justify-center min-h-12 w-full mt-6 inline-flex"
         >
           Book a free audit call

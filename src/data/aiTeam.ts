@@ -1,6 +1,6 @@
 /**
- * "Ashford's Staff", the private operations team. Service page at
- * /services/ai-operations-system, plus the "Before / With AI" moments
+ * "Operations Team", the private operations team. Service page at
+ * /services/ai-operations-system, plus the "Before / With Verdance" moments
  * (full on that page, short on the homepage and /services).
  *
  * Copy rules: plain, warm, sure. British English. No dashes as punctuation,
@@ -11,18 +11,18 @@
 export const AI_TEAM_PATH = "/services/ai-operations-system";
 
 export const AI_TEAM = {
-  name: "Ashford's Staff",
-  eyebrow: "Ashford's Staff",
+  name: "Operations Team",
+  eyebrow: "Operations Team",
   lead:
-    "It answers customers, follows up, does the admin and tells you what needs you. Nothing goes out until you say yes.",
+    "It answers customers, follows up, does the admin and tells you what needs you. You choose: approve every reply, or let routine ones go out on their own. Anything important always waits for you.",
   meta: {
-    title: "Ashford's Staff | A private team that runs the business alongside you | Verdance Systems AI",
+    title: "Operations Team: Admin, Follow-ups and Reports Done | Verdance",
     description:
-      "A private team that answers your enquiries, follows up quotes, keeps the admin moving and reports in plain words. Nothing is sent or spent without your approval. Start with a free Operations Map.",
+      "A private operations team that answers your enquiries, follows up quotes, keeps the admin moving and reports in plain words. You choose what goes out on its own, and nothing is spent without your approval. Start with a free Operations Map.",
   },
 };
 
-export const CTA_LABEL = "See what AI can do for you";
+export const CTA_LABEL = "Book a free 30-minute call";
 export const CTA_MICRO = "Free 30-minute call. Nothing to sign.";
 
 /* ── Org chart ─────────────────────────────────────────────── */
@@ -128,7 +128,7 @@ export const DEMO_ITEMS: DemoItem[] = [
     biz: "Boutique lodge",
     dept: "Sales",
     worker: "Enquiry replies",
-    check: ["Rooms free on those nights", "Answered within the minute"],
+    check: ["Rooms free on those nights", "Answered within 60 seconds"],
     plan: "Send availability, hold two rooms",
     draft: "Both rooms are free that weekend. Shall I hold them until Monday?",
   },
@@ -166,13 +166,12 @@ export const CAPABILITIES = [
 ];
 
 export const SAFETY = [
-  { title: "Nothing goes out without you", body: "No message is sent and no money is spent until you approve it." },
+  { title: "You choose what goes out", body: "Approve every reply, or let routine ones go out on their own. Anything new, and any money spent, waits for you." },
   { title: "Your data stays yours", body: "It lives in accounts you own, locked and private. Each part of the team only sees what it needs." },
-  { title: "Spending has a limit", body: "You set a monthly limit. The team stops when it gets there." },
   { title: "Everything is written down", body: "Every action is recorded with who did it and why, so you can check it later." },
 ];
 
-/* ── Before / With AI moments ──────────────────────────────── */
+/* ── Before / With Verdance moments ──────────────────────────────── */
 
 export type Moment = {
   stamp: string;
@@ -226,7 +225,7 @@ export const POWER = {
 export const AI_TEAM_FAQS = [
   {
     q: "Will it send things without asking me?",
-    a: "No. It drafts, prepares and recommends. Anything that goes to a client, a supplier or the public, and anything that costs money, waits for your approval.",
+    a: "Only if you want it to. You choose: approve every reply, or let routine ones go out on their own. Anything new to a client, a supplier or the public, and anything that costs money, always waits for your approval.",
   },
   {
     q: "What does it cost?",

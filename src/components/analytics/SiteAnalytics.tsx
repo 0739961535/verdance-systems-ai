@@ -11,7 +11,7 @@ import { GA4_ID, isBookingUrl, rememberUtms, track, withUtms } from "@/lib/analy
  * every existing call to action into a GA4 event, so the CTA components stay
  * server-rendered and need no handlers of their own:
  *
- *   book.verdancesystemsai.com links  audit_click (and UTM passthrough)
+ *   /book links (booking page)      audit_click (and UTM passthrough)
  *   wa.me links                       whatsapp_click
  *   tel: links                        phone_click
  *   mailto: links                     email_click
