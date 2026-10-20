@@ -19,9 +19,9 @@ import { useEffect, useRef, type RefObject } from "react";
  */
 
 const FACTS = [
-  { title: "Answered within 60 seconds.", body: "On WhatsApp, email, website chat and calls." },
-  { title: "Day, night and weekends.", body: "No more enquiries lost after hours." },
-  { title: "Live in 10 working days.", body: "Set up in your accounts, in your voice." },
+  { title: "Answered within 60 seconds.", body: "First-response time on WhatsApp, email, website chat and calls." },
+  { title: "Day, night and weekends.", body: "After-hours and weekend enquiries handled to the same service level." },
+  { title: "Live in 10 working days.", body: "From signed plan to go-live: set up in your accounts, trained on your voice." },
 ] as const;
 
 /* ---------------- timing (seconds) ---------------- */
