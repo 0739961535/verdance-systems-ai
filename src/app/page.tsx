@@ -13,6 +13,7 @@ import { AskYourBusiness } from "@/components/ask/AskYourBusiness";
 import { BuiltForUs } from "@/components/home/BuiltForUs";
 import { RecentWork } from "@/components/home/RecentWork";
 import { ToolsMarquee } from "@/components/home/ToolsMarquee";
+import { WebsitesChapter } from "@/components/home/WebsitesChapter";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/niches";
 import { CTA_PRIMARY, SITE_URL } from "@/data/site";
@@ -78,7 +79,9 @@ export default function HomePage() {
         <WhatYouGet />
       </div>
       <ToolsMarquee className="band-orbit" />
-      {/* WEBSITES_CHAPTER */}
+      <div className="cv-below">
+        <WebsitesChapter />
+      </div>
       <div className="cv-below">
         <RecentWork />
       </div>

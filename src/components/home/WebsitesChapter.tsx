@@ -1,3 +1,4 @@
+import { BOOK_BASE } from "@/data/booking";
 import { SplitWords } from "@/components/primitives/Reveal";
 import { WebsitesScroll } from "./WebsitesScroll";
 
@@ -23,7 +24,7 @@ const MUTED = "#5E5B55";
 const HAIRLINE = "rgba(14,14,16,0.12)";
 const SHADOW = "0 48px 96px rgba(14,14,16,0.18)";
 
-const BOOK = "https://book.verdancesystemsai.com/audit";
+const BOOK = `${BOOK_BASE}/book/audit`;
 
 const INCLUDED = [
   {
@@ -92,7 +93,7 @@ function PhoneFrame({ mode, className }: { mode: "stage" | "self"; className?: s
       data-ws-shot=""
       data-mode={mode}
       data-speed="1.2"
-      className={`relative aspect-[240/500] overflow-hidden rounded-[32px] bg-[#0E0E10] ${className ?? ""}`}
+      className={`aspect-[240/500] overflow-hidden rounded-[32px] bg-[#0E0E10] ${className ?? ""}`}
       style={{ border: `1px solid ${HAIRLINE}`, boxShadow: SHADOW }}
     >
       <PhoneShot />
@@ -129,10 +130,15 @@ function Outro() {
       </p>
       <a
         href={BOOK}
-        className="group mt-8 inline-flex items-center gap-2 text-[16px] font-semibold underline decoration-1 underline-offset-[6px] transition-[text-decoration-color] duration-200 hover:decoration-2"
-        style={{ color: INK, textDecorationColor: HAIRLINE }}
+        className="group mt-8 inline-flex items-center gap-2 text-[16px] font-semibold"
+        style={{ color: INK }}
       >
-        Talk to us about your website
+        <span
+          className="underline decoration-1 underline-offset-[6px] transition-[text-decoration-thickness] duration-200 group-hover:decoration-2"
+          style={{ textDecorationColor: "rgba(14,14,16,0.4)" }}
+        >
+          Talk to us about your website
+        </span>
         <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-[3px]">
           &rarr;
         </span>
@@ -180,7 +186,7 @@ export function WebsitesChapter() {
 
           {/* Mobile: phone, then the desktop shot full bleed */}
           <div className="mt-12 lg:hidden">
-            <PhoneFrame mode="self" className="mx-auto w-[240px]" />
+            <PhoneFrame mode="self" className="relative mx-auto w-[240px]" />
             <div className="-mx-6 mt-12 aspect-[16/10] overflow-hidden">
               <DesktopShot className="block h-full w-full object-cover object-top" />
             </div>

@@ -42,7 +42,8 @@ export function WebsitesScroll() {
         let p = stageP;
         if (frame.dataset.mode === "self") {
           const r = frame.getBoundingClientRect();
-          p = clamp((vh - r.top) / (vh + r.height));
+          // From the frame's top at 75% of the screen to its bottom at 25%.
+          p = clamp((vh * 0.75 - r.top) / (vh * 0.5 + r.height));
         }
         const speed = Number(frame.dataset.speed || 1);
         const y = Math.min(1, p * speed) * travel;
