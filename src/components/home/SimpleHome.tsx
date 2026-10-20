@@ -79,7 +79,7 @@ export function WatchItWork() {
           <p className="lead mt-6">A customer messages at 21:41. This is what they get back.</p>
         </Reveal>
 
-        <div className="inbox-stage">
+        <div className="inbox-stage min-w-0">
           <LaptopInbox rotation={HOME_ROTATION} />
           <p className="museum mt-4">Sample conversations. The businesses and customers are made up.</p>
         </div>
