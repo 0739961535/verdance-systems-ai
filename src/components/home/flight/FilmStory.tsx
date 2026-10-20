@@ -1,5 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
-import { BOOK_BASE } from "@/data/booking";
+import { GENERIC_BOOK_URL } from "@/data/booking";
 import { CTA_PRIMARY, SITE } from "@/data/site";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
 import { FilmController } from "./FilmController";
@@ -19,12 +19,12 @@ import { DAY_BEATS } from "./dayBeats";
  * tall portrait set. The first frame is a plain <img> under the canvas, so
  * the opening is never blank before the canvas is ready.
  *
- * Reduced motion and no-JS: the opening over the launch still, then the
- * three steps over the launch, ascent and orbit stills, as a plain list.
+ * Reduced motion and no-JS: the opening over the first still, then the
+ * day's beats over the day and night stills, as a plain list.
  * Rollback: FLIGHT_FILM=0 brings back the old hero and illustrated flight.
  */
 
-const BOOK_CALL_URL = `${BOOK_BASE}/book/audit`;
+const BOOK_CALL_URL = GENERIC_BOOK_URL;
 const src = (name: string, ext: string) => `/flight/film/${name}.${ext}?v=${film.v}`;
 /** CSS backgrounds for the reduced-motion stills (phone and desktop crops). */
 const stillVars = (name: string) => ({
