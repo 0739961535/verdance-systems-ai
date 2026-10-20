@@ -184,10 +184,6 @@ export const LANDING_FAQS = [
     a: "Live in 10 working days from the day the plan is signed off. The launch date is in your contract, and we build in stages so you see it working early, not at the end.",
   },
   {
-    q: "Who owns it once it's built?",
-    a: "You do. Every account, automation and piece of data is set up in your name from day one. If we stop working together, it all stays yours.",
-  },
-  {
     q: "We already have a system for our customers. Do we have to switch?",
     a: "No. We connect to what you run today where that's the right call, and only suggest moving if it genuinely pays for itself. Working out that trade-off is exactly what the Operations Map is for.",
   },

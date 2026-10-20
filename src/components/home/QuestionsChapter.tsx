@@ -52,10 +52,6 @@ const QUESTIONS: QA[] = [
     q: "Do we have to change our software?",
     a: "No. We connect to what you already use, like WhatsApp, email, your calendar and your online store. If something can't connect, we tell you before we start.",
   },
-  {
-    q: "Who owns it if we stop?",
-    a: "You do. The accounts, numbers and data are set up in your name from day one.",
-  },
 ];
 
 const FAQ_LD = {

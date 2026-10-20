@@ -86,11 +86,6 @@ const BASELINE_FAQ = {
   a: "Before you sign, we run a 7-day audit. We send test enquiries through each channel and time the replies, and we count your enquiries and bookings from the last 60 days using your own inbox and diary. Both sides sign the baseline, so your results are measured against numbers you agreed to.",
 };
 
-const OWNERSHIP_FAQ = {
-  q: "Who owns it?",
-  a: "You do. The accounts, the number, the messages and the customer records sit in your name. If we stop working together, it all stays yours.",
-};
-
 export const NICHES: Niche[] = [
   /* ------------------------------------------------------------------ */
   {
@@ -181,7 +176,6 @@ export const NICHES: Niche[] = [
         q: "Do we have to change our booking system or diary?",
         a: "No. We connect to the diary you use today where we can. If something needs to change, we tell you on the Operations Map, before you commit to anything.",
       },
-      OWNERSHIP_FAQ,
     ],
     cta: {
       title: "Find out how fast your venue",
@@ -282,7 +276,6 @@ export const NICHES: Niche[] = [
         q: "We have more than one property. Does it work across all of them?",
         a: "Yes. Each property keeps its own voice, dates and team, and you see the numbers for each one and for the group.",
       },
-      OWNERSHIP_FAQ,
     ],
     cta: {
       title: "See where your enquiries",
@@ -388,7 +381,6 @@ export const NICHES: Niche[] = [
         q: "Does it work with our practice software?",
         a: "Where your practice software allows it, we book straight into it. Where it does not, we use a shared diary your front desk already works from. We confirm which on the Operations Map.",
       },
-      OWNERSHIP_FAQ,
     ],
     cta: {
       title: "Find out how fast your practice",
@@ -491,7 +483,6 @@ export const NICHES: Niche[] = [
         q: "What about POPIA and old leads?",
         a: "Old leads are only contacted where you have a lawful basis to do so, with an easy way to opt out. Anyone who opts out is never contacted again.",
       },
-      OWNERSHIP_FAQ,
     ],
     cta: {
       title: "See how fast your branch",
@@ -590,7 +581,6 @@ export const NICHES: Niche[] = [
         q: "I'm not good with tech. Is that a problem?",
         a: "No. We set it up and run it. You get the booked jobs in your diary and a text when something needs you.",
       },
-      OWNERSHIP_FAQ,
     ],
     cta: {
       title: "Find out how many calls",

@@ -168,7 +168,6 @@ export const CAPABILITIES = [
 export const SAFETY = [
   { title: "You choose what goes out", body: "Approve every reply, or let routine ones go out on their own. Anything new, and any money spent, waits for you." },
   { title: "Your data stays yours", body: "It lives in accounts you own, locked and private. Each part of the team only sees what it needs." },
-  { title: "Running costs have a ceiling", body: "You set a monthly limit, and it never goes over." },
   { title: "Everything is written down", body: "Every action is recorded with who did it and why, so you can check it later." },
 ];
 
