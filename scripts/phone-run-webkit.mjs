@@ -25,6 +25,9 @@ const fdir = `${out}/frames-${pace}`;
 fs.rmSync(fdir, { recursive: true, force: true });
 fs.mkdirSync(fdir, { recursive: true });
 let running = true;
+// frame 0: the very top of the page (the opening), before any scroll
+await p.screenshot({ path: `${fdir}/${pace}-000.png` });
+shots.push(`${fdir}/${pace}-000.png`);
 const run = p.evaluate(async ({ end, pace }) => {
   const frame = () => new Promise((r) => requestAnimationFrame(r));
   let y = 0;
@@ -41,7 +44,7 @@ const run = p.evaluate(async ({ end, pace }) => {
     const hold = performance.now(); while (performance.now() - hold < 350) await frame();
   }
 }, { end, pace }).then(() => (running = false));
-let k = 0;
+let k = 1;
 while (running) {
   await p.waitForTimeout(pace === "slow" ? 450 : 300);
   const f = `${fdir}/${pace}-${String(k++).padStart(3, "0")}.png`;
