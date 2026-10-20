@@ -134,9 +134,13 @@ export function FilmController() {
     const canvas = q<HTMLCanvasElement>(".flm-canvas");
     const cam = q<HTMLElement>(".flm-cam");
     const copies = qa<HTMLElement>(".fl-step");
+    // each step's headline words rise out of a mask with the film
+    const titleWords = copies.map((c) => Array.from(c.querySelectorAll<HTMLElement>(".fw-i")));
+    const bodies = copies.map((c) => c.querySelector<HTMLElement>(".fl-body"));
     const fills = qa<HTMLElement>(".fl-seg-fill");
     const segs = qa<HTMLElement>(".fl-seg");
     const hero = q<HTMLElement>(".flm-hero");
+    const ignite = q<HTMLElement>(".flm-ignite");
     const hud = q<HTMLElement>(".fl-hud");
     const botWash = q<HTMLElement>(".flm-bot");
     const ctx = canvas.getContext("2d", { alpha: false });
@@ -347,13 +351,26 @@ export function FilmController() {
       fade(hero, h);
       hero.style.transform = `translate3d(0, ${((1 - h) * -24).toFixed(1)}px, 0)`;
       fade(hud, ramp(HERO_OUT[1] - 0.01, STEPS[0][0], p));
+      // the ignition glow and pad lights give way as the rocket lifts
+      ignite.style.opacity = (1 - ramp(0.02, 0.14, p)).toFixed(3);
       // words: one step at a time and fully legible for most of it; the
       // hand-overs are short and never overlap, so nothing sits half-faded
       copies.forEach((el, i) => {
         const [a, b] = STEPS[i];
         const o = ramp(a - XFADE, a, p) * (1 - ramp(b, b + XFADE, p));
         fade(el, o);
-        el.style.transform = `translate3d(0, ${((1 - o) * (p > b ? -14 : 14)).toFixed(1)}px, 0)`;
+        // words: in from below as the step arrives, staggered; out upward
+        const enter = ramp(a - XFADE * 2.2, a, p);
+        const leave = ramp(b, b + XFADE, p);
+        const ws = titleWords[i];
+        ws.forEach((w, j) => {
+          const t = clamp01(enter * (1 + ws.length * 0.18) - j * 0.18);
+          const e = 1 - (1 - t) ** 3;
+          const y = leave > 0 ? -leave * 105 : (1 - e) * 105;
+          w.style.transform = `translate3d(0, ${y.toFixed(1)}%, 0)`;
+        });
+        const body = bodies[i];
+        if (body) body.style.opacity = (ramp(a - XFADE * 0.6, a + XFADE * 0.4, p) * (1 - leave)).toFixed(3);
       });
       fills.forEach((el, i) => {
         const [a, b] = STEPS[i];
@@ -366,6 +383,8 @@ export function FilmController() {
     const direct = () => {
       const r = root.getBoundingClientRect();
       const raw = clamp01(-r.top / Math.max(1, root.offsetHeight - window.innerHeight));
+      // the first scroll "presses the button": the engines flare
+      if (raw > 0.001 && !root.hasAttribute("data-launched")) root.setAttribute("data-launched", "");
       // the exit dissolve follows the scrollbar exactly (no scrub lag), so
       // the words are gone before the stage starts to scroll away
       // while the next section slides over, the held frame dims under it

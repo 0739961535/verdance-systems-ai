@@ -78,6 +78,11 @@ export function FilmStory() {
             </picture>
             <canvas className="flm-canvas" />
             <canvas className="flm-canvas flm-canvas-b" />
+            {/* ignition: pad lights come on left to right, the engines glow */}
+            <div className="flm-ignite">
+              <span className="flm-lights" />
+              <span className="flm-glow" />
+            </div>
           </div>
         </div>
         <div className="flm-bot" aria-hidden />
@@ -89,6 +94,10 @@ export function FilmStory() {
           </h1>
           <p className="flm-sub">Find out what AI can really do for your business.</p>
           <Actions where="hero" />
+          <p className="flm-cue" aria-hidden>
+            <span className="flm-cue-tick" />
+            Scroll to launch
+          </p>
         </div>
 
         {/* ---------- progress through the three steps ---------- */}
@@ -116,7 +125,16 @@ export function FilmStory() {
                     <span className="chap-n">{s.n}</span> {s.name}
                   </span>
                 </p>
-                <h3 className="fl-title">{s.title}</h3>
+                <h3 className="fl-title" aria-label={s.title}>
+                  {s.title.split(" ").map((w, k, all) => (
+                    <span key={k} aria-hidden>
+                      <span className="fw">
+                        <span className="fw-i">{w}</span>
+                      </span>
+                      {k < all.length - 1 ? " " : null}
+                    </span>
+                  ))}
+                </h3>
                 <p className="fl-body">{s.body}</p>
                 {i === STAGES.length - 1 && <Actions where="orbit" />}
               </li>

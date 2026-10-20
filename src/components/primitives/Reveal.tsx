@@ -117,8 +117,10 @@ export function SplitWords({ text, start = 0 }: { text: string; start?: number }
     <>
       {words.map((w, i) => (
         <Fragment key={i}>
-          <span className="sw" style={{ ["--i" as string]: start + i }}>
-            {w}
+          <span className="sw">
+            <span className="sw-i" style={{ ["--i" as string]: start + i }}>
+              {w}
+            </span>
           </span>
           {i < words.length - 1 ? " " : null}
         </Fragment>

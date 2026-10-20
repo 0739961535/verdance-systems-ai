@@ -1,3 +1,4 @@
+import { SplitWords } from "@/components/primitives/Reveal";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -102,7 +103,7 @@ export function BuiltForUs() {
             className="mt-4 font-display"
             style={{ fontSize: "clamp(2rem, 2.2vw + 1.3rem, 3.25rem)", lineHeight: 1.04, letterSpacing: "-0.035em", color: C.ink }}
           >
-            We run our own company on the same systems we build for you.
+            <SplitWords text="We run our own company on the same systems we build for you." />
           </h2>
           <ul className="mt-8 grid gap-4">
             {DOES.map((d) => (

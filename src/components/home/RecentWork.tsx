@@ -1,3 +1,4 @@
+import { SplitWords } from "@/components/primitives/Reveal";
 /**
  * Recent work: two anonymised proof cards.
  * Rules: no client names, logos, URLs, phone numbers, faces, invented numbers or testimonials.
@@ -116,7 +117,7 @@ export function RecentWork() {
         <div className="max-w-3xl" data-reveal="">
           <p className="eyebrow"><span className="chap-n">05</span> Proof</p>
           <h2 id="work-title" className="h2 mt-5">
-            Built and running for South African businesses.
+            <SplitWords text="Built and running for South African businesses." />
           </h2>
           <p className={`mt-6 max-w-xl ${BODY}`}>
             Two recent builds. Client names are kept private.
@@ -125,7 +126,7 @@ export function RecentWork() {
 
         <ul className="mt-12 grid gap-6 md:mt-16 md:gap-8">
           <li>
-            <article className={CARD} aria-labelledby="work-studio" data-reveal="">
+            <article className={`${CARD} lift`} aria-labelledby="work-studio" data-reveal="">
               <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr] lg:items-center lg:gap-14">
                 <div className="sm:pb-8">
                   <StudioVisual />
@@ -152,7 +153,7 @@ export function RecentWork() {
           </li>
 
           <li>
-            <article className={CARD} aria-labelledby="work-ecom" data-reveal="">
+            <article className={`${CARD} lift`} aria-labelledby="work-ecom" data-reveal="">
               <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr] lg:items-center lg:gap-14">
                 <ChatVisual />
                 <div>

@@ -107,7 +107,7 @@ function GetVisual({ word }: { word: string }) {
         <p className={BUBBLE_IN}>
           Do you deliver to Durban?<span className={TIME}>22:15</span>
         </p>
-        <p className={BUBBLE_OUT}>
+        <p className={`${BUBBLE_OUT} gv-out`}>
           Yes, it takes 2 to 3 working days.<span className={TIME}>22:15</span>
         </p>
       </div>
@@ -116,13 +116,13 @@ function GetVisual({ word }: { word: string }) {
     return (
       <div aria-hidden className={`${MINI} flex items-center justify-between gap-3`}>
         <span>Follow-up to a quiet lead</span>
-        <span className="shrink-0 rounded-full border border-[rgba(61,214,140,0.4)] px-2.5 py-1 text-[0.8125rem] text-[#3DD68C]">Approved</span>
+        <span className="gv-tick shrink-0 rounded-full border border-[rgba(61,214,140,0.4)] px-2.5 py-1 text-[0.8125rem] text-[#3DD68C]">Approved</span>
       </div>
     );
   if (word === "Admin")
     return (
       <div aria-hidden className={`${MINI} overflow-hidden p-0 md:p-0`}>
-        <p className="bg-[#1D3F8F] px-3.5 py-2.5 font-semibold">Booked, Tue 07:30</p>
+        <p className="gv-out bg-[#1D3F8F] px-3.5 py-2.5 font-semibold">Booked, Tue 07:30</p>
         <p className="px-3.5 py-2.5 text-white/75">
           Geyser repair
           <br />
@@ -135,10 +135,10 @@ function GetVisual({ word }: { word: string }) {
       <span>
         Monthly report
         <svg viewBox="0 0 96 24" width={96} height={24} className="mt-1.5 block" fill="none">
-          <path d="M1 20 L14 16 L27 18 L40 11 L53 13 L66 7 L79 9 L95 3" stroke="#8FB0FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path className="gv-line" pathLength={1} d="M1 20 L14 16 L27 18 L40 11 L53 13 L66 7 L79 9 L95 3" stroke="#8FB0FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </span>
-      <span className="shrink-0 rounded-full border border-white/[0.12] px-2.5 py-1 text-[0.8125rem] text-white/70">Sent</span>
+      <span className="gv-tick shrink-0 rounded-full border border-white/[0.12] px-2.5 py-1 text-[0.8125rem] text-white/70">Sent</span>
     </div>
   );
 }

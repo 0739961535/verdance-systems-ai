@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useLayoutEffect, useMemo, useRef } from "react";
 import type { Beat, Conversation } from "@/data/conversations";
 import { BeatView } from "./screens";
 import { useConversationPlayer, type RotationItem } from "./useConversationPlayer";
@@ -65,6 +65,18 @@ export function LaptopInbox({ rotation }: { rotation: RotationItem[] }) {
   const beats = useMemo(() => withOneBadge(current.beats), [current]);
   const at = storyStep(beats, shown, typing);
   const channel = CHANNEL[rotation[idx].label] ?? "WhatsApp";
+  // the active pill's background slides to the chosen option
+  const pillsRef = useRef<HTMLDivElement>(null);
+  const pillBgRef = useRef<HTMLSpanElement>(null);
+  useLayoutEffect(() => {
+    const row = pillsRef.current;
+    const bg = pillBgRef.current;
+    const el = row?.querySelectorAll<HTMLElement>(".hero-chip")[idx];
+    if (!row || !bg || !el) return;
+    bg.style.width = `${el.offsetWidth}px`;
+    bg.style.transform = `translateX(${el.offsetLeft}px)`;
+    row.setAttribute("data-slide", "");
+  }, [idx]);
 
   return (
     <figure ref={rootRef} className="m-0 w-full">
@@ -151,7 +163,8 @@ export function LaptopInbox({ rotation }: { rotation: RotationItem[] }) {
       {/* one row of controls: the sample business, and pause */}
       <figcaption className="mt-5">
         <span className="sr-only">{rotation.map((it) => it.conversation.summary).join(" ")}</span>
-        <div className="lp-pills" role="group" aria-label="Choose a sample conversation">
+        <div ref={pillsRef} className="lp-pills" role="group" aria-label="Choose a sample conversation">
+          <span ref={pillBgRef} aria-hidden className="lp-pill-bg" style={{ width: 0 }} />
           {rotation.map((it, i) => (
             <button key={it.label} type="button" onClick={() => jump(i)} aria-pressed={i === idx} className="hero-chip">
               {it.label}

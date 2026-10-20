@@ -73,7 +73,8 @@ export function StickyMobileCTA({ href = "/contact", label = "Book a Meeting" }:
         WebkitBackdropFilter: "blur(16px)",
         borderTop: "1px solid var(--hairline-2)",
         transform: show ? "translateY(0)" : "translateY(110%)",
-        transition: "transform 0.3s var(--ease-luxury)",
+        // slides in with a small overshoot
+        transition: "transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)",
       }}
     >
       <div className="flex items-center gap-2 px-4 py-3">
