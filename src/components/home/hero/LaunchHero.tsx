@@ -52,15 +52,18 @@ const CSS = `
 .lh .btn-launch:hover, .lh .btn-launch:focus-visible { transform: translate3d(0, -2px, 0); box-shadow: 0 18px 44px -12px rgba(var(--accent-rgb), 0.55), 0 0 0 6px rgba(var(--accent-rgb), 0.1); }
 .lh .btn-launch svg { transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
 .lh .btn-launch:hover svg, .lh .btn-launch:focus-visible svg { transform: translate3d(2px, -2px, 0); }
-.lh-eyebrow { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-ink-muted); }
+.lh-eyebrow { text-wrap: balance; max-width: 30ch; font-size: 0.75rem; }
+@media (min-width: 640px) { .lh-eyebrow { max-width: none; } }
+.lh-eyebrow { font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-ink-muted); }
+.lh-bal { text-wrap: balance; }
 .lh-pillars { list-style: none; margin: 72px auto 0; padding: 0; display: grid; text-align: left; max-width: 64rem; border-top: 1px solid var(--hairline-2); }
 @media (min-width: 768px) { .lh-pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 96px; } }
 .lh-pillar { padding: 24px 0; border-bottom: 1px solid var(--hairline-2); }
-@media (min-width: 768px) { .lh-pillar { padding: 28px 28px 8px; border-bottom: 0; } .lh-pillar + .lh-pillar { border-left: 1px solid var(--hairline-2); } .lh-pillar:first-child { padding-left: 0; } }
+@media (min-width: 768px) { .lh-pillar { padding: 28px 32px 8px; border-bottom: 0; } .lh-pillar + .lh-pillar { border-left: 1px solid var(--hairline-2); } .lh-pillar:first-child { padding-left: 0; } .lh-pillar:last-child { padding-right: 0; } }
 .lh-pn { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-accent); }
 .lh-pt { margin: 10px 0 0; font-family: var(--font-display); font-weight: 600; font-size: 1.375rem; letter-spacing: -0.02em; color: var(--color-ink); }
-.lh-pb { margin: 8px 0 0; font-size: 1rem; line-height: 1.55; color: var(--color-ink-soft); max-width: 30ch; }
-.lh-trust { margin: 32px auto 0; max-width: 46rem; font-size: 0.9rem; line-height: 1.55; color: var(--color-ink-muted); }
+.lh-pb { text-wrap: pretty; margin: 8px 0 0; font-size: 1rem; line-height: 1.55; color: var(--color-ink-soft); max-width: 30ch; }
+.lh-trust { text-wrap: balance; margin: 32px auto 0; max-width: 46rem; font-size: 0.9rem; line-height: 1.55; color: var(--color-ink-muted); }
 /* the dissolve into the dark Promise chapter */
 .lh-dissolve { position: relative; height: clamp(220px, 36vh, 420px); margin-bottom: -1px; pointer-events: none;
   background: linear-gradient(var(--bg) 0%, color-mix(in oklab, var(--bg) 78%, #4D7CFF) 22%, color-mix(in oklab, var(--bg) 30%, #1D3F8F) 48%, #0B1736 74%, #060B1A 100%); }
@@ -101,7 +104,7 @@ export function LaunchHero() {
           </div>
 
           <p className="lh-eyebrow lh-fade relative z-[1] mx-auto mt-5 md:mt-7" style={{ ["--d" as string]: "0.05s" }}>
-            Verdance Systems AI · South Africa and the UK
+            Verdance Systems AI · South Africa and the&nbsp;UK
           </p>
 
           <h1
@@ -119,17 +122,17 @@ export function LaunchHero() {
           </h1>
 
           <p
-            className="lh-fade relative z-[1] mx-auto mt-6 max-w-[24ch] font-display text-[color:var(--color-ink)] md:mt-8 md:max-w-[32ch]"
+            className="lh-fade lh-bal relative z-[1] mx-auto mt-6 max-w-[24ch] font-display text-[color:var(--color-ink)] md:mt-8 md:max-w-[32ch]"
             style={{ fontSize: "clamp(1.3rem, 1.1vw + 1rem, 1.9rem)", lineHeight: 1.25, letterSpacing: "-0.025em", ["--d" as string]: "0.42s" }}
           >
-            An operations team that never clocks off, built into your business in ten working days.
+            An operations team that never clocks off, built into your business in 10&nbsp;working&nbsp;days.
           </p>
 
           <p
-            className="lh-fade relative z-[1] mx-auto mt-4 max-w-[36rem] text-[color:var(--color-ink-soft)]"
+            className="lh-fade lh-bal relative z-[1] mx-auto mt-4 max-w-[36rem] text-[color:var(--color-ink-soft)]"
             style={{ fontSize: "clamp(1.02rem, 0.3vw + 0.95rem, 1.15rem)", lineHeight: 1.6, ["--d" as string]: "0.5s" }}
           >
-            Every enquiry answered within 60 seconds. Every quote followed up. The admin done before your team logs on.
+            Every enquiry answered within 60&nbsp;seconds. Every quote followed&nbsp;up. The admin done before your team logs&nbsp;on.
           </p>
 
           <div className="lh-fade relative z-[1] mt-8 flex flex-col items-center gap-4 md:mt-10" style={{ ["--d" as string]: "0.6s" }}>
@@ -138,7 +141,7 @@ export function LaunchHero() {
               <ArrowUpRight size={17} aria-hidden />
             </a>
             <p className="text-[0.9rem] text-[color:var(--color-ink-muted)]">
-              A free 30-minute call. Nothing to sign.{" "}
+              A free 30-minute call. Nothing&nbsp;to&nbsp;sign.{" "}
               <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 whitespace-nowrap underline decoration-[color:var(--hairline-2)] underline-offset-4 hover:text-[color:var(--color-ink)]">
                 <WhatsAppIcon className="h-3.5 w-3.5" />
                 Or WhatsApp us

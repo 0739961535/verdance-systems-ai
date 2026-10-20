@@ -44,7 +44,7 @@ export function RealRecording({ src, poster, label, caption }: { src: { webm: st
         <video
           ref={ref}
           className="block aspect-[720/1560] w-full rounded-[24px] bg-[#0b0d12] object-cover"
-          poster={poster}
+          poster={load ? poster : undefined}
           muted
           loop
           playsInline
