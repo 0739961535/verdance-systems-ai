@@ -149,9 +149,20 @@ function storedUtms(): Record<string, string> {
   }
 }
 
-/** True for links to the booking site (book.verdancesystemsai.com). */
+/** True for links to the booking page (/book, /book?for=..., /book/...), or the old booking site. */
 export function isBookingUrl(href: string): boolean {
-  return href.startsWith(BOOK_BASE);
+  if (href.startsWith("https://book.verdancesystemsai.com")) return true;
+  let path = href;
+  if (/^https?:\/\//.test(href)) {
+    try {
+      const u = new URL(href);
+      if (typeof window !== "undefined" && u.origin !== window.location.origin) return false;
+      path = u.pathname;
+    } catch {
+      return false;
+    }
+  }
+  return path === BOOK_BASE || /^\/book[/?#]/.test(path);
 }
 
 /**
@@ -167,9 +178,10 @@ export function withUtms(href: string): string {
     if (v) tags[k] = v;
   }
   if (!Object.keys(tags).length) return href;
-  const url = new URL(href);
+  const url = new URL(href, window.location.href);
   for (const [k, v] of Object.entries(tags)) {
     if (!url.searchParams.has(k)) url.searchParams.set(k, v);
   }
-  return url.toString();
+  // keep same-site links relative
+  return url.origin === window.location.origin ? url.pathname + url.search + url.hash : url.toString();
 }

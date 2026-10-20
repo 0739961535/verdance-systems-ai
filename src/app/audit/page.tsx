@@ -9,9 +9,9 @@ import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { CTA_PRIMARY, SITE_URL } from "@/data/site";
 
-const TITLE = "The free Operations Map | See what AI can do for your business | Verdance Systems AI";
+const TITLE = "The free Operations Map: where your time and money go | Verdance";
 const DESCRIPTION =
-  "A free 30-minute call. We look at how your business runs and show you where AI can save you time and money, and what to fix first.";
+  "A free 30-minute call. We look at how your business runs and show you where Verdance can save you time and money, and what to fix first.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 const GET = [
-  { t: "Where your time goes", b: "Which jobs take the most hours each week, and which ones AI can do for you." },
+  { t: "Where your time goes", b: "Which jobs take the most hours each week, and which ones Verdance can do for you." },
   { t: "How fast you reply", b: "How long customers wait on WhatsApp, email, calls and your website." },
   { t: "What to fix first", b: "A short list, in order. It is yours to keep, even if we never work together." },
   { t: "A fixed price, if you want it", b: "In writing, before any work starts. The price you see is the price you pay." },
@@ -46,10 +46,10 @@ export default function AuditPage() {
         eyebrow="The Operations Map · free · 30 minutes"
         title={
           <>
-            See what AI can do <span className="italic-accent">for your business.</span>
+            See what Verdance can do <span className="italic-accent">for your business.</span>
           </>
         }
-        lead="A free 30-minute video call. We look at how your business runs and show you where AI can save you time and money."
+        lead="A free 30-minute video call. We look at how your business runs and show you where Verdance can save you time and money."
         crumbs={[{ href: "/", label: "Home" }, { label: "Operations Map" }]}
         visual={<AuditReport />}
         note="Free · 30 minutes · nothing to sign"

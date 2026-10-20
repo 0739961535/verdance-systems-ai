@@ -44,7 +44,7 @@ export function SimpleHero() {
           className="relative z-[1] mx-auto mt-4 max-w-[36rem] text-[color:var(--color-ink-soft)]"
           style={{ fontSize: "clamp(1.02rem, 0.3vw + 0.95rem, 1.15rem)", lineHeight: 1.6 }}
         >
-          We look at how your business runs. Then we set up AI that does the work for you: answering customers, following up, admin and reports. You stay in control.
+          We look at how your business runs. Then Verdance does the work: it answers customers, follows up, does the admin and reports back. You stay in control.
         </p>
 
         <div className="enter-fade-up relative z-[1] mt-8 flex flex-col items-center gap-4 md:mt-10" style={{ animationDelay: "0.2s" }}>
@@ -73,7 +73,7 @@ export function WatchItWork() {
     <section className="band-night chapter-pad" aria-labelledby="watch-title">
       <div className="container-wide grid gap-12 lg:grid-cols-[1fr_1.55fr] lg:items-center lg:gap-16">
         <Reveal variant="wipe" className="max-w-xl">
-          <p className="eyebrow"><span className="chap-n">05</span> Demo</p>
+          <p className="eyebrow">Demo</p>
           <h2 id="watch-title" className="h2 mt-4">
             <SplitWords text="Watch it work." />
           </h2>
@@ -97,25 +97,26 @@ export function WatchItWork() {
 const MINI = "mt-6 max-w-[22rem] rounded-[14px] border border-white/[0.08] bg-[#0A1226] p-3.5 text-[0.875rem] leading-[1.45] text-[#E9EDEF] md:mt-8 md:max-w-[28rem] md:p-5 md:text-[1rem] md:min-h-[9.5rem] md:content-center";
 
 const GETS = [
-  { word: "Answer", title: "Every customer, fast", body: "Every message gets a reply in under a minute. Day or night." },
+  { word: "Answer", title: "Every customer, fast", body: "Every enquiry answered within 60 seconds. Day or night." },
   { word: "Follow up", title: "No one slips away", body: "It checks in with people who went quiet, so they don't forget you." },
   { word: "Admin", title: "Done for you", body: "Bookings, notes and forms get filled in. No more typing things twice." },
   { word: "Report", title: "What's working", body: "A short report each month, in plain words and real numbers." },
 ];
 
-export function WhatYouGet() {
+export function WhatYouGet({ showAll = true }: { showAll?: boolean } = {}) {
   return (
     <section className="band-orbit chapter-pad" aria-labelledby="get-title">
       <WorkVisualsStyle />
       <div className="container-wide">
         <Reveal variant="wipe" className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
           <div className="max-w-3xl">
-            <p className="eyebrow"><span className="chap-n">06</span> Work done</p>
+            <p className="eyebrow">Work done</p>
             <h2 id="get-title" className="h2 mt-4">
-              <SplitWords text="Work that gets" /> <span>done.</span>
+              <SplitWords text="Four jobs, done for you." />
             </h2>
-            <p className="lead mt-6">Four jobs your team does every day. We take them off their plate.</p>
+            <p className="lead mt-6">Answering, following up, admin and reports. Your team keeps the work that needs a person.</p>
           </div>
+          {showAll && (
           <Link
             href="/services"
             className="group inline-flex min-h-11 items-center gap-2 font-medium text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)]"
@@ -123,6 +124,7 @@ export function WhatYouGet() {
             See all 12 services
             <ArrowRight size={16} aria-hidden className="transition-transform group-hover:translate-x-1" />
           </Link>
+          )}
         </Reveal>
         <ul className="get-list mt-12 md:mt-16">
           {GETS.map(({ word, title, body }, i) => (
@@ -159,7 +161,7 @@ export function InControl() {
     <section className="section-pad bg-canvas-2" aria-labelledby="control-title">
       <div className="container-wide grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
         <Reveal variant="wipe">
-          <p className="eyebrow"><span className="chap-n">08</span> Control</p>
+          <p className="eyebrow">Control</p>
           <h2 id="control-title" className="h2 mt-5">
             <SplitWords text="You stay in control." />
           </h2>

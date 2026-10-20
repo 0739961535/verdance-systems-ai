@@ -13,7 +13,7 @@ import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
 
 const FACTS: [string, string][] = [
   ["30 min", "first call, on video"],
-  ["Free", "map of where time leaks"],
+  ["Free", "map of where time and money leak"],
   ["10", "working days to live"],
   ["Day 90", "review together"],
 ];
@@ -113,7 +113,7 @@ export function HowHero() {
               step by step.
             </h1>
             <p className="lead hh-lead enter-rise">
-              Five steps. You make two decisions. We do the rest.
+              Five steps. You make two decisions: whether to go ahead, and what comes next. We do the rest.
             </p>
             <div
               className="hh-ctas enter-fade-up"

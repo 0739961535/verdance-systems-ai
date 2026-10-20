@@ -14,8 +14,8 @@ import { useReducedMotionPref } from "@/lib/useReducedMotionPref";
  */
 
 const FACTS = [
-  { title: "Answered in under a minute.", body: "On WhatsApp, email, website chat and calls." },
-  { title: "Day, night and weekends.", body: "The enquiries you lose after hours stop getting lost." },
+  { title: "Answered within 60 seconds.", body: "On WhatsApp, email, website chat and calls." },
+  { title: "Day, night and weekends.", body: "No more enquiries lost after hours." },
   { title: "Live in 10 working days.", body: "Set up in your accounts, in your voice." },
 ] as const;
 

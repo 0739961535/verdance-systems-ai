@@ -23,7 +23,7 @@ const C = {
 const DOES = [
   // confirmed claims only (spec, Oct 2026); the voice, portal and nightly
   // review lines come back once Daniel confirms them
-  { title: "Nothing goes out until we say yes.", body: "Replies, follow-ups and reports are drafted and wait for approval." },
+  { title: "Anything important waits for our yes.", body: "Replies, follow-ups and reports are drafted. Whatever matters waits for approval." },
   { title: "Every enquiry is tracked.", body: "From the first message to the booked call." },
 ];
 

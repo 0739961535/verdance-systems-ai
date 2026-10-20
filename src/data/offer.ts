@@ -28,7 +28,7 @@ export const OPERATIONS_MAP = {
 /** Hormozi value levers: dream outcome, likelihood, time, effort. No prices. */
 export const REVENUE_TEAM = {
   eyebrow: "Step two · the build",
-  name: "The Revenue Team",
+  name: "Operations Team",
   chip: "Live in 10 working days",
   rows: [
     {

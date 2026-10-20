@@ -21,7 +21,7 @@ export function AskYourBusiness({ compact = false }: { compact?: boolean }) {
       <div className="container-wide grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
         <div className="min-w-0" data-reveal="">
           <p className="eyebrow">
-            <span className="chap-n">09</span> Ask
+            Ask
           </p>
           <h2 id="ask-title" className="h2 mt-4">
             <SplitWords text="Ask your business" /> <span>anything.</span>

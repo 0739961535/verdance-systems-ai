@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { HowHero } from "@/components/how/HowHero";
 import { HowSteps } from "@/components/how/HowSteps";
 import { HowYouDo } from "@/components/how/HowYouDo";
+import { StatementChapter } from "@/components/home/chapters/StatementChapter";
 import { SimpleFinalCTA } from "@/components/home/SimpleHome";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
@@ -35,6 +36,9 @@ export default function HowItWorksPage() {
       </div>
       <div className="cv-below">
         <HowYouDo />
+      </div>
+      <div className="cv-below">
+        <StatementChapter />
       </div>
       <SimpleFinalCTA title={["Start with a", "free", "call."]} />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free 30-minute call" />

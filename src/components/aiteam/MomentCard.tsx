@@ -9,8 +9,8 @@ import m from "./moments.module.css";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 /**
- * One "Before / With AI" moment. Before is static and muted. On reveal the
- * With AI spine draws (700ms), its stamps arrive 120ms apart and the clock
+ * One "Before / With Verdance" moment. Before is static and muted. On reveal the
+ * With Verdance spine draws (700ms), its stamps arrive 120ms apart and the clock
  * counts up once (600ms). Server HTML is the final state, so nothing hides
  * without JavaScript; the card only arms the reveal when it starts below the
  * fold. Reduced motion: final state, no count.
@@ -89,7 +89,7 @@ export function MomentCard({ moment, index }: { moment: Moment; index: number })
         </div>
 
         <div className={m.col} data-side="after">
-          <span className={m.colLabel}>With AI</span>
+          <span className={m.colLabel}>With Verdance</span>
           <p className={m.clock}>
             <span ref={numRef} className={m.clockNum}>
               {moment.after.clock}

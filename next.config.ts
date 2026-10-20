@@ -102,6 +102,12 @@ const nextConfig: NextConfig = {
       // the old per-step pages (six steps, older copy) fold into the one page
       { source: "/how-it-works/:step", destination: "/how-it-works", permanent: true },
       { source: "/portfolio", destination: "/#proof", permanent: true },
+      // One booking page, ours. Old links like /book/book/audit or
+      // /book/venues (from the old booking site's paths) land on /book,
+      // keeping which offer sent them. /contact was a CRM calendar embed.
+      { source: "/book/book/:slug", destination: "/book?for=:slug", permanent: false },
+      { source: "/book/:slug", destination: "/book?for=:slug", permanent: false },
+      { source: "/contact", destination: "/book", permanent: false },
       // City pages folded from 18 to 4 (SEO plan, fix 6): each retired page
       // points at the closest kept city, or the /ai-agency index.
       ...Object.entries(LOCATION_REDIRECTS).map(([from, to]) => ({

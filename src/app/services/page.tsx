@@ -6,7 +6,8 @@ import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { AskYourBusiness } from "@/components/ask/AskYourBusiness";
 import { ToolsMarquee } from "@/components/home/ToolsMarquee";
 import { ProcessChapter } from "@/components/home/ProcessChapter";
-import { SimpleFinalCTA } from "@/components/home/SimpleHome";
+import { SimpleFinalCTA, WhatYouGet } from "@/components/home/SimpleHome";
+import { WebsitesChapter } from "@/components/home/WebsitesChapter";
 import film from "@/components/home/flight/film-manifest.json";
 import { WorkVisualsStyle } from "@/components/home/inbox/WorkVisuals";
 import { PillarVisual, PILLAR_VISUAL_SLUGS, SERVICE_VISUALS_CSS } from "@/components/services/ServiceVisuals";
@@ -14,7 +15,7 @@ import { SERVICE_PILLARS, PILLAR_CATEGORIES } from "@/data/services";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { CTA_PRIMARY, SITE_URL } from "@/data/site";
 
-const TITLE = "Services: WhatsApp Replies, Phone Answering, Online Booking and More | Verdance Systems AI";
+const TITLE = "Services: WhatsApp, Calls and Bookings | Verdance";
 const DESCRIPTION =
   "Twelve services for South African businesses: instant WhatsApp and message replies, phone answering, online booking, missed call text back, Google reviews, websites and more. Fixed quote after a free Operations Map.";
 
@@ -72,10 +73,10 @@ export default function ServicesPage() {
         </picture>
         <div className="container-wide relative z-[1] pb-14 pt-40 lg:pb-24">
           <p className="eyebrow">
-            <span className="chap-n">00</span> Services
+            Services
           </p>
           <h1 id="sv-title" className="mt-4 max-w-[14ch] font-display" style={{ fontSize: "clamp(3.5rem, 5vw + 1.2rem, 5.5rem)", lineHeight: 1, letterSpacing: "-0.04em", fontWeight: 600 }}>
-            Everything your team does twice, done <span className="italic-accent">once.</span>
+            Every job your team repeats, <span className="italic-accent">done by Verdance.</span>
           </h1>
           <p className="lead mt-6">Twelve services in four groups. Start with the one that costs you the most.</p>
           <a href={GENERIC_BOOK_URL} className="btn btn-accent mt-8 min-h-[52px] justify-center px-7 text-[1.02rem]">
@@ -142,6 +143,8 @@ export default function ServicesPage() {
         );
       })}
 
+      <WhatYouGet showAll={false} />
+      <WebsitesChapter />
       <AskYourBusiness />
       <ToolsMarquee still className="band-night" />
       <ProcessChapter />

@@ -50,7 +50,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     slug: "lead-generation",
     number: "01",
-    name: "Finding New Customers",
+    name: "Finding new customers",
     headline: "More people enquiring,",
     italicWord: "and old leads coming back.",
     promise: "We bring back people who enquired before and find new ones who match your best customers.",
@@ -95,7 +95,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     slug: "conversation-ai",
     number: "02",
-    name: "Instant Message Replies",
+    name: "Instant message replies",
     headline: "Every message answered,",
     italicWord: "day or night.",
     promise: "WhatsApp, website chat, Instagram, Facebook and SMS answered within 60 seconds, usually in seconds.",
@@ -146,7 +146,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     slug: "voice-ai",
     number: "03",
-    name: "Phone Answering",
+    name: "Phone answering",
     headline: "Every call answered,",
     italicWord: "even after hours.",
     promise: "A phone assistant that picks up when you cannot, answers questions and books the caller in.",
@@ -192,7 +192,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     slug: "crm-pipeline",
     number: "04",
-    name: "One Place for Every Customer",
+    name: "One place for every customer",
     headline: "Every customer and every job,",
     italicWord: "in one place.",
     promise: "All your customers, enquiries and jobs in one place, so nothing slips through the cracks.",
@@ -238,7 +238,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     slug: "booking-calendar",
     number: "05",
-    name: "Online Booking",
+    name: "Online booking",
     headline: "Customers book themselves in,",
     italicWord: "without the back and forth.",
     promise: "Customers book a time that suits them, day or night, and get reminders so they turn up.",
@@ -284,7 +284,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     slug: "follow-up-nurture",
     number: "06",
-    name: "Follow-up and Missed Call Text Back",
+    name: "Follow-up and missed call text back",
     headline: "No enquiry left",
     italicWord: "to go cold.",
     promise: "Missed calls get a text back in seconds, and every quote and quiet enquiry is followed up politely.",
@@ -329,7 +329,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     slug: "payments-invoicing",
     number: "07",
-    name: "Invoices and Payment Links",
+    name: "Invoices and payment links",
     headline: "Send the invoice,",
     italicWord: "get paid sooner.",
     promise: "Invoices and payment links sent the moment the work is done, then followed up until they are paid.",
@@ -375,7 +375,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     slug: "reputation-reviews",
     number: "08",
-    name: "Google Reviews",
+    name: "Google reviews",
     headline: "More good reviews,",
     italicWord: "without having to ask.",
     promise: "Every happy customer is asked for a Google review at the right moment, and problems come to you first.",
@@ -421,7 +421,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     slug: "websites-build",
     number: "09",
-    name: "Websites that Bring in Enquiries",
+    name: "Websites that bring in enquiries",
     headline: "A website that",
     italicWord: "books customers.",
     promise: "A fast website that people find on Google and that turns visitors into enquiries and bookings.",
@@ -444,7 +444,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         name: "Upgrading your current site",
         description: "Add chat, booking and enquiry tracking to the site you already have.",
-        howItWorks: ["We look at your current site", "We add chat, booking and tracking", "Done in days, without rebuilding"],
+        howItWorks: ["We look at your current site", "We add chat, booking and tracking", "Added to your site, without rebuilding it"],
       },
       {
         name: "Landing pages",
@@ -467,7 +467,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     slug: "marketing-social",
     number: "10",
-    name: "Social Media and Ads",
+    name: "Social media and ads",
     headline: "Show up every week,",
     italicWord: "without the effort.",
     promise: "Your social media keeps posting and your adverts keep working, even in your busiest weeks.",
@@ -513,7 +513,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     slug: "custom-builds",
     number: "11",
-    name: "Custom Automation",
+    name: "Custom automation",
     headline: "The jobs only your business has,",
     italicWord: "done for you.",
     promise: "We automate the repetitive work that is unique to your business and connect the tools you already use.",
@@ -618,28 +618,28 @@ export const SERVICE_PILLARS: ServicePillar[] = [
   {
     index: "01",
     slug: "marketing",
-    title: "Getting Found",
+    title: "Getting found",
     promise: "More of the right people find you, and more of them get in touch.",
     slugs: ["lead-generation", "marketing-social", "reputation-reviews", "websites-build"],
   },
   {
     index: "02",
     slug: "sales",
-    title: "Answering and Booking",
+    title: "Answering and booking",
     promise: "Every call and message answered within 60 seconds, at any hour, and booked in.",
     slugs: ["conversation-ai", "voice-ai", "booking-calendar", "follow-up-nurture"],
   },
   {
     index: "03",
     slug: "operations",
-    title: "Running the Business",
+    title: "Running the business",
     promise: "Customers, payments and your numbers, kept in order without the admin.",
     slugs: ["crm-pipeline", "payments-invoicing", "analytics-compliance"],
   },
   {
     index: "04",
     slug: "automations",
-    title: "The Custom Work",
+    title: "Custom work",
     promise: "The jobs only your business has, done for you.",
     slugs: ["custom-builds"],
   },

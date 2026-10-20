@@ -29,7 +29,7 @@ export function CommitmentBlock({
   title,
   columns = CLAUSES,
   note,
-  ctaHref = "/contact",
+  ctaHref = "/book",
   ctaLabel = "Book a free 30-minute call",
 }: CommitmentBlockProps = {}) {
   const external = ctaHref.startsWith("http");

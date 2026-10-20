@@ -1,10 +1,26 @@
 /**
- * The booking questions. Shared by the booking flow (client) and
- * POST /api/booking/book (server), so the API only ever accepts answers
- * that the form can actually send. No "use client": safe on both sides.
+ * The booking questions. Shared by the booking flow (client) and the
+ * /api/booking/* routes (server), so the API only ever accepts answers the
+ * form can actually send. No "use client": safe on both sides.
+ *
+ * Before the booking: three questions only (name and business, how to
+ * reach you, what is taking up the team's time). After it: an optional
+ * "help us prepare" step with the rest (PREPARE).
  */
 
-export type QuestionId = "business" | "team" | "turnover" | "channel" | "volume" | "leak" | "timeline";
+/** Question 3, before booking: tap any that apply, or write it. */
+export const TIME_TAKERS = [
+  "Replying to new enquiries",
+  "Chasing quotes and follow-ups",
+  "After-hours and weekend messages",
+  "Order, booking and status questions",
+  "Admin and typing things twice",
+  "Reports and knowing the numbers",
+] as const;
+
+export type TimeTaker = { picks: string[]; other: string };
+
+export type QuestionId = "business" | "team" | "turnover" | "channel" | "volume" | "timeline";
 
 export type Question = {
   id: QuestionId;
@@ -14,15 +30,14 @@ export type Question = {
   title: string;
   hint?: string;
   options: readonly string[];
-  /** The option that opens a short text field. */
-  other?: string;
 };
 
-export const QUESTIONS: readonly Question[] = [
+/** The optional questions, asked after the call is booked. */
+export const PREPARE: readonly Question[] = [
   {
     id: "business",
     label: "Business type",
-    title: "What kind of business do you run?",
+    title: "What kind of business is it?",
     options: [
       "E-commerce or product brand",
       "Venue, lodge or hotel",
@@ -43,7 +58,7 @@ export const QUESTIONS: readonly Question[] = [
     id: "turnover",
     label: "Annual turnover",
     title: "Roughly, what is your annual turnover?",
-    hint: "A band is enough. It helps us prepare the right examples.",
+    hint: "A band is enough. It helps us bring the right examples.",
     options: ["Under R5m", "R5m to R15m", "R15m to R50m", "Over R50m", "Prefer not to say"],
   },
   {
@@ -60,20 +75,6 @@ export const QUESTIONS: readonly Question[] = [
     options: ["Under 20", "20 to 100", "100 to 500", "500 to 2,000", "Over 2,000"],
   },
   {
-    id: "leak",
-    label: "Biggest leak",
-    title: "Where does the most time or money slip away?",
-    options: [
-      "Slow replies to new enquiries",
-      "Quotes and leads nobody follows up",
-      "After-hours and weekend enquiries",
-      "Admin eating the team's day",
-      "Order, booking and status questions",
-      "Something else",
-    ],
-    other: "Something else",
-  },
-  {
     id: "timeline",
     label: "Timeline",
     title: "When would you want something running?",
@@ -81,43 +82,119 @@ export const QUESTIONS: readonly Question[] = [
   },
 ] as const;
 
-export type Answers = Partial<Record<QuestionId, string>> & { leakOther?: string };
+export type Answers = Partial<Record<QuestionId, string>>;
 
 /** Below the target segment: under R5m turnover, or fewer than about 20 enquiries a month. */
 export function isLowFit(a: Answers): boolean {
   return a.turnover === "Under R5m" || a.volume === "Under 20";
 }
 
-/**
- * Validate answers sent to the API: every value must be one of the listed
- * options, and the free text is clipped. Unknown or missing values are
- * dropped, never trusted.
- */
+const plain = (v: unknown, max: number) =>
+  typeof v === "string" ? v.replace(/[\u0000-\u001f\u007f<>]/g, " ").replace(/\s+/g, " ").trim().slice(0, max) : "";
+
+/** Validate the prepare answers: listed options only. */
 export function cleanAnswers(raw: unknown): Answers {
   const out: Answers = {};
   if (!raw || typeof raw !== "object") return out;
   const r = raw as Record<string, unknown>;
-  for (const q of QUESTIONS) {
+  for (const q of PREPARE) {
     const v = r[q.id];
     if (typeof v === "string" && q.options.includes(v)) out[q.id] = v;
-  }
-  if (out.leak === "Something else" && typeof r.leakOther === "string") {
-    // plain text only: strip control characters and angle brackets
-    const t = r.leakOther.replace(/[\u0000-\u001f\u007f<>]/g, " ").trim().slice(0, 200);
-    if (t) out.leakOther = t;
   }
   return out;
 }
 
-/** The answers as a plain-text CRM note. */
-export function answersNote(a: Answers): string {
-  const lines = ["Website booking answers"];
-  for (const q of QUESTIONS) {
-    let v = a[q.id] ?? "Not answered";
-    if (q.id === "leak" && a.leakOther) v = `${v}: ${a.leakOther}`;
-    lines.push(`${q.label}: ${v}`);
+export function cleanTimeTaker(raw: unknown): TimeTaker {
+  const r = raw && typeof raw === "object" ? (raw as Record<string, unknown>) : {};
+  const picks = Array.isArray(r.picks)
+    ? r.picks.filter((p): p is string => typeof p === "string" && (TIME_TAKERS as readonly string[]).includes(p))
+    : [];
+  return { picks: [...new Set(picks)], other: plain(r.other, 400) };
+}
+
+/** Which page or offer sent the visitor (?for=venues), letters and dashes only. */
+export function cleanSource(raw: unknown): string {
+  return typeof raw === "string" ? raw.toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 40) : "";
+}
+
+const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const;
+export function cleanUtms(raw: unknown): Record<string, string> {
+  const out: Record<string, string> = {};
+  if (!raw || typeof raw !== "object") return out;
+  for (const k of UTM_KEYS) {
+    const v = plain((raw as Record<string, unknown>)[k], 120);
+    if (v) out[k] = v;
   }
-  if (isLowFit(a)) lines.push("Fit: below the target segment (shown the honest note, chose to book)");
-  lines.push("Consent: agreed to be contacted about this call and to these answers being stored");
+  return out;
+}
+
+const fmtWhen = (slot: string) => {
+  const ms = Date.parse(slot);
+  if (!Number.isFinite(ms)) return slot;
+  return (
+    new Intl.DateTimeFormat("en-GB", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23",
+      timeZone: "Africa/Johannesburg",
+    }).format(ms) + " SAST"
+  );
+};
+
+const timeLine = (t: TimeTaker) => [t.picks.join("; "), t.other].filter(Boolean).join(". ") || "Not answered";
+
+export const TEXT_CONSENT = "Yes, you may text or WhatsApp me about my enquiry. Reply STOP anytime.";
+
+const consentLine = (yes: boolean) =>
+  yes
+    ? `Text and WhatsApp consent: yes, ticked on the booking page ("${TEXT_CONSENT}")`
+    : "Text and WhatsApp consent: not given. Contact by email about this call only.";
+
+/** The booking as a plain-text CRM note. */
+export function bookingNote(p: {
+  name: string;
+  business: string;
+  slot: string;
+  textConsent: boolean;
+  timeTaker: TimeTaker;
+  source: string;
+  utms: Record<string, string>;
+}): string {
+  const lines = [
+    "Website booking",
+    `Call: ${fmtWhen(p.slot)}`,
+    `Name: ${p.name}`,
+    `Business: ${p.business}`,
+    `What takes up the team's time: ${timeLine(p.timeTaker)}`,
+    consentLine(p.textConsent),
+  ];
+  if (p.source) lines.push(`Came from: ${p.source}`);
+  const tags = Object.entries(p.utms)
+    .map(([k, v]) => `${k}=${v}`)
+    .join(", ");
+  if (tags) lines.push(`Campaign tags: ${tags}`);
   return lines.join("\n");
+}
+
+/** The optional prepare answers as a plain-text CRM note. */
+export function prepareNote(a: Answers): string {
+  const lines = ["Website booking: help us prepare"];
+  for (const q of PREPARE) lines.push(`${q.label}: ${a[q.id] ?? "Not answered"}`);
+  if (isLowFit(a)) lines.push("Fit: below the target segment (shown the honest note after booking)");
+  return lines.join("\n");
+}
+
+/** The fallback request (calendar did not load) as a CRM note. */
+export function requestNote(p: { name: string; business: string; textConsent: boolean; timeTaker: TimeTaker; source: string }): string {
+  return [
+    "Website booking request: the calendar did not load. Send this person two or three times.",
+    `Name: ${p.name}`,
+    `Business: ${p.business}`,
+    `What takes up the team's time: ${timeLine(p.timeTaker)}`,
+    consentLine(p.textConsent),
+    ...(p.source ? [`Came from: ${p.source}`] : []),
+  ].join("\n");
 }

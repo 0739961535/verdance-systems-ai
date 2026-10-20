@@ -17,7 +17,7 @@ interface StickyMobileCTAProps {
   label?: string;
 }
 
-export function StickyMobileCTA({ href = "/contact", label = "Book a Meeting" }: StickyMobileCTAProps = {}) {
+export function StickyMobileCTA({ href = "/book", label = "Book a free 30-minute call" }: StickyMobileCTAProps = {}) {
   const [show, setShow] = useState(false);
 
   useEffect(() => {

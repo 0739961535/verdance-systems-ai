@@ -7,10 +7,10 @@ import { MomentCard } from "./MomentCard";
 import m from "./moments.module.css";
 
 /**
- * Four "Before / With AI" moments: an enquiry after hours, a quote follow-up,
+ * Four "Before / With Verdance" moments: an enquiry after hours, a quote follow-up,
  * the Monday admin pile and a month-end decision.
- * variant="full": the moment cards with timelines (Ashford's Staff page).
- * variant="short": compact clock pairs plus a link card to the Staff page
+ * variant="full": the moment cards with timelines (Operations Team page).
+ * variant="short": compact clock pairs plus a link card to the Operations Team page
  * (homepage and /services).
  */
 export function PowerOfAI({ variant = "full" }: { variant?: "full" | "short" }) {
@@ -44,7 +44,7 @@ export function PowerOfAI({ variant = "full" }: { variant?: "full" | "short" }) 
               style={{ background: "var(--bg-3)", border: "1px solid var(--hairline-glow)" }}
             >
               <span>
-                <span className="block font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[color:var(--color-accent)]">Ashford&apos;s Staff</span>
+                <span className="block font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[color:var(--color-accent)]">Operations Team</span>
                 <span
                   className="mt-2 block font-display text-[clamp(1.5rem,1.5vw+1rem,2.25rem)] text-[color:var(--color-ink)]"
                   style={{ letterSpacing: "-0.035em", lineHeight: 1.1 }}
@@ -52,7 +52,7 @@ export function PowerOfAI({ variant = "full" }: { variant?: "full" | "short" }) 
                   A private team that runs the business alongside you
                 </span>
                 <span className="mt-2 block max-w-xl text-[0.98rem] leading-[1.55] text-[color:var(--color-ink-soft)]">
-                  It answers, chases and clears the admin, and you approve anything that goes out.
+                  It answers, chases and clears the admin. You choose what goes out on its own, and anything important waits for you.
                 </span>
               </span>
               <span className="inline-flex min-h-11 shrink-0 items-center gap-2 font-medium text-[color:var(--color-ink)] group-hover:text-[color:var(--color-accent)]">
@@ -89,7 +89,7 @@ export function PowerOfAI({ variant = "full" }: { variant?: "full" | "short" }) 
                         </p>
                       </div>
                       <div className={m.col} data-side="after">
-                        <span className={m.colLabel}>With AI</span>
+                        <span className={m.colLabel}>With Verdance</span>
                         <p className={m.clock}>
                           <span className={m.clockNum}>{mo.after.clock}</span>
                         </p>

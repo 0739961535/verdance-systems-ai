@@ -46,7 +46,7 @@ export default function IndustriesPage() {
         lead="A wedding venue, a clinic and a plumber get very different messages. Each offer is built around one kind of business, its channels and its busy hours."
         crumbs={[{ href: "/", label: "Home" }, { label: "Industries" }]}
         visual={<CardFan />}
-        note="Five current offers · every one replies within 60 seconds"
+        note="Five current offers · every enquiry answered within 60 seconds"
       />
 
       <NicheGrid tone="canvas-2" />

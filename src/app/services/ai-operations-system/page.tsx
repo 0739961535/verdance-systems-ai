@@ -3,7 +3,6 @@ import { ArrowUpRight, Check } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
 import { CommandCentre } from "@/components/aiteam/CommandCentre";
 import { FlowDiagram } from "@/components/aiteam/FlowDiagram";
-import { HearItCallYou } from "@/components/aiteam/HearItCallYou";
 import { OrgChart } from "@/components/aiteam/OrgChart";
 import { PowerOfAI } from "@/components/aiteam/PowerOfAI";
 import { FAQControl } from "@/components/sections/v4/FAQControl";
@@ -69,13 +68,13 @@ export default function AiOperationsTeamPage() {
         <div className="container-wide relative pt-28 pb-[var(--space-section)] sm:pt-32 md:pt-40">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
             <div>
-              <p className="enter-fade-up eyebrow">Ashford&apos;s Staff</p>
+              <p className="enter-fade-up eyebrow">Operations Team</p>
               <h1
                 id="ai-hero-title"
                 className="enter-rise mt-6 max-w-[18ch] font-display text-[color:var(--color-ink)]"
                 style={{ fontSize: "clamp(2.4rem, 3.9vw + 1rem, 5.25rem)", lineHeight: 1, letterSpacing: "-0.045em" }}
               >
-                Your own <span className="italic-accent">AI team.</span> It does the work. You make the calls.
+                Your own <span className="italic-accent">operations team.</span> It does the work. You make the calls.
               </h1>
             </div>
             <div className="enter-fade-up" style={{ animationDelay: "0.12s" }}>
@@ -130,7 +129,7 @@ export default function AiOperationsTeamPage() {
             <OrgChart />
           </Reveal>
           <p className="mt-[var(--space-block)] max-w-[62ch] text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink)]">
-            Ashford is the system underneath. We run our own company on it too.
+            We run our own company on the same system.
           </p>
         </div>
       </section>
@@ -175,7 +174,7 @@ export default function AiOperationsTeamPage() {
                 It drafts. It prepares. <span className="italic-accent">You decide.</span>
               </>
             }
-            lead="Your customers only hear what you have said yes to."
+            lead="You choose what goes out on its own. Anything important always waits for you."
           />
           <ul
             className="mt-[var(--space-head)] grid gap-px overflow-hidden rounded-[22px] sm:grid-cols-2 lg:grid-cols-4"
@@ -196,9 +195,6 @@ export default function AiOperationsTeamPage() {
         </div>
       </section>
 
-      {/* Hidden unless NEXT_PUBLIC_SHOW_TRY_DEMO=1. See the component. */}
-      <HearItCallYou />
-
       <div style={BAND}>
         <FAQControl faqs={AI_TEAM_FAQS} />
       </div>
@@ -213,10 +209,10 @@ export default function AiOperationsTeamPage() {
               className="mt-6 font-display text-[color:var(--color-ink)] md:mx-auto md:max-w-[18ch]"
               style={{ fontSize: "clamp(2.25rem, 4vw + 1rem, 4.5rem)", lineHeight: 1, letterSpacing: "-0.045em" }}
             >
-              See what AI can do <span className="italic-accent">for you.</span>
+              See what Verdance can do <span className="italic-accent">for you.</span>
             </h2>
             <p className="mt-6 text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)] md:mx-auto md:max-w-[52ch]">
-              A free 30-minute call. We look at how your business runs and show you which jobs your AI team could take off you.
+              A free 30-minute call. We look at how your business runs and show you which jobs Verdance could take off you.
             </p>
             <div className="mt-[var(--space-cta)] flex flex-col gap-3 md:items-center">
               <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent min-h-[52px] w-full justify-center px-7 sm:w-auto">

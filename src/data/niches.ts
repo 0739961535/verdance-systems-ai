@@ -88,7 +88,7 @@ const BASELINE_FAQ = {
 
 const OWNERSHIP_FAQ = {
   q: "Who owns it?",
-  a: "You do. The accounts, the number, the messages and the customer records sit in your name. If we stop working together, it keeps running and stays yours.",
+  a: "You do. The accounts, the number, the messages and the customer records sit in your name. If we stop working together, it all stays yours.",
 };
 
 export const NICHES: Niche[] = [
@@ -98,7 +98,7 @@ export const NICHES: Niche[] = [
     bookSlug: "venues",
     name: "Wedding and Event Venues",
     shortName: "Venues",
-    offerName: "Revenue Team for venues",
+    offerName: "Operations Team for venues",
     icon: "venue",
     meta: {
       title: "Wedding Venue Enquiries Answered in 60 Seconds | Verdance",
@@ -106,10 +106,10 @@ export const NICHES: Niche[] = [
         "Every venue enquiry answered within 60 seconds, day or night, and viewings booked into your diary. Start with a free Operations Map.",
       ogTitle: "The first venue to reply gets the viewing.",
     },
-    card: { line: "Every enquiry answered in 60 seconds. Viewings booked into your diary." },
+    card: { line: "Every enquiry answered within 60 seconds. Viewings booked into your diary." },
     hero: {
       eyebrow: "Wedding and event venues · South Africa",
-      lines: ["Couples enquire with four venues."],
+      lines: ["Couples enquire with several venues."],
       accent: "The first to reply gets the viewing.",
       lead: "We set up a system that replies to every enquiry within 60 seconds, day or night, on your website, email, WhatsApp and Instagram. It answers the usual questions, checks the date, and books the viewing into your diary. You show the venue.",
     },
@@ -142,10 +142,10 @@ export const NICHES: Niche[] = [
     included: [
       { title: "60-second replies, around the clock", body: "Website, email, WhatsApp and Instagram. Same standard on a Sunday night as on a Tuesday morning." },
       { title: "Date checks and viewing booking", body: "Checks availability, offers viewing slots and puts the booking straight into your diary." },
-      { title: "Viewing reminders and no-show rescue", body: "Reminders before the viewing. If a couple does not arrive, it offers a new time." },
+      { title: "Viewing reminders and a new time if they miss it", body: "Reminders before the viewing. If a couple does not arrive, it offers a new time." },
       { title: "Polite follow-up", body: "Couples who go quiet are followed up a set number of times, and it stops the moment they reply." },
       { title: "Handover to your team", body: "Pricing negotiations, special requests and anything sensitive go straight to the right person." },
-      { title: "Monthly recovery report", body: "Enquiries, reply times, viewings and bookings, with the value in rand." },
+      { title: "Monthly report", body: "Enquiries, reply times, viewings and bookings, with the value in rand." },
     ],
     bonuses: [
       "Your audit report, yours to keep either way",
@@ -196,7 +196,7 @@ export const NICHES: Niche[] = [
     bookSlug: "lodges",
     name: "Boutique Lodges and Venue Groups",
     shortName: "Lodges",
-    offerName: "Revenue Team for lodges and venue groups",
+    offerName: "Operations Team for lodges and venue groups",
     icon: "lodge",
     meta: {
       title: "Enquiry Replies for Lodges and Venue Groups | Verdance",
@@ -297,7 +297,7 @@ export const NICHES: Niche[] = [
     bookSlug: "clinics",
     name: "Private Clinics: Dental Implant and Aesthetics",
     shortName: "Clinics",
-    offerName: "Revenue Team for private clinics",
+    offerName: "Operations Team for private clinics",
     icon: "clinic",
     meta: {
       title: "Clinic Consult Enquiries Answered in 60 Seconds | Verdance",
@@ -305,7 +305,7 @@ export const NICHES: Niche[] = [
         "Every WhatsApp, Instagram, form and missed call answered within 60 seconds, day or night, and consults booked into your diary. Administrative replies only. No clinical advice.",
       ogTitle: "The enquiry came in at 8pm. Your front desk was closed.",
     },
-    card: { line: "Every consult enquiry answered in 60 seconds, including after hours." },
+    card: { line: "Every consult enquiry answered within 60 seconds, including after hours." },
     hero: {
       eyebrow: "Dental implant and aesthetics practices · South Africa",
       lines: ["A patient messages at 8pm.", "Your front desk is closed."],
@@ -341,7 +341,7 @@ export const NICHES: Niche[] = [
     included: [
       { title: "60-second replies, day or night", body: "WhatsApp, Instagram, web forms and missed-call text-back." },
       { title: "Consult booking", body: "Offers open consult times and books straight into your practice diary." },
-      { title: "Reminders and no-show rescue", body: "Reminders before each consult, and a new time offered if someone does not arrive." },
+      { title: "Reminders and a new time if they miss it", body: "Reminders before each consult, and a new time offered if someone does not arrive." },
       { title: "Treatment-plan follow-up", body: "Polite follow-up for patients who received a quote and have not booked, on a schedule you approve." },
       { title: "Recall messages", body: "Reminders to existing patients who are due back, in your practice's wording." },
       { title: "Clear handover", body: "Any clinical question goes straight to your team. The system does not answer it." },
@@ -405,7 +405,7 @@ export const NICHES: Niche[] = [
     bookSlug: "estate-agents",
     name: "Independent Estate Agencies",
     shortName: "Estate agents",
-    offerName: "Revenue Team for estate agencies",
+    offerName: "Operations Team for estate agencies",
     icon: "estate",
     meta: {
       title: "Portal Lead Response for Estate Agents | Verdance",
@@ -413,7 +413,7 @@ export const NICHES: Niche[] = [
         "Every portal, website and WhatsApp lead gets a reply and qualifying questions within 60 seconds, day or night, and the viewing goes into the agent's calendar. Done for you.",
       ogTitle: "The buyer enquired at 21:14. Who replied first?",
     },
-    card: { line: "Every portal lead answered in 60 seconds, and the viewing in the agent's diary." },
+    card: { line: "Every portal lead answered within 60 seconds, and the viewing in the agent's diary." },
     hero: {
       eyebrow: "Independent estate agencies · South Africa",
       lines: ["A buyer enquires on three listings at 21:14."],
@@ -506,7 +506,7 @@ export const NICHES: Niche[] = [
     bookSlug: "trades",
     name: "Trades and Home Services",
     shortName: "Trades",
-    offerName: "Revenue Team for trades",
+    offerName: "Operations Team for trades",
     icon: "trades",
     meta: {
       title: "Missed Call Text Back for Trades | Verdance Systems AI",

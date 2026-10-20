@@ -9,7 +9,7 @@ export const ORG_ID = `${SITE_URL}/#organization`;
 export const PERSON_ID = `${SITE_URL}/about#daniel-bouwer`;
 
 export const ORG_DESCRIPTION =
-  "Verdance Systems AI builds The Revenue Team for owner-led South African businesses: every enquiry answered within 60 seconds, every follow-up done, and the team's hours back. Live in 10 working days. It starts with a free Operations Map.";
+  "Verdance Systems AI builds AI systems and the Operations Team for owner-led South African businesses: every enquiry answered within 60 seconds, every follow-up done, and the team's hours back. Live in 10 working days. It starts with a free Operations Map.";
 
 export const PERSON_LD = {
   "@type": "Person",
@@ -82,7 +82,7 @@ export const ORGANIZATION_LD = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "The Revenue Team",
+          name: "Operations Team",
           description:
             "Every enquiry on WhatsApp, phone, website, email and social answered within 60 seconds, every follow-up done, and a person brought in the moment it matters. Live in 10 working days.",
         },

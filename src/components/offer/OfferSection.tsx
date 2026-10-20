@@ -5,7 +5,7 @@ import { OPERATIONS_MAP, REVENUE_TEAM } from "@/data/offer";
 
 /**
  * OfferSection - the whole offer on one screen, read like a spec sheet:
- * the free Operations Map (the door), The Revenue Team (the build, framed by
+ * the free Operations Map (the door), the Operations Team (the build, framed by
  * outcome, likelihood, time and effort). No prices,
  * by rule. One CTA. See docs/design-system-v2.md section 2.
  */

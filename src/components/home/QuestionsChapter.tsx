@@ -8,17 +8,17 @@ import { QuestionsAccordion, type QA } from "./QuestionsAccordion";
  * band, art directed to render the same in the light and dark site themes.
  * On desktop the left column (marker, heading, one line, WhatsApp link) stays
  * put while the questions scroll. Ships FAQPage structured data for the same
- * eight questions.
+ * eleven questions.
  */
 
 const QUESTIONS: QA[] = [
   {
     q: "Won't it sound like a robot to our customers?",
-    a: "It writes in your voice, from your own answers and the way your team already talks. When a conversation matters, a person on your team takes over. You can read every message.",
+    a: "Verdance writes in your voice, from your own answers and the way your team already talks. When a conversation matters, a person on your team takes over. You can read every message.",
   },
   {
     q: "Who checks what it sends?",
-    a: "You do. Anything important waits for your approval before it goes out. Routine replies go straight away, and you see all of them.",
+    a: "You do, and you choose how. Approve every reply, or let routine ones go out on their own within 60 seconds. Anything important always waits for you, and you can read every message.",
   },
   {
     q: "What happens when it doesn't know the answer?",
@@ -27,6 +27,18 @@ const QUESTIONS: QA[] = [
   {
     q: "Is it worth the money for a business our size?",
     a: "We only propose a build if your own numbers show at least twice the monthly cost coming back. If they don't, we tell you, and you keep the map.",
+  },
+  {
+    q: "What does it cost to find out?",
+    a: "Nothing. The call and the Operations Map are free, and you keep the map. If you want us to build, you get a fixed price in writing first.",
+  },
+  {
+    q: "How much of my time does it take?",
+    a: "About two hours. A 30-minute call, an hour to test it before it goes live, and half an hour at the review. We do the rest.",
+  },
+  {
+    q: "You're a young company. Why trust you?",
+    a: "Judge us on the work, not on our age. You test it yourself before a real customer sees it. Everything is set up in your name. The launch date goes in your contract.",
   },
   {
     q: "We tried a chatbot before. It was rubbish.",
@@ -137,7 +149,7 @@ export function QuestionsChapter() {
           <div className="qc-side">
             <div data-reveal="">
               <p className="eyebrow">
-                <span className="chap-n">12</span> Questions
+                Questions
               </p>
               <h2 id="questions-title" className="h2 qc-h2">
                 <SplitWords text="What owners ask us" />{" "}

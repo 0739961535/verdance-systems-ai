@@ -80,7 +80,7 @@ export function RecentWork() {
       <style>{CSS + PROOF_CSS}</style>
       <div className="container-wide">
         <div className="max-w-3xl" data-reveal="">
-          <p className="eyebrow"><span className="chap-n">08</span> Proof</p>
+          <p className="eyebrow">Proof</p>
           <h2 id="work-title" className="h2 mt-4">
             <SplitWords text="Built and running for South African" /> <span>businesses.</span>
           </h2>
@@ -101,7 +101,7 @@ export function RecentWork() {
                 src={{ webm: "/work/proof/ecom-results.webm", mp4: "/work/proof/ecom-results.mp4" }}
                 poster="/work/proof/ecom-results-poster.webp"
                 label="Screen recording of the brand's live results page, names and numbers hidden"
-                caption="Their real results page, recorded. Names blurred, numbers hidden until the client says yes."
+                caption="Their live results page, recorded. Names and numbers hidden for privacy."
               />
             }
           />

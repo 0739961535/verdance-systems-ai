@@ -13,12 +13,12 @@ export function CTABand({
   eyebrow = "Free Operations Map · 30 minutes",
   title = (
     <>
-      See what AI can do <span className="italic-accent">for you.</span>
+      See what Verdance can do <span className="italic-accent">for you.</span>
     </>
   ),
   points = [
     "Where your time goes each week",
-    "Which jobs AI can take off you",
+    "Which jobs Verdance can take off you",
     "A fixed price, if you want us to build it",
   ],
   href = GENERIC_BOOK_URL,
