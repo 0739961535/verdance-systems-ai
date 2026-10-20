@@ -2,7 +2,6 @@ import { ArrowUpRight } from "lucide-react";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { SITE } from "@/data/site";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
-import { Rocket } from "./Rocket";
 import { EarthRise } from "./EarthRise";
 
 /**
@@ -97,11 +96,8 @@ export function LaunchHero() {
         <span aria-hidden className="lh-glow lh-glow-b" />
         <span aria-hidden className="lh-depth" />
         <div className="lh-in container-narrow relative text-center">
-          <div className="lh-float">
-            <Rocket />
-          </div>
 
-          <p className="lh-eyebrow lh-fade relative z-[1] mx-auto mt-5 md:mt-7" style={{ ["--d" as string]: "0.05s" }}>
+          <p className="lh-eyebrow lh-fade relative z-[1] mx-auto" style={{ ["--d" as string]: "0.05s" }}>
             Verdance Systems AI
           </p>
 
