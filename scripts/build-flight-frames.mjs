@@ -6,7 +6,7 @@
 // src/components/home/flight/film-manifest.json. Masters are never committed.
 //
 // Two films can feed it:
-// - `shots`: the 16:9 film (s1-s3.mp4) for desktop.
+// - `shots`: the 16:9 film (s1-s3.mp4, or one finished master .mp4) for desktop.
 // - `phoneShots` (optional): a native 9:16 film for phones, telling the same
 //   story. Without it, phones get a tall strip cropped from the 16:9 film
 //   that follows the rocket (`cx` keyframes, `phoneAspect`).
@@ -59,7 +59,9 @@ const pad = (i) => String(i).padStart(3, "0");
 
 /* ---------- a film: probe, join, trim ---------- */
 function film(dir, endFrac) {
-  const shots = ["s1.mp4", "s2.mp4", "s3.mp4"].map((f) => path.join(expand(dir), f));
+  // a folder of s1-s3.mp4, or one finished master film (.mp4)
+  const single = /\.mp4$/i.test(dir);
+  const shots = single ? [expand(dir)] : ["s1.mp4", "s2.mp4", "s3.mp4"].map((f) => path.join(expand(dir), f));
   for (const s of shots) if (!fs.existsSync(s)) throw new Error(`missing ${s}`);
   const info = shots.map((file) => {
     const out = execFileSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-count_frames",
@@ -70,7 +72,9 @@ function film(dir, endFrac) {
   const joined = info.reduce((t, s, i) => t + s.n - (i > 0 ? 1 : 0), 0);
   const total = endFrac != null ? Math.min(joined, Math.round(endFrac * (joined - 1)) + 1) : joined;
   console.log(`${path.basename(expand(dir))}: ${info[0].w}x${info[0].h}, ${joined} frames joined, using ${total}`);
-  const join = `[0:v]setpts=PTS-STARTPTS[a];[1:v]trim=start_frame=1,setpts=PTS-STARTPTS[b];[2:v]trim=start_frame=1,setpts=PTS-STARTPTS[c];[a][b][c]concat=n=3:v=1:a=0,trim=end_frame=${total}[f]`;
+  const join = single
+    ? `[0:v]setpts=PTS-STARTPTS,trim=end_frame=${total}[f]`
+    : `[0:v]setpts=PTS-STARTPTS[a];[1:v]trim=start_frame=1,setpts=PTS-STARTPTS[b];[2:v]trim=start_frame=1,setpts=PTS-STARTPTS[c];[a][b][c]concat=n=3:v=1:a=0,trim=end_frame=${total}[f]`;
   return { shots, W: info[0].w, H: info[0].h, joined, total, join };
 }
 /** `count` frame indices: every `step` inside the dense run (story fractions), the rest evenly spread. */
