@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/primitives/Reveal";
 import { IndustryCard } from "@/components/industries/IndustryCard";
+import { IndustryDemoSwitch } from "@/components/industries/IndustryDemoSwitch";
+import { MORE_ENTRIES } from "@/components/industries/industryDemos";
 import { industries } from "@/data/industries";
 import { NicheGrid } from "@/components/niche/NicheGrid";
 import { PageHero } from "@/components/kit/PageHero";
@@ -29,6 +31,8 @@ export const metadata: Metadata = {
     "Five current offers, each built around how one kind of South African business gets its enquiries, and systems for many more industries. Fixed quote after a free Operations Map.",
 };
 
+const PAIN: Record<string, string> = Object.fromEntries(MORE_ENTRIES.map((e) => [e.slug, e.pain]));
+
 export default function IndustriesPage() {
   return (
     <>
@@ -47,7 +51,10 @@ export default function IndustriesPage() {
 
       <NicheGrid tone="canvas-2" />
 
-      <section className="section-pad bg-canvas" aria-labelledby="more-title" style={{ borderTop: "1px solid var(--hairline)" }}>
+      {/* the one demo on the page: pick a business, watch it reply */}
+      <IndustryDemoSwitch />
+
+      <section className="section-pad bg-canvas" aria-labelledby="more-title" >
         <div className="container-wide">
           <SectionHead
             id="more-title"
@@ -63,7 +70,7 @@ export default function IndustriesPage() {
             {industries.map((industry, i) => (
               <li key={industry.slug}>
                 <Reveal delay={Math.min(i * 0.05, 0.3)} className="h-full">
-                  <IndustryCard industry={industry} />
+                  <IndustryCard industry={industry} pain={PAIN[industry.slug]} />
                 </Reveal>
               </li>
             ))}
