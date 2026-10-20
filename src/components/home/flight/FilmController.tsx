@@ -39,6 +39,8 @@ const STEPS: [number, number][] = [
   [0.67, 0.95],
 ];
 const XFADE = 0.025;
+/** Phones, on the pad: the rocket's centre at 68% of the width, drawn 1.12x (1.187x with the pull-back); matches the poster's CSS. */
+const PHONE_LEFT = { x: 0.68, scale: 1.12 };
 /** Crossfade to the next frame while scrolling (phones). Off: it cost a second full draw per frame change. */
 const BLEND = false as boolean;
 
@@ -213,6 +215,7 @@ export function FilmController() {
     // the camera pull-back (1.06 to 1.0 across the climb) is drawn into the
     // canvas, never a CSS scale on it: scaling a canvas element blurs it
     let zoom = 1.06;
+    let shiftT = 1;
     let drawnZoom = 0;
     const place = (c: CanvasRenderingContext2D, bmp: Frame) => {
       const { w, h } = frameSize(bmp);
@@ -221,8 +224,21 @@ export function FilmController() {
       const dw0 = w * s, dh0 = h * s;
       const dx0 = Math.min(0, Math.max(cw - dw0, cw / 2 - set.focusX * dw0));
       const dy0 = (ch - dh0) / 2 + offset * dpr;
+      if (set === PHONE) {
+        // phones: on the pad and early launch the rocket sits right of
+        // centre (headline on clean sky to its left): drawn a little larger
+        // and shifted, easing back to centre by the Ascent
+        const S = zoom * (1 + (PHONE_LEFT.scale - 1) * shiftT);
+        const dw = dw0 * S, dh = dh0 * S;
+        const cx = 0.5 + (PHONE_LEFT.x - 0.5) * shiftT;
+        const dx = Math.round(Math.min(0, Math.max(cw - dw, cx * cw - 0.5 * dw)));
+        const oy = ch * 0.4;
+        const dy = Math.round(oy - (oy - dy0) * S);
+        c.drawImage(bmp, dx, dy, Math.round(dw), Math.round(dh));
+        return;
+      }
       // zoom about a point on the rocket, then snap to whole pixels
-      const ox = cw * (set === PHONE ? 0.5 : 0.63), oy = ch * (set === PHONE ? 0.4 : 0.55);
+      const ox = cw * 0.63, oy = ch * 0.55;
       const dx = Math.round(ox - (ox - dx0) * zoom), dy = Math.round(oy - (oy - dy0) * zoom);
       c.drawImage(bmp, dx, dy, Math.round(dw0 * zoom), Math.round(dh0 * zoom));
     };
@@ -256,7 +272,7 @@ export function FilmController() {
       if (blend > 0.5 && target + 1 < set.count && bitmaps.has(target + 1)) target++;
       blend = 0;
       settled = true;
-      if (drawnZoom !== zoom) drawn = -1;
+      if (drawnZoom !== zoom + shiftT) drawn = -1;
       draw();
       loadHi(target);
       loadHi(target + 1);
@@ -276,7 +292,7 @@ export function FilmController() {
         drawnOff = offset;
         drawn = hit.at;
         drawnGen = generation;
-        drawnZoom = zoom;
+        drawnZoom = zoom + shiftT;
         drawnHi = hd ? target : -1;
         drawnB = -1;
         if (!root.hasAttribute("data-film")) root.setAttribute("data-film", "");
@@ -404,6 +420,7 @@ export function FilmController() {
       // eased in and out): the rocket feels smaller the higher it goes
       const e = p < 0.5 ? 2 * p * p : 1 - (-2 * p + 2) ** 2 / 2;
       zoom = Math.round((1.06 - 0.06 * e) * 2000) / 2000;
+      shiftT = Math.round((1 - ramp(0.1, 0.36, p)) * 200) / 200;
       if (f !== target) {
         target = f;
         pump();

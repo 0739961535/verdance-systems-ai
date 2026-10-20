@@ -113,7 +113,9 @@ if (cfg.phoneShots) {
   P = film(cfg.phoneShots, cfg.phoneEnd != null ? cfg.phoneEnd / (probeP.joined - 1) : endFrac);
   PH = Math.round((PW * P.H) / P.W / 2) * 2;
   pLow = decodeAll(P, "m", `scale=${PW}:${PH}:flags=lanczos,${CRISP}`);
-  pHi = decodeAll(P, "mh", `scale=${Math.min(1080, P.W)}:-2:flags=lanczos,${CRISP}`);
+  // HD width: phones draw the pad frames enlarged (rocket right of centre),
+  // so the HD set is wider than 1080 to stay sharp at 3x
+  pHi = decodeAll(P, "mh", `scale=${Math.min(cfg.phoneHiWidth ?? 1080, P.W)}:-2:flags=lanczos,${CRISP}`);
 } else {
   P = D;
   const aspect = cfg.phoneAspect ?? 9 / 16;

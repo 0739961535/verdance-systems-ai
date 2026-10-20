@@ -2260,7 +2260,10 @@ picture.fl-hull img { display: block; width: 100%; height: 100%; user-select: no
    drawn into the canvas; the poster matches its first frame (1.06) */
 .flm-cam { position: absolute; inset: 0; }
 .flm-poster img { transform: scale(1.06); transform-origin: 63% 55%; }
-@media (max-width: 767px) { .flm-poster img { transform-origin: 50% 40%; } }
+/* phones: the poster matches the canvas's first frame exactly (rocket at
+   68% of the width: cover from the left edge, scaled 1.06 x 1.12 about
+   25% / 40%; see PHONE_LEFT in FilmController) */
+@media (max-width: 767px) { .flm-poster img { object-position: 0% 50%; transform: scale(1.1872); transform-origin: 25% 40%; } }
 .flm-poster { position: absolute; inset: 0; display: block; }
 .flm-poster img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 63%) 50%; }
 @media (max-width: 767px) { .flm-poster img { object-position: 50% 50%; } }
@@ -2498,7 +2501,7 @@ html:has(.flm) .site-grain { display: none; }
 /* ignition (1.4s on load, then the first scroll flares the engines) */
 .flm-ignite { position: absolute; inset: 0; z-index: 1; pointer-events: none; --bx: 62%; --by: 90%; --ly: 92.5%; }
 /* phones: the vertical film's pad sits a little higher */
-@media (max-width: 767px) { .flm-ignite { --bx: 50%; --by: 83%; --ly: 87.5%; } }
+@media (max-width: 767px) { .flm-ignite { --bx: 68%; --by: 91%; --ly: 96%; } }
 .flm-glow {
   position: absolute; left: var(--bx); top: var(--by); width: 52vmin; height: 30vmin;
   background: radial-gradient(closest-side, rgba(220, 230, 255, 0.8), rgba(77, 124, 255, 0.35) 45%, rgba(77, 124, 255, 0));

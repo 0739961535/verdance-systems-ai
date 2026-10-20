@@ -3,6 +3,7 @@
     "shots": "~/Verdance systems Ai /website-preview/rocket-v6/shots/dark",
     "phoneShots": "~/Verdance systems Ai /website-preview/rocket-v6/shots/vertical",
     "phoneEnd": 590,
+    "phoneHiWidth": 1800,
     "phoneDense": [340, 384],
     "still": "~/Verdance systems Ai /website-preview/rocket-v6/starship/k3-b.png",
     "stillFrame": 480,
