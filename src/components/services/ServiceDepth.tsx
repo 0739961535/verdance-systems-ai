@@ -1,0 +1,319 @@
+import type { ReactNode } from "react";
+import { ArrowUpRight, Check } from "lucide-react";
+import { Reveal, SplitWords } from "@/components/primitives/Reveal";
+import { QuestionsAccordion } from "@/components/home/QuestionsAccordion";
+import { WorkVisualsStyle } from "@/components/home/inbox/WorkVisuals";
+import { DepthVisual, DEPTH_VISUAL_CSS } from "@/components/services/DepthVisual";
+import { GENERIC_BOOK_URL } from "@/data/booking";
+import { CTA_PRIMARY, CTA_PRIMARY_MICRO } from "@/data/site";
+import type { ServiceDepth as ServiceDepthData } from "@/data/services";
+
+/**
+ * The depth sections of a service page ("How it works"), in reading order:
+ * what it does in one line, the step by step flow with a small screen per
+ * step, who does what, the 10 working days, what you see once live, the
+ * questions, then one Book button. Calm and phone first: one column on a
+ * phone, the screens beside the words from lg up. Dark bands, so the
+ * sample screens sit on the colours they were drawn for.
+ */
+
+const TIMELINE = [
+  { when: "Before day 1", name: "Call", text: "A free 30-minute call about how enquiries reach you today." },
+  { when: "Before day 1", name: "Map", text: "The Operations Map: where time and money leak, in rand and hours." },
+  { when: "Day 1", name: "Plan", text: "A fixed quote in writing. You sign off and the 10 working days start." },
+  { when: "Week 1", name: "Build", text: "" },
+  { when: "Week 2", name: "Test", text: "You and your team try it yourselves before any customer sees it." },
+  { when: "Day 10", name: "Live", text: "It goes live, and we watch the first weeks closely." },
+];
+
+const CSS = `
+${DEPTH_VISUAL_CSS}
+.dp-steps { list-style: none; padding: 0; }
+.dp-step { position: relative; padding: 0 0 56px 52px; }
+.dp-step:last-child { padding-bottom: 0; }
+.dp-step::before {
+  content: ""; position: absolute; left: 17px; top: 40px; bottom: 4px; width: 1px;
+  background: linear-gradient(rgba(143, 176, 255, 0.4), rgba(143, 176, 255, 0.08));
+}
+.dp-step:last-child::before { display: none; }
+.dp-n {
+  position: absolute; left: 0; top: 0; width: 35px; height: 35px; border-radius: 9999px;
+  display: grid; place-items: center; font-family: var(--font-mono); font-size: 13px; color: #DCE6FF;
+  background: #13203F; border: 1px solid rgba(143, 176, 255, 0.35); font-variant-numeric: tabular-nums;
+}
+.dp-step h3 { font-size: 1.25rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.015em; color: var(--color-ink); padding-top: 4px; }
+.dp-step p.dp-body { margin-top: 8px; max-width: 40ch; font-size: 1.0625rem; line-height: 1.6; color: var(--color-ink-soft); }
+.dp-step .gv-card { margin-top: 20px; }
+@media (min-width: 1024px) {
+  .dp-step { padding: 0 0 72px 64px; }
+  .dp-step-in { display: grid; grid-template-columns: 5fr 7fr; column-gap: 4rem; align-items: start; }
+  .dp-step .gv-card { margin-top: 0; max-width: 30rem; }
+  .dp-step h3 { font-size: 1.5rem; }
+}
+.dp-split { display: grid; gap: 16px; }
+@media (min-width: 768px) { .dp-split { grid-template-columns: 1fr 1fr; } }
+.dp-panel { border-radius: 20px; padding: 24px; background: #0A1226; border: 1px solid rgba(255, 255, 255, 0.08); }
+.dp-panel[data-us] { background: linear-gradient(180deg, #13203F, #0A1226); border-color: rgba(143, 176, 255, 0.24); }
+@media (min-width: 1024px) { .dp-panel { padding: 32px; } }
+.dp-panel ul { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 14px; }
+.dp-panel li { display: flex; gap: 12px; align-items: flex-start; font-size: 1.0625rem; line-height: 1.5; color: var(--color-ink-soft); }
+.dp-tick { flex: none; margin-top: 3px; width: 20px; height: 20px; border-radius: 9999px; display: grid; place-items: center; background: rgba(77, 124, 255, 0.16); color: #8FB0FF; }
+.dp-time { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.dp-time li { position: relative; display: grid; grid-template-columns: 96px 1fr; gap: 16px; padding: 18px 0; border-top: 1px solid var(--hairline-2); }
+.dp-time li:last-child { border-bottom: 1px solid var(--hairline-2); }
+.dp-when { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; color: #8FB0FF; padding-top: 4px; font-variant-numeric: tabular-nums; }
+.dp-time b { display: block; font-size: 1.125rem; font-weight: 600; color: var(--color-ink); }
+.dp-time span.dp-tx { display: block; margin-top: 4px; font-size: 1rem; line-height: 1.55; color: var(--color-ink-soft); }
+.dp-time li[data-live] b { color: #8FB0FF; }
+@media (min-width: 1024px) {
+  .dp-time { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; }
+  .dp-time li, .dp-time li:last-child { display: block; padding: 20px 0 0; border-top: 1px solid var(--hairline-3); border-bottom: 0; }
+  .dp-time li::before { content: ""; position: absolute; top: -4px; left: 0; width: 7px; height: 7px; border-radius: 9999px; background: #4D7CFF; }
+  .dp-time b { margin-top: 10px; }
+}
+.dp-week { border-radius: 20px; background: #0A1226; border: 1px solid rgba(255, 255, 255, 0.08); overflow: hidden; }
+.dp-week li { display: grid; gap: 4px; padding: 18px 20px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
+.dp-week li:first-child { border-top: 0; }
+@media (min-width: 768px) { .dp-week li { grid-template-columns: 11rem 1fr; gap: 24px; padding: 20px 28px; align-items: baseline; } }
+.dp-week .dp-when { padding-top: 0; }
+.dp-week p { font-size: 1.0625rem; line-height: 1.55; color: var(--color-ink-soft); }
+.dp-qa .qc-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(242, 239, 233, 0.1); }
+.dp-qa .qc-item { border-bottom: 1px solid rgba(242, 239, 233, 0.1); }
+.dp-qa .qc-h { margin: 0; font: inherit; }
+.dp-qa .qc-btn {
+  display: flex; width: 100%; min-height: 64px; align-items: center; justify-content: space-between; gap: 24px;
+  padding: 16px 0; background: none; border: 0; color: #F2F5FC; text-align: left; cursor: pointer; transition: color 200ms;
+}
+.dp-qa .qc-btn:hover { color: #DCE6FF; }
+.dp-qa .qc-btn:focus-visible { outline: 2px solid #4D7CFF; outline-offset: 2px; border-radius: 4px; }
+.dp-qa .qc-q { font-family: var(--font-display); font-weight: 600; font-size: 1.125rem; line-height: 1.3; letter-spacing: -0.015em; }
+.dp-qa .qc-glyph { position: relative; flex: none; width: 16px; height: 16px; }
+.dp-qa .qc-glyph::before, .dp-qa .qc-glyph::after {
+  content: ""; position: absolute; left: 0; top: 50%; width: 16px; height: 1.5px; margin-top: -0.75px; background: currentColor; border-radius: 1px;
+}
+.dp-qa .qc-glyph::after { transform: rotate(90deg); transition: transform 300ms cubic-bezier(.16,1,.3,1); }
+.dp-qa .qc-item[data-open] .qc-glyph::after { transform: rotate(0deg); }
+.dp-qa .qc-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 300ms cubic-bezier(.16,1,.3,1); }
+.dp-qa .qc-item[data-open] .qc-panel { grid-template-rows: 1fr; }
+.dp-qa .qc-panel-in { min-height: 0; overflow: hidden; }
+.dp-qa .qc-a { margin: 0; padding: 0 40px 24px 0; max-width: 64ch; font-size: 1.0625rem; line-height: 1.55; color: rgba(234, 240, 255, 0.78); }
+@media (min-width: 1024px) {
+  .dp-qa .qc-btn { min-height: 72px; padding: 20px 0; }
+  .dp-qa .qc-q { font-size: 1.375rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dp-qa .qc-panel, .dp-qa .qc-glyph::after, .dp-qa .qc-btn { transition: none; }
+}
+`;
+
+function Head({ n, eyebrow, title, lead, id }: { n: string; eyebrow: string; title: string; lead?: string; id: string }) {
+  return (
+    <Reveal variant="wipe" className="max-w-3xl">
+      <p className="eyebrow">
+        <span className="chap-n">{n}</span> {eyebrow}
+      </p>
+      <h2 id={id} className="h2 mt-4">
+        <SplitWords text={title} />
+      </h2>
+      {lead ? <p className="lead mt-6">{lead}</p> : null}
+    </Reveal>
+  );
+}
+
+export function ServiceDepth({
+  depth,
+  includes,
+  demo,
+  showWhat = true,
+  showFaq = true,
+  showCta = true,
+}: {
+  depth: Omit<ServiceDepthData, "faqs"> & { faqs?: ServiceDepthData["faqs"] };
+  /** Optional "what you get" checklist under the one line. */
+  includes?: string[];
+  /** Optional live demo beside the one line (a SlowChatDemo). */
+  demo?: ReactNode;
+  /** Off where the page already says what it does (the Operations Team page). */
+  showWhat?: boolean;
+  showFaq?: boolean;
+  showCta?: boolean;
+}) {
+  const faqs = showFaq ? depth.faqs ?? [] : [];
+  let n = 0;
+  const next = () => String(++n).padStart(2, "0");
+
+  return (
+    <>
+      <style>{CSS}</style>
+      <WorkVisualsStyle />
+
+      {/* What it does, in one line */}
+      {showWhat ? (
+      <section className="band-night chapter-pad" aria-labelledby="dp-what">
+        <div className={`container-wide grid gap-12 ${demo ? "lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16" : ""}`}>
+          <div>
+            <Reveal variant="wipe">
+              <p className="eyebrow">
+                <span className="chap-n">{next()}</span> What it does
+              </p>
+              <h2
+                id="dp-what"
+                className="mt-4 max-w-[26ch] font-display text-[color:var(--color-ink)]"
+                style={{ fontSize: "clamp(1.75rem, 1.6vw + 1.2rem, 2.75rem)", lineHeight: 1.15, letterSpacing: "-0.03em" }}
+              >
+                {depth.oneLine}
+              </h2>
+            </Reveal>
+            {includes && includes.length > 0 ? (
+              <ul className="mt-10 grid gap-3">
+                {includes.map((g, i) => (
+                  <li key={g}>
+                    <Reveal delay={i * 0.05} className="flex items-start gap-3 text-[1.0625rem] leading-[1.5] text-[color:var(--color-ink-soft)]">
+                      <span className="dp-tick">
+                        <Check size={13} strokeWidth={2.6} aria-hidden />
+                      </span>
+                      <span>{g}</span>
+                    </Reveal>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+          {demo ? <div className="min-w-0">{demo}</div> : null}
+        </div>
+      </section>
+      ) : null}
+
+      {/* Step by step */}
+      <section className="band-orbit chapter-pad" aria-labelledby="dp-flow">
+        <div className="container-wide">
+          <Head n={next()} eyebrow="Step by step" title="How it works." lead="What happens, in the order it happens." id="dp-flow" />
+          <ol className="dp-steps mt-12 md:mt-16">
+            {depth.steps.map((s, i) => (
+              <li key={s.title} className="dp-step">
+                <span className="dp-n" aria-hidden>
+                  {i + 1}
+                </span>
+                <Reveal className="dp-step-in">
+                  <div>
+                    <h3>{s.title}</h3>
+                    <p className="dp-body">{s.body}</p>
+                  </div>
+                  <DepthVisual visual={s.visual} />
+                </Reveal>
+              </li>
+            ))}
+          </ol>
+          <p className="museum mt-12">Sample screens. The businesses, customers and numbers are made up.</p>
+        </div>
+      </section>
+
+      {/* Who does what */}
+      <section className="band-night chapter-pad" aria-labelledby="dp-who">
+        <div className="container-wide">
+          <Head n={next()} eyebrow="Who does what" title="Your part is small." lead="A few decisions from you. We do the rest." id="dp-who" />
+          <div className="dp-split mt-12 md:mt-16">
+            <Reveal className="h-full">
+              <div className="dp-panel h-full">
+              <h3 className="text-[1.25rem] font-semibold text-[color:var(--color-ink)]">You</h3>
+              <ul>
+                {depth.youDo.map((t) => (
+                  <li key={t}>
+                    <span className="dp-tick" style={{ background: "rgba(255,255,255,0.06)", color: "#C9D1E3" }}>
+                      <Check size={13} strokeWidth={2.6} aria-hidden />
+                    </span>
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+              </div>
+            </Reveal>
+            <Reveal delay={0.08} className="h-full">
+              <div className="dp-panel h-full" data-us="">
+                <h3 className="text-[1.25rem] font-semibold text-[color:var(--color-ink)]">Us</h3>
+                <ul>
+                  {depth.weDo.map((t) => (
+                    <li key={t}>
+                      <span className="dp-tick">
+                        <Check size={13} strokeWidth={2.6} aria-hidden />
+                      </span>
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* The 10 working days */}
+      <section className="band-orbit chapter-pad" aria-labelledby="dp-days">
+        <div className="container-wide">
+          <Head n={next()} eyebrow="Timeline" title="Live in 10 working days." lead="Counted from the day you sign off the plan." id="dp-days" />
+          <Reveal className="mt-12 md:mt-16">
+            <ol className="dp-time">
+              {TIMELINE.map((t) => (
+                <li key={t.name} data-live={t.name === "Live" ? "" : undefined}>
+                  <span className="dp-when">{t.when}</span>
+                  <span>
+                    <b>{t.name}</b>
+                    <span className="dp-tx">{t.name === "Build" ? depth.buildNote : t.text}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Once it is live */}
+      <section className="band-night chapter-pad" aria-labelledby="dp-week">
+        <div className="container-wide">
+          <Head n={next()} eyebrow="Once it is live" title="What you see each week." id="dp-week" />
+          <Reveal className="mt-12 md:mt-16">
+            <ul className="dp-week">
+              {depth.weekly.map((w) => (
+                <li key={w.label}>
+                  <span className="dp-when">{w.label}</span>
+                  <p>{w.text}</p>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+      </section>
+
+      {faqs.length > 0 ? (
+        <section className="band-orbit chapter-pad" aria-labelledby="dp-qa">
+          <div className="container-wide grid gap-12 lg:grid-cols-[4fr_7fr] lg:gap-[8%]">
+            <Head n={next()} eyebrow="Questions" title="What people ask." id="dp-qa" />
+            <div className="dp-qa">
+              <QuestionsAccordion items={faqs} />
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {showCta ? (
+        <section className="band-night chapter-pad" aria-labelledby="dp-book">
+          <div className="container-wide">
+            <Reveal variant="wipe" className="max-w-3xl">
+              <h2 id="dp-book" className="h2">
+                <SplitWords text="See what it would do for you." />
+              </h2>
+              <p className="lead mt-6">A free 30-minute call. We look at how enquiries reach you today and show you what we would build first.</p>
+            </Reveal>
+            <div className="mt-10 flex flex-col items-start gap-3">
+              <a href={GENERIC_BOOK_URL} className="btn btn-accent min-h-[52px] w-full justify-center px-7 text-[1.02rem] sm:w-auto">
+                {CTA_PRIMARY}
+                <ArrowUpRight size={17} aria-hidden />
+              </a>
+              <p className="text-[0.9rem] text-[color:var(--color-ink-muted)]">{CTA_PRIMARY_MICRO}</p>
+            </div>
+          </div>
+        </section>
+      ) : null}
+    </>
+  );
+}

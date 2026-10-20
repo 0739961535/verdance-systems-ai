@@ -8,6 +8,8 @@ import { PowerOfAI } from "@/components/aiteam/PowerOfAI";
 import { FAQControl } from "@/components/sections/v4/FAQControl";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
+import { ServiceDepth } from "@/components/services/ServiceDepth";
+import { OPS_TEAM_DEPTH } from "@/data/services";
 import { AI_TEAM, AI_TEAM_FAQS, AI_TEAM_PATH, CAPABILITIES, CTA_LABEL, CTA_MICRO, SAFETY } from "@/data/aiTeam";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { SITE, SITE_URL } from "@/data/site";
@@ -198,6 +200,9 @@ export default function AiOperationsTeamPage() {
           </ul>
         </div>
       </section>
+
+      {/* HOW IT WORKS: the step by step, who does what, the 10 working days and the weeks after */}
+      <ServiceDepth depth={OPS_TEAM_DEPTH} showWhat={false} showFaq={false} showCta={false} />
 
       <div style={BAND}>
         <FAQControl faqs={AI_TEAM_FAQS} />

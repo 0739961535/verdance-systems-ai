@@ -12,24 +12,19 @@ import { Rocket } from "./Rocket";
  * - the headline rising into place word by word on load (always visible);
  * - a gentle float on the rocket (its own lift-off and scroll flight stay);
  * - a calmer, richer button hover;
- * - a long gradient dissolve from this light ground into the dark Promise
- *   chapter below, so there is no hard edge.
+ * - one screen tall, with a scroll cue and a planet's limb rising at the
+ *   bottom on load: the navy below it runs straight into the Earth plate
+ *   and 01 Promise.
  * Works in both themes (the ground follows the site's --bg). Reduced motion:
  * everything still, nothing hidden.
  */
-
-const PILLARS = [
-  { n: "01", title: "Answers", body: "Every WhatsApp, email and website message, answered in your voice. Day, night and weekends." },
-  { n: "02", title: "Follows up", body: "Quotes chased, bookings confirmed, reminders sent. Nothing slips." },
-  { n: "03", title: "Runs the admin", body: "Notes, invoices and reports done. You see every number." },
-];
 
 const LINE_1 = ["We", "don't", "talk", "about", "AI."];
 const LINE_2 = ["We", "ship", "it."];
 
 const CSS = `
 .lh { position: relative; isolation: isolate; overflow: hidden; }
-/* the hero is taller now (the pillars): the glow layer runs its full height and fades out */
+/* the glow layer runs the full first screen and fades out */
 .lh .aurora { height: auto; bottom: 0; -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
 .lh-glow { position: absolute; z-index: 0; pointer-events: none; border-radius: 999px; }
 .lh-glow-a { width: min(70vw, 820px); aspect-ratio: 1; left: -18%; top: -22%;
@@ -56,21 +51,31 @@ const CSS = `
 @media (min-width: 640px) { .lh-eyebrow { max-width: none; } }
 .lh-eyebrow { font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-ink-muted); }
 .lh-bal { text-wrap: balance; }
-.lh-pillars { list-style: none; margin: 72px auto 0; padding: 0; display: grid; text-align: left; max-width: 64rem; border-top: 1px solid var(--hairline-2); }
-@media (min-width: 768px) { .lh-pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 96px; } }
-.lh-pillar { padding: 24px 0; border-bottom: 1px solid var(--hairline-2); }
-@media (min-width: 768px) { .lh-pillar { padding: 28px 32px 8px; border-bottom: 0; } .lh-pillar + .lh-pillar { border-left: 1px solid var(--hairline-2); } .lh-pillar:first-child { padding-left: 0; } .lh-pillar:last-child { padding-right: 0; } }
-.lh-pn { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-accent); }
-.lh-pt { margin: 10px 0 0; font-family: var(--font-display); font-weight: 600; font-size: 1.375rem; letter-spacing: -0.02em; color: var(--color-ink); }
-.lh-pb { text-wrap: pretty; margin: 8px 0 0; font-size: 1rem; line-height: 1.55; color: var(--color-ink-soft); max-width: 30ch; }
-.lh-trust { text-wrap: balance; margin: 32px auto 0; max-width: 46rem; font-size: 0.9rem; line-height: 1.55; color: var(--color-ink-muted); }
-/* the dissolve into the dark Promise chapter */
-.lh-dissolve { position: relative; height: clamp(220px, 36vh, 420px); margin-bottom: -1px; pointer-events: none;
-  background: linear-gradient(var(--bg) 0%, color-mix(in oklab, var(--bg) 78%, #4D7CFF) 22%, color-mix(in oklab, var(--bg) 30%, #1D3F8F) 48%, #0B1736 74%, #060B1A 100%); }
-.lh-dissolve::after { content: ""; position: absolute; left: 50%; top: 55%; width: min(80vw, 900px); height: 60%; transform: translate(-50%, -50%);
-  background: radial-gradient(closest-side, rgba(77, 124, 255, 0.14), rgba(77, 124, 255, 0)); }
+/* the first screen: one screen tall, the words centred in the light above
+   a planet's limb rising at the bottom (pure CSS: a navy disc with an
+   atmosphere rim). The limb is the dissolve: below it the page is navy and
+   the Earth plate and 01 Promise follow at once. */
+.lh { --arc: max(15svh, 11vw); min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
+.lh-in { padding-top: 100px; padding-bottom: calc(var(--arc) + 118px); }
+@media (min-width: 768px) { .lh-in { padding-top: 112px; padding-bottom: calc(var(--arc) + 112px); } }
+.lh-h1 { font-size: clamp(2.9rem, 5.6vw + 0.9rem, 7rem); line-height: 0.95; letter-spacing: -0.05em; }
+/* depth in the light: a soft vignette and a faint horizon haze */
+.lh-depth { position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(120% 80% at 50% 38%, transparent 55%, rgba(var(--hairline-rgb), 0.05) 100%), linear-gradient(transparent 60%, rgba(var(--accent-rgb), 0.07) 100%); }
+.lh-arc { position: absolute; z-index: 1; left: 50%; bottom: 0; width: 280vw; aspect-ratio: 1; pointer-events: none;
+  transform: translate(-50%, calc(100% - var(--arc))); border-radius: 50%;
+  background: radial-gradient(closest-side, #060B1A 96%, #0B1736 99%, #1D3F8F 100%);
+  box-shadow: 0 0 0 1px rgba(170, 200, 255, 0.55), 0 -10px 40px rgba(110, 156, 255, 0.45), 0 -40px 140px rgba(77, 124, 255, 0.35);
+  animation: lh-arc 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both; }
+@keyframes lh-arc { from { transform: translate(-50%, calc(100% - var(--arc) + 70px)); } }
+/* the scroll cue: a word and a fine line with a light running down it */
+.lh-cue { position: absolute; z-index: 2; left: 50%; bottom: calc(var(--arc) + 22px); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px;
+  font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-ink-muted); }
+.lh-cue i { position: relative; width: 1px; height: 36px; overflow: hidden; background: rgba(var(--hairline-rgb), 0.18); }
+.lh-cue i::after { content: ""; position: absolute; left: 0; top: -40%; width: 1px; height: 40%; background: var(--color-accent); animation: lh-cue 2.2s cubic-bezier(0.65, 0, 0.35, 1) 1.4s infinite; }
+@keyframes lh-cue { to { top: 100%; } }
 @media (prefers-reduced-motion: reduce) {
-  .lh-glow, .lh-float { animation: none; }
+  .lh-glow, .lh-float, .lh-arc, .lh-cue i::after { animation: none; }
   .lh-w > span, .lh-fade { animation: none; transform: none; opacity: 1; }
 }
 `;
@@ -98,19 +103,19 @@ export function LaunchHero() {
         <div aria-hidden className="aurora" />
         <span aria-hidden className="lh-glow lh-glow-a" />
         <span aria-hidden className="lh-glow lh-glow-b" />
-        <div className="container-narrow relative pt-24 pb-20 text-center sm:pt-32 md:pt-40 md:pb-28">
+        <span aria-hidden className="lh-depth" />
+        <div className="lh-in container-narrow relative text-center">
           <div className="lh-float">
             <Rocket />
           </div>
 
           <p className="lh-eyebrow lh-fade relative z-[1] mx-auto mt-5 md:mt-7" style={{ ["--d" as string]: "0.05s" }}>
-            Verdance Systems AI · South Africa and the&nbsp;UK
+            Verdance Systems AI
           </p>
 
           <h1
             id="hero-title"
-            className="relative z-[1] font-display mx-auto mt-4 text-[color:var(--color-ink)] md:mt-5"
-            style={{ fontSize: "clamp(2.6rem, 5.2vw + 1rem, 6.25rem)", lineHeight: 0.98, letterSpacing: "-0.045em" }}
+            className="lh-h1 relative z-[1] font-display mx-auto mt-4 text-[color:var(--color-ink)] md:mt-5"
             aria-label="We don't talk about AI. We ship it."
           >
             <span aria-hidden>
@@ -149,21 +154,13 @@ export function LaunchHero() {
             </p>
           </div>
 
-          <ol className="lh-pillars lh-fade relative z-[1]" style={{ ["--d" as string]: "0.75s" }}>
-            {PILLARS.map((p) => (
-              <li key={p.n} className="lh-pillar">
-                <span className="lh-pn">{p.n}</span>
-                <h2 className="lh-pt">{p.title}</h2>
-                <p className="lh-pb">{p.body}</p>
-              </li>
-            ))}
-          </ol>
-          <p className="lh-trust lh-fade relative z-[1]" style={{ ["--d" as string]: "0.85s" }}>
-            Running today for a South African e-commerce brand and a luxury home design studio. You choose what goes out on its own.
-          </p>
         </div>
+        <span aria-hidden className="lh-cue">
+          Scroll
+          <i />
+        </span>
+        <span aria-hidden className="lh-arc" />
       </section>
-      <div aria-hidden className="lh-dissolve" />
     </>
   );
 }

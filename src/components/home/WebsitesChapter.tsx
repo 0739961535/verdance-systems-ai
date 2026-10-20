@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { SplitWords } from "@/components/primitives/Reveal";
 import { WebsitesScroll } from "./WebsitesScroll";
@@ -24,6 +25,7 @@ const PAPER = "#F4F1EA";
 const INK = "#0E0E10";
 const MUTED = "#5E5B55";
 const HAIRLINE = "rgba(14,14,16,0.12)";
+const ACCENT = "#2554D4";
 const SHADOW = "0 48px 96px rgba(14,14,16,0.18)";
 
 const BOOK = GENERIC_BOOK_URL;
@@ -185,6 +187,17 @@ export function WebsitesChapter() {
             We design and build premium websites for owner-led businesses. The enquiry assistant,
             booking and follow-ups are built in from the first day.
           </p>
+          <Link
+            href="/services/websites-build"
+            aria-label="How it works: websites"
+            className="group mt-4 inline-flex lg:mt-6 min-h-11 items-center gap-1.5 text-[16px] font-medium"
+            style={{ color: ACCENT }}
+          >
+            How it works
+            <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-[3px]">
+              &rarr;
+            </span>
+          </Link>
 
           {/* Mobile: the phone pins under the header while its screen scrolls
               (WebsitesScroll), then the desktop version in a browser frame */}

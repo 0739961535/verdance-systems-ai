@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { SplitWords } from "@/components/primitives/Reveal";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { AskYourBusiness } from "@/components/ask/AskYourBusiness";
@@ -135,6 +135,12 @@ export default function ServicesPage() {
                       </span>
                       <span className="text-[1.0625rem] leading-[1.5] text-[color:var(--color-ink-soft)] lg:text-[1.125rem]">{c.promise}</span>
                       <span className="text-[0.875rem] text-[color:var(--color-ink-muted)]">{c.subProducts.map((sp) => sp.name).join(", ")}</span>
+                      {c.depth ? (
+                        <span className="mt-2 inline-flex min-h-11 items-center gap-1.5 text-[1rem] font-medium text-[#8FB0FF]">
+                          How it works
+                          <ArrowRight size={16} aria-hidden />
+                        </span>
+                      ) : null}
                     </Link>
                   </li>
                 ))}
