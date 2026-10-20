@@ -54,47 +54,17 @@ function coarseToFine(count) {
   return order;
 }
 
-// Phones: same maths as placePhone() in FilmController.tsx (keep in step).
+// Phones: same maths as placePhone() in FilmController.tsx (keep in step):
+// cover edge to edge, top-aligned, the rocket shifted right by the crop only.
 function placePhone(bmp, w, h) {
-  const P = set.pad;
   const t = shift * shift * (3 - 2 * shift);
-  const sCover = Math.max(cw / w, ch / h);
-  const sPad = (P.rocket * ch) / P.span / h;
-  const s = sCover + (sPad - sCover) * t;
+  const s = Math.max(cw / w, ch / h);
   const dw = w * s;
   const dh = h * s;
-  const dxC = Math.min(0, Math.max(cw - dw, cw / 2 - set.focusX * dw));
-  const dyC = 0.08 * ch;
-  const dxP = P.x * cw - 0.5 * dw;
-  const dyP = P.nose * ch - P.top * dh;
-  const dx = Math.round(dxC + (dxP - dxC) * t);
-  const dy = Math.round(dyC + (dyP - dyC) * t);
-  const W = Math.round(dw);
-  const H = Math.round(dh);
-  const open = dx > 0 || dy > 0 || dx + W < cw || dy + H < ch;
-  if (open) {
-    ctx.fillStyle = P.bg;
-    if (dy > 0) ctx.fillRect(0, 0, cw, dy);
-    if (dy + H < ch) ctx.fillRect(0, dy + H, cw, ch - dy - H);
-    if (dx > 0) ctx.fillRect(0, 0, dx, ch);
-    if (dx + W < cw) ctx.fillRect(dx + W, 0, cw - dx - W, ch);
-  }
-  ctx.drawImage(bmp, dx, dy, W, H);
-  if (!open) return;
-  const fx = Math.round(W * P.featherX * t);
-  const fy = Math.round(H * P.featherY * t);
-  const edge = (x0, y0, x1, y1, rx, ry, rw, rh) => {
-    const g = ctx.createLinearGradient(x0, y0, x1, y1);
-    g.addColorStop(0, P.bg);
-    g.addColorStop(1, "rgba(1, 5, 15, 0)");
-    ctx.fillStyle = g;
-    ctx.fillRect(rx, ry, rw, rh);
-  };
-  if (fx > 0 && dx > 0) edge(dx, 0, dx + fx, 0, dx, dy, fx, H);
-  if (fx > 0 && dx + W < cw) edge(dx + W, 0, dx + W - fx, 0, dx + W - fx, dy, fx, H);
-  const fyTop = Math.max(fy, Math.round(H * 0.05));
-  if (dy > 0) edge(0, dy, 0, dy + fyTop, dx, dy, W, fyTop);
-  if (fy > 0 && dy + H < ch) edge(0, dy + H, 0, dy + H - fy, dx, dy + H - fy, W, fy);
+  const clampX = (x) => Math.min(0, Math.max(cw - dw, x));
+  const dxC = clampX(cw / 2 - set.focusX * dw);
+  const dxP = clampX(set.pad.x * cw - 0.5 * dw);
+  ctx.drawImage(bmp, Math.round(dxC + (dxP - dxC) * t), 0, Math.round(dw), Math.round(dh));
 }
 
 function place(bmp) {

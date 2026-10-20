@@ -2260,24 +2260,10 @@ picture.fl-hull img { display: block; width: 100%; height: 100%; user-select: no
    drawn into the canvas; the poster matches its first frame (1.06) */
 .flm-cam { position: absolute; inset: 0; }
 .flm-poster img { transform: scale(1.06); transform-origin: 63% 55%; }
-/* phones: the poster matches the canvas's first frame exactly (rocket at
-   68% of the width: cover from the left edge, scaled 1.06 x 1.12 about
-   25% / 40%; see PHONE_LEFT in FilmController) */
 /* phones: the poster matches the canvas's first frame exactly (PHONE_PAD in
-   FilmController): the whole rocket, 60% of the screen's height, its centre
-   at 65% of the width, nose at 17%; the frame's edges feathered into the
-   night. Frame height = 0.6 / 0.73 = 82.19% of the screen; width 0.5652 of that. */
-@media (max-width: 767px) {
-  .flm-poster { background: #01050f; }
-  .flm .flm-poster img {
-    position: absolute; transform: none; object-fit: fill;
-    height: 82.19%; width: 46.45svh; top: 7.96%; left: calc(65% - 23.23svh);
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent), linear-gradient(transparent, #000 8%, #000 92%, transparent);
-    -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent), linear-gradient(transparent, #000 8%, #000 92%, transparent);
-    mask-composite: intersect;
-  }
-}
+   FilmController): cover edge to edge, top-aligned, and as far right as
+   the frame allows, which on phones is its left edge at the screen's. */
+@media (max-width: 767px) { .flm .flm-poster img { transform: none; object-position: 0% 0%; } }
 .flm-poster { position: absolute; inset: 0; display: block; }
 .flm-poster img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 63%) 50%; }
 @media (max-width: 767px) { .flm-poster img { object-position: 50% 50%; } }
@@ -2517,8 +2503,9 @@ html:has(.flm) .site-grain { display: none; }
 /* phones: the vertical film's pad sits a little higher */
 /* phones: the pad under the rocket at 65% of the width (see PHONE_PAD) */
 @media (max-width: 767px) {
-  .flm-ignite { --bx: 65%; --by: 77%; --ly: 81%; }
-  .flm-lights { left: calc(65% - 20svh); right: auto; width: 40svh; }
+  /* the frame covers (width = max(screen, 0.5652 x height)), top-aligned:
+     rocket centre at half the frame's width, engines at 84%, lights at 89% */
+  .flm-ignite { --bx: max(50%, 28.26svh); --by: max(84%, 148.6vw); --ly: max(89%, 157.5vw); }
 }
 .flm-glow {
   position: absolute; left: var(--bx); top: var(--by); width: 52vmin; height: 30vmin;
@@ -2592,7 +2579,9 @@ html:has(.flm) .site-grain { display: none; }
    The opening gets the same local scrim where it overlaps the rocket. */
 @media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
   .flm .fl-stage::after { display: none; }
-  .flm .fl-copy { left: 20px; right: 20px; bottom: calc(12svh + env(safe-area-inset-bottom)); }
+  /* held in the clear sky above the plume and the cloud deck */
+  .flm .fl-copy { left: 20px; right: 20px; top: 28svh; bottom: auto; }
+  .flm .fl-step { align-self: start; }
   .flm .fl-step { position: relative; isolation: isolate; }
   .flm .fl-step::before, .flm-hero::before {
     content: ""; position: absolute; z-index: -1; inset: -36px -28px -32px -28px; pointer-events: none;

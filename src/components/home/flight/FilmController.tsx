@@ -40,15 +40,14 @@ const STEPS: [number, number][] = [
 ];
 const XFADE = 0.025;
 /**
- * Phones, on the pad: the whole vehicle in view, nose to engines, about 60%
- * of the screen's height, its centre at 65% of the width and its nose well
- * below the header. The frame is smaller than the screen there, so the sky
- * around it is filled with the film's own night colour and the frame's
- * edges are feathered into it. As the rocket climbs the shot eases to a
- * full-screen, centred frame. The poster's CSS matches this exactly.
- * In the frames the rocket runs from 11% (nose) to 84% (engines) of the height.
+ * Phones: the frame always covers the screen edge to edge (never a gap), at
+ * the smallest scale that covers, top-aligned so the whole vehicle shows
+ * with its nose below the header. On the pad the rocket sits as far right
+ * as the frame's own width allows (aiming for 65% of the screen), by
+ * choosing which part of the frame is shown, never by moving the frame off
+ * an edge; it eases to centre as it climbs. The poster's CSS matches.
  */
-const PHONE_PAD = { x: 0.65, rocket: 0.6, nose: 0.17, top: 0.11, span: 0.73, featherX: 0.14, featherY: 0.08, bg: "#01050f" };
+const PHONE_PAD = { x: 0.65 };
 /** Phones: each step's words hold here; they arrive from below and leave upward with the scroll. */
 const PHONE_STEPS: [number, number][] = [
   [0.12, 0.28],
@@ -63,42 +62,12 @@ const BLEND = false as boolean;
  * Ascent on). Same maths in public/flight/film-worker.js.
  */
 function placePhone(c: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, bmp: CanvasImageSource, w: number, h: number, cw: number, ch: number, shift: number, focusX: number) {
-  const P = PHONE_PAD;
   const t = shift * shift * (3 - 2 * shift);
-  const sCover = Math.max(cw / w, ch / h);
-  const sPad = (P.rocket * ch) / P.span / h;
-  const s = sCover + (sPad - sCover) * t;
+  const s = Math.max(cw / w, ch / h);
   const dw = w * s, dh = h * s;
-  // full screen from the Ascent on, but nudged down by 8% so the nose never
-  // climbs under the header (the strip above is night sky, feathered)
-  const dxC = Math.min(0, Math.max(cw - dw, cw / 2 - focusX * dw)), dyC = 0.08 * ch;
-  const dxP = P.x * cw - 0.5 * dw, dyP = P.nose * ch - P.top * dh;
-  const dx = Math.round(dxC + (dxP - dxC) * t), dy = Math.round(dyC + (dyP - dyC) * t);
-  const W = Math.round(dw), H = Math.round(dh);
-  const open = dx > 0 || dy > 0 || dx + W < cw || dy + H < ch;
-  if (open) {
-    c.fillStyle = P.bg;
-    if (dy > 0) c.fillRect(0, 0, cw, dy);
-    if (dy + H < ch) c.fillRect(0, dy + H, cw, ch - dy - H);
-    if (dx > 0) c.fillRect(0, 0, dx, ch);
-    if (dx + W < cw) c.fillRect(dx + W, 0, cw - dx - W, ch);
-  }
-  c.drawImage(bmp, dx, dy, W, H);
-  if (!open) return;
-  // feather the frame's edges into the night (only the edges on screen)
-  const fx = Math.round(W * P.featherX * t), fy = Math.round(H * P.featherY * t);
-  const edge = (x0: number, y0: number, x1: number, y1: number, rx: number, ry: number, rw: number, rh: number) => {
-    const g = c.createLinearGradient(x0, y0, x1, y1);
-    g.addColorStop(0, P.bg);
-    g.addColorStop(1, "rgba(1, 5, 15, 0)");
-    c.fillStyle = g;
-    c.fillRect(rx, ry, rw, rh);
-  };
-  if (fx > 0 && dx > 0) edge(dx, 0, dx + fx, 0, dx, dy, fx, H);
-  if (fx > 0 && dx + W < cw) edge(dx + W, 0, dx + W - fx, 0, dx + W - fx, dy, fx, H);
-  const fyTop = Math.max(fy, Math.round(H * 0.05));
-  if (dy > 0) edge(0, dy, 0, dy + fyTop, dx, dy, W, fyTop);
-  if (fy > 0 && dy + H < ch) edge(0, dy + H, 0, dy + H - fy, dx, dy + H - fy, W, fy);
+  const clampX = (x: number) => Math.min(0, Math.max(cw - dw, x));
+  const dxC = clampX(cw / 2 - focusX * dw), dxP = clampX(PHONE_PAD.x * cw - 0.5 * dw);
+  c.drawImage(bmp, Math.round(dxC + (dxP - dxC) * t), 0, Math.round(dw), Math.round(dh));
 }
 
 /** The file nearest to source frame `src` (binary search). */
@@ -605,7 +574,7 @@ export function FilmController() {
         const leave = ramp(b, b + outLen, p);
         if (phone) {
           fade(el, ramp(a - inLen, a - inLen * 0.4, p) * (1 - ramp(b + outLen * 0.35, b + outLen, p)));
-          const y = (1 - enter) * 0.42 * vh - leave * 0.34 * vh;
+          const y = (1 - enter) * 0.22 * vh - leave * 0.2 * vh;
           el.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0)`;
         } else {
           fade(el, ramp(a - XFADE, a, p) * (1 - leave));
