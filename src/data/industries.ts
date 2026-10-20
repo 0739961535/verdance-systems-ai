@@ -103,7 +103,7 @@ export const industries: Industry[] = [
     slug: "medical-wellness",
     name: "Medical & Wellness",
     icon: "Heart",
-    headline: "Full appointment books. Fewer no-shows. Zero missed calls.",
+    headline: "Full appointment books. Every call answered or texted back.",
     subheadline:
       "Bookings, reminders and questions handled for you, so your team can focus on patients.",
     problems: [
@@ -187,7 +187,7 @@ export const industries: Industry[] = [
     slug: "home-services-contractors",
     name: "Home Services & Contractors",
     icon: "Wrench",
-    headline: "Never miss a job enquiry again.",
+    headline: "Every job enquiry answered and followed up.",
     subheadline:
       "Every enquiry answered, every job booked and every quote followed up, without you chasing.",
     problems: [
@@ -263,7 +263,7 @@ export const industries: Industry[] = [
     slug: "beauty-aesthetics",
     name: "Beauty & Aesthetics",
     icon: "Sparkles",
-    headline: "Fully booked. Always followed up. Zero no-shows.",
+    headline: "Every enquiry followed up. Reminders before every booking.",
     subheadline:
       "Bookings, reminders and review requests done for you, while you focus on clients.",
     problems: [
