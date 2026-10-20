@@ -28,7 +28,7 @@ export function StatementChapter() {
             already shows the rocket, so a second one here read as a glitch */}
         <picture>
           <source type="image/avif" srcSet={`/flight/plate-earth.avif?v=${v}`} />
-          <img src={`/flight/plate-earth.webp?v=${v}`} alt="" width={1600} height={330} loading="lazy" decoding="async" />
+          <img src={`/flight/plate-earth.webp?v=${v}`} alt="" width={1600} height={542} loading="lazy" decoding="async" />
         </picture>
       </div>
       <div className="container-wide relative -mt-16 lg:-mt-24">
