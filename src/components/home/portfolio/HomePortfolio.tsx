@@ -111,7 +111,7 @@ function Phone() {
       <div
         className="hp-ps"
         role="img"
-        aria-label="Illustration: at 22:14 a customer asks on WhatsApp if their order has shipped. The assistant replies straight away with the courier status and delivery day, and hands a damaged item question to a person."
+        aria-label="Illustration: at 22:14 a customer asks on WhatsApp about delivery to Durban. The assistant replies straight away with delivery times, and passes a damaged item question to a person on the team."
       >
         <span className="hp-notch" aria-hidden />
         <div className="hp-bar" aria-hidden>
@@ -123,30 +123,25 @@ function Phone() {
             <Bot size={14} />
           </span>
           <span className="min-w-0">
-            <span className="block font-semibold leading-tight">Order help</span>
+            <span className="block font-semibold leading-tight">Customer help</span>
             <span className="block text-[10px] leading-tight text-[#7FD1A8]">Online, day and night</span>
           </span>
         </div>
         <div className="hp-chat">
           <span className="hp-b hp-in">
-            Hi, has order #10482 shipped yet?
+            Hi, do you deliver to Durban?
             <span className="hp-t">22:14</span>
           </span>
           <span className="hp-b hp-out">
-            Yes, it left on Friday. The courier has it and it is due on Tuesday.
+            Yes, across South Africa. Durban is usually 2 to 3 working days.
             <span className="hp-t">22:14</span>
           </span>
-          <div className="hp-inner self-end p-2.5" style={{ width: "84%" }}>
-            <span className="block font-semibold" style={{ fontVariantNumeric: "tabular-nums" }}>Order #10482</span>
-            <span className="mt-2 grid grid-cols-3 gap-1" aria-hidden>
-              {[0, 1, 2].map((i) => (
-                <span key={i} className="block h-[3px] rounded-full" style={{ background: i < 2 ? "#4D7CFF" : "rgba(255,255,255,0.12)" }} />
-              ))}
-            </span>
-            <span className="mt-1.5 block text-[10px] text-[#C9D6FF]">On the way, due Tuesday</span>
-          </div>
           <span className="hp-b hp-in">
-            One more thing, one item arrived damaged.
+            Thanks. Also, my last order arrived damaged.
+            <span className="hp-t">22:16</span>
+          </span>
+          <span className="hp-b hp-out">
+            Sorry about that. A person on the team will sort it out.
             <span className="hp-t">22:16</span>
           </span>
           <span className="mt-auto self-center">
@@ -175,7 +170,7 @@ const CASES = [
     id: "ecom",
     name: "A South African e-commerce brand",
     tag: "Assistant",
-    outcome: "Order questions answered on chat, WhatsApp and email, day and night.",
+    outcome: "Customer questions answered on WhatsApp and website chat, day and night.",
     stage: "is-phone",
     device: <Phone />,
     note: "Illustration, details changed",
