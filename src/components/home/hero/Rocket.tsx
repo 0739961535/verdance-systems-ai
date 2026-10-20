@@ -3,9 +3,9 @@
 import { useEffect, useRef } from "react";
 
 /**
- * The hero's "we ship it" rocket: a small, blacked-out stainless stack
- * (hand-drawn vector), with a white ring and nose tip and a faint blue
- * engine glow.
+ * The hero's "we ship it" rocket: the ship from the locked Verdance rocket
+ * design (white nose, the V, the azure line, the fins), small, with a soft
+ * blue engine glow and, in the light theme, a faint contact shadow.
  *
  * On load: one CSS lift-off with a soft trail, then it holds still.
  * On scroll: it ignites and flies away. As the visitor scrolls out of the
@@ -148,75 +148,38 @@ export function Rocket() {
       <div className="rk-fly" ref={flyRef}>
         <span className="rk-jet" ref={jetRef} />
         <span className="rk-ship">
-          <svg viewBox="0 0 80 140" width="100%" height="100%" fill="none" overflow="visible">
+          {/* the ship (the upper stage of the locked design), sized for its
+              display box: 1x to 3x, AVIF then WebP, PNG fallback */}
+          <picture className="rk-pic">
+            <source type="image/avif" srcSet="/hero/ship@1x.avif 1x, /hero/ship@2x.avif 2x, /hero/ship@3x.avif 3x" />
+            <source type="image/webp" srcSet="/hero/ship@1x.webp 1x, /hero/ship@2x.webp 2x, /hero/ship@3x.webp 3x" />
+            <img src="/hero/ship@2x.png" alt="" width={45} height={92} decoding="async" draggable={false} />
+          </picture>
+          {/* engine light under the base: the outer group grows with scroll,
+              the inner one flickers on load */}
+          <svg className="rk-flame-svg" viewBox="0 0 30 40" fill="none" overflow="visible">
             <defs>
-              {/* graphite body: lit from the left, falling to near black */}
-              <linearGradient id="rk-body" x1="27" y1="0" x2="53" y2="0" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stopColor="#3A3F49" />
-                <stop offset="0.28" stopColor="#23272F" />
-                <stop offset="0.7" stopColor="#14171C" />
-                <stop offset="1" stopColor="#0A0B0E" />
-              </linearGradient>
-              <linearGradient id="rk-fin" x1="0" y1="0" x2="80" y2="0" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stopColor="#2A2E36" />
-                <stop offset="1" stopColor="#0C0D10" />
-              </linearGradient>
-              <pattern id="rk-hex" width="4.6" height="4" patternUnits="userSpaceOnUse">
-                <path d="M0 2 L1.15 0 H3.45 L4.6 2 L3.45 4 H1.15 Z" fill="none" stroke="#FFFFFF" strokeOpacity="0.07" strokeWidth="0.35" />
-              </pattern>
-              <radialGradient id="rk-glow" cx="40" cy="108" r="14" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stopColor="#8FB0FF" stopOpacity="0.55" />
-                <stop offset="1" stopColor="#4D7CFF" stopOpacity="0" />
-              </radialGradient>
-              <linearGradient id="rk-flame-outer" x1="40" y1="106" x2="40" y2="142" gradientUnits="userSpaceOnUse">
+              <linearGradient id="rk-flame-outer" x1="15" y1="0" x2="15" y2="40" gradientUnits="userSpaceOnUse">
                 <stop offset="0" stopColor="#86ABFF" />
                 <stop offset="0.5" stopColor="#5B8FFF" stopOpacity="0.55" />
                 <stop offset="1" stopColor="#5B8FFF" stopOpacity="0" />
               </linearGradient>
-              <linearGradient id="rk-flame-core" x1="40" y1="106" x2="40" y2="128" gradientUnits="userSpaceOnUse">
+              <linearGradient id="rk-flame-core" x1="15" y1="0" x2="15" y2="24" gradientUnits="userSpaceOnUse">
                 <stop offset="0" stopColor="#FFFFFF" />
                 <stop offset="0.6" stopColor="#D6E3FF" stopOpacity="0.8" />
                 <stop offset="1" stopColor="#D6E3FF" stopOpacity="0" />
               </linearGradient>
             </defs>
-
-            {/* flame: the outer group is scaled by scroll, the inner one flickers on load */}
             <g ref={flameRef} className="rk-flame-js">
               <g className="rk-flame">
-                <path d="M32.5 106 C32 119 36.5 131 40 142 C43.5 131 48 119 47.5 106 Z" fill="url(#rk-flame-outer)" />
-                <path d="M36 106 C36 114 38.3 121.5 40 128 C41.7 121.5 44 114 44 106 Z" fill="url(#rk-flame-core)" />
+                <path d="M7.5 0 C7 14 11.5 28 15 40 C18.5 28 23 14 22.5 0 Z" fill="url(#rk-flame-outer)" />
+                <path d="M11 0 C11 9 13.3 17 15 24 C16.7 17 19 9 19 0 Z" fill="url(#rk-flame-core)" />
               </g>
             </g>
-
-            {/* faint engine glow under the base */}
-            <ellipse cx="40" cy="108" rx="14" ry="6" fill="url(#rk-glow)" />
-
-            {/* small aft flaps, behind the body */}
-            <path d="M28.5 82 L22 92 L22.5 101 L28.5 99 Z" fill="url(#rk-fin)" />
-            <path d="M51.5 82 L58 92 L57.5 101 L51.5 99 Z" fill="url(#rk-fin)" />
-            {/* forward flaps */}
-            <path d="M30.2 26 L26.4 33 L26.8 40 L30.6 38.5 Z" fill="url(#rk-fin)" />
-            <path d="M49.8 26 L53.6 33 L53.2 40 L49.4 38.5 Z" fill="url(#rk-fin)" />
-
-            {/* engines */}
-            <path d="M33 103 H47 L45.6 107.5 H34.4 Z" fill="#0A0B0E" />
-
-            {/* body: one slim stainless stack, blacked out */}
-            <path
-              className="rk-hull-path"
-              d="M40 4 C46.4 9.5 50 17 50.6 26 L51.6 103.5 H28.4 L29.4 26 C30 17 33.6 9.5 40 4 Z"
-              fill="url(#rk-body)"
-            />
-            {/* heat-tile hint on the shadow side */}
-            <path d="M40 4 C46.4 9.5 50 17 50.6 26 L51.6 103.5 H40 Z" fill="url(#rk-hex)" />
-            {/* rim light along the lit edge (stronger in dark mode, CSS) */}
-            <path className="rk-rim rk-rim-a" d="M31.2 24 C32.6 15.5 35.6 9.5 40 5" stroke="#FFFFFF" strokeOpacity="0.35" strokeWidth="0.8" strokeLinecap="round" />
-            <path className="rk-rim rk-rim-b" d="M29.6 30 L28.9 101" stroke="#FFFFFF" strokeOpacity="0.16" strokeWidth="0.8" strokeLinecap="round" />
-            {/* the white ring at the stage join, and a white nose tip */}
-            <path d="M29.15 58.5 C35.5 59.7 44.5 59.7 50.85 58.5 L50.9 61.2 C44.5 62.4 35.5 62.4 29.1 61.2 Z" fill="#E9EDF4" fillOpacity="0.9" />
-            <path d="M40 4 C42.1 5.8 43.8 7.8 45 10 C41.8 9.3 38.2 9.3 35 10 C36.2 7.8 37.9 5.8 40 4 Z" fill="#E9EDF4" />
           </svg>
+          <span className="rk-glow" />
         </span>
+        <span className="rk-contact" />
       </div>
     </div>
   );
