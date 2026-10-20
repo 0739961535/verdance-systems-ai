@@ -8,6 +8,8 @@ import { ToolsMarquee } from "@/components/home/ToolsMarquee";
 import { ProcessChapter } from "@/components/home/ProcessChapter";
 import { SimpleFinalCTA } from "@/components/home/SimpleHome";
 import film from "@/components/home/flight/film-manifest.json";
+import { WorkVisualsStyle } from "@/components/home/inbox/WorkVisuals";
+import { PillarVisual, PILLAR_VISUAL_SLUGS, SERVICE_VISUALS_CSS } from "@/components/services/ServiceVisuals";
 import { SERVICE_PILLARS, PILLAR_CATEGORIES } from "@/data/services";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { CTA_PRIMARY, SITE_URL } from "@/data/site";
@@ -56,6 +58,7 @@ const CSS = `
 .sv-row .sv-arrow { transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
 .sv-row:hover .sv-arrow { transform: translate(3px, -3px); }
 .sv-row:hover .sv-name { color: #8FB0FF; }
+${SERVICE_VISUALS_CSS}
 `;
 
 export default function ServicesPage() {
@@ -92,6 +95,7 @@ export default function ServicesPage() {
         </div>
       </nav>
 
+      <WorkVisualsStyle />
       {SERVICE_PILLARS.map((pillar, pi) => {
         const categories = PILLAR_CATEGORIES(pillar);
         return (
@@ -111,6 +115,11 @@ export default function ServicesPage() {
                   <SplitWords text={pillar.title} />
                 </h2>
                 <p className="lead mt-4">{pillar.promise}</p>
+                {PILLAR_VISUAL_SLUGS.includes(pillar.slug) ? (
+                  <div className="sv-vis" data-reveal="">
+                    <PillarVisual slug={pillar.slug} />
+                  </div>
+                ) : null}
               </div>
               <ul>
                 {categories.map((c) => (
