@@ -9,6 +9,8 @@ import { FAQControl } from "@/components/sections/v4/FAQControl";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
 import { ServiceDepth } from "@/components/services/ServiceDepth";
+import { OpsCapabilities } from "@/components/home/opsteam/OpsCapabilities";
+import { OpsDepth } from "@/components/home/opsteam/OpsDepth";
 import { OPS_TEAM_DEPTH } from "@/data/services";
 import { AI_TEAM, AI_TEAM_FAQS, AI_TEAM_PATH, CAPABILITIES, CTA_LABEL, CTA_MICRO, SAFETY } from "@/data/aiTeam";
 import { GENERIC_BOOK_URL } from "@/data/booking";
@@ -166,6 +168,29 @@ export default function AiOperationsTeamPage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* HOW FAR IT REACHES: the deep integrations, then the five levels */}
+      <section className="section-pad bg-canvas" aria-labelledby="reach-title" style={BAND}>
+        <div className="container-wide">
+          <SectionHead
+            id="reach-title"
+            eyebrow="What it can do"
+            title={
+              <>
+                Deep inside your business, <span className="italic-accent">not on the side.</span>
+              </>
+            }
+            lead="Connected to the tools you already run, with an agent for every job and you approving what matters."
+          />
+          <div className="mt-[var(--space-head)]">
+            <OpsCapabilities />
+          </div>
+          <div className="mt-[var(--space-section)]">
+            <p className="mb-[var(--space-block)] font-mono text-[0.75rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">How deep it goes</p>
+            <OpsDepth />
+          </div>
         </div>
       </section>
 
