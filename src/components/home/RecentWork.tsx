@@ -4,6 +4,7 @@ import { GENERIC_BOOK_URL } from "@/data/booking";
 import { SplitWords } from "@/components/primitives/Reveal";
 import { EcomVisuals, StudioVisuals } from "@/components/home/proof/cases";
 import { PROOF_CSS } from "@/components/home/proof/styles";
+import { RealRecording } from "./proof/RealRecording";
 /**
  * 08 Proof: two anonymised builds as editorial spreads on the paper band.
  * Rules: no client names, logos, URLs, phone numbers, faces, invented numbers or testimonials.
@@ -37,7 +38,7 @@ function rowsFor(c: { built: string; does: string }): [string, string][] {
 }
 
 /** One case as an editorial spread: a big picture, then what we built and what it does. */
-function Spread({ id, title, visual, caption, rows, flip }: { id: string; title: string; visual: React.ReactNode; caption: string; rows: [string, string][]; flip?: boolean }) {
+function Spread({ id, title, visual, caption, rows, flip, extra }: { id: string; title: string; visual: React.ReactNode; caption: string; rows: [string, string][]; flip?: boolean; extra?: React.ReactNode }) {
   return (
     <article aria-labelledby={id} data-reveal="" className={`work-spread ${flip ? "is-flip" : ""}`}>
       <figure className="work-pic m-0">
@@ -56,6 +57,7 @@ function Spread({ id, title, visual, caption, rows, flip }: { id: string; title:
             </div>
           ))}
         </dl>
+        {extra ? <div className="mt-8">{extra}</div> : null}
       </div>
     </article>
   );
@@ -94,6 +96,14 @@ export function RecentWork() {
             visual={<EcomVisuals />}
             caption="Drawn from the real system. Customers, orders and details are changed."
             rows={rowsFor(CASES.ecom)}
+            extra={
+              <RealRecording
+                src={{ webm: "/work/proof/ecom-results.webm", mp4: "/work/proof/ecom-results.mp4" }}
+                poster="/work/proof/ecom-results-poster.webp"
+                label="Screen recording of the brand's live results page, names and numbers hidden"
+                caption="Their real results page, recorded. Names blurred, numbers hidden until the client says yes."
+              />
+            }
           />
           <Spread
             id="work-studio"
