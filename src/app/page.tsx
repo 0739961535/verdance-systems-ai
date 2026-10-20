@@ -14,6 +14,7 @@ import { BuiltForUs } from "@/components/home/BuiltForUs";
 import { RecentWork } from "@/components/home/RecentWork";
 import { ToolsMarquee } from "@/components/home/ToolsMarquee";
 import { WebsitesChapter } from "@/components/home/WebsitesChapter";
+import { WhoWeAre } from "@/components/home/WhoWeAre";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/niches";
 import { CTA_PRIMARY, SITE_URL } from "@/data/site";
@@ -97,6 +98,8 @@ export default function HomePage() {
       <div className="cv-below">
         <QuestionsChapter />
       </div>
+      {/* 13 who we are, right before the booking */}
+      <WhoWeAre />
       <SimpleFinalCTA />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label={CTA_PRIMARY} />
     </>
