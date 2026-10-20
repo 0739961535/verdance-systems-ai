@@ -5,6 +5,7 @@ import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
 import { EarthRise } from "./EarthRise";
 import { OurBelief } from "../bloom/OurBelief";
 import { OpsTeamShowcase } from "../opsteam";
+import { HowItConnects } from "../connect";
 
 /**
  * The home hero: the opening that is live on verdancesystemsai.com (the warm
@@ -154,6 +155,7 @@ export function LaunchHero() {
       {/* the light page dissolves into the dark, then the Operations Team */}
       <EarthRise />
       <OpsTeamShowcase />
+      <HowItConnects />
     </>
   );
 }
