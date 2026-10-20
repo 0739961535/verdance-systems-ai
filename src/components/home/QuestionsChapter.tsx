@@ -38,7 +38,7 @@ const QUESTIONS: QA[] = [
   },
   {
     q: "You're a young company. Why trust you?",
-    a: "Judge us on the work, not on our age. You test it yourself before a real customer sees it. Everything is set up in your name. The launch date goes in your contract.",
+    a: "Judge us on the work, not on our age. You test it yourself before a real customer sees it. The launch date goes in your contract.",
   },
   {
     q: "We tried a chatbot before. It was rubbish.",
@@ -145,7 +145,7 @@ export function QuestionsChapter() {
           <div className="qc-side">
             <div data-reveal="">
               <p className="eyebrow">
-                Questions
+                <span className="chap-n">12</span> Questions
               </p>
               <h2 id="questions-title" className="h2 qc-h2">
                 <SplitWords text="What owners ask us" />{" "}

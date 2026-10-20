@@ -151,7 +151,7 @@ export const AUDIT = {
   checklist: [
     "Where you are losing customers right now",
     "What to fix first, second and third. Yours to keep.",
-    "A fixed price, if you want us to build it",
+    "A written plan and the price for the first phase, if you want us to build it",
   ],
   microcopy: "Free, and there is nothing to sign. The plan is yours to keep either way.",
   aiChips: [

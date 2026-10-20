@@ -33,7 +33,7 @@ export function StatementChapter() {
       </div>
       <div className="container-wide relative -mt-16 lg:-mt-24">
         <p className="eyebrow" style={{ color: "rgba(234,240,255,0.62)" }}>
-          Promise
+          <span className="chap-n" style={{ color: "#8FB0FF" }}>04</span> Promise
         </p>
         <StatementFill>
           <h2

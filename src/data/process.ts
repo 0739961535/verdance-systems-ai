@@ -79,7 +79,7 @@ export const PROCESS: ProcessStep[] = [
     n: "02",
     name: "Blueprint",
     desc: "We write down exactly what gets built and what it will do, before anyone starts building.",
-    meta: "Week 1 · you get: the written plan and a fixed price",
+    meta: "Week 1 · you get: the written plan and the price for the first phase",
     promise: "Everything agreed in writing before anyone touches anything.",
     duration: "About a week after the audit call",
     beats: [

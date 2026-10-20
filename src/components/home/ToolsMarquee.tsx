@@ -13,8 +13,6 @@ import { TOOL_ICONS, type ToolIcon } from "./toolIcons";
 // Brand colours this dark against the canvas would vanish on hover, so they
 // fall back to the ink colour instead.
 const NEAR_BLACK = new Set(["000000", "191919"]);
-// The CRM is white-labelled on the site: its brand never shows.
-const SHOWN = TOOL_ICONS.filter((t) => t.name !== "GoHighLevel");
 
 const CSS = `
 @keyframes tm-x { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -44,7 +42,7 @@ const symbolId = (name: string) => `tm-${name.toLowerCase().replace(/[^a-z0-9]+/
 function Symbols() {
   return (
     <svg aria-hidden="true" focusable="false" width="0" height="0" style={{ position: "absolute" }}>
-      {SHOWN.filter((t) => t.path).map((t) => (
+      {TOOL_ICONS.filter((t) => t.path).map((t) => (
         <symbol key={t.name} id={symbolId(t.name)} viewBox="0 0 24 24">
           <path d={t.path ?? undefined} />
         </symbol>
@@ -81,7 +79,7 @@ function List({ duplicate = false, still = false }: { duplicate?: boolean; still
       aria-hidden={duplicate || undefined}
       aria-label={duplicate ? undefined : "Tools we connect to"}
     >
-      {SHOWN.map((t) => (
+      {TOOL_ICONS.map((t) => (
         <Item key={t.name} tool={t} />
       ))}
     </ul>
