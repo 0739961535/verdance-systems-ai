@@ -19,7 +19,7 @@ export const PROOF_CSS = `
 .pv-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.06); }
 .pv-body { flex: 1; padding: 14px; display: flex; flex-direction: column; gap: 9px; }
 .pv-foot { padding: 9px 14px 11px; border-top: 1px solid rgba(255,255,255,0.06); font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 10.5px; letter-spacing: 0.04em; color: #8b93a3; }
+  font-size: 11px; letter-spacing: 0.04em; color: #8b93a3; }
 .pv-muted { color: #8b93a3; }
 .pv-num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
 .pv-in { background: #1A2440; }

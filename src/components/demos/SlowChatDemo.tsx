@@ -5,7 +5,8 @@ import { CalendarCheck, Check, CheckCheck } from "lucide-react";
 import { useReducedMotionPref } from "@/lib/useReducedMotionPref";
 
 /**
- * One idea per demo, told slowly: 3 or 4 short messages, a typing pause
+ * One idea per demo, told slowly: 3 or 4 short messages (the first one
+ * already showing, so it never opens on an empty chat), a typing pause
  * before each reply, about 1.8s between messages, then a calm hold and a
  * loop. It only plays while on screen. Under reduced motion every message
  * shows at once. Always labelled as a sample.
@@ -32,7 +33,8 @@ const HOLD_MS = 3800;
 export function SlowChatDemo({ demo, className = "" }: { demo: Demo; className?: string }) {
   const reduce = useReducedMotionPref();
   const ref = useRef<HTMLDivElement>(null);
-  const [shown, setShown] = useState(0);
+  // the first message is already there: never an empty chat
+  const [shown, setShown] = useState(1);
   const [typing, setTyping] = useState(false);
   const [visible, setVisible] = useState(false);
   const n = demo.messages.length;
@@ -52,7 +54,7 @@ export function SlowChatDemo({ demo, className = "" }: { demo: Demo; className?:
     const nextMsg = demo.messages[next];
     if (shown >= n) {
       // hold the finished conversation, then start again
-      t = window.setTimeout(() => setShown(0), HOLD_MS);
+      t = window.setTimeout(() => setShown(1), HOLD_MS);
     } else if (nextMsg.from !== "them" && shown > 0) {
       // our side "types" first
       t = window.setTimeout(() => {
@@ -122,7 +124,7 @@ const CSS = `
 .sd-card { border-radius: 20px; border: 1px solid rgba(255,255,255,0.08); background: linear-gradient(180deg, #0C1530, #0A1226); color: #E9EDEF; box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 24px 60px rgba(2,6,20,0.45); overflow: hidden; }
 .sd-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.06); }
 .sd-av { display: grid; place-items: center; width: 32px; height: 32px; flex: none; border-radius: 999px; background: #1D3F8F; font-size: 0.8rem; font-weight: 600; }
-.sd-sample { margin-left: auto; flex: none; border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 2px 8px; font-size: 0.68rem; color: rgba(255,255,255,0.62); }
+.sd-sample { margin-left: auto; flex: none; border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 2px 8px; font-size: 0.6875rem; color: rgba(255,255,255,0.62); }
 .sd-body { display: grid; align-content: start; gap: 8px; min-height: 15.5rem; padding: 14px; margin: 0; list-style: none; }
 .sd-row { display: flex; opacity: 0; transform: translate3d(0, 6px, 0); transition: opacity 0.4s ease-out, transform 0.4s ease-out; }
 .sd-row:not(.is-on) { height: 0; margin-top: -8px; overflow: hidden; }
@@ -132,7 +134,7 @@ const CSS = `
 .sd-them, .sd-us { max-width: 84%; padding: 8px 11px; font-size: 0.86rem; line-height: 1.42; border-radius: 14px; }
 .sd-them { background: #1D3F8F; border-top-right-radius: 4px; }
 .sd-us { background: #13203F; border-top-left-radius: 4px; }
-.sd-time { display: inline-flex; align-items: center; gap: 3px; margin-left: 8px; font-size: 0.66rem; color: rgba(255,255,255,0.5); vertical-align: -1px; }
+.sd-time { display: inline-flex; align-items: center; gap: 3px; margin-left: 8px; font-size: 0.6875rem; color: rgba(255,255,255,0.5); vertical-align: -1px; }
 .sd-bk { display: grid; gap: 2px; min-width: 62%; padding: 9px 11px; border-radius: 12px; border: 1px solid rgba(127,209,168,0.35); background: rgba(127,209,168,0.08); }
 .sd-bk.is-info { border-color: rgba(143,176,255,0.35); background: rgba(77,124,255,0.1); }
 .sd-bk-t { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 600; color: #BFF0D6; }

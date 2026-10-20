@@ -69,7 +69,7 @@ export function ChatPhone({
       </div>
 
       <figcaption className="mt-5 flex flex-col items-center gap-2">
-        <span className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[color:var(--color-ink-muted)]">
+        <span className="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-ink-muted)]">
           {multi ? `Sample conversation · ${items[idx].label}` : label}
         </span>
         <span className="sr-only">

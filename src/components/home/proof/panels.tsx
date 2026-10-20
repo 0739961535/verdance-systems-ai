@@ -100,7 +100,7 @@ export function OrderCard() {
               <span
                 className={`block h-[3px] rounded-full ${i < current ? "bg-[#4D7CFF]" : i === current ? "bg-[#8FB0FF]" : "bg-white/10"}`}
               />
-              <span className={`mt-1.5 block truncate text-[0.66rem] ${i <= current ? "text-[#C9D6FF]" : "pv-muted"}`}>{s}</span>
+              <span className={`mt-1.5 block truncate text-[0.6875rem] ${i <= current ? "text-[#C9D6FF]" : "pv-muted"}`}>{s}</span>
             </li>
           ))}
         </ol>
@@ -141,13 +141,13 @@ export function Pipeline({ lanes }: { lanes: Lane[] }) {
             />
             <span className="min-w-0">
               <span className="block truncate text-[0.74rem] font-semibold text-[#C9D2E3]">{l.stage}</span>
-              <span className="pv-num pv-muted block text-[0.68rem]">{l.count} in stage</span>
+              <span className="pv-num pv-muted block text-[0.6875rem]">{l.count} in stage</span>
             </span>
           </span>
           <span className="pv-inner block min-w-0 rounded-[10px] px-2.5 py-2">
             <span className="flex items-center justify-between gap-2">
               <span className="truncate text-[0.8rem] font-semibold">{l.name}</span>
-              {l.tag ? <span className="shrink-0 text-[0.64rem] uppercase tracking-[0.06em] text-[#8FB0FF]">{l.tag}</span> : null}
+              {l.tag ? <span className="shrink-0 text-[0.6875rem] uppercase tracking-[0.06em] text-[#8FB0FF]">{l.tag}</span> : null}
             </span>
             <span className="pv-muted block truncate text-[0.72rem]">{l.note}</span>
           </span>
@@ -186,7 +186,7 @@ export function Flow({ steps }: { steps: Step[] }) {
               </span>
               <span className="min-w-0">
                 <span className="block text-[0.84rem] font-semibold leading-tight">
-                  {s.trigger ? <span className="mr-1.5 text-[0.62rem] uppercase tracking-[0.08em] text-[#8FB0FF]">When</span> : null}
+                  {s.trigger ? <span className="mr-1.5 text-[0.6875rem] uppercase tracking-[0.08em] text-[#8FB0FF]">When</span> : null}
                   {s.title}
                 </span>
                 <span className="pv-muted block truncate text-[0.72rem] leading-snug">{s.note}</span>
@@ -214,7 +214,7 @@ export function Report() {
       <Item className="grid grid-cols-3 gap-2">
         {tiles.map((t) => (
           <div key={t} className="pv-inner rounded-[10px] px-2.5 py-2.5">
-            <span className="pv-muted block text-[0.66rem] leading-tight">{t}</span>
+            <span className="pv-muted block text-[0.6875rem] leading-tight">{t}</span>
             <span className="pv-skel mt-2 w-3/4" aria-hidden />
           </div>
         ))}
@@ -222,7 +222,7 @@ export function Report() {
       <Item className="pv-inner mt-1 flex flex-1 flex-col rounded-[12px] p-3">
         <span className="flex items-center justify-between">
           <span className="text-[0.78rem] font-semibold">Enquiries by month</span>
-          <span className="pv-muted text-[0.68rem]">Sample layout</span>
+          <span className="pv-muted text-[0.6875rem]">Sample layout</span>
         </span>
         <div className="mt-3 grid min-h-[120px] flex-1 grid-cols-6 items-end gap-2" aria-hidden>
           {SHAPES.map((h, i) => (
@@ -231,7 +231,7 @@ export function Report() {
         </div>
         <div className="mt-1.5 grid grid-cols-6 gap-2">
           {MONTHS.map((m) => (
-            <span key={m} className="pv-muted text-center text-[0.64rem]">{m}</span>
+            <span key={m} className="pv-muted text-center text-[0.6875rem]">{m}</span>
           ))}
         </div>
       </Item>
@@ -247,7 +247,7 @@ export function Report() {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <Item>
-      <span className="pv-muted block text-[0.68rem]">{label}</span>
+      <span className="pv-muted block text-[0.6875rem]">{label}</span>
       <span className="pv-inner mt-1 flex min-h-[34px] items-center rounded-[9px] px-2.5 text-[0.82rem]">{children}</span>
     </Item>
   );
@@ -261,7 +261,7 @@ export function BriefForm() {
         <Field label="Plot location">Western Cape</Field>
       </div>
       <Item>
-        <span className="pv-muted block text-[0.68rem]">Project</span>
+        <span className="pv-muted block text-[0.6875rem]">Project</span>
         <span className="mt-1 flex flex-wrap gap-1.5">
           {["New build", "Renovation", "Extension"].map((p, i) => (
             <span key={p} className={`pv-chip ${i === 0 ? "pv-chip-blue" : "pv-chip-ghost"}`}>
