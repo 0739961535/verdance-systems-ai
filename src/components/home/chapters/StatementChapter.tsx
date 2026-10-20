@@ -12,7 +12,7 @@ const WORDS = "Every enquiry answered. Every follow-up done. Your team's hours".
 
 const CSS = `
 .st-plate { position: relative; height: 320px; overflow: hidden; }
-.st-plate img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); -webkit-mask-image: linear-gradient(#000 50%, transparent); mask-image: linear-gradient(#000 50%, transparent); }
+.st-plate img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); -webkit-mask-image: linear-gradient(transparent, #000 28%, #000 55%, transparent); mask-image: linear-gradient(transparent, #000 28%, #000 55%, transparent); }
 @media (min-width: 1024px) { .st-plate { height: 480px; } }
 .st-w { opacity: clamp(0.22, calc((var(--p, 1) - var(--k)) * 9 + 0.22), 1); }
 @media (prefers-reduced-motion: reduce) { .st-w { opacity: 1; } }

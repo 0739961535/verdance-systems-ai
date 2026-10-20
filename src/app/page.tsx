@@ -5,10 +5,13 @@ import { ProcessChapter } from "@/components/home/ProcessChapter";
 import { QuestionsChapter } from "@/components/home/QuestionsChapter";
 import { FilmStory } from "@/components/home/flight/FilmStory";
 import { FlightStory } from "@/components/home/flight/FlightStory";
+import { HomeHero } from "@/components/home/hero/HomeHero";
 
-/** The flight as a scroll-scrubbed film (rocket v6). Roll back to the
- * illustrated flight with FLIGHT_FILM=0 at build time. */
+/** The illustrated flight is the old fallback (FLIGHT_FILM=0). The scroll
+ * film (real footage) is off for now: HERO_FILM=1 at build time brings it
+ * back; otherwise the still hero ships and the film's frames never load. */
 const FLIGHT_FILM = process.env.FLIGHT_FILM !== "0";
+const HERO_FILM = process.env.HERO_FILM === "1";
 import { AskYourBusiness } from "@/components/ask/AskYourBusiness";
 import { BuiltForUs } from "@/components/home/BuiltForUs";
 import { RecentWork } from "@/components/home/RecentWork";
@@ -68,7 +71,7 @@ export default function HomePage() {
   }
   return (
     <>
-      <FilmStory />
+      {HERO_FILM ? <FilmStory /> : <HomeHero />}
       {/* 04 to 13 below the film (growth-lab/BELOW_THE_FOLD_SPEC.md); each
           skipped by layout and paint until it nears the screen */}
       <div className="cv-below">
