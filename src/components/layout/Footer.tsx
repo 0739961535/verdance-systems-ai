@@ -210,8 +210,9 @@ export function Footer() {
             <p>
               © {year} {SITE.name} (Pty) Ltd. Registered in South Africa, registration number {SITE.regNumber}.
             </p>
-            {/* TODO(Daniel): registered address (required by ECT Act s43) and the PAIA
-                manual link go here once supplied. Nothing shows until then. */}
+            {/* TODO(Daniel): confirm the city and postal code, then add them after the
+                street (ECT Act s43). The PAIA manual link also goes here once supplied. */}
+            <p>Registered address: 7 Locke Street.</p>
             <p>
               Information Officer: Daniel Bouwer. <Link href="/privacy" className="underline underline-offset-4">Privacy policy</Link> ·{" "}
               <Link href="/terms" className="underline underline-offset-4">Terms</Link>

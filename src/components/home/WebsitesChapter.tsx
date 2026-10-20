@@ -163,7 +163,7 @@ export function WebsitesChapter() {
         {/* Left column: scrolls past the stage on desktop, the whole story on mobile */}
         <div className="lg:col-span-4">
           <p className="eyebrow" style={{ color: MUTED }}>
-            <span className="chap-n">07</span> Websites
+            <span className="chap-n" style={{ color: "#2A50C4" }}>07</span> Websites
           </p>
           <h2
             id="websites-title"
