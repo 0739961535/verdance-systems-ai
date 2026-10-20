@@ -95,7 +95,7 @@ const STUDIO_TABS: ProofTab[] = [
         <Item className="flex justify-end">
           <ul className="pv-inner grid w-[86%] gap-1.5 rounded-[14px] p-3 text-[0.76rem]">
             {[
-              ["Where is the plot?", "Pretoria east"],
+              ["Where is the plot?", "Western Cape"],
               ["Budget range?", "Shared"],
               ["When to start?", "Within 12 months"],
             ].map(([q, a]) => (

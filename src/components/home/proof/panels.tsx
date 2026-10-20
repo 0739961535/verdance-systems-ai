@@ -258,7 +258,7 @@ export function BriefForm() {
     <>
       <div className="grid grid-cols-2 gap-2">
         <Field label="Name">Naledi</Field>
-        <Field label="Plot location">Pretoria east</Field>
+        <Field label="Plot location">Western Cape</Field>
       </div>
       <Item>
         <span className="pv-muted block text-[0.68rem]">Project</span>
