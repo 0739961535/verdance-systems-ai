@@ -16,6 +16,7 @@ const UPDATED = {
   // The redesign (PR 11) and the SEO fixes landed on these on 17 Oct 2026.
   site: "2026-10-17",
   about: "2026-10-17",
+  portfolio: "2026-10-20",
   contact: "2026-10-08",
   calculator: "2026-09-13",
   privacy: "2026-10-17",
@@ -31,6 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/services/ai-operations-system", priority: 0.9, freq: "monthly", updated: UPDATED.site },
     { path: "/audit", priority: 0.9, freq: "monthly", updated: UPDATED.site },
     { path: "/about", priority: 0.8, freq: "monthly", updated: UPDATED.about },
+    { path: "/portfolio", priority: 0.8, freq: "monthly", updated: UPDATED.portfolio },
     { path: "/industries", priority: 0.8, freq: "monthly", updated: UPDATED.site },
     { path: "/how-it-works", priority: 0.8, freq: "monthly", updated: UPDATED.site },
     { path: "/book", priority: 0.8, freq: "monthly", updated: UPDATED.site },
@@ -39,8 +41,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/missed-call-calculator", priority: 0.9, freq: "monthly", updated: UPDATED.calculator },
     { path: "/privacy", priority: 0.3, freq: "yearly", updated: UPDATED.privacy },
     { path: "/terms", priority: 0.3, freq: "yearly", updated: UPDATED.terms },
-    // /products, /packages and /portfolio were retired in round 4 and now
-    // redirect (see next.config.ts). /try stays out until it is live here.
+    // /products and /packages were retired in round 4 and now redirect
+    // (see next.config.ts); /portfolio came back on 20 Oct 2026. /try stays out until it is live here.
   ];
 
   const serviceRoutes: Route[] = SERVICE_CATEGORIES.map((c) => ({
