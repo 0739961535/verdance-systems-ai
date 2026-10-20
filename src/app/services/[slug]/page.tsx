@@ -8,9 +8,23 @@ import { SectionHead } from "@/components/kit/SectionHead";
 import { CTABand } from "@/components/kit/CTABand";
 import { ServiceConsole } from "@/components/visuals/hero/ServiceConsole";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
+import { ServiceDepth } from "@/components/services/ServiceDepth";
+import { SlowChatDemo, type Demo } from "@/components/demos/SlowChatDemo";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { SERVICE_CATEGORIES, SERVICE_BY_SLUG } from "@/data/services";
 import { SITE_URL } from "@/data/site";
+
+/** The live demo beside "What it does" on the instant replies page. Made up, labelled Sample by the demo. */
+const REPLY_DEMO: Demo = {
+  business: "Sample shop",
+  channel: "WhatsApp · 21:41",
+  messages: [
+    { from: "them", text: "Hi, do you deliver to Durban?", time: "21:41" },
+    { from: "us", text: "Hi, yes we do. Delivery takes 2 to 3 working days. Shall I send you the order link?", time: "21:41" },
+    { from: "them", text: "Yes please", time: "21:42" },
+    { from: "card", title: "Order link sent", lines: ["Saved to the customer record", "The team sees the whole chat"], tone: "info" },
+  ],
+};
 
 export async function generateStaticParams() {
   return SERVICE_CATEGORIES.map((c) => ({ slug: c.slug }));
@@ -63,6 +77,18 @@ export default async function ServiceCategoryPage({
         provider: { "@id": `${SITE_URL}/#organization` },
         areaServed: "Worldwide",
       },
+      ...(category.depth
+        ? [
+            {
+              "@type": "FAQPage",
+              mainEntity: category.depth.faqs.map((f) => ({
+                "@type": "Question",
+                name: f.q,
+                acceptedAnswer: { "@type": "Answer", text: f.a },
+              })),
+            },
+          ]
+        : []),
       {
         "@type": "BreadcrumbList",
         itemListElement: [
@@ -96,6 +122,14 @@ export default async function ServiceCategoryPage({
         note="Free 30-minute call · nothing to sign"
       />
 
+      {category.depth ? (
+        <ServiceDepth
+          depth={category.depth}
+          includes={category.whatYouGet}
+          demo={slug === "conversation-ai" ? <SlowChatDemo demo={REPLY_DEMO} /> : undefined}
+        />
+      ) : (
+        <>
       {/* WHAT YOU GET + BEST FOR */}
       <section className="section-pad bg-canvas" aria-labelledby="get-title" style={{ borderTop: "1px solid var(--hairline)" }}>
         <div className="container-wide grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14">
@@ -207,6 +241,9 @@ export default async function ServiceCategoryPage({
         </div>
       </section>
 
+        </>
+      )}
+
       {related.length > 0 && (
         <section className="section-pad bg-canvas-2" aria-labelledby="related-title" style={{ borderTop: "1px solid var(--hairline)" }}>
           <div className="container-wide">
@@ -241,7 +278,7 @@ export default async function ServiceCategoryPage({
         </section>
       )}
 
-      <CTABand />
+      {category.depth ? null : <CTABand />}
       <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free 30-minute call" />
     </>
   );

@@ -44,9 +44,48 @@ export type ServiceCategory = {
   /** SEO title (before the brand suffix) and meta description. */
   seoTitle: string;
   seoDescription: string;
+  /** The depth page content ("How it works"), when this service has one. */
+  depth?: ServiceDepth;
 };
 
-export const SERVICE_CATEGORIES: ServiceCategory[] = [
+/* ------------------------------------------------------------------ */
+/* Depth pages: how each build works, step by step (Oct 2026)          */
+/* ------------------------------------------------------------------ */
+
+export type DepthTone = "amber" | "green" | "blue" | "muted";
+
+/** A small decorative app screen next to a step. Sample content only. */
+export type DepthVisual =
+  /** One of the four home page screens (Answer, Follow up, Admin, Report). */
+  | { kind: "work"; word: "Answer" | "Follow up" | "Admin" | "Report" }
+  /** A short chat: an optional message in, then our reply. */
+  | { kind: "chat"; app: string; time: string; inMsg?: string; outMsg: string; status?: string }
+  /** One item with a title, a sub line and status chips. */
+  | { kind: "status"; app: string; title: string; sub: string; chips: { text: string; tone: DepthTone }[] }
+  /** A list of rows, each with a chip. */
+  | { kind: "rows"; app: string; rows: { text: string; chip: string; tone: DepthTone }[] }
+  /** A small browser frame with a page title and a button. */
+  | { kind: "page"; url: string; title: string; sub: string; button: string };
+
+export type DepthStep = { title: string; body: string; visual: DepthVisual };
+
+export type ServiceDepth = {
+  /** What it does, in one line. */
+  oneLine: string;
+  /** Four to six steps, in the order they happen. */
+  steps: DepthStep[];
+  /** What the client does, and what we do. */
+  youDo: string[];
+  weDo: string[];
+  /** What the build looks like inside the 10 working days (one line). */
+  buildNote: string;
+  /** What you see each week once it is live. */
+  weekly: { label: string; text: string }[];
+  /** The questions a buyer asks. True answers only. */
+  faqs: { q: string; a: string }[];
+};
+
+const BASE_CATEGORIES: ServiceCategory[] = [
   {
     slug: "lead-generation",
     number: "01",
@@ -597,6 +636,674 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       "A live dashboard and plain monthly report on enquiries, reply times and bookings, with consent and data requests handled the way POPIA requires. South Africa.",
   },
 ];
+
+/**
+ * Depth content per service slug. Sample screens only: names, times and
+ * numbers in the visuals are made up and the page labels them as samples.
+ */
+const LIVE_FAQ = {
+  q: "How long until it is live?",
+  a: "The first phase is live in 10 working days from sign-off. You test it yourself before any customer sees it.",
+};
+
+const SERVICE_DEPTH: Record<string, ServiceDepth> = {
+  "conversation-ai": {
+    oneLine: "Every message on WhatsApp, your website, Instagram, Facebook and SMS gets a helpful reply within 60 seconds, day or night.",
+    steps: [
+      {
+        title: "A customer messages you",
+        body: "It might be WhatsApp at 22:15 or Instagram on a Sunday. Every channel lands in one inbox.",
+        visual: {
+          kind: "rows",
+          app: "One inbox",
+          rows: [
+            { text: "WhatsApp: Do you deliver to Durban?", chip: "New", tone: "blue" },
+            { text: "Instagram: Price for 40 units?", chip: "New", tone: "blue" },
+            { text: "Website chat: Open on Saturday?", chip: "New", tone: "blue" },
+          ],
+        },
+      },
+      {
+        title: "It replies within 60 seconds",
+        body: "The answer comes from your own prices, hours and policies, written the way you speak.",
+        visual: { kind: "work", word: "Answer" },
+      },
+      {
+        title: "It asks what it needs to know",
+        body: "One or two short questions, so your team gets the full picture instead of a vague first message.",
+        visual: {
+          kind: "chat",
+          app: "Instagram",
+          time: "16:02",
+          inMsg: "Can I order 40 units for a function?",
+          outMsg: "Yes, we can do 40. Which date do you need them by, and is it delivery or collection?",
+        },
+      },
+      {
+        title: "It books, or hands over",
+        body: "Simple requests are booked in the same chat. Anything that needs judgement goes to a person with a short summary.",
+        visual: {
+          kind: "status",
+          app: "Handover",
+          title: "Bulk order with a custom label",
+          sub: "Summary sent to your team",
+          chips: [
+            { text: "Needs a person", tone: "amber" },
+            { text: "Taken over", tone: "green" },
+          ],
+        },
+      },
+      {
+        title: "Everything is saved",
+        body: "Each conversation stays on the customer's record, so whoever picks it up next sees the whole story.",
+        visual: {
+          kind: "status",
+          app: "Customer record",
+          title: "New enquiry, Durban",
+          sub: "3 messages, 1 order question",
+          chips: [{ text: "Saved", tone: "green" }],
+        },
+      },
+    ],
+    youDo: [
+      "Tell us your prices, hours and the questions people ask most",
+      "Choose which replies need your approval first",
+      "Pick who takes over when a person is needed",
+      "Reply to the handovers it sends you",
+    ],
+    weDo: [
+      "Connect WhatsApp, website chat, Instagram, Facebook and SMS to one inbox",
+      "Write and test the replies in your voice",
+      "Set the rules for when a person takes over",
+      "Watch the first weeks closely and fix anything unclear",
+      "Update it when your prices or hours change",
+    ],
+    buildNote: "We connect your channels, write the replies and test them with you.",
+    weekly: [
+      { label: "Every day", text: "New enquiries answered, and a clear note of anything handed to your team." },
+      { label: "Any time", text: "Open the inbox on your phone and take over any conversation." },
+      { label: "When unsure", text: "It hands over instead of guessing. We add the answer so it knows next time." },
+      { label: "Each month", text: "A short report on enquiries, reply times and bookings, with one thing to improve." },
+    ],
+    faqs: [
+      {
+        q: "Will it sound like a robot?",
+        a: "It answers in your voice, using your own words, prices and policies. You read sample replies and approve them before it goes live.",
+      },
+      {
+        q: "What happens when it does not know the answer?",
+        a: "It tells the customer a person will reply, and hands the conversation to your team with a short summary. It does not guess.",
+      },
+      {
+        q: "Can I approve replies before they go out?",
+        a: "Yes. Approve every reply, or let routine ones go out on their own. You can change this at any time.",
+      },
+      {
+        q: "Which channels does it cover?",
+        a: "WhatsApp, website chat, Instagram, Facebook and SMS. Phone calls are a separate service.",
+      },
+      LIVE_FAQ,
+      {
+        q: "Where do the conversations live?",
+        a: "In accounts set up in your business's name. Consent and data requests are handled the way POPIA requires.",
+      },
+    ],
+  },
+
+  "follow-up-nurture": {
+    oneLine: "Missed calls get a text back in seconds, and quotes that go quiet are followed up politely until the customer replies.",
+    steps: [
+      {
+        title: "A call is missed, or a quote goes quiet",
+        body: "You are on site or with a customer. Normally that caller tries the next business on the list.",
+        visual: {
+          kind: "status",
+          app: "Calls",
+          title: "Missed call",
+          sub: "07:42, while you were on site",
+          chips: [{ text: "Missed", tone: "amber" }],
+        },
+      },
+      {
+        title: "A text goes back in seconds",
+        body: "A friendly message asks how you can help, so the conversation carries on by text.",
+        visual: {
+          kind: "chat",
+          app: "SMS",
+          time: "07:42",
+          outMsg: "Sorry we missed your call. How can we help? You can reply here.",
+          inMsg: undefined,
+          status: "Sent 07:42",
+        },
+      },
+      {
+        title: "Follow-ups go out at sensible times",
+        body: "Quiet quotes and enquiries get a short, polite check-in in your voice, on the days you choose.",
+        visual: { kind: "work", word: "Follow up" },
+      },
+      {
+        title: "Replies come straight to you",
+        body: "When the customer answers, the conversation lands in your inbox with the history attached.",
+        visual: {
+          kind: "chat",
+          app: "WhatsApp",
+          time: "09:14",
+          inMsg: "Yes, still keen. Can you start in March?",
+          outMsg: "Great. I have passed this to the team, they will confirm a start date today.",
+        },
+      },
+      {
+        title: "It stops when they answer",
+        body: "A reply, a booking or a no thanks ends the follow-ups for that person. Nobody is chased after they answer.",
+        visual: {
+          kind: "rows",
+          app: "Follow-ups",
+          rows: [
+            { text: "Replied", chip: "Stopped", tone: "green" },
+            { text: "Booked a visit", chip: "In the diary", tone: "blue" },
+            { text: "Said no thanks", chip: "Closed politely", tone: "muted" },
+          ],
+        },
+      },
+    ],
+    youDo: [
+      "Tell us how soon and how often to follow up",
+      "Approve the wording once",
+      "Reply when a customer comes back",
+      "Tell us about anyone who must never be contacted",
+    ],
+    weDo: [
+      "Set up the missed call text back on your business number",
+      "Write the follow-ups in your voice",
+      "Set the timing so nothing goes out late at night",
+      "Stop follow-ups the moment someone replies or says no",
+      "Check the results and adjust the wording",
+    ],
+    buildNote: "We set up the text back, write the follow-ups and test them on your own phone.",
+    weekly: [
+      { label: "Every day", text: "Missed callers texted back in seconds, and their replies in your inbox." },
+      { label: "Every week", text: "Quiet quotes followed up on the days you chose, and stopped for anyone who replied." },
+      { label: "Any time", text: "See who was followed up, who replied and who said no, in one place." },
+      { label: "Each month", text: "A short report on enquiries won back, with one thing to improve." },
+    ],
+    faqs: [
+      {
+        q: "Will customers find it pushy?",
+        a: "The messages are short and polite, go out at sensible hours, and stop the moment someone replies or asks us to stop.",
+      },
+      {
+        q: "Can I see what goes out?",
+        a: "Yes. You approve the wording before anything is sent, and you can see every message afterwards.",
+      },
+      {
+        q: "Who gets followed up?",
+        a: "Only people who contacted you first or asked for a quote. Every message has an easy way to opt out, as POPIA requires.",
+      },
+      {
+        q: "What if a customer replies at night?",
+        a: "The reply lands in your inbox. If you also have instant replies, they get an answer within 60 seconds.",
+      },
+      LIVE_FAQ,
+    ],
+  },
+
+  "booking-calendar": {
+    oneLine: "Bookings, reminders and the details that go with them are done for you, so nobody types the same thing twice.",
+    steps: [
+      {
+        title: "A customer picks a time",
+        body: "On your booking page or inside a WhatsApp chat, from your real availability, at any hour.",
+        visual: { kind: "page", url: "yourbusiness.co.za/book", title: "Choose a time", sub: "Tuesday 14", button: "07:30 to 09:00" },
+      },
+      {
+        title: "The details are captured once",
+        body: "Name, number, address and photos are asked for in the booking, not in five phone calls later.",
+        visual: {
+          kind: "rows",
+          app: "Booking details",
+          rows: [
+            { text: "Name and number", chip: "Saved", tone: "green" },
+            { text: "Address", chip: "Saved", tone: "green" },
+            { text: "Photos of the job", chip: "Saved", tone: "green" },
+          ],
+        },
+      },
+      {
+        title: "It lands in your diary",
+        body: "It works with Google Calendar or Outlook, so only free times are offered and nothing is double-booked.",
+        visual: { kind: "work", word: "Admin" },
+      },
+      {
+        title: "Reminders go out",
+        body: "A confirmation straight away and a reminder before the visit, with one tap to move it.",
+        visual: {
+          kind: "chat",
+          app: "WhatsApp",
+          time: "20:00",
+          outMsg: "Reminder: we see you tomorrow at 07:30. Reply 1 to confirm or 2 to move it.",
+          inMsg: undefined,
+          status: "Confirmed by the customer",
+        },
+      },
+      {
+        title: "Your records stay up to date",
+        body: "The booking, the notes and the messages sit on the customer's record. Each evening you get tomorrow's list.",
+        visual: {
+          kind: "status",
+          app: "Tomorrow",
+          title: "4 bookings",
+          sub: "Summary sent at 18:00",
+          chips: [{ text: "Up to date", tone: "green" }],
+        },
+      },
+    ],
+    youDo: [
+      "Tell us your services and how long each one takes",
+      "Choose which diary to use",
+      "Say how far ahead people may book",
+      "Turn up to the bookings",
+    ],
+    weDo: [
+      "Build your booking page and booking inside chats",
+      "Connect your diary so only free times are offered",
+      "Set up confirmations and reminders",
+      "Save every booking's details to the customer's record",
+      "Adjust anything that does not fit how you work",
+    ],
+    buildNote: "We set up your services, connect your diary and make test bookings with you.",
+    weekly: [
+      { label: "Every evening", text: "A summary of tomorrow's bookings." },
+      { label: "Every booking", text: "A confirmation and a reminder sent for you, with one tap to move it." },
+      { label: "Any time", text: "Your diary, always showing what is really booked." },
+      { label: "Each month", text: "A short report on bookings and no-shows, with one thing to improve." },
+    ],
+    faqs: [
+      {
+        q: "Which diary does it work with?",
+        a: "Google Calendar or Outlook. Bookings and blocked time stay in sync both ways.",
+      },
+      {
+        q: "Can customers move their own booking?",
+        a: "Yes, with one tap from the reminder. The new time comes from your real availability.",
+      },
+      {
+        q: "Can people book inside WhatsApp?",
+        a: "Yes. When someone asks on WhatsApp or chat, they are offered two or three open times and booked in the same conversation.",
+      },
+      {
+        q: "What if I need to block out time?",
+        a: "Block it in your diary as normal. Those times are no longer offered.",
+      },
+      LIVE_FAQ,
+    ],
+  },
+
+  "analytics-compliance": {
+    oneLine: "A live view and a short monthly report on enquiries, reply times and bookings, with customer data handled the way POPIA requires.",
+    steps: [
+      {
+        title: "Your channels are connected",
+        body: "Your website, inbox and diary feed one place, so the numbers come from what really happened.",
+        visual: {
+          kind: "rows",
+          app: "Sources",
+          rows: [
+            { text: "Website forms", chip: "Connected", tone: "green" },
+            { text: "WhatsApp and chat", chip: "Connected", tone: "green" },
+            { text: "Diary", chip: "Connected", tone: "green" },
+          ],
+        },
+      },
+      {
+        title: "The numbers update by themselves",
+        body: "Enquiries, reply times, bookings and where customers came from. Nobody fills in a spreadsheet.",
+        visual: {
+          kind: "rows",
+          app: "Live view · Sample",
+          rows: [
+            { text: "Enquiries this week", chip: "38", tone: "blue" },
+            { text: "Answered within 60 seconds", chip: "38", tone: "green" },
+            { text: "Booked", chip: "14", tone: "blue" },
+          ],
+        },
+      },
+      {
+        title: "The monthly report arrives",
+        body: "A short report in plain words on what moved and why, with the value in money terms.",
+        visual: { kind: "work", word: "Report" },
+      },
+      {
+        title: "One thing to improve",
+        body: "Each report ends with one clear suggestion. We test it, and keep it only if it works.",
+        visual: {
+          kind: "status",
+          app: "Next step · Sample",
+          title: "Reply to price questions with two options",
+          sub: "Tested for four weeks",
+          chips: [{ text: "Suggested", tone: "blue" }],
+        },
+      },
+      {
+        title: "POPIA kept in order",
+        body: "Consent on every form, data requests handled, and a record kept in case anyone asks.",
+        visual: {
+          kind: "rows",
+          app: "POPIA",
+          rows: [
+            { text: "Consent on every form", chip: "On", tone: "green" },
+            { text: "Export or delete on request", chip: "Ready", tone: "green" },
+            { text: "Record of every request", chip: "Kept", tone: "green" },
+          ],
+        },
+      },
+    ],
+    youDo: [
+      "Tell us which numbers matter most to you",
+      "Read the monthly report, it takes a few minutes",
+      "Pass on any data requests you receive",
+      "Decide which suggestion to try",
+    ],
+    weDo: [
+      "Connect your website, inbox and diary",
+      "Build the live view and the monthly report",
+      "Add consent and opt-outs to every form",
+      "Set up export and delete for data requests",
+      "Suggest and test one improvement each month",
+    ],
+    buildNote: "We connect your sources, build the live view and check every number with you.",
+    weekly: [
+      { label: "Any time", text: "The live view: enquiries, reply times and bookings." },
+      { label: "Every week", text: "Where enquiries came from, so you know which channels earn their keep." },
+      { label: "Each month", text: "The report, in plain words, with one thing to improve." },
+      { label: "On request", text: "Customer data exported or deleted, with a record kept." },
+    ],
+    faqs: [
+      {
+        q: "What is in the monthly report?",
+        a: "How many people enquired, how fast they were answered, how many booked and what that was worth. Then one suggestion for next month.",
+      },
+      {
+        q: "Do I have to log in to anything?",
+        a: "No. The report comes to you. The live view is there if you want to look.",
+      },
+      {
+        q: "Is this legal advice on POPIA?",
+        a: "No. We build consent, opt-outs and data requests into the system. For legal questions, speak to your own adviser.",
+      },
+      {
+        q: "Who can see the numbers?",
+        a: "You, and anyone you choose to add. The accounts are in your business's name.",
+      },
+      LIVE_FAQ,
+    ],
+  },
+
+  "websites-build": {
+    oneLine: "A fast website that people find on Google, with enquiry forms that are answered within 60 seconds.",
+    steps: [
+      {
+        title: "We learn who buys from you",
+        body: "What they ask, what they worry about and why they choose you. The site is written for them.",
+        visual: {
+          kind: "rows",
+          app: "Brief",
+          rows: [
+            { text: "Who buys", chip: "Agreed", tone: "green" },
+            { text: "What they ask first", chip: "Agreed", tone: "green" },
+            { text: "The one next step", chip: "Agreed", tone: "green" },
+          ],
+        },
+      },
+      {
+        title: "We write and design it",
+        body: "Plain words in your voice, set out so people can find you on Google. Made for a phone first.",
+        visual: { kind: "page", url: "yourbusiness.co.za", title: "Homes built around how you live", sub: "Design and build", button: "Start a project brief" },
+      },
+      {
+        title: "Every form goes somewhere",
+        body: "Enquiries land in your inbox and your customer records, and get a reply within 60 seconds.",
+        visual: {
+          kind: "chat",
+          app: "Website form",
+          time: "21:08",
+          inMsg: "New project brief: 4 bedrooms, plot in hand, start next year.",
+          outMsg: "Thanks for the brief. Could we book a 20-minute call? Tuesday 10:00 or Thursday 14:00.",
+        },
+      },
+      {
+        title: "We test it on real phones",
+        body: "Speed, forms and booking are checked on phones and laptops before anyone sees it.",
+        visual: {
+          kind: "rows",
+          app: "Checks",
+          rows: [
+            { text: "iPhone", chip: "Checked", tone: "green" },
+            { text: "Android", chip: "Checked", tone: "green" },
+            { text: "Laptop", chip: "Checked", tone: "green" },
+          ],
+        },
+      },
+      {
+        title: "It goes live in your name",
+        body: "The domain, the content and the accounts belong to your business.",
+        visual: {
+          kind: "status",
+          app: "Launch",
+          title: "yourbusiness.co.za",
+          sub: "Domain and accounts in your name",
+          chips: [{ text: "Live", tone: "green" }],
+        },
+      },
+    ],
+    youDo: [
+      "Tell us about your buyers and your best work",
+      "Send photos, or let us arrange them",
+      "Review the pages and ask for changes",
+      "Approve it before it goes live",
+    ],
+    weDo: [
+      "Plan the pages and write the words",
+      "Design and build it, phone first",
+      "Set it up so Google can find and show it",
+      "Connect every form to your inbox and records",
+      "Test it on phones and laptops, then launch",
+    ],
+    buildNote: "We write, design and build the pages, then connect every form.",
+    weekly: [
+      { label: "Every enquiry", text: "Answered within 60 seconds and saved to your customer records." },
+      { label: "Every week", text: "How many people visited and how many got in touch." },
+      { label: "Any time", text: "Changes to text or photos, made by us when you ask." },
+      { label: "Each month", text: "A short report with one thing to improve on the site." },
+    ],
+    faqs: [
+      {
+        q: "Can you work with my current website?",
+        a: "Often, yes. We can add chat, booking and enquiry tracking to the site you have, without rebuilding it.",
+      },
+      {
+        q: "Who owns the website?",
+        a: "You do. The domain, the content and the accounts are in your business's name.",
+      },
+      {
+        q: "Do I need to write the words?",
+        a: "No. We write them in your voice after talking to you, and you approve every page.",
+      },
+      {
+        q: "Will it show up on Google?",
+        a: "It is set up properly so Google can find and show it. Where you rank also depends on your market, so we will not promise a position.",
+      },
+      LIVE_FAQ,
+    ],
+  },
+
+  "custom-builds": {
+    oneLine: "The repetitive work only your business has, done by an automation or an assistant that follows your rules and asks before anything important.",
+    steps: [
+      {
+        title: "We find the job that eats the most time",
+        body: "We look at the steps your team repeats every day and pick the one worth doing first.",
+        visual: {
+          kind: "rows",
+          app: "Repeat work",
+          rows: [
+            { text: "Copying orders into a spreadsheet", chip: "Daily", tone: "amber" },
+            { text: "Building the weekly quote pack", chip: "Weekly", tone: "amber" },
+            { text: "Chasing the same paperwork", chip: "Daily", tone: "amber" },
+          ],
+        },
+      },
+      {
+        title: "We agree the rules",
+        body: "What it may do on its own, what it must ask about, and who it asks.",
+        visual: {
+          kind: "rows",
+          app: "Rules",
+          rows: [
+            { text: "Update the order sheet", chip: "On its own", tone: "green" },
+            { text: "Email a supplier", chip: "Asks first", tone: "amber" },
+            { text: "Anything that costs money", chip: "Asks first", tone: "amber" },
+          ],
+        },
+      },
+      {
+        title: "We connect your tools",
+        body: "Your email, spreadsheets and systems pass information to each other, so nothing is typed in twice.",
+        visual: {
+          kind: "rows",
+          app: "Connected",
+          rows: [
+            { text: "Email", chip: "Connected", tone: "green" },
+            { text: "Spreadsheet", chip: "Connected", tone: "green" },
+            { text: "Accounting", chip: "Connected", tone: "green" },
+          ],
+        },
+      },
+      {
+        title: "It asks before anything important",
+        body: "Anything new to a client, a supplier or the public waits for your approval.",
+        visual: {
+          kind: "status",
+          app: "Approval",
+          title: "Send the weekly order to the supplier",
+          sub: "Drafted and checked",
+          chips: [{ text: "Waiting for your approval", tone: "amber" }],
+        },
+      },
+      {
+        title: "You hear if anything stops",
+        body: "Checks run all the time. If something breaks, you and we get an alert.",
+        visual: {
+          kind: "status",
+          app: "Health",
+          title: "All checks passed",
+          sub: "Last run 06:00",
+          chips: [{ text: "Running", tone: "green" }],
+        },
+      },
+    ],
+    youDo: [
+      "Show us the job, once, the way your team does it today",
+      "Agree the rules: what it may do and what it must ask",
+      "Approve the important steps when it asks",
+      "Tell us when the way you work changes",
+    ],
+    weDo: [
+      "Map the job step by step",
+      "Build the automation or assistant",
+      "Connect it safely to the tools you already use",
+      "Add checks and alerts so you know it is working",
+      "Watch it after launch and improve it",
+    ],
+    buildNote: "We build the first job, connect your tools and run it beside your team until it is right.",
+    weekly: [
+      { label: "Every day", text: "The repeat work done, with a record of each step." },
+      { label: "When it matters", text: "A request for your approval, never a surprise." },
+      { label: "If anything stops", text: "An alert to you and to us." },
+      { label: "Each month", text: "A short report on the hours saved, with the next job worth doing." },
+    ],
+    faqs: [
+      {
+        q: "What is an agent?",
+        a: "An assistant that can take steps for you, like reading an email and updating a record. Ours follow rules you agree, and ask before anything important.",
+      },
+      {
+        q: "Will it replace my staff?",
+        a: "It takes the repetitive part of their day, so they can do the work that needs a person.",
+      },
+      {
+        q: "Can it work with our own systems?",
+        a: "Usually, if the system can share information. We check on the call before we promise anything.",
+      },
+      {
+        q: "What if it gets something wrong?",
+        a: "Anything that matters waits for your approval, every step is recorded, and checks alert us if something looks off.",
+      },
+      LIVE_FAQ,
+    ],
+  },
+};
+
+export const SERVICE_CATEGORIES: ServiceCategory[] = BASE_CATEGORIES.map((c) =>
+  SERVICE_DEPTH[c.slug] ? { ...c, depth: SERVICE_DEPTH[c.slug] } : c,
+);
+
+/** The Operations Team page (/services/ai-operations-system): the same depth sections, no questions (that page has its own). */
+export const OPS_TEAM_DEPTH: Omit<ServiceDepth, "faqs"> = {
+  oneLine: "One team that answers your customers, follows up, does the admin and reports back, with you approving what matters.",
+  steps: [
+    {
+      title: "Every enquiry is answered",
+      body: "WhatsApp, website, email and social, within 60 seconds, day or night.",
+      visual: { kind: "work", word: "Answer" },
+    },
+    {
+      title: "No one slips away",
+      body: "Quiet quotes and enquiries get a polite check-in, and it stops when they reply.",
+      visual: { kind: "work", word: "Follow up" },
+    },
+    {
+      title: "The admin is done",
+      body: "Bookings, notes and forms filled in once, and your diary kept accurate.",
+      visual: { kind: "work", word: "Admin" },
+    },
+    {
+      title: "You approve what matters",
+      body: "Anything new to a client, a supplier or the public waits for you.",
+      visual: {
+        kind: "status",
+        app: "Approval",
+        title: "Reply to a new enquiry",
+        sub: "Drafted in your voice",
+        chips: [{ text: "Waiting for your approval", tone: "amber" }],
+      },
+    },
+    {
+      title: "It reports back",
+      body: "A short report each month, in plain words and real numbers, with one thing to improve.",
+      visual: { kind: "work", word: "Report" },
+    },
+  ],
+  youDo: [
+    "Join the free call and the Operations Map",
+    "Tell us your prices, rules and who takes over",
+    "Approve the important steps when asked",
+    "Read the monthly report",
+  ],
+  weDo: [
+    "Map where your time and money leak",
+    "Build the team in accounts in your name",
+    "Connect your inbox, diary and tools",
+    "Test everything with you before it goes live",
+    "Watch it, fix it and improve it every month",
+  ],
+  buildNote: "We build the first phase, connect your tools and test it with your team.",
+  weekly: [
+    { label: "Every day", text: "Enquiries answered, follow-ups sent and bookings in the diary." },
+    { label: "When it matters", text: "A request for your approval, or a handover to your team." },
+    { label: "Any time", text: "Every conversation and action, written down and easy to check." },
+    { label: "Each month", text: "The report, with the value in money terms and one thing to improve." },
+  ],
+};
 
 export const SERVICE_BY_SLUG: Record<string, ServiceCategory> = Object.fromEntries(
   SERVICE_CATEGORIES.map((c) => [c.slug, c]),
