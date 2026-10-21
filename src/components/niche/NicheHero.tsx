@@ -47,7 +47,7 @@ export function NicheHero({ niche }: { niche: Niche }) {
 
             <h1
               id="niche-hero-title"
-              className="enter-rise font-display mt-6 text-[color:var(--color-ink)]"
+              className="font-display mt-6 text-[color:var(--color-ink)]"
               style={{
                 fontSize: "clamp(2.5rem, 4.2vw + 1rem, 5rem)",
                 lineHeight: 1,

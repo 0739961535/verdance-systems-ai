@@ -88,7 +88,7 @@ export default function AiOperationsTeamPage() {
               <p className="enter-fade-up eyebrow">Operations Team</p>
               <h1
                 id="ai-hero-title"
-                className="enter-rise mt-6 max-w-[18ch] font-display text-[color:var(--color-ink)]"
+                className="mt-6 max-w-[18ch] font-display text-[color:var(--color-ink)]"
                 style={{ fontSize: "clamp(2.4rem, 3.9vw + 1rem, 5.25rem)", lineHeight: 1, letterSpacing: "-0.045em" }}
               >
                 Your own <span className="italic-accent">operations team.</span> It does the work. You make the calls.

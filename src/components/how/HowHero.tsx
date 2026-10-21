@@ -110,7 +110,7 @@ export function HowHero() {
         <div className="hh-top">
           <div>
             <p className="eyebrow enter-fade-up">How it works</p>
-            <h1 id="how-title" className="hh-h1 enter-rise">
+            <h1 id="how-title" className="hh-h1">
               From first call to <span className="italic-accent">live</span>,
               step by step.
             </h1>
