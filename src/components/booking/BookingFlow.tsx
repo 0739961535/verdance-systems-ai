@@ -277,6 +277,12 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
     phone: !phoneOk(phone) ? "Please check the number, or leave it empty." : "",
   };
   const detailsOk = !errs.name && !errs.business && !errs.email && !errs.phone;
+  /** Show the errors and move focus to the first field that needs fixing. */
+  const flagErrors = () => {
+    setShowErrors(true);
+    const first = errs.name ? "bk-name" : errs.business ? "bk-biz" : errs.email ? "bk-email" : errs.phone ? "bk-phone" : "";
+    if (first) requestAnimationFrame(() => document.getElementById(first)?.focus());
+  };
   const togglePick = (p: string) => setPicks((cur) => (cur.includes(p) ? cur.filter((x) => x !== p) : [...cur, p]));
 
   const payload = () => ({
@@ -295,7 +301,7 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
   async function book() {
     if (!slot || sending) return;
     if (!detailsOk) {
-      setShowErrors(true);
+      flagErrors();
       return;
     }
     setSending(true);
@@ -331,7 +337,7 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
   async function request() {
     if (sending) return;
     if (!detailsOk) {
-      setShowErrors(true);
+      flagErrors();
       return;
     }
     setSending(true);
