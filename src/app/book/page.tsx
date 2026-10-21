@@ -4,7 +4,7 @@ import { SITE_URL } from "@/data/site";
 
 const TITLE = "Book a free 30-minute call | Verdance Systems AI";
 const DESCRIPTION =
-  "Pick a time for a free 30-minute video call with Verdance. We look at how enquiries, follow-ups and admin run in your business and show you what we would build first. Nothing to sign.";
+  "Pick a time for a free 30-minute video call. We look at how your business runs and show you what we would build first. Nothing to sign.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -22,10 +22,10 @@ type Petal = {
 };
 
 const PETALS: Petal[] = [
-  { channel: "WhatsApp", wait: "Waits 52 min", hours: "4 h a week", money: "R7,500 a month", colour: "#C98A1B", text: "#7A5200", at: "tl" },
-  { channel: "Email", wait: "Waits 6 h", hours: "5 h a week", money: "R12,000 a month", colour: "#D9622B", text: "#A63F12", at: "tr" },
-  { channel: "Website", wait: "Waits 1 min", hours: "1 h a week", money: "R1,500 a month", colour: "#2554D4", text: "#2554D4", at: "bl" },
-  { channel: "Calls", wait: "Missed, no call back", hours: "6 h a week", money: "R16,500 a month", colour: "#C93A3A", text: "#A82828", at: "br" },
+  { channel: "WhatsApp", wait: "Waits 52 min", hours: "4 h a week", money: "Money at risk: medium", colour: "#C98A1B", text: "#7A5200", at: "tl" },
+  { channel: "Email", wait: "Waits 6 h", hours: "5 h a week", money: "Money at risk: high", colour: "#D9622B", text: "#A63F12", at: "tr" },
+  { channel: "Website", wait: "Waits 1 min", hours: "1 h a week", money: "Money at risk: low", colour: "#2554D4", text: "#2554D4", at: "bl" },
+  { channel: "Calls", wait: "Missed, no call back", hours: "6 h a week", money: "Money at risk: highest", colour: "#C93A3A", text: "#A82828", at: "br" },
 ];
 
 const ANGLE = { tl: -45, tr: 45, br: 135, bl: 225 } as const;

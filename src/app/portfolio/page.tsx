@@ -11,7 +11,7 @@ import { CTA_PRIMARY, SITE_URL } from "@/data/site";
 
 const TITLE = "Portfolio | Verdance Systems AI";
 const DESCRIPTION =
-  "Websites, assistants and automations we have built for owner-led South African businesses: what we built, how it works and what it does for them. Client names stay private.";
+  "Websites, assistants and automations we built for owner-led businesses: what we built, how it works and what it does. Client names stay private.";
 
 export const metadata: Metadata = {
   title: TITLE,

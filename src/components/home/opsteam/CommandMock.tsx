@@ -283,6 +283,8 @@ const CSS = `
 .ocm[data-variant="zoom"] .ocm-appr-list { gap: 10px; }
 .ocm[data-variant="zoom"] .ocm-draft { white-space: normal; font-size: 15px; }
 .ocm[data-variant="zoom"] .ocm-btn { min-height: 44px; font-size: 15px; }
+/* phones: the small laptop picture is a preview; its buttons are not tap targets (the zoomed panel below has the real ones) */
+@media (max-width: 767px) { .ocm:not([data-variant="zoom"]) .ocm-btn { pointer-events: none; } }
 .ocm[data-variant="zoom"] .ocm-actions { min-height: 44px; }
 .ocm[data-variant="zoom"] .ocm-foot { font-size: 15px; }
 @keyframes ocm-swap { from { opacity: 0; transform: translate3d(0, 0.6em, 0); } to { opacity: 1; transform: none; } }
