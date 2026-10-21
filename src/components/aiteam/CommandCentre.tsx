@@ -1,5 +1,6 @@
 "use client";
 
+import { SampleTag } from "@/components/kit/SampleTag";
 import { useEffect, useReducer, useRef, useState } from "react";
 import { AnimatePresence, LayoutGroup, MotionConfig, motion } from "motion/react";
 import { Check, Pause, PenLine, Play, RotateCcw } from "lucide-react";
@@ -275,7 +276,7 @@ export function CommandCentre() {
         </LayoutGroup>
 
         <div className={s.foot}>
-          <p className={s.label}>Sample command centre, for illustration</p>
+          <SampleTag place="inline">Sample data</SampleTag>
           <p className={s.msg} aria-hidden>
             <AnimatePresence mode="wait" initial={false}>
               {state.msg && (

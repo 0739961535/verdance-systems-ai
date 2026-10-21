@@ -1,5 +1,6 @@
 "use client";
 
+import { SampleTag } from "@/components/kit/SampleTag";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Phone } from "./Phone";
 
@@ -76,9 +77,9 @@ export function StickyStory({
             ))}
           </Phone>
         </div>
-        <p className="mt-5 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[color:var(--color-ink-muted)]">
-          {caption}
-        </p>
+        <div className="mt-5">
+          <SampleTag place="inline" tone="light">{caption}</SampleTag>
+        </div>
       </div>
     </div>
   );

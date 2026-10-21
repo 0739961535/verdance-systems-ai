@@ -1,3 +1,4 @@
+import { SampleTag } from "@/components/kit/SampleTag";
 import type { ReactNode } from "react";
 import { ArrowUpRight, Check, ChevronDown } from "lucide-react";
 import { Reveal, SplitWords } from "@/components/primitives/Reveal";
@@ -173,6 +174,7 @@ export function ServiceDepth({
   demo,
   story,
   showWhat = true,
+  sampleTags = true,
   showFaq = true,
   showCta = true,
   compact = false,
@@ -186,6 +188,8 @@ export function ServiceDepth({
   story?: { today: [string, string, string]; withUs: [string, string, string] };
   /** Off where the page already says what it does (the Operations Team page). */
   showWhat?: boolean;
+  /** Mark each depth screen as a sample (off where the page already says so). */
+  sampleTags?: boolean;
   showFaq?: boolean;
   showCta?: boolean;
   /** The shorter service page layout: tabs, a reveal and one line (see above). */
@@ -264,7 +268,6 @@ export function ServiceDepth({
                 }))}
               />
             </div>
-            <p className="museum mt-10">Sample screens. The businesses, customers and numbers are made up.</p>
           </div>
         </section>
       ) : (
@@ -282,12 +285,14 @@ export function ServiceDepth({
                     <h3>{s.title}</h3>
                     <p className="dp-body">{s.body}</p>
                   </div>
-                  <DepthVisual visual={s.visual} />
+                  <div style={{ position: "relative" }}>
+                    <DepthVisual visual={s.visual} />
+                    {sampleTags ? <SampleTag place="tr" style={{ top: -10, right: -6 }}>Sample</SampleTag> : null}
+                  </div>
                 </Reveal>
               </li>
             ))}
           </ol>
-          <p className="museum mt-12">Sample screens. The businesses, customers and numbers are made up.</p>
         </div>
       </section>
       )}

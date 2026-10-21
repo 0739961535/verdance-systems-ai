@@ -130,7 +130,7 @@ const CSS = `
   font-size: 0.95rem; font-weight: 500; transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 .nt-tab:hover { color: var(--color-ink); border-color: rgba(var(--accent-rgb), 0.4); }
-.nt-tab[aria-selected="true"] { background: var(--color-accent); border-color: var(--color-accent); color: #fff; }
+.nt-tab[aria-selected="true"] { background: #2554D4; border-color: #2554D4; color: #fff; }
 .nt-panel { margin-top: 28px; }
 .nt-grid { display: grid; gap: 18px 28px; }
 @media (min-width: 768px) { .nt-grid { grid-template-columns: 1fr 1fr; } }

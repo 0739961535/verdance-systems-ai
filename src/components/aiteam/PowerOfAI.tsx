@@ -96,7 +96,7 @@ export function PowerOfAI({ variant = "full" }: { variant?: "full" | "short" }) 
                     </div>
                     <footer className={m.foot}>
                       <p className={m.delta}>{mo.delta}</p>
-                      <p className={m.note}>Illustrative scenario</p>
+
                     </footer>
                   </article>
                 </Reveal>

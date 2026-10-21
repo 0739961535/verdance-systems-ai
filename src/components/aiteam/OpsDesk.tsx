@@ -48,7 +48,6 @@ export function OpsDesk() {
               />
             </picture>
           </figure>
-          <p className="museum odk-cap">Sample screen. The numbers and tasks are made up.</p>
         </div>
       </div>
     </section>

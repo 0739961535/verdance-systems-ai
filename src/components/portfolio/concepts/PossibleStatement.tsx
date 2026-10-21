@@ -13,9 +13,13 @@ import { useEffect, useRef } from "react";
 
 const CSS = `
 .ps-wrap { position: relative; height: 190vh; background: #F4F1EA; }
-@media (max-width: 767.98px) { .ps-wrap { height: 160vh; } }
+@media (max-width: 767.98px) { .ps-wrap { height: 220vh; } }
 .ps-stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: grid; place-items: center; --p: 0; }
-.ps-night { position: absolute; inset: 0; background: #060B1A; opacity: clamp(0, calc((var(--p) - 0.14) * 3), 1); }
+/* paper to night as a growing circle of night from the centre (transform
+   only): cream and navy are never mixed into a flat grey screen, and the
+   words change colour while the night passes behind them */
+.ps-night { position: absolute; left: 50%; top: 50%; width: 170vmax; height: 170vmax; margin: -85vmax 0 0 -85vmax; border-radius: 50%; background: radial-gradient(closest-side, #060B1A 94%, rgba(6, 11, 26, 0) 100%);
+  transform: scale(clamp(0, calc((var(--p) - 0.05) * 5), 1)); }
 .ps-glow { position: absolute; left: 50%; top: 50%; width: 120vmax; height: 120vmax; margin: -60vmax 0 0 -60vmax; border-radius: 999px; pointer-events: none;
   background: radial-gradient(closest-side, rgba(77,124,255,0.32), rgba(77,124,255,0.08) 50%, transparent 70%);
   opacity: clamp(0, calc((var(--p) - 0.35) * 2.4), 1); transform: scale(calc(0.6 + var(--p) * 0.5)); }
@@ -25,9 +29,9 @@ const CSS = `
   font-size: clamp(3.5rem, 18.6vw, 22rem); }
 @media (min-width: 768px) { .ps-h { font-size: clamp(6rem, 18.4vw, 22rem); } }
 .ps-h span { display: block; white-space: nowrap; }
-.ps-h .ps-l { position: absolute; inset: 0; color: #F2F5FC; opacity: clamp(0, calc((var(--p) - 0.16) * 3), 1); }
+.ps-h .ps-l { position: absolute; inset: 0; color: #F2F5FC; opacity: clamp(0, calc((var(--p) - 0.12) * 20), 1); }
 .ps-h .ps-l em { font-style: normal; color: #8FB0FF; }
-.ps-h .ps-d { color: #0E0E10; opacity: calc(1 - clamp(0, calc((var(--p) - 0.16) * 3), 1)); }
+.ps-h .ps-d { color: #0E0E10; opacity: calc(1 - clamp(0, calc((var(--p) - 0.04) * 25), 1)); }
 .ps-h .ps-d em { font-style: normal; color: #2554D4; }
 .ps-cap { position: absolute; left: 0; right: 0; bottom: 8vh; text-align: center; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
   color: #8FB0FF; opacity: clamp(0, calc((var(--p) - 0.6) * 3), 1); }

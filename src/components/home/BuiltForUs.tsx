@@ -83,7 +83,7 @@ function CommandPanel() {
         ))}
       </ul>
       <p className="px-5 py-3 text-[0.8125rem] italic" style={{ color: C.muted }}>
-        Our own command centre, drawn. Details hidden, wording made up.
+        Our own command centre, redrawn with client details removed.
       </p>
     </div>
   );

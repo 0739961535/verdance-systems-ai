@@ -1,5 +1,7 @@
 "use client";
 
+import { SampleTag } from "@/components/kit/SampleTag";
+
 import { useMemo } from "react";
 import type { Conversation } from "@/data/conversations";
 import { useConversationPlayer, type RotationItem } from "./useConversationPlayer";
@@ -69,9 +71,7 @@ export function ChatPhone({
       </div>
 
       <figcaption className="mt-5 flex flex-col items-center gap-2">
-        <span className="font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-[color:var(--color-ink-muted)]">
-          {multi ? `Sample conversation · ${items[idx].label}` : label}
-        </span>
+        <SampleTag place="inline" tone="light">{multi ? `Sample · ${items[idx].label}` : "Sample"}</SampleTag>
         <span className="sr-only">
           {items.map((it) => it.conversation.summary).join(" ")}
         </span>

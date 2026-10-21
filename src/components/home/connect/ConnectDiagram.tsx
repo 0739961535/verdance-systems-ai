@@ -381,7 +381,9 @@ export function ConnectDiagram() {
     const tr = track.getBoundingClientRect();
     const pin = parseFloat(getComputedStyle(stage).top) || 0;
     const run = Math.max(1, tr.height - stage.offsetHeight);
-    const p = Math.max(0, Math.min(1, (pin - tr.top) / run));
+    // the roots and tools are already drawn when the stage pins (no empty screen)
+    const raw = Math.max(0, Math.min(1, (pin - tr.top) / run));
+    const p = 0.2 + raw * 0.8;
     s.p = p;
     apply(svg, p);
     const stg = String(stageOf(p));
@@ -494,7 +496,7 @@ const CSS = `
 .tr { position: relative; --lx: 0; }
 /* The tree pins while it grows: the track is the stage plus the growing distance (shorter on phones). */
 .tr-track { position: relative; height: calc(100svh - 160px + 55svh); }
-@media (min-width: 768px) { .tr-track { height: calc(100svh - 88px + 80svh); } }
+@media (min-width: 768px) { .tr-track { height: calc(100svh - 88px + 50svh); } }
 .tr-stage { position: sticky; top: 72px; height: calc(100svh - 160px); display: flex; flex-direction: column; justify-content: center; }
 @media (min-width: 768px) { .tr-stage { top: 88px; height: calc(100svh - 88px); } }
 .tr-svg { display: block; width: 100%; height: auto; min-height: 0; flex: 1 1 auto; overflow: visible; }

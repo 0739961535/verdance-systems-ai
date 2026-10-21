@@ -11,6 +11,12 @@ import { useEffect, useRef } from "react";
  * Reduced motion: nothing runs; the first frame and the last line show.
  */
 const STOPS = [0.15, 0.3, 0.45, 0.6, 1.01];
+/**
+ * The section's scroll has two parts: the bloom (0 to BLOOM_END of the
+ * travel), then the outro, where the open flower and its words gently
+ * recede before the statement below arrives on its own clean frame.
+ */
+const BLOOM_END = 0.6;
 
 export function BloomScroll({ v, desktop, phone }: { v: string; desktop: number; phone: number }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -42,7 +48,8 @@ export function BloomScroll({ v, desktop, phone }: { v: string; desktop: number;
         drawn = "";
       }
     };
-    const target = () => Math.round(shown * (count - 1));
+    const bp = () => Math.min(1, shown / BLOOM_END);
+    const target = () => Math.round(bp() * (count - 1));
     const nearest = (i: number) => {
       for (let d = 0; d < count; d++) {
         if (frames[i - d]) return i - d;
@@ -54,7 +61,7 @@ export function BloomScroll({ v, desktop, phone }: { v: string; desktop: number;
     // them the scroll is, so the bloom opens continuously, never in steps.
     const draw = () => {
       if (!ctx || !canvas || !count) return;
-      const pos = shown * (count - 1);
+      const pos = bp() * (count - 1);
       const t = Math.round(pos);
       const big = settled ? hd.get(t) : undefined;
       if (big) {
@@ -111,9 +118,11 @@ export function BloomScroll({ v, desktop, phone }: { v: string; desktop: number;
       raf = 0;
       const d = goal - shown;
       shown = Math.abs(d) < 0.0006 ? goal : shown + d * 0.12;
-      el.style.setProperty("--p", shown.toFixed(4));
+      const b = bp();
+      el.style.setProperty("--p", b.toFixed(4));
+      el.style.setProperty("--o", Math.max(0, (shown - BLOOM_END) / (1 - BLOOM_END)).toFixed(4));
       // four lines in equal turns, then the last one lands and holds longest
-      el.dataset.word = String(STOPS.findIndex((t) => shown < t));
+      el.dataset.word = String(STOPS.findIndex((t) => b < t));
       draw();
       if (shown !== goal) raf = requestAnimationFrame(tick);
     };

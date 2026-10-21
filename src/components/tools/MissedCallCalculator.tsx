@@ -117,7 +117,7 @@ export function MissedCallCalculator() {
                 className="px-4 py-1.5 rounded-full text-sm font-semibold transition-colors min-h-9"
                 style={
                   currency === code
-                    ? { background: "var(--color-accent)", color: "#fff" }
+                    ? { background: "#2554D4", color: "#fff" }
                     : { color: "var(--color-ink-muted)" }
                 }
               >

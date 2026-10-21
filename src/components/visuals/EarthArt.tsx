@@ -1,4 +1,3 @@
-import { preload } from "react-dom";
 
 /**
  * Header art for the inner pages (/services, /how-it-works, /about): the
@@ -36,8 +35,9 @@ const CSS = `
 `;
 
 export function EarthArt() {
-  preload("/site/earth-1344.avif", { as: "image", type: "image/avif", fetchPriority: "high", imageSrcSet: WIDE, imageSizes: "100vw", media: "(min-width: 768px)" });
-  preload("/site/earth-m-824.avif", { as: "image", type: "image/avif", fetchPriority: "high", imageSrcSet: PHONE, imageSizes: "100vw", media: PHONE_MQ });
+  // no preload(): React would also emit it into the prefetched payload of
+  // every page that links here, so pages without this art preloaded it too.
+  // The image itself is in the HTML with fetchPriority high.
   return (
     <div aria-hidden className="ea">
       <style>{CSS}</style>

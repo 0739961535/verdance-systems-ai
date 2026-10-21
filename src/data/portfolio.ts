@@ -71,7 +71,7 @@ export const PORTFOLIO_CASES: PortfolioCase[] = [
     },
     // TODO(Daniel): the real screenshots stay off until Peter gives written OK. They were removed from public/ in this commit; restore them from git history, then set drawn to false.
     drawn: true,
-    caption: "Drawn from their results page. Names and numbers hidden.",
+    caption: "Drawing · names and numbers hidden",
     // TODO(Daniel): number only after the client's written OK. Until then it stays null and nothing shows.
     conversationsHandled: null as number | null,
   },
@@ -110,7 +110,7 @@ export const PORTFOLIO_CASES: PortfolioCase[] = [
       height: 960,
       alt: "The studio's home page on a phone: luxury custom home design and construction, with WhatsApp and portfolio buttons",
     },
-    caption: "The live site. The studio's name, logo, people and places are hidden.",
+    caption: "Live site · name hidden",
   },
   {
     id: "training",
@@ -148,7 +148,7 @@ export const PORTFOLIO_CASES: PortfolioCase[] = [
       height: 920,
       alt: "The online application on a phone, step one of four: course and contact details, labelled as an example form",
     },
-    caption: "From the design for their build. The institute's name, logo and people are left out.",
+    caption: "Design for their build",
   },
 ];
 

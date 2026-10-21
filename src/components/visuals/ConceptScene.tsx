@@ -82,13 +82,11 @@ export function ConceptScene({
   id,
   className = "",
   style,
-  caption = "Concept demo",
   sizes = "(min-width: 1024px) 1200px, 100vw",
 }: {
   id: SceneId;
   className?: string;
   style?: CSSProperties;
-  caption?: string;
   sizes?: string;
 }) {
   const s = SCENES[id];
@@ -100,7 +98,6 @@ export function ConceptScene({
         <source type="image/webp" srcSet={`/site/${id}-720.webp 720w, /site/${id}-1344.webp 1344w`} sizes={sizes} />
         <img src={`/site/${id}-1344.webp`} alt={s.alt} width={1344} height={752} loading="lazy" decoding="async" style={{ objectPosition: s.pos }} />
       </picture>
-      <figcaption>{caption}</figcaption>
     </figure>
   );
 }
@@ -128,7 +125,7 @@ export function SceneBand({ slug, bg = "bg-canvas" }: { slug: string; bg?: strin
   return (
     <div className={`csb ${bg}`}>
       <div className="container-wide">
-        <ConceptScene id={id} caption="Illustrative scene" sizes="(min-width: 1280px) 1200px, 92vw" />
+        <ConceptScene id={id} sizes="(min-width: 1280px) 1200px, 92vw" />
       </div>
     </div>
   );

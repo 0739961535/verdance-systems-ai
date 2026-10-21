@@ -144,6 +144,10 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
         />
+        {/* Skip link: fully off screen (no layout space, nothing to see) until a
+            keyboard user focuses it. Styled here, next to the link, so it can
+            never depend on a cached global stylesheet. */}
+        <style>{`.skip-link{position:absolute;left:12px;top:12px;z-index:100;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}.skip-link:focus-visible{width:auto;height:auto;margin:0;padding:12px 18px;overflow:visible;clip:auto;clip-path:none;position:fixed;border-radius:999px;background:#2554D4;color:#fff;font-weight:600;outline:2px solid #BFD2FF;outline-offset:2px}`}</style>
         <a href="#main" className="skip-link">Skip to content</a>
         <NoPullToRefresh />
         <SmoothScroll>

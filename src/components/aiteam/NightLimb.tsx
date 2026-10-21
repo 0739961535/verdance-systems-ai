@@ -1,3 +1,4 @@
+import { SampleTag } from "@/components/kit/SampleTag";
 /**
  * "In your control": the Earth's edge at night, with SA and the UK lit, and a
  * 24-hour arc above it running through the night (18:00 to 06:00). The arc
@@ -128,9 +129,7 @@ export function NightLimb() {
   return (
     <figure className="nl" data-reveal="">
       <style>{CSS}</style>
-      <figcaption className="nl-cap">
-        Sample night. Enquiries come in at all hours, in SA and the UK. The work gets done. Anything that goes out waits for you.
-      </figcaption>
+      <SampleTag place="tr">Sample night</SampleTag>
       <Drawing g={PHONE} id="nlp" cls="nl-phone" />
       <Drawing g={DESK} id="nld" cls="nl-desk" />
     </figure>

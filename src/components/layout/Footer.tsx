@@ -26,7 +26,7 @@ const GROUPS: FooterGroup[] = [
       { href: "/portfolio", label: "Portfolio" },
       { href: "/how-it-works", label: "How it works" },
       { href: "/ai-agency", label: "Where we work" },
-      { href: "/book", label: "Contact" },
+      { href: "/book", label: "Book a call" },
       { href: SITE.linkedin, label: "LinkedIn", external: true },
       { href: "/privacy", label: "Privacy policy" },
       { href: "/terms", label: "Terms" },
@@ -240,7 +240,7 @@ export function Footer() {
           </div>
           <div className="grid gap-1">
             <p>Built in South Africa. Your data stays in accounts you own. POPIA-ready.</p>
-            <p>Launch footage and Earth imagery: NASA.</p>
+            <p>Earth and launch imagery: NASA.</p>
           </div>
           <ThemeToggle />
         </div>

@@ -122,7 +122,7 @@ export function MomentCard({ moment }: { moment: Moment; index?: number }) {
 
       <footer className={m.foot}>
         <p className={m.delta}>{moment.delta}</p>
-        <p className={m.note}>Illustrative scenario</p>
+
       </footer>
     </article>
   );

@@ -1,3 +1,4 @@
+import { SampleTag } from "@/components/kit/SampleTag";
 import Link from "next/link";
 import { DrawnResults } from "./DrawnResults";
 import { EcomVisuals } from "@/components/home/proof/cases";
@@ -137,7 +138,7 @@ export function CaseStudy({ c, index }: { c: PortfolioCase; index: number }) {
             </div>
           </div>
         </div>
-        <figcaption className="pc-cap">{c.caption}</figcaption>
+        <SampleTag place="tl">{c.caption}</SampleTag>
       </figure>
 
       {c.id === "ecom" ? (
@@ -154,7 +155,6 @@ export function CaseStudy({ c, index }: { c: PortfolioCase; index: number }) {
             <p className="pc-demo-p">Tap through the chat, the pipeline, what happens behind it and the monthly report.</p>
           </div>
           <EcomVisuals />
-          <p className="museum text-center">Drawn from the real system. Customers, orders and details are changed.</p>
         </section>
       ) : null}
 

@@ -1,3 +1,4 @@
+import { SampleTag } from "@/components/kit/SampleTag";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import { AI_TEAM_PATH } from "@/data/aiTeam";
@@ -126,6 +127,7 @@ export function ServicesOpsFeature() {
 
         <div className="sof-panel-wrap">
           <div className="sof-panel" role="img" aria-label="Sample command centre: five AI helpers, Answers, Follow-ups, Admin, Reports and Research, each showing its latest task, with a morning brief and a reply waiting for approval.">
+            <SampleTag place="br">Sample data</SampleTag>
             <div className="sof-bar" aria-hidden>
               <span className="sof-dots">
                 <i />
@@ -183,7 +185,6 @@ export function ServicesOpsFeature() {
               </div>
             </div>
           </div>
-          <p className="museum sof-note">Sample command centre. The numbers and tasks are made up.</p>
         </div>
       </div>
     </section>

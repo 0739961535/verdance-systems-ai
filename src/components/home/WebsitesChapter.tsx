@@ -130,7 +130,7 @@ function Outro() {
     <div>
       <p className="font-serif text-[14px] leading-[1.4]" style={{ color: MUTED }}>
         A luxury home design and build studio in South Africa. Website and project brief form, built
-        by Verdance. Name hidden at the client&apos;s request.
+        by Verdance. Client name kept private.
       </p>
       <a
         href={BOOK}
@@ -148,7 +148,7 @@ function Outro() {
         </span>
       </a>
       <p className="font-serif mt-3 text-[14px] leading-[1.4]" style={{ color: MUTED }}>
-        You are on one of ours too.
+        This site is one of ours too.
       </p>
     </div>
   );

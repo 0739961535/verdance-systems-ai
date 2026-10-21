@@ -81,7 +81,10 @@ function useChatAfterHalfway() {
     const html = document.documentElement;
     const check = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      html.toggleAttribute("data-chat-ok", max <= 0 || window.scrollY >= max * 0.5);
+      // after the hero: once the page's first section has mostly scrolled away
+      const first = document.querySelector("main section");
+      const pastHero = first ? first.getBoundingClientRect().bottom < window.innerHeight * 0.5 : window.scrollY > window.innerHeight;
+      html.toggleAttribute("data-chat-ok", max <= 0 || pastHero);
     };
     check();
     window.addEventListener("scroll", check, { passive: true });
@@ -104,10 +107,15 @@ function openWhenReady() {
   const started = Date.now();
   const t = window.setInterval(() => {
     const api = (window as unknown as { leadConnector?: { chatWidget?: { openWidget?: () => void } } }).leadConnector?.chatWidget;
+    // the widget's own launcher, once it has rendered
+    const launcher = document.querySelector("chat-widget")?.shadowRoot?.querySelector<HTMLElement>(".lc_text-widget--bubble, .lc_text-widget, [class*='bubble']");
     if (api?.openWidget) {
       api.openWidget();
       window.clearInterval(t);
-    } else if (Date.now() - started > 10_000) window.clearInterval(t);
+    } else if (launcher) {
+      launcher.click();
+      window.clearInterval(t);
+    } else if (Date.now() - started > 15_000) window.clearInterval(t);
   }, 250);
 }
 
@@ -257,7 +265,7 @@ export function GHLChatWidget() {
   );
 }
 
-/** A light stand-in for the widget's bubble, same place and size; desktop only, like the real one. */
+/** A light stand-in for the widget's bubble, same place and size; desktop only, like the real one. Shows after the hero. */
 const FAKE_CSS = `
 .chat-fake { position: fixed; right: 20px; bottom: 20px; z-index: 60; width: 56px; height: 56px; border-radius: 999px; display: grid; place-items: center;
   background: #2554D4; border: 0; cursor: pointer; box-shadow: 0 12px 30px -10px rgba(37,84,212,0.7); transition: transform .25s cubic-bezier(.2,.8,.2,1), opacity .3s; }

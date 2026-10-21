@@ -15,7 +15,7 @@ export function CurrencySwitch({ className = "" }: { className?: string }) {
           aria-pressed={current === code}
           aria-label={CURRENCY[code].label}
           className="min-h-9 min-w-10 rounded-full px-3 font-mono text-sm font-semibold transition-colors"
-          style={current === code ? { background: "var(--color-accent)", color: "#fff" } : { color: "var(--color-ink-muted)" }}
+          style={current === code ? { background: "#2554D4", color: "#fff" } : { color: "var(--color-ink-muted)" }}
         >
           {CURRENCY[code].symbol}
         </button>
