@@ -78,7 +78,6 @@ export function PowerOfAI({ variant = "full" }: { variant?: "full" | "short" }) 
                   <article className={`${m.card} ${m.compact}`}>
                     <header className={m.head}>
                       <span>{mo.stamp}</span>
-                      <span className={m.idx}>{String(i + 1).padStart(2, "0")}</span>
                     </header>
                     <h3 className={m.title}>{mo.title}</h3>
                     <div className={m.pairClocks}>

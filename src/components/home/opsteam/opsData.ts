@@ -32,7 +32,7 @@ export const OPS_CAPABILITIES: Capability[] = [
   {
     icon: Plug,
     title: "Connected to your tools",
-    body: "Integrates with your CRM, WhatsApp, email, calendar, store and accounting. Anything with an API (a way for software to connect) can be added.",
+    body: "Works with your customer list (CRM), WhatsApp, email, diary, store and accounts. Anything with an API (a way for apps to talk to each other) can be added.",
     href: "/services/custom-builds",
   },
   {

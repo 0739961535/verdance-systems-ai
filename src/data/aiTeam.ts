@@ -16,9 +16,9 @@ export const AI_TEAM = {
   lead:
     "It answers customers, follows up, does the admin and tells you what needs you. You choose: approve every reply, or let routine ones go out on their own. Anything important always waits for you.",
   meta: {
-    title: "Operations Team: Admin, Follow-ups and Reports Done | Verdance",
+    title: "Operations Team: Replies, Follow-ups, Admin | Verdance",
     description:
-      "A private operations team that answers your enquiries, follows up quotes, keeps the admin moving and reports in plain words. You choose what goes out on its own, and nothing is spent without your approval. Start with a free Operations Map.",
+      "An Operations Team that answers enquiries, follows up quotes, does the admin and reports back. You choose what goes out. Start with a free Operations Map.",
   },
 };
 
@@ -27,21 +27,27 @@ export const CTA_MICRO = "Free 30-minute call. Nothing to sign.";
 
 /* ── Org chart ─────────────────────────────────────────────── */
 
+/**
+ * One story across the page: four jobs first (answer, follow up, admin,
+ * report), then up to six departments as the business grows.
+ */
+export const TEAM_STORY = "Four jobs first. Up to six departments as you grow.";
+
 export const DEPARTMENTS = [
-  { name: "Sales", head: "Head of sales", workers: ["Enquiry replies", "Quote follow-ups", "Call briefs"] },
-  { name: "Operations", head: "Head of operations", workers: ["Inbox sorting", "Order and returns queries", "Day planning"] },
-  { name: "Client success", head: "Head of client success", workers: ["Reply drafts", "Check-ins", "Reviews"] },
-  { name: "Finance and tax", head: "Head of finance", workers: ["Money tracking", "Invoice reminders", "Tax-ready records"] },
-  { name: "Marketing and content", head: "Head of marketing", workers: ["Content plan", "Post drafts", "What is working"] },
-  { name: "Legal and compliance", head: "Head of compliance", workers: ["Document register", "Renewal reminders", "Consent records"] },
+  { name: "Sales", head: "Sales lead", workers: ["Enquiry replies", "Quote follow-ups", "Call briefs"] },
+  { name: "Operations", head: "Operations lead", workers: ["Inbox sorting", "Order and returns questions", "Day planning"] },
+  { name: "Client care", head: "Client care lead", workers: ["Reply drafts", "Check-ins", "Reviews"] },
+  { name: "Finance", head: "Finance lead", workers: ["Money tracking", "Invoice reminders", "Tax-ready records"] },
+  { name: "Marketing", head: "Marketing lead", workers: ["Content plan", "Post drafts", "What is working"] },
+  { name: "Compliance", head: "Compliance lead", workers: ["Document list", "Renewal reminders", "Consent records"] },
 ] as const;
 
 export type DeptName = (typeof DEPARTMENTS)[number]["name"];
 
-/** The four stops every piece of work makes. Shared by the demo and the flow diagram. */
+/** The four stops every piece of work makes. Shared by the demo and the bloom diagram. */
 export const STAGES = [
-  { role: "dept", label: "Department", body: "A head and its workers do the work." },
-  { role: "review", label: "Reviewer", body: "Checks every piece before it moves on." },
+  { role: "dept", label: "Department", body: "A team does the work." },
+  { role: "review", label: "Checker", body: "Checks every piece before it moves on." },
   { role: "operator", label: "Planner", body: "Turns it into a short plan for you." },
   { role: "attn", label: "Needs you", body: "You approve, change it, or say no." },
 ] as const;
@@ -86,7 +92,7 @@ export const DEMO_ITEMS: DemoItem[] = [
     id: "reorder",
     title: "Wholesale reorder reply",
     biz: "Product brand",
-    dept: "Client success",
+    dept: "Client care",
     worker: "Reply drafts",
     check: ["Stock and lead time match", "Sounds like you"],
     plan: "Confirm the order, delivery Thursday",
@@ -96,7 +102,7 @@ export const DEMO_ITEMS: DemoItem[] = [
     id: "invoice",
     title: "Overdue invoice reminder",
     biz: "Product brand",
-    dept: "Finance and tax",
+    dept: "Finance",
     worker: "Invoice reminders",
     check: ["Payment not received yet", "Friendly, first reminder"],
     plan: "Send a polite reminder with the statement",
@@ -106,7 +112,7 @@ export const DEMO_ITEMS: DemoItem[] = [
     id: "renewal",
     title: "Supplier contract renewal",
     biz: "Lodge group",
-    dept: "Legal and compliance",
+    dept: "Compliance",
     worker: "Renewal reminders",
     check: ["Notice period found", "Terms compared with last year"],
     plan: "Renew for a year, ask about the change",
@@ -116,7 +122,7 @@ export const DEMO_ITEMS: DemoItem[] = [
     id: "consult",
     title: "Consult booking request",
     biz: "Self-pay clinic",
-    dept: "Client success",
+    dept: "Client care",
     worker: "Reply drafts",
     check: ["Consent on file", "No medical advice given"],
     plan: "Offer two consult slots this week",
@@ -146,7 +152,7 @@ export const DEMO_ITEMS: DemoItem[] = [
     id: "content",
     title: "Next week's posts",
     biz: "Wine estate venue",
-    dept: "Marketing and content",
+    dept: "Marketing",
     worker: "Post drafts",
     check: ["Built from what guests asked", "Photos from your library"],
     plan: "Three posts, ready to schedule",
@@ -156,14 +162,28 @@ export const DEMO_ITEMS: DemoItem[] = [
 
 /* ── Capabilities and safety ───────────────────────────────── */
 
-export const CAPABILITIES = [
-  { title: "Answers every customer", body: "WhatsApp, email and website messages answered in your voice, day and night. Anything new comes to you." },
-  { title: "Follows up every quote", body: "Friendly check-ins on the right days. You hear the moment they reply." },
-  { title: "Sorts your inbox", body: "Every message read and sorted, with a reply ready before you open it." },
-  { title: "Answers order questions", body: "Where is my order? Can I swap this? Answered from your own records." },
-  { title: "Does the paperwork", body: "Invoices, contracts and renewals kept up to date, with a reminder before anything runs out." },
-  { title: "Tells you what matters", body: "A short note each day and week: what happened, and what needs you." },
+/**
+ * "Your Monday": one before-and-after toggle that replaces the old six job
+ * cards and the five depth levels. Same rows, two endings. Sample day.
+ */
+export type MondayRow = { time: string; job: string; before: string; after: string };
+
+export const MONDAY: MondayRow[] = [
+  { time: "06:00", job: "Weekend messages", before: "A weekend of WhatsApps and emails waits for you.", after: "All answered in your words. Anything new waits for you." },
+  { time: "07:30", job: "Your inbox", before: "You read and sort it yourself.", after: "Sorted, with replies ready to approve." },
+  { time: "09:00", job: "Open quotes", before: "Quotes go quiet. Nobody chases them.", after: "Friendly check-ins go out on the right day." },
+  { time: "11:00", job: "Order questions", before: "Your team looks up each order by hand.", after: "Answered from your own records." },
+  { time: "14:00", job: "Paperwork", before: "Invoices and renewals slip.", after: "Reminders drafted before anything runs out." },
+  { time: "17:00", job: "What matters", before: "You guess how the day went.", after: "A short note: what happened, what needs you." },
 ];
+
+export const MONDAY_SUMMARY = {
+  before: "Your day goes on catching up.",
+  after: "Your day goes on the work only you can do.",
+};
+
+/** How it grows, in one line under the toggle. */
+export const GROW_STEPS = ["Answer", "Follow up", "Admin", "Report", "Up to six departments"] as const;
 
 export const SAFETY = [
   { title: "You choose what goes out", body: "Approve every reply, or let routine ones go out on their own. Anything new, and any money spent, waits for you." },
