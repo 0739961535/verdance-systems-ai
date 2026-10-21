@@ -14,7 +14,7 @@ export const AI_TEAM = {
   name: "Operations Team",
   eyebrow: "Operations Team",
   lead:
-    "It answers customers, follows up, does the admin and tells you what needs you. You choose: approve every reply, or let routine ones go out on their own. Anything important always waits for you.",
+    "It answers customers, follows up, does the admin and tells you what needs you. Anything important waits for you.",
   meta: {
     title: "Operations Team: Replies, Follow-ups, Admin | Verdance",
     description:
@@ -186,9 +186,9 @@ export const MONDAY_SUMMARY = {
 export const GROW_STEPS = ["Answer", "Follow up", "Admin", "Report", "Up to six departments"] as const;
 
 export const SAFETY = [
-  { title: "You choose what goes out", body: "Approve every reply, or let routine ones go out on their own. Anything new, and any money spent, waits for you." },
-  { title: "Your data stays yours", body: "It lives in accounts you own, locked and private. Each part of the team only sees what it needs." },
-  { title: "Everything is written down", body: "Every action is recorded with who did it and why, so you can check it later." },
+  { title: "You choose what goes out", body: "Approve every reply, or let routine ones go out alone. Anything new waits for you." },
+  { title: "Your data stays yours", body: "In accounts you own. Each part of the team sees only what it needs." },
+  { title: "Everything is written down", body: "Every action is logged with who did it and why." },
 ];
 
 /* ── Before / With Verdance moments ──────────────────────────────── */
@@ -220,14 +220,6 @@ export const MOMENTS: Moment[] = [
     delta: "The job is still yours to win.",
   },
   {
-    stamp: "MON 07:30 · Inbox",
-    title: "The Monday admin pile",
-    quote: "A full inbox, invoices to chase and two supplier questions waiting.",
-    before: { clock: "5 h 10 m", caption: "of your morning", steps: ["07:30 opens the inbox", "12:40 still chasing invoices"], outcome: "Morning gone" },
-    after: { clock: "12 m", caption: "of your morning", steps: ["06:00 inbox sorted, replies drafted", "06:05 reminders ready to approve", "07:42 approved over coffee"] },
-    delta: "Your Monday morning comes back.",
-  },
-  {
     stamp: "FRI 16:00 · Month end",
     title: "A big decision",
     quote: "Can we afford a second coordinator?",
@@ -239,28 +231,24 @@ export const MOMENTS: Moment[] = [
 
 export const POWER = {
   eyebrow: "Before and after",
-  intro: "Four normal moments in a week. What changes is who picks them up, and how fast.",
+  intro: "Three normal moments in a week. What changes is who picks them up, and how fast.",
 };
 
 export const AI_TEAM_FAQS = [
   {
     q: "Will it send things without asking me?",
-    a: "Only if you want it to. You choose: approve every reply, or let routine ones go out on their own. Anything new to a client, a supplier or the public, and anything that costs money, always waits for your approval.",
+    a: "Only if you want it to. Anything new, and anything that costs money, always waits for you.",
   },
   {
     q: "What does it cost?",
-    a: "Every team is built for your business, so we give you a price after the free call. The price is fixed and in writing. We only suggest it if your own numbers show it pays for itself.",
+    a: "A fixed price in writing after the free call, and only if your own numbers show it pays for itself.",
   },
   {
     q: "Do I need to change the tools I use?",
-    a: "Usually not. It works with your email, WhatsApp, diary and the tools you already use. If something needs to change, we tell you first.",
-  },
-  {
-    q: "Where does my data go?",
-    a: "Into accounts that are yours, locked and private. Each part of the team only sees what it needs, and every action is written down.",
+    a: "Usually not. It works with the tools you already use. If something must change, we tell you first.",
   },
   {
     q: "Who is it for?",
-    a: "Owners with too many messages, too much admin and not enough time. It suits teams that want to grow without hiring for every new job.",
+    a: "Owners with too many messages and too much admin, who want to grow without hiring for every job.",
   },
 ];

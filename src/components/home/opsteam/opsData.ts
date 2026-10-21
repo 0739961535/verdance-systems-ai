@@ -26,25 +26,25 @@ export const OPS_CAPABILITIES: Capability[] = [
   {
     icon: Bot,
     title: "An agent for every job",
-    body: "One answers, one follows up, one does the admin, one reports. They pass work to each other.",
+    body: "One answers, one follows up, one does the admin, one reports.",
     href: AI_TEAM_PATH,
   },
   {
     icon: Plug,
     title: "Connected to your tools",
-    body: "Works with your customer list (CRM), WhatsApp, email, diary, store and accounts. Anything with an API (a way for apps to talk to each other) can be added.",
+    body: "Your customer list (CRM), WhatsApp, email, diary, store and accounts, and most other apps.",
     href: "/services/custom-builds",
   },
   {
     icon: ShieldCheck,
     title: "Approvals and handover",
-    body: "You choose what goes out on its own. Anything important waits for you, and a person takes over when it matters.",
+    body: "You choose what goes out alone. A person takes over when it matters.",
     href: AI_TEAM_PATH,
   },
   {
     icon: Sunrise,
     title: "Morning brief and weekly report",
-    body: "A short brief each morning and a report each week: response times, outcomes, and what needs you.",
+    body: "A brief each morning, a report each week, and what needs you.",
     href: "/services/analytics-compliance",
   },
   {
@@ -56,13 +56,13 @@ export const OPS_CAPABILITIES: Capability[] = [
   {
     icon: BookOpen,
     title: "Knows your business",
-    body: "Your prices, rules and tone, so every reply sounds like you and follows your policies.",
+    body: "Your prices, rules and tone, so every reply sounds like you.",
     href: "/services/conversation-ai",
   },
   {
     icon: Workflow,
     title: "Custom agents for your workflow",
-    body: "The jobs only your business has, built as their own agent and connected to the rest.",
+    body: "The jobs only your business has, built as their own agent.",
     href: "/services/custom-builds",
   },
   {
@@ -70,7 +70,7 @@ export const OPS_CAPABILITIES: Capability[] = [
     // says it is part of the team today, so it is offered on request.
     icon: Phone,
     title: "Answers calls and books",
-    body: "Picks up when you cannot, answers common questions and books the caller into your diary.",
+    body: "Picks up when you can't and books the caller into your diary.",
     href: "/services/voice-ai",
     onRequest: true,
   },
