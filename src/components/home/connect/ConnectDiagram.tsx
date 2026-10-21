@@ -383,7 +383,7 @@ export function ConnectDiagram() {
     const run = Math.max(1, tr.height - stage.offsetHeight);
     // the roots and tools are already drawn when the stage pins (no empty screen)
     const raw = Math.max(0, Math.min(1, (pin - tr.top) / run));
-    const p = 0.2 + raw * 0.8;
+    const p = 0.36 + raw * 0.64;
     s.p = p;
     apply(svg, p);
     const stg = String(stageOf(p));
