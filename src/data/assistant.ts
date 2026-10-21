@@ -5,7 +5,7 @@
  * placeholder.
  */
 export const AI_WHATSAPP: string | null = null;
-export const UK_LINE: string | null = null;
+export const UK_LINE: string | null = "+44 7432 351517";
 
 const digits = (n: string) => n.replace(/\D/g, "");
 export const waLink = (n: string, text?: string) => `https://wa.me/${digits(n)}${text ? `?text=${encodeURIComponent(text)}` : ""}`;

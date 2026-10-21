@@ -156,7 +156,7 @@ export function Footer() {
               <li>
                 <a href={telLink(UK_LINE)} className={contactClass}>
                   <Phone size={16} strokeWidth={1.5} aria-hidden className={iconClass} />
-                  UK {UK_LINE}
+                  UK: {UK_LINE}
                 </a>
               </li>
             ) : null}
