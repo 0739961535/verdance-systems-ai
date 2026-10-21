@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
-import { Reveal } from "@/components/primitives/Reveal";
-import { SectionHead } from "@/components/kit/SectionHead";
 import { ServiceHero } from "@/components/services/ServiceHero";
 import { ServiceGlyph } from "@/components/services/ServiceGlyph";
 import { ServiceConsole } from "@/components/visuals/hero/ServiceConsole";
@@ -25,6 +23,27 @@ const REPLY_DEMO: Demo = {
     { from: "card", title: "Order link sent", lines: ["Saved to the customer record", "The team sees the whole chat"], tone: "info" },
   ],
 };
+
+/** "Pairs well with" as a row of compact links. */
+const PAIRS_CSS = `
+.sd-pairs { padding: 48px 0 56px; border-top: 1px solid var(--hairline); }
+@media (min-width: 1024px) { .sd-pairs { padding: 56px 0 72px; } }
+.sd-pairs-list { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.sd-pair {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 6px 16px 6px 8px; border-radius: 999px;
+  border: 1px solid var(--hairline); background: var(--color-canvas); color: var(--color-ink); font-weight: 500; font-size: 0.98rem;
+  transition: border-color 200ms ease, transform 200ms cubic-bezier(.16,1,.3,1), box-shadow 200ms ease;
+}
+.sd-pair:hover { transform: translateY(-2px); border-color: var(--color-accent); box-shadow: 0 10px 24px -14px rgba(77, 124, 255, 0.55); }
+.sd-pair:active { transform: translateY(0); }
+.sd-pair:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.sd-pair-arrow { color: var(--color-ink-muted); }
+.sd-pair .sg path, .sd-pair .sg circle { stroke: #2554D4; }
+.sd-pair .sg .sg-on { fill: rgba(37, 84, 212, 0.22); stroke: #1D3F8F; }
+.sd-pair .sg .sg-core { fill: #2554D4; }
+.sd-pair:hover .sd-pair-arrow { color: var(--color-accent); }
+@media (prefers-reduced-motion: reduce) { .sd-pair { transition: none; } .sd-pair:hover { transform: none; } }
+`;
 
 export async function generateStaticParams() {
   return SERVICE_CATEGORIES.map((c) => ({ slug: c.slug }));
@@ -64,7 +83,9 @@ export default async function ServiceCategoryPage({
     .map((s) => SERVICE_BY_SLUG[s])
     .filter(Boolean);
 
-  const depth = depthFor(category);
+  // Three questions on the page, and the same three in the FAQ schema.
+  const fullDepth = depthFor(category);
+  const depth = { ...fullDepth, faqs: fullDepth.faqs.slice(0, 3) };
   const story = SERVICE_STORY[slug];
   const url = `${SITE_URL}/services/${slug}`;
   const jsonLd = {
@@ -125,40 +146,29 @@ export default async function ServiceCategoryPage({
         includes={category.whatYouGet}
         story={story}
         demo={slug === "conversation-ai" ? <SlowChatDemo demo={REPLY_DEMO} /> : undefined}
+        compact
       />
 
       {related.length > 0 && (
-        <section className="section-pad bg-canvas-2" aria-labelledby="related-title" style={{ borderTop: "1px solid var(--hairline)" }}>
+        <nav className="sd-pairs bg-canvas-2" aria-labelledby="related-title">
+          <style>{PAIRS_CSS}</style>
           <div className="container-wide">
-            <SectionHead
-              id="related-title"
-              eyebrow="Works well with"
-              title={
-                <>
-                  Pairs well with <span className="italic-accent">these.</span>
-                </>
-              }
-            />
-            <ul className="mt-12 grid gap-4 md:grid-cols-3">
-              {related.map((c, i) => (
+            <h2 id="related-title" className="eyebrow">
+              Pairs well with
+            </h2>
+            <ul className="sd-pairs-list">
+              {related.map((c) => (
                 <li key={c.slug}>
-                  <Reveal delay={i * 0.06} className="h-full">
-                    <Link href={`/services/${c.slug}`} className="card-x ix-card group flex h-full flex-col p-6 md:p-7">
-                      <div className="flex items-center justify-between">
-                        <ServiceGlyph slug={c.slug} size={40} />
-                        <ArrowUpRight size={17} aria-hidden className="nudge text-[color:var(--color-ink-muted)] group-hover:text-[color:var(--color-accent)]" />
-                      </div>
-                      <h3 className="mt-6 font-display text-[1.3rem] leading-tight text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
-                        {c.name}
-                      </h3>
-                      <p className="mt-3 flex-1 text-[0.95rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{c.promise}</p>
-                    </Link>
-                  </Reveal>
+                  <Link href={`/services/${c.slug}`} className="sd-pair group">
+                    <ServiceGlyph slug={c.slug} size={28} />
+                    <span>{c.name}</span>
+                    <ArrowUpRight size={15} aria-hidden className="nudge sd-pair-arrow" />
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
-        </section>
+        </nav>
       )}
 
       <StickyMobileCTA href={GENERIC_BOOK_URL} label="Book a free 30-minute call" />

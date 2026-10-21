@@ -55,7 +55,7 @@ const CSS = `
 .bs-flower { margin-top: -14px; width: 28px; height: 28px; }
 .bs-flower path { fill: rgba(77, 124, 255, 0.35); stroke: #BFD3FF; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
 .bs-flower circle { fill: #4D7CFF; }
-.bs-day[data-live] .bs-num { margin-top: -4px; color: #F2F5FC; font-weight: 600; }
+.bs-day[data-live] .bs-num { margin-top: 2px; color: #F2F5FC; font-weight: 600; }
 .bs-phases { margin-top: 18px; display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); column-gap: 6px; }
 .bs-ph { padding-top: 8px; border-top: 1.5px solid rgba(143, 176, 255, 0.45); font-size: 0.9rem; font-weight: 600; color: #F2F5FC; text-align: center; white-space: nowrap; }
 .bs-ph small { display: block; font-family: var(--font-mono); font-weight: 400; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: #9AA3B5; margin-top: 2px; }

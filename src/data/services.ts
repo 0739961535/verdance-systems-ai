@@ -92,12 +92,12 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     name: "Finding new customers",
     headline: "More people enquiring,",
     italicWord: "and old leads coming back.",
-    promise: "We bring back people who enquired before and find new ones who match your best customers.",
+    promise: "We bring back past enquirers who agreed to hear from you, and find new businesses that match your best customers.",
     description:
-      "Most businesses already have a list of people who asked about them once and never booked. We message them in your voice and book the ones who reply, then help new people find you and get in touch. Every enquiry lands in one place, ready to be answered.",
+      "Most businesses have a list of people who asked about them once and never booked. Those who agreed to hear from you get a friendly message in your voice, with an easy opt-out, and we book the ones who reply. New businesses that match your best customers are emailed once, with a clear opt-out. Every enquiry lands in one place, ready to be answered.",
     whatYouGet: [
-      "A friendly message to your old enquiries and past customers, in your voice",
-      "Lists of new businesses or people who match your best customers",
+      "A friendly message to past enquirers and customers who agreed to hear from you, with an easy opt-out",
+      "A checked list of businesses that match your best customers, contacted once by email with a clear opt-out (POPIA in South Africa, PECR in the UK)",
       "Enquiry forms and landing pages that are short and easy to fill in on a phone",
       "Every reply answered quickly and booked into your diary",
     ],
@@ -105,13 +105,13 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     subProducts: [
       {
         name: "Waking up old enquiries",
-        description: "We message the people who enquired before and went quiet, and book the ones who reply.",
-        howItWorks: ["You share your list of old enquiries and past customers", "We write a short, friendly message in your voice", "Replies are answered and booked into your diary"],
+        description: "A friendly message to past enquirers and customers who agreed to hear from you, with an easy opt-out.",
+        howItWorks: ["You share the people who agreed to hear from you", "We write a short, friendly message with an easy opt-out", "Replies are answered and booked into your diary"],
       },
       {
         name: "Finding new customers",
-        description: "A list of businesses or people who look like your best customers, checked and ready to contact.",
-        howItWorks: ["We agree who your ideal customer is", "We build and check the list", "It goes into your customer records, ready for outreach"],
+        description: "A checked list of businesses that match your best customers, contacted once by email with a clear opt-out (POPIA in South Africa, PECR in the UK).",
+        howItWorks: ["We agree who your ideal customer is", "We build and check a list of businesses", "Each is emailed once, with a clear opt-out"],
       },
       {
         name: "Enquiry forms",
@@ -129,7 +129,7 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     relatedSlugs: ["conversation-ai", "follow-up-nurture", "marketing-social"],
     seoTitle: "Win Back Old Enquiries and Find New Customers",
     seoDescription:
-      "Bring back people who asked about you once, and find new ones like your best customers. Every reply answered and booked. Free Operations Map.",
+      "Bring back past enquirers who agreed to hear from you, and find new businesses like your best customers. Every reply answered and booked.",
   },
   {
     slug: "conversation-ai",
@@ -328,11 +328,11 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     italicWord: "to go cold.",
     promise: "Missed calls get a text back in seconds, and every quote and quiet enquiry is followed up politely.",
     description:
-      "When you miss a call, the caller gets a friendly text within seconds asking how you can help. Quotes and enquiries that go quiet are followed up a set number of times in your voice, and it stops the moment they reply. Past customers are reminded when it is time to book again.",
+      "When you miss a call, the caller gets a friendly text within seconds asking how you can help. Quotes and enquiries that go quiet are followed up a set number of times in your voice, and it stops the moment they reply. Past customers who agreed to hear from you are reminded when it is time to book again, with an easy opt-out.",
     whatYouGet: [
       "A text back to every missed call, within seconds",
-      "Polite follow-ups on quotes and quiet enquiries, stopped the moment they reply",
-      "Reminders to past customers when it is time to come back",
+      "Polite follow-ups on quotes and quiet enquiries, stopped the moment they reply or opt out",
+      "Reminders to past customers who agreed to hear from you, with an easy opt-out",
       "A recap message after phone calls, with the next step",
     ],
     bestFor: "Trades and service businesses that miss calls on the job or send quotes that go quiet.",
@@ -349,7 +349,7 @@ const BASE_CATEGORIES: ServiceCategory[] = [
       },
       {
         name: "Bringing customers back",
-        description: "Past customers get a reminder when they are due again, with one tap to book.",
+        description: "Past customers who agreed to hear from you get a reminder when they are due again, with an easy opt-out.",
         howItWorks: ["We set the right gap for each service", "A personal message goes out at that time", "One tap to book again"],
       },
       {
@@ -516,7 +516,7 @@ const BASE_CATEGORIES: ServiceCategory[] = [
       "Regular posts on Instagram, Facebook, LinkedIn or TikTok, written in your voice",
       "Everything prepared for you to approve before it goes out",
       "Facebook, Instagram and Google adverts set up and checked weekly",
-      "Email newsletters to past customers",
+      "Email newsletters to past customers who agreed to hear from you, with an easy opt-out",
       "One calendar showing everything that is planned",
     ],
     bestFor: "Owners who know they should post more but never have the time.",
@@ -533,7 +533,7 @@ const BASE_CATEGORIES: ServiceCategory[] = [
       },
       {
         name: "Email newsletters",
-        description: "Newsletters and offers to past customers that bring them back.",
+        description: "Newsletters and offers to past customers who agreed to hear from you, each with an easy opt-out.",
         howItWorks: ["We agree how often and what about", "We write them for you to approve", "They are sent and you see the results"],
       },
       {
@@ -681,7 +681,7 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
       },
       {
         title: "It books, or hands over",
-        body: "Simple requests are booked in the same chat. Anything that needs judgement goes to a person with a short summary.",
+        body: "Simple requests are booked in the same chat. Anything that needs judgement goes to a person with a short summary and the whole chat.",
         visual: {
           kind: "status",
           app: "Handover",
@@ -691,17 +691,6 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
             { text: "Needs a person", tone: "amber" },
             { text: "Taken over", tone: "green" },
           ],
-        },
-      },
-      {
-        title: "Everything is saved",
-        body: "Each conversation stays on the customer's record, so whoever picks it up next sees the whole story.",
-        visual: {
-          kind: "status",
-          app: "Customer record",
-          title: "New enquiry, Durban",
-          sub: "3 messages, 1 order question",
-          chips: [{ text: "Saved", tone: "green" }],
         },
       },
     ],
@@ -783,26 +772,13 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
       },
       {
         title: "Replies come straight to you",
-        body: "When the customer answers, the conversation lands in your inbox with the history attached.",
+        body: "When the customer answers, the chat lands in your inbox and the follow-ups stop. A no thanks stops them too.",
         visual: {
           kind: "chat",
           app: "WhatsApp",
           time: "09:14",
           inMsg: "Yes, still keen. Can you start in March?",
           outMsg: "Great. I have passed this to the team, they will confirm a start date today.",
-        },
-      },
-      {
-        title: "It stops when they answer",
-        body: "A reply, a booking or a no thanks ends the follow-ups for that person. Nobody is chased after they answer.",
-        visual: {
-          kind: "rows",
-          app: "Follow-ups",
-          rows: [
-            { text: "Replied", chip: "Stopped", tone: "green" },
-            { text: "Booked a visit", chip: "In the diary", tone: "blue" },
-            { text: "Said no thanks", chip: "Closed politely", tone: "muted" },
-          ],
         },
       },
     ],
@@ -875,7 +851,7 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
       },
       {
         title: "Reminders go out",
-        body: "A confirmation straight away and a reminder before the visit, with one tap to move it.",
+        body: "A confirmation straight away and a reminder before the visit, with one tap to move it. Each evening you get tomorrow's list.",
         visual: {
           kind: "chat",
           app: "WhatsApp",
@@ -883,17 +859,6 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
           outMsg: "Reminder: we see you tomorrow at 07:30. Reply 1 to confirm or 2 to move it.",
           inMsg: undefined,
           status: "Confirmed by the customer",
-        },
-      },
-      {
-        title: "Your records stay up to date",
-        body: "The booking, the notes and the messages sit on the customer's record. Each evening you get tomorrow's list.",
-        visual: {
-          kind: "status",
-          app: "Tomorrow",
-          title: "4 bookings",
-          sub: "Summary sent at 18:00",
-          chips: [{ text: "Up to date", tone: "green" }],
         },
       },
     ],
@@ -969,19 +934,8 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
       },
       {
         title: "The monthly report arrives",
-        body: "A short report in plain words on what moved and why, with the value in money terms.",
+        body: "A short report in plain words on what moved and why, ending with one thing to improve.",
         visual: { kind: "work", word: "Report" },
-      },
-      {
-        title: "One thing to improve",
-        body: "Each report ends with one clear suggestion. We test it, and keep it only if it works.",
-        visual: {
-          kind: "status",
-          app: "Next step · Sample",
-          title: "Reply to price questions with two options",
-          sub: "Tested for four weeks",
-          chips: [{ text: "Suggested", tone: "blue" }],
-        },
       },
       {
         title: "Privacy kept in order",
@@ -1072,7 +1026,7 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
       },
       {
         title: "We test it on real phones",
-        body: "Speed, forms and booking are checked on phones and laptops before anyone sees it.",
+        body: "Speed, forms and booking are checked on phones and laptops. It goes live in your business's name.",
         visual: {
           kind: "rows",
           app: "Checks",
@@ -1081,17 +1035,6 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
             { text: "Android", chip: "Checked", tone: "green" },
             { text: "Laptop", chip: "Checked", tone: "green" },
           ],
-        },
-      },
-      {
-        title: "It goes live in your name",
-        body: "The domain, the content and the accounts belong to your business.",
-        visual: {
-          kind: "status",
-          app: "Launch",
-          title: "yourbusiness.co.za",
-          sub: "Domain and accounts in your name",
-          chips: [{ text: "Live", tone: "green" }],
         },
       },
     ],
@@ -1180,24 +1123,13 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
       },
       {
         title: "It asks before anything important",
-        body: "Anything new to a client, a supplier or the public waits for your approval.",
+        body: "Anything new to a client, a supplier or the public waits for your approval. If something breaks, you and we get an alert.",
         visual: {
           kind: "status",
           app: "Approval",
           title: "Send the weekly order to the supplier",
           sub: "Drafted and checked",
           chips: [{ text: "Waiting for your approval", tone: "amber" }],
-        },
-      },
-      {
-        title: "You hear if anything stops",
-        body: "Checks run all the time. If something breaks, you and we get an alert.",
-        visual: {
-          kind: "status",
-          app: "Health",
-          title: "All checks passed",
-          sub: "Last run 06:00",
-          chips: [{ text: "Running", tone: "green" }],
         },
       },
     ],
@@ -1390,9 +1322,9 @@ export const SERVICE_STORY: Record<string, ServiceStory> = {
     withUs: ["Picks a time online", "Confirmed and reminded", "Turns up"],
   },
   "lead-generation": {
-    short: "People who asked about you once and went quiet get a friendly message in your voice. The ones who reply get booked in.",
-    today: ["Old enquiry list", "Never followed up", "Forgotten"],
-    withUs: ["Old enquiry list", "A friendly message", "Replies booked in"],
+    short: "People who asked about you and agreed to hear from you get a friendly message, with an easy opt-out. The ones who reply get booked in.",
+    today: ["Past enquirers", "Never followed up", "Forgotten"],
+    withUs: ["Past enquirers", "Message with opt-out", "Replies booked in"],
   },
   "crm-pipeline": {
     short: "Every call, message and booking is filed against the right customer by itself. You see who is waiting, and nothing slips through.",
