@@ -221,7 +221,7 @@ export default function AiOperationsTeamPage() {
       </section>
 
       {/* HOW IT WORKS: the step by step, who does what, the 10 working days and the weeks after */}
-      <ServiceDepth depth={OPS_TEAM_DEPTH} showWhat={false} showFaq={false} showCta={false} compact />
+      <ServiceDepth depth={OPS_TEAM_DEPTH} showWhat={false} showFaq={false} showCta={false} compact sampleTags={false} />
 
       <div style={BAND}>
         <FAQControl faqs={AI_TEAM_FAQS} />

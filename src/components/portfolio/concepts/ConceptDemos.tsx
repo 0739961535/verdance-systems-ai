@@ -284,7 +284,7 @@ export function ConceptDemos() {
           <div className="cd-top">
             <span className="cd-label">
               <i aria-hidden />
-              Concept: built by Verdance to show what is possible
+              Concept demo by Verdance
             </span>
             <span className="cd-biz">
               <b>{d.business}</b>, {d.kind.toLowerCase()}. Made up.

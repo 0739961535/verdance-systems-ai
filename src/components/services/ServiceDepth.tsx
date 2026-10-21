@@ -174,6 +174,7 @@ export function ServiceDepth({
   demo,
   story,
   showWhat = true,
+  sampleTags = true,
   showFaq = true,
   showCta = true,
   compact = false,
@@ -187,6 +188,8 @@ export function ServiceDepth({
   story?: { today: [string, string, string]; withUs: [string, string, string] };
   /** Off where the page already says what it does (the Operations Team page). */
   showWhat?: boolean;
+  /** Mark each depth screen as a sample (off where the page already says so). */
+  sampleTags?: boolean;
   showFaq?: boolean;
   showCta?: boolean;
   /** The shorter service page layout: tabs, a reveal and one line (see above). */
@@ -284,7 +287,7 @@ export function ServiceDepth({
                   </div>
                   <div style={{ position: "relative" }}>
                     <DepthVisual visual={s.visual} />
-                    <SampleTag place="tr" style={{ top: -10, right: -6 }}>Sample</SampleTag>
+                    {sampleTags ? <SampleTag place="tr" style={{ top: -10, right: -6 }}>Sample</SampleTag> : null}
                   </div>
                 </Reveal>
               </li>

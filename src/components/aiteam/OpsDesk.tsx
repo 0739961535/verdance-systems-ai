@@ -1,4 +1,3 @@
-import { SampleTag } from "@/components/kit/SampleTag";
 /**
  * "On your desk": the real Operations Team command centre (CommandMock)
  * composited onto the blank screen of a laptop in window light. The screen
@@ -48,7 +47,6 @@ export function OpsDesk() {
                 decoding="async"
               />
             </picture>
-            <SampleTag place="tr">Sample data</SampleTag>
           </figure>
         </div>
       </div>

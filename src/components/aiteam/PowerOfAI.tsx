@@ -1,4 +1,3 @@
-import { SampleTag } from "@/components/kit/SampleTag";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal, SplitWords } from "@/components/primitives/Reveal";
@@ -97,7 +96,7 @@ export function PowerOfAI({ variant = "full" }: { variant?: "full" | "short" }) 
                     </div>
                     <footer className={m.foot}>
                       <p className={m.delta}>{mo.delta}</p>
-                      <SampleTag place="inline" tone="light">Sample</SampleTag>
+
                     </footer>
                   </article>
                 </Reveal>

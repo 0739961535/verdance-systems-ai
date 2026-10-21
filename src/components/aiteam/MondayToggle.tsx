@@ -27,7 +27,6 @@ export function MondayToggle() {
       </div>
 
       <div className="mt-panel ix-card">
-        <p className="mt-sample">Sample Monday</p>
         <ul className="mt-rows" aria-live="polite">
           {MONDAY.map((r) => (
             <li key={r.job} className="mt-row">
