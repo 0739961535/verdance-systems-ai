@@ -160,7 +160,7 @@ export const NICHES: Niche[] = [
       steps: ["slow replies a month", "viewings you could have had", "bookings a month"],
       resultLabel: "Bookings at risk",
       assumptions: [
-        "Starting values are examples, not averages. Move them to your own numbers.",
+        "Starting values are examples, not averages. Use your own.",
         "It assumes a couple who waits is more likely to view another venue first. It does not assume every slow reply is lost.",
         "Your Operations Map replaces these guesses with your real numbers from the last 60 days.",
       ],
@@ -356,7 +356,7 @@ export const NICHES: Niche[] = [
       steps: ["slow replies a month", "consults you could have had", "treatment plans a month"],
       resultLabel: "Revenue at risk",
       assumptions: [
-        "Starting values are examples, not industry averages. Use your own.",
+        "Starting values are examples, not averages. Use your own.",
         "This is practice revenue maths only. It says nothing about clinical results.",
         "Your Operations Map replaces these guesses with your own numbers from the last 60 days.",
       ],
@@ -462,7 +462,7 @@ export const NICHES: Niche[] = [
       steps: ["slow replies a month", "viewings you could have had", "sales a month"],
       resultLabel: "Commission at risk",
       assumptions: [
-        "Starting values are examples, not market averages. Use your own.",
+        "Starting values are examples, not averages. Use your own.",
         "A fraction of a sale a month still adds up over a year. That is what the yearly figure shows.",
         "Your Operations Map replaces these guesses with your own numbers.",
       ],

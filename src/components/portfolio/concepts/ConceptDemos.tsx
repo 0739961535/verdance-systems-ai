@@ -1,5 +1,6 @@
 "use client";
 
+import { SampleTag } from "@/components/kit/SampleTag";
 import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 import { Bot, CalendarCheck, Check, PackageCheck, RotateCcw, UserRound } from "lucide-react";
 import { CONCEPT_DEMOS, type ConceptDemo } from "./conceptData";
@@ -287,8 +288,9 @@ export function ConceptDemos() {
               Concept demo by Verdance
             </span>
             <span className="cd-biz">
-              <b>{d.business}</b>, {d.kind.toLowerCase()}. Made up.
+              <b>{d.business}</b>, {d.kind.toLowerCase()}
             </span>
+            <SampleTag place="inline">Sample</SampleTag>
             <button type="button" className="cd-replay" onClick={() => setRun((r) => r + 1)}>
               <RotateCcw size={14} aria-hidden />
               Replay
