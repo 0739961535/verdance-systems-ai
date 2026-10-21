@@ -1,30 +1,23 @@
-import { createHmac, timingSafeEqual } from "node:crypto";
-
 /**
  * Server side of the site's own booking page (/book and the home #book
- * section). The CRM calendar stays the diary of record, so its reminders
- * and Daniel's calendar keep working, but the visitor only ever sees our
- * page: slots, contact and appointment all go through these helpers.
+ * section) and the /apply form. The CRM calendar stays the diary of record,
+ * but the site no longer talks to the CRM itself: every call goes to
+ * Ashford's public booking endpoints, which write to Verdance's own CRM
+ * location with Ashford's credentials. The site holds no CRM token.
+ *
+ * Ashford re-checks the slot is free, keeps the calendar fixed, and limits
+ * how often each visitor and email can book. The site keeps its own checks
+ * and limits on top.
  *
  * Dry run: BOOKING_DRY_RUN=1 returns made-up slots and fakes every write,
  * so the flow can be tested end to end without touching the real diary.
- * It is opt-in only (never inferred from a missing token), and every
- * response made in dry run says so (dryRun: true).
+ * It is opt-in only, and every response made in dry run says so.
  */
 
-export const CALENDAR_ID = process.env.GHL_CALENDAR_ID || "yLGPT8nNF78G32doGmoW";
 export const TIMEZONE = "Africa/Johannesburg";
-const API = "https://services.leadconnectorhq.com";
-const DAYS_AHEAD = 14;
+const ASHFORD = (process.env.ASHFORD_BASE_URL || "https://ashford-brown.vercel.app").replace(/\/+$/, "");
 
 export const dryRun = () => process.env.BOOKING_DRY_RUN === "1";
-
-type Creds = { token: string; locationId: string };
-export function creds(): Creds | null {
-  const token = process.env.GHL_PRIVATE_TOKEN;
-  const locationId = process.env.GHL_LOCATION_ID;
-  return token && locationId ? { token, locationId } : null;
-}
 
 export type Day = { date: string; slots: string[] };
 
@@ -44,113 +37,65 @@ function fakeDays(): Day[] {
   return out;
 }
 
+type Reply = { status: number; body: Record<string, unknown> };
+
+/** One call to Ashford. Never throws: a network failure is status 0. */
+async function ashford(path: string, body?: unknown): Promise<Reply> {
+  try {
+    const res = await fetch(`${ASHFORD}/api/public/booking/${path}`, {
+      method: body === undefined ? "GET" : "POST",
+      headers: body === undefined ? undefined : { "Content-Type": "application/json" },
+      body: body === undefined ? undefined : JSON.stringify(body),
+      cache: "no-store",
+      signal: AbortSignal.timeout(25_000),
+    });
+    const json = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) console.error(`[booking] ashford ${path} ${res.status} ${String(json.error ?? "")}`.slice(0, 200));
+    return { status: res.status, body: json };
+  } catch (err) {
+    console.error(`[booking] ashford ${path} request failed: ${err instanceof Error ? err.name : "error"}`);
+    return { status: 0, body: {} };
+  }
+}
+
 export async function freeSlots(): Promise<{ days: Day[]; dryRun?: true } | null> {
   if (dryRun()) return { days: fakeDays(), dryRun: true };
-  const token = process.env.GHL_PRIVATE_TOKEN;
-  if (!token) return null;
-  const start = Date.now();
-  const end = start + DAYS_AHEAD * 86_400_000;
-  const url =
-    `${API}/calendars/${CALENDAR_ID}/free-slots` +
-    `?startDate=${start}&endDate=${end}&timezone=${encodeURIComponent(TIMEZONE)}`;
-  const res = await fetch(url, {
-    headers: { Authorization: `Bearer ${token}`, Version: "2021-04-15" },
-    cache: "no-store",
-    signal: AbortSignal.timeout(10_000),
-  }).catch(() => null);
-  if (!res?.ok) return null;
-  const data: Record<string, { slots?: string[] }> = await res.json();
-  const days = Object.entries(data)
-    .filter(([key, v]) => /^\d{4}-\d{2}-\d{2}$/.test(key) && Array.isArray(v?.slots) && v.slots.length > 0)
-    .map(([date, v]) => ({ date, slots: v.slots as string[] }))
-    .sort((a, b) => a.date.localeCompare(b.date));
-  return { days };
+  const r = await ashford("slots");
+  return r.status === 200 && Array.isArray(r.body.days) ? { days: r.body.days as Day[] } : null;
 }
 
-/** Upsert the contact. Returns its id, or null on failure. */
-export async function upsertContact(c: Creds, p: { name: string; email: string; phone?: string; business?: string; source: string; tags?: string[] }): Promise<string | null> {
-  if (dryRun()) return `dry_${Date.now().toString(36)}`;
-  const [firstName, ...rest] = p.name.split(/\s+/);
-  const res = await fetch(`${API}/contacts/upsert`, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${c.token}`, Version: "2021-07-28", "Content-Type": "application/json" },
-    body: JSON.stringify({
-      locationId: c.locationId,
-      firstName,
-      lastName: rest.join(" ") || undefined,
-      email: p.email,
-      phone: p.phone || undefined,
-      companyName: p.business || undefined,
-      source: p.source,
-      tags: p.tags?.length ? p.tags : undefined,
-    }),
-    signal: AbortSignal.timeout(10_000),
-  }).catch(() => null);
-  if (!res?.ok) return null;
-  const j = await res.json().catch(() => null);
-  return j?.contact?.id ?? null;
-}
+type Lead = { name: string; business: string; email: string; phone?: string; source: string; tags: string[]; note: string };
 
-export async function createAppointment(c: Creds, p: { contactId: string; slot: string; title: string }): Promise<boolean> {
-  if (dryRun()) return true;
-  const res = await fetch(`${API}/calendars/events/appointments`, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${c.token}`, Version: "2021-04-15", "Content-Type": "application/json" },
-    body: JSON.stringify({
-      calendarId: CALENDAR_ID,
-      locationId: c.locationId,
-      contactId: p.contactId,
-      startTime: p.slot,
-      title: p.title,
-      appointmentStatus: "confirmed",
-    }),
-    signal: AbortSignal.timeout(10_000),
-  }).catch(() => null);
-  return !!res?.ok;
-}
+export type BookResult = { ok: true; ticket: string | null; pending?: true } | { ok: false; taken: boolean };
 
-/** Best effort: a note on the contact. Never throws. */
-export async function addNote(c: Creds, contactId: string, body: string): Promise<boolean> {
+/** Books the slot through Ashford. "taken" only on a real conflict. */
+export async function book(p: Lead & { slot: string }): Promise<BookResult> {
   if (dryRun()) {
-    console.info(`[booking dry run] note for ${contactId}:\n${body}`);
+    console.info(`[booking dry run] book ${p.slot}:\n${p.note}`);
+    return { ok: true, ticket: "dry-run" };
+  }
+  const r = await ashford("book", p);
+  if (r.status === 409) return { ok: false, taken: true };
+  if (r.status !== 200 || r.body.ok !== true) return { ok: false, taken: false };
+  const ticket = typeof r.body.ticket === "string" ? r.body.ticket : null;
+  return r.body.pending === true ? { ok: true, ticket, pending: true } : { ok: true, ticket };
+}
+
+/** A lead without a booked time (the calendar fallback, /apply). */
+export async function saveLead(p: Lead): Promise<boolean> {
+  if (dryRun()) {
+    console.info(`[booking dry run] lead (${p.source}):\n${p.note}`);
     return true;
   }
-  try {
-    const res = await fetch(`${API}/contacts/${encodeURIComponent(contactId)}/notes`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${c.token}`, Version: "2021-07-28", "Content-Type": "application/json" },
-      body: JSON.stringify({ body }),
-      signal: AbortSignal.timeout(8000),
-    });
-    return res.ok;
-  } catch {
-    return false;
-  }
+  const r = await ashford("request", p);
+  return r.status === 200 && r.body.ok === true;
 }
 
-/* ---------- a short-lived ticket so "help us prepare" can only add to the booking it came from ---------- */
-
-function secret(): string {
-  return process.env.BOOKING_SIGNING_SECRET || process.env.GHL_PRIVATE_TOKEN || (dryRun() ? "dry-run-only" : "");
-}
-
-export function signTicket(contactId: string, hours = 72): string | null {
-  const key = secret();
-  if (!key) return null;
-  const body = Buffer.from(`${contactId}.${Date.now() + hours * 3_600_000}`).toString("base64url");
-  const mac = createHmac("sha256", key).update(body).digest("base64url");
-  return `${body}.${mac}`;
-}
-
-export function readTicket(ticket: unknown): string | null {
-  const key = secret();
-  if (!key || typeof ticket !== "string" || ticket.length > 400) return null;
-  const [body, mac] = ticket.split(".");
-  if (!body || !mac) return null;
-  const want = createHmac("sha256", key).update(body).digest();
-  const got = Buffer.from(mac, "base64url");
-  if (got.length !== want.length || !timingSafeEqual(got, want)) return null;
-  const [contactId, exp] = Buffer.from(body, "base64url").toString().split(".");
-  if (!contactId || !(Number(exp) > Date.now())) return null;
-  return contactId;
+/** The "help us prepare" answers, only onto the booking the ticket came from. */
+export async function prepare(ticket: unknown, note: string): Promise<"ok" | "invalid_ticket" | "not_saved"> {
+  if (dryRun()) return ticket === "dry-run" ? "ok" : "invalid_ticket";
+  if (typeof ticket !== "string" || !ticket || ticket.length > 400) return "invalid_ticket";
+  const r = await ashford("prepare", { ticket, note });
+  if (r.status === 403) return "invalid_ticket";
+  return r.status === 200 ? "ok" : "not_saved";
 }
