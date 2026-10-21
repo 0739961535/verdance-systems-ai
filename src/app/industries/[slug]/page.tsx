@@ -98,13 +98,42 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
   const { lead, accent } = splitHeadline(industry.headline);
 
   const url = `${SITE_URL}/industries/${slug}`;
+  // Service schema from the page's own visible copy. These pages carry no FAQs, so no FAQPage.
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-      { "@type": "ListItem", position: 2, name: "Industries", item: `${SITE_URL}/industries` },
-      { "@type": "ListItem", position: 3, name: industry.name, item: url },
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${url}#service`,
+        name: `Operations Team for ${industry.name.toLowerCase()}`,
+        serviceType: "Enquiry response and booking system",
+        description: industry.subheadline,
+        url,
+        areaServed: [
+          { "@type": "Country", name: "South Africa" },
+          { "@type": "Country", name: "United Kingdom" },
+        ],
+        audience: { "@type": "BusinessAudience", name: industry.name },
+        provider: { "@id": `${SITE_URL}/#organization` },
+        ...(services.length > 0 && {
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: `Recommended for ${industry.name.toLowerCase()}`,
+            itemListElement: services.map((c) => ({
+              "@type": "Offer",
+              itemOffered: { "@type": "Service", name: c.name, url: `${SITE_URL}/services/${c.slug}` },
+            })),
+          },
+        }),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+          { "@type": "ListItem", position: 2, name: "Industries", item: `${SITE_URL}/industries` },
+          { "@type": "ListItem", position: 3, name: industry.name, item: url },
+        ],
+      },
     ],
   };
 
