@@ -23,12 +23,18 @@ const LINE_2 = ["We", "ship", "it."];
 
 const CSS = `
 .lh { position: relative; isolation: isolate; overflow: hidden; z-index: 2; background: #F9F4E8 !important; }
+/* the statement sits on cream in both site themes, so its ink is fixed too
+   (in the dark theme the theme tokens are light, which left cream on cream) */
+.lh { --color-ink: #0B0F1A; --color-ink-soft: #2A3550; --color-ink-muted: #3F4A63; --hairline-2: rgba(14, 14, 16, 0.18); color: #0B0F1A; }
+.lh .lh-h1 { color: #0B0F1A; }
+.lh .lh-h1 .italic-accent { color: #1D3F8F; }
+.lh .lh-eyebrow, .lh .lh-pre { color: #3F4A63; }
 /* it rises over the flower's last screen: a soft top edge, no hard line */
 @media (prefers-reduced-motion: no-preference) {
   .lh { -webkit-mask-image: linear-gradient(to bottom, transparent, #000 88px); mask-image: linear-gradient(to bottom, transparent, #000 88px); }
 }
 /* the glow layer runs the full first screen and fades out */
-.lh .aurora { height: auto; bottom: 0; opacity: 0.6; -webkit-mask-image: linear-gradient(transparent, #000 25%, #000 50%, transparent 80%); mask-image: linear-gradient(transparent, #000 25%, #000 50%, transparent 80%); }
+.lh .aurora { height: auto; bottom: 0; opacity: 0.4; -webkit-mask-image: linear-gradient(transparent, #000 25%, #000 50%, transparent 80%); mask-image: linear-gradient(transparent, #000 25%, #000 50%, transparent 80%); }
 .lh .lh-depth { -webkit-mask-image: linear-gradient(#000 60%, transparent 85%); mask-image: linear-gradient(#000 60%, transparent 85%); }
 .lh-glow { position: absolute; z-index: 0; pointer-events: none; border-radius: 999px; }
 .lh-glow-a { width: min(70vw, 820px); aspect-ratio: 1; left: -18%; top: -22%;
@@ -50,6 +56,8 @@ const CSS = `
    its lines fade in when it scrolls into view, not at page load */
 .lh-in[data-armed]:not([data-revealed]) .lh-w > span, .lh-in[data-armed]:not([data-revealed]) .lh-fade { animation: none; }
 .lh-in[data-armed]:not([data-revealed]) .lh-fade { opacity: 0; }
+.lh .lh-fade { animation-duration: 0.22s; }
+.lh .lh-in[data-armed] { transition-duration: 0.2s !important; transition-delay: 0s !important; }
 /* the button: a slow lift, a deeper glow and the arrow easing out */
 .lh .btn-launch { transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s; }
 .lh .btn-launch:hover, .lh .btn-launch:focus-visible { transform: translate3d(0, -2px, 0); box-shadow: 0 18px 44px -12px rgba(var(--accent-rgb), 0.55), 0 0 0 6px rgba(var(--accent-rgb), 0.1); }
