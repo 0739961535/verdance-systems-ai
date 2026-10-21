@@ -22,13 +22,14 @@ const LINE_1 = ["We", "don't", "talk", "about", "AI."];
 const LINE_2 = ["We", "ship", "it."];
 
 const CSS = `
-.lh { position: relative; isolation: isolate; overflow: hidden; z-index: 2; }
+.lh { position: relative; isolation: isolate; overflow: hidden; z-index: 2; background: #F9F4E8 !important; }
 /* it rises over the flower's last screen: a soft top edge, no hard line */
 @media (prefers-reduced-motion: no-preference) {
-  .lh { -webkit-mask-image: linear-gradient(to bottom, transparent, #000 140px); mask-image: linear-gradient(to bottom, transparent, #000 140px); }
+  .lh { -webkit-mask-image: linear-gradient(to bottom, transparent, #000 88px); mask-image: linear-gradient(to bottom, transparent, #000 88px); }
 }
 /* the glow layer runs the full first screen and fades out */
-.lh .aurora { height: auto; bottom: 0; -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
+.lh .aurora { height: auto; bottom: 0; opacity: 0.6; -webkit-mask-image: linear-gradient(transparent, #000 25%, #000 50%, transparent 80%); mask-image: linear-gradient(transparent, #000 25%, #000 50%, transparent 80%); }
+.lh .lh-depth { -webkit-mask-image: linear-gradient(#000 60%, transparent 85%); mask-image: linear-gradient(#000 60%, transparent 85%); }
 .lh-glow { position: absolute; z-index: 0; pointer-events: none; border-radius: 999px; }
 .lh-glow-a { width: min(70vw, 820px); aspect-ratio: 1; left: -18%; top: -22%;
   background: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.16), rgba(var(--accent-rgb), 0)); animation: lh-drift-a 26s ease-in-out infinite alternate; }
@@ -67,10 +68,12 @@ const CSS = `
 .lh-h1 { font-size: clamp(2.9rem, 5.6vw + 0.9rem, 7rem); line-height: 0.95; letter-spacing: -0.05em; }
 /* depth in the light: a soft vignette and a faint haze toward the bottom */
 .lh-depth { position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background: radial-gradient(120% 80% at 50% 38%, transparent 55%, rgba(var(--hairline-rgb), 0.05) 100%), linear-gradient(transparent 60%, rgba(var(--accent-rgb), 0.07) 100%); }
+  background: radial-gradient(120% 80% at 50% 38%, transparent 55%, rgba(var(--hairline-rgb), 0.05) 100%); }
 /* a long soft fade from the light ground into the navy of 01 Promise */
-.lh-into-dark { height: clamp(88px, 12vh, 160px); margin-bottom: -1px;
-  background: linear-gradient(var(--bg) 0%, color-mix(in oklab, var(--bg) 70%, #8FB0FF) 30%, color-mix(in oklab, var(--bg) 25%, #1D3F8F) 62%, #060B1A 100%); }
+/* one long, even blend from the cream ground into the navy below: it
+   starts at exactly the cream (no stripe) and takes most of a screen */
+.lh-into-dark { height: clamp(260px, 48svh, 520px); margin-top: -1px; margin-bottom: -1px;
+  background: linear-gradient(#F9F4E8 0%, color-mix(in oklab, #F9F4E8 88%, #8FB0FF) 22%, color-mix(in oklab, #F9F4E8 62%, #4D6FC4) 44%, color-mix(in oklab, #F9F4E8 30%, #1D3F8F) 66%, color-mix(in oklab, #F9F4E8 8%, #0B1430) 86%, #060B1A 100%); }
 .lh-why { position: relative; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 0.9375rem; color: var(--color-ink-soft); }
 .lh-why::after { content: ""; position: absolute; left: 0; right: 18px; bottom: 10px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
 .lh-why:hover, .lh-why:focus-visible { color: var(--color-ink); }
@@ -158,10 +161,7 @@ export function LaunchHero() {
             </Link>
           </div>
         </div>
-        <span aria-hidden className="lh-cue">
-          Scroll
-          <i />
-        </span>
+
       </section>
       {/* the light page dissolves into the dark of 01 Promise */}
       <div aria-hidden className="lh-into-dark" />
