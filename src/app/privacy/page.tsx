@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <LegalLayout title="Privacy Policy" updated="October 2026">
+    <LegalLayout title="Privacy Policy" updated="21 October 2026">
       <LegalSection>
         <p>
           This policy explains what information Verdance Systems AI
@@ -131,53 +131,69 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
-      <LegalSection heading="Cookies and advertising">
+      <LegalSection heading="Cookies and advertising" id="cookies">
         <p>
-          We use cookies and similar tools to keep the site working, to
-          understand how it is used and to measure our advertising. Vercel
-          Analytics counts visits without cookies.
+          Some cookies keep the site working. Others help us see which pages and
+          adverts lead to a booked call. We only use those after you say yes in
+          the cookie message. If you say no, or ignore it, they are not loaded.
+        </p>
+        <p>
+          <strong>The cookies and tools we use:</strong>
         </p>
         <ul>
           <li>
-            <strong>Google Analytics and the Google tag.</strong> These set
-            cookies so we can see which pages and buttons lead to an enquiry or a
-            booked call, and which of our Google ads brought you here.
+            <strong>Your cookie choice</strong> (vsa_consent_v1, stored in your
+            browser until you clear it). Remembers whether you said yes or no.
+            Always on, because it is needed to respect your choice.
           </li>
           <li>
-            <strong>The Meta Pixel.</strong> When it is switched on, it records
-            the pages you visit here and actions such as clicking to book or to
-            contact us, so we can tell which of our Facebook and Instagram ads
-            work and show our ads to people who have already visited this site.
+            <strong>Vercel Analytics and Speed Insights.</strong> Count visits and
+            page speed without cookies and without identifying you. Always on.
+          </li>
+          <li>
+            <strong>The chat assistant</strong> (our CRM, GoHighLevel). Stores what
+            it needs in your browser to keep a chat going if you open one.
+          </li>
+          <li>
+            <strong>Google Analytics and the Google tag</strong> (_ga, _ga_*, up to
+            2 years; Google Ads cookies such as _gcl_au, up to 90 days). Only
+            after you accept. They show which pages and buttons lead to an enquiry
+            and which of our Google adverts brought you here.
+          </li>
+          <li>
+            <strong>The Meta Pixel</strong> (_fbp, up to 90 days). Only after you
+            accept. It records the pages you visit here and actions such as
+            clicking to book, so we can tell which Facebook and Instagram adverts
+            work and show our adverts to people who have visited.
           </li>
         </ul>
         <p>
-          These tools record your device and browser details, the pages you
-          view, the buttons you click and the ad that brought you here. They do
-          not see what you type into our forms. Google and Meta process this data
-          for us, and they may process it outside South Africa, including in the
-          United States. We rely on our legitimate interest in
-          measuring our own website and advertising, as the Protection of
-          Personal Information Act (POPIA) allows.
+          These tools record your device and browser details, the pages you view,
+          the buttons you click and the advert that brought you here. They do not
+          see what you type into our forms. Google and Meta process this data for
+          us, and may do so outside South Africa and the UK, including in the
+          United States.
         </p>
-        <p>To opt out at any time, you can:</p>
-        <ul>
-          <li>block or clear cookies in your browser settings;</li>
-          <li>
-            install{" "}
-            <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">
-              Google&apos;s opt-out add-on
-            </a>
-            ;
-          </li>
-          <li>
-            turn off ads based on activity from other sites in your{" "}
-            <a href="https://accountscenter.facebook.com/ad_preferences" target="_blank" rel="noopener noreferrer">
-              Facebook and Instagram ad preferences
-            </a>
-            ;
-          </li>
-          <li>or email us and we will help.</li>
-        </ul>
+        <p>
+          <strong>The law we follow.</strong> In the United Kingdom, the Privacy
+          and Electronic Communications Regulations (PECR) and the UK GDPR need
+          your consent before we use analytics or advertising cookies, so we ask
+          first. In South Africa we follow the Protection of Personal Information
+          Act (POPIA) and use the same consent.
+        </p>
+        <p>
+          <strong>Changing your mind.</strong> You can withdraw or give consent at
+          any time: choose &ldquo;Cookie settings&rdquo; at the bottom of any page.
+          You can also block or clear cookies in your browser, install{" "}
+          <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">
+            Google&apos;s opt-out add-on
+          </a>
+          , turn off ads based on other sites in your{" "}
+          <a href="https://accountscenter.facebook.com/ad_preferences" target="_blank" rel="noopener noreferrer">
+            Facebook and Instagram ad preferences
+          </a>
+          , or email us and we will help.
+        </p>
       </LegalSection>
 
       <LegalSection heading="Contact">

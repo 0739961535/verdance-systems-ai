@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useSyncExternalStore } from "react";
+import { CONSENT_EVENT, readConsent, type Consent } from "@/lib/consent";
 import { usePathname } from "next/navigation";
 import Script from "next/script";
 import { MetaPixel } from "./MetaPixel";
@@ -25,8 +26,34 @@ import { GA4_ID, isBookingUrl, rememberUtms, track, withUtms } from "@/lib/analy
  * and no event is sent to it. UTM
  * passthrough to the booking site works either way.
  */
+function subscribeConsent(cb: () => void) {
+  window.addEventListener(CONSENT_EVENT, cb);
+  return () => window.removeEventListener(CONSENT_EVENT, cb);
+}
+
 export function SiteAnalytics() {
   const pathname = usePathname();
+  // Google and Meta load only after the visitor accepts cookies (CookieBanner).
+  const consent = useSyncExternalStore(subscribeConsent, readConsent, () => null);
+  useEffect(() => {
+    const on = (e: Event) => {
+      if ((e as CustomEvent<Consent>).detail !== "denied") return;
+      // withdrawn after accepting: tell the tags already on the page to stop
+      const w = window as unknown as { dataLayer?: unknown[]; fbq?: (...a: unknown[]) => void };
+      if (w.dataLayer) {
+        const update = function (...args: unknown[]) {
+          void args;
+          // eslint-disable-next-line prefer-rest-params
+          w.dataLayer!.push(arguments);
+        };
+        update("consent", "update", { ad_storage: "denied", analytics_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+      }
+      w.fbq?.("consent", "revoke");
+    };
+    window.addEventListener(CONSENT_EVENT, on);
+    return () => window.removeEventListener(CONSENT_EVENT, on);
+  }, []);
+  const ok = consent === "granted";
 
   // Keep the landing UTM tags for the session.
   useEffect(() => {
@@ -82,18 +109,18 @@ export function SiteAnalytics() {
 
   return (
     <>
-      {GA4_ID ? (
+      {GA4_ID && ok ? (
         <>
           {/* The Google tag, loaded after the page is interactive. Written out here
               instead of @next/third-parties, whose bundle pulled a YouTube embed
               into every page. */}
           <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`} strategy="afterInteractive" />
           <Script id="ga4-init" strategy="afterInteractive">
-            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA4_ID}');`}
+            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{ad_storage:'denied',analytics_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});gtag('consent','update',{ad_storage:'granted',analytics_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});gtag('js',new Date());gtag('config','${GA4_ID}');`}
           </Script>
         </>
       ) : null}
-      <MetaPixel />
+      {ok ? <MetaPixel /> : null}
     </>
   );
 }
