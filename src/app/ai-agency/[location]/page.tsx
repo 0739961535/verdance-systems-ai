@@ -25,7 +25,8 @@ export async function generateMetadata({
   if (!loc) return {};
 
   const title = `AI Agency ${loc.name}: Every Enquiry Answered | Verdance`;
-  const description = `We build the thing that answers your phone, replies to your messages and books ${loc.name} customers into your calendar, day or night. ${loc.commonLoss} Free 30-minute Operations Map.`;
+  // At most 160 characters.
+  const description = `Every enquiry answered within 60 seconds and ${loc.name} customers booked into your diary, day or night. Start with a free 30-minute Operations Map.`;
   const url = `${SITE_URL}/ai-agency/${slug}`;
 
   return {
