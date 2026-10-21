@@ -9,7 +9,7 @@
 export const OPERATIONS_MAP = {
   eyebrow: "Step one · free",
   name: "The Operations Map",
-  line: "Where your time and money leak, in hours and money.",
+  line: "Where your time and money leak, in numbers.",
   body: "Thirty minutes with Daniel. We look at how enquiries, follow-ups and admin really run today, and you leave with a map of what is leaking and what to fix first. It is yours to keep, whether or not you work with us.",
   points: [
     "Your reply times, channel by channel",

@@ -76,7 +76,7 @@ export const ORGANIZATION_LD = {
           "@type": "Service",
           name: "The Operations Map",
           description:
-            "A free 30-minute call that shows where time and money leak in your enquiries, follow-up and admin, in hours and money, and what to fix first.",
+            "A free 30-minute call that shows where time and money leak in your enquiries, follow-up and admin, and what to fix first.",
         },
       },
       {

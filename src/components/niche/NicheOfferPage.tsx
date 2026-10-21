@@ -116,7 +116,7 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
         }
         points={[
           "Your reply times, channel by channel",
-          "What slow replies cost you, in hours and money",
+          "What slow replies cost you in time and money",
           "Whether it fits, and a fixed quote if it does",
         ]}
         href={href}

@@ -406,9 +406,9 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
         {/* ---------- 1 the calendar ---------- */}
         {step === "time" && !fallback && (
           <div>
-            <h3 ref={headRef} tabIndex={-1} className="bk-h">
+            <h2 ref={headRef} tabIndex={-1} className="bk-h">
               Pick a time that suits you.
-            </h3>
+            </h2>
             {error && (
               <p className="bk-err bk-err-box" role="alert">
                 {error}
@@ -490,16 +490,16 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
           >
             {fallback ? (
               <>
-                <h3 ref={headRef} tabIndex={-1} className="bk-h">
-                  The calendar is not loading right now.
-                </h3>
-                <p className="bk-p">Leave your details and we will send you two or three times today. Or WhatsApp us and we will book it with you.</p>
+                <h2 ref={headRef} tabIndex={-1} className="bk-h">
+                  Tell us when suits you.
+                </h2>
+                <p className="bk-p">Leave your details and we&apos;ll send you two options today. Or WhatsApp us and we&apos;ll book it with you.</p>
               </>
             ) : (
               <>
-                <h3 ref={headRef} tabIndex={-1} className="bk-h">
+                <h2 ref={headRef} tabIndex={-1} className="bk-h">
                   Three quick questions.
-                </h3>
+                </h2>
                 {slot && (
                   <p className="bk-chosen">
                     <Check size={15} aria-hidden /> {z.longLabel(slot)} <When slot={slot} z={z} />
@@ -597,9 +597,9 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
             <span className="bk-done-icon">
               <Check size={22} aria-hidden />
             </span>
-            <h3 ref={headRef} tabIndex={-1} className="bk-h">
+            <h2 ref={headRef} tabIndex={-1} className="bk-h">
               Your call is booked.
-            </h3>
+            </h2>
             <p className="bk-when">
               {z.longLabel(slot)} <When slot={slot} z={z} />
             </p>
@@ -657,9 +657,9 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
           <div className="bk-done" aria-live="polite">
             {prepState === "sent" && isLowFit(answers) ? (
               <>
-                <h3 ref={headRef} tabIndex={-1} className="bk-h">
+                <h2 ref={headRef} tabIndex={-1} className="bk-h">
                   Thank you. An honest note.
-                </h3>
+                </h2>
                 <p className="bk-p">
                   Your call on {z.longLabel(slot)} ({z.abbr(Date.parse(slot))}) is still booked. From your answers, a full system may be more than your business needs right
                   now. We do our best work with teams handling a steady flow of enquiries every week.
@@ -680,9 +680,9 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
                 <span className="bk-done-icon">
                   <Check size={22} aria-hidden />
                 </span>
-                <h3 ref={headRef} tabIndex={-1} className="bk-h">
+                <h2 ref={headRef} tabIndex={-1} className="bk-h">
                   {prepState === "sent" ? "Thank you. We will come prepared." : "All set."}
-                </h3>
+                </h2>
                 <p className="bk-when">
                   {z.longLabel(slot)} <When slot={slot} z={z} />
                 </p>
@@ -697,9 +697,9 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
             <span className="bk-done-icon">
               <Check size={22} aria-hidden />
             </span>
-            <h3 ref={headRef} tabIndex={-1} className="bk-h">
+            <h2 ref={headRef} tabIndex={-1} className="bk-h">
               Thank you. We will send you times.
-            </h3>
+            </h2>
             <p className="bk-p">Expect two or three options at {email.trim()} within the working day. Reply with the one that suits you.</p>
             <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="bk-ghost">
               Or WhatsApp us now
