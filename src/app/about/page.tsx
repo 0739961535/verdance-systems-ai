@@ -1,3 +1,4 @@
+import { UK_LINE, telLink } from "@/data/assistant";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Check } from "lucide-react";
@@ -216,27 +217,29 @@ export default function AboutPage() {
               </>
             }
           />
+          <div className="min-w-0">
           <Reveal delay={0.08}>
-            <div className="card-x p-7 md:p-9">
+            <div className="card-x min-w-0 p-6 md:p-9">
               <p className="text-[1.02rem] leading-[1.65] text-[color:var(--color-ink)]">
                 Nothing gets installed and nobody has to visit you. Everything is set up on a video call and runs on
                 your own accounts.
               </p>
-              <EarthStrip className="mt-6" />
-              <p className="mt-4 text-[0.9rem] text-[color:var(--color-ink-muted)]">
-                South African city pages:{" "}
-                {LOCATIONS.map((l, i) => (
-                  <span key={l.slug}>
-                    {i > 0 ? ", " : null}
-                    <Link
-                      href={`/ai-agency/${l.slug}`}
-                      className="relative inline-block text-[color:var(--color-ink-soft)] underline-offset-4 hover:text-[color:var(--color-ink)] hover:underline before:absolute before:-inset-x-1 before:-inset-y-3 before:content-['']"
-                    >
-                      {l.name}
-                    </Link>
-                  </span>
-                ))}
-              </p>
+              <EarthStrip className="mt-6 w-full max-w-full" />
+              <div className="mt-4 text-[0.9rem] text-[color:var(--color-ink-muted)]">
+                <p>South African city pages:</p>
+                <ul className="flex flex-wrap gap-x-5">
+                  {LOCATIONS.map((l) => (
+                    <li key={l.slug}>
+                      <Link
+                        href={`/ai-agency/${l.slug}`}
+                        className="inline-flex min-h-11 items-center text-[color:var(--color-ink-soft)] underline underline-offset-4 decoration-[color:var(--hairline-2)] hover:text-[color:var(--color-ink)]"
+                      >
+                        {l.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
               <dl className="mt-6 grid gap-0 text-[0.95rem]">
                 <div className="flex flex-wrap items-center gap-x-3">
                   <dt className="text-[color:var(--color-ink-muted)]">Email</dt>
@@ -254,6 +257,16 @@ export default function AboutPage() {
                     </a>
                   </dd>
                 </div>
+                {UK_LINE ? (
+                  <div className="flex flex-wrap items-center gap-x-3">
+                    <dt className="text-[color:var(--color-ink-muted)]">UK</dt>
+                    <dd>
+                      <a href={telLink(UK_LINE)} className="inline-flex min-h-11 items-center text-[color:var(--color-ink)] underline-offset-4 hover:underline">
+                        {UK_LINE}
+                      </a>
+                    </dd>
+                  </div>
+                ) : null}
                 <div className="flex flex-wrap items-center gap-x-3">
                   <dt className="text-[color:var(--color-ink-muted)]">LinkedIn</dt>
                   <dd>
@@ -265,6 +278,7 @@ export default function AboutPage() {
               </dl>
             </div>
           </Reveal>
+          </div>
         </div>
       </section>
 
