@@ -10,6 +10,7 @@ import { SlowChatDemo, type Demo } from "@/components/demos/SlowChatDemo";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { SITE_URL } from "@/data/site";
 import { OrderFlow } from "./OrderFlow";
+import { SceneBand } from "@/components/visuals/ConceptScene";
 
 /**
  * /industries/ecommerce-product-businesses - the page for our number one
@@ -166,6 +167,8 @@ export function EcomPage() {
           </ul>
         </div>
       </section>
+
+      <SceneBand slug={ECOM_SLUG} bg="bg-canvas-2" />
 
       <section className="band-night chapter-pad" aria-labelledby="ec-flow-title">
         <div className="container-wide">

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 import { Bot, CalendarCheck, Check, PackageCheck, RotateCcw, UserRound } from "lucide-react";
 import { CONCEPT_DEMOS, type ConceptDemo } from "./conceptData";
+import { ConceptScene, SCENE_FOR } from "@/components/visuals/ConceptScene";
 
 /**
  * "Ideas we built to show what is possible": four concept demos, one per
@@ -51,6 +52,17 @@ const CSS = `
 .cd-replay:active { transform: scale(0.97); }
 .cd-replay svg { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
 @media (hover: hover) { .cd-replay:hover svg { transform: rotate(-120deg); } }
+
+/* scene: the same height for every demo, so switching tabs never moves the panel */
+.cd-scene { position: relative; height: 150px; margin-top: 14px; border-radius: 16px; }
+@media (min-width: 768px) { .cd-scene { height: 220px; } }
+@media (min-width: 1024px) { .cd-scene { height: 260px; margin-top: 22px; } }
+.cd-scene-plan { overflow: hidden; background-color: #0B1328; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+  background-image: linear-gradient(rgba(143,176,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(143,176,255,0.07) 1px, transparent 1px);
+  background-size: 28px 28px; }
+.cd-scene-plan svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cd-scene-plan span { position: absolute; left: 12px; bottom: 10px; display: inline-flex; align-items: center; min-height: 24px; padding: 0 10px; border-radius: 999px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #E9EDF7; background: rgba(6,11,26,0.72); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.16); }
 
 .cd-grid { position: relative; display: grid; gap: 14px; margin-top: 14px; }
 @media (min-width: 1024px) { .cd-grid { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: 24px; margin-top: 22px; } }
@@ -290,6 +302,19 @@ export function ConceptDemos() {
           </div>
 
           <p className="sr-only">{d.blurb}</p>
+
+          {SCENE_FOR[d.id] ? (
+            <ConceptScene key={d.id} id={SCENE_FOR[d.id]} className="cd-scene" sizes="(min-width: 1280px) 1180px, 92vw" />
+          ) : (
+            <div className="cd-scene cd-scene-plan" role="img" aria-label="Concept demo: a drawn site plan for a new home.">
+              <svg viewBox="0 0 600 260" preserveAspectRatio="xMidYMid slice" aria-hidden fill="none" stroke="#8FB0FF" strokeWidth="1.5" strokeOpacity="0.55">
+                <path d="M210 190V110l90-56 90 56v80z" />
+                <path d="M260 190v-44h40v44M330 128h34v28h-34z" />
+                <path d="M120 190h360" strokeOpacity="0.3" />
+              </svg>
+              <span>Concept demo</span>
+            </div>
+          )}
 
           <div className="cd-grid">
             <div className="cd-chat">

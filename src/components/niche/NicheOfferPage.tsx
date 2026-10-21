@@ -8,6 +8,7 @@ import { NicheCalculator } from "./NicheCalculator";
 import { NicheProof } from "./NicheSections";
 import { NicheTabs } from "./NicheTabs";
 import { CTABand } from "@/components/kit/CTABand";
+import { SceneBand } from "@/components/visuals/ConceptScene";
 import { SITE_URL } from "@/data/site";
 
 /**
@@ -63,6 +64,7 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
 
       <NicheHero niche={niche} />
       <NicheLeak niche={niche} />
+      <SceneBand slug={niche.slug} />
 
       <DeltaRows
         eyebrow="What changes"
