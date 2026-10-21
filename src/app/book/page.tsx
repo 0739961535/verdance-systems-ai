@@ -1,3 +1,5 @@
+import { FounderVideo } from "@/components/proof/FounderVideo";
+import { FOUNDER_VIDEO } from "@/data/proof";
 import type { Metadata } from "next";
 import { BookingSection } from "@/components/booking/BookingSection";
 import { SITE_URL } from "@/data/site";
@@ -17,5 +19,22 @@ export const metadata: Metadata = {
 
 /** /book: Verdance's own booking page. Calendar first, three questions, then an optional prepare step. */
 export default function BookPage() {
-  return <BookingSection as="page" />;
+  return (
+    <>
+      <BookingSection as="page" />
+      <FounderVideoBand />
+    </>
+  );
+}
+
+/** Daniel's 45-second intro under the calendar, once it is recorded. */
+function FounderVideoBand() {
+  if (!FOUNDER_VIDEO) return null;
+  return (
+    <section className="section-pad bg-canvas" aria-label="The person on the call">
+      <div className="container-wide max-w-3xl">
+        <FounderVideo />
+      </div>
+    </section>
+  );
 }

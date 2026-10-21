@@ -1,3 +1,4 @@
+import { ProofBand } from "@/components/proof/OwnNumbers";
 import { UK_LINE, telLink } from "@/data/assistant";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -282,6 +283,7 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <ProofBand />
       <CTABand
         points={["Where your team's hours go", "How long customers wait", "A written plan: what we build first, and what it should bring back"]}
         title={
