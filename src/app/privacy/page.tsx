@@ -151,8 +151,9 @@ export default function PrivacyPage() {
             page speed without cookies and without identifying you. Always on.
           </li>
           <li>
-            <strong>The chat assistant</strong> (our CRM, GoHighLevel). Stores what
-            it needs in your browser to keep a chat going if you open one.
+            <strong>The chat assistant</strong> (our CRM, GoHighLevel). It only loads
+            when you open the chat or accept cookies, then stores what it needs in
+            your browser to keep the chat going.
           </li>
           <li>
             <strong>Google Analytics and the Google tag</strong> (_ga, _ga_*, up to

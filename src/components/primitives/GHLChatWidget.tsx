@@ -7,7 +7,8 @@
 
 import Script from "next/script";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
+import { CONSENT_EVENT, readConsent } from "@/lib/consent";
 
 /**
  * Routes where the floating widget is suppressed: on the form pages the
@@ -93,10 +94,36 @@ function useChatAfterHalfway() {
   }, []);
 }
 
+function subscribeConsent(cb: () => void) {
+  window.addEventListener(CONSENT_EVENT, cb);
+  return () => window.removeEventListener(CONSENT_EVENT, cb);
+}
+
+/** Open the real widget once its script has booted (it exposes a small API). */
+function openWhenReady() {
+  const started = Date.now();
+  const t = window.setInterval(() => {
+    const api = (window as unknown as { leadConnector?: { chatWidget?: { openWidget?: () => void } } }).leadConnector?.chatWidget;
+    if (api?.openWidget) {
+      api.openWidget();
+      window.clearInterval(t);
+    } else if (Date.now() - started > 10_000) window.clearInterval(t);
+  }, 250);
+}
+
+/**
+ * The chat is a third-party widget that sets its own storage. It does not
+ * load until the visitor asks for it (taps the look-alike button below) or
+ * has accepted cookies, which keeps UK visitors inside PECR and keeps its
+ * script off the first load.
+ */
 export function GHLChatWidget() {
   useChatAfterHalfway();
   const pathname = usePathname();
-  const load = useDeferredLoad();
+  const deferred = useDeferredLoad();
+  const consent = useSyncExternalStore(subscribeConsent, readConsent, () => null);
+  const [asked, setAsked] = useState(false);
+  const load = asked || (deferred && consent === "granted");
   const hidden =
     !!pathname && HIDE_ON.some((p) => pathname === p || pathname.startsWith(p + "/"));
 
@@ -202,6 +229,22 @@ export function GHLChatWidget() {
           CSS (rather than unmounting the script) survives client-side route
           changes in both directions. */}
       {hidden && <style>{`chat-widget{display:none !important;}`}</style>}
+      {!load && !hidden && (
+        <button
+          type="button"
+          className="chat-fake"
+          aria-label="Open chat"
+          onClick={() => {
+            setAsked(true);
+            openWhenReady();
+          }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.2 3.6c-.5.4-1.3.1-1.3-.6V16A2.5 2.5 0 0 1 4 13.5v-8Z" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" />
+          </svg>
+          <style>{FAKE_CSS}</style>
+        </button>
+      )}
       {load && (
         <Script
           src="https://widgets.leadconnectorhq.com/loader.js"
@@ -213,3 +256,13 @@ export function GHLChatWidget() {
     </>
   );
 }
+
+/** A light stand-in for the widget's bubble, same place and size; desktop only, like the real one. */
+const FAKE_CSS = `
+.chat-fake { position: fixed; right: 20px; bottom: 20px; z-index: 60; width: 56px; height: 56px; border-radius: 999px; display: grid; place-items: center;
+  background: #2554D4; border: 0; cursor: pointer; box-shadow: 0 12px 30px -10px rgba(37,84,212,0.7); transition: transform .25s cubic-bezier(.2,.8,.2,1), opacity .3s; }
+.chat-fake:hover { transform: translate3d(0,-2px,0); }
+.chat-fake:focus-visible { outline: 2px solid #BFD2FF; outline-offset: 3px; }
+@media (max-width: 767px) { .chat-fake { display: none; } }
+html:not([data-chat-ok]) .chat-fake, html[data-in-flight] .chat-fake, html[data-consent-open] .chat-fake { opacity: 0; visibility: hidden; pointer-events: none; }
+`;

@@ -31,6 +31,11 @@ export function CookieBanner() {
     };
   }, []);
 
+  // while the choice is on screen it owns the bottom-right corner (the chat button steps aside)
+  useEffect(() => {
+    document.documentElement.toggleAttribute("data-consent-open", open);
+  }, [open]);
+
   if (!open) return null;
   const choose = (c: Consent) => {
     writeConsent(c);
