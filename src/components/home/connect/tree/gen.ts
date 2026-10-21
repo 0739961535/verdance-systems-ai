@@ -101,7 +101,7 @@ export function grow(r: () => number, o: GrowOpts, depth: number, abs: number, l
     }
   }
   if (depth >= o.maxDepth - 1) {
-    const count = depth === o.maxDepth ? 4 + Math.floor(r() * 3) : 2 + Math.floor(r() * 2);
+    const count = depth === o.maxDepth ? 2 + Math.floor(r() * 2) : 1 + Math.floor(r() * 2);
     for (let i = 0; i < count; i++) {
       const t = depth === o.maxDepth ? 0.3 + (i / count) * 0.75 : 0.45 + r() * 0.5;
       const side = i % 2 ? 1 : -1;
@@ -112,7 +112,7 @@ export function grow(r: () => number, o: GrowOpts, depth: number, abs: number, l
         x: len * Math.min(1, t),
         y: limb.bend * 4 * t * (1 - t) * 0.5,
         rot: side * (34 + r() * 30) + (r() - 0.5) * 14,
-        s: o.leaf * (0.65 + r() * 0.6),
+        s: o.leaf * (0.8 + r() * 0.65),
         shape: Math.floor(r() * 3),
         fill: LEAF[Math.floor(r() * LEAF.length)],
         op: 0.72 + r() * 0.28,

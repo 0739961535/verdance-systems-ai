@@ -89,8 +89,8 @@ const TALL: Geo = {
     { y: 436, abs: -120, len: 42, w: 6 },
     { y: 428, abs: -60, len: 43, w: 6 },
   ],
-  maxDepth: 4,
-  leaf: 10,
+  maxDepth: 3,
+  leaf: 14,
   norm: 230,
   font: 13,
   scale: 0.5,
@@ -123,7 +123,8 @@ function build(g: Geo, seed: number) {
   // a dimmer, thinner layer behind for depth
   const rb = rng(seed * 7 + 3);
   const backOpts = { ...opts, leaf: g.leaf * 0.85, t0: 0.34 };
-  const back = g.limbs.map((m, i) => {
+  // phones skip the back layer: it is barely visible at that size and halves the paint work
+  const back = (g.id === "tall" ? [] : g.limbs).map((m, i) => {
     const at = { x: trunkX(g, m.y - 14), y: m.y - 14 };
     const abs = m.abs + (i % 2 ? 12 : -12);
     return { at, limb: grow(rb, backOpts, 1, abs, m.len * 0.82, m.w * 0.7, abs, (g.base.y - m.y) * 0.3) };
@@ -300,6 +301,8 @@ export function ConnectDiagram() {
       if (k === it.last) continue;
       it.last = k;
       const st = it.el.style;
+      // not started yet: take it out of the paint entirely (cheaper than a zero scale)
+      if (it.kind !== 3 && it.kind !== 4) st.display = k === 0 ? "none" : "";
       if (it.kind === 0) st.transform = k === 1 ? "" : `scaleX(${k})`;
       else if (it.kind === 1) st.transform = k === 1 ? "" : `scaleY(${k})`;
       else if (it.kind === 2) st.transform = k === 1 ? "" : `scale(${k})`;
@@ -460,7 +463,7 @@ const CSS = `
 .tr-petal { stroke: rgba(214,228,255,0.5); stroke-width: 0.8; stroke-linejoin: round; }
 .tr-vein { fill: none; stroke: rgba(255,255,255,0.14); stroke-width: 0.8; stroke-linecap: round; }
 .tr-heart { opacity: 0.35; transform-box: fill-box; transform-origin: center; }
-.tr-card-shadow { fill: rgba(2,6,20,0.55); filter: blur(10px); }
+.tr-card-shadow { fill: #020614; }
 
 .tr-card { fill: rgba(8,14,32,0.96); stroke: rgba(143,176,255,0.4); stroke-width: 1; }
 .tr-card-k { font-family: var(--font-mono) !important; font-size: 10.5px; letter-spacing: 0.16em; fill: #8FB0FF; }

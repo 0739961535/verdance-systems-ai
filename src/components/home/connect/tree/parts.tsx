@@ -202,7 +202,11 @@ export function Bloom({ at, r, card, font, id, seed }: { at: Pt; r: number; card
       ))}
       <circle cx={at.x} cy={at.y} r={r * 0.2} fill={`url(#tr-heart-${id})`} className="tr-heart" data-heart="" />
       {/* the card's soft shadow, then the card */}
-      <rect x={at.x - card.w / 2 + 6} y={cardY + 14} width={card.w - 12} height={card.h} rx={18} className="tr-card-shadow tr-fade" {...win(0.92, 1)} />
+      <g className="tr-fade" {...win(0.92, 1)}>
+        {[16, 10, 5].map((g, i) => (
+          <rect key={g} x={at.x - card.w / 2 - g + 4} y={cardY + 10 - g / 2} width={card.w + g * 2 - 8} height={card.h + g * 1.4} rx={18 + g} className="tr-card-shadow" opacity={0.16 + i * 0.1} />
+        ))}
+      </g>
       <g transform={`translate(${at.x - card.w / 2} ${cardY})`} className="tr-fade" {...win(0.92, 1)}>
         <rect width={card.w} height={card.h} rx={16} className="tr-card" />
         <text x={16} y={small ? 24 : 28} className="tr-card-k">
