@@ -38,13 +38,13 @@ export function EarthLimb() {
 }
 
 const CSS = `
-.el { --y: 0; position: relative; height: clamp(560px, 110svh, 1100px); overflow: hidden; background: #03060F; isolation: isolate; color: #F2F5FC; }
+.el { --y: 0; position: relative; height: clamp(420px, 78svh, 820px); overflow: hidden; background: #03060F; isolation: isolate; color: #F2F5FC; }
 .el::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 34%; z-index: 2; pointer-events: none; background: linear-gradient(#0E1A3A, rgba(14, 26, 58, 0)); }
 .el::after { content: ""; position: absolute; inset: auto 0 0 0; height: 30%; z-index: 2; pointer-events: none; background: linear-gradient(rgba(6, 11, 26, 0), #060B1A); }
 .el-img { position: absolute; left: 50%; bottom: 0; width: 180vw; transform: translate3d(-50%, calc(14% - var(--y) * 14%), 0); will-change: transform; }
 @media (min-width: 768px) { .el-img { width: 100vw; } }
 .el-img img { display: block; width: 100%; height: auto; }
-.el-copy { position: relative; z-index: 3; padding-top: clamp(150px, 30svh, 300px); text-align: center; }
+.el-copy { position: relative; z-index: 3; padding-top: clamp(96px, 18svh, 200px); text-align: center; }
 .el-eyebrow { justify-content: center; color: rgba(234, 240, 255, 0.7); }
 .el-h { margin: 16px auto 0; max-width: 18ch; font-family: var(--font-display); font-weight: 600; font-size: clamp(2.2rem, 3.4vw + 1rem, 4.5rem); line-height: 1; letter-spacing: -0.04em; text-wrap: balance; text-shadow: 0 2px 30px rgba(3, 6, 15, 0.6); }
 .el-h .italic-accent { color: #8FB0FF; }

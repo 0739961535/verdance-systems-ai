@@ -53,14 +53,14 @@ const CSS = `
 /* the first screen: one screen tall, the words centred in the light, a
    scroll cue at the bottom. The Earth rises in the next scene (EarthRise). */
 .lh { --arc: 0px; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
-.lh-in { padding-top: 100px; padding-bottom: 104px; }
+.lh-in { padding-top: 96px; padding-bottom: 88px; }
 @media (min-width: 768px) { .lh-in { padding-top: 112px; padding-bottom: 112px; } }
 .lh-h1 { font-size: clamp(2.9rem, 5.6vw + 0.9rem, 7rem); line-height: 0.95; letter-spacing: -0.05em; }
 /* depth in the light: a soft vignette and a faint haze toward the bottom */
 .lh-depth { position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background: radial-gradient(120% 80% at 50% 38%, transparent 55%, rgba(var(--hairline-rgb), 0.05) 100%), linear-gradient(transparent 60%, rgba(var(--accent-rgb), 0.07) 100%); }
 /* a long soft fade from the light ground into the navy of 01 Promise */
-.lh-into-dark { height: clamp(160px, 26vh, 320px); margin-bottom: -1px;
+.lh-into-dark { height: clamp(88px, 12vh, 160px); margin-bottom: -1px;
   background: linear-gradient(var(--bg) 0%, color-mix(in oklab, var(--bg) 70%, #8FB0FF) 30%, color-mix(in oklab, var(--bg) 25%, #1D3F8F) 62%, #060B1A 100%); }
 .lh-why { position: relative; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 0.9375rem; color: var(--color-ink-soft); }
 .lh-why::after { content: ""; position: absolute; left: 0; right: 18px; bottom: 10px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }

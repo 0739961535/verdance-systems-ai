@@ -24,9 +24,10 @@ export function EnquiryArrives() {
   const reduce = useReducedMotionPref();
   const ref = useRef<HTMLDivElement>(null);
   const [on, setOn] = useState(false);
-  const [stage, setStage] = useState<Stage>(0);
-  const [typed, setTyped] = useState(0);
-  const [ms, setMs] = useState(0);
+  // until it first comes on screen, the finished conversation shows
+  const [stage, setStage] = useState<Stage>(6);
+  const [typed, setTyped] = useState(A.length);
+  const [ms, setMs] = useState(6000);
 
   useEffect(() => {
     const el = ref.current;
@@ -42,10 +43,9 @@ export function EnquiryArrives() {
     let raf = 0;
     const at = (t: number, f: () => void) => timers.push(window.setTimeout(f, t));
     const run = () => {
-      setStage(0);
+      setStage(1);
       setTyped(0);
       setMs(0);
-      at(400, () => setStage(1));
       at(1900, () => setStage(2));
       at(2700, () => {
         setStage(3);
@@ -154,7 +154,7 @@ const CSS = `
 .ea-bloom { position: absolute; left: 50%; top: 46%; width: min(120%, 620px); aspect-ratio: 1; transform: translate(-50%, -50%) scale(0.7); border-radius: 50%; z-index: -1; opacity: 0.4;
   background: radial-gradient(closest-side, rgba(77, 124, 255, 0.4), rgba(77, 124, 255, 0.1) 55%, rgba(77, 124, 255, 0)); transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s ease; }
 .ea[data-stage="4"] .ea-bloom, .ea[data-stage="5"] .ea-bloom, .ea[data-stage="6"] .ea-bloom { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
-.ea-phone { position: relative; width: min(100%, 340px); height: 600px; border-radius: 42px; padding: 10px; background: #05070D;
+.ea-phone { position: relative; width: min(100%, 340px); height: 540px; border-radius: 42px; padding: 10px; background: #05070D;
   box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 40px 90px rgba(2, 6, 20, 0.6), inset 0 0 0 1px rgba(255,255,255,0.05); overflow: hidden; color: #E9EDEF; }
 .ea-notch { position: absolute; top: 18px; left: 50%; width: 92px; height: 26px; transform: translateX(-50%); border-radius: 99px; background: #000; z-index: 3; }
 .ea-note { position: absolute; z-index: 2; left: 18px; right: 18px; top: 56px; padding: 12px 14px; border-radius: 20px; display: grid; gap: 2px;
@@ -165,9 +165,8 @@ const CSS = `
 .ea-note-app { font-size: 0.68rem; color: rgba(255,255,255,0.6); }
 .ea-note-t { font-size: 0.85rem; font-weight: 600; }
 .ea-note-b { font-size: 0.85rem; line-height: 1.35; color: rgba(255,255,255,0.85); }
-.ea-chat { position: absolute; inset: 10px; border-radius: 34px; background: linear-gradient(180deg, #0C1530, #0A1226); display: flex; flex-direction: column; overflow: hidden;
-  clip-path: inset(10% 6% 70% 6% round 22px); opacity: 0.0; transition: clip-path 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease; }
-.ea:not([data-stage="0"]):not([data-stage="1"]) .ea-chat { clip-path: inset(0 0 0 0 round 34px); opacity: 1; }
+.ea-chat { position: absolute; inset: 10px; border-radius: 34px; background: linear-gradient(180deg, #0C1530, #0A1226); display: flex; flex-direction: column; overflow: hidden; transition: filter 0.5s ease; }
+.ea[data-stage="1"] .ea-chat { filter: brightness(0.7); }
 .ea-head { display: flex; align-items: center; gap: 10px; padding: 52px 14px 12px; border-bottom: 1px solid rgba(255,255,255,0.06); }
 .ea-av { display: grid; place-items: center; width: 32px; height: 32px; flex: none; border-radius: 99px; background: #1D3F8F; font-size: 0.8rem; font-weight: 600; }
 .ea-timer { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 99px; font-family: var(--font-mono); font-size: 0.75rem;

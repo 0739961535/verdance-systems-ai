@@ -2,7 +2,6 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
-import { ToolsMarquee } from "../ToolsMarquee";
 
 /**
  * The Operations Team showcase and How it connects are the heaviest parts
@@ -40,8 +39,6 @@ export function LazySections() {
           {/* the four jobs above already cover one agent per job: no levels here */}
           <OpsTeamShowcase depth={false} />
           <HowItConnects />
-          {/* the tools, once: right after the connections they plug into */}
-          <ToolsMarquee className="band-night" />
         </>
       ) : null}
     </div>
