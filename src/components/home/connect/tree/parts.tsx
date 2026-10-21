@@ -1,27 +1,28 @@
-import type { CSSProperties } from "react";
 import { APP_ROWS } from "../connectData";
 import { LEAF_SHAPES, limbPath, type Leaf, type Limb, type Pt, type Root } from "./gen";
 
 /**
  * The tree's parts, each its own component: Roots, Trunk, Branches (limbs
  * with their Leaves), Bloom. Every growing element carries its window on the
- * scroll timeline as --a and --b; the CSS in TreeDiagram turns the shared
- * --p into its own 0..1 and scales or draws it. Without --p (no JS, reduced
- * motion) everything shows fully grown.
+ * scroll timeline as data-a and data-b; ConnectDiagram's scroll handler
+ * turns the progress into each one's own 0..1 and scales, draws or fades it.
+ * Nothing is written without JS or under reduced motion, so the tree then
+ * shows fully grown.
  */
 
-const win = (a: number, b: number): CSSProperties => ({ ["--a" as string]: a.toFixed(3), ["--b" as string]: b.toFixed(3) });
+/** The element's growth window, read once by TreeDiagram's scroll handler. */
+const win = (a: number, b: number) => ({ "data-a": a.toFixed(3), "data-b": b.toFixed(3) });
 
 export function Roots({ main, fine, up }: { main: string[]; fine: Root[]; up: string[] }) {
   return (
     <g className="tr-roots">
       {fine.map((f, i) => (
-        <path key={`f${i}`} d={f.d} className="tr-draw tr-rootlet" pathLength={1} strokeWidth={f.w} opacity={f.op} style={win(f.a, f.b)} />
+        <path key={`f${i}`} d={f.d} className="tr-draw tr-rootlet" pathLength={1} strokeWidth={f.w} opacity={f.op} {...win(f.a, f.b)} />
       ))}
       {main.map((d, i) => (
         <g key={i}>
-          <path d={d} className="tr-draw tr-root-soft" pathLength={1} style={win(0.01 + i * 0.006, 0.2 + i * 0.006)} />
-          <path d={d} className="tr-draw tr-root" pathLength={1} data-root-line={i} style={win(0.01 + i * 0.006, 0.2 + i * 0.006)} />
+          <path d={d} className="tr-draw tr-root-soft" pathLength={1} {...win(0.01 + i * 0.006, 0.2 + i * 0.006)} />
+          <path d={d} className="tr-draw tr-root" pathLength={1} data-root-line={i} {...win(0.01 + i * 0.006, 0.2 + i * 0.006)} />
           <path d={up[i]} className="tr-pulse" pathLength={100} data-root={i} />
         </g>
       ))}
@@ -44,7 +45,7 @@ export function Trunk({ base, top, w0, w1, sway, id }: { base: Pt; top: Pt; w0: 
   // a thin highlight down one side of the bark
   const hi = `M${base.x - w0 * 0.18} ${base.y - h * 0.1} C${base.x - w0 * 0.18 + sway} ${base.y - h * 0.45} ${top.x - w1 * 0.15 - sway} ${top.y + h * 0.35} ${top.x - w1 * 0.15} ${top.y + 4}`;
   return (
-    <g className="tr-y" style={{ ...win(0.14, 0.36), transformOrigin: `${base.x}px ${base.y}px` }}>
+    <g className="tr-y" {...win(0.14, 0.36)} style={{ transformOrigin: `${base.x}px ${base.y}px` }}>
       <path d={d} fill={`url(#tr-bark-${id})`} />
       <path d={hi} fill="none" stroke="rgba(160,190,255,0.28)" strokeWidth={1.2} strokeLinecap="round" />
     </g>
@@ -54,7 +55,7 @@ export function Trunk({ base, top, w0, w1, sway, id }: { base: Pt; top: Pt; w0: 
 function LeafG({ f }: { f: Leaf }) {
   return (
     <g transform={`translate(${f.x.toFixed(1)} ${f.y.toFixed(1)}) rotate(${f.rot.toFixed(1)}) scale(${f.s.toFixed(2)})`}>
-      <path d={LEAF_SHAPES[f.shape]} fill={f.fill} opacity={f.op} className="tr-pop" style={win(f.a, f.b)} />
+      <path d={LEAF_SHAPES[f.shape]} fill={f.fill} opacity={f.op} className="tr-pop" {...win(f.a, f.b)} />
     </g>
   );
 }
@@ -63,7 +64,7 @@ function LeafG({ f }: { f: Leaf }) {
 function LimbG({ l }: { l: Limb }) {
   return (
     <g transform={`rotate(${l.rot.toFixed(2)})`}>
-      <path d={limbPath(l)} fill={l.fill} className="tr-x" style={win(l.a, l.b)} />
+      <path d={limbPath(l)} fill={l.fill} className="tr-x" {...win(l.a, l.b)} />
       {l.kids.map((k, i) => (
         <g key={i} transform={`translate(${l.len.toFixed(1)} 0)`}>
           <LimbG l={k} />
@@ -106,17 +107,17 @@ export function Bloom({ at, r, card, font, id }: { at: Pt; r: number; card: { w:
   const rowH = small ? 26 : 30;
   return (
     <g className="tr-bloom" style={{ transformOrigin: `${at.x}px ${at.y}px` }}>
-      <circle cx={at.x} cy={at.y} r={r * 1.5} fill={`url(#tr-halo-${id})`} className="tr-fade" style={win(0.8, 0.98)} data-bloom-glow="" />
+      <circle cx={at.x} cy={at.y} r={r * 1.5} fill={`url(#tr-halo-${id})`} className="tr-fade" {...win(0.8, 0.98)} data-bloom-glow="" />
       {rings.map((ring, k) => (
         <g key={k} opacity={ring.op}>
           {Array.from({ length: ring.n }, (_, i) => (
             <g key={i} transform={`translate(${at.x} ${at.y}) rotate(${((i * 360) / ring.n + ring.rot).toFixed(2)})`}>
-              <path d={PETAL(ring.len, ring.wid)} fill={ring.fill} className="tr-pop tr-petal" style={win(ring.a + (i / ring.n) * 0.03, ring.b + (i / ring.n) * 0.03)} />
+              <path d={PETAL(ring.len, ring.wid)} fill={ring.fill} className="tr-pop tr-petal" {...win(ring.a + (i / ring.n) * 0.03, ring.b + (i / ring.n) * 0.03)} />
             </g>
           ))}
         </g>
       ))}
-      <g transform={`translate(${at.x - card.w / 2} ${at.y - card.h / 2})`} className="tr-fade" style={win(0.92, 1)}>
+      <g transform={`translate(${at.x - card.w / 2} ${at.y - card.h / 2})`} className="tr-fade" {...win(0.92, 1)}>
         <rect width={card.w} height={card.h} rx={16} className="tr-card" />
         <text x={16} y={small ? 24 : 28} className="tr-card-k">
           COMMAND CENTRE

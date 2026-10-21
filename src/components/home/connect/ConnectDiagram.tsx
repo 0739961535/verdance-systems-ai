@@ -14,8 +14,8 @@ import { Bloom, Branches, Roots, Trunk } from "./tree/parts";
  * The tree is procedural from a fixed seed (tree/gen.ts), so it is the same on
  * every load, and drawn as SVG paths.
  *
- * Growth is tied to scroll: one rAF scroll handler sets --p (0 to 1) on the
- * wrapper. Roots draw out from the base to each tool, the trunk rises, limbs
+ * Growth is tied to scroll: one rAF scroll handler turns scroll into progress
+ * (0 to 1) and writes only the elements whose own value changed. Roots draw out from the base to each tool, the trunk rises, limbs
  * grow thick to fine, leaves pop in from the inside out, then the bloom
  * opens and the card fades in. Scrolling back plays it in reverse. Phones
  * use a shorter scroll distance.
@@ -67,7 +67,7 @@ const WIDE: Geo = {
   maxDepth: 4,
   leaf: 16,
   norm: 400,
-  font: 13,
+  font: 16,
   scale: 1,
 };
 
@@ -277,29 +277,59 @@ export function ConnectDiagram() {
     [fire],
   );
 
+  /** The growing elements of each tree, read once: their window and how they grow. */
+  const parts = useRef(new Map<SVGSVGElement, { el: SVGElement; a: number; b: number; kind: number; last: number }[]>());
+  const partsOf = (svg: SVGSVGElement) => {
+    let list = parts.current.get(svg);
+    if (!list) {
+      list = Array.from(svg.querySelectorAll<SVGElement>("[data-a]")).map((el) => {
+        const c = el.classList;
+        const kind = c.contains("tr-x") ? 0 : c.contains("tr-y") ? 1 : c.contains("tr-pop") ? 2 : c.contains("tr-draw") ? 3 : 4;
+        return { el, a: Number(el.dataset.a), b: Number(el.dataset.b), kind, last: -1 };
+      });
+      parts.current.set(svg, list);
+    }
+    return list;
+  };
+
+  /** Write each element's own 0..1 for progress p. Only elements whose value changed are touched. */
+  const apply = useCallback((svg: SVGSVGElement, p: number) => {
+    for (const it of partsOf(svg)) {
+      const k = Math.round(Math.max(0, Math.min(1, (p - it.a) / (it.b - it.a))) * 1000) / 1000;
+      if (k === it.last) continue;
+      it.last = k;
+      const st = it.el.style;
+      if (it.kind === 0) st.transform = k === 1 ? "" : `scaleX(${k})`;
+      else if (it.kind === 1) st.transform = k === 1 ? "" : `scaleY(${k})`;
+      else if (it.kind === 2) st.transform = k === 1 ? "" : `scale(${k})`;
+      else if (it.kind === 3) st.strokeDashoffset = k === 1 ? "" : String(1 - k);
+      else st.opacity = k === 1 ? "" : String(k);
+    }
+  }, []);
+
   /** Scroll progress: 0 as the tree enters, 1 once it is mostly in view. */
   const measure = useCallback(() => {
     const el = wrap.current;
     const s = st.current;
     if (!el) return;
-    if (s.reduce) {
-      s.p = 1;
-      el.style.setProperty("--p", "1");
-      return;
-    }
     const svg = Array.from(el.querySelectorAll<SVGSVGElement>("svg[data-geo]")).find((x) => x.getBoundingClientRect().width > 0);
     if (!svg) return;
-    const r = svg.getBoundingClientRect();
-    const vh = window.innerHeight;
-    const phone = window.innerWidth < 768;
-    const start = vh * 0.92;
-    const dist = Math.min(r.height, vh) * (phone ? 0.5 : 0.72);
-    const p = Math.max(0, Math.min(1, (start - r.top) / dist));
-    if (Math.abs(p - s.p) > 0.0005) {
-      s.p = p;
-      el.style.setProperty("--p", p.toFixed(4));
+    if (s.reduce) {
+      s.p = 1;
+      apply(svg, 1);
+      return;
     }
-  }, []);
+    // the stage is pinned (sticky) while the track scrolls past: progress is how far through the extra distance
+    const track = el.querySelector<HTMLElement>(".tr-track");
+    const stage = el.querySelector<HTMLElement>(".tr-stage");
+    if (!track || !stage) return;
+    const tr = track.getBoundingClientRect();
+    const pin = parseFloat(getComputedStyle(stage).top) || 0;
+    const run = Math.max(1, tr.height - stage.offsetHeight);
+    const p = Math.max(0, Math.min(1, (pin - tr.top) / run));
+    s.p = p;
+    apply(svg, p);
+  }, [apply]);
 
   useLayoutEffect(() => {
     st.current.reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -381,30 +411,40 @@ export function ConnectDiagram() {
   return (
     <div ref={wrap} className="tr" onPointerMove={onMove} onPointerLeave={onLeave}>
       <style>{CSS}</style>
-      <Tree g={WIDE} onFire={choose} />
-      <Tree g={TALL} onFire={choose} />
-      <p className="tr-line" aria-live="polite">
-        {line}
-      </p>
+      <div className="tr-track">
+        <div className="tr-stage">
+          <Tree g={WIDE} onFire={choose} />
+          <Tree g={TALL} onFire={choose} />
+          <p className="tr-line" aria-live="polite">
+            {line}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
 
 const CSS = `
-.tr { position: relative; --p: 1; --lx: 0; }
-.tr-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.tr { position: relative; --lx: 0; }
+/* The tree pins while it grows: the track is the stage plus the growing distance (shorter on phones). */
+.tr-track { position: relative; height: calc(100svh - 160px + 55svh); }
+@media (min-width: 768px) { .tr-track { height: calc(100svh - 88px + 80svh); } }
+.tr-stage { position: sticky; top: 72px; height: calc(100svh - 160px); display: flex; flex-direction: column; justify-content: center; }
+@media (min-width: 768px) { .tr-stage { top: 88px; height: calc(100svh - 88px); } }
+.tr-svg { display: block; width: 100%; height: auto; min-height: 0; flex: 1 1 auto; overflow: visible; }
 .tr-svg-wide { display: none; }
-.tr-svg-tall { max-width: 460px; margin: 0 auto; }
+.tr-svg-tall { margin: 0 auto; }
 @media (min-width: 1024px) { .tr-svg-wide { display: block; } .tr-svg-tall { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .tr-track { height: auto; }
+  .tr-stage { position: static; height: auto; }
+  .tr-svg { flex: none; }
+}
 .tr-svg text { font-family: var(--font-sans, inherit); }
 
-/* growth: each element maps the shared --p into its own window [--a, --b] */
-.tr-x, .tr-y, .tr-pop, .tr-draw, .tr-fade { --k: clamp(0, calc((var(--p) - var(--a)) / (var(--b) - var(--a))), 1); }
-.tr-x { transform: scaleX(var(--k)); }
-.tr-y { transform: scaleY(var(--k)); transform-box: view-box; }
-.tr-pop { transform: scale(var(--k)); }
-.tr-draw { stroke-dasharray: 1 1; stroke-dashoffset: calc(1 - var(--k)); }
-.tr-fade { opacity: var(--k); }
+/* growth: the scroll handler writes each element's transform, dash or opacity */
+.tr-y { transform-box: view-box; }
+.tr-draw { stroke-dasharray: 1 1; }
 
 .tr-k { font-family: var(--font-mono) !important; font-size: 11px; letter-spacing: 0.16em; fill: #8FB0FF; }
 .tr-horizon { stroke: rgba(143,176,255,0.16); stroke-width: 1; }
@@ -425,6 +465,8 @@ const CSS = `
 .tr-pill-hot { fill: rgba(242,196,109,0.14); stroke: rgba(242,196,109,0.55); }
 .tr-pill-t { font-family: var(--font-mono) !important; font-size: 10.5px; fill: #C9D2E6; }
 .tr-pill-t-hot { fill: #F7D899; }
+.tr-svg-wide .tr-card-k, .tr-svg-wide .tr-pill-t { font-size: 12.5px; }
+.tr-svg-wide .tr-k { font-size: 13px; }
 
 .tr-node { cursor: pointer; outline: none; }
 .tr-node-b { fill: #0E1730; stroke: rgba(143,176,255,0.28); stroke-width: 1; transition: stroke .25s ease, fill .25s ease; }
@@ -433,14 +475,14 @@ const CSS = `
 .tr-node:hover .tr-node-b, .tr-node:focus-visible .tr-node-b { stroke: #BFD2FF; fill: #13214A; }
 .tr-node:focus-visible .tr-node-b { stroke-width: 2; }
 
-.tr-line { margin: 14px auto 0; max-width: 40rem; min-height: 1.5em; text-align: center; font-size: 1rem; line-height: 1.5; color: var(--color-ink); }
+.tr-line { flex: none; margin: 10px auto 0; max-width: 40rem; min-height: 1.5em; text-align: center; font-size: 1rem; line-height: 1.5; color: var(--color-ink); }
 
 @media (prefers-reduced-motion: no-preference) {
   .tr-lean { transform-box: view-box; transform: rotate(calc(var(--lx) * 1.2deg)); transition: transform .8s cubic-bezier(.2,.8,.2,1); }
-  .tr[data-live] .tr-sway { animation: tr-sway 6s ease-in-out infinite alternate; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .tr { --p: 1 !important; }
+/* the leaves sway only on larger screens with a mouse (a phone repaint would cost too much) */
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (min-width: 1024px) {
+  .tr[data-live] .tr-sway { animation: tr-sway 6s ease-in-out infinite alternate; }
 }
 @keyframes tr-sway { from { transform: rotate(-0.9deg); } to { transform: rotate(0.9deg); } }
 `;
