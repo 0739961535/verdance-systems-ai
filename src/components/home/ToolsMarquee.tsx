@@ -26,7 +26,7 @@ const CSS = `
 @keyframes tm-x { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .tm-head { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
 .tm-title { margin: 0; font-size: 0.95rem; font-weight: 500; letter-spacing: -0.005em; color: var(--color-ink); }
-.tm-sub { margin: 0; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.02em; color: var(--color-ink-muted); }
+.tm-sub { margin: 0; max-width: 46ch; font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.5; letter-spacing: 0.02em; color: var(--color-ink-muted); }
 
 .tm-cell {
   --tm-c: var(--color-ink-muted);
@@ -139,7 +139,7 @@ export function ToolsMarquee({ still = false, className = "" }: { still?: boolea
         <h2 id="tools-title" className="tm-title">
           Works with anything you already use
         </h2>
-        <p className="tm-sub">And anything else with an API</p>
+        <p className="tm-sub">And most other apps. If it has an API (a way for apps to talk), we can connect it.</p>
       </div>
       {still ? (
         <div className="container-wide mt-8">
