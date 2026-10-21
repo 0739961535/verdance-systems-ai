@@ -140,7 +140,7 @@ export function LaunchHero() {
             </a>
             <p className="text-[0.9rem] text-[color:var(--color-ink-muted)]">
               A free 30-minute call. Nothing&nbsp;to&nbsp;sign.{" "}
-              <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 whitespace-nowrap underline decoration-[color:var(--hairline-2)] underline-offset-4 hover:text-[color:var(--color-ink)]">
+              <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1.5 whitespace-nowrap underline decoration-[color:var(--hairline-2)] underline-offset-4 hover:text-[color:var(--color-ink)]">
                 <WhatsAppIcon className="h-3.5 w-3.5" />
                 Or WhatsApp us
               </a>
