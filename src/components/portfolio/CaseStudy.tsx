@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { DrawnResults } from "./DrawnResults";
 import { ArrowRight } from "lucide-react";
 import { conversationsProof, type CaseImage, type PortfolioCase } from "@/data/portfolio";
 
@@ -112,14 +113,14 @@ export function CaseStudy({ c, index }: { c: PortfolioCase; index: number }) {
           <div>
             <div className="pc-lid">
               <div className="pc-screen">
-                <Shot img={c.wide} sizes="(min-width: 1024px) 820px, 64vw" />
+                {c.drawn ? <DrawnResults variant="wide" /> : <Shot img={c.wide} sizes="(min-width: 1024px) 820px, 64vw" />}
               </div>
             </div>
             <div className="pc-base" aria-hidden />
           </div>
           <div className="pc-phone">
             <div className="pc-pscreen">
-              <Shot img={c.tall} sizes="(min-width: 1024px) 250px, 30vw" />
+              {c.drawn ? <DrawnResults variant="tall" /> : <Shot img={c.tall} sizes="(min-width: 1024px) 250px, 30vw" />}
             </div>
           </div>
         </div>

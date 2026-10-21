@@ -23,6 +23,8 @@ export type PortfolioCase = {
   /** Wide screen (laptop frame) and tall screen (phone frame). Paths without extension; AVIF and WebP both exist. */
   wide: CaseImage;
   tall: CaseImage;
+  /** Show a drawn stand-in instead of the screenshots (no client OK to show the real page yet). */
+  drawn?: boolean;
   caption: string;
   /**
    * Proof line: "<n> conversations handled". Rendered only when it is a number;
@@ -67,7 +69,9 @@ export const PORTFOLIO_CASES: PortfolioCase[] = [
       height: 960,
       alt: "The same results page on a phone, with the name and every number hidden",
     },
-    caption: "Their live results page. The brand's name, staff and every number are hidden.",
+    // TODO(Daniel): the real screenshots stay off until Peter gives written OK. They were removed from public/ in this commit; restore them from git history, then set drawn to false.
+    drawn: true,
+    caption: "Drawn from their results page. Names and numbers hidden.",
     // TODO(Daniel): number only after the client's written OK. Until then it stays null and nothing shows.
     conversationsHandled: null as number | null,
   },
