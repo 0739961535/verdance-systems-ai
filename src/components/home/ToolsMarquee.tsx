@@ -74,19 +74,9 @@ const CSS = `
 }
 `;
 
-/** Each mark's path is written once, as a <symbol>; every copy references it. */
+/** Every mark lives once in /tools.svg (scripts/build-tool-sprite.mjs); each copy references it, so no path is inlined in the page. */
 const symbolId = (name: string) => `tm-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
-function Symbols() {
-  return (
-    <svg aria-hidden="true" focusable="false" width="0" height="0" style={{ position: "absolute" }}>
-      {TOOL_ICONS.filter((t) => t.path).map((t) => (
-        <symbol key={t.name} id={symbolId(t.name)} viewBox="0 0 24 24">
-          <path d={t.path ?? undefined} />
-        </symbol>
-      ))}
-    </svg>
-  );
-}
+const SPRITE = "/tools.svg?v=b6254353";
 
 function Item({ tool }: { tool: ToolIcon }) {
   const brand = tool.hex && !NEAR_BLACK.has(tool.hex.toUpperCase()) ? `#${tool.hex}` : "var(--color-ink)";
@@ -95,7 +85,7 @@ function Item({ tool }: { tool: ToolIcon }) {
       {tool.path ? (
         <>
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" className={WIDE_MARKS.has(tool.name) ? "tm-mark tm-mark-wide" : "tm-mark"}>
-            <use href={`#${symbolId(tool.name)}`} />
+            <use href={`${SPRITE}#${symbolId(tool.name)}`} />
           </svg>
           <span className="tm-name">{tool.name}</span>
         </>
@@ -134,7 +124,6 @@ export function ToolsMarquee({ still = false, className = "" }: { still?: boolea
   return (
     <section className={`tm border-y py-10 md:py-14 ${className}`} style={{ borderColor: "var(--hairline)" }} aria-labelledby="tools-title">
       <style>{CSS}</style>
-      <Symbols />
       <div className="container-wide tm-head">
         <h2 id="tools-title" className="tm-title">
           Works with anything you already use
