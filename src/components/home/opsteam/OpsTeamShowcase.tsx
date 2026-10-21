@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { AI_TEAM_PATH } from "@/data/aiTeam";
-import { CommandMock } from "./CommandMock";
 import { OpsCapabilities } from "./OpsCapabilities";
+import { OpsCommandStage } from "./OpsCommandStage";
 import { OpsDepth } from "./OpsDepth";
 
 /**
- * The Operations Team on the home page: a sample command centre, what it can
- * do, and how deep it goes. Sits after "Our belief" on a band-night ground.
+ * The Operations Team on the home page: a sample command centre on a laptop
+ * with the agents' own workspaces under it, what it can do, and how deep it goes. Sits after "Our belief" on a band-night ground.
  * All numbers in the command centre are sample data, labelled on screen.
  */
 export function OpsTeamShowcase({ depth = true }: { depth?: boolean } = {}) {
@@ -26,13 +26,14 @@ export function OpsTeamShowcase({ depth = true }: { depth?: boolean } = {}) {
         </div>
 
         <div className="ots-mock">
-          <CommandMock />
-          <p className="museum mt-3">Sample data. Your command centre shows your own business. We run Verdance on the same system.</p>
+          <OpsCommandStage />
         </div>
 
         <div className="ots-sub" data-reveal="">
           <h3 className="ots-sub-h">What it can do</h3>
-          <p className="ots-sub-b">Deep inside your business, not a chatbot on the side.</p>
+          <p className="ots-sub-b">
+            Deep inside your business, not a chatbot on the side. <span className="ots-sub-em">Every build is custom. These are the parts we use most.</span>
+          </p>
         </div>
         <OpsCapabilities />
 
@@ -66,6 +67,7 @@ const CSS = `
 @media (min-width: 1024px) { .ots-sub { margin: 128px 0 36px; grid-template-columns: 1fr auto; align-items: end; gap: 24px; } }
 .ots-sub-h { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.6rem, 1.2vw + 1.2rem, 2.25rem); letter-spacing: -0.03em; line-height: 1.1; color: var(--color-ink); }
 .ots-sub-b { margin: 0; max-width: 40ch; font-size: 1rem; line-height: 1.55; color: var(--color-ink-soft); }
+.ots-sub-em { display: block; margin-top: 6px; color: var(--color-ink); }
 .ots-cta { margin-top: 64px; }
 .ots-btn { min-height: 52px; padding: 0 24px; justify-content: center; }
 @media (max-width: 639px) { .ots-btn { width: 100%; } }

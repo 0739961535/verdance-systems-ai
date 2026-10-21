@@ -120,3 +120,57 @@ export const SAMPLE_ASK = {
     { d: "Sun", v: 3 },
   ],
 };
+
+/* ── Sample agent workspaces (illustration only) ──────────── */
+
+export type WorkspaceStep = {
+  /** What arrived or what the agent noticed. */
+  from: string;
+  context: string;
+  /** What the agent writes, typed out on screen. */
+  compose: string;
+  button: string;
+  /** The line it adds to its own activity feed when done. */
+  done: string;
+};
+
+export type SampleWorkspace = {
+  /** Index into SAMPLE_AGENTS, so a finished job ticks the command centre. */
+  agent: number;
+  name: string;
+  job: string;
+  steps: WorkspaceStep[];
+};
+
+export const SAMPLE_WORKSPACES: SampleWorkspace[] = [
+  {
+    agent: 0,
+    name: "Answers",
+    job: "Answers every enquiry",
+    steps: [
+      { from: "WhatsApp", context: "Do you deliver on Saturdays?", compose: "We do. Saturday deliveries go out in the morning. Shall I book a slot for you?", button: "Send", done: "Replied to a WhatsApp about delivery" },
+      { from: "Email", context: "Is 14 March still open for 80 guests?", compose: "It is open. I can hold the date while you come to see the venue.", button: "Send", done: "Answered a date question by email" },
+      { from: "Web chat", context: "Do you have the oak dining table in stock?", compose: "We do. Would you like me to set one aside for you?", button: "Send", done: "Answered a stock question" },
+    ],
+  },
+  {
+    agent: 1,
+    name: "Follow-ups",
+    job: "Chases every open quote",
+    steps: [
+      { from: "Open quote", context: "Kitchen quote sent 3 days ago. No reply yet.", compose: "Hi, just checking the quote reached you. Happy to talk it through this week.", button: "Send", done: "Day 3 check-in on a kitchen quote" },
+      { from: "Quiet enquiry", context: "Group booking for 12. Asked about dates last week.", compose: "Hi again, the dates you asked about are still open. Shall I hold one for you?", button: "Send", done: "Nudged a quiet group booking" },
+      { from: "Reply received", context: "The customer replied to the kitchen quote.", compose: "Follow-ups stopped. Passing this to you with the full thread.", button: "Hand over", done: "Stopped: the customer replied" },
+    ],
+  },
+  {
+    agent: 2,
+    name: "Admin",
+    job: "Keeps the records up to date",
+    steps: [
+      { from: "Web form", context: "New booking: Saturday 14 March, 80 guests.", compose: "Diary: Sat 14 Mar, venue held, 80 guests. Deposit reminder set.", button: "Save", done: "Filed a booking in the diary" },
+      { from: "Email", context: "A customer sent a new phone number.", compose: "Customer record updated with the new number. Old one archived.", button: "Save", done: "Updated a customer record" },
+      { from: "Accounts", context: "An invoice is 7 days overdue.", compose: "Polite reminder drafted. It waits for your approval before it goes.", button: "Save", done: "Drafted an invoice reminder" },
+    ],
+  },
+];
