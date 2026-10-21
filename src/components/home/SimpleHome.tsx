@@ -121,18 +121,92 @@ const GETS = [
   },
 ];
 
+/* The band: a slow light field over navy with soft grain, then four
+   layered glass cards. CSS only; the grain is a ~400 byte inline SVG. */
+const JOBS_CSS = `
+.jobs-band { position: relative; isolation: isolate; overflow: hidden; }
+.jobs-band::before {
+  content: ""; position: absolute; inset: -20%; z-index: -2; pointer-events: none;
+  background:
+    radial-gradient(38% 32% at 18% 22%, rgba(77, 124, 255, 0.26), transparent 70%),
+    radial-gradient(34% 30% at 84% 38%, rgba(37, 84, 212, 0.30), transparent 70%),
+    radial-gradient(40% 34% at 52% 88%, rgba(143, 176, 255, 0.14), transparent 72%),
+    radial-gradient(60% 50% at 50% 50%, rgba(6, 11, 26, 0.0), rgba(6, 11, 26, 0.55) 100%);
+  filter: saturate(1.1);
+}
+.jobs-band::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.09;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+.jobs-band .jobs-hair { position: absolute; left: 0; right: 0; top: 0; height: 1px; z-index: -1; background: linear-gradient(90deg, transparent, rgba(143, 176, 255, 0.35), transparent); }
+@media (prefers-reduced-motion: no-preference) {
+  .jobs-band::before { animation: jobs-drift 36s ease-in-out infinite alternate; }
+}
+@keyframes jobs-drift {
+  from { transform: translate3d(-2%, -1%, 0) scale(1); }
+  to { transform: translate3d(2%, 2%, 0) scale(1.06); }
+}
+
+.jobs-grid { display: grid; gap: 1.25rem; }
+@media (min-width: 1024px) { .jobs-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; } }
+.job-card {
+  height: 100%; display: flex; flex-direction: column; border-radius: 28px; padding: 10px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.015) 40%, rgba(255, 255, 255, 0) 100%),
+    linear-gradient(180deg, rgba(19, 32, 63, 0.78), rgba(10, 18, 38, 0.86));
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.015),
+    0 1px 2px rgba(0, 0, 0, 0.35),
+    0 30px 70px -36px rgba(0, 0, 0, 0.85),
+    0 40px 90px -60px rgba(77, 124, 255, 0.35);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15); backdrop-filter: blur(14px) saturate(1.15);
+}
+.job-card::before {
+  content: ""; position: absolute; left: 12%; right: 12%; top: -1px; height: 1px; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(190, 210, 255, 0.55), transparent);
+}
+.job-stage {
+  position: relative; display: grid; place-items: center; border-radius: 20px; padding: 22px 14px;
+  background:
+    radial-gradient(70% 80% at 50% 0%, rgba(77, 124, 255, 0.16), transparent 70%),
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 100% 28px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 28px 100%,
+    rgba(6, 11, 26, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), inset 0 -30px 60px -40px rgba(0, 0, 0, 0.6);
+}
+.job-stage > .gv-card { margin-top: 0; width: 100%; max-width: 26rem; }
+/* the screen inside the card does not lift on its own */
+.job-card .gv-card, .job-card .gv-card:hover, .job-card .gv-card:active { transform: none; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 24px 48px -28px rgba(0, 0, 0, 0.8), 0 30px 80px -50px rgba(77, 124, 255, 0.45); }
+.job-card .gv-card::after { display: none; }
+.job-copy { display: flex; flex: 1; flex-direction: column; padding: 22px 14px 8px; }
+.job-n { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; color: #8FB0FF; }
+.job-copy .job-link { margin-top: auto; padding-top: 0.5rem; }
+@media (min-width: 768px) {
+  .job-card { padding: 12px; }
+  .job-stage { padding: 32px 28px; min-height: 22rem; }
+  .job-copy { padding: 28px 22px 12px; }
+}
+@media (min-width: 1024px) { .job-stage { min-height: 23.5rem; } }
+`;
+
 export function WhatYouGet({ showAll = true }: { showAll?: boolean } = {}) {
   return (
-    <section className="band-orbit chapter-pad" aria-labelledby="get-title">
+    <section className="band-orbit jobs-band chapter-pad" aria-labelledby="get-title">
+      <style>{JOBS_CSS}</style>
       <WorkVisualsStyle />
+      <span aria-hidden className="jobs-hair" />
       <div className="container-wide">
         <Reveal variant="wipe" className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
           <div className="max-w-3xl">
-            <p className="eyebrow">Work done</p>
+            <p className="eyebrow">Where most businesses start</p>
             <h2 id="get-title" className="h2 mt-4">
               <SplitWords text="Four jobs, done for you." />
             </h2>
-            <p className="lead mt-6">Answering, following up, admin and reports. Your team keeps the work that needs a person.</p>
+            <p className="lead mt-6">Answering, following up, admin and reports. Everything else we build is custom.</p>
           </div>
           {showAll && (
           <Link
@@ -144,25 +218,30 @@ export function WhatYouGet({ showAll = true }: { showAll?: boolean } = {}) {
           </Link>
           )}
         </Reveal>
-        <ul className="get-list mt-12 md:mt-16">
+        <ul className="jobs-grid mt-12 md:mt-16">
           {GETS.map(({ word, title, body, href }, i) => (
-            <li key={word} className="get-row">
-              <Reveal delay={i * 0.05} className="get-row-in">
-                <p className="font-display text-[color:var(--color-ink)]" style={{ fontSize: "clamp(2.75rem, 4vw + 1.2rem, 4.75rem)", lineHeight: 0.95, letterSpacing: "-0.045em" }}>
-                  {word}
-                </p>
-                <h3 className="mt-4 text-[1.0625rem] font-semibold text-[color:var(--color-ink)]">{title}</h3>
-                <p className="mt-1.5 max-w-[40ch] text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{body}</p>
-                <Link
-                  href={href}
-                  aria-label={`How it works: ${word}`}
-                  className="group mt-2 inline-flex min-h-11 items-center gap-1.5 text-[1rem] font-medium text-[color:var(--color-accent)] hover:text-[color:var(--color-ink)]"
-                >
-                  How it works
-                  <ArrowRight size={16} aria-hidden className="transition-transform group-hover:translate-x-1" />
-                </Link>
-                <div className="get-vis" style={{ gridRow: "1 / span 4" }}>
+            <li key={word}>
+              <Reveal delay={i * 0.07} className="h-full">
+                <div className="ix-card job-card">
+                <div className="job-stage">
                   <GetVisual word={word} />
+                </div>
+                <div className="job-copy">
+                  <p className="job-n">{String(i + 1).padStart(2, "0")}</p>
+                  <p className="mt-2 font-display text-[color:var(--color-ink)]" style={{ fontSize: "clamp(2.25rem, 2vw + 1.4rem, 3.25rem)", lineHeight: 0.98, letterSpacing: "-0.04em" }}>
+                    {word}
+                  </p>
+                  <h3 className="mt-3 text-[1.0625rem] font-semibold text-[color:var(--color-ink)]">{title}</h3>
+                  <p className="mt-1.5 max-w-[48ch] text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{body}</p>
+                  <Link
+                    href={href}
+                    aria-label={`How it works: ${word}`}
+                    className="job-link group inline-flex min-h-11 items-center gap-1.5 self-start text-[1rem] font-medium text-[color:var(--color-accent)] hover:text-[color:var(--color-ink)]"
+                  >
+                    How it works
+                    <ArrowRight size={16} aria-hidden className="transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </div>
                 </div>
               </Reveal>
             </li>
