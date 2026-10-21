@@ -31,7 +31,7 @@ export const NAV_ITEMS = [
   { label: "Portfolio", href: "/portfolio" },
   { label: "Industries", href: "/industries" },
   { label: "How It Works", href: "/how-it-works" },
-  { label: "Contact", href: "/book" },
+  { label: "Book a call", href: "/book" },
 ];
 
 /** The one main button on every page. Always goes to the free Operations Map. */
