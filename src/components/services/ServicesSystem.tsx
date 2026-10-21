@@ -1,4 +1,5 @@
 import { DrawOnView } from "@/components/services/DrawOnView";
+import { FlowDot } from "@/components/services/FlowDot";
 import { petalPath } from "@/components/services/ServiceGlyph";
 
 /**
@@ -9,7 +10,9 @@ import { petalPath } from "@/components/services/ServiceGlyph";
  *
  * Inline SVG, 1.5px strokes, site blues on night. Two drawings: across on
  * desktop, down on a phone (labels at 15px). Draws in once on view
- * (stroke-dashoffset and opacity only), static under reduced motion.
+ * (stroke-dashoffset and opacity only), then one light travels the route
+ * (FlowDot, transform and opacity). Petal labels sit beyond the petal tips,
+ * clear of the flow lines, with a 4px night halo. Static under reduced motion.
  */
 
 const CHANNELS = ["WhatsApp", "Email", "Website", "Phone"];
@@ -54,6 +57,10 @@ function Bloom({
               transform={`translate(${c[0]} ${c[1]}) rotate(${p.a + 90})`}
               d={petalPath(L, W, r0)}
             />
+            {/* Halo first, as its own text: WebKit paints paint-order strokes glyph by glyph, which eats the letters. */}
+            <text className="ss-label ss-halo dv-fade" style={d(0.8 + i * 0.07)} x={f(lx)} y={f(ly + dy)} textAnchor={anchor} aria-hidden="true">
+              {p.name}
+            </text>
             <text className="ss-label dv-fade" style={d(0.8 + i * 0.07)} x={f(lx)} y={f(ly + dy)} textAnchor={anchor}>
               {p.name}
             </text>
@@ -157,6 +164,9 @@ function Across() {
       ))}
 
       <Gate c={gate} r={26} />
+      <FlowDot
+        d={`M190 300 C 300 300 330 ${f(jIn[1])} ${f(jIn[0])} ${f(jIn[1])} L${c[0]} ${c[1]} L${f(jOut[0])} ${f(jOut[1])} L 770 ${f(jOut[1])} C 815 ${f(jOut[1])} 805 300 850 300`}
+      />
       <text className="ss-label ss-strong dv-fade" style={d(1.6)} x={gate[0]} y={gate[1] + 54} textAnchor="middle">
         You approve
       </text>
@@ -238,6 +248,9 @@ function Down() {
           </text>
         ))}
       </g>
+      <FlowDot
+        d={`M134 44 L158 44 Q170 44 170 56 L170 200 C 170 215 ${f(jIn[0])} ${f(jIn[1] - 22)} ${f(jIn[0])} ${f(jIn[1])} L${c[0]} ${c[1]} L${f(jOut[0])} ${f(jOut[1])} C ${f(jOut[0])} 470 180 460 180 490`}
+      />
       <path className="ss-line dv-line" pathLength={1} style={d(1.4)} d="M180 590 L180 622" />
       <Gate c={[180, 646]} r={24} />
       <text className="ss-label ss-strong dv-fade" style={d(1.6)} x={214} y={651}>
@@ -272,6 +285,8 @@ const CSS = `
 .ss-check { fill: none; stroke: #DCE6FF; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .ss-label { font-family: var(--font-sans, Inter, system-ui, sans-serif); font-size: 16px; font-weight: 500; fill: #EAF0FF; letter-spacing: -0.005em; }
 .ss-down .ss-label { font-size: 15px; }
+.ss-halo { fill: #060B1A; stroke: #060B1A; stroke-width: 8px; stroke-linejoin: round; }
+.ss-sub { margin: 20px auto 0; max-width: 40ch; text-align: center; font-size: 1rem; line-height: 1.5; color: #C9D1E3; }
 .ss-strong { font-weight: 600; fill: #F2F5FC; }
 .ss-cap { font-family: var(--font-mono, ui-monospace, monospace); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; fill: #9AA3B5; }
 .ss-key { margin-top: 28px; display: grid; gap: 10px; font-size: 1rem; line-height: 1.5; color: #C9D1E3; }
@@ -295,6 +310,7 @@ export function ServicesSystem() {
           <Across />
           <Down />
         </DrawOnView>
+        <p className="ss-sub">Four jobs first, plus Research when you need it.</p>
         <ul className="ss-key">
           <li>
             <b>Answers and Follow-ups</b>
