@@ -24,7 +24,7 @@ import { OrderFlow } from "./OrderFlow";
 
 export const ECOM_SLUG = "ecommerce-product-businesses";
 export const ECOM_META = {
-  title: "AI for E-commerce Brands: Order Questions Answered | Verdance",
+  title: "AI for E-commerce: Order Questions Answered | Verdance",
   description:
     "Order, returns and wholesale questions answered on WhatsApp and email within 60 seconds, from your own store. For online brands in SA and the UK.",
 };

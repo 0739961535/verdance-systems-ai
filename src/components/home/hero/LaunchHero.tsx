@@ -50,6 +50,7 @@ const CSS = `
 @media (min-width: 640px) { .lh-eyebrow { max-width: none; } }
 .lh-eyebrow { font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-ink-muted); }
 .lh-bal { text-wrap: balance; }
+.lh-pre { margin: 0 0 -4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-ink-muted); }
 /* the first screen: one screen tall, the words centred in the light, a
    scroll cue at the bottom. The Earth rises in the next scene (EarthRise). */
 .lh { --arc: 0px; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
@@ -127,13 +128,14 @@ export function LaunchHero() {
             className="lh-fade lh-bal relative z-[1] mx-auto mt-7 max-w-[34ch] text-[color:var(--color-ink-soft)] md:mt-9 md:max-w-[46ch]"
             style={{ fontSize: "clamp(1.1rem, 0.6vw + 0.98rem, 1.4rem)", lineHeight: 1.5, letterSpacing: "-0.01em", ["--d" as string]: "0.42s" }}
           >
-            Verdance builds and runs AI systems for your business: every enquiry answered, every lead followed up and the admin
-            done, connected to your CRM, pipelines and the tools you already use.
+            We build AI that answers your customers, follows up every lead and does the admin, inside your CRM and the tools you
+            already use.
           </p>
 
           <div className="lh-fade relative z-[1] mt-8 flex flex-col items-center gap-4 md:mt-10" style={{ ["--d" as string]: "0.6s" }}>
+            <p className="lh-pre">See what Verdance can do for you</p>
             <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent btn-launch min-h-[52px] w-full justify-center px-7 text-[1.02rem] sm:w-auto">
-              See what Verdance can do for you
+              Book a free 30-minute call
               <ArrowUpRight size={17} aria-hidden />
             </a>
             <p className="text-[0.9rem] text-[color:var(--color-ink-muted)]">

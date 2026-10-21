@@ -6,27 +6,27 @@ export type ConnectStep = { n: string; title: string; tech: string; gloss: strin
 export const STEPS: ConnectStep[] = [
   {
     n: "01",
-    title: "Map your stack",
-    tech: "We audit your tools: CRM, WhatsApp Business, email, calendar, e-commerce platform, accounting and spreadsheets.",
-    gloss: "You tell us what you use. We check how each one can share information.",
+    title: "Map your tools",
+    tech: "We list what you use: WhatsApp, email, diary, store, accounts and your customer list (CRM).",
+    gloss: "Audit: CRM, WhatsApp Business, email, calendar, e-commerce, accounting.",
   },
   {
     n: "02",
-    title: "Connect over APIs",
-    tech: "Secure API and webhook integrations, OAuth access, least-privilege permissions, and data kept in accounts you own.",
-    gloss: "We plug your tools into each other safely, with only the access each job needs.",
+    title: "Connect them safely",
+    tech: "We link your apps (through APIs: the way apps talk to each other). Each one gets only the access it needs.",
+    gloss: "APIs and webhooks, OAuth sign-in, least-privilege access.",
   },
   {
     n: "03",
-    title: "Add the intelligence layer",
-    tech: "AI agents trained on your products, prices, policies and tone, with retrieval over your own knowledge, routing rules, and human approval where it matters.",
-    gloss: "The assistant learns your business and knows when to hand over to a person.",
+    title: "Teach it your business",
+    tech: "It learns your prices, rules and tone. When it is unsure, it hands over to a person.",
+    gloss: "Retrieval over your own knowledge, routing rules, human approval.",
   },
   {
     n: "04",
     title: "Run it from one app",
-    tech: "One command centre for you and your team: live conversations, pipeline, approvals, reports and an audit log, on web and phone.",
-    gloss: "Everything in one place you can check from your phone.",
+    tech: "Chats, approvals and reports in one place, on your phone.",
+    gloss: "Command centre: conversations, pipeline, approvals, reports, audit log.",
   },
 ];
 

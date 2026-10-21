@@ -239,8 +239,8 @@ const CSS = `
 
 .hic-n { font-family: var(--font-mono); font-size: 0.8125rem; color: #8FB0FF; font-variant-numeric: tabular-nums; }
 .hic-t { font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; letter-spacing: -0.02em; line-height: 1.2; color: var(--color-ink); }
-.hic-tech { font-size: 0.9375rem; line-height: 1.55; color: var(--color-ink-soft); }
-.hic-gloss { margin-top: auto; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.07); font-family: var(--font-serif); font-style: italic; font-size: 1rem; line-height: 1.45; color: var(--color-ink-muted); }
+.hic-tech { font-size: 1.0625rem; line-height: 1.5; color: var(--color-ink); }
+.hic-gloss { margin-top: auto; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.07); font-family: var(--font-mono); font-size: 0.8125rem; line-height: 1.5; color: #9AA3B5; }
 
 /* Security */
 .hic-sec { margin-top: 48px; padding: 22px 20px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.07); background: linear-gradient(180deg, rgba(19,32,63,0.55), rgba(10,18,38,0.55)); display: grid; gap: 14px; }

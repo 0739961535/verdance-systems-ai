@@ -17,9 +17,9 @@ export function CTABand({
     </>
   ),
   points = [
-    "A time and capacity audit of your week",
-    "Response, delivery and onboarding times, measured",
-    "A written implementation plan: what we build first, and what it should return",
+    "Where your team's hours go",
+    "How long customers wait for a reply",
+    "A written plan: what we build first, and what it should return",
   ],
   href = GENERIC_BOOK_URL,
   label = "Book a free 30-minute call",
