@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
 import { Petal } from "./Petal";
+import { SceneThumb } from "@/components/visuals/ConceptScene";
 
 /**
  * IndustryIndex - every industry page on one grid, in buyer order: the five
@@ -38,7 +39,8 @@ const REST: Entry[] = [
 function Card({ e, big = false, row = false }: { e: Entry; big?: boolean; row?: boolean }) {
   return (
     <Link href={`/industries/${e.slug}`} className={`card-x ix-card ii-card group ${big ? "is-big" : ""} ${row ? "is-row" : ""}`}>
-      <Petal tint={e.tint} size={big ? 52 : 40} />
+      <SceneThumb slug={e.slug} className="ii-thumb" />
+      <Petal tint={e.tint} size={big ? 52 : 40} className="ii-petal" />
       <div className="ii-body">
         <h3 className="ii-name">{e.name}</h3>
         <p className="ii-line">{e.line}</p>
@@ -107,6 +109,12 @@ const CSS = `
   .ii-rest { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (min-width: 1280px) { .ii-rest { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.ii-thumb { margin-bottom: 18px; }
+@media (min-width: 1024px) {
+  .ii-card.is-big { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); grid-template-rows: auto 1fr auto; column-gap: 32px; }
+  .is-big .ii-thumb { grid-column: 1; grid-row: 1 / span 3; margin-bottom: 0; align-self: start; }
+  .is-big .ii-petal, .is-big .ii-body, .is-big .ii-go { grid-column: 2; }
+}
 .ii-card { display: flex; height: 100%; flex-direction: column; padding: 24px; }
 .ii-card.is-big { padding: 28px 28px 24px; }
 .ii-name { margin-top: 18px; font-family: var(--font-display); font-weight: 500; font-size: 1.2rem; line-height: 1.2; letter-spacing: -0.02em; color: var(--color-ink); }
@@ -126,6 +134,8 @@ const CSS = `
 @media (max-width: 639px) {
   .ii-rest .is-row { flex-direction: row; align-items: center; gap: 14px; padding: 14px 16px; }
   .ii-rest .is-row .ii-name { margin-top: 0; }
+  .ii-rest .is-row .ii-thumb { flex: none; width: 96px; margin-bottom: 0; border-radius: 10px; }
+  .ii-rest .is-row .ii-petal { display: none !important; }
   .ii-rest .is-row .ii-line { margin-top: 4px; }
   .ii-rest .is-row .ii-go { display: none; }
   .ii-rest .is-row .ii-arrow { display: block; flex: none; color: var(--color-ink-muted); }

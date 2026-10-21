@@ -16,6 +16,7 @@ import { GENERIC_BOOK_URL } from "@/data/booking";
 import type { Metadata } from "next";
 import { SITE_URL } from "@/data/site";
 import { EcomPage, ECOM_META, ECOM_SLUG } from "@/components/industries/ecom/EcomPage";
+import { SceneBand } from "@/components/visuals/ConceptScene";
 
 function splitHeadline(headline: string): { lead: string; accent: string | null } {
   const sentences = headline.trim().split(/(?<=\.)\s+/).filter(Boolean);
@@ -189,6 +190,8 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
           </ol>
         </div>
       </section>
+
+      <SceneBand slug={slug} />
 
       {services.length > 0 && (
         <section className="section-pad bg-canvas-2" aria-labelledby="build-title" style={{ borderTop: "1px solid var(--hairline)" }}>

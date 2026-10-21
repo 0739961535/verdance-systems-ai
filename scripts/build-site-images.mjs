@@ -3,7 +3,7 @@
 //   node scripts/build-site-images.mjs "<folder with the PNGs>" [baseUrl]
 // - earth-horizon: header art for /services, /how-it-works and /about. A wide
 //   set (960, 1344) and a phone crop around the sunrise (412, 824).
-// - venue, warehouse, clinic: concept demo scenes (720, 1344).
+// - the industry and concept scenes are built by scripts/build-scene-images.mjs.
 // - workspace: the real Operations Team command centre (CommandMock, read off
 //   the running site at baseUrl) warped onto the blank laptop screen with a
 //   CSS matrix3d from the four measured screen corners, then rendered at 2x
@@ -39,9 +39,6 @@ const png = (n) => path.join(src, `${n}.png`);
 // Earth: wide, and a phone crop (824x502) that keeps the sunrise and the lit coast.
 await emit(png("earth-horizon"), "earth", [960, 1344], { aq: 50 });
 await emit(png("earth-horizon"), "earth-m", [412, 824], { aq: 50, extract: { left: 520, top: 250, width: 824, height: 502 } });
-
-// Concept demo scenes.
-for (const n of ["venue", "warehouse", "clinic"]) await emit(png(n), n, [720, 1344], { aq: 50 });
 
 // Workspace: composite the command centre onto the laptop screen.
 // Screen corners measured on the 1344x752 still at 200% zoom (TL, TR, BR, BL).
