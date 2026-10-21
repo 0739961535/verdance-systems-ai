@@ -36,7 +36,7 @@ export function BloomScroll({ v, desktop, phone }: { v: string; desktop: number;
 
     const sizeCanvas = () => {
       if (!canvas) return;
-      const px = Math.round(canvas.clientWidth * Math.min(window.devicePixelRatio || 1, 2));
+      const px = Math.round(canvas.clientWidth * Math.min(window.devicePixelRatio || 1, 1.5));
       if (px && canvas.width !== px) {
         canvas.width = canvas.height = px;
         drawn = "";
@@ -50,16 +50,38 @@ export function BloomScroll({ v, desktop, phone }: { v: string; desktop: number;
       }
       return -1;
     };
+    // Between two frames the next one is cross-faded in by how far between
+    // them the scroll is, so the bloom opens continuously, never in steps.
     const draw = () => {
       if (!ctx || !canvas || !count) return;
-      const t = target();
+      const pos = shown * (count - 1);
+      const t = Math.round(pos);
       const big = settled ? hd.get(t) : undefined;
-      const at = big ? t : nearest(t);
-      if (at < 0) return;
-      const key = `${at}|${big ? 1 : 0}|${canvas.width}`;
+      if (big) {
+        const key = `hd|${t}|${canvas.width}`;
+        if (key === drawn) return;
+        ctx.globalAlpha = 1;
+        ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(big, 0, 0, canvas.width, canvas.height);
+        drawn = key;
+        el.setAttribute("data-live", "");
+        return;
+      }
+      const a = Math.floor(pos);
+      const base = nearest(a);
+      if (base < 0) return;
+      const next = frames[a + 1] && base === a ? a + 1 : -1;
+      const f = next > 0 ? Math.round((pos - a) * 6) / 6 : 0;
+      const key = `${base}|${next}|${f}|${canvas.width}`;
       if (key === drawn) return;
-      ctx.imageSmoothingQuality = big ? "high" : "low";
-      ctx.drawImage(big ?? frames[at]!, 0, 0, canvas.width, canvas.height);
+      ctx.imageSmoothingQuality = "low";
+      ctx.globalAlpha = 1;
+      ctx.drawImage(frames[base]!, 0, 0, canvas.width, canvas.height);
+      if (next > 0 && f > 0) {
+        ctx.globalAlpha = f;
+        ctx.drawImage(frames[next]!, 0, 0, canvas.width, canvas.height);
+        ctx.globalAlpha = 1;
+      }
       drawn = key;
       el.setAttribute("data-live", "");
     };
@@ -88,7 +110,7 @@ export function BloomScroll({ v, desktop, phone }: { v: string; desktop: number;
     const tick = () => {
       raf = 0;
       const d = goal - shown;
-      shown = Math.abs(d) < 0.0008 ? goal : shown + d * 0.18;
+      shown = Math.abs(d) < 0.0006 ? goal : shown + d * 0.12;
       el.style.setProperty("--p", shown.toFixed(4));
       // four lines in equal turns, then the last one lands and holds longest
       el.dataset.word = String(STOPS.findIndex((t) => shown < t));
@@ -137,7 +159,10 @@ export function BloomScroll({ v, desktop, phone }: { v: string; desktop: number;
             const res = await fetch(`/bloom/${prefix}-${pad(i)}.webp?v=${v}`, { priority: "low" } as RequestInit);
             if (!res.ok) continue;
             frames[i] = await createImageBitmap(await res.blob());
-            if (Math.abs(i - target()) < 4) draw();
+            if (Math.abs(i - target()) < 4) {
+              drawn = "";
+              draw();
+            }
           } catch {
             return;
           }

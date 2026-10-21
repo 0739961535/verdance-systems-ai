@@ -1,7 +1,7 @@
 // Builds the bloom hero's scroll-scrubbed frames from the 4K flower film.
 //   node scripts/build-bloom-frames.mjs "<path to bloom-4k.mp4>"
 // A 2000x2000 crop centred on the flower (the stem runs off the bottom).
-// Sets: d (desktop, 150 frames, 960px WebP), m (phone, 120 frames, 640px
+// Sets: d (desktop, 220 frames, 960px WebP), m (phone, 160 frames, 640px
 // WebP), dh / mh (HD at rest, 1600 / 1080px AVIF), and a small first frame
 // (poster) for the LCP. Writes src/components/home/bloom/bloom-manifest.json.
 import { execFileSync } from "node:child_process";
@@ -40,15 +40,15 @@ async function set(prefix, n, low, hi) {
   }
   console.log(prefix, n, (bytes / 1048576).toFixed(1) + " MB");
 }
-await set("d", 150, 960, 1600);
-await set("m", 120, 640, 1080);
+await set("d", 220, 960, 1600);
+await set("m", 160, 640, 1080);
 // the first frame, small and fast (the LCP image)
 const first = path.join(tmp, all[0]);
 for (const [w, name] of [[640, "first-640"], [960, "first-960"]]) {
   fs.writeFileSync(path.join(out, `${name}.avif`), await sharp(first).resize(w).avif({ quality: 50 }).toBuffer());
   fs.writeFileSync(path.join(out, `${name}.webp`), await sharp(first).resize(w).webp({ quality: 72 }).toBuffer());
 }
-const manifest = { v: hash.digest("hex").slice(0, 10), size: 1, desktop: { count: 150, low: 960, hi: 1600 }, phone: { count: 120, low: 640, hi: 1080 } };
+const manifest = { v: hash.digest("hex").slice(0, 10), size: 1, desktop: { count: 220, low: 960, hi: 1600 }, phone: { count: 160, low: 640, hi: 1080 } };
 fs.writeFileSync(path.join(root, "src/components/home/bloom/bloom-manifest.json"), JSON.stringify(manifest) + "\n");
 fs.rmSync(tmp, { recursive: true, force: true });
 console.log(manifest);

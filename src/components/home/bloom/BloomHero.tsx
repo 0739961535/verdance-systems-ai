@@ -103,7 +103,9 @@ const CSS = `
 .bl-glow { display: none; position: absolute; left: 50%; top: 50%; width: min(80vw, 760px); aspect-ratio: 1; transform: translate(-50%, -50%) scale(calc(0.7 + var(--p) * 0.5)); border-radius: 50%; z-index: -1;
   background: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.18), rgba(var(--accent-rgb), 0)); opacity: calc(0.4 + var(--p) * 0.6); }
 .bl-flower { position: relative; width: min(92vw, 78svh); aspect-ratio: 1; }
-.bl-first, .bl-canvas { -webkit-mask-image: radial-gradient(closest-side, #000 72%, transparent); mask-image: radial-gradient(closest-side, #000 72%, transparent); }
+/* the frame's edges melt into the ground: a static vignette in the ground's
+   colour on top (cheaper than masking the canvas on every draw) */
+.bl-flower::after { content: ""; position: absolute; inset: -1px; pointer-events: none; background: radial-gradient(closest-side, rgba(249, 244, 232, 0) 70%, #F9F4E8 100%); }
 .bl-first, .bl-canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 .bl-canvas { opacity: 0; }
 .bl[data-live] .bl-canvas { opacity: 1; }
