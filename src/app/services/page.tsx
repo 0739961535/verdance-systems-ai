@@ -6,18 +6,19 @@ import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { AskYourBusiness } from "@/components/ask/AskYourBusiness";
 import { ToolsMarquee } from "@/components/home/ToolsMarquee";
 import { ProcessChapter } from "@/components/home/ProcessChapter";
-import { SimpleFinalCTA, WhatYouGet } from "@/components/home/SimpleHome";
+import { SimpleFinalCTA } from "@/components/home/SimpleHome";
 import { WebsitesChapter } from "@/components/home/WebsitesChapter";
-import film from "@/components/home/flight/film-manifest.json";
 import { WorkVisualsStyle } from "@/components/home/inbox/WorkVisuals";
+import { ServicesOpsFeature } from "@/components/services/ServicesOpsFeature";
+import { ServicesStartingPoint } from "@/components/services/ServicesStartingPoint";
 import { PillarVisual, PILLAR_VISUAL_SLUGS, SERVICE_VISUALS_CSS } from "@/components/services/ServiceVisuals";
 import { SERVICE_PILLARS, PILLAR_CATEGORIES } from "@/data/services";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { CTA_PRIMARY, SITE_URL } from "@/data/site";
 
-const TITLE = "Services: WhatsApp, Calls and Bookings | Verdance";
+const TITLE = "Services: the Operations Team, WhatsApp and Bookings | Verdance";
 const DESCRIPTION =
-  "Twelve services for owner-led businesses: instant WhatsApp and message replies, phone answering, online booking, missed call text back, Google reviews, websites and more. Fixed quote after a free Operations Map.";
+  "The Operations Team: five AI agents that answer, follow up, do the admin, report and research for owner-led businesses. Every build is custom, from twelve services including WhatsApp replies, booking and websites. Fixed quote after a free Operations Map.";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/services" },
@@ -39,17 +40,13 @@ export const metadata: Metadata = {
 };
 
 /**
- * /services (spec 2026-10-20): a dark hero on the film's cloud frame, a
- * sticky chapter nav, the four pillars as a typographic index of rows,
- * then Ask your business, the tools, how it happens and the closing scene.
+ * /services: the Operations Team as the hero feature, the four jobs as
+ * where most businesses start, "every build is custom", a sticky group
+ * nav, the four pillars as a typographic index of rows, then websites,
+ * Ask your business, the tools, how it happens and the closing scene.
  */
 const CSS = `
-.sv-hero { position: relative; min-height: 560px; display: flex; align-items: flex-end; overflow: hidden; }
-@media (min-width: 1024px) { .sv-hero { min-height: 70vh; } }
-.sv-hero picture, .sv-hero img { position: absolute; inset: 0; width: 100%; height: 100%; }
-.sv-hero img { object-fit: cover; filter: brightness(0.6); }
-.sv-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(6, 11, 26, 0) 30%, #060B1A); }
-.sv-nav { position: sticky; top: 64px; z-index: 20; background: #060B1A; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+@media (min-width: 1024px) { .sv-nav { position: sticky; top: 64px; z-index: 20; background: #060B1A; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
 .sv-nav-in { display: flex; gap: 28px; overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); }
 @media (min-width: 1024px) { .sv-nav-in { -webkit-mask-image: none; mask-image: none; } }
 .sv-nav-in::-webkit-scrollbar { display: none; }
@@ -67,25 +64,8 @@ export default function ServicesPage() {
   return (
     <>
       <style>{CSS}</style>
-      <section className="band-night sv-hero" aria-labelledby="sv-title">
-        <picture>
-          <source media="(max-width: 767px)" srcSet={`/flight/film/mid-m.webp?v=${film.v}`} />
-          <img src={`/flight/film/mid-d.webp?v=${film.v}`} alt="" width={1920} height={1085} fetchPriority="high" />
-        </picture>
-        <div className="container-wide relative z-[1] pb-14 pt-40 lg:pb-24">
-          <p className="eyebrow">
-            Services
-          </p>
-          <h1 id="sv-title" className="mt-4 max-w-[14ch] font-display" style={{ fontSize: "clamp(3.5rem, 5vw + 1.2rem, 5.5rem)", lineHeight: 1, letterSpacing: "-0.04em", fontWeight: 600 }}>
-            Every job your team repeats, <span className="italic-accent">done by Verdance.</span>
-          </h1>
-          <p className="lead mt-6">Twelve services in four groups. Start with the one that costs you the most.</p>
-          <a href={GENERIC_BOOK_URL} className="btn btn-accent mt-8 min-h-[52px] justify-center px-7 text-[1.02rem]">
-            {CTA_PRIMARY}
-            <ArrowUpRight size={17} aria-hidden />
-          </a>
-        </div>
-      </section>
+      <ServicesOpsFeature />
+      <ServicesStartingPoint />
 
       <nav aria-label="Service groups" className="sv-nav band-night">
         <div className="container-wide sv-nav-in">
@@ -150,7 +130,6 @@ export default function ServicesPage() {
         );
       })}
 
-      <WhatYouGet showAll={false} />
       <WebsitesChapter />
       <AskYourBusiness />
       <ToolsMarquee still className="band-night" />
