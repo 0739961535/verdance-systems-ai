@@ -52,7 +52,7 @@ const WIDE: Geo = {
   h: 850,
   base: { x: 560, y: 632 },
   top: { x: 560, y: 400 },
-  bloom: { x: 560, y: 248, r: 146 },
+  bloom: { x: 560, y: 222, r: 182 },
   card: { w: 236, h: 148 },
   nodes: CHIPS.map((chip, i) => ({ x: 92 + i * 104, y: 772 - (i % 2) * 20, s: 54, chip, i })),
   trunk: { w0: 38, w1: 14, sway: 10 },
@@ -77,7 +77,7 @@ const TALL: Geo = {
   h: 830,
   base: { x: 180, y: 566 },
   top: { x: 180, y: 404 },
-  bloom: { x: 180, y: 248, r: 112 },
+  bloom: { x: 180, y: 226, r: 132 },
   card: { w: 200, h: 126 },
   nodes: CHIPS.map((chip, i) => ({ x: [38, 109, 180, 251, 322][i % 5], y: i < 5 ? 680 : 774, s: 50, chip, i })),
   trunk: { w0: 22, w1: 9, sway: 6 },
@@ -228,7 +228,7 @@ function Tree({ g, onFire }: { g: Geo; onFire: (i: number) => void }) {
         <Trunk base={g.base} top={g.top} w0={g.trunk.w0} w1={g.trunk.w1} sway={g.trunk.sway} id={id} />
         <Branches limbs={t.front} />
         <path d={t.sap} className="tr-pulse tr-pulse-sap" pathLength={100} data-sap="" />
-        <Bloom at={g.bloom} r={g.bloom.r} card={g.card} font={g.font} id={id} />
+        <Bloom at={g.bloom} r={g.bloom.r} card={g.card} font={g.font} id={id} seed={id === "wide" ? 77 : 78} />
       </g>
 
       <text x={id === "tall" ? 6 : 24} y={g.nodes[0].y - g.nodes[0].s / 2 - (id === "tall" ? 34 : 50)} className="tr-k">
@@ -261,6 +261,7 @@ export function ConnectDiagram() {
     run(`[data-root-line="${i}"]`, [{ stroke: "rgba(191,210,255,0.9)" }, { stroke: "rgba(110,145,230,0.42)" }], { duration: 650, easing: "ease-out" });
     run(`[data-node-glow="${i}"]`, [{ opacity: 0.85 }, { opacity: 0 }], { duration: 600, easing: "ease-out" });
     run("[data-sap]", [{ strokeDashoffset: 28, opacity: 1 }, { strokeDashoffset: -100, opacity: 1 }], { duration: 200, delay: 190, easing: ease });
+    run("[data-heart]", [{ opacity: 0.35, transform: "scale(0.8)" }, { opacity: 1, transform: "scale(1.25)" }, { opacity: 0.35, transform: "scale(0.8)" }], { duration: 560, delay: 340, easing: "ease-out" });
     run(".tr-bloom", [{ transform: "scale(1)", filter: "brightness(1)" }, { transform: "scale(1.02)", filter: "brightness(1.25)" }, { transform: "scale(1)", filter: "brightness(1)" }], {
       duration: 520,
       delay: 330,
@@ -278,14 +279,14 @@ export function ConnectDiagram() {
   );
 
   /** The growing elements of each tree, read once: their window and how they grow. */
-  const parts = useRef(new Map<SVGSVGElement, { el: SVGElement; a: number; b: number; kind: number; last: number }[]>());
+  const parts = useRef(new Map<SVGSVGElement, { el: SVGElement; a: number; b: number; kind: number; last: number; turn: number }[]>());
   const partsOf = (svg: SVGSVGElement) => {
     let list = parts.current.get(svg);
     if (!list) {
       list = Array.from(svg.querySelectorAll<SVGElement>("[data-a]")).map((el) => {
         const c = el.classList;
-        const kind = c.contains("tr-x") ? 0 : c.contains("tr-y") ? 1 : c.contains("tr-pop") ? 2 : c.contains("tr-draw") ? 3 : 4;
-        return { el, a: Number(el.dataset.a), b: Number(el.dataset.b), kind, last: -1 };
+        const kind = c.contains("tr-x") ? 0 : c.contains("tr-y") ? 1 : c.contains("tr-pop") ? 2 : c.contains("tr-draw") ? 3 : c.contains("tr-unfurl") ? 5 : 4;
+        return { el, a: Number(el.dataset.a), b: Number(el.dataset.b), kind, last: -1, turn: Number(el.dataset.turn || 0) };
       });
       parts.current.set(svg, list);
     }
@@ -302,6 +303,8 @@ export function ConnectDiagram() {
       if (it.kind === 0) st.transform = k === 1 ? "" : `scaleX(${k})`;
       else if (it.kind === 1) st.transform = k === 1 ? "" : `scaleY(${k})`;
       else if (it.kind === 2) st.transform = k === 1 ? "" : `scale(${k})`;
+      // a petal unfurls: from a small closed bud, turning open as it grows
+      else if (it.kind === 5) st.transform = k === 1 ? "" : k === 0 ? "scale(0)" : `rotate(${((1 - k) * it.turn).toFixed(1)}deg) scale(${(0.22 + 0.78 * k).toFixed(3)})`;
       else if (it.kind === 3) st.strokeDashoffset = k === 1 ? "" : String(1 - k);
       else st.opacity = k === 1 ? "" : String(k);
     }
@@ -454,9 +457,12 @@ const CSS = `
 .tr-back { opacity: 0.34; }
 .tr-pulse { fill: none; stroke: #E4ECFF; stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 16 200; stroke-dashoffset: 16; opacity: 0; filter: drop-shadow(0 0 4px #8FB0FF); }
 .tr-pulse-sap { stroke-width: 4; stroke-dasharray: 28 200; stroke-dashoffset: 28; stroke: #F4F7FF; filter: drop-shadow(0 0 6px #BFD2FF); }
-.tr-petal { stroke: rgba(190,210,255,0.28); stroke-width: 0.8; }
+.tr-petal { stroke: rgba(214,228,255,0.5); stroke-width: 0.8; stroke-linejoin: round; }
+.tr-vein { fill: none; stroke: rgba(255,255,255,0.14); stroke-width: 0.8; stroke-linecap: round; }
+.tr-heart { opacity: 0.35; transform-box: fill-box; transform-origin: center; }
+.tr-card-shadow { fill: rgba(2,6,20,0.55); filter: blur(10px); }
 
-.tr-card { fill: rgba(8,14,32,0.94); stroke: rgba(143,176,255,0.4); stroke-width: 1; }
+.tr-card { fill: rgba(8,14,32,0.96); stroke: rgba(143,176,255,0.4); stroke-width: 1; }
 .tr-card-k { font-family: var(--font-mono) !important; font-size: 10.5px; letter-spacing: 0.16em; fill: #8FB0FF; }
 .tr-row { fill: #E6ECFA; }
 .tr-led { fill: rgba(143,176,255,0.55); }

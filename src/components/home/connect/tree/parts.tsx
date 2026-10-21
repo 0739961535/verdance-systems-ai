@@ -1,5 +1,5 @@
 import { APP_ROWS } from "../connectData";
-import { LEAF_SHAPES, limbPath, type Leaf, type Limb, type Pt, type Root } from "./gen";
+import { LEAF_SHAPES, limbPath, rng, type Leaf, type Limb, type Pt, type Root } from "./gen";
 
 /**
  * The tree's parts, each its own component: Roots, Trunk, Branches (limbs
@@ -93,31 +93,117 @@ export function Branches({ limbs, className = "" }: { limbs: { at: Pt; limb: Lim
   );
 }
 
-const PETAL = (len: number, wid: number) =>
-  `M0 0 C${wid} ${-len * 0.18} ${wid * 1.08} ${-len * 0.78} ${wid * 0.22} ${-len} Q0 ${-len * 1.04} ${-wid * 0.22} ${-len} C${-wid * 1.08} ${-len * 0.78} ${-wid} ${-len * 0.18} 0 0Z`;
+/**
+ * One peony petal, base at the origin, pointing up (-y): narrow at the base,
+ * broad and cupped in the middle, with a ruffled, scalloped top edge. Every
+ * petal is drawn from the seeded random source, so no two are stamps.
+ */
+function petal(r: () => number, len: number, wid: number) {
+  const L = len * (0.9 + r() * 0.2);
+  const W = wid * (0.85 + r() * 0.3);
+  const skew = (r() - 0.5) * W * 0.25;
+  const lw = W * (0.9 + r() * 0.2);
+  const rw = W * (0.9 + r() * 0.2);
+  const shoulder = 0.84 + r() * 0.08;
+  const left = { x: -lw * 0.78 + skew, y: -L * shoulder };
+  const right = { x: rw * 0.78 + skew, y: -L * (shoulder - 0.03 + r() * 0.06) };
+  let d = `M${(-W * 0.06).toFixed(1)} 0 C${(-lw * 0.55).toFixed(1)} ${(-L * 0.14).toFixed(1)} ${(-lw * 1.08).toFixed(1)} ${(-L * 0.5).toFixed(1)} ${left.x.toFixed(1)} ${left.y.toFixed(1)}`;
+  // the ruffled edge: 3 to 5 scallops across the top, highest in the middle
+  const n = 3 + Math.floor(r() * 3);
+  let px = left.x;
+  let py = left.y;
+  for (let k = 1; k <= n; k++) {
+    const t = k / n;
+    const x = left.x + (right.x - left.x) * t;
+    const y = left.y + (right.y - left.y) * t - Math.sin(t * Math.PI) * L * 0.1;
+    const mx = (px + x) / 2;
+    const my = (py + y) / 2 - L * (0.05 + r() * 0.06);
+    d += ` Q${mx.toFixed(1)} ${my.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)}`;
+    px = x;
+    py = y;
+  }
+  d += ` C${(rw * 1.08).toFixed(1)} ${(-L * 0.5).toFixed(1)} ${(rw * 0.55).toFixed(1)} ${(-L * 0.14).toFixed(1)} ${(W * 0.06).toFixed(1)} 0Z`;
+  // a faint vein from the base toward the tip
+  const vein = `M0 ${(-L * 0.06).toFixed(1)} Q${(skew * 0.6).toFixed(1)} ${(-L * 0.45).toFixed(1)} ${(skew * 0.9).toFixed(1)} ${(-L * 0.72).toFixed(1)}`;
+  return { d, vein };
+}
 
-/** The one peony-blue bloom at the crown, holding the command centre card. */
-export function Bloom({ at, r, card, font, id }: { at: Pt; r: number; card: { w: number; h: number }; font: number; id: string }) {
-  const rings = [
-    { n: 13, len: r, wid: r * 0.37, rot: 0, fill: `url(#tr-p1-${id})`, op: 0.86, a: 0.8, b: 0.9 },
-    { n: 11, len: r * 0.8, wid: r * 0.35, rot: 14, fill: `url(#tr-p2-${id})`, op: 0.94, a: 0.84, b: 0.93 },
-    { n: 9, len: r * 0.6, wid: r * 0.33, rot: 7, fill: `url(#tr-p3-${id})`, op: 1, a: 0.87, b: 0.96 },
+type Ring = { n: number; len: number; wid: number; jitter: number; off: number; grad: string; op: number; a: number; b: number; turn: number };
+
+/**
+ * The one peony bloom at the crown: five rings of ruffled petals, broad and
+ * translucent outside, tighter and denser toward a crumpled heart. Base
+ * deeper peony blue, tips paler, thin edge highlights, a soft shadow under
+ * each inner ring for depth. The petals unfurl ring by ring, inside out, at
+ * the end of the growth. The command centre card sits in front of the lower
+ * half, so the flower frames it on every side and its heart stays visible.
+ */
+export function Bloom({ at, r, card, font, id, seed }: { at: Pt; r: number; card: { w: number; h: number }; font: number; id: string; seed: number }) {
+  const rand = rng(seed);
+  const rings: Ring[] = [
+    { n: 12, len: r, wid: r * 0.5, jitter: 6, off: 0, grad: "pa", op: 0.84, a: 0.86, b: 0.97, turn: -26 },
+    { n: 11, len: r * 0.84, wid: r * 0.46, jitter: 8, off: 0, grad: "pb", op: 0.92, a: 0.83, b: 0.94, turn: 24 },
+    { n: 10, len: r * 0.67, wid: r * 0.42, jitter: 10, off: 0.02, grad: "pc", op: 0.96, a: 0.8, b: 0.91, turn: -22 },
+    { n: 10, len: r * 0.5, wid: r * 0.38, jitter: 14, off: 0.05, grad: "pd", op: 1, a: 0.77, b: 0.88, turn: 20 },
+    { n: 13, len: r * 0.32, wid: r * 0.3, jitter: 40, off: 0.08, grad: "pe", op: 1, a: 0.74, b: 0.85, turn: -18 },
   ];
   const small = id === "tall";
   const rowH = small ? 26 : 30;
+  const cardY = at.y + r * 0.52 - card.h / 2;
   return (
     <g className="tr-bloom" style={{ transformOrigin: `${at.x}px ${at.y}px` }}>
-      <circle cx={at.x} cy={at.y} r={r * 1.5} fill={`url(#tr-halo-${id})`} className="tr-fade" {...win(0.8, 0.98)} data-bloom-glow="" />
+      <defs>
+        {[
+          ["pa", "#102C80", "#1E47B8", "#3466E2", "#86A9FA"],
+          ["pb", "#12308A", "#2250C8", "#3B6FEA", "#97B6FD"],
+          ["pc", "#143494", "#2656D0", "#4479EE", "#A6C1FF"],
+          ["pd", "#12308C", "#2A5BD6", "#4E82F1", "#B4CBFF"],
+          ["pe", "#0F2878", "#2552CE", "#5587F2", "#C6D8FF"],
+        ].map(([k, c0, c1, c2, c3]) => (
+          <linearGradient key={k} id={`tr-${k}-${id}`} x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0" stopColor={c0} />
+            <stop offset="0.45" stopColor={c1} />
+            <stop offset="0.8" stopColor={c2} />
+            <stop offset="1" stopColor={c3} />
+          </linearGradient>
+        ))}
+        <radialGradient id={`tr-cup-${id}`}>
+          <stop offset="0" stopColor="#050B22" stopOpacity="0.62" />
+          <stop offset="0.7" stopColor="#050B22" stopOpacity="0.12" />
+          <stop offset="1" stopColor="#050B22" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id={`tr-heart-${id}`}>
+          <stop offset="0" stopColor="#FFFFFF" stopOpacity="0.95" />
+          <stop offset="0.35" stopColor="#CFE0FF" stopOpacity="0.6" />
+          <stop offset="1" stopColor="#8FB0FF" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <circle cx={at.x} cy={at.y} r={r * 1.55} fill={`url(#tr-halo-${id})`} className="tr-fade" {...win(0.8, 0.98)} data-bloom-glow="" />
       {rings.map((ring, k) => (
         <g key={k} opacity={ring.op}>
-          {Array.from({ length: ring.n }, (_, i) => (
-            <g key={i} transform={`translate(${at.x} ${at.y}) rotate(${((i * 360) / ring.n + ring.rot).toFixed(2)})`}>
-              <path d={PETAL(ring.len, ring.wid)} fill={ring.fill} className="tr-pop tr-petal" {...win(ring.a + (i / ring.n) * 0.03, ring.b + (i / ring.n) * 0.03)} />
-            </g>
-          ))}
+          {/* a soft shadow where this ring sits in the cup of the one outside it */}
+          {k > 0 ? <circle cx={at.x} cy={at.y} r={ring.len * 1.02} fill={`url(#tr-cup-${id})`} className="tr-fade" {...win(ring.a, ring.b)} /> : null}
+          {Array.from({ length: ring.n }, (_, i) => {
+            const rot = (i * 360) / ring.n + k * 13 + (rand() - 0.5) * ring.jitter;
+            const p = petal(rand, ring.len, ring.wid);
+            const ox = (rand() - 0.5) * r * ring.off;
+            const oy = (rand() - 0.5) * r * ring.off;
+            const stag = (i / ring.n) * 0.02;
+            return (
+              <g key={i} transform={`translate(${(at.x + ox).toFixed(1)} ${(at.y + oy).toFixed(1)}) rotate(${rot.toFixed(1)})`}>
+                <g className="tr-unfurl" data-turn={ring.turn} {...win(ring.a + stag, ring.b + stag)}>
+                  <path d={p.d} fill={`url(#tr-${ring.grad}-${id})`} className="tr-petal" />
+                  <path d={p.vein} className="tr-vein" />
+                </g>
+              </g>
+            );
+          })}
         </g>
       ))}
-      <g transform={`translate(${at.x - card.w / 2} ${at.y - card.h / 2})`} className="tr-fade" {...win(0.92, 1)}>
+      <circle cx={at.x} cy={at.y} r={r * 0.2} fill={`url(#tr-heart-${id})`} className="tr-heart" data-heart="" />
+      {/* the card's soft shadow, then the card */}
+      <rect x={at.x - card.w / 2 + 6} y={cardY + 14} width={card.w - 12} height={card.h} rx={18} className="tr-card-shadow tr-fade" {...win(0.92, 1)} />
+      <g transform={`translate(${at.x - card.w / 2} ${cardY})`} className="tr-fade" {...win(0.92, 1)}>
         <rect width={card.w} height={card.h} rx={16} className="tr-card" />
         <text x={16} y={small ? 24 : 28} className="tr-card-k">
           COMMAND CENTRE
