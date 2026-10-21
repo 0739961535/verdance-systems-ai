@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { SplitWords } from "@/components/primitives/Reveal";
-import film from "@/components/home/flight/film-manifest.json";
 import { ProcessTimeline, type ProcessStep } from "./ProcessTimeline";
 
 /**
@@ -11,7 +10,6 @@ import { ProcessTimeline, type ProcessStep } from "./ProcessTimeline";
  * the theme tokens it relies on are pinned to their dark values on the band.
  */
 
-const STILL = (n: string, ext: string) => `/flight/film/${n}.${ext}?v=${film.v}`;
 
 const STEPS: ProcessStep[] = [
   { n: "01", word: "Call", icon: "call", timing: "30 minutes", sentence: "We trace how enquiries reach you today and where they stall before a reply." },
@@ -42,17 +40,9 @@ const CSS = `
 }
 @media (min-width: 1024px) { .pc { padding-bottom: 160px; } }
 
-/* Orbit plate: the Earth curve from the film, fading into the band */
-.pc-plate { position: relative; z-index: 1; height: 240px; margin-bottom: -48px; pointer-events: none; }
-.pc-plate img {
-  display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 88%;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 52%, transparent 100%);
-          mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 52%, transparent 100%);
-}
-@media (min-width: 1024px) {
-  .pc-plate { height: 400px; margin-bottom: -96px; }
-  .pc-plate img { object-position: 50% 72%; }
-}
+/* a short soft turn from the light Portfolio above into the night band */
+.pc-plate { height: clamp(72px, 10vh, 128px); margin-bottom: 24px; pointer-events: none;
+  background: linear-gradient(#F4F1EA 0%, color-mix(in oklab, #F4F1EA 40%, #4D7CFF) 35%, #1D3F8F 70%, #0E1A3A 100%); }
 .pc-body { position: relative; z-index: 1; }
 
 .pc-h2 { margin-top: 16px; font-size: clamp(2.5rem, 1.9rem + 2.6vw, 4rem); line-height: 1.05; letter-spacing: -0.035em; color: #F2EFE9; }
@@ -84,14 +74,7 @@ export function ProcessChapter() {
     <section className="pc grain-dark" aria-labelledby="process-title">
       <style>{CSS}</style>
 
-      <div className="pc-plate" aria-hidden>
-        <picture>
-          <source media="(min-width: 768px)" type="image/avif" srcSet={STILL("still-d", "avif")} />
-          <source media="(min-width: 768px)" type="image/webp" srcSet={STILL("still-d", "webp")} />
-          <source type="image/avif" srcSet={STILL("still-m", "avif")} />
-          <img src={STILL("still-m", "webp")} alt="" width={750} height={1327} loading="lazy" decoding="async" />
-        </picture>
-      </div>
+      <div className="pc-plate" aria-hidden />
 
       <div className="pc-body container-wide">
         <div data-reveal="">
