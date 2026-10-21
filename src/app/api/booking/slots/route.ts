@@ -3,8 +3,8 @@ import { TIMEZONE, freeSlots } from "@/lib/booking-server";
 
 /**
  * GET /api/booking/slots
- * The CRM calendar's free slots, so the booking page renders availability
- * in our own design. The private token never leaves the server.
+ * The CRM calendar's free slots (through Ashford), so the booking page
+ * renders availability in our own design.
  */
 export async function GET() {
   const r = await freeSlots();
