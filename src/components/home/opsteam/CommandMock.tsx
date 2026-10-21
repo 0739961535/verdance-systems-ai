@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, Pencil } from "lucide-react";
 import { SAMPLE_AGENTS, SAMPLE_APPROVALS, SAMPLE_ASK, SAMPLE_BRIEF } from "./opsData";
 
@@ -35,9 +35,26 @@ export function CommandMock({
   const decide = (i: number, d: Decision) => setDecisions((all) => all.map((v, j) => (j === i ? d : v)));
   const max = Math.max(...SAMPLE_ASK.bars.map((b) => b.v));
   const on = (i: number) => (tab === i ? "" : undefined);
+  // On phones the laptop copy is too small to use: the zoom copy below it is the
+  // interactive one. Take the laptop copy out of the tab order and the
+  // accessibility tree there, so its buttons are not dead tab stops.
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || variant !== "screen") return;
+    const mq = window.matchMedia("(max-width: 767px)");
+    const apply = () => {
+      el.inert = mq.matches;
+      if (mq.matches) el.setAttribute("aria-hidden", "true");
+      else el.removeAttribute("aria-hidden");
+    };
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, [variant]);
 
   return (
-    <div className="ocm" data-variant={variant}>
+    <div ref={ref} className="ocm" data-variant={variant}>
       {variant === "screen" && <style>{CSS}</style>}
       <div className="ocm-bar">
         <span className="ocm-dots" aria-hidden>
