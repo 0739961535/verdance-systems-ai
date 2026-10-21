@@ -107,7 +107,7 @@ export function ServicesOpsFeature() {
               {CTA_PRIMARY}
               <ArrowUpRight size={17} aria-hidden />
             </a>
-            <Link href={AI_TEAM_PATH} className="btn btn-ghost">
+            <Link href={AI_TEAM_PATH} prefetch={false} className="btn btn-ghost">
               See the Operations Team
               <ArrowRight size={17} aria-hidden />
             </Link>

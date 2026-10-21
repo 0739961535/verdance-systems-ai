@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from "next/script";
 import { MetaPixel } from "./MetaPixel";
 import { GA4_ID, isBookingUrl, rememberUtms, track, withUtms } from "@/lib/analytics";
 
@@ -82,7 +82,17 @@ export function SiteAnalytics() {
 
   return (
     <>
-      {GA4_ID ? <GoogleAnalytics gaId={GA4_ID} /> : null}
+      {GA4_ID ? (
+        <>
+          {/* The Google tag, loaded after the page is interactive. Written out here
+              instead of @next/third-parties, whose bundle pulled a YouTube embed
+              into every page. */}
+          <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`} strategy="afterInteractive" />
+          <Script id="ga4-init" strategy="afterInteractive">
+            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA4_ID}');`}
+          </Script>
+        </>
+      ) : null}
       <MetaPixel />
     </>
   );

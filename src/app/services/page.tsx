@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { AskYourBusiness } from "@/components/ask/AskYourBusiness";
 import { ToolsMarquee } from "@/components/home/ToolsMarquee";
-import { SimpleFinalCTA } from "@/components/home/SimpleHome";
+import { SimpleFinalCTA } from "@/components/home/SimpleFinalCTA";
 import { WebsitesChapter } from "@/components/home/WebsitesChapter";
 import { ServicesOpsFeature } from "@/components/services/ServicesOpsFeature";
 import { ServicesSystem } from "@/components/services/ServicesSystem";

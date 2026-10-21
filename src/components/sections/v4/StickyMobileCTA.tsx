@@ -83,7 +83,7 @@ export function StickyMobileCTA({ href = "/book", label = "Book a free 30-minute
             {label}
           </a>
         ) : (
-          <Link href={href} className="btn btn-accent min-w-0 flex-1 justify-center whitespace-nowrap min-h-12 px-4 text-[0.92rem]" style={{ whiteSpace: "nowrap", paddingInline: 14 }}>
+          <Link href={href} prefetch={false} className="btn btn-accent min-w-0 flex-1 justify-center whitespace-nowrap min-h-12 px-4 text-[0.92rem]" style={{ whiteSpace: "nowrap", paddingInline: 14 }}>
             {label}
           </Link>
         )}

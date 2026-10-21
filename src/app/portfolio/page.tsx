@@ -4,7 +4,7 @@ import { Bud } from "@/components/how/Bud";
 import { CaseStudy, CASE_CSS } from "@/components/portfolio/CaseStudy";
 import { ConceptDemos } from "@/components/portfolio/concepts/ConceptDemos";
 import { PossibleStatement } from "@/components/portfolio/concepts/PossibleStatement";
-import { SimpleFinalCTA } from "@/components/home/SimpleHome";
+import { SimpleFinalCTA } from "@/components/home/SimpleFinalCTA";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { PORTFOLIO_CASES } from "@/data/portfolio";
