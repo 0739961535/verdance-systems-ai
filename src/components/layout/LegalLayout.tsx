@@ -61,12 +61,14 @@ export function LegalLayout({
 export function LegalSection({
   heading,
   children,
+  id,
 }: {
   heading?: string;
   children: ReactNode;
+  id?: string;
 }) {
   return (
-    <section className="mb-9">
+    <section className="mb-9" id={id} style={id ? { scrollMarginTop: 96 } : undefined}>
       {heading && (
         <h2 className="font-display text-xl md:text-2xl font-medium tracking-tight text-[color:var(--color-ink)] mb-3">
           {heading}

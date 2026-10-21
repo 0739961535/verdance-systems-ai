@@ -1,5 +1,6 @@
 import { SITE } from "@/data/site";
-import { FounderPortrait } from "@/components/brand/FounderPortrait";
+import { AI_WHATSAPP, UK_LINE, telLink, waLink } from "@/data/assistant";
+import { BookingPhoto } from "@/components/brand/BookingPhoto";
 import { BookingFlow } from "./BookingFlow";
 
 /**
@@ -33,7 +34,6 @@ const CSS = `
 .bks-who { display: grid; gap: 20px; margin-top: 40px; }
 .bks-side .bks-who:first-child { margin-top: 0; }
 @media (min-width: 1024px) { .bks-side .bks-who:first-child { margin-top: 40px; } }
-@media (min-width: 640px) { .bks-who { grid-template-columns: 9.5rem 1fr; gap: 24px; align-items: start; } }
 .bks-who .fp-portrait { max-width: 9.5rem; }
 .bks-who .fp-portrait figcaption { display: none; }
 .bks-who-n { font-weight: 600; font-size: 1.0625rem; color: var(--color-ink); }
@@ -50,10 +50,9 @@ const CSS = `
 `;
 
 const CALL = [
-  "We look at how enquiries, follow-ups and admin run in your business today.",
-  "We show you where time and money leak, in hours and money.",
-  "We tell you what we would build first, and what it should bring back.",
-  "If we are not the right fit, we say so plainly. You keep what we found either way.",
+  "How enquiries, follow-ups and admin run today.",
+  "Where time and money leak, in numbers.",
+  "What we would build first. If we're not the right fit, we say so.",
 ];
 
 export function BookingSection({ as = "section" }: { as?: "section" | "page" }) {
@@ -64,7 +63,7 @@ export function BookingSection({ as = "section" }: { as?: "section" | "page" }) 
       <div className="container-wide">
         <div className="bks-grid">
           <div className="bks-head" data-reveal="">
-            <p className="eyebrow">{as === "section" ? <><span className="chap-n">09</span> </> : null}Book a call</p>
+            <p className="eyebrow">{as === "section" ? <></> : null}Book a call</p>
             <Title id="book-title" className="h2 bks-h">
               Thirty minutes on your business.
             </Title>
@@ -73,13 +72,12 @@ export function BookingSection({ as = "section" }: { as?: "section" | "page" }) 
           <div className="bks-side" data-reveal="">
 
             <div className="bks-who">
-              <FounderPortrait size="portrait" />
+              <BookingPhoto eager={as === "page"} />
               <div>
                 <div className="bks-who-n">You speak with Daniel Bouwer</div>
                 <div className="bks-who-r">Founder, Verdance Systems AI</div>
                 <p className="bks-who-p">
-                  Verdance builds AI systems for owner-led businesses. They answer your customers, follow up and do the
-                  admin, on the tools you already use. The person on the call is the person who designs your build.
+                  The person on the call is the person who designs your build.
                 </p>
               </div>
             </div>
@@ -99,6 +97,19 @@ export function BookingSection({ as = "section" }: { as?: "section" | "page" }) 
             <p className="bks-direct">
               Or email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
             </p>
+            {AI_WHATSAPP ? (
+              <p className="bks-direct">
+                AI assistant (WhatsApp):{" "}
+                <a href={waLink(AI_WHATSAPP)} target="_blank" rel="noopener noreferrer">
+                  {AI_WHATSAPP}
+                </a>
+              </p>
+            ) : null}
+            {UK_LINE ? (
+              <p className="bks-direct">
+                UK: <a href={telLink(UK_LINE)}>{UK_LINE}</a>
+              </p>
+            ) : null}
           </div>
           <div className="bks-main">
             <BookingFlow page={as === "page" ? "book" : "home"} />

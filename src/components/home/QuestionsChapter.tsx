@@ -8,49 +8,33 @@ import { QuestionsAccordion, type QA } from "./QuestionsAccordion";
  * band, art directed to render the same in the light and dark site themes.
  * On desktop the left column (marker, heading, one line, WhatsApp link) stays
  * put while the questions scroll. Ships FAQPage structured data for the same
- * eleven questions.
+ * six questions.
  */
 
 const QUESTIONS: QA[] = [
   {
     q: "Won't it sound like a robot to our customers?",
-    a: "Verdance writes in your voice, from your own answers and the way your team already talks. When a conversation matters, a person on your team takes over. You can read every message.",
+    a: "It writes in your voice, from your own answers. It doesn't guess: when it isn't sure, it hands over to a person on your team with the whole chat attached.",
   },
   {
     q: "Who checks what it sends?",
-    a: "You do, and you choose how. Approve every reply, or let routine ones go out on their own within 60 seconds. Anything important always waits for you, and you can read every message.",
-  },
-  {
-    q: "What happens when it doesn't know the answer?",
-    a: "It says so politely, takes the details and routes it to the right person on your team (a handover), with the whole conversation attached.",
+    a: "You do, and you choose how. Approve every reply, or let routine ones go out within 60 seconds. Anything important always waits for you.",
   },
   {
     q: "Is it worth the money for a business our size?",
-    a: "We only propose a build if your own numbers show at least twice the monthly cost coming back. If they don't, we tell you, and you keep the map.",
-  },
-  {
-    q: "What does it cost to find out?",
-    a: "Nothing. The call and the Operations Map are free, and you keep the map. If you want us to build, you get a written plan and the price for the first phase before anything starts.",
+    a: "The call and the Operations Map are free. We only propose a build if your own numbers show at least twice the monthly cost coming back.",
   },
   {
     q: "How much of my time does it take?",
-    a: "About two hours. A 30-minute call, an hour to test it before it goes live, and half an hour at the review. We do the rest.",
+    a: "About two hours: the 30-minute call, an hour to test it before it goes live, and half an hour at the review.",
   },
   {
     q: "You're a young company. Why trust you?",
-    a: "Judge us on the work, not on our age. You test it yourself before a real customer sees it. The launch date goes in your contract.",
+    a: "Judge us on the work. You test it yourself before a real customer sees it, and the launch date goes in your contract.",
   },
   {
-    q: "We tried a chatbot before. It was rubbish.",
-    a: "Most chatbots guess. This one answers from your own information and hands over when it isn't sure. It goes live on your real enquiries, and we review the results with you at day 90.",
-  },
-  {
-    q: "What about POPIA?",
-    a: "Consent records, opt-outs and an operator agreement are part of every build. Customer data stays in accounts registered to your business.",
-  },
-  {
-    q: "Do we have to change our software?",
-    a: "No. We integrate with what you already use: WhatsApp, email, your calendar, your CRM and your online store. If something can't connect, we tell you before we start.",
+    q: "Do we have to change our software? What about POPIA?",
+    a: "No new software: we connect what you already use. Consent records, opt-outs and an operator agreement are part of every build.",
   },
 ];
 
@@ -145,7 +129,7 @@ export function QuestionsChapter() {
           <div className="qc-side">
             <div data-reveal="">
               <p className="eyebrow">
-                <span className="chap-n">07</span> Questions
+                Questions
               </p>
               <h2 id="questions-title" className="h2 qc-h2">
                 <SplitWords text="What owners ask us" />{" "}

@@ -135,7 +135,6 @@
   white-space: nowrap;
   overflow: hidden;
 }
-.headNum { font-variant-numeric: tabular-nums; }
 .headName { color: var(--ink-soft); }
 .headSub { overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.06em; text-transform: none; }
 

@@ -120,7 +120,7 @@ export function Interactions() {
     const onMove = (e: PointerEvent) => {
       const t = e.target as Element | null;
       // Spotlight only (no tilt): cards with .card-x follow the pointer.
-      const spot = t?.closest<HTMLElement>(".card-x:not([data-tilt]), [data-spotlight]");
+      const spot = t?.closest<HTMLElement>(".card-x:not([data-tilt]), [data-spotlight], .ix-card, .hp-card, .ocap-tile, .hic-step, .ob-list li, .gv-card, .pv-card");
       if (spot) {
         const r = spot.getBoundingClientRect();
         spot.style.setProperty("--mx", `${((e.clientX - r.left) / r.width) * 100}%`);

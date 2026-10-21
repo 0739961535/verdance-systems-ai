@@ -1,8 +1,8 @@
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { SITE } from "@/data/site";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
-import { EarthRise } from "./EarthRise";
 
 /**
  * The home hero: the opening that is live on verdancesystemsai.com (the warm
@@ -50,15 +50,25 @@ const CSS = `
 @media (min-width: 640px) { .lh-eyebrow { max-width: none; } }
 .lh-eyebrow { font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-ink-muted); }
 .lh-bal { text-wrap: balance; }
+.lh-pre { margin: 0 0 -4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-ink-muted); }
 /* the first screen: one screen tall, the words centred in the light, a
    scroll cue at the bottom. The Earth rises in the next scene (EarthRise). */
 .lh { --arc: 0px; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
-.lh-in { padding-top: 100px; padding-bottom: 104px; }
+.lh-in { padding-top: 96px; padding-bottom: 88px; }
 @media (min-width: 768px) { .lh-in { padding-top: 112px; padding-bottom: 112px; } }
 .lh-h1 { font-size: clamp(2.9rem, 5.6vw + 0.9rem, 7rem); line-height: 0.95; letter-spacing: -0.05em; }
 /* depth in the light: a soft vignette and a faint haze toward the bottom */
 .lh-depth { position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background: radial-gradient(120% 80% at 50% 38%, transparent 55%, rgba(var(--hairline-rgb), 0.05) 100%), linear-gradient(transparent 60%, rgba(var(--accent-rgb), 0.07) 100%); }
+/* a long soft fade from the light ground into the navy of 01 Promise */
+.lh-into-dark { height: clamp(88px, 12vh, 160px); margin-bottom: -1px;
+  background: linear-gradient(var(--bg) 0%, color-mix(in oklab, var(--bg) 70%, #8FB0FF) 30%, color-mix(in oklab, var(--bg) 25%, #1D3F8F) 62%, #060B1A 100%); }
+.lh-why { position: relative; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 0.9375rem; color: var(--color-ink-soft); }
+.lh-why::after { content: ""; position: absolute; left: 0; right: 18px; bottom: 10px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
+.lh-why:hover, .lh-why:focus-visible { color: var(--color-ink); }
+.lh-why:hover::after, .lh-why:focus-visible::after { transform: scaleX(1); }
+.lh-why span { transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
+.lh-why:hover span, .lh-why:focus-visible span { transform: translateX(3px); }
 /* the scroll cue: a word and a fine line with a light running down it */
 .lh-cue { position: absolute; z-index: 2; left: 50%; bottom: calc(var(--arc) + 22px); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px;
   font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-ink-muted); }
@@ -115,40 +125,38 @@ export function LaunchHero() {
           </h1>
 
           <p
-            className="lh-fade lh-bal relative z-[1] mx-auto mt-6 max-w-[24ch] font-display text-[color:var(--color-ink)] md:mt-8 md:max-w-[32ch]"
-            style={{ fontSize: "clamp(1.3rem, 1.1vw + 1rem, 1.9rem)", lineHeight: 1.25, letterSpacing: "-0.025em", ["--d" as string]: "0.42s" }}
+            className="lh-fade lh-bal relative z-[1] mx-auto mt-7 max-w-[34ch] text-[color:var(--color-ink-soft)] md:mt-9 md:max-w-[46ch]"
+            style={{ fontSize: "clamp(1.1rem, 0.6vw + 0.98rem, 1.4rem)", lineHeight: 1.5, letterSpacing: "-0.01em", ["--d" as string]: "0.42s" }}
           >
-            An operations team that never clocks off, built into your business in 10&nbsp;working&nbsp;days.
-          </p>
-
-          <p
-            className="lh-fade lh-bal relative z-[1] mx-auto mt-4 max-w-[36rem] text-[color:var(--color-ink-soft)]"
-            style={{ fontSize: "clamp(1.02rem, 0.3vw + 0.95rem, 1.15rem)", lineHeight: 1.6, ["--d" as string]: "0.5s" }}
-          >
-            Every enquiry answered within 60&nbsp;seconds. Every quote followed&nbsp;up. The admin done before your team logs&nbsp;on.
+            We build AI that answers your customers, follows up every lead and does the admin, inside your CRM and the tools you
+            already use.
           </p>
 
           <div className="lh-fade relative z-[1] mt-8 flex flex-col items-center gap-4 md:mt-10" style={{ ["--d" as string]: "0.6s" }}>
+            <p className="lh-pre">See what Verdance can do for you</p>
             <a href={GENERIC_BOOK_URL} data-magnetic className="btn btn-accent btn-launch min-h-[52px] w-full justify-center px-7 text-[1.02rem] sm:w-auto">
-              See what Verdance can do for you
+              Book a free 30-minute call
               <ArrowUpRight size={17} aria-hidden />
             </a>
             <p className="text-[0.9rem] text-[color:var(--color-ink-muted)]">
               A free 30-minute call. Nothing&nbsp;to&nbsp;sign.{" "}
-              <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 whitespace-nowrap underline decoration-[color:var(--hairline-2)] underline-offset-4 hover:text-[color:var(--color-ink)]">
+              <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1.5 whitespace-nowrap underline decoration-[color:var(--hairline-2)] underline-offset-4 hover:text-[color:var(--color-ink)]">
                 <WhatsAppIcon className="h-3.5 w-3.5" />
                 Or WhatsApp us
               </a>
             </p>
+            <Link href="/how-it-works#belief" className="lh-why">
+              Why we build this way <span aria-hidden>→</span>
+            </Link>
           </div>
-
         </div>
         <span aria-hidden className="lh-cue">
           Scroll
           <i />
         </span>
       </section>
-      <EarthRise />
+      {/* the light page dissolves into the dark of 01 Promise */}
+      <div aria-hidden className="lh-into-dark" />
     </>
   );
 }

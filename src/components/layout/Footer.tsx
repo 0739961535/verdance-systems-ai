@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { CookieSettingsLink } from "@/components/consent/CookieSettingsLink";
+import { AI_WHATSAPP, UK_LINE, telLink, waLink } from "@/data/assistant";
 import { ArrowUpRight, Mail, MessageCircle, Phone } from "lucide-react";
 import { NICHES } from "@/data/niches";
 import { GENERIC_BOOK_URL } from "@/data/booking";
@@ -151,6 +153,22 @@ export function Footer() {
                 {SITE.phone}
               </a>
             </li>
+            {UK_LINE ? (
+              <li>
+                <a href={telLink(UK_LINE)} className={contactClass}>
+                  <Phone size={16} strokeWidth={1.5} aria-hidden className={iconClass} />
+                  UK: {UK_LINE}
+                </a>
+              </li>
+            ) : null}
+            {AI_WHATSAPP ? (
+              <li>
+                <a href={waLink(AI_WHATSAPP)} target="_blank" rel="noopener noreferrer" className={contactClass}>
+                  <MessageCircle size={16} strokeWidth={1.5} aria-hidden className={iconClass} />
+                  AI assistant (WhatsApp) {AI_WHATSAPP}
+                </a>
+              </li>
+            ) : null}
           </ul>
         </div>
 
@@ -216,7 +234,8 @@ export function Footer() {
             <p>Registered address: 7 Locke Street.</p>
             <p>
               Information Officer: Daniel Bouwer. <Link href="/privacy" className="underline underline-offset-4">Privacy policy</Link> ·{" "}
-              <Link href="/terms" className="underline underline-offset-4">Terms</Link>
+              <Link href="/terms" className="underline underline-offset-4">Terms</Link> ·{" "}
+              <CookieSettingsLink />
             </p>
           </div>
           <div className="grid gap-1">

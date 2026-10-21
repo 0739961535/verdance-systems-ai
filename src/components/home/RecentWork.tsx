@@ -74,6 +74,9 @@ const CSS = `
 }
 `;
 
+/** The client's live results recording stays off until Peter gives written OK. */
+const SHOW_CLIENT_RECORDING = false;
+
 export function RecentWork() {
   return (
     <section className="band-paper chapter-pad" aria-labelledby="work-title">
@@ -97,7 +100,7 @@ export function RecentWork() {
             caption="Drawn from the real system. Customers, orders and details are changed."
             rows={rowsFor(CASES.ecom)}
             extra={
-              <RealRecording
+              SHOW_CLIENT_RECORDING && <RealRecording
                 src={{ webm: "/work/proof/ecom-results.webm", mp4: "/work/proof/ecom-results.mp4" }}
                 poster="/work/proof/ecom-results-poster.webp"
                 label="Screen recording of the brand's live results page, names and numbers hidden"

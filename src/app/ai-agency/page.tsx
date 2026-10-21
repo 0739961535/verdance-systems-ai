@@ -14,7 +14,7 @@ import { SITE_URL } from "@/data/site";
 export const metadata: Metadata = {
   title: "AI Agency South Africa | Where We Work | Verdance Systems AI",
   description:
-    "We build the thing that answers your phone, replies to your messages and books customers into your calendar. Remote first across South Africa, with city pages for Johannesburg, Cape Town, Stellenbosch and Durban. Free 30-minute Operations Map.",
+    "Every enquiry answered and booked in, day or night. Remote first across South Africa, with local pages for Johannesburg, Cape Town, Stellenbosch and Durban.",
   alternates: { canonical: "/ai-agency" },
   openGraph: {
     images: ["/opengraph-image"],
@@ -51,6 +51,19 @@ export default function LocationsIndexPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Where we work", item: `${SITE_URL}/ai-agency` },
+            ],
+          }),
+        }}
+      />
 
       <PageHero
         eyebrow="Where we work"

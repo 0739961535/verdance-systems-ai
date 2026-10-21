@@ -6,12 +6,17 @@ import { FOUNDER } from "@/data/founder";
  * the tall "Who we are" slot. Swap the photo in src/data/founder.ts.
  */
 export function FounderPortrait({ size = "portrait", className = "", tone = "dark" }: { size?: "face" | "portrait"; className?: string; tone?: "dark" | "paper" }) {
-  const src = size === "face" ? FOUNDER.face || FOUNDER.portrait : FOUNDER.portrait;
+  const face = size === "face" && !!FOUNDER.face;
+  const src = face ? FOUNDER.face : FOUNDER.portrait;
+  const [w1, w2] = face ? [96, 192] : [400, 800];
   const alt = `${FOUNDER.name}, ${FOUNDER.role}`;
   if (size === "face") {
     return src ? (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img src={src} alt={alt} width={48} height={48} className={`fp-face ${className}`} loading="lazy" decoding="async" />
+      <picture>
+        <style>{FP_CSS}</style>
+        <source type="image/avif" srcSet={`${src}-${w1}.avif 1x, ${src}-${w2}.avif 2x`} />
+        <img src={`${src}-${w1}.webp`} srcSet={`${src}-${w1}.webp 1x, ${src}-${w2}.webp 2x`} alt={alt} width={48} height={48} className={`fp-face ${className}`} loading="lazy" decoding="async" />
+      </picture>
     ) : (
       <span className={`fp-face fp-mono ${className}`} role="img" aria-label={`${FOUNDER.name} (photo to come)`}>
         <style>{FP_CSS}</style>
@@ -23,8 +28,10 @@ export function FounderPortrait({ size = "portrait", className = "", tone = "dar
     <figure className={`fp-portrait ${tone === "paper" ? "is-paper" : ""} ${className}`}>
       <style>{FP_CSS}</style>
       {src ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={src} alt={alt} width={800} height={1000} loading="lazy" decoding="async" />
+        <picture>
+          <source type="image/avif" srcSet={`${src}-${w1}.avif ${w1}w, ${src}-${w2}.avif ${w2}w`} sizes="(min-width: 640px) 352px, 92vw" />
+          <img src={`${src}-${w2}.webp`} srcSet={`${src}-${w1}.webp ${w1}w, ${src}-${w2}.webp ${w2}w`} sizes="(min-width: 640px) 352px, 92vw" alt={alt} width={800} height={1000} loading="lazy" decoding="async" />
+        </picture>
       ) : (
         <div className="fp-empty" role="img" aria-label={`Portrait of ${FOUNDER.name} (photo to come)`}>
           <span className="fp-big">{FOUNDER.initials}</span>

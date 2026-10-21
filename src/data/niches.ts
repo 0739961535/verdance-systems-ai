@@ -73,17 +73,17 @@ export interface Niche {
 }
 
 const PROOF_LINE =
-  "Running today at a South African luxury home design and build studio: a website, a WhatsApp assistant, one list of every client and job, and quotes made for them.";
+  "Running today at a South African luxury home design and build studio: a website and enquiry flow.";
 export const PROOF = PROOF_LINE;
 
 const PRE_AUDIT_FAQ = {
   q: "What happens on the Operations Map call?",
-  a: "Thirty minutes on a video call with Daniel. We look at where your enquiries come from, how fast they are answered today, and what that is likely costing you. If it is a fit, we agree a 7-day audit that sets the baseline your results are measured against. If it is not a fit, we say so.",
+  a: "A 30-minute video call with Daniel. We look at where enquiries come from, how fast you answer and what that costs. If it fits, a 7-day check sets your starting numbers. If not, we say so.",
 };
 
 const BASELINE_FAQ = {
-  q: "How is the baseline measured?",
-  a: "Before you sign, we run a 7-day audit. We send test enquiries through each channel and time the replies, and we count your enquiries and bookings from the last 60 days using your own inbox and diary. Both sides sign the baseline, so your results are measured against numbers you agreed to.",
+  q: "How are my starting numbers measured?",
+  a: "Before you sign, we run a 7-day check. We send test enquiries through each channel and time the replies. We count your enquiries and bookings from the last 60 days in your own inbox and diary. Both sides sign the numbers.",
 };
 
 export const NICHES: Niche[] = [
@@ -103,7 +103,7 @@ export const NICHES: Niche[] = [
     },
     card: { line: "Every enquiry answered within 60 seconds. Viewings booked into your diary." },
     hero: {
-      eyebrow: "Wedding and event venues · South Africa",
+      eyebrow: "Wedding and event venues",
       lines: ["Couples enquire with several venues."],
       accent: "The first to reply gets the viewing.",
       lead: "We set up a system that replies to every enquiry within 60 seconds, day or night, on your website, email, WhatsApp and Instagram. It answers the usual questions, checks the date, and books the viewing into your diary. You show the venue.",
@@ -122,8 +122,8 @@ export const NICHES: Niche[] = [
     ],
     steps: [
       {
-        title: "Operations Map and baseline",
-        body: "A 30-minute call, then a 7-day audit. We time how fast your enquiries are answered today and count your enquiries and viewings from the last 60 days. Both sides sign the numbers.",
+        title: "Operations Map and starting numbers",
+        body: "A 30-minute call, then a 7-day check. We time how fast your enquiries are answered today and count your enquiries and viewings from the last 60 days. Both sides sign the numbers.",
       },
       {
         title: "We build it on your channels",
@@ -131,7 +131,7 @@ export const NICHES: Niche[] = [
       },
       {
         title: "It replies, books and reports",
-        body: "Every enquiry gets a reply within 60 seconds, day or night. Viewings land in your diary with reminders. You get a monthly report on enquiries, viewings and bookings, in rand.",
+        body: "Every enquiry gets a reply within 60 seconds, day or night. Viewings land in your diary with reminders. You get a monthly report on enquiries, viewings and bookings and what they are worth.",
       },
     ],
     included: [
@@ -140,11 +140,11 @@ export const NICHES: Niche[] = [
       { title: "Viewing reminders and a new time if they miss it", body: "Reminders before the viewing. If a couple does not arrive, it offers a new time." },
       { title: "Polite follow-up", body: "Couples who go quiet are followed up a set number of times, and it stops the moment they reply." },
       { title: "Handover to your team", body: "Pricing negotiations, special requests and anything sensitive go straight to the right person." },
-      { title: "Monthly report", body: "Enquiries, reply times, viewings and bookings, with the value in rand." },
+      { title: "Monthly report", body: "Enquiries, reply times, viewings and bookings, with the value in money." },
     ],
     bonuses: [
-      "Your audit report, yours to keep either way",
-      "A message to past enquiries from the last 24 months, to fill open 2027 dates",
+      "Your Operations Map report, yours to keep either way",
+      "A message to past enquiries from the last 24 months who agreed to hear from you, to fill open dates",
       "A Google review request after each event",
     ],
     calculator: {
@@ -158,7 +158,7 @@ export const NICHES: Niche[] = [
         { key: "value", label: "Average booking value", hint: "Venue hire plus anything you sell with it, per event.", min: 5000, max: 300000, step: 5000, initial: 40000, format: "rand" },
       ],
       steps: ["slow replies a month", "viewings you could have had", "bookings a month"],
-      resultLabel: "Bookings at risk, in rand",
+      resultLabel: "Bookings at risk",
       assumptions: [
         "Starting values are examples, not averages. Move them to your own numbers.",
         "It assumes a couple who waits is more likely to view another venue first. It does not assume every slow reply is lost.",
@@ -195,15 +195,15 @@ export const NICHES: Niche[] = [
     meta: {
       title: "Enquiry Replies for Lodges and Venue Groups | Verdance",
       description:
-        "One 60-second reply standard across weddings, rooms and conferences, day or night. Plus a campaign to your last 24 months of unbooked enquiries. Built in South Africa.",
+        "One 60-second reply standard across weddings, rooms and conferences, day or night. For lodges and venue groups in SA and the UK.",
       ogTitle: "Weddings, rooms and conferences. One reply standard.",
     },
     card: { line: "One 60-second reply standard across weddings, rooms and conferences." },
     hero: {
-      eyebrow: "Boutique lodges and venue groups · South Africa",
+      eyebrow: "Boutique lodges and venue groups",
       lines: ["Weddings. Rooms. Conferences.", "Four inboxes."],
       accent: "Nobody owns the first reply.",
-      lead: "We set one standard across every department and every channel: each enquiry gets a reply within 60 seconds, day or night, and is routed to the right person. Then we go back to the enquiries you never booked.",
+      lead: "We set one standard across every department and every channel: each enquiry gets a reply within 60 seconds, day or night, and is routed to the right person. Then, where they agreed to hear from you, we go back to the enquiries you never booked.",
     },
     thread: {
       channel: "Email · conference enquiry",
@@ -219,30 +219,29 @@ export const NICHES: Niche[] = [
     ],
     steps: [
       {
-        title: "Operations Map and baseline",
-        body: "A 30-minute call, then a 7-day audit across every department inbox and channel. We time the replies and count enquiries and bookings from the last 60 days.",
+        title: "Operations Map and starting numbers",
+        body: "A 30-minute call, then a 7-day check across every department inbox and channel. We time the replies and count enquiries and bookings from the last 60 days.",
       },
       {
         title: "One system across every department",
-        body: "Weddings, rooms and conferences feed into one reply standard with clear routing. It answers the common questions, books site visits and viewings, and hands the rest to the right person.",
+        body: "Weddings, rooms and conferences feed into one reply standard and clear rules on who gets which message. It answers the common questions, books site visits and viewings, and hands the rest to the right person.",
       },
       {
         title: "Revive, reply, review",
-        body: "We work through your last 24 months of unbooked enquiries. New enquiries are answered within 60 seconds. Each month you review the numbers with Daniel.",
+        body: "We contact unbooked enquirers from the last 24 months who agreed to hear from you. New enquiries are answered within 60 seconds. Each month you review the numbers with Daniel.",
       },
     ],
     included: [
       { title: "60-second replies across every department", body: "Web, email, WhatsApp, Instagram and missed calls, for weddings, rooms and conferences." },
-      { title: "Routing and ownership", body: "Each enquiry goes to the right person, with the conversation so far, so nobody starts from scratch." },
+      { title: "Who gets which message", body: "Each enquiry goes to the right person, with the conversation so far, so nobody starts from scratch." },
       { title: "Site visits and viewings in the diary", body: "Booked in the first conversation, with reminders and a new time offered if someone does not arrive." },
-      { title: "24-month revival campaign", body: "A careful message to unbooked enquiries from the last two years, aimed at your open dates." },
+      { title: "24-month revival campaign", body: "A careful message to unbooked enquiries from the last two years, aimed at your open dates. Only to past enquirers who agreed to hear from you, with an easy opt-out." },
       { title: "Monthly review with Daniel", body: "Enquiries, reply times, visits and bookings by department, and what to change next." },
       { title: "Review requests", body: "A Google review request after each stay or event." },
     ],
     bonuses: [
-      "A revival campaign every quarter",
-      "A monthly review call with Daniel",
-      "Review requests after every stay and event",
+      "Your Operations Map report, yours to keep either way",
+      "A revival message every quarter, to past enquirers who opted in",
     ],
     calculator: {
       title: "What slow replies cost across your departments",
@@ -254,7 +253,7 @@ export const NICHES: Niche[] = [
         { key: "value", label: "Average booking value", hint: "A blend across departments: a wedding, a conference, a two-night stay.", min: 2000, max: 300000, step: 1000, initial: 20000, format: "rand" },
       ],
       steps: ["slow replies a month", "bookings a month"],
-      resultLabel: "Bookings at risk, in rand",
+      resultLabel: "Bookings at risk",
       assumptions: [
         "Starting values are examples, not averages. Use your own.",
         "It does not count the value of the 24-month revival campaign, which comes on top.",
@@ -295,12 +294,12 @@ export const NICHES: Niche[] = [
     meta: {
       title: "Clinic Consult Enquiries Answered in 60 Seconds | Verdance",
       description:
-        "Every WhatsApp, Instagram, form and missed call answered within 60 seconds, day or night, and consults booked into your diary. Administrative replies only. No clinical advice.",
+        "Every WhatsApp, Instagram message, form and missed call answered within 60 seconds, and consults booked in your diary. No clinical advice.",
       ogTitle: "The enquiry came in at 8pm. Your front desk was closed.",
     },
     card: { line: "Every consult enquiry answered within 60 seconds, including after hours." },
     hero: {
-      eyebrow: "Dental implant and aesthetics practices · South Africa",
+      eyebrow: "Dental implant and aesthetics practices",
       lines: ["A patient messages at 8pm.", "Your front desk is closed."],
       accent: "Who replies first?",
       lead: "We set up a system that replies to every WhatsApp, Instagram message, web form and missed call within 60 seconds, day or night. It handles the admin: times, fees for a consult, directions. It books the consult into your diary. It never gives clinical advice.",
@@ -319,8 +318,8 @@ export const NICHES: Niche[] = [
     ],
     steps: [
       {
-        title: "Operations Map and baseline",
-        body: "A 30-minute call, then a 7-day audit. We time how fast enquiries are answered on each channel and count enquiries and booked consults from the last 60 days. Both sides sign the numbers.",
+        title: "Operations Map and starting numbers",
+        body: "A 30-minute call, then a 7-day check. We time how fast enquiries are answered on each channel and count enquiries and booked consults from the last 60 days. Both sides sign the numbers.",
       },
       {
         title: "We build it around your practice",
@@ -355,7 +354,7 @@ export const NICHES: Niche[] = [
         { key: "value", label: "Average treatment plan value", hint: "Use your average, not your largest case.", min: 1000, max: 300000, step: 1000, initial: 15000, format: "rand" },
       ],
       steps: ["slow replies a month", "consults you could have had", "treatment plans a month"],
-      resultLabel: "Revenue at risk, in rand",
+      resultLabel: "Revenue at risk",
       assumptions: [
         "Starting values are examples, not industry averages. Use your own.",
         "This is practice revenue maths only. It says nothing about clinical results.",
@@ -402,12 +401,12 @@ export const NICHES: Niche[] = [
     meta: {
       title: "Portal Lead Response for Estate Agents | Verdance",
       description:
-        "Every portal, website and WhatsApp lead gets a reply and qualifying questions within 60 seconds, day or night, and the viewing goes into the agent's calendar. Done for you.",
+        "Every portal, website and WhatsApp lead answered within 60 seconds, day or night, with the viewing booked in the agent's calendar.",
       ogTitle: "The buyer enquired at 21:14. Who replied first?",
     },
     card: { line: "Every portal lead answered within 60 seconds, and the viewing in the agent's diary." },
     hero: {
-      eyebrow: "Independent estate agencies · South Africa",
+      eyebrow: "Independent estate agencies",
       lines: ["A buyer enquires on three listings at 21:14."],
       accent: "The first agent to reply gets the viewing.",
       lead: "We set up a system that replies to every portal, website and WhatsApp lead within 60 seconds, day or night. It asks the qualifying questions your agents would ask, and puts the viewing straight into the right agent's calendar.",
@@ -426,8 +425,8 @@ export const NICHES: Niche[] = [
     ],
     steps: [
       {
-        title: "Operations Map and baseline",
-        body: "A 30-minute call, then a 7-day audit. We time replies to portal, website and WhatsApp leads and count leads and viewings from the last 60 days.",
+        title: "Operations Map and starting numbers",
+        body: "A 30-minute call, then a 7-day check. We time replies to portal, website and WhatsApp leads and count leads and viewings from the last 60 days.",
       },
       {
         title: "We connect your lead sources",
@@ -444,7 +443,7 @@ export const NICHES: Niche[] = [
       { title: "Viewings in the agent's calendar", body: "Booked straight into the right agent's diary, with reminders for the buyer." },
       { title: "Agent summary", body: "Each agent gets the buyer's answers before the viewing." },
       { title: "Seller valuation requests", body: "Valuation enquiries are answered and booked like buyer leads." },
-      { title: "Old buyer revival", body: "A message to past buyer leads asking if they are still looking." },
+      { title: "Old buyer revival", body: "A message to past buyer leads asking if they are still looking. Only to those who agreed to hear from you, with an easy opt-out." },
     ],
     bonuses: [
       "Old buyer lead revival on your agency's past leads",
@@ -461,7 +460,7 @@ export const NICHES: Niche[] = [
         { key: "commission", label: "Average commission per sale", hint: "Your agency's share, before splits if you prefer.", min: 5000, max: 300000, step: 5000, initial: 40000, format: "rand" },
       ],
       steps: ["slow replies a month", "viewings you could have had", "sales a month"],
-      resultLabel: "Commission at risk, in rand",
+      resultLabel: "Commission at risk",
       assumptions: [
         "Starting values are examples, not market averages. Use your own.",
         "A fraction of a sale a month still adds up over a year. That is what the yearly figure shows.",
@@ -500,14 +499,14 @@ export const NICHES: Niche[] = [
     offerName: "Operations Team for trades",
     icon: "trades",
     meta: {
-      title: "Missed Call Text Back for Trades | Verdance Systems AI",
+      title: "Missed Call Text Back for Trades | Verdance",
       description:
-        "For landscapers, plumbers, electricians and home service businesses. Every call and enquiry gets a reply within 60 seconds, quotes are followed up, and jobs are booked. South Africa.",
+        "For plumbers, electricians, landscapers and home services. Every call and enquiry answered within 60 seconds, quotes followed up and jobs booked.",
       ogTitle: "You were on a job when they called.",
     },
     card: { line: "Missed calls texted back, quotes followed up, jobs booked." },
     hero: {
-      eyebrow: "Landscaping, plumbing, electrical and home services · South Africa",
+      eyebrow: "Landscaping, plumbing, electrical and home services",
       lines: ["You were on a job when they called."],
       accent: "By lunch, they had booked someone else.",
       lead: "We set up a system that texts back every missed call and replies to every enquiry within 60 seconds, day or night. It gets the details, follows up every quote you send, and books the job into your diary. You keep your hands on the work.",
@@ -560,7 +559,7 @@ export const NICHES: Niche[] = [
         { key: "value", label: "Average job value", hint: "The typical job, not the biggest one.", min: 500, max: 100000, step: 500, initial: 3500, format: "rand" },
       ],
       steps: ["missed or late a month", "jobs a month"],
-      resultLabel: "Jobs at risk, in rand",
+      resultLabel: "Jobs at risk",
       assumptions: [
         "Starting values are examples, not averages. Use your own.",
         "It does not count quotes that go cold after you send them, which the follow-up also covers.",

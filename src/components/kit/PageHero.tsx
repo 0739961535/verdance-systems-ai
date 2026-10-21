@@ -65,7 +65,7 @@ export function PageHero({
             <p className="enter-fade-up eyebrow">{eyebrow}</p>
             <h1
               id="page-hero-title"
-              className={`enter-rise mt-6 font-display text-[color:var(--color-ink)] ${split ? "max-w-[15ch]" : "max-w-[18ch]"}`}
+              className={`mt-6 font-display text-[color:var(--color-ink)] ${split ? "max-w-[15ch]" : "max-w-[18ch]"}`}
               style={{ fontSize: split ? "clamp(2.6rem, 3.6vw + 1rem, 5rem)" : "clamp(2.7rem, 5vw + 1rem, 6rem)", lineHeight: 0.98, letterSpacing: "-0.045em" }}
             >
               {title}

@@ -12,7 +12,7 @@ export type PortfolioCase = {
   name: string | null;
   /** The public label used while `name` is null. */
   label: string;
-  status: "Live" | "In build";
+  status: "Live" | "In build" | "Starting soon";
   tags: string[];
   outcome: string;
   built: string;
@@ -23,10 +23,58 @@ export type PortfolioCase = {
   /** Wide screen (laptop frame) and tall screen (phone frame). Paths without extension; AVIF and WebP both exist. */
   wide: CaseImage;
   tall: CaseImage;
+  /** Show a drawn stand-in instead of the screenshots (no client OK to show the real page yet). */
+  drawn?: boolean;
   caption: string;
+  /**
+   * Proof line: "<n> conversations handled". Rendered only when it is a number;
+   * null renders nothing at all.
+   */
+  conversationsHandled?: number | null;
 };
 
 export const PORTFOLIO_CASES: PortfolioCase[] = [
+  {
+    id: "ecom",
+    name: null,
+    label: "A South African e-commerce brand",
+    status: "Live",
+    tags: ["Assistant", "Automation"],
+    outcome: "Customer questions answered across all their channels: WhatsApp, Facebook, Instagram, email and web chat, 24/7.",
+    built:
+      "An assistant that answers customers on WhatsApp, Facebook, Instagram, email and web chat in the brand's voice, one inbox for every channel, website forms that go straight into the inbox and pipeline, and a live results page the owner can open any time.",
+    steps: [
+      { title: "A customer writes in", body: "On WhatsApp, website chat, email, Instagram, Facebook or TikTok. All of it lands in one inbox." },
+      { title: "The assistant replies", body: "On every channel within 60 seconds, day, night and weekends, in the brand's voice." },
+      { title: "It answers the common questions", body: "Products, delivery and the business, from the brand's own information. Order lookups are the next phase, built and tested." },
+      { title: "A person takes over when it matters", body: "Problems and big orders go to a named person with the details already collected." },
+      { title: "The owner sees it all", body: "A results page and a monthly report show what was answered and what was handed over." },
+    ],
+    does: [
+      "After-hours and weekend questions no longer wait for Monday.",
+      "The team spends its time on the conversations that need a person.",
+      "Every channel in one place, counted.",
+    ],
+    tools: ["WhatsApp", "Website chat", "Email", "Instagram", "Facebook", "TikTok", "Online store"],
+    depth: { href: "/services/conversation-ai", label: "How message replies work" },
+    wide: {
+      src: "/work/portfolio/ecom-desktop",
+      width: 1280,
+      height: 800,
+      alt: "The brand's live results page: what runs today, after-hours conversations, hours saved and the monthly report, with the name and every number hidden",
+    },
+    tall: {
+      src: "/work/portfolio/ecom-phone",
+      width: 480,
+      height: 960,
+      alt: "The same results page on a phone, with the name and every number hidden",
+    },
+    // TODO(Daniel): the real screenshots stay off until Peter gives written OK. They were removed from public/ in this commit; restore them from git history, then set drawn to false.
+    drawn: true,
+    caption: "Drawn from their results page. Names and numbers hidden.",
+    // TODO(Daniel): number only after the client's written OK. Until then it stays null and nothing shows.
+    conversationsHandled: null as number | null,
+  },
   {
     id: "studio",
     name: null,
@@ -65,47 +113,11 @@ export const PORTFOLIO_CASES: PortfolioCase[] = [
     caption: "The live site. The studio's name, logo, people and places are hidden.",
   },
   {
-    id: "ecom",
-    name: null,
-    label: "A South African e-commerce brand",
-    status: "Live",
-    tags: ["Assistant", "Automation"],
-    outcome: "Customer questions answered on WhatsApp and website chat, day and night.",
-    built:
-      "An assistant that answers customers on WhatsApp and website chat in the brand's voice, one inbox for every channel, website forms that go straight into the inbox and pipeline, and a live results page the owner can open any time.",
-    steps: [
-      { title: "A customer writes in", body: "On WhatsApp, website chat, email, Instagram, Facebook or TikTok. All of it lands in one inbox." },
-      { title: "The assistant replies", body: "On WhatsApp and website chat within 60 seconds, day night and weekends, in the brand's voice." },
-      { title: "It answers the common questions", body: "Products, delivery and the business, from the brand's own information. Order lookups are the next phase, built and tested." },
-      { title: "A person takes over when it matters", body: "Problems and big orders go to a named person with the details already collected." },
-      { title: "The owner sees it all", body: "A results page and a monthly report show what was answered and what was handed over." },
-    ],
-    does: [
-      "After-hours and weekend questions no longer wait for Monday.",
-      "The team spends its time on the conversations that need a person.",
-      "Every channel in one place, counted.",
-    ],
-    tools: ["WhatsApp", "Website chat", "Email", "Instagram", "Facebook", "TikTok", "Online store"],
-    depth: { href: "/services/conversation-ai", label: "How message replies work" },
-    wide: {
-      src: "/work/portfolio/ecom-desktop",
-      width: 1280,
-      height: 800,
-      alt: "The brand's live results page: what runs today, after-hours conversations, hours saved and the monthly report, with the name and every number hidden",
-    },
-    tall: {
-      src: "/work/portfolio/ecom-phone",
-      width: 480,
-      height: 960,
-      alt: "The same results page on a phone, with the name and every number hidden",
-    },
-    caption: "Their live results page. The brand's name, staff and every number are hidden.",
-  },
-  {
     id: "training",
     name: null,
     label: "A training institute",
-    status: "In build",
+    // TODO(Daniel): switch to "In build" when the deposit lands.
+    status: "Starting soon",
     tags: ["Website", "Bookings", "Follow-up"],
     outcome: "Learners find a course, apply from their phone and hear back on WhatsApp.",
     built:
@@ -136,6 +148,11 @@ export const PORTFOLIO_CASES: PortfolioCase[] = [
       height: 920,
       alt: "The online application on a phone, step one of four: course and contact details, labelled as an example form",
     },
-    caption: "From the build in progress. The institute's name, logo and people are left out.",
+    caption: "From the design for their build. The institute's name, logo and people are left out.",
   },
 ];
+
+/** The proof line for a case, or null when there is no approved number yet (then nothing renders). */
+export function conversationsProof(n: number | null | undefined): string | null {
+  return typeof n === "number" && Number.isFinite(n) ? `${n.toLocaleString("en-GB")} conversations handled` : null;
+}

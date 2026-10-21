@@ -9,8 +9,8 @@ import { ChipSwap, type ChipRole } from "./StatusChip";
 import s from "./CommandCentre.module.css";
 
 /**
- * Sample command centre. Pieces of work travel Department, Reviewer,
- * Operator, Needs you. The visitor can approve or edit what reaches them.
+ * Sample command centre. Pieces of work travel Department, Checker,
+ * Planner, Needs you. The visitor can approve or edit what reaches them.
  *
  * Loop rules (design-system-v2 section 4): ticks only while at least 30% of
  * the frame is on screen and the tab is visible, stops after 3 full cycles
@@ -58,7 +58,7 @@ type Action =
 const CYCLES = 3;
 const NEXT: Record<Exclude<Stage, "attn">, Stage> = { dept: "review", review: "operator", operator: "attn" };
 const ROLE: Record<Stage, ChipRole> = { dept: "dept", review: "review", operator: "operator", attn: "attn" };
-const SUB: Record<Stage, string> = { dept: "Head and workers", review: "Checks it", operator: "Plans it", attn: "You decide" };
+const SUB: Record<Stage, string> = { dept: "Does the work", review: "Checks it", operator: "Plans it", attn: "You decide" };
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 /** The opening frame, also the reduced-motion frame: one piece of work per stage. */
@@ -218,7 +218,7 @@ export function CommandCentre() {
             <i />
             <i />
           </span>
-          <span className={s.title}>ashford · staff</span>
+          <span className={s.title}>Operations Team · today</span>
           <div className={s.barEnd}>
             <span className={s.pill} data-state={pill.state}>
               <span className={s.pillDot} aria-hidden />
@@ -245,7 +245,7 @@ export function CommandCentre() {
 
         <LayoutGroup id="command-centre">
           <div className={s.board}>
-            {STAGES.map((stage, i) => {
+            {STAGES.map((stage) => {
               const st = stage.role as Stage;
               const cards = state.cards.filter((c) => c.stage === st);
               const list = cards.map((c) => (
@@ -261,7 +261,6 @@ export function CommandCentre() {
               return (
                 <section key={st} className={s.lane} data-stage={st} aria-label={stage.label}>
                   <div className={s.head} aria-hidden>
-                    <span className={s.headNum}>{String(i + 1).padStart(2, "0")}</span>
                     <span className={s.headName}>{stage.label}</span>
                     <span className={s.headSub}>{SUB[st]}</span>
                   </div>
@@ -362,7 +361,7 @@ function CardView({ card, pressing, editing, focusOnMount, dispatch }: CardProps
       {stage === "dept" && (
         <div className={s.detail}>
           <dl className={s.kv}>
-            <dt>Head</dt>
+            <dt>Lead</dt>
             <dd>{head}</dd>
             <dt>Worker</dt>
             <dd>{item.worker}</dd>

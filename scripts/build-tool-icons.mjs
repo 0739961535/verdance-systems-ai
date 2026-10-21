@@ -11,7 +11,8 @@ const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..")
 const out = path.join(root, "src/components/home/toolIcons.ts");
 
 // Display name, then the simple-icons slug to try (null = wordmark only).
-// Daniel's call (Oct 2026): the AI and developer platforms stay in the strip.
+// Scorecard R2 fix 10 (21 Oct 2026): owners do not buy on developer tools, so
+// OpenAI, Claude, Vercel, Supabase and Twilio are out; business apps are in.
 const TOOLS = [
   ["WhatsApp", "whatsapp"],
   ["Gmail", "gmail"],
@@ -36,12 +37,12 @@ const TOOLS = [
   ["Yoco", "yoco"],
   ["Xero", "xero"],
   ["Sage", "sage"],
+  ["QuickBooks", "quickbooks"],
   ["Slack", "slack"],
-  ["Twilio", "twilio"],
-  ["OpenAI", "openai"],
-  ["Claude", "claude"],
-  ["Vercel", "vercel"],
-  ["Supabase", "supabase"],
+  // Not in simple-icons (removed for trademark reasons): text wordmark.
+  ["Microsoft Teams", null],
+  ["Mailchimp", "mailchimp"],
+  ["Zoho", "zoho"],
   ["Notion", "notion"],
   ["Airtable", "airtable"],
   ["Zapier", "zapier"],

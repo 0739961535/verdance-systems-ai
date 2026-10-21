@@ -2,15 +2,18 @@ import type { Metadata } from "next";
 import { ArrowUpRight, Check } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
 import { CommandCentre } from "@/components/aiteam/CommandCentre";
-import { FlowDiagram } from "@/components/aiteam/FlowDiagram";
-import { OrgChart } from "@/components/aiteam/OrgChart";
+import { MondayToggle } from "@/components/aiteam/MondayToggle";
+import { NightLimb } from "@/components/aiteam/NightLimb";
+import { TeamBloom } from "@/components/aiteam/TeamBloom";
 import { PowerOfAI } from "@/components/aiteam/PowerOfAI";
+import { OpsDesk } from "@/components/aiteam/OpsDesk";
 import { FAQControl } from "@/components/sections/v4/FAQControl";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
 import { ServiceDepth } from "@/components/services/ServiceDepth";
+import { OpsCapabilities } from "@/components/home/opsteam/OpsCapabilities";
 import { OPS_TEAM_DEPTH } from "@/data/services";
-import { AI_TEAM, AI_TEAM_FAQS, AI_TEAM_PATH, CAPABILITIES, CTA_LABEL, CTA_MICRO, SAFETY } from "@/data/aiTeam";
+import { AI_TEAM, AI_TEAM_FAQS, AI_TEAM_PATH, CTA_LABEL, CTA_MICRO, SAFETY, TEAM_STORY } from "@/data/aiTeam";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { SITE, SITE_URL } from "@/data/site";
 
@@ -38,6 +41,14 @@ const JSON_LD = {
         { "@type": "Country", name: "United Kingdom" },
       ],
       provider: { "@id": `${SITE_URL}/#organization` },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Services", item: `${SITE_URL}/services` },
+        { "@type": "ListItem", position: 3, name: AI_TEAM.name, item: URL },
+      ],
     },
     {
       "@type": "FAQPage",
@@ -77,7 +88,7 @@ export default function AiOperationsTeamPage() {
               <p className="enter-fade-up eyebrow">Operations Team</p>
               <h1
                 id="ai-hero-title"
-                className="enter-rise mt-6 max-w-[18ch] font-display text-[color:var(--color-ink)]"
+                className="mt-6 max-w-[18ch] font-display text-[color:var(--color-ink)]"
                 style={{ fontSize: "clamp(2.4rem, 3.9vw + 1rem, 5.25rem)", lineHeight: 1, letterSpacing: "-0.045em" }}
               >
                 Your own <span className="italic-accent">operations team.</span> It does the work. You make the calls.
@@ -112,9 +123,11 @@ export default function AiOperationsTeamPage() {
         </div>
       </section>
 
+      <OpsDesk />
+
       <PowerOfAI variant="full" />
 
-      {/* HOW IT IS ORGANISED */}
+      {/* HOW IT IS ORGANISED: one story, the bloom */}
       <section className="section-pad bg-canvas" aria-labelledby="org-title" style={BAND}>
         <div className="container-wide">
           <SectionHead
@@ -125,22 +138,15 @@ export default function AiOperationsTeamPage() {
                 Built like a real team. <span className="italic-accent">You</span> are the boss.
               </>
             }
-            lead="Every job goes through the same four steps you saw above. Nothing skips a step."
+            lead={TEAM_STORY}
           />
-          <Reveal className="mt-[var(--space-head)]">
-            <FlowDiagram />
-          </Reveal>
-          <Reveal className="mt-[var(--space-section)]">
-            <p className="mb-[var(--space-block)] font-mono text-[0.75rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">Who does what</p>
-            <OrgChart />
-          </Reveal>
-          <p className="mt-[var(--space-block)] max-w-[62ch] text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink)]">
-            We run our own company on the same system.
-          </p>
+          <div className="mt-[var(--space-head)]">
+            <TeamBloom />
+          </div>
         </div>
       </section>
 
-      {/* WHAT IT DOES */}
+      {/* YOUR MONDAY: what it does and how deep it goes, as one before and after */}
       <section className="section-pad bg-canvas-2" aria-labelledby="does-title" style={BAND}>
         <div className="container-wide">
           <SectionHead
@@ -148,29 +154,38 @@ export default function AiOperationsTeamPage() {
             eyebrow="What it does"
             title={
               <>
-                The jobs that eat your week, <span className="italic-accent">done.</span>
+                Your Monday, <span className="italic-accent">before and after.</span>
               </>
             }
-            lead="The same jobs, done the same way every day. Your people keep the work that needs a person."
+            lead="The jobs that eat your week, done the same way every day. Your people keep the work that needs a person."
           />
-          <ul className="mt-[var(--space-head)] grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-            {CAPABILITIES.map((c, i) => (
-              <li key={c.title} className="pt-5" style={{ borderTop: "1px solid var(--hairline-2)" }}>
-                <Reveal delay={Math.min(i * 0.06, 0.3)}>
-                  <p className="font-mono text-[0.75rem] text-[color:var(--color-ink-muted)] tabular">{String(i + 1).padStart(2, "0")}</p>
-                  <h3 className="mt-3 font-display text-[1.2rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.02em" }}>
-                    {c.title}
-                  </h3>
-                  <p className="mt-2 text-[0.95rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{c.body}</p>
-                </Reveal>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-[var(--space-head)] max-w-[60rem]">
+            <MondayToggle />
+          </div>
         </div>
       </section>
 
-      {/* SAFETY */}
-      <section className="section-pad bg-canvas" aria-labelledby="safety-title" style={BAND}>
+      {/* WHAT IT CAN DO: the parts we use most */}
+      <section className="section-pad bg-canvas" aria-labelledby="reach-title" style={BAND}>
+        <div className="container-wide">
+          <SectionHead
+            id="reach-title"
+            eyebrow="What it can do"
+            title={
+              <>
+                Deep inside your business, <span className="italic-accent">not on the side.</span>
+              </>
+            }
+            lead="Every build is custom. These are the parts we use most."
+          />
+          <div className="mt-[var(--space-head)]">
+            <OpsCapabilities />
+          </div>
+        </div>
+      </section>
+
+      {/* SAFETY: on the night limb, the one Earth moment on this page */}
+      <section className="band-night overflow-hidden pt-[var(--space-section)]" aria-labelledby="safety-title">
         <div className="container-wide">
           <SectionHead
             id="safety-title"
@@ -180,29 +195,33 @@ export default function AiOperationsTeamPage() {
                 It drafts. It prepares. <span className="italic-accent">You decide.</span>
               </>
             }
-            lead="You choose what goes out on its own. Anything important always waits for you."
+            lead="It works through the night. You choose what goes out on its own. Anything important waits for you."
           />
-          <ul
-            className="mt-[var(--space-head)] grid gap-px overflow-hidden rounded-[22px] sm:grid-cols-2 lg:grid-cols-4"
-            style={{ background: "var(--hairline-2)", border: "1px solid var(--hairline-2)" }}
-          >
+          <ul className="mt-[var(--space-head)] grid gap-3 md:grid-cols-3">
             {SAFETY.map((x, i) => (
-              <li key={x.title} style={{ background: "var(--bg-3)" }}>
-                <Reveal delay={i * 0.06} className="h-full p-6 md:p-7">
+              <li
+                key={x.title}
+                className="ix-card rounded-[20px] p-6 md:p-7"
+                style={{ background: "rgba(255,255,255,0.035)", border: "1px solid var(--hairline-2)" }}
+              >
+                <Reveal delay={i * 0.06} className="h-full">
                   <Check size={18} strokeWidth={1.5} aria-hidden className="text-[color:var(--color-accent)]" />
                   <h3 className="mt-4 font-display text-[1.15rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.02em" }}>
                     {x.title}
                   </h3>
-                  <p className="mt-2 text-[0.95rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{x.body}</p>
+                  <p className="mt-2 text-[1rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{x.body}</p>
                 </Reveal>
               </li>
             ))}
           </ul>
         </div>
+        <div className="mt-16 md:mt-20">
+          <NightLimb />
+        </div>
       </section>
 
       {/* HOW IT WORKS: the step by step, who does what, the 10 working days and the weeks after */}
-      <ServiceDepth depth={OPS_TEAM_DEPTH} showWhat={false} showFaq={false} showCta={false} />
+      <ServiceDepth depth={OPS_TEAM_DEPTH} showWhat={false} showFaq={false} showCta={false} compact />
 
       <div style={BAND}>
         <FAQControl faqs={AI_TEAM_FAQS} />

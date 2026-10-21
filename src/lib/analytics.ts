@@ -11,7 +11,6 @@
  * wired but dormant. track() is the one place conversions fire; it mirrors the
  * events in META_EVENTS to the Meta Pixel.
  */
-import { sendGAEvent } from "@next/third-parties/google";
 import { BOOK_BASE } from "@/data/booking";
 
 export const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID ?? "";
@@ -116,7 +115,21 @@ export function track<E extends WebEvent>(event: E, params: EventParams<E> = {})
     const value = (params as Record<string, string | number | undefined>)[key] ?? auto[key];
     if (value !== undefined && value !== "") out[key] = value;
   }
-  sendGAEvent("event", event, out);
+  gtagEvent(event, out);
+}
+
+/**
+ * Same as gtag("event", name, params). The Google tag only reads an Arguments
+ * object from the dataLayer (not an array), hence `arguments`.
+ */
+function gtagEvent(name: string, params: Record<string, string | number>) {
+  const w = window as unknown as { dataLayer?: unknown[] };
+  w.dataLayer = w.dataLayer || [];
+  const push = function (..._args: unknown[]) {
+    // eslint-disable-next-line prefer-rest-params
+    w.dataLayer!.push(arguments);
+  };
+  push("event", name, params);
 }
 
 const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const;

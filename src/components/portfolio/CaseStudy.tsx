@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { DrawnResults } from "./DrawnResults";
+import { EcomVisuals } from "@/components/home/proof/cases";
+import { PROOF_CSS } from "@/components/home/proof/styles";
 import { ArrowRight } from "lucide-react";
-import type { CaseImage, PortfolioCase } from "@/data/portfolio";
+import { conversationsProof, type CaseImage, type PortfolioCase } from "@/data/portfolio";
 
 /**
  * One real build on /portfolio: the label and outcome, the work in a laptop
@@ -23,6 +26,8 @@ export const CASE_CSS = `
 .pc-title { margin-top: 14px; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.9rem, 1.8vw + 1.3rem, 3rem); line-height: 1.06; letter-spacing: -0.03em; color: var(--color-ink); }
 .pc-out { margin-top: 12px; max-width: 40ch; font-size: 1.125rem; line-height: 1.5; color: var(--color-ink-soft); }
 @media (min-width: 1024px) { .pc-out { font-size: 1.25rem; } }
+.pc-proof { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.02em; color: #2554D4; font-variant-numeric: tabular-nums; }
+.pc-proof i { width: 7px; height: 7px; border-radius: 999px; background: currentColor; }
 
 .pc-stage { position: relative; margin-top: 32px; overflow: hidden; border-radius: 22px; padding: 28px 16px 24px;
   background: radial-gradient(90% 80% at 85% 0%, rgba(77,124,255,0.3), rgba(77,124,255,0) 60%), #0A1226; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06); }
@@ -69,9 +74,21 @@ function Shot({ img, sizes }: { img: CaseImage; sizes: string }) {
   );
 }
 
+const DEMO_CSS = `
+.pc-demo { margin-top: 40px; display: grid; gap: 20px; max-width: 820px; margin-inline: auto; }
+@media (min-width: 1024px) { .pc-demo { margin-top: 56px; } }
+.pc-demo-k { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.08em; text-transform: uppercase; color: #1F7A4A; }
+.pc-demo-k i { width: 8px; height: 8px; border-radius: 99px; background: #1F9D5C; }
+@media (prefers-reduced-motion: no-preference) { .pc-demo-k i { animation: pc-live 2s ease-out infinite; } }
+@keyframes pc-live { 0% { box-shadow: 0 0 0 0 rgba(31,157,92,0.5); } 100% { box-shadow: 0 0 0 7px rgba(31,157,92,0); } }
+.pc-demo-h { margin-top: 8px; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.4rem, 1vw + 1.1rem, 1.9rem); letter-spacing: -0.025em; line-height: 1.2; color: var(--color-ink); }
+.pc-demo-p { margin-top: 6px; font-size: 1rem; line-height: 1.55; color: var(--color-ink-soft); }
+`;
+
 export function CaseStudy({ c, index }: { c: PortfolioCase; index: number }) {
   const title = c.name ?? c.label;
   const headId = `case-${c.id}-title`;
+  const proof = conversationsProof(c.conversationsHandled);
   return (
     <article id={c.id} className="pc-case" aria-labelledby={headId}>
       <div className="pc-head" data-reveal="">
@@ -80,7 +97,7 @@ export function CaseStudy({ c, index }: { c: PortfolioCase; index: number }) {
             <span className="pc-tag" style={{ color: "var(--color-ink-muted)", background: "transparent", boxShadow: "inset 0 0 0 1px var(--hairline-2)" }}>
               {String(index + 1).padStart(2, "0")}
             </span>
-            <span className={`pc-status ${c.status === "In build" ? "is-build" : ""}`}>
+            <span className={`pc-status ${c.status !== "Live" ? "is-build" : ""}`}>
               <i aria-hidden />
               {c.status}
             </span>
@@ -95,6 +112,12 @@ export function CaseStudy({ c, index }: { c: PortfolioCase; index: number }) {
             {title}
           </h2>
           <p className="pc-out">{c.outcome}</p>
+          {proof ? (
+            <p className="pc-proof">
+              <i aria-hidden />
+              {proof}
+            </p>
+          ) : null}
         </div>
       </div>
 
@@ -103,23 +126,41 @@ export function CaseStudy({ c, index }: { c: PortfolioCase; index: number }) {
           <div>
             <div className="pc-lid">
               <div className="pc-screen">
-                <Shot img={c.wide} sizes="(min-width: 1024px) 820px, 64vw" />
+                {c.drawn ? <DrawnResults variant="wide" /> : <Shot img={c.wide} sizes="(min-width: 1024px) 820px, 64vw" />}
               </div>
             </div>
             <div className="pc-base" aria-hidden />
           </div>
           <div className="pc-phone">
             <div className="pc-pscreen">
-              <Shot img={c.tall} sizes="(min-width: 1024px) 250px, 30vw" />
+              {c.drawn ? <DrawnResults variant="tall" /> : <Shot img={c.tall} sizes="(min-width: 1024px) 250px, 30vw" />}
             </div>
           </div>
         </div>
         <figcaption className="pc-cap">{c.caption}</figcaption>
       </figure>
 
+      {c.id === "ecom" ? (
+        <section id="ecom-demo" className="pc-demo" aria-labelledby="ecom-demo-title" style={{ scrollMarginTop: 96 }}>
+          <style>{PROOF_CSS + DEMO_CSS}</style>
+          <div className="pc-demo-head">
+            <p className="pc-demo-k">
+              <i aria-hidden />
+              See it working
+            </p>
+            <h3 id="ecom-demo-title" className="pc-demo-h">
+              A customer asks, the assistant answers from the store.
+            </h3>
+            <p className="pc-demo-p">Tap through the chat, the pipeline, what happens behind it and the monthly report.</p>
+          </div>
+          <EcomVisuals />
+          <p className="museum text-center">Drawn from the real system. Customers, orders and details are changed.</p>
+        </section>
+      ) : null}
+
       <div className="pc-body">
         <div>
-          <h3 className="pc-k">What we built</h3>
+          <h3 className="pc-k">{c.status === "Live" ? "What we built" : "What we are building"}</h3>
           <p className="pc-p">{c.built}</p>
           <h3 className="pc-k" style={{ marginTop: 32 }}>Works with</h3>
           <p className="pc-tools">
@@ -140,7 +181,7 @@ export function CaseStudy({ c, index }: { c: PortfolioCase; index: number }) {
           </ol>
         </div>
         <div>
-          <h3 className="pc-k">What it does for them</h3>
+          <h3 className="pc-k">{c.status === "Live" ? "What it does for them" : "What it will do for them"}</h3>
           <ul className="pc-does">
             {c.does.map((d) => (
               <li key={d}>{d}</li>

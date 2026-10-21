@@ -15,7 +15,7 @@ import { OFFER_ENTRIES, MORE_ENTRIES, type IndustryEntry } from "./industryDemos
  * (starts again) when a different business is picked.
  */
 
-const PICK = ["wedding-venues", "ecommerce-product-businesses", "home-services-contractors", "private-clinics", "automotive", "lodges-and-venue-groups", "trades", "estate-agents"];
+const PICK = ["ecommerce-product-businesses", "wedding-venues", "lodges-and-venue-groups", "home-services-contractors", "private-clinics", "estate-agents", "trades", "automotive"];
 const ALL = [...OFFER_ENTRIES, ...MORE_ENTRIES];
 const ENTRIES: IndustryEntry[] = PICK.map((s) => ALL.find((e) => e.slug === s)).filter((e): e is IndustryEntry => Boolean(e));
 
@@ -42,9 +42,7 @@ export function IndustryDemoSwitch() {
       <div className="container-wide">
         <div className="ds-head">
           <div data-reveal="">
-            <p className="eyebrow">
-              <span className="chap-n">01</span> Watch it work
-            </p>
+            <p className="eyebrow">Watch it work</p>
             <h2 id="ds-title" className="h2 mt-4 max-w-[14ch]">
               <SplitWords text="Pick your business." />{" "}
               <span>
@@ -53,7 +51,7 @@ export function IndustryDemoSwitch() {
             </h2>
           </div>
           <p className="lead" data-reveal="" style={{ ["--reveal-delay" as string]: "0.12s" }}>
-            One short sample conversation for each kind of business. Every enquiry answered within 60 seconds, day, night and weekends.
+            One short sample chat for each kind of business. Every enquiry answered within 60 seconds, day, night and weekends.
           </p>
         </div>
 
@@ -74,9 +72,7 @@ export function IndustryDemoSwitch() {
                 className="ds-tab"
                 onClick={() => setActive(i)}
               >
-                <span className="ds-tab-n tabular" aria-hidden>
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+                <span className="ds-tab-dot" aria-hidden />
                 {e.name}
               </button>
             ))}
@@ -124,7 +120,8 @@ const CSS = `
 .ds-tab:hover { color: #F2F5FC; border-color: rgba(143,176,255,0.35); }
 .ds-tab:focus-visible { outline: 2px solid #8FB0FF; outline-offset: 2px; }
 .ds-tab[aria-selected="true"] { color: #F2F5FC; background: rgba(77,124,255,0.16); border-color: rgba(143,176,255,0.5); }
-.ds-tab-n { font-family: var(--font-mono); font-size: 0.6875rem; color: #8FB0FF; }
+.ds-tab-dot { width: 6px; height: 6px; border-radius: 999px; background: rgba(143,176,255,0.45); flex: none; }
+.ds-tab[aria-selected="true"] .ds-tab-dot { background: #8FB0FF; }
 .ds-panel {
   padding: 20px 16px 8px; border-radius: 22px; border: 1px solid rgba(255,255,255,0.08);
   background: radial-gradient(120% 70% at 85% 0%, rgba(77,124,255,0.14), transparent 60%), #0A1226;

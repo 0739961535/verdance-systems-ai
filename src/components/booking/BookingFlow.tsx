@@ -277,6 +277,12 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
     phone: !phoneOk(phone) ? "Please check the number, or leave it empty." : "",
   };
   const detailsOk = !errs.name && !errs.business && !errs.email && !errs.phone;
+  /** Show the errors and move focus to the first field that needs fixing. */
+  const flagErrors = () => {
+    setShowErrors(true);
+    const first = errs.name ? "bk-name" : errs.business ? "bk-biz" : errs.email ? "bk-email" : errs.phone ? "bk-phone" : "";
+    if (first) requestAnimationFrame(() => document.getElementById(first)?.focus());
+  };
   const togglePick = (p: string) => setPicks((cur) => (cur.includes(p) ? cur.filter((x) => x !== p) : [...cur, p]));
 
   const payload = () => ({
@@ -295,7 +301,7 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
   async function book() {
     if (!slot || sending) return;
     if (!detailsOk) {
-      setShowErrors(true);
+      flagErrors();
       return;
     }
     setSending(true);
@@ -331,7 +337,7 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
   async function request() {
     if (sending) return;
     if (!detailsOk) {
-      setShowErrors(true);
+      flagErrors();
       return;
     }
     setSending(true);
@@ -409,9 +415,9 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
         {/* ---------- 1 the calendar ---------- */}
         {step === "time" && !fallback && (
           <div>
-            <h3 ref={headRef} tabIndex={-1} className="bk-h">
+            <h2 ref={headRef} tabIndex={-1} className="bk-h">
               Pick a time that suits you.
-            </h3>
+            </h2>
             {error && (
               <p className="bk-err bk-err-box" role="alert">
                 {error}
@@ -493,16 +499,16 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
           >
             {fallback ? (
               <>
-                <h3 ref={headRef} tabIndex={-1} className="bk-h">
-                  The calendar is not loading right now.
-                </h3>
-                <p className="bk-p">Leave your details and we will send you two or three times today. Or WhatsApp us and we will book it with you.</p>
+                <h2 ref={headRef} tabIndex={-1} className="bk-h">
+                  Tell us when suits you.
+                </h2>
+                <p className="bk-p">Leave your details and we&apos;ll send you two options today. Or WhatsApp us and we&apos;ll book it with you.</p>
               </>
             ) : (
               <>
-                <h3 ref={headRef} tabIndex={-1} className="bk-h">
+                <h2 ref={headRef} tabIndex={-1} className="bk-h">
                   Three quick questions.
-                </h3>
+                </h2>
                 {slot && (
                   <p className="bk-chosen">
                     <Check size={15} aria-hidden /> {z.longLabel(slot)} <When slot={slot} z={z} />
@@ -600,9 +606,9 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
             <span className="bk-done-icon">
               <Check size={22} aria-hidden />
             </span>
-            <h3 ref={headRef} tabIndex={-1} className="bk-h">
+            <h2 ref={headRef} tabIndex={-1} className="bk-h">
               {pending ? "Thanks, we've got your request." : "Your call is booked."}
-            </h3>
+            </h2>
             <p className="bk-when">
               {z.longLabel(slot)} <When slot={slot} z={z} />
             </p>
@@ -664,9 +670,9 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
           <div className="bk-done" aria-live="polite">
             {prepState === "sent" && isLowFit(answers) ? (
               <>
-                <h3 ref={headRef} tabIndex={-1} className="bk-h">
+                <h2 ref={headRef} tabIndex={-1} className="bk-h">
                   Thank you. An honest note.
-                </h3>
+                </h2>
                 <p className="bk-p">
                   Your call on {z.longLabel(slot)} ({z.abbr(Date.parse(slot))}) is still booked. From your answers, a full system may be more than your business needs right
                   now. We do our best work with teams handling a steady flow of enquiries every week.
@@ -687,9 +693,9 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
                 <span className="bk-done-icon">
                   <Check size={22} aria-hidden />
                 </span>
-                <h3 ref={headRef} tabIndex={-1} className="bk-h">
+                <h2 ref={headRef} tabIndex={-1} className="bk-h">
                   {prepState === "sent" ? "Thank you. We will come prepared." : "All set."}
-                </h3>
+                </h2>
                 <p className="bk-when">
                   {z.longLabel(slot)} <When slot={slot} z={z} />
                 </p>
@@ -704,9 +710,9 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
             <span className="bk-done-icon">
               <Check size={22} aria-hidden />
             </span>
-            <h3 ref={headRef} tabIndex={-1} className="bk-h">
+            <h2 ref={headRef} tabIndex={-1} className="bk-h">
               Thank you. We will send you times.
-            </h3>
+            </h2>
             <p className="bk-p">Expect two or three options at {email.trim()} within the working day. Reply with the one that suits you.</p>
             <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="bk-ghost">
               Or WhatsApp us now
@@ -807,7 +813,7 @@ html[data-book-visible] nav[data-cta-location="sticky_mobile"] { transform: tran
 }
 .bk-dc:hover:not(:disabled) { border-color: rgba(143,176,255,0.6); }
 .bk-dc:disabled { cursor: default; background: none; border-color: transparent; color: rgba(234,240,255,0.3); font-weight: 500; }
-.bk-dc[aria-pressed="true"] { background: #4D7CFF; border-color: #4D7CFF; color: #FFFFFF; }
+.bk-dc[aria-pressed="true"] { background: #2F5FE0; border-color: #2F5FE0; color: #FFFFFF; }
 .bk-dot { position: absolute; bottom: 6px; left: 50%; width: 4px; height: 4px; margin-left: -2px; border-radius: 999px; background: #8FB0FF; }
 .bk-dc[aria-pressed="true"] .bk-dot { background: #FFFFFF; }
 .bk-slots-h { margin: 0 0 10px; font-size: 0.95rem; font-weight: 600; color: #DCE6FF; }
@@ -817,7 +823,7 @@ html[data-book-visible] nav[data-cta-location="sticky_mobile"] { transform: tran
   background: transparent; border: 1px solid rgba(255,255,255,0.14); transition: border-color 160ms, background-color 160ms;
 }
 .bk-time:hover { border-color: rgba(143,176,255,0.6); }
-.bk-time[aria-pressed="true"] { background: #4D7CFF; border-color: #4D7CFF; color: #FFFFFF; }
+.bk-time[aria-pressed="true"] { background: #2F5FE0; border-color: #2F5FE0; color: #FFFFFF; }
 .bk-tz { margin: 12px 0 0; }
 
 /* questions */

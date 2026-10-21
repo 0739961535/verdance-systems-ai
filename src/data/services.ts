@@ -3,7 +3,7 @@
  *
  * Every service has its own page at /services/[slug] and appears in the
  * services index and the nav. Copy rules (house style):
- *   - plain words a South African business owner gets in five seconds,
+ *   - plain words a business owner in South Africa or the UK gets in five seconds,
  *     outcome first: what happens for their customer and their day
  *   - no jargon, no acronyms unless explained, no dashes as punctuation,
  *     no hype, no emojis, British English
@@ -92,12 +92,12 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     name: "Finding new customers",
     headline: "More people enquiring,",
     italicWord: "and old leads coming back.",
-    promise: "We bring back people who enquired before and find new ones who match your best customers.",
+    promise: "We bring back past enquirers who agreed to hear from you, and find new businesses that match your best customers.",
     description:
-      "Most businesses already have a list of people who asked about them once and never booked. We message them in your voice and book the ones who reply, then help new people find you and get in touch. Every enquiry lands in one place, ready to be answered.",
+      "Most businesses have a list of people who asked about them once and never booked. Those who agreed to hear from you get a friendly message in your voice, with an easy opt-out, and we book the ones who reply. New businesses that match your best customers are emailed once, with a clear opt-out. Every enquiry lands in one place, ready to be answered.",
     whatYouGet: [
-      "A friendly message to your old enquiries and past customers, in your voice",
-      "Lists of new businesses or people who match your best customers",
+      "A friendly message to past enquirers and customers who agreed to hear from you, with an easy opt-out",
+      "A checked list of businesses that match your best customers, contacted once by email with a clear opt-out (POPIA in South Africa, PECR in the UK)",
       "Enquiry forms and landing pages that are short and easy to fill in on a phone",
       "Every reply answered quickly and booked into your diary",
     ],
@@ -105,13 +105,13 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     subProducts: [
       {
         name: "Waking up old enquiries",
-        description: "We message the people who enquired before and went quiet, and book the ones who reply.",
-        howItWorks: ["You share your list of old enquiries and past customers", "We write a short, friendly message in your voice", "Replies are answered and booked into your diary"],
+        description: "A friendly message to past enquirers and customers who agreed to hear from you, with an easy opt-out.",
+        howItWorks: ["You share the people who agreed to hear from you", "We write a short, friendly message with an easy opt-out", "Replies are answered and booked into your diary"],
       },
       {
         name: "Finding new customers",
-        description: "A list of businesses or people who look like your best customers, checked and ready to contact.",
-        howItWorks: ["We agree who your ideal customer is", "We build and check the list", "It goes into your customer records, ready for outreach"],
+        description: "A checked list of businesses that match your best customers, contacted once by email with a clear opt-out (POPIA in South Africa, PECR in the UK).",
+        howItWorks: ["We agree who your ideal customer is", "We build and check a list of businesses", "Each is emailed once, with a clear opt-out"],
       },
       {
         name: "Enquiry forms",
@@ -127,9 +127,9 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "The cheapest new customer is often someone who already asked about you. Most businesses never follow them up.",
     outcome: "A steady flow of enquiries, including people you thought you had lost.",
     relatedSlugs: ["conversation-ai", "follow-up-nurture", "marketing-social"],
-    seoTitle: "Lead Reactivation and Generation, South Africa",
+    seoTitle: "Win Back Old Enquiries and Find New Customers",
     seoDescription:
-      "Win back old enquiries and find new customers. We message your past leads in your voice, build lists of people like your best customers and book every reply. Free Operations Map.",
+      "Bring back past enquirers who agreed to hear from you, and find new businesses like your best customers. Every reply answered and booked.",
   },
   {
     slug: "conversation-ai",
@@ -178,9 +178,9 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "People usually book with the first business that replies. A slow reply often means a lost customer, not a late one.",
     outcome: "Every message answered within 60 seconds, at any hour, and more of them booked.",
     relatedSlugs: ["voice-ai", "booking-calendar", "follow-up-nurture"],
-    seoTitle: "WhatsApp Automation for Business, South Africa",
+    seoTitle: "WhatsApp and Chat Replies in 60 Seconds",
     seoDescription:
-      "WhatsApp automation for owner-led businesses: every WhatsApp, website chat, Instagram and SMS message answered within 60 seconds, day or night, and booked into your diary.",
+      "WhatsApp, website chat, Instagram, Facebook and SMS answered within 60 seconds, day or night, in your words. Anything unusual comes to you.",
   },
   {
     slug: "voice-ai",
@@ -224,9 +224,9 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "A caller who gets no answer usually rings the next business on the list. They rarely leave a voicemail.",
     outcome: "No more missed calls, and no more callers left hanging after hours.",
     relatedSlugs: ["conversation-ai", "follow-up-nurture", "booking-calendar"],
-    seoTitle: "AI Receptionist South Africa: Every Call Answered",
+    seoTitle: "AI Receptionist: Every Call Answered",
     seoDescription:
-      "An AI receptionist for owner-led businesses: every call answered, day or night, callers booked into your diary and urgent calls passed straight to you. Free Operations Map.",
+      "A phone assistant that picks up when you can't, answers questions and books the caller in. Urgent calls come to you, with a summary of every call.",
   },
   {
     slug: "crm-pipeline",
@@ -270,9 +270,9 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "When customer details live in five places, enquiries get forgotten and follow-ups never happen.",
     outcome: "Every customer accounted for, and everyone on the team knows what to do next.",
     relatedSlugs: ["conversation-ai", "booking-calendar", "analytics-compliance"],
-    seoTitle: "CRM Setup and Automation, South Africa",
+    seoTitle: "CRM Setup: Every Customer in One Place",
     seoDescription:
-      "Keep every customer, enquiry and job in one place. Records fill themselves in from calls, messages and bookings, so nothing slips through. Set up for owner-led businesses.",
+      "Every call, message and booking filed against the right customer. See who is waiting for a quote and who needs a follow-up, at a glance.",
   },
   {
     slug: "booking-calendar",
@@ -316,9 +316,9 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "Every extra message between interest and a booked time loses people. The easier it is to book, the more people do.",
     outcome: "More bookings, fewer no-shows and no double-bookings.",
     relatedSlugs: ["conversation-ai", "voice-ai", "follow-up-nurture"],
-    seoTitle: "Online Booking and Reminders, South Africa",
+    seoTitle: "Online Booking and Reminders",
     seoDescription:
-      "An online booking system that works with your diary: customers book at any hour, get reminders and reschedule with one tap. Bookings inside WhatsApp too. Free Operations Map.",
+      "Customers book a time from your real diary, at any hour, and get reminders so they turn up. Works with Google Calendar or Outlook.",
   },
   {
     slug: "follow-up-nurture",
@@ -328,11 +328,11 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     italicWord: "to go cold.",
     promise: "Missed calls get a text back in seconds, and every quote and quiet enquiry is followed up politely.",
     description:
-      "When you miss a call, the caller gets a friendly text within seconds asking how you can help. Quotes and enquiries that go quiet are followed up a set number of times in your voice, and it stops the moment they reply. Past customers are reminded when it is time to book again.",
+      "When you miss a call, the caller gets a friendly text within seconds asking how you can help. Quotes and enquiries that go quiet are followed up a set number of times in your voice, and it stops the moment they reply. Past customers who agreed to hear from you are reminded when it is time to book again, with an easy opt-out.",
     whatYouGet: [
       "A text back to every missed call, within seconds",
-      "Polite follow-ups on quotes and quiet enquiries, stopped the moment they reply",
-      "Reminders to past customers when it is time to come back",
+      "Polite follow-ups on quotes and quiet enquiries, stopped the moment they reply or opt out",
+      "Reminders to past customers who agreed to hear from you, with an easy opt-out",
       "A recap message after phone calls, with the next step",
     ],
     bestFor: "Trades and service businesses that miss calls on the job or send quotes that go quiet.",
@@ -349,7 +349,7 @@ const BASE_CATEGORIES: ServiceCategory[] = [
       },
       {
         name: "Bringing customers back",
-        description: "Past customers get a reminder when they are due again, with one tap to book.",
+        description: "Past customers who agreed to hear from you get a reminder when they are due again, with an easy opt-out.",
         howItWorks: ["We set the right gap for each service", "A personal message goes out at that time", "One tap to book again"],
       },
       {
@@ -361,9 +361,9 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "Most enquiries are not lost on price. They are lost because nobody followed up.",
     outcome: "Customers you would have lost, recovered every week without anyone chasing them by hand.",
     relatedSlugs: ["conversation-ai", "lead-generation", "reputation-reviews"],
-    seoTitle: "Missed Call Text Back and Follow-up, South Africa",
+    seoTitle: "Missed Call Text Back and Quote Follow-up",
     seoDescription:
-      "Every missed call gets a text back in seconds, and quotes that go quiet are followed up politely in your voice. Built for owner-led businesses.",
+      "Missed calls get a friendly text within seconds. Quiet quotes and enquiries are followed up politely in your voice, and it stops when they reply.",
   },
   {
     slug: "payments-invoicing",
@@ -407,9 +407,9 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "Money gets stuck between the quote and the payment. The fewer steps for the customer, the faster you are paid.",
     outcome: "Faster payments, fewer no-shows and less time chasing.",
     relatedSlugs: ["booking-calendar", "crm-pipeline", "follow-up-nurture"],
-    seoTitle: "Invoice Reminders and Payment Links, South Africa",
+    seoTitle: "Invoices, Payment Links and Reminders",
     seoDescription:
-      "Send invoices and payment links by WhatsApp, SMS or email, take deposits at booking and let polite reminders chase late payments. For owner-led businesses.",
+      "Invoices and payment links sent the moment the job is done, deposits taken at booking, and late payers reminded politely. Get paid sooner.",
   },
   {
     slug: "reputation-reviews",
@@ -417,27 +417,27 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     name: "Google reviews",
     headline: "More good reviews,",
     italicWord: "without having to ask.",
-    promise: "Every happy customer is asked for a Google review at the right moment, and problems come to you first.",
+    promise: "Every customer is asked for a Google review the same way, at the right moment, and every review gets a reply.",
     description:
-      "After each job or visit, the customer gets a short, friendly request with a link straight to your Google review page. If someone is unhappy, their feedback comes to you privately so you can put it right. New reviews are flagged to you, with a reply ready to send.",
+      "After each job or visit, the customer gets a short, friendly request with a link straight to your Google review page. Every customer is asked the same way, whatever they thought. New reviews are flagged to you, with a reply ready to send, so every review gets an answer.",
     whatYouGet: [
       "A review request after every job or visit, by SMS or WhatsApp",
-      "Unhappy customers routed to you privately first",
+      "Every customer asked the same way, never only the happy ones",
       "An alert for every new review, with a reply drafted for you",
       "Your best reviews shown on your website",
-      "A gentle nudge to happy customers to refer a friend",
+      "A reply to every review, good or bad, drafted for you to approve",
     ],
     bestFor: "Local businesses where customers check Google before they choose who to call.",
     subProducts: [
       {
         name: "Google review requests",
-        description: "Every happy customer gets a friendly request with a link straight to your Google review page.",
+        description: "Every customer gets the same friendly request with a link straight to your Google review page.",
         howItWorks: ["A job or visit is marked as done", "A personal request goes out by SMS or WhatsApp", "One tap takes them to your review page"],
       },
       {
-        name: "Catching problems early",
-        description: "If a customer is unhappy, their feedback comes to you privately first.",
-        howItWorks: ["The customer answers one quick question", "Unhappy answers come straight to you", "Happy customers are asked for a review"],
+        name: "Hearing about problems",
+        description: "Any customer can tell you about a problem at any time. You put it right, and they still choose whether to review.",
+        howItWorks: ["A problem is flagged to you straight away", "You call or message them to put it right", "The review request still goes to everyone"],
       },
       {
         name: "Review alerts and replies",
@@ -450,12 +450,12 @@ const BASE_CATEGORIES: ServiceCategory[] = [
         howItWorks: ["We add a reviews section to your site", "It updates as new reviews come in", "It matches your branding"],
       },
     ],
-    whyItMatters: "Good reviews bring in new customers every day. Most happy customers simply forget to leave one unless they are asked.",
-    outcome: "A steady stream of new Google reviews, and unhappy customers caught before they post.",
+    whyItMatters: "Good reviews bring in new customers every day. Most customers simply forget to leave one unless they are asked.",
+    outcome: "A steady stream of new Google reviews, and a reply to every one.",
     relatedSlugs: ["follow-up-nurture", "marketing-social", "lead-generation"],
-    seoTitle: "Google Review Automation, South Africa",
+    seoTitle: "More Google Reviews, Asked at the Right Time",
     seoDescription:
-      "Automatic Google review requests after every job, private feedback from unhappy customers first, and alerts with replies drafted for you. For owner-led businesses.",
+      "Every customer gets the same friendly Google review request after each job, and every review gets a reply, drafted for you to approve.",
   },
   {
     slug: "websites-build",
@@ -499,9 +499,9 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "Most business websites are digital brochures. Yours should answer, capture and book, even when you are closed.",
     outcome: "A website that turns visitors into enquiries and bookings.",
     relatedSlugs: ["lead-generation", "conversation-ai", "marketing-social"],
-    seoTitle: "Websites That Turn Visits into Enquiries, SA",
+    seoTitle: "Websites That Turn Visits into Enquiries",
     seoDescription:
-      "Fast websites for owner-led businesses that show up on Google and turn visitors into enquiries, with chat, booking and enquiry forms built in. Free Operations Map.",
+      "Fast websites that show up on Google and make getting in touch easy, with chat, booking and enquiry forms built in. Free Operations Map.",
   },
   {
     slug: "marketing-social",
@@ -516,7 +516,7 @@ const BASE_CATEGORIES: ServiceCategory[] = [
       "Regular posts on Instagram, Facebook, LinkedIn or TikTok, written in your voice",
       "Everything prepared for you to approve before it goes out",
       "Facebook, Instagram and Google adverts set up and checked weekly",
-      "Email newsletters to past customers",
+      "Email newsletters to past customers who agreed to hear from you, with an easy opt-out",
       "One calendar showing everything that is planned",
     ],
     bestFor: "Owners who know they should post more but never have the time.",
@@ -533,7 +533,7 @@ const BASE_CATEGORIES: ServiceCategory[] = [
       },
       {
         name: "Email newsletters",
-        description: "Newsletters and offers to past customers that bring them back.",
+        description: "Newsletters and offers to past customers who agreed to hear from you, each with an easy opt-out.",
         howItWorks: ["We agree how often and what about", "We write them for you to approve", "They are sent and you see the results"],
       },
       {
@@ -545,9 +545,9 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "People buy from businesses they see often. Posting regularly is the part most owners drop first when they get busy.",
     outcome: "A business that stays visible every week, and more people getting in touch.",
     relatedSlugs: ["websites-build", "lead-generation", "reputation-reviews"],
-    seoTitle: "Social Media and Ads Management, South Africa",
+    seoTitle: "Social Media and Ads, Done for You",
     seoDescription:
-      "Regular social media posts in your voice, Facebook, Instagram and Google adverts checked every week, and newsletters to past customers. For owner-led businesses.",
+      "Posts planned in your voice and approved by you, adverts checked every week, and every enquiry they bring in answered within 60 seconds.",
   },
   {
     slug: "custom-builds",
@@ -585,23 +585,23 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "Ready-made tools cover most of a business. The last part, the bit only you do, is usually where the hours go.",
     outcome: "The admin your team has been asking to get rid of, finally done for them.",
     relatedSlugs: ["crm-pipeline", "analytics-compliance", "websites-build"],
-    seoTitle: "Business Automation and AI Agents, South Africa",
+    seoTitle: "Custom Automation and AI Helpers",
     seoDescription:
-      "Custom automation for owner-led businesses: repetitive admin done for you, your existing tools connected, and an assistant trained on your own rules. Free Operations Map.",
+      "We automate the work only your business has and connect the tools you already use. You approve anything that matters before it happens.",
   },
   {
     slug: "analytics-compliance",
     number: "12",
-    name: "Reports and POPIA",
+    name: "Reports and privacy",
     headline: "Know what is working,",
-    italicWord: "and stay on the right side of POPIA.",
-    promise: "A clear monthly report on enquiries, bookings and money, with customer data handled the way POPIA requires.",
+    italicWord: "and keep customer data safe.",
+    promise: "A clear monthly report on enquiries, bookings and money, with customer data handled the way POPIA and UK GDPR require.",
     description:
-      "You see how many people enquired, how fast they were answered and how many booked, in plain words and in money terms. Customer data is collected with consent and can be exported or deleted on request, as POPIA (South Africa's privacy law) requires. Each month we suggest one thing to improve.",
+      "You see how many people enquired, how fast they were answered and how many booked, in plain words and in money terms. Customer data is collected with consent and can be exported or deleted on request, as privacy law requires (POPIA in South Africa, UK GDPR in the UK). Each month we suggest one thing to improve.",
     whatYouGet: [
       "A live dashboard of enquiries, reply times and bookings",
       "A short monthly report in plain words, with the value in money terms",
-      "Consent captured on every form, as POPIA requires",
+      "Consent captured on every form, as POPIA and UK GDPR require",
       "Customer data that can be exported or deleted on request",
       "One clear suggestion each month on what to improve",
     ],
@@ -618,7 +618,7 @@ const BASE_CATEGORIES: ServiceCategory[] = [
         howItWorks: ["It is built from your live numbers", "It explains what changed", "It ends with one thing to do next"],
       },
       {
-        name: "POPIA basics",
+        name: "Privacy basics",
         description: "Consent, data requests and a record of what happened, handled properly.",
         howItWorks: ["Consent is captured on every form", "Data can be exported or deleted on request", "There is a record if anyone asks"],
       },
@@ -631,9 +631,9 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     whyItMatters: "Without the numbers, decisions are guesses. With them, you can see what to fix first.",
     outcome: "Clear numbers every month, and customer data handled the right way.",
     relatedSlugs: ["crm-pipeline", "marketing-social", "custom-builds"],
-    seoTitle: "Enquiry Dashboard and POPIA Compliance, SA",
+    seoTitle: "Monthly Reports and Data Privacy",
     seoDescription:
-      "A live dashboard and plain monthly report on enquiries, reply times and bookings, with consent and data requests handled the way POPIA requires. South Africa.",
+      "A plain monthly report on enquiries, reply times and bookings, with customer data handled the way POPIA and UK GDPR require.",
   },
 ];
 
@@ -681,7 +681,7 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
       },
       {
         title: "It books, or hands over",
-        body: "Simple requests are booked in the same chat. Anything that needs judgement goes to a person with a short summary.",
+        body: "Simple requests are booked in the same chat. Anything that needs judgement goes to a person with a short summary and the whole chat.",
         visual: {
           kind: "status",
           app: "Handover",
@@ -691,17 +691,6 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
             { text: "Needs a person", tone: "amber" },
             { text: "Taken over", tone: "green" },
           ],
-        },
-      },
-      {
-        title: "Everything is saved",
-        body: "Each conversation stays on the customer's record, so whoever picks it up next sees the whole story.",
-        visual: {
-          kind: "status",
-          app: "Customer record",
-          title: "New enquiry, Durban",
-          sub: "3 messages, 1 order question",
-          chips: [{ text: "Saved", tone: "green" }],
         },
       },
     ],
@@ -745,7 +734,7 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
       LIVE_FAQ,
       {
         q: "Where do the conversations live?",
-        a: "In accounts set up in your business's name. Consent and data requests are handled the way POPIA requires.",
+        a: "In accounts set up in your business's name. Consent and data requests are handled the way POPIA and UK GDPR require.",
       },
     ],
   },
@@ -783,26 +772,13 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
       },
       {
         title: "Replies come straight to you",
-        body: "When the customer answers, the conversation lands in your inbox with the history attached.",
+        body: "When the customer answers, the chat lands in your inbox and the follow-ups stop. A no thanks stops them too.",
         visual: {
           kind: "chat",
           app: "WhatsApp",
           time: "09:14",
           inMsg: "Yes, still keen. Can you start in March?",
           outMsg: "Great. I have passed this to the team, they will confirm a start date today.",
-        },
-      },
-      {
-        title: "It stops when they answer",
-        body: "A reply, a booking or a no thanks ends the follow-ups for that person. Nobody is chased after they answer.",
-        visual: {
-          kind: "rows",
-          app: "Follow-ups",
-          rows: [
-            { text: "Replied", chip: "Stopped", tone: "green" },
-            { text: "Booked a visit", chip: "In the diary", tone: "blue" },
-            { text: "Said no thanks", chip: "Closed politely", tone: "muted" },
-          ],
         },
       },
     ],
@@ -837,7 +813,7 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
       },
       {
         q: "Who gets followed up?",
-        a: "Only people who contacted you first or asked for a quote. Every message has an easy way to opt out, as POPIA requires.",
+        a: "Only people who contacted you first or asked for a quote. Every message has an easy way to opt out, as POPIA and UK GDPR require.",
       },
       {
         q: "What if a customer replies at night?",
@@ -875,7 +851,7 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
       },
       {
         title: "Reminders go out",
-        body: "A confirmation straight away and a reminder before the visit, with one tap to move it.",
+        body: "A confirmation straight away and a reminder before the visit, with one tap to move it. Each evening you get tomorrow's list.",
         visual: {
           kind: "chat",
           app: "WhatsApp",
@@ -883,17 +859,6 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
           outMsg: "Reminder: we see you tomorrow at 07:30. Reply 1 to confirm or 2 to move it.",
           inMsg: undefined,
           status: "Confirmed by the customer",
-        },
-      },
-      {
-        title: "Your records stay up to date",
-        body: "The booking, the notes and the messages sit on the customer's record. Each evening you get tomorrow's list.",
-        visual: {
-          kind: "status",
-          app: "Tomorrow",
-          title: "4 bookings",
-          sub: "Summary sent at 18:00",
-          chips: [{ text: "Up to date", tone: "green" }],
         },
       },
     ],
@@ -939,7 +904,7 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
   },
 
   "analytics-compliance": {
-    oneLine: "A live view and a short monthly report on enquiries, reply times and bookings, with customer data handled the way POPIA requires.",
+    oneLine: "A live view and a short monthly report on enquiries, reply times and bookings, with customer data handled the way POPIA and UK GDPR require.",
     steps: [
       {
         title: "Your channels are connected",
@@ -969,26 +934,15 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
       },
       {
         title: "The monthly report arrives",
-        body: "A short report in plain words on what moved and why, with the value in money terms.",
+        body: "A short report in plain words on what moved and why, ending with one thing to improve.",
         visual: { kind: "work", word: "Report" },
       },
       {
-        title: "One thing to improve",
-        body: "Each report ends with one clear suggestion. We test it, and keep it only if it works.",
-        visual: {
-          kind: "status",
-          app: "Next step · Sample",
-          title: "Reply to price questions with two options",
-          sub: "Tested for four weeks",
-          chips: [{ text: "Suggested", tone: "blue" }],
-        },
-      },
-      {
-        title: "POPIA kept in order",
+        title: "Privacy kept in order",
         body: "Consent on every form, data requests handled, and a record kept in case anyone asks.",
         visual: {
           kind: "rows",
-          app: "POPIA",
+          app: "Privacy",
           rows: [
             { text: "Consent on every form", chip: "On", tone: "green" },
             { text: "Export or delete on request", chip: "Ready", tone: "green" },
@@ -1072,7 +1026,7 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
       },
       {
         title: "We test it on real phones",
-        body: "Speed, forms and booking are checked on phones and laptops before anyone sees it.",
+        body: "Speed, forms and booking are checked on phones and laptops. It goes live in your business's name.",
         visual: {
           kind: "rows",
           app: "Checks",
@@ -1081,17 +1035,6 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
             { text: "Android", chip: "Checked", tone: "green" },
             { text: "Laptop", chip: "Checked", tone: "green" },
           ],
-        },
-      },
-      {
-        title: "It goes live in your name",
-        body: "The domain, the content and the accounts belong to your business.",
-        visual: {
-          kind: "status",
-          app: "Launch",
-          title: "yourbusiness.co.za",
-          sub: "Domain and accounts in your name",
-          chips: [{ text: "Live", tone: "green" }],
         },
       },
     ],
@@ -1180,24 +1123,13 @@ const SERVICE_DEPTH: Record<string, ServiceDepth> = {
       },
       {
         title: "It asks before anything important",
-        body: "Anything new to a client, a supplier or the public waits for your approval.",
+        body: "Anything new to a client, a supplier or the public waits for your approval. If something breaks, you and we get an alert.",
         visual: {
           kind: "status",
           app: "Approval",
           title: "Send the weekly order to the supplier",
           sub: "Drafted and checked",
           chips: [{ text: "Waiting for your approval", tone: "amber" }],
-        },
-      },
-      {
-        title: "You hear if anything stops",
-        body: "Checks run all the time. If something breaks, you and we get an alert.",
-        visual: {
-          kind: "status",
-          app: "Health",
-          title: "All checks passed",
-          sub: "Last run 06:00",
-          chips: [{ text: "Running", tone: "green" }],
         },
       },
     ],
@@ -1354,3 +1286,128 @@ export const SERVICE_PILLARS: ServicePillar[] = [
 
 export const PILLAR_CATEGORIES = (pillar: ServicePillar): ServiceCategory[] =>
   pillar.slugs.map((s) => SERVICE_BY_SLUG[s]).filter(Boolean);
+
+/* ------------------------------------------------------------------ */
+/* The short story per service (Oct 2026): the 20 to 25 word hero line  */
+/* and the before-and-after strip ("Today" and "With Verdance").        */
+/* ------------------------------------------------------------------ */
+
+export type ServiceStory = {
+  /** Hero paragraph, 20 to 25 words. The full description sits behind "Show me how". */
+  short: string;
+  /** Three beats each: what happens to the customer today, and with us. */
+  today: [string, string, string];
+  withUs: [string, string, string];
+};
+
+export const SERVICE_STORY: Record<string, ServiceStory> = {
+  "conversation-ai": {
+    short: "A customer messages at 21:00. They get a helpful reply straight away, in your words, and get booked in. Anything unusual comes to you.",
+    today: ["Message at 21:00", "Seen next morning", "Booked elsewhere"],
+    withUs: ["Message at 21:00", "Reply in seconds", "Booked in"],
+  },
+  "voice-ai": {
+    short: "You're on a job and the phone rings. A friendly voice answers, books the caller in and passes urgent calls to you.",
+    today: ["Call while you're busy", "Voicemail", "Calls someone else"],
+    withUs: ["Call while you're busy", "Answered straight away", "Booked in"],
+  },
+  "follow-up-nurture": {
+    short: "You miss a call on site. The caller gets a friendly text within seconds. Quiet quotes get a polite nudge until they reply.",
+    today: ["Missed call", "Voicemail", "Lost"],
+    withUs: ["Missed call", "Text back in seconds", "Booked"],
+  },
+  "booking-calendar": {
+    short: "Customers pick a time from your real diary, on their phone, at any hour. They get reminders and can move it with one tap.",
+    today: ["\u201cCan I book Tuesday?\u201d", "A day of back and forth", "No-show"],
+    withUs: ["Picks a time online", "Confirmed and reminded", "Turns up"],
+  },
+  "lead-generation": {
+    short: "People who asked about you and agreed to hear from you get a friendly message, with an easy opt-out. The ones who reply get booked in.",
+    today: ["Past enquirers", "Never followed up", "Forgotten"],
+    withUs: ["Past enquirers", "Message with opt-out", "Replies booked in"],
+  },
+  "crm-pipeline": {
+    short: "Every call, message and booking is filed against the right customer by itself. You see who is waiting, and nothing slips through.",
+    today: ["Notes in three places", "Who called back?", "Quote forgotten"],
+    withUs: ["One customer record", "Next step shown", "Followed up on time"],
+  },
+  "payments-invoicing": {
+    short: "The job is done and the invoice goes out with a link to pay by phone. Late payers get polite reminders, so you stop chasing.",
+    today: ["Job done", "Invoice next week", "Weeks of chasing"],
+    withUs: ["Job done", "Invoice and pay link sent", "Paid sooner"],
+  },
+  "reputation-reviews": {
+    short: "After each job, every customer gets the same friendly link to your Google reviews. You reply to every review, good or bad.",
+    today: ["Job done", "Never asked", "No review"],
+    withUs: ["Job done", "Every customer asked", "New Google review"],
+  },
+  "websites-build": {
+    short: "A fast website that shows up on Google and makes getting in touch easy. It answers and books people while you work.",
+    today: ["Visitor on a phone", "Slow page, no reply", "Leaves"],
+    withUs: ["Visitor on a phone", "Asks in the chat", "Enquiry booked"],
+  },
+  "marketing-social": {
+    short: "Your posts are planned in your voice, you approve them, and they go out on time. Adverts are checked weekly and every enquiry answered.",
+    today: ["Busy week", "No posts", "Quiet next month"],
+    withUs: ["Busy week", "Posts go out on time", "Enquiries keep coming"],
+  },
+  "custom-builds": {
+    short: "The jobs only your business has, like copying details between systems or the same report every week, done for you. You approve what matters.",
+    today: ["Same details typed twice", "An hour a day gone", "Mistakes creep in"],
+    withUs: ["Details move on their own", "Hours back", "You check what matters"],
+  },
+  "analytics-compliance": {
+    short: "Each month, a short report in plain words: how many enquired, how fast they were answered and how many booked. Customer data kept safe.",
+    today: ["Busy month", "No idea what worked", "Guessing"],
+    withUs: ["Busy month", "A plain monthly report", "One thing to fix next"],
+  },
+};
+
+const STEP_CHIPS: { chip: string; tone: DepthTone }[] = [
+  { chip: "First", tone: "muted" },
+  { chip: "Then", tone: "blue" },
+  { chip: "Done", tone: "green" },
+];
+
+/**
+ * The depth content for any service: its own when written, otherwise
+ * built from its parts, so all twelve pages use one template.
+ */
+export function depthFor(c: ServiceCategory): ServiceDepth {
+  if (c.depth) return c.depth;
+  return {
+    oneLine: c.promise,
+    steps: c.subProducts.map((sp) => ({
+      title: sp.name,
+      body: sp.description,
+      visual: {
+        kind: "rows",
+        app: sp.name,
+        rows: sp.howItWorks.map((t, i) => ({ text: t, ...STEP_CHIPS[Math.min(i, STEP_CHIPS.length - 1)] })),
+      },
+    })),
+    youDo: [
+      "Join the free call and the Operations Map",
+      "Tell us your prices, rules and who takes over",
+      "Approve the important steps when asked",
+      "Read the monthly report",
+    ],
+    weDo: [
+      "Set it up in accounts in your business's name",
+      "Connect it to the tools you already use",
+      "Test it with you before any customer sees it",
+      "Watch the first weeks closely and fix anything unclear",
+    ],
+    buildNote: "We set it up, connect your tools and test it with you.",
+    weekly: [
+      { label: "Every day", text: c.outcome },
+      { label: "When it matters", text: "A request for your approval, or a handover to your team." },
+      { label: "Each month", text: "A short report in plain words, with one thing to improve." },
+    ],
+    faqs: [
+      { q: "Who is it best for?", a: c.bestFor },
+      { q: "Why does it matter?", a: c.whyItMatters },
+      LIVE_FAQ,
+    ],
+  };
+}

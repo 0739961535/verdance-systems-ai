@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { SplitWords } from "@/components/primitives/Reveal";
-import film from "@/components/home/flight/film-manifest.json";
 import { ProcessTimeline, type ProcessStep } from "./ProcessTimeline";
 
 /**
@@ -11,26 +10,25 @@ import { ProcessTimeline, type ProcessStep } from "./ProcessTimeline";
  * the theme tokens it relies on are pinned to their dark values on the band.
  */
 
-const STILL = (n: string, ext: string) => `/flight/film/${n}.${ext}?v=${film.v}`;
 
 const STEPS: ProcessStep[] = [
-  { n: "01", word: "Call", icon: "call", timing: "30 minutes", sentence: "We trace how enquiries reach you today and where they stall before a reply." },
-  { n: "02", word: "Map", icon: "map", timing: "Free", sentence: "A time and capacity audit: where hours and revenue leak, measured." },
+  { n: "01", word: "Call", icon: "call", timing: "30 minutes", sentence: "How enquiries reach you, and where they wait." },
+  { n: "02", word: "Map", icon: "map", timing: "Free", sentence: "Where hours and money leak, in numbers." },
   {
     n: "03",
     word: "Plan",
     icon: "plan",
     timing: "You decide",
-    sentence: "A written implementation plan: what we build first, the timeline to go-live and the expected return. If the numbers don't work, we say so.",
+    sentence: "What we build first and what it should bring back. If the numbers don't work, we say so.",
   },
   {
     n: "04",
     word: "Build",
     icon: "build",
     timing: "10 working days",
-    sentence: "We configure it in your accounts, train it on your voice and test it on real enquiries before go-live.",
+    sentence: "Set up in your accounts, in your voice, tested before it goes live.",
   },
-  { n: "05", word: "Review", icon: "review", timing: "Day 90", sentence: "We review response times and outcomes against the baseline and agree the next phase." },
+  { n: "05", word: "Review", icon: "review", timing: "Day 90", sentence: "Your numbers before and after. You choose what comes next." },
 ];
 
 const CSS = `
@@ -42,17 +40,9 @@ const CSS = `
 }
 @media (min-width: 1024px) { .pc { padding-bottom: 160px; } }
 
-/* Orbit plate: the Earth curve from the film, fading into the band */
-.pc-plate { position: relative; z-index: 1; height: 240px; margin-bottom: -48px; pointer-events: none; }
-.pc-plate img {
-  display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 88%;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 52%, transparent 100%);
-          mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 52%, transparent 100%);
-}
-@media (min-width: 1024px) {
-  .pc-plate { height: 400px; margin-bottom: -96px; }
-  .pc-plate img { object-position: 50% 72%; }
-}
+/* a short soft turn from the light Portfolio above into the night band */
+.pc-plate { height: clamp(72px, 10vh, 128px); margin-bottom: 24px; pointer-events: none;
+  background: linear-gradient(#F4F1EA 0%, color-mix(in oklab, #F4F1EA 40%, #4D7CFF) 35%, #1D3F8F 70%, #0E1A3A 100%); }
 .pc-body { position: relative; z-index: 1; }
 
 .pc-h2 { margin-top: 16px; font-size: clamp(2.5rem, 1.9rem + 2.6vw, 4rem); line-height: 1.05; letter-spacing: -0.035em; color: #F2EFE9; }
@@ -84,19 +74,12 @@ export function ProcessChapter() {
     <section className="pc grain-dark" aria-labelledby="process-title">
       <style>{CSS}</style>
 
-      <div className="pc-plate" aria-hidden>
-        <picture>
-          <source media="(min-width: 768px)" type="image/avif" srcSet={STILL("still-d", "avif")} />
-          <source media="(min-width: 768px)" type="image/webp" srcSet={STILL("still-d", "webp")} />
-          <source type="image/avif" srcSet={STILL("still-m", "avif")} />
-          <img src={STILL("still-m", "webp")} alt="" width={750} height={1327} loading="lazy" decoding="async" />
-        </picture>
-      </div>
+      <div className="pc-plate" aria-hidden />
 
       <div className="pc-body container-wide">
         <div data-reveal="">
           <p className="eyebrow">
-            <span className="chap-n">06</span> Process
+            Process
           </p>
           <h2 id="process-title" className="h2 pc-h2">
             <SplitWords text="From first call to" />{" "}
@@ -106,7 +89,7 @@ export function ProcessChapter() {
             ,{" "}
             <SplitWords text="step by step." start={5} />
           </h2>
-          <p className="pc-intro">Five steps. You make two decisions: whether to go ahead, and what comes next. We do the rest.</p>
+          <p className="pc-intro">Five steps. Two decisions are yours. We do the rest.</p>
         </div>
 
         <div data-reveal="" style={{ ["--reveal-delay" as string]: "0.12s" }}>

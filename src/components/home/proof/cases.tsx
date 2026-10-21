@@ -14,7 +14,7 @@ import {
   Zap,
 } from "lucide-react";
 import { ProofTabs, type ProofTab } from "./ProofTabs";
-import { BriefForm, Flow, Frame, HandoverChip, Item, Msg, OrderCard, Pipeline, Report } from "./panels";
+import { BriefForm, Flow, Frame, HandoverChip, Item, Msg, Pipeline, Report } from "./panels";
 
 /* ---------- South African e-commerce brand ---------- */
 
@@ -25,10 +25,11 @@ const ECOM_TABS: ProofTab[] = [
     icon: MessageCircle,
     panel: (
       <Frame icon={MessageCircle} title="Store assistant" sub="Website chat · replies in under a minute" stagger={0.9}>
-        <Msg side="in">Hi, where&apos;s my order? It&apos;s #10482.</Msg>
-        <Msg side="out">Hi James, I&apos;ve found it. It&apos;s with the courier now:</Msg>
-        <OrderCard />
-        <Msg side="in">Can I change the delivery address?</Msg>
+        <Msg side="in">Hi, do you deliver to Durban? How long does it take?</Msg>
+        <Msg side="out">We do. Durban is 2 to 3 working days, and orders placed before 12:00 go out the same day.</Msg>
+        <Msg side="in">Can I collect instead?</Msg>
+        <Msg side="out">Yes, collection is free from the warehouse, weekdays 08:00 to 16:00.</Msg>
+        <Msg side="in">My last order arrived damaged.</Msg>
         <HandoverChip>Handed to the team, a person replies next</HandoverChip>
       </Frame>
     ),
@@ -42,7 +43,7 @@ const ECOM_TABS: ProofTab[] = [
         <Pipeline
           columns={[
             { stage: "New", count: 2, cards: [
-              { name: "Thabo", note: "Order #10517 tracking", tag: "WA" },
+              { name: "Thabo", note: "Delivery times to Cape Town", tag: "WA" },
               { name: "Anna", note: "Asked about sizes", tag: "Email" },
             ] },
             { stage: "Answered", count: 7, cards: [
@@ -69,7 +70,7 @@ const ECOM_TABS: ProofTab[] = [
           steps={[
             { icon: Zap, title: "New WhatsApp message", note: "Also website chat and email", trigger: true },
             { icon: MessageCircle, title: "Assistant replies in under a minute", note: "In the brand's own voice" },
-            { icon: Search, title: "Order lookup", note: "Status and tracking from the store" },
+            { icon: Search, title: "Answers from the store", note: "Products, delivery and collection" },
             { icon: Tag, title: "Tag + pipeline stage", note: "Order question, follow-up or won" },
             { icon: UserRound, title: "Hand to team if needed", note: "Returns, changes, anything unusual" },
           ]}

@@ -99,7 +99,12 @@ export function NicheCalculator({ calc, bookHref }: { calc: Calc; bookHref: stri
   return (
     <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 items-start">
       <div className="flex flex-col gap-7">
-        {fields.some((f) => f.format === "rand") && <CurrencySwitch className="self-start" />}
+        {fields.some((f) => f.format === "rand") && (
+          <div className="nc-cur self-start">
+            <style>{".nc-cur button { min-height: 44px; min-width: 44px; }"}</style>
+            <CurrencySwitch />
+          </div>
+        )}
         {fields.map((f) => (
           <Field key={f.key} field={f} symbol={CURRENCY[cur].symbol} value={values[f.key]} onChange={(n) => setValue(f, n)} />
         ))}

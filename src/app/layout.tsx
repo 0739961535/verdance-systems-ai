@@ -13,6 +13,7 @@ import { NoPullToRefresh } from "@/components/primitives/NoPullToRefresh";
 import { RevealObserver } from "@/components/primitives/RevealObserver";
 import { Interactions } from "@/components/primitives/Interactions";
 import { SiteAnalytics } from "@/components/analytics/SiteAnalytics";
+import { CookieBanner } from "@/components/consent/CookieBanner";
 import { SITE_URL } from "@/data/site";
 import { ORGANIZATION_LD, ORG_ID, PERSON_LD } from "@/data/entity";
 
@@ -143,10 +144,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
         />
+        <a href="#main" className="skip-link">Skip to content</a>
         <NoPullToRefresh />
         <SmoothScroll>
           <Navbar menus={MEGA_MENUS} niches={NICHE_LINKS} />
-          <main className="flex-1">{children}</main>
+          <main id="main" tabIndex={-1} className="flex-1 outline-none">{children}</main>
           <Footer />
         </SmoothScroll>
         <RevealObserver />
@@ -157,6 +159,7 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
         <SiteAnalytics />
+        <CookieBanner />
       </body>
     </html>
   );

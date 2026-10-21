@@ -1,8 +1,10 @@
+import { ProofBand } from "@/components/proof/OwnNumbers";
+import { UK_LINE, telLink } from "@/data/assistant";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
-import { PageHero } from "@/components/kit/PageHero";
+import { EarthPageHero } from "@/components/about/EarthPageHero";
 import { SectionHead } from "@/components/kit/SectionHead";
 import { CTABand } from "@/components/kit/CTABand";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
@@ -12,10 +14,19 @@ import { SITE, SITE_URL } from "@/data/site";
 import { ORG_ID, PERSON_ID, PERSON_LD } from "@/data/entity";
 import { BuiltForUs } from "@/components/home/BuiltForUs";
 import { FounderPortrait } from "@/components/brand/FounderPortrait";
+import { EarthStrip } from "@/components/about/EarthStrip";
+
+/**
+ * Daniel's real portrait (his pick, 21 Oct 2026): a base path in
+ * public/people/, built by scripts/build-founder-images.mjs at 400 and 800
+ * wide in AVIF and WebP. The same portrait is used sitewide (src/data/founder.ts).
+ * Never put a placeholder, stock or AI face here.
+ */
+const ABOUT_PHOTO: string | null = "/people/daniel-portrait";
 
 const TITLE = "About Daniel Bouwer and Verdance Systems AI";
 const DESCRIPTION =
-  "Verdance Systems AI is run by Daniel Bouwer, 20, in South Africa. He builds AI systems that answer every enquiry within 60 seconds for owner-led businesses.";
+  "Daniel Bouwer, 20, runs Verdance Systems AI. He builds AI systems that answer every enquiry within 60 seconds for owner-led businesses in SA and the UK.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -28,7 +39,7 @@ export const metadata: Metadata = {
 
 const FACTS = [
   { k: "Founder", v: "Daniel Bouwer" },
-  { k: "Based in", v: "South Africa, remote first" },
+  { k: "Works in", v: "South Africa and the UK, remote first" },
   { k: "Works with", v: "Owner-led businesses" },
   { k: "Builds", v: "AI systems and the Operations Team" },
   { k: "Promise", v: "Every enquiry answered within 60 seconds" },
@@ -97,14 +108,14 @@ export default function AboutPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <PageHero
+      <EarthPageHero
         eyebrow="About Verdance"
         title={
           <>
             Daniel Bouwer, <span className="italic-accent">founder.</span>
           </>
         }
-        lead="I'm 20, I live in South Africa, and I build AI systems for owner-led businesses: the kind where people spend the day answering customers, chasing quotes and doing admin. Verdance makes sure every enquiry is answered within 60 seconds and every follow-up gets done."
+        lead="I'm 20 and I build AI systems for owner-led businesses in South Africa and the UK. With Verdance, every enquiry is answered within 60 seconds and every follow-up gets done."
         crumbs={[{ href: "/", label: "Home" }, { label: "About" }]}
         visual={<FactSheet />}
         note="Free Operations Map · 30 minutes with Daniel"
@@ -134,9 +145,8 @@ export default function AboutPage() {
                 its hours back.
               </p>
               <p className="text-[color:var(--color-ink-soft)]">
-                Being 20 is part of the point. I have no old habits to protect, and I would rather you judge me on how
-                your first ten working days feel than on my age. So I set out to make them the best onboarding you have
-                had from any supplier.
+                I&apos;m 20. I have no old habits to protect. Judge me on how your first ten working days feel. I&apos;ve set
+                out to make them the best onboarding you&apos;ll get from any supplier.
               </p>
             </div>
           </Reveal>
@@ -158,9 +168,8 @@ export default function AboutPage() {
             {HOW.map((h, i) => (
               <li key={h.t}>
                 <Reveal delay={Math.min(i * 0.06, 0.3)} className="h-full">
-                  <div className={`card-x h-full p-6 md:p-8 ${i === 2 ? "is-accent" : ""}`}>
-                    <span className="font-mono text-[0.72rem] text-[color:var(--color-accent)] tabular">{String(i + 1).padStart(2, "0")}</span>
-                    <h3 className="mt-4 font-display text-[1.35rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
+                  <div className={`card-x ix-card h-full p-6 md:p-8 ${i === 2 ? "is-accent" : ""}`}>
+                    <h3 className="font-display text-[1.35rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
                       {h.t}
                     </h3>
                     <p className="mt-2 text-[0.98rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{h.b}</p>
@@ -205,51 +214,64 @@ export default function AboutPage() {
             eyebrow="Where we are"
             title={
               <>
-                South Africa, remote first.
+                South Africa and the UK, <span className="italic-accent">remote first.</span>
               </>
             }
           />
+          <div className="min-w-0">
           <Reveal delay={0.08}>
-            <div className="card-x p-7 md:p-9">
+            <div className="card-x min-w-0 p-6 md:p-9">
               <p className="text-[1.02rem] leading-[1.65] text-[color:var(--color-ink)]">
                 Nothing gets installed and nobody has to visit you. Everything is set up on a video call and runs on
                 your own accounts.
               </p>
-              <ul className="mt-5 flex flex-wrap gap-2">
-                {LOCATIONS.map((l) => (
-                  <li key={l.slug}>
-                    <Link
-                      href={`/ai-agency/${l.slug}`}
-                      className="inline-flex min-h-11 items-center gap-1 rounded-full px-3.5 text-[0.85rem] text-[color:var(--color-ink-soft)] transition-colors hover:text-[color:var(--color-ink)]"
-                      style={{ border: "1px solid var(--hairline-2)" }}
-                    >
-                      {l.name}
-                      <ArrowUpRight size={13} aria-hidden className="opacity-60" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <dl className="mt-7 grid gap-3 text-[0.95rem]">
-                <div className="flex flex-wrap gap-x-3">
+              <EarthStrip className="mt-6 w-full max-w-full" />
+              <div className="mt-4 text-[0.9rem] text-[color:var(--color-ink-muted)]">
+                <p>South African city pages:</p>
+                <ul className="flex flex-wrap gap-x-5">
+                  {LOCATIONS.map((l) => (
+                    <li key={l.slug}>
+                      <Link
+                        href={`/ai-agency/${l.slug}`}
+                        className="inline-flex min-h-11 items-center text-[color:var(--color-ink-soft)] underline underline-offset-4 decoration-[color:var(--hairline-2)] hover:text-[color:var(--color-ink)]"
+                      >
+                        {l.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <dl className="mt-6 grid gap-0 text-[0.95rem]">
+                <div className="flex flex-wrap items-center gap-x-3">
                   <dt className="text-[color:var(--color-ink-muted)]">Email</dt>
                   <dd>
-                    <a href={`mailto:${SITE.email}`} className="text-[color:var(--color-ink)] underline-offset-4 hover:underline">
+                    <a href={`mailto:${SITE.email}`} className="inline-flex min-h-11 items-center text-[color:var(--color-ink)] underline-offset-4 hover:underline">
                       {SITE.email}
                     </a>
                   </dd>
                 </div>
-                <div className="flex flex-wrap gap-x-3">
+                <div className="flex flex-wrap items-center gap-x-3">
                   <dt className="text-[color:var(--color-ink-muted)]">WhatsApp</dt>
                   <dd>
-                    <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="text-[color:var(--color-ink)] underline-offset-4 hover:underline">
+                    <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center text-[color:var(--color-ink)] underline-offset-4 hover:underline">
                       {SITE.whatsapp.display}
                     </a>
                   </dd>
                 </div>
-                <div className="flex flex-wrap gap-x-3">
+                {UK_LINE ? (
+                  <div className="flex flex-wrap items-center gap-x-3">
+                    <dt className="text-[color:var(--color-ink-muted)]">UK</dt>
+                    <dd>
+                      <a href={telLink(UK_LINE)} className="inline-flex min-h-11 items-center text-[color:var(--color-ink)] underline-offset-4 hover:underline">
+                        {UK_LINE}
+                      </a>
+                    </dd>
+                  </div>
+                ) : null}
+                <div className="flex flex-wrap items-center gap-x-3">
                   <dt className="text-[color:var(--color-ink-muted)]">LinkedIn</dt>
                   <dd>
-                    <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" className="text-[color:var(--color-ink)] underline-offset-4 hover:underline">
+                    <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center text-[color:var(--color-ink)] underline-offset-4 hover:underline">
                       Daniel Bouwer
                     </a>
                   </dd>
@@ -257,10 +279,13 @@ export default function AboutPage() {
               </dl>
             </div>
           </Reveal>
+          </div>
         </div>
       </section>
 
+      <ProofBand />
       <CTABand
+        points={["Where your team's hours go", "How long customers wait", "A written plan: what we build first, and what it should bring back"]}
         title={
           <>
             Thirty minutes with me, <span className="italic-accent">and the map is yours.</span>
@@ -272,14 +297,53 @@ export default function AboutPage() {
   );
 }
 
+/** A small line-drawn bloom: Daniel's signature mark beside the portrait. */
+function BloomSignature() {
+  return (
+    <svg viewBox="-20 -20 40 40" width="36" height="36" aria-hidden focusable="false" className="absolute right-5 top-5 md:right-7 md:top-7">
+      {[0, 72, 144, 216, 288].map((a) => (
+        <path
+          key={a}
+          transform={`rotate(${a})`}
+          d="M0 -2 C 5 -5, 6 -12, 0 -16 C -6 -12, -5 -5, 0 -2 Z"
+          fill="rgba(77,124,255,0.14)"
+          stroke="var(--color-accent)"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
+      ))}
+      <circle r="2.2" fill="var(--color-accent)" />
+    </svg>
+  );
+}
+
 /**
- * The hero visual: Daniel's portrait (a clean placeholder until the real
- * photo is set in src/data/founder.ts), then the facts as a small card.
+ * The hero visual: Daniel's portrait (ABOUT_PHOTO, or the clean monogram
+ * until a real photo exists), the bloom signature, then the facts.
  */
 function FactSheet() {
   return (
-    <div className="browser-frame g-border p-6 md:p-8">
-      <FounderPortrait className="mb-6" />
+    <div className="browser-frame g-border relative p-6 md:p-8">
+      <BloomSignature />
+      {ABOUT_PHOTO ? (
+        <figure className="mb-6 max-w-[22rem]">
+          <picture>
+            <source type="image/avif" srcSet={`${ABOUT_PHOTO}-400.avif 400w, ${ABOUT_PHOTO}-800.avif 800w`} sizes="(min-width: 640px) 352px, 86vw" />
+            <img
+              src={`${ABOUT_PHOTO}-800.webp`}
+              srcSet={`${ABOUT_PHOTO}-400.webp 400w, ${ABOUT_PHOTO}-800.webp 800w`}
+              sizes="(min-width: 640px) 352px, 86vw"
+              alt="Daniel Bouwer, founder of Verdance Systems AI"
+              width={800}
+              height={1000}
+              fetchPriority="high"
+              className="block aspect-[4/5] w-full rounded-[20px] object-cover"
+            />
+          </picture>
+        </figure>
+      ) : (
+        <FounderPortrait className="mb-6" />
+      )}
       <p className="font-mono text-[0.66rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">Verdance Systems AI</p>
       <dl className="mt-5 divide-y" style={{ borderColor: "var(--hairline)" }}>
         {FACTS.map((f) => (

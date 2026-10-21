@@ -1,22 +1,22 @@
 import { Reveal } from "@/components/primitives/Reveal";
 import { DeltaRows } from "@/components/sections/v4/DeltaRows";
-import { CommitmentBlock } from "@/components/sections/v4/CommitmentBlock";
-import { FAQControl } from "@/components/sections/v4/FAQControl";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { bookUrl, type Niche } from "@/data/niches";
 import { NicheHero } from "./NicheHero";
 import { NicheLeak } from "./NicheLeak";
 import { NicheCalculator } from "./NicheCalculator";
-import { NicheIncluded, NicheProof, NicheSteps } from "./NicheSections";
-import { OfferSection } from "@/components/offer/OfferSection";
+import { NicheProof } from "./NicheSections";
+import { NicheTabs } from "./NicheTabs";
 import { CTABand } from "@/components/kit/CTABand";
+import { SceneBand } from "@/components/visuals/ConceptScene";
 import { SITE_URL } from "@/data/site";
 
 /**
  * NicheOfferPage - one offer, one kind of business, one action.
- * hero (their pain, a live-looking reply) -> what changes -> how it works ->
- * what is included -> their own numbers -> price -> clear terms -> proof ->
- * questions -> book. Every book button goes to the niche's Operations Map flow.
+ * hero (their pain, a live-looking reply) -> what changes -> the offer in
+ * tabs (included, how we work with the terms, questions) -> their own
+ * numbers -> proof ->
+ * book. Every book button goes to the niche's Operations Map flow.
  */
 export function NicheOfferPage({ niche }: { niche: Niche }) {
   const href = bookUrl(niche.bookSlug);
@@ -64,6 +64,7 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
 
       <NicheHero niche={niche} />
       <NicheLeak niche={niche} />
+      <SceneBand slug={niche.slug} />
 
       <DeltaRows
         eyebrow="What changes"
@@ -77,8 +78,7 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
         footnote="Every enquiry gets a reply within 60 seconds, day or night. The rest is measured against your own baseline."
       />
 
-      <NicheSteps niche={niche} />
-      <NicheIncluded niche={niche} />
+      <NicheTabs niche={niche} />
 
       <section
         id="calculator"
@@ -105,11 +105,8 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
         </div>
       </section>
 
-      <OfferSection href={href} />
-      <CommitmentBlock ctaHref={href} ctaLabel="Book a free 30-minute call" />
 
       <NicheProof niche={niche} />
-      <FAQControl faqs={niche.faqs} />
       <CTABand
         eyebrow="Free Operations Map · 30 minutes"
         title={
@@ -119,8 +116,8 @@ export function NicheOfferPage({ niche }: { niche: Niche }) {
         }
         points={[
           "Your reply times, channel by channel",
-          "What slow replies are likely costing you, in real money",
-          "Whether the offer fits, and a fixed quote if it does",
+          "What slow replies cost you in time and money",
+          "Whether it fits, and a fixed quote if it does",
         ]}
         href={href}
       />

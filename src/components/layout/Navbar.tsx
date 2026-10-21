@@ -35,6 +35,19 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
   const niche = niches.find((n) => pathname === `/industries/${n.slug}`);
   const bookHref = niche ? bookUrl(niche.bookSlug) : GENERIC_BOOK_URL;
 
+  // Escape closes the phone menu (and any open dropdown) and returns focus to the toggle.
+  useEffect(() => {
+    if (!open && !openMenu) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      setOpenMenu(null);
+      document.querySelector<HTMLButtonElement>("[data-menu-toggle]")?.focus();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, openMenu]);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
@@ -267,6 +280,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
             className="inline-flex h-11 w-11 items-center justify-center rounded-full border"
             style={{ borderColor: "var(--color-hairline-2)" }}
             onClick={() => setOpen((v) => !v)}
+            data-menu-toggle=""
             aria-label="Toggle menu"
             aria-expanded={open}
           >

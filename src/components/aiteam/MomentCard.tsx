@@ -15,7 +15,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  * without JavaScript; the card only arms the reveal when it starts below the
  * fold. Reduced motion: final state, no count.
  */
-export function MomentCard({ moment, index }: { moment: Moment; index: number }) {
+export function MomentCard({ moment }: { moment: Moment; index?: number }) {
   const ref = useRef<HTMLElement>(null);
   const numRef = useRef<HTMLSpanElement>(null);
   const reduce = useReducedMotionPref();
@@ -63,7 +63,6 @@ export function MomentCard({ moment, index }: { moment: Moment; index: number })
     <article ref={ref} className={m.card}>
       <header className={m.head}>
         <span>{moment.stamp}</span>
-        <span className={m.idx}>{String(index + 1).padStart(2, "0")}</span>
       </header>
       <h3 className={m.title}>{moment.title}</h3>
       <p className={m.bubble}>&ldquo;{moment.quote}&rdquo;</p>

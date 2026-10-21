@@ -94,13 +94,13 @@ export function StickyStory({
               refs.current[i] = el as HTMLDivElement | null;
             }}
             data-step={i}
-            className="flex flex-col justify-center py-10 lg:min-h-[72vh] lg:py-0"
+            className="flex flex-col justify-center py-10 lg:min-h-[56vh] lg:py-0"
             style={{
               opacity: 1,
               transition: "opacity 0.4s var(--ease-luxury)",
             }}
           >
-            <div className={`lg:transition-opacity lg:duration-500 ${i === active ? "" : "lg:opacity-40"}`}>{s.content}</div>
+            <div className={`lg:border-l-2 lg:pl-8 lg:transition-colors lg:duration-500 ${i === active ? "lg:border-[color:var(--accent)]" : "lg:border-[color:var(--hairline-2)]"}`}>{s.content}</div>
             {/* stacked phone for small screens */}
             <div className="mt-8 flex justify-center lg:hidden" aria-hidden>
               <Phone clock={s.clock} size="xs">

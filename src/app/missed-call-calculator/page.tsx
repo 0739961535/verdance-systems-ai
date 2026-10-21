@@ -6,7 +6,7 @@ import { MissedCallCalculator } from "@/components/tools/MissedCallCalculator";
 import { SITE_URL } from "@/data/site";
 
 export const metadata: Metadata = {
-  title: "Missed Call Calculator | What Unanswered Calls Cost You | Verdance Systems AI",
+  title: "Missed Call Calculator: What It Costs You | Verdance",
   description:
     "Work out what missed calls and unanswered messages are costing your business a year. Three numbers, no sign-up. Then see what it takes to stop it.",
   alternates: { canonical: "/missed-call-calculator" },
@@ -116,7 +116,7 @@ const FAQS = [
 
 export default function MissedCallCalculatorPage() {
   return (
-    <main className="bg-canvas min-h-screen">
+    <div className="bg-canvas min-h-screen">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -191,6 +191,6 @@ export default function MissedCallCalculatorPage() {
           </Reveal>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
