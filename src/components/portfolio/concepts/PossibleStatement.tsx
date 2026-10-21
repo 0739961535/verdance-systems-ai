@@ -15,7 +15,10 @@ const CSS = `
 .ps-wrap { position: relative; height: 190vh; background: #F4F1EA; }
 @media (max-width: 767.98px) { .ps-wrap { height: 160vh; } }
 .ps-stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: grid; place-items: center; --p: 0; }
-.ps-night { position: absolute; inset: 0; background: #060B1A; opacity: clamp(0, calc((var(--p) - 0.14) * 3), 1); }
+/* paper to night through the brand blue, never through grey: a blue wash
+   peaks while the navy comes up, and the words swap only either side of it */
+.ps-night { position: absolute; inset: 0; background: #0B1430; opacity: clamp(0, calc((var(--p) - 0.12) * 4.5), 1); }
+.ps-tint { position: absolute; inset: 0; background: #2554D4; opacity: clamp(0, calc(0.5 - max(var(--p) - 0.23, 0.23 - var(--p)) * 4.5), 0.5); }
 .ps-glow { position: absolute; left: 50%; top: 50%; width: 120vmax; height: 120vmax; margin: -60vmax 0 0 -60vmax; border-radius: 999px; pointer-events: none;
   background: radial-gradient(closest-side, rgba(77,124,255,0.32), rgba(77,124,255,0.08) 50%, transparent 70%);
   opacity: clamp(0, calc((var(--p) - 0.35) * 2.4), 1); transform: scale(calc(0.6 + var(--p) * 0.5)); }
@@ -25,14 +28,15 @@ const CSS = `
   font-size: clamp(3.5rem, 18.6vw, 22rem); }
 @media (min-width: 768px) { .ps-h { font-size: clamp(6rem, 18.4vw, 22rem); } }
 .ps-h span { display: block; white-space: nowrap; }
-.ps-h .ps-l { position: absolute; inset: 0; color: #F2F5FC; opacity: clamp(0, calc((var(--p) - 0.16) * 3), 1); }
+.ps-h .ps-l { position: absolute; inset: 0; color: #F2F5FC; opacity: clamp(0, calc((var(--p) - 0.3) * 6), 1); }
 .ps-h .ps-l em { font-style: normal; color: #8FB0FF; }
-.ps-h .ps-d { color: #0E0E10; opacity: calc(1 - clamp(0, calc((var(--p) - 0.16) * 3), 1)); }
+.ps-h .ps-d { color: #0E0E10; opacity: calc(1 - clamp(0, calc((var(--p) - 0.1) * 8), 1)); }
 .ps-h .ps-d em { font-style: normal; color: #2554D4; }
 .ps-cap { position: absolute; left: 0; right: 0; bottom: 8vh; text-align: center; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
   color: #8FB0FF; opacity: clamp(0, calc((var(--p) - 0.6) * 3), 1); }
 @media (max-width: 767.98px) { .ps-cap { bottom: 22vh; } }
 @media (prefers-reduced-motion: reduce) {
+  .ps-tint { display: none; }
   .ps-wrap { height: auto; background: #060B1A; }
   .ps-stick { position: relative; height: auto; padding: 120px 0; --p: 1 !important; }
   .ps-cap { position: static; margin-top: 40px; }
@@ -83,6 +87,7 @@ export function PossibleStatement() {
       <style>{CSS}</style>
       <div ref={stick} className="ps-stick">
         <span className="ps-night" aria-hidden />
+        <span className="ps-tint" aria-hidden />
         <span className="ps-glow" aria-hidden />
         <div className="ps-words">
           <h2 className="ps-h">
