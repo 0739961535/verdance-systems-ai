@@ -1,4 +1,3 @@
-import { APP_ROWS } from "../connectData";
 import { LEAF_SHAPES, limbPath, rng, type Leaf, type Limb, type Pt, type Root } from "./gen";
 
 /**
@@ -135,10 +134,10 @@ type Ring = { n: number; len: number; wid: number; jitter: number; off: number; 
  * translucent outside, tighter and denser toward a crumpled heart. Base
  * deeper peony blue, tips paler, thin edge highlights, a soft shadow under
  * each inner ring for depth. The petals unfurl ring by ring, inside out, at
- * the end of the growth. The command centre card sits in front of the lower
- * half, so the flower frames it on every side and its heart stays visible.
+ * the end of the growth. Nothing sits over it: the explanation panel is
+ * beside the tree (desktop) or above it (phone).
  */
-export function Bloom({ at, r, card, font, id, seed }: { at: Pt; r: number; card: { w: number; h: number }; font: number; id: string; seed: number }) {
+export function Bloom({ at, r, id, seed }: { at: Pt; r: number; id: string; seed: number }) {
   const rand = rng(seed);
   const rings: Ring[] = [
     { n: 12, len: r, wid: r * 0.5, jitter: 6, off: 0, grad: "pa", op: 0.84, a: 0.86, b: 0.97, turn: -26 },
@@ -147,9 +146,6 @@ export function Bloom({ at, r, card, font, id, seed }: { at: Pt; r: number; card
     { n: 10, len: r * 0.5, wid: r * 0.38, jitter: 14, off: 0.05, grad: "pd", op: 1, a: 0.77, b: 0.88, turn: 20 },
     { n: 13, len: r * 0.32, wid: r * 0.3, jitter: 40, off: 0.08, grad: "pe", op: 1, a: 0.74, b: 0.85, turn: -18 },
   ];
-  const small = id === "tall";
-  const rowH = small ? 26 : 30;
-  const cardY = at.y + r * 0.52 - card.h / 2;
   return (
     <g className="tr-bloom" style={{ transformOrigin: `${at.x}px ${at.y}px` }}>
       <defs>
@@ -201,34 +197,6 @@ export function Bloom({ at, r, card, font, id, seed }: { at: Pt; r: number; card
         </g>
       ))}
       <circle cx={at.x} cy={at.y} r={r * 0.2} fill={`url(#tr-heart-${id})`} className="tr-heart" data-heart="" />
-      {/* the card's soft shadow, then the card */}
-      <g className="tr-fade" {...win(0.92, 1)}>
-        {[16, 10, 5].map((g, i) => (
-          <rect key={g} x={at.x - card.w / 2 - g + 4} y={cardY + 10 - g / 2} width={card.w + g * 2 - 8} height={card.h + g * 1.4} rx={18 + g} className="tr-card-shadow" opacity={0.16 + i * 0.1} />
-        ))}
-      </g>
-      <g transform={`translate(${at.x - card.w / 2} ${cardY})`} className="tr-fade" {...win(0.92, 1)}>
-        <rect width={card.w} height={card.h} rx={16} className="tr-card" />
-        <text x={16} y={small ? 24 : 28} className="tr-card-k">
-          COMMAND CENTRE
-        </text>
-        {APP_ROWS.map((row, i) => {
-          const ry = (small ? 48 : 56) + i * rowH;
-          const pw = row.status.length * 7 + 18;
-          return (
-            <g key={row.label}>
-              <circle cx={20} cy={ry} r={3} className={row.hot ? "tr-led tr-led-hot" : "tr-led"} />
-              <text x={30} y={ry} dy="0.35em" className="tr-row" fontSize={font}>
-                {row.label}
-              </text>
-              <rect x={card.w - 14 - pw} y={ry - 10} width={pw} height={20} rx={10} className={row.hot ? "tr-pill tr-pill-hot" : "tr-pill"} />
-              <text x={card.w - 14 - pw / 2} y={ry} dy="0.35em" textAnchor="middle" className={row.hot ? "tr-pill-t tr-pill-t-hot" : "tr-pill-t"}>
-                {row.status}
-              </text>
-            </g>
-          );
-        })}
-      </g>
     </g>
   );
 }

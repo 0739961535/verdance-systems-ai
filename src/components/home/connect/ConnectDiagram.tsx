@@ -28,6 +28,14 @@ import { Bloom, Branches, Roots, Trunk } from "./tree/parts";
  */
 
 type Node = Pt & { s: number; chip: Chip; i: number };
+
+/** What the side panel says at each stage of the growth. Plain and short; two lines each. */
+const STAGES = [
+  { k: "Your tools", l1: "Everything you", l2: "already use." },
+  { k: "Verdance core", l1: "Learns how your", l2: "business works." },
+  { k: "Command centre", l1: "Live chats, approvals", l2: "and reports." },
+];
+const stageOf = (p: number) => (p < 0.3 ? 0 : p < 0.74 ? 1 : 2);
 type Geo = {
   id: "wide" | "tall";
   w: number;
@@ -178,6 +186,44 @@ function ToolNode({ n, g, onFire }: { n: Node; g: Geo; onFire: (i: number) => vo
   );
 }
 
+/**
+ * Desktop: the explanation panel to the left of the tree, never over the
+ * flower, with a fine leader line to the bloom's heart. Its words follow the
+ * growth stage (the wrapper's data-stage); the box never changes size.
+ */
+function SidePanel({ g }: { g: Geo }) {
+  const x = 20;
+  const y = g.bloom.y - 74;
+  const w = 290;
+  const h = 132;
+  const hx = g.bloom.x;
+  const hy = g.bloom.y;
+  return (
+    <g className="tr-panel" aria-hidden>
+      <path d={`M${x + w} ${y + h / 2} C${x + w + 90} ${y + h / 2} ${hx - 150} ${hy} ${hx - 6} ${hy}`} className="tr-leader" />
+      <circle cx={x + w} cy={y + h / 2} r={3.5} className="tr-leader-dot" />
+      <circle cx={hx} cy={hy} r={5} className="tr-leader-heart" />
+      <rect x={x} y={y} width={w} height={h} rx={18} className="tr-panel-b" />
+      {STAGES.map((st, i) => (
+        <g key={st.k} className="tr-say" data-say={i}>
+          <text x={x + 24} y={y + 38} className="tr-panel-k">
+            {st.k.toUpperCase()}
+          </text>
+          <text x={x + 24} y={y + 74} className="tr-panel-t">
+            {st.l1}
+          </text>
+          <text x={x + 24} y={y + 102} className="tr-panel-t">
+            {st.l2}
+          </text>
+        </g>
+      ))}
+      {STAGES.map((st, i) => (
+        <circle key={i} cx={x + w - 60 + i * 16} cy={y + 34} r={3.5} className="tr-step" data-step={i} />
+      ))}
+    </g>
+  );
+}
+
 function Tree({ g, onFire }: { g: Geo; onFire: (i: number) => void }) {
   const t = useMemo(() => build(g, g.id === "wide" ? 20261021 : 20261022), [g]);
   const id = g.id;
@@ -229,8 +275,10 @@ function Tree({ g, onFire }: { g: Geo; onFire: (i: number) => void }) {
         <Trunk base={g.base} top={g.top} w0={g.trunk.w0} w1={g.trunk.w1} sway={g.trunk.sway} id={id} />
         <Branches limbs={t.front} />
         <path d={t.sap} className="tr-pulse tr-pulse-sap" pathLength={100} data-sap="" />
-        <Bloom at={g.bloom} r={g.bloom.r} card={g.card} font={g.font} id={id} seed={id === "wide" ? 77 : 78} />
+        <Bloom at={g.bloom} r={g.bloom.r} id={id} seed={id === "wide" ? 77 : 78} />
       </g>
+
+      {id === "wide" ? <SidePanel g={g} /> : null}
 
       <text x={id === "tall" ? 6 : 24} y={g.nodes[0].y - g.nodes[0].s / 2 - (id === "tall" ? 34 : 50)} className="tr-k">
         YOUR TOOLS
@@ -323,6 +371,7 @@ export function ConnectDiagram() {
     if (s.reduce) {
       s.p = 1;
       apply(svg, 1);
+      el.dataset.stage = "2";
       return;
     }
     // the stage is pinned (sticky) while the track scrolls past: progress is how far through the extra distance
@@ -335,6 +384,8 @@ export function ConnectDiagram() {
     const p = Math.max(0, Math.min(1, (pin - tr.top) / run));
     s.p = p;
     apply(svg, p);
+    const stg = String(stageOf(p));
+    if (el.dataset.stage !== stg) el.dataset.stage = stg;
   }, [apply]);
 
   useLayoutEffect(() => {
@@ -415,10 +466,19 @@ export function ConnectDiagram() {
       : `${CHIPS[hover].label}: ${CHIPS[hover].does}`;
 
   return (
-    <div ref={wrap} className="tr" onPointerMove={onMove} onPointerLeave={onLeave}>
+    <div ref={wrap} className="tr" data-stage="2" onPointerMove={onMove} onPointerLeave={onLeave}>
       <style>{CSS}</style>
       <div className="tr-track">
         <div className="tr-stage">
+          {/* phones and tablets: the same words as a readable card above the tree */}
+          <div className="tr-card-m" aria-hidden>
+            {STAGES.map((st, i) => (
+              <p key={st.k} className="tr-say" data-say={i}>
+                <b>{st.k}</b>
+                {st.l1} {st.l2}
+              </p>
+            ))}
+          </div>
           <Tree g={WIDE} onFire={choose} />
           <Tree g={TALL} onFire={choose} />
           <p className="tr-line" aria-live="polite">
@@ -463,7 +523,6 @@ const CSS = `
 .tr-petal { stroke: rgba(214,228,255,0.5); stroke-width: 0.8; stroke-linejoin: round; }
 .tr-vein { fill: none; stroke: rgba(255,255,255,0.14); stroke-width: 0.8; stroke-linecap: round; }
 .tr-heart { opacity: 0.35; transform-box: fill-box; transform-origin: center; }
-.tr-card-shadow { fill: #020614; }
 
 .tr-card { fill: rgba(8,14,32,0.96); stroke: rgba(143,176,255,0.4); stroke-width: 1; }
 .tr-card-k { font-family: var(--font-mono) !important; font-size: 10.5px; letter-spacing: 0.16em; fill: #8FB0FF; }
@@ -474,7 +533,6 @@ const CSS = `
 .tr-pill-hot { fill: rgba(242,196,109,0.14); stroke: rgba(242,196,109,0.55); }
 .tr-pill-t { font-family: var(--font-mono) !important; font-size: 10.5px; fill: #C9D2E6; }
 .tr-pill-t-hot { fill: #F7D899; }
-.tr-svg-wide .tr-card-k, .tr-svg-wide .tr-pill-t { font-size: 12.5px; }
 .tr-svg-wide .tr-k { font-size: 13px; }
 
 .tr-node { cursor: pointer; outline: none; }
@@ -484,6 +542,22 @@ const CSS = `
 .tr-node:hover .tr-node-b, .tr-node:focus-visible .tr-node-b { stroke: #BFD2FF; fill: #13214A; }
 .tr-node:focus-visible .tr-node-b { stroke-width: 2; }
 
+.tr-panel-b { fill: rgba(10,18,40,0.9); stroke: rgba(143,176,255,0.32); stroke-width: 1; }
+.tr-panel-k { font-family: var(--font-mono) !important; font-size: 13px; letter-spacing: 0.14em; fill: #8FB0FF; }
+.tr-panel-t { font-size: 21px; font-weight: 500; fill: #EEF2FB; letter-spacing: -0.01em; }
+.tr-leader { fill: none; stroke: rgba(191,210,255,0.55); stroke-width: 1.2; stroke-dasharray: 3 5; }
+.tr-leader-dot { fill: #BFD2FF; }
+.tr-leader-heart { fill: #F4F7FF; filter: drop-shadow(0 0 6px #BFD2FF); }
+.tr-step { fill: rgba(143,176,255,0.25); }
+.tr-say { display: none; }
+.tr[data-stage="0"] [data-say="0"], .tr[data-stage="1"] [data-say="1"], .tr[data-stage="2"] [data-say="2"] { display: inline; }
+.tr-card-m .tr-say { display: none; }
+.tr[data-stage="0"] .tr-card-m [data-say="0"], .tr[data-stage="1"] .tr-card-m [data-say="1"], .tr[data-stage="2"] .tr-card-m [data-say="2"] { display: block; }
+.tr[data-stage="0"] [data-step="0"], .tr[data-stage="1"] [data-step="1"], .tr[data-stage="2"] [data-step="2"] { fill: #BFD2FF; }
+.tr-card-m { flex: none; margin: 0 auto 10px; width: min(100%, 22rem); min-height: 4.9rem; padding: 12px 16px; border-radius: 16px; background: rgba(10,18,40,0.9); border: 1px solid rgba(143,176,255,0.32); }
+.tr-card-m p { margin: 0; font-size: 0.9375rem; line-height: 1.45; color: #EEF2FB; }
+.tr-card-m b { display: block; font-family: var(--font-mono); font-weight: 500; font-size: 0.8125rem; letter-spacing: 0.12em; text-transform: uppercase; color: #8FB0FF; margin-bottom: 2px; }
+@media (min-width: 1024px) { .tr-card-m { display: none; } }
 .tr-line { flex: none; margin: 10px auto 0; max-width: 40rem; min-height: 1.5em; text-align: center; font-size: 1rem; line-height: 1.5; color: var(--color-ink); }
 
 @media (prefers-reduced-motion: no-preference) {
