@@ -1,6 +1,6 @@
 import { SITE } from "@/data/site";
 import { AI_WHATSAPP, UK_LINE, telLink, waLink } from "@/data/assistant";
-import { FounderPortrait } from "@/components/brand/FounderPortrait";
+import { BookingPhoto } from "@/components/brand/BookingPhoto";
 import { BookingFlow } from "./BookingFlow";
 
 /**
@@ -34,7 +34,6 @@ const CSS = `
 .bks-who { display: grid; gap: 20px; margin-top: 40px; }
 .bks-side .bks-who:first-child { margin-top: 0; }
 @media (min-width: 1024px) { .bks-side .bks-who:first-child { margin-top: 40px; } }
-@media (min-width: 640px) { .bks-who { grid-template-columns: 9.5rem 1fr; gap: 24px; align-items: start; } }
 .bks-who .fp-portrait { max-width: 9.5rem; }
 .bks-who .fp-portrait figcaption { display: none; }
 .bks-who-n { font-weight: 600; font-size: 1.0625rem; color: var(--color-ink); }
@@ -74,7 +73,7 @@ export function BookingSection({ as = "section" }: { as?: "section" | "page" }) 
           <div className="bks-side" data-reveal="">
 
             <div className="bks-who">
-              <FounderPortrait size="portrait" />
+              <BookingPhoto eager={as === "page"} />
               <div>
                 <div className="bks-who-n">You speak with Daniel Bouwer</div>
                 <div className="bks-who-r">Founder, Verdance Systems AI</div>

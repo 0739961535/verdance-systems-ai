@@ -16,12 +16,12 @@ import { FounderPortrait } from "@/components/brand/FounderPortrait";
 import { EarthStrip } from "@/components/about/EarthStrip";
 
 /**
- * TODO(Daniel): drop a real photo of Daniel in public/people/ and set the
- * path here, e.g. "/people/daniel-about.webp" (4:5 crop, at least 800 x 1000,
- * under about 80KB). Until then the About hero shows the clean "DB" monogram.
+ * Daniel's real portrait (his pick, 21 Oct 2026): a base path in
+ * public/people/, built by scripts/build-founder-images.mjs at 400 and 800
+ * wide in AVIF and WebP. The same portrait is used sitewide (src/data/founder.ts).
  * Never put a placeholder, stock or AI face here.
  */
-const ABOUT_PHOTO: string | null = null;
+const ABOUT_PHOTO: string | null = "/people/daniel-portrait";
 
 const TITLE = "About Daniel Bouwer and Verdance Systems AI";
 const DESCRIPTION =
@@ -325,15 +325,19 @@ function FactSheet() {
       <BloomSignature />
       {ABOUT_PHOTO ? (
         <figure className="mb-6 max-w-[22rem]">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={ABOUT_PHOTO}
-            alt="Daniel Bouwer, founder of Verdance Systems AI"
-            width={800}
-            height={1000}
-            decoding="async"
-            className="block aspect-[4/5] w-full rounded-[20px] object-cover"
-          />
+          <picture>
+            <source type="image/avif" srcSet={`${ABOUT_PHOTO}-400.avif 400w, ${ABOUT_PHOTO}-800.avif 800w`} sizes="(min-width: 640px) 352px, 86vw" />
+            <img
+              src={`${ABOUT_PHOTO}-800.webp`}
+              srcSet={`${ABOUT_PHOTO}-400.webp 400w, ${ABOUT_PHOTO}-800.webp 800w`}
+              sizes="(min-width: 640px) 352px, 86vw"
+              alt="Daniel Bouwer, founder of Verdance Systems AI"
+              width={800}
+              height={1000}
+              fetchPriority="high"
+              className="block aspect-[4/5] w-full rounded-[20px] object-cover"
+            />
+          </picture>
         </figure>
       ) : (
         <FounderPortrait className="mb-6" />
