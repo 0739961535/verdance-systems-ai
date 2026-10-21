@@ -7,8 +7,9 @@ import { SAMPLE_AGENTS, SAMPLE_APPROVALS, SAMPLE_ASK, SAMPLE_BRIEF } from "./ops
 /**
  * The command centre as it appears on the laptop screen (sample data).
  * Everything is sized in em off one font size set in cqw of the screen, so it
- * scales with the laptop and never shifts layout. Wide screens show all four
- * panels; narrow ones (phones) show one panel at a time, chosen by `tab`.
+ * scales with the laptop and never shifts layout. The laptop always shows all
+ * four panels. On phones the stage also renders a "zoom" copy that shows the
+ * panel chosen by `tab` at readable size, and the laptop marks that panel.
  * Counts and ticks come from OpsCommandStage, which runs the live parts.
  */
 
@@ -21,11 +22,14 @@ export function CommandMock({
   task = SAMPLE_AGENTS.map(() => 0),
   last = -1,
   tab = 0,
+  variant = "screen",
 }: {
   counts?: number[];
   task?: number[];
   last?: number;
   tab?: number;
+  /** "screen": the full four-panel screen on the laptop. "zoom": one panel at phone-readable size. */
+  variant?: "screen" | "zoom";
 }) {
   const [decisions, setDecisions] = useState<Decision[]>(() => SAMPLE_APPROVALS.map(() => null));
   const decide = (i: number, d: Decision) => setDecisions((all) => all.map((v, j) => (j === i ? d : v)));
@@ -33,8 +37,8 @@ export function CommandMock({
   const on = (i: number) => (tab === i ? "" : undefined);
 
   return (
-    <div className="ocm">
-      <style>{CSS}</style>
+    <div className="ocm" data-variant={variant}>
+      {variant === "screen" && <style>{CSS}</style>}
       <div className="ocm-bar">
         <span className="ocm-dots" aria-hidden>
           <i />
@@ -251,25 +255,36 @@ const CSS = `
 .ocs[data-armed]:not([data-seen]) .ocm-a span { opacity: 0; }
 .ocs[data-armed]:not([data-seen]) .ocm-bar-fill { transform: scaleY(0); }
 
-/* Phones and small tablets: one panel at a time, bigger type. */
+/* Phones and small tablets: the laptop keeps the whole screen as a picture and
+   marks the panel that is shown, zoomed, under it (OpsCommandStage). */
 @container ocs (max-width: 899px) {
-  .ocm { font-size: min(3.3cqw, 13px); }
-  .ocm-bar { height: 2.5em; padding: 0 0.9em; gap: 0.7em; }
-  .ocm-grid { display: block; position: relative; padding: 0; }
-  .ocm-card { position: absolute; inset: 0.7em; padding: 0.85em 1em; display: none; transition: none; }
-  .ocm-card[data-on] { display: block; animation: ocm-swap .45s cubic-bezier(.2,.7,.2,1); }
-  .ocm-greet { display: none; }
-  .ocm-brief-list { margin-top: 0.4em; }
-  .ocm-brief-list li { padding: 0.4em 0; }
-  .ocm-agent { height: 2.35em; grid-template-columns: auto 5.8em minmax(0,1fr) 3ch; gap: 0.7em; }
-  .ocm-q { margin-top: 0.6em; }
-  .ocm-a { margin-top: 0.5em; font-size: 0.95em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-  .ocm-chart { margin-top: 0.5em; padding: 0.4em 0.6em 0.3em; }
-  .ocm-track { height: 2.6em; }
-  .ocm-v { display: none; }
-  .ocm-appr:nth-child(n+2) { display: none; }
-  .ocm-draft { white-space: normal; }
+  .ocm[data-variant="screen"] .ocm-card { transition: opacity .4s ease, box-shadow .4s ease; }
+  .ocm[data-variant="screen"] .ocm-card:not([data-on]) { opacity: 0.4; }
+  .ocm[data-variant="screen"] .ocm-card[data-on] { box-shadow: 0 0 0 2px #8FB0FF, 0 0 24px rgba(143,176,255,0.45); }
 }
+
+/* The zoomed panel: real phone type sizes, body 15px, nothing under 13px. */
+.ocm[data-variant="zoom"] { position: relative; inset: auto; height: 100%; font-size: 15px; line-height: 1.45; background: transparent; }
+.ocm[data-variant="zoom"] .ocm-bar { display: none; }
+.ocm[data-variant="zoom"] .ocm-grid { display: block; position: relative; padding: 0; height: 100%; }
+.ocm[data-variant="zoom"] .ocm-card { position: absolute; inset: 0; padding: 16px 18px; border-radius: 18px; display: none; transition: none; }
+.ocm[data-variant="zoom"] .ocm-card[data-on] { display: block; animation: ocm-swap .45s cubic-bezier(.2,.7,.2,1); }
+.ocm[data-variant="zoom"] .ocm-h { font-size: 13px; }
+.ocm[data-variant="zoom"] :is(.ocm-k, .ocm-chip, .ocm-v, .ocm-d, .ocm-time) { font-size: 13px; }
+.ocm[data-variant="zoom"] .ocm-greet { font-size: 16px; margin-top: 10px; }
+.ocm[data-variant="zoom"] .ocm-brief-list li { padding: 9px 0; }
+.ocm[data-variant="zoom"] .ocm-num { font-size: 20px; }
+.ocm[data-variant="zoom"] .ocm-next { font-size: 15px; }
+.ocm[data-variant="zoom"] .ocm-agent { height: 50px; grid-template-columns: auto 6.2em minmax(0,1fr) 3ch; gap: 10px; }
+.ocm[data-variant="zoom"] .ocm-agent-task { font-size: 14px; color: var(--tx2); }
+.ocm[data-variant="zoom"] .ocm-a { font-size: 15px; }
+.ocm[data-variant="zoom"] .ocm-track { height: 64px; }
+.ocm[data-variant="zoom"] .ocm-bars { gap: 6px; }
+.ocm[data-variant="zoom"] .ocm-appr-list { gap: 10px; }
+.ocm[data-variant="zoom"] .ocm-draft { white-space: normal; font-size: 15px; }
+.ocm[data-variant="zoom"] .ocm-btn { min-height: 44px; font-size: 15px; }
+.ocm[data-variant="zoom"] .ocm-actions { min-height: 44px; }
+.ocm[data-variant="zoom"] .ocm-foot { font-size: 15px; }
 @keyframes ocm-swap { from { opacity: 0; transform: translate3d(0, 0.6em, 0); } to { opacity: 1; transform: none; } }
 
 @media (prefers-reduced-motion: reduce) {
@@ -277,5 +292,6 @@ const CSS = `
   .ocs[data-armed]:not([data-seen]) .ocm-card, .ocs[data-armed]:not([data-seen]) .ocm-a span { opacity: 1; transform: none; }
   .ocs[data-armed]:not([data-seen]) .ocm-bar-fill { transform: none; }
   .ocm-pulse::after, .ocm-count span, .ocm-agent-task span, .ocm-done, .ocm-card[data-on] { animation: none; }
+  .ocm[data-variant="screen"] .ocm-card { transition: none; }
 }
 `;

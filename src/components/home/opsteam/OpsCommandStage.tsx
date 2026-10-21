@@ -13,9 +13,10 @@ import { SAMPLE_AGENTS } from "./opsData";
  * workspace, its count ticks on the laptop. Reports and Research tick on
  * their own, more slowly. Reduced motion: one still frame, nothing loops.
  *
- * Phones: the laptop shows one panel at a time with a switcher under it
- * (auto-advancing while in view until someone taps), then the workspaces as
- * a swipeable row.
+ * Phones: the laptop stays a picture of the whole screen and lights one
+ * panel; under it the same panel is shown zoomed at readable size (body 15px,
+ * nothing under 13px), with the switcher (auto-advancing while in view until
+ * someone taps). Then the workspaces as a swipeable row.
  */
 export function OpsCommandStage() {
   const root = useRef<HTMLDivElement>(null);
@@ -26,6 +27,15 @@ export function OpsCommandStage() {
   const [last, setLast] = useState(-1);
   const [tab, setTab] = useState(0);
   const [pinned, setPinned] = useState(false);
+  const [narrow, setNarrow] = useState(false);
+
+  useEffect(() => {
+    const el = root.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([e]) => setNarrow(e.contentRect.width < 900));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   useEffect(() => {
     const el = root.current;
@@ -79,21 +89,30 @@ export function OpsCommandStage() {
   useEffect(() => {
     if (!live || pinned) return;
     const id = window.setInterval(() => {
-      if ((root.current?.offsetWidth ?? 1000) < 900) setTab((t) => (t + 1) % SCREEN_PANELS.length);
+      if (narrow) setTab((t) => (t + 1) % SCREEN_PANELS.length);
     }, 4200);
     return () => window.clearInterval(id);
-  }, [live, pinned]);
+  }, [live, pinned, narrow]);
 
   return (
     <div ref={root} className="ocs" style={{ ["--play" as string]: live ? "running" : "paused" }}>
       <style>{CSS}</style>
-      <div className="ocs-laptop">
+      <div className="ocs-laptop" inert={narrow}>
         <LaptopFrame label="The Operations Team command centre on a laptop, sample data">
-          <CommandMock counts={counts} task={task} last={last} tab={tab} />
+          <CommandMock counts={counts} task={task} last={last} tab={narrow ? tab : -1} />
         </LaptopFrame>
       </div>
 
-      <div className="ocs-tabs" role="group" aria-label="Show on the laptop screen">
+      {narrow && (
+        <div className="ocs-zoom">
+          <span className="ocs-beam" aria-hidden />
+          <div className="ocs-zoom-card">
+            <CommandMock variant="zoom" counts={counts} task={task} last={last} tab={tab} />
+          </div>
+        </div>
+      )}
+
+      <div className="ocs-tabs" role="group" aria-label="Show a panel of the command centre">
         {SCREEN_PANELS.map((p, i) => (
           <button
             key={p}
@@ -130,7 +149,7 @@ const CSS = `
 .ocs { container-type: inline-size; container-name: ocs; position: relative; }
 .ocs-laptop { width: 100%; max-width: 1120px; margin: 0 auto; transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); }
 .ocs[data-armed]:not([data-seen]) .ocs-laptop { opacity: 0; transform: translate3d(0, 28px, 0) scale(0.98); }
-.ocs-tabs { display: none; }
+.ocs-tabs, .ocs-zoom { display: none; }
 .ocs-note { margin: 36px auto 0; text-align: center; max-width: 60ch; }
 .ocs-ws-head { margin: 64px auto 0; max-width: 46ch; text-align: center; display: grid; gap: 6px; }
 .ocs-ws-k { margin: 0; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent); }
@@ -141,6 +160,11 @@ const CSS = `
 @keyframes ocs-flow { to { stroke-dashoffset: -10; } }
 
 @container ocs (max-width: 899px) {
+  .ocs-zoom { display: block; position: relative; margin: -2px auto 0; max-width: 460px; }
+  .ocs-beam { display: block; height: 22px; margin: 0 8%; background: linear-gradient(180deg, rgba(143,176,255,0.22), rgba(143,176,255,0));
+    clip-path: polygon(30% 0, 70% 0, 100% 100%, 0 100%); }
+  .ocs-zoom-card { position: relative; height: 424px; border-radius: 20px; padding: 6px; background: #0A1226;
+    border: 1px solid rgba(143,176,255,0.3); box-shadow: 0 24px 60px -30px rgba(77,124,255,0.6); }
   .ocs-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; margin: 28px auto 0; max-width: 460px; padding: 4px;
     border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid var(--hairline-2); }
   .ocs-tab { min-height: 44px; padding: 0 6px; border: 0; border-radius: 999px; background: transparent; color: var(--color-ink-soft);
