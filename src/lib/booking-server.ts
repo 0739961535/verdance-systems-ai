@@ -91,22 +91,49 @@ export async function upsertContact(c: Creds, p: { name: string; email: string; 
   return j?.contact?.id ?? null;
 }
 
-export async function createAppointment(c: Creds, p: { contactId: string; slot: string; title: string }): Promise<boolean> {
-  if (dryRun()) return true;
-  const res = await fetch(`${API}/calendars/events/appointments`, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${c.token}`, Version: "2021-04-15", "Content-Type": "application/json" },
-    body: JSON.stringify({
-      calendarId: CALENDAR_ID,
-      locationId: c.locationId,
-      contactId: p.contactId,
-      startTime: p.slot,
-      title: p.title,
-      appointmentStatus: "confirmed",
-    }),
-    signal: AbortSignal.timeout(10_000),
-  }).catch(() => null);
-  return !!res?.ok;
+/**
+ * Outcome of creating the appointment. "taken" only when the CRM says the
+ * slot itself is unavailable; "failed" for anything else (scope, auth, a
+ * timeout), with a short reason for the note and the logs.
+ */
+export type AppointmentResult = { ok: true } | { ok: false; taken: boolean; reason: string };
+
+export async function createAppointment(c: Creds, p: { contactId: string; slot: string; title: string }): Promise<AppointmentResult> {
+  if (dryRun()) return { ok: true };
+  let res: Response | null = null;
+  try {
+    res = await fetch(`${API}/calendars/events/appointments`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${c.token}`, Version: "2021-04-15", "Content-Type": "application/json" },
+      body: JSON.stringify({
+        calendarId: CALENDAR_ID,
+        locationId: c.locationId,
+        contactId: p.contactId,
+        startTime: p.slot,
+        title: p.title,
+        appointmentStatus: "confirmed",
+      }),
+      signal: AbortSignal.timeout(10_000),
+    });
+  } catch (err) {
+    const reason = `request failed: ${err instanceof Error ? err.name : "error"}`;
+    console.error(`[booking] createAppointment ${reason}`);
+    return { ok: false, taken: false, reason };
+  }
+  if (res.ok) return { ok: true };
+  // Log what the CRM said (status and its message only: no token, no contact details).
+  const text = (await res.text().catch(() => "")).slice(0, 600);
+  let message = text;
+  try {
+    const j = JSON.parse(text) as { message?: unknown; error?: unknown };
+    message = String(j.message ?? j.error ?? text);
+  } catch {
+    // not JSON: keep the text
+  }
+  message = message.replace(/[\w.+-]+@[\w-]+\.[\w.]+/g, "[email]").slice(0, 300);
+  console.error(`[booking] createAppointment ${res.status}: ${message}`);
+  const taken = res.status >= 400 && res.status < 500 && /slot|availab|booked|not free|conflict/i.test(message);
+  return { ok: false, taken, reason: `${res.status} ${message}`.slice(0, 200) };
 }
 
 /** Best effort: a note on the contact. Never throws. */

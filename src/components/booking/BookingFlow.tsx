@@ -124,6 +124,8 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
 
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // the CRM took the details but not the appointment: confirm it by hand
+  const [pending, setPending] = useState(false);
   const [ticket, setTicket] = useState<string | null>(null);
   const [answers, setAnswers] = useState<Answers>({});
   const [prepState, setPrepState] = useState<"open" | "sending" | "sent" | "skipped">("open");
@@ -307,6 +309,7 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
     if (res?.ok) {
       const j = await res.json().catch(() => ({}));
       setTicket(typeof j.ticket === "string" ? j.ticket : null);
+      setPending(j.pending === true);
       if (!j.dryRun) track("audit_booked", { booking_page: page === "book" ? "book_page" : "home_flow", niche: source.current || undefined });
       go("done");
       return;
@@ -598,12 +601,16 @@ export function BookingFlow({ page = "home" }: { page?: "home" | "book" }) {
               <Check size={22} aria-hidden />
             </span>
             <h3 ref={headRef} tabIndex={-1} className="bk-h">
-              Your call is booked.
+              {pending ? "Thanks, we've got your request." : "Your call is booked."}
             </h3>
             <p className="bk-when">
               {z.longLabel(slot)} <When slot={slot} z={z} />
             </p>
-            <p className="bk-p">An invitation with the video link is on its way to {email.trim()}.</p>
+            <p className="bk-p">
+              {pending
+                ? `Thanks, we've got your request for ${z.longLabel(slot)}. You'll get a confirmation by email shortly.`
+                : `An invitation with the video link is on its way to ${email.trim()}.`}
+            </p>
 
             {ticket && (
               <div className="bk-prep">
