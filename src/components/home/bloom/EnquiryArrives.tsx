@@ -162,7 +162,10 @@ const CSS = `
   background: rgba(40, 46, 60, 0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 12px 30px rgba(0,0,0,0.4);
   opacity: 0; transform: translate3d(0, -24px, 0) scale(0.96); transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 .ea[data-stage="1"] .ea-note { opacity: 1; transform: none; }
-.ea[data-stage="2"] .ea-note { opacity: 0; transform: translate3d(0, 40px, 0) scale(1.06); }
+/* the notification leaves upward first; the chat's messages appear once it has gone */
+.ea[data-stage="2"] .ea-note { opacity: 0; transform: translate3d(0, -28px, 0) scale(0.96); transition: opacity 0.22s ease, transform 0.3s ease; }
+.ea-body { transition: opacity 0.35s ease 0.3s; }
+.ea[data-stage="0"] .ea-body, .ea[data-stage="1"] .ea-body { opacity: 0; transition: none; }
 .ea-note-app { font-size: 0.68rem; color: rgba(255,255,255,0.6); }
 .ea-note-t { font-size: 0.85rem; font-weight: 600; }
 .ea-note-b { font-size: 0.85rem; line-height: 1.35; color: rgba(255,255,255,0.85); }
