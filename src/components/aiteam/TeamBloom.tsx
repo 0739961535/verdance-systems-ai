@@ -88,17 +88,21 @@ const CSS = `
 .tb-fig { margin: 0; justify-self: center; width: 100%; max-width: 560px; }
 .tb-svg { display: block; width: 100%; height: auto; overflow: visible; }
 .tb-petal { fill: var(--accent); fill-opacity: 0.07; stroke: var(--accent); stroke-width: 1.4;
-  stroke-dasharray: 1; stroke-dashoffset: 0; stroke-linejoin: round;
-  transition: stroke-dashoffset .7s cubic-bezier(.2,.7,.2,1) var(--d), fill-opacity .7s ease calc(var(--d) + .3s); }
+  stroke-dasharray: 1; stroke-dashoffset: 0; stroke-linejoin: round; }
 .tb-tick, .tb-ring { fill: none; stroke: var(--accent); stroke-width: 1.4; stroke-linecap: round;
-  stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset .7s cubic-bezier(.2,.7,.2,1) var(--d); }
+  stroke-dasharray: 1; stroke-dashoffset: 0; }
 .tb-tick { stroke-opacity: 0.55; }
-.tb-label, .tb-ring-label { font-family: var(--font-display); font-size: 16px; font-weight: 500; letter-spacing: -0.01em; fill: var(--color-ink);
-  transition: opacity .6s ease calc(var(--d) + .25s); }
+.tb-label, .tb-ring-label { font-family: var(--font-display); font-size: 16px; font-weight: 500; letter-spacing: -0.01em; fill: var(--color-ink); }
 .tb-ring-label { font-family: var(--font-mono); font-size: 15.5px; font-weight: 500; letter-spacing: 0; fill: var(--color-ink-soft); }
-.tb-you circle { fill: var(--accent); transition: opacity .6s ease var(--d); }
-.tb-you text { font-family: var(--font-display); font-size: 16px; font-weight: 600; fill: #fff; transition: opacity .6s ease var(--d); }
+.tb-you circle { fill: var(--accent); }
+.tb-you text { font-family: var(--font-display); font-size: 16px; font-weight: 600; fill: #fff; }
 
+/* Transitions only on the way in: if they also ran on arming, a late-delayed
+   node (You, 1.75s) would still be fading out when the reveal arrives. */
+.tb[data-armed][data-revealed] .tb-petal { transition: stroke-dashoffset .7s cubic-bezier(.2,.7,.2,1) var(--d), fill-opacity .7s ease calc(var(--d) + .3s); }
+.tb[data-armed][data-revealed] :is(.tb-tick, .tb-ring) { transition: stroke-dashoffset .7s cubic-bezier(.2,.7,.2,1) var(--d); }
+.tb[data-armed][data-revealed] :is(.tb-label, .tb-ring-label) { transition: opacity .6s ease calc(var(--d) + .25s); }
+.tb[data-armed][data-revealed] :is(.tb-you circle, .tb-you text) { transition: opacity .6s ease var(--d); }
 .tb[data-armed]:not([data-revealed]) .tb-petal { stroke-dashoffset: 1; fill-opacity: 0; }
 .tb[data-armed]:not([data-revealed]) :is(.tb-tick, .tb-ring) { stroke-dashoffset: 1; }
 .tb[data-armed]:not([data-revealed]) :is(.tb-label, .tb-ring-label, .tb-you circle, .tb-you text) { opacity: 0; }

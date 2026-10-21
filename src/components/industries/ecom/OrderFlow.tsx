@@ -1,7 +1,3 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-
 /**
  * OrderFlow - the "Where's my order?" diagram. Four channel petals feed one
  * stem: the Answers agent reads the question, looks the order up in the
@@ -10,9 +6,10 @@ import { useEffect, useRef } from "react";
  * 5-second job: the question never waits for a person.
  *
  * Two drawings of the same flow: across on desktop, down on phones (labels
- * stay 13px or larger). Lines draw once on view (stroke-dashoffset), boxes
- * fade in (opacity). Without JavaScript or under reduced motion, it is
- * simply shown.
+ * stay 13px or larger). Lines draw once on view (stroke-dashoffset, 0.7s),
+ * boxes fade in (opacity), driven by the shared [data-reveal] observer, so
+ * this ships no JS of its own. Without JavaScript, a missed observer or
+ * under reduced motion (never armed), it is simply shown.
  */
 
 const BLUE = "#2554D4";
@@ -136,26 +133,8 @@ function Phone() {
 }
 
 export function OrderFlow() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    el.classList.add("is-armed");
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          el.classList.add("is-on");
-          io.disconnect();
-        }
-      },
-      { threshold: 0.3 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
   return (
-    <div ref={ref} className="of">
+    <div className="of" data-reveal="">
       <style>{CSS}</style>
       <Desktop />
       <Phone />
@@ -168,8 +147,10 @@ const CSS = `
 .of-svg { display: block; width: 100%; height: auto; }
 .of-desk { display: none; }
 @media (min-width: 900px) { .of-desk { display: block; } .of-phone { display: none; } }
-.of.is-armed .of-path { stroke-dasharray: 1; stroke-dashoffset: 1; }
-.of.is-armed .of-node { opacity: 0; }
-.of.is-on .of-path { stroke-dashoffset: 0; transition: stroke-dashoffset 0.7s cubic-bezier(0.16,1,0.3,1) var(--d, 0s); }
-.of.is-on .of-node { opacity: 1; transition: opacity 0.6s ease-out var(--d, 0s); }
+.of-path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.of[data-armed][data-revealed] .of-path { transition: stroke-dashoffset 0.7s cubic-bezier(0.16,1,0.3,1) calc(var(--d, 0s) + 0.15s); }
+.of[data-armed][data-revealed] .of-node { transition: opacity 0.6s ease-out calc(var(--d, 0s) + 0.15s); }
+.of[data-armed]:not([data-revealed]) .of-path { stroke-dashoffset: 1; }
+.of[data-armed]:not([data-revealed]) .of-node { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .of-path, .of-node { transition: none !important; } }
 `;

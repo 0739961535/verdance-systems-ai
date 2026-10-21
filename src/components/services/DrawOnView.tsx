@@ -14,10 +14,11 @@ import { useEffect, useRef, type ReactNode } from "react";
  */
 
 const CSS = `
-.dov[data-armed] .dv-line { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 0.7s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: var(--d, 0s); }
-.dov[data-armed] .dv-fade { opacity: 0; transition: opacity 0.6s ease; transition-delay: var(--d, 0s); }
-.dov[data-armed][data-in] .dv-line { stroke-dashoffset: 0; }
-.dov[data-armed][data-in] .dv-fade { opacity: 1; }
+.dov[data-armed] .dv-line { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.dov[data-armed] .dv-fade { opacity: 0; }
+/* Transitions only on the way in, so arming hides everything at once. */
+.dov[data-armed][data-in] .dv-line { stroke-dashoffset: 0; transition: stroke-dashoffset 0.7s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: var(--d, 0s); }
+.dov[data-armed][data-in] .dv-fade { opacity: 1; transition: opacity 0.6s ease; transition-delay: var(--d, 0s); }
 `;
 
 export function DrawOnView({ children, className = "", threshold = 0.3 }: { children: ReactNode; className?: string; threshold?: number }) {

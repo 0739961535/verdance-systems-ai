@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
+import { Bud } from "@/components/how/Bud";
 import { CaseStudy, CASE_CSS } from "@/components/portfolio/CaseStudy";
 import { ConceptDemos } from "@/components/portfolio/concepts/ConceptDemos";
 import { PossibleStatement } from "@/components/portfolio/concepts/PossibleStatement";
@@ -32,7 +33,19 @@ const HERO_CSS = `
 .po-jump a { display: flex; align-items: baseline; gap: 12px; min-height: 56px; padding: 16px 16px 16px 0; border-bottom: 1px solid var(--hairline-2); color: var(--color-ink); font-weight: 500; }
 .po-jump a:hover { color: #8FB0FF; }
 .po-jump a:focus-visible { outline: 2px solid #8FB0FF; outline-offset: 2px; }
-.po-jump b { font-family: var(--font-mono); font-weight: 500; font-size: 12px; color: #8FB0FF; font-variant-numeric: tabular-nums; }
+.po-jump a { align-items: center; }
+.po-bud { flex: none; width: 32px; height: 32px; --u: 1.75; }
+.po-bud .bud-line path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+/* The index is on screen at load: the marks draw once on first paint (no JS), in turn. */
+@keyframes po-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes po-fill { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: no-preference) {
+  .po-bud .bud-line path { animation: po-draw 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0.3s) both; }
+  .po-bud .bud-fill { animation: po-fill 0.6s ease-out calc(var(--d, 0.3s) + 0.3s) both; }
+}
+.po-key { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 0.8125rem; color: var(--color-ink-muted); }
+.po-key span { display: inline-flex; align-items: center; gap: 6px; }
+.po-key .bud { --u: 2.8; }
 .po-jump small { display: block; margin-top: 2px; font-size: 0.8125rem; color: var(--color-ink-muted); }
 `;
 
@@ -59,7 +72,10 @@ export default function PortfolioPage() {
             {PORTFOLIO_CASES.map((c, i) => (
               <li key={c.id}>
                 <a href={`#${c.id}`}>
-                  <b>{String(i + 1).padStart(2, "0")}</b>
+                  {/* Bud = starting or in build, bloom = live. */}
+                  <span className="po-bud" style={{ ["--d" as string]: `${0.3 + i * 0.15}s` }} aria-hidden>
+                    <Bud stage={c.status === "Live" ? 4 : 1} size={32} />
+                  </span>
                   <span>
                     {c.name ?? c.label}
                     <small>
@@ -70,6 +86,14 @@ export default function PortfolioPage() {
               </li>
             ))}
           </ul>
+          <p className="po-key" aria-hidden>
+            <span>
+              <Bud stage={1} size={20} /> Starting or in build
+            </span>
+            <span>
+              <Bud stage={4} size={20} /> Live
+            </span>
+          </p>
         </div>
       </section>
 
