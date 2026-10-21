@@ -20,7 +20,7 @@ import { TOOL_ICONS, type ToolIcon } from "./toolIcons";
 // fall back to the ink colour instead.
 const NEAR_BLACK = new Set(["000000", "191919"]);
 // Marks that are wordmarks inside the square icon box: drawn wider so they read at the same optical size.
-const WIDE_MARKS = new Set(["WooCommerce", "Wix", "Sage"]);
+const WIDE_MARKS = new Set(["WooCommerce", "Wix", "Sage", "Zoho"]);
 
 const CSS = `
 @keyframes tm-x { from { transform: translateX(0); } to { transform: translateX(-50%); } }
