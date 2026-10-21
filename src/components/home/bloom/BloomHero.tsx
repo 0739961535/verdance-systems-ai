@@ -28,6 +28,7 @@ export function BloomHero() {
     preload(`/bloom/first-960.avif?v=${manifest.v}`, { as: "image", type: "image/avif", fetchPriority: "high", media: "(min-width: 768px)" });
   }
   return (
+    <>
     <section className="bl" aria-label="We make AI that answers, follows up, runs the admin, sounds like you, to run your business" data-word={BLOOM_WORDS.length - 1}>
       <style>{CSS}</style>
       <BloomScroll v={manifest.v} desktop={manifest.desktop.count} phone={manifest.phone.count} />
@@ -61,6 +62,10 @@ export function BloomHero() {
         </div>
       </div>
     </section>
+    {/* the paper fades into the next section only after the flower and its
+        last line have scrolled away, so the words never sit on the fade */}
+    <div aria-hidden className="bl-after" />
+    </>
   );
 }
 
@@ -97,7 +102,8 @@ function Placeholder() {
 }
 
 const CSS = `
-.bl { --p: 1; position: relative; height: 250svh; background: linear-gradient(#F9F4E8 0%, #F9F4E8 82%, var(--bg) 100%); color: #0E0E10; }
+.bl { --p: 1; position: relative; height: 250svh; background: #F9F4E8; color: #0E0E10; }
+.bl-after { height: clamp(120px, 18vh, 220px); background: linear-gradient(#F9F4E8, var(--bg)); }
 .bl .bl-left { color: #0E0E10; }
 .bl-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; display: grid; place-items: center; isolation: isolate; }
 .bl-glow { display: none; position: absolute; left: 50%; top: 50%; width: min(80vw, 760px); aspect-ratio: 1; transform: translate(-50%, -50%) scale(calc(0.7 + var(--p) * 0.5)); border-radius: 50%; z-index: -1;

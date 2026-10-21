@@ -1,4 +1,5 @@
 import { SITE } from "@/data/site";
+import { AI_WHATSAPP, UK_LINE, telLink, waLink } from "@/data/assistant";
 import { FounderPortrait } from "@/components/brand/FounderPortrait";
 import { BookingFlow } from "./BookingFlow";
 
@@ -99,6 +100,19 @@ export function BookingSection({ as = "section" }: { as?: "section" | "page" }) 
             <p className="bks-direct">
               Or email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
             </p>
+            {AI_WHATSAPP ? (
+              <p className="bks-direct">
+                AI assistant (WhatsApp):{" "}
+                <a href={waLink(AI_WHATSAPP)} target="_blank" rel="noopener noreferrer">
+                  {AI_WHATSAPP}
+                </a>
+              </p>
+            ) : null}
+            {UK_LINE ? (
+              <p className="bks-direct">
+                UK: <a href={telLink(UK_LINE)}>{UK_LINE}</a>
+              </p>
+            ) : null}
           </div>
           <div className="bks-main">
             <BookingFlow page={as === "page" ? "book" : "home"} />

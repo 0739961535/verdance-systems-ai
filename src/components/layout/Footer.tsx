@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AI_WHATSAPP, UK_LINE, telLink, waLink } from "@/data/assistant";
 import { ArrowUpRight, Mail, MessageCircle, Phone } from "lucide-react";
 import { NICHES } from "@/data/niches";
 import { GENERIC_BOOK_URL } from "@/data/booking";
@@ -151,6 +152,22 @@ export function Footer() {
                 {SITE.phone}
               </a>
             </li>
+            {UK_LINE ? (
+              <li>
+                <a href={telLink(UK_LINE)} className={contactClass}>
+                  <Phone size={16} strokeWidth={1.5} aria-hidden className={iconClass} />
+                  UK {UK_LINE}
+                </a>
+              </li>
+            ) : null}
+            {AI_WHATSAPP ? (
+              <li>
+                <a href={waLink(AI_WHATSAPP)} target="_blank" rel="noopener noreferrer" className={contactClass}>
+                  <MessageCircle size={16} strokeWidth={1.5} aria-hidden className={iconClass} />
+                  AI assistant (WhatsApp) {AI_WHATSAPP}
+                </a>
+              </li>
+            ) : null}
           </ul>
         </div>
 

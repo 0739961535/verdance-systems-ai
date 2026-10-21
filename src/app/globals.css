@@ -2709,3 +2709,12 @@ a > svg.lucide-arrow-right { transition: transform 0.35s cubic-bezier(0.16, 1, 0
 @media (prefers-reduced-motion: reduce) {
   :where(.ix-card, .hp-card, .ocap-tile, .hic-step, .ob-list li, .gv-card, .pv-card, .btn) { transition: none; }
 }
+
+/* small inline links get a full 44px tap area on touch screens, without
+   changing how they look (an invisible hit area around them) */
+@media (pointer: coarse) {
+  .lh a[href^="https://wa.me"], .bks-direct a, footer a[href="/privacy"], footer a[href="/terms"], .sv-nav a, #websites a[href] { position: relative; }
+  .lh a[href^="https://wa.me"]::before, .bks-direct a::before, footer a[href="/privacy"]::before, footer a[href="/terms"]::before, .sv-nav a::before, #websites a[href]::before {
+    content: ""; position: absolute; left: -6px; right: -6px; top: 50%; height: 44px; transform: translateY(-50%);
+  }
+}

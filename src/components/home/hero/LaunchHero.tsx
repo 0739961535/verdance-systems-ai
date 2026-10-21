@@ -124,17 +124,11 @@ export function LaunchHero() {
           </h1>
 
           <p
-            className="lh-fade lh-bal relative z-[1] mx-auto mt-6 max-w-[24ch] font-display text-[color:var(--color-ink)] md:mt-8 md:max-w-[32ch]"
-            style={{ fontSize: "clamp(1.3rem, 1.1vw + 1rem, 1.9rem)", lineHeight: 1.25, letterSpacing: "-0.025em", ["--d" as string]: "0.42s" }}
+            className="lh-fade lh-bal relative z-[1] mx-auto mt-7 max-w-[34ch] text-[color:var(--color-ink-soft)] md:mt-9 md:max-w-[46ch]"
+            style={{ fontSize: "clamp(1.1rem, 0.6vw + 0.98rem, 1.4rem)", lineHeight: 1.5, letterSpacing: "-0.01em", ["--d" as string]: "0.42s" }}
           >
-            An operations team that never clocks off, built into your business in 10&nbsp;working&nbsp;days.
-          </p>
-
-          <p
-            className="lh-fade lh-bal relative z-[1] mx-auto mt-4 max-w-[36rem] text-[color:var(--color-ink-soft)]"
-            style={{ fontSize: "clamp(1.02rem, 0.3vw + 0.95rem, 1.15rem)", lineHeight: 1.6, ["--d" as string]: "0.5s" }}
-          >
-            Every enquiry answered within 60&nbsp;seconds. Every quote followed&nbsp;up. The admin done before your team logs&nbsp;on.
+            Verdance builds and runs AI systems for your business: every enquiry answered, every lead followed up and the admin
+            done, connected to your CRM, pipelines and the tools you already use.
           </p>
 
           <div className="lh-fade relative z-[1] mt-8 flex flex-col items-center gap-4 md:mt-10" style={{ ["--d" as string]: "0.6s" }}>

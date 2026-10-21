@@ -8,6 +8,7 @@ import { LaunchHero } from "@/components/home/hero/LaunchHero";
 import { BloomHero } from "@/components/home/bloom/BloomHero";
 import { EarthLimb } from "@/components/home/hero/EarthLimb";
 import { LazySections } from "@/components/home/hero/LazySections";
+import { AssistantLive } from "@/components/home/AssistantLive";
 import { WatchArrives } from "@/components/home/bloom/WatchArrives";
 
 /** The illustrated flight is the old fallback (FLIGHT_FILM=0). The scroll
@@ -99,6 +100,7 @@ export default function HomePage() {
       </div>
       {/* the booking flow (id="book"); not in .cv-below: it measures itself */}
       <BookingSection />
+      <AssistantLive />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label={CTA_PRIMARY} />
     </>
   );

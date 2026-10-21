@@ -144,7 +144,7 @@ export function EnquiryArrives() {
           </div>
         </div>
       </div>
-      <p className="museum ea-label">Sample conversation. The business and the customer are made up.</p>
+      <p className="museum ea-label">Sample conversation. A venue here, but it works the same for any industry.</p>
     </div>
   );
 }
