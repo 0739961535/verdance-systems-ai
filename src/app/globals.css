@@ -172,7 +172,7 @@
 
   --grain-opacity: 0.035;
   --signal-ink:   #0B7547;
-  --st-attn:      #9A5B00;
+  --st-attn:      #8A5000;
   --st-attn-rgb:  154, 91, 0;
   --st-attn-dim:  rgba(154, 91, 0, 0.08);
 
@@ -246,7 +246,7 @@
 
     --grain-opacity: 0.035;
     --signal-ink:   #0B7547;
-    --st-attn:      #9A5B00;
+    --st-attn:      #8A5000;
     --st-attn-rgb:  154, 91, 0;
   --st-attn-dim:  rgba(154, 91, 0, 0.08);
 
@@ -1075,6 +1075,7 @@ p { text-wrap: pretty; }
   display: inline-flex; align-items: center; gap: 0.25em;
   font-variant-numeric: tabular-nums;
 }
+.wa-bubble[data-dir="out"] .wa-time { color: rgba(255, 255, 255, 0.82); }
 .wa-meta {
   align-self: flex-end;
   margin-top: -0.15em;

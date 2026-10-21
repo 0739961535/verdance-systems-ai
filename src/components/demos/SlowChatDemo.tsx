@@ -134,7 +134,7 @@ const CSS = `
 .sd-them, .sd-us { max-width: 84%; padding: 8px 11px; font-size: 0.86rem; line-height: 1.42; border-radius: 14px; }
 .sd-them { background: #1D3F8F; border-top-right-radius: 4px; }
 .sd-us { background: #13203F; border-top-left-radius: 4px; }
-.sd-time { display: inline-flex; align-items: center; gap: 3px; margin-left: 8px; font-size: 0.6875rem; color: rgba(255,255,255,0.5); vertical-align: -1px; }
+.sd-time { display: inline-flex; align-items: center; gap: 3px; margin-left: 8px; font-size: 0.6875rem; color: rgba(255,255,255,0.72); vertical-align: -1px; }
 .sd-bk { display: grid; gap: 2px; min-width: 62%; padding: 9px 11px; border-radius: 12px; border: 1px solid rgba(127,209,168,0.35); background: rgba(127,209,168,0.08); }
 .sd-bk.is-info { border-color: rgba(143,176,255,0.35); background: rgba(77,124,255,0.1); }
 .sd-bk-t { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 600; color: #BFF0D6; }

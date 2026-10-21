@@ -813,7 +813,7 @@ html[data-book-visible] nav[data-cta-location="sticky_mobile"] { transform: tran
 }
 .bk-dc:hover:not(:disabled) { border-color: rgba(143,176,255,0.6); }
 .bk-dc:disabled { cursor: default; background: none; border-color: transparent; color: rgba(234,240,255,0.3); font-weight: 500; }
-.bk-dc[aria-pressed="true"] { background: #4D7CFF; border-color: #4D7CFF; color: #FFFFFF; }
+.bk-dc[aria-pressed="true"] { background: #2F5FE0; border-color: #2F5FE0; color: #FFFFFF; }
 .bk-dot { position: absolute; bottom: 6px; left: 50%; width: 4px; height: 4px; margin-left: -2px; border-radius: 999px; background: #8FB0FF; }
 .bk-dc[aria-pressed="true"] .bk-dot { background: #FFFFFF; }
 .bk-slots-h { margin: 0 0 10px; font-size: 0.95rem; font-weight: 600; color: #DCE6FF; }
@@ -823,7 +823,7 @@ html[data-book-visible] nav[data-cta-location="sticky_mobile"] { transform: tran
   background: transparent; border: 1px solid rgba(255,255,255,0.14); transition: border-color 160ms, background-color 160ms;
 }
 .bk-time:hover { border-color: rgba(143,176,255,0.6); }
-.bk-time[aria-pressed="true"] { background: #4D7CFF; border-color: #4D7CFF; color: #FFFFFF; }
+.bk-time[aria-pressed="true"] { background: #2F5FE0; border-color: #2F5FE0; color: #FFFFFF; }
 .bk-tz { margin: 12px 0 0; }
 
 /* questions */
