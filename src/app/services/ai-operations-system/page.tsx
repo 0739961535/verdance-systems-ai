@@ -6,6 +6,7 @@ import { MondayToggle } from "@/components/aiteam/MondayToggle";
 import { NightLimb } from "@/components/aiteam/NightLimb";
 import { TeamBloom } from "@/components/aiteam/TeamBloom";
 import { PowerOfAI } from "@/components/aiteam/PowerOfAI";
+import { OpsDesk } from "@/components/aiteam/OpsDesk";
 import { FAQControl } from "@/components/sections/v4/FAQControl";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
@@ -121,6 +122,8 @@ export default function AiOperationsTeamPage() {
           </div>
         </div>
       </section>
+
+      <OpsDesk />
 
       <PowerOfAI variant="full" />
 
