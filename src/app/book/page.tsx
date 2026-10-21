@@ -17,10 +17,20 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Book a call", item: `${SITE_URL}/book` },
+  ],
+};
+
 /** /book: Verdance's own booking page. Calendar first, three questions, then an optional prepare step. */
 export default function BookPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
       <BookingSection as="page" />
       <FounderVideoBand />
     </>

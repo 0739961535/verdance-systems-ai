@@ -10,7 +10,7 @@ import { GENERIC_BOOK_URL } from "@/data/booking";
 import { PORTFOLIO_CASES } from "@/data/portfolio";
 import { CTA_PRIMARY, SITE_URL } from "@/data/site";
 
-const TITLE = "Portfolio | Verdance Systems AI";
+const TITLE = "AI Systems Built for Real Businesses | Verdance";
 const DESCRIPTION =
   "Websites, assistants and automations we built for owner-led businesses: what we built, how it works and what it does. Client names stay private.";
 
@@ -54,9 +54,19 @@ const HERO_CSS = `
  * src/data/portfolio.ts), then "Anything is possible." turning paper into
  * night, then four interactive concept demos, then the closing scene.
  */
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Portfolio", item: `${SITE_URL}/portfolio` },
+  ],
+};
+
 export default function PortfolioPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
       <section className="band-night po-hero" aria-labelledby="portfolio-h1">
         <style>{HERO_CSS + CASE_CSS}</style>
         <span className="po-glow" aria-hidden />
