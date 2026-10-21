@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { clientIp, clip, tooMany } from "@/lib/api-guard";
-import { addNote, createAppointment, creds, dryRun, signTicket, upsertContact } from "@/lib/booking-server";
+import { book, dryRun } from "@/lib/booking-server";
 import { bookingNote, cleanSource, cleanTimeTaker, cleanUtms, cleanZone } from "@/components/booking/questions";
 
 /**
@@ -8,13 +8,12 @@ import { bookingNote, cleanSource, cleanTimeTaker, cleanUtms, cleanZone } from "
  * Books the free call from the site's own booking page. Three questions
  * only: name and business, email and phone (with an optional text and
  * WhatsApp consent tick), and what is taking up the team's time.
- * Upserts the contact in the CRM, creates the appointment on the calendar
- * (the diary of record), then adds the answers as a note (best effort).
- * Returns a short-lived ticket for the optional "help us prepare" step.
+ * Ashford upserts the contact, re-checks the slot and creates the
+ * appointment on the calendar (the diary of record), then adds the answers
+ * as a note. Returns a short-lived ticket for the optional "help us
+ * prepare" step.
  */
 export async function POST(req: Request) {
-  const c = creds();
-  if (!c && !dryRun()) return NextResponse.json({ error: "booking_unavailable" }, { status: 503 });
   if (tooMany(`book:${clientIp(req)}`, 5, 10 * 60_000)) return NextResponse.json({ error: "too_many_requests" }, { status: 429 });
 
   let body: Record<string, unknown>;
@@ -41,35 +40,20 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "invalid_request" }, { status: 400 });
   }
 
-  const timeTaker = cleanTimeTaker(body.timeTaker);
-  const source = cleanSource(body.source);
-  const utms = cleanUtms(body.utm);
-  const cr = c ?? { token: "", locationId: "" };
-
-  const contactId = await upsertContact(cr, {
+  const note = bookingNote({ name, business, slot, textConsent, timeTaker: cleanTimeTaker(body.timeTaker), source: cleanSource(body.source), utms: cleanUtms(body.utm), tz: cleanZone(body.tz) });
+  const r = await book({
     name,
     email,
     phone,
     business,
+    slot,
+    note,
     source: "Website booking page",
     tags: ["website-booking", ...(textConsent ? ["sms-whatsapp-consent"] : [])],
   });
-  if (!contactId) return NextResponse.json({ error: "booking_failed" }, { status: 502 });
-
-  const note = bookingNote({ name, business, slot, textConsent, timeTaker, source, utms, tz: cleanZone(body.tz) });
-  const booked = await createAppointment(cr, { contactId, slot, title: `Call: ${name} (${business})` });
-  if (!booked.ok && booked.taken) return NextResponse.json({ error: "slot_taken" }, { status: 409 });
-  if (!booked.ok) {
-    // The appointment wasn't created, but the request is never lost: the
-    // contact exists, and the note says which time they asked for, so the
-    // team can confirm it by hand.
-    const saved = await addNote(cr, contactId, `Requested slot ${slot}, appointment not created: ${booked.reason}\n\n${note}`);
-    if (!saved) console.error("[booking] pending booking note not saved");
-    return NextResponse.json({ ok: true, pending: true, ticket: signTicket(contactId) });
-  }
-
-  const saved = await addNote(cr, contactId, note);
-  if (!saved) console.warn("booking note not saved");
-
-  return NextResponse.json({ ok: true, ticket: signTicket(contactId), ...(dryRun() ? { dryRun: true } : {}) });
+  if (!r.ok && r.taken) return NextResponse.json({ error: "slot_taken" }, { status: 409 });
+  if (!r.ok) return NextResponse.json({ error: "booking_failed" }, { status: 502 });
+  // Pending: the appointment wasn't created, but the request is never lost.
+  // The contact exists and its note says which time they asked for.
+  return NextResponse.json({ ok: true, ticket: r.ticket, ...(r.pending ? { pending: true } : {}), ...(dryRun() ? { dryRun: true } : {}) });
 }
