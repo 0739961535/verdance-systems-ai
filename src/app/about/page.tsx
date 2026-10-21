@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Check } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
-import { PageHero } from "@/components/kit/PageHero";
+import { EarthPageHero } from "@/components/about/EarthPageHero";
 import { SectionHead } from "@/components/kit/SectionHead";
 import { CTABand } from "@/components/kit/CTABand";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
@@ -106,7 +106,7 @@ export default function AboutPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <PageHero
+      <EarthPageHero
         eyebrow="About Verdance"
         title={
           <>
