@@ -97,7 +97,7 @@ export function CaseStudy({ c, index }: { c: PortfolioCase; index: number }) {
             <span className="pc-tag" style={{ color: "var(--color-ink-muted)", background: "transparent", boxShadow: "inset 0 0 0 1px var(--hairline-2)" }}>
               {String(index + 1).padStart(2, "0")}
             </span>
-            <span className={`pc-status ${c.status === "In build" ? "is-build" : ""}`}>
+            <span className={`pc-status ${c.status !== "Live" ? "is-build" : ""}`}>
               <i aria-hidden />
               {c.status}
             </span>
@@ -160,7 +160,7 @@ export function CaseStudy({ c, index }: { c: PortfolioCase; index: number }) {
 
       <div className="pc-body">
         <div>
-          <h3 className="pc-k">What we built</h3>
+          <h3 className="pc-k">{c.status === "Live" ? "What we built" : "What we are building"}</h3>
           <p className="pc-p">{c.built}</p>
           <h3 className="pc-k" style={{ marginTop: 32 }}>Works with</h3>
           <p className="pc-tools">
@@ -181,7 +181,7 @@ export function CaseStudy({ c, index }: { c: PortfolioCase; index: number }) {
           </ol>
         </div>
         <div>
-          <h3 className="pc-k">What it does for them</h3>
+          <h3 className="pc-k">{c.status === "Live" ? "What it does for them" : "What it will do for them"}</h3>
           <ul className="pc-does">
             {c.does.map((d) => (
               <li key={d}>{d}</li>

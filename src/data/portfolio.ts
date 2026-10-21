@@ -12,7 +12,7 @@ export type PortfolioCase = {
   name: string | null;
   /** The public label used while `name` is null. */
   label: string;
-  status: "Live" | "In build";
+  status: "Live" | "In build" | "Starting soon";
   tags: string[];
   outcome: string;
   built: string;
@@ -116,7 +116,8 @@ export const PORTFOLIO_CASES: PortfolioCase[] = [
     id: "training",
     name: null,
     label: "A training institute",
-    status: "In build",
+    // TODO(Daniel): switch to "In build" when the deposit lands.
+    status: "Starting soon",
     tags: ["Website", "Bookings", "Follow-up"],
     outcome: "Learners find a course, apply from their phone and hear back on WhatsApp.",
     built:
@@ -147,7 +148,7 @@ export const PORTFOLIO_CASES: PortfolioCase[] = [
       height: 920,
       alt: "The online application on a phone, step one of four: course and contact details, labelled as an example form",
     },
-    caption: "From the build in progress. The institute's name, logo and people are left out.",
+    caption: "From the design for their build. The institute's name, logo and people are left out.",
   },
 ];
 
