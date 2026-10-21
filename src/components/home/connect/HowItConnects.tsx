@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type AnimationEvent, type PointerEvent } from "react";
 import { ShieldCheck } from "lucide-react";
 import { ConnectDiagram } from "./ConnectDiagram";
 import { STEPS } from "./connectData";
@@ -13,11 +13,28 @@ import { STEPS } from "./connectData";
  * Motion story: while the section is on screen the active step advances every
  * 4s and the diagram lights up cumulatively (chips, wires, core, app), with
  * pulses running along lit wires. Off screen everything pauses. Tapping a
- * step jumps to it and restarts the timer. Reduced motion: no cycling, no
- * pulses, every part of the diagram lit and every step readable.
+ * step jumps to it and restarts the timer. The step cards lift like the
+ * other cards (ix-card) and, only on hover or keyboard focus, a light runs
+ * the whole way round their border (a conic gradient masked to a 1.5px ring,
+ * its angle animated through a registered custom property); a tap on touch
+ * runs it once. Reduced motion: no cycling, no pulses, no trace, every part
+ * of the diagram lit and every step readable.
  */
 
 const CYCLE_MS = 4000;
+
+/** On touch there is no hover: a tap runs the border trace once. */
+function traceOnTouch(e: PointerEvent<HTMLButtonElement>) {
+  if (e.pointerType === "mouse") return;
+  const el = e.currentTarget;
+  el.removeAttribute("data-trace");
+  void el.offsetWidth; // restart the one-shot animation on a repeat tap
+  el.setAttribute("data-trace", "");
+}
+function endTrace(e: AnimationEvent<HTMLSpanElement>) {
+  const btn = e.currentTarget.parentElement;
+  if (btn?.hasAttribute("data-trace")) btn.removeAttribute("data-trace");
+}
 
 export function HowItConnects() {
   const root = useRef<HTMLElement>(null);
@@ -79,14 +96,13 @@ export function HowItConnects() {
               <li key={s.n}>
                 <button
                   type="button"
-                  className="hic-step"
+                  className="hic-step ix-card"
                   data-active={active ? "" : undefined}
                   aria-current={active ? "step" : undefined}
                   onClick={() => setStep(i)}
+                  onPointerDown={traceOnTouch}
                 >
-                  <span className="hic-bar" aria-hidden>
-                    <span key={active ? `on-${step}` : "off"} className="hic-bar-fill" />
-                  </span>
+                  <span className="hic-trace" aria-hidden onAnimationEnd={endTrace} />
                   <span className="hic-n">{s.n}</span>
                   <span className="hic-t">{s.title}</span>
                   <span className="hic-tech">{s.tech}</span>
@@ -125,34 +141,44 @@ const CSS = `
 .hic-dia { position: relative; }
 .hic-svg { display: block; width: 100%; height: auto; overflow: visible; }
 .hic-svg-wide { display: none; }
-.hic-svg-tall { max-width: 520px; margin: 0 auto; }
+.hic-svg-tall { max-width: 460px; margin: 0 auto; }
 @media (min-width: 1024px) { .hic-svg-wide { display: block; } .hic-svg-tall { display: none; } }
 .hic-svg text { font-family: var(--font-sans, inherit); fill: var(--ink); }
 
-.hic-chip rect { fill: #0A1226; stroke: rgba(255,255,255,0.12); stroke-width: 1; transition: stroke .5s ease; }
-.hic-ico { fill: rgba(234,240,255,0.78); }
-.hic-chip-t { fill: rgba(234,240,255,0.88) !important; font-weight: 500; }
-.hic-chip-more { fill: #8FB0FF !important; }
-.hic-chips[data-on] .hic-chip rect { stroke: rgba(143,176,255,0.42); }
+.hic-panel { fill: rgba(10,18,38,0.6); stroke: rgba(255,255,255,0.08); stroke-width: 1; }
+.hic-panel-k { font-family: var(--font-mono) !important; font-size: 9.5px; letter-spacing: 0.16em; fill: rgba(143,176,255,0.8) !important; }
+.hic-node-b { fill: #0E1730; stroke: rgba(255,255,255,0.11); stroke-width: 1; transition: stroke .5s ease; }
+.hic-node-hi { fill: rgba(255,255,255,0.035); }
+.hic-node-t { fill: rgba(234,240,255,0.72) !important; font-weight: 500; letter-spacing: -0.005em; }
+.hic-chips[data-on] .hic-node-b { stroke: rgba(143,176,255,0.3); }
 
-.hic-wire, .hic-bus { fill: none; stroke: rgba(255,255,255,0.12); stroke-width: 1.25; transition: stroke .5s ease; }
-.hic-in[data-on] .hic-wire, .hic-in[data-on] .hic-bus, .hic-out[data-on] .hic-wire { stroke: rgba(143,176,255,0.38); }
-.hic-pulse { fill: none; stroke: #8FB0FF; stroke-width: 2; stroke-linecap: round; stroke-dasharray: 7 93; stroke-dashoffset: 100; opacity: 0; }
+.hic-wire { fill: none; stroke: rgba(143,176,255,0.12); stroke-width: 1.25; transition: stroke .5s ease; }
+.hic-in[data-on] .hic-wire, .hic-out[data-on] .hic-wire { stroke: rgba(143,176,255,0.3); }
+.hic-pulse { fill: none; stroke: #BFD2FF; stroke-width: 2.25; stroke-linecap: round; stroke-dasharray: 9 91; stroke-dashoffset: 100; opacity: 0; }
+.hic-pulse-out { stroke: #DDE7FF; }
 
-.hic-core-b { fill: #13203F; stroke: rgba(143,176,255,0.35); stroke-width: 1; }
+.hic-core-b { stroke: rgba(143,176,255,0.45); stroke-width: 1; }
+.hic-core-in { fill: rgba(255,255,255,0.04); }
+.hic-core-dot { fill: #8FB0FF; }
 .hic-ring { fill: none; stroke: #4D7CFF; stroke-width: 1; opacity: 0; transform-box: fill-box; transform-origin: center; }
-.hic-halo { opacity: 0.35; transition: opacity .6s ease; }
+.hic-orbit { fill: none; stroke: rgba(143,176,255,0.14); stroke-width: 1; stroke-dasharray: 2 7; transform-box: fill-box; transform-origin: center; }
+.hic-orbit-2 { stroke: rgba(143,176,255,0.08); stroke-dasharray: 1 10; }
+.hic-halo { opacity: 0.4; transition: opacity .6s ease; }
 .hic-core[data-on] .hic-halo { opacity: 1; }
-.hic-core-k { font-family: var(--font-mono) !important; font-size: 10px; letter-spacing: 0.14em; fill: #8FB0FF !important; }
+.hic-core-k { font-family: var(--font-mono) !important; font-size: 10px; letter-spacing: 0.16em; fill: #8FB0FF !important; }
 .hic-core-t { font-weight: 600; letter-spacing: -0.02em; }
 .hic-core-s { font-family: var(--font-mono) !important; font-size: 11px; fill: rgba(234,240,255,0.6) !important; }
 
 .hic-win { fill: #0A1226; stroke: rgba(255,255,255,0.12); stroke-width: 1; }
 .hic-phone-b { fill: #13203F; }
+.hic-notch { fill: rgba(255,255,255,0.12); }
 .hic-dot { fill: rgba(255,255,255,0.16); }
+.hic-app-k { font-family: var(--font-mono) !important; font-size: 9px; letter-spacing: 0.16em; fill: rgba(143,176,255,0.75) !important; }
 .hic-app-h { font-weight: 600; letter-spacing: -0.01em; }
 .hic-rule { stroke: rgba(255,255,255,0.07); stroke-width: 1; }
-.hic-row-t { fill: rgba(234,240,255,0.82) !important; }
+.hic-row-t { fill: rgba(234,240,255,0.84) !important; }
+.hic-led { fill: rgba(143,176,255,0.45); }
+.hic-led-hot { fill: #4D7CFF; }
 .hic-skel { fill: rgba(255,255,255,0.08); }
 .hic-pill { fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.12); stroke-width: 1; }
 .hic-pill-hot { fill: rgba(77,124,255,0.22); stroke: rgba(143,176,255,0.5); }
@@ -160,14 +186,18 @@ const CSS = `
 .hic-pill-t-hot { fill: #C9D8FF !important; }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hic-g { transition: opacity .5s ease; opacity: 0.42; }
+  .hic-g { transition: opacity .5s ease; opacity: 0.4; }
   .hic-g[data-on] { opacity: 1; }
-  .hic-in[data-on] .hic-pulse, .hic-out[data-on] .hic-pulse { opacity: 1; animation: hic-flow 2.4s linear infinite; }
+  .hic-in[data-on] .hic-pulse { opacity: 1; animation: hic-flow 3s cubic-bezier(.45,0,.55,1) infinite; }
+  .hic-out[data-on] .hic-pulse { opacity: 1; animation: hic-flow 2.2s cubic-bezier(.45,0,.55,1) infinite; }
   .hic-core[data-on] .hic-ring { animation: hic-ring 2.4s ease-out infinite; }
-  .hic:not([data-live]) .hic-pulse, .hic:not([data-live]) .hic-ring { animation-play-state: paused; }
+  .hic-orbit { animation: hic-spin 60s linear infinite; }
+  .hic-orbit-2 { animation-duration: 90s; animation-direction: reverse; }
+  .hic:not([data-live]) .hic-pulse, .hic:not([data-live]) .hic-ring, .hic:not([data-live]) .hic-orbit { animation-play-state: paused; }
 }
-@keyframes hic-flow { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
-@keyframes hic-ring { 0% { opacity: .7; transform: scale(1); } 100% { opacity: 0; transform: scale(1.12); } }
+@keyframes hic-flow { 0% { stroke-dashoffset: 100; opacity: 0; } 8% { opacity: 1; } 88% { opacity: 1; } 100% { stroke-dashoffset: 9; opacity: 0; } }
+@keyframes hic-ring { 0% { opacity: .6; transform: scale(1); } 100% { opacity: 0; transform: scale(1.1); } }
+@keyframes hic-spin { to { transform: rotate(360deg); } }
 
 /* Steps */
 .hic-steps { list-style: none; margin: 48px 0 0; padding: 0; display: grid; gap: 12px; }
@@ -176,21 +206,37 @@ const CSS = `
 .hic-steps li { display: flex; }
 .hic-step {
   all: unset; box-sizing: border-box; cursor: pointer; width: 100%; min-height: 44px;
-  display: flex; flex-direction: column; gap: 10px; padding: 0 20px 22px;
+  position: relative; isolation: isolate;
+  display: flex; flex-direction: column; gap: 10px; padding: 22px 20px;
   border-radius: 18px; background: #0A1226; border: 1px solid rgba(255,255,255,0.07);
-  transition: border-color .4s ease, background-color .4s ease;
+  transition: transform .5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .5s cubic-bezier(0.16, 1, 0.3, 1), border-color .4s ease, background-color .4s ease;
+  -webkit-tap-highlight-color: transparent;
 }
-.hic-step:hover { border-color: rgba(255,255,255,0.14); }
 .hic-step:focus-visible { outline: 2px solid #8FB0FF; outline-offset: 3px; }
 .hic-step[data-active] { border-color: rgba(143,176,255,0.4); background: #0D1730; }
-.hic-bar { display: block; height: 2px; margin: 0 -20px 10px; border-radius: 18px 18px 0 0; overflow: hidden; background: rgba(255,255,255,0.06); }
-.hic-bar-fill { display: block; height: 100%; background: #4D7CFF; transform: scaleX(0); transform-origin: left; }
-.hic-step[data-active] .hic-bar-fill { transform: scaleX(1); }
-@media (prefers-reduced-motion: no-preference) {
-  .hic-step[data-active] .hic-bar-fill { animation: hic-fill ${CYCLE_MS}ms linear both; }
-  .hic:not([data-live]) .hic-bar-fill { animation-play-state: paused; }
+
+/* The border trace: a conic light masked to a ring, its angle animated. */
+@property --hic-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.hic-trace {
+  position: absolute; inset: -1px; z-index: 1; border-radius: inherit; padding: 2px; pointer-events: none;
+  background: conic-gradient(from var(--hic-a), transparent 0deg 190deg, rgba(77,124,255,0.55) 270deg, #A9C2FF 335deg, #FFFFFF 355deg, transparent 360deg);
+  filter: drop-shadow(0 0 3px rgba(143,176,255,0.7));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0; transition: opacity .3s ease;
 }
-@keyframes hic-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: no-preference) {
+  @media (hover: hover) {
+    .hic-step:hover .hic-trace { opacity: 1; animation: hic-trace 2.4s linear infinite; }
+  }
+  .hic-step:focus-visible .hic-trace { opacity: 1; animation: hic-trace 2.4s linear infinite; }
+  .hic-step[data-trace] .hic-trace { opacity: 1; animation: hic-trace-once 1.3s cubic-bezier(.4,0,.2,1) 1 both; }
+}
+@media (prefers-reduced-motion: reduce) { .hic-trace { display: none; } }
+@keyframes hic-trace { from { --hic-a: 0deg; } to { --hic-a: 360deg; } }
+@keyframes hic-trace-once { 0% { --hic-a: 0deg; opacity: 1; } 85% { opacity: 1; } 100% { --hic-a: 360deg; opacity: 0; } }
+
 .hic-n { font-family: var(--font-mono); font-size: 0.8125rem; color: #8FB0FF; font-variant-numeric: tabular-nums; }
 .hic-t { font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; letter-spacing: -0.02em; line-height: 1.2; color: var(--color-ink); }
 .hic-tech { font-size: 0.9375rem; line-height: 1.55; color: var(--color-ink-soft); }
