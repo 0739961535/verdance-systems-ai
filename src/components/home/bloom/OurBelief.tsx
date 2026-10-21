@@ -44,7 +44,7 @@ function BloomMark() {
 
 export function OurBelief() {
   return (
-    <section className="ob" aria-labelledby="ob-title">
+    <section id="belief" className="ob" aria-labelledby="ob-title" style={{ scrollMarginTop: "5rem" }}>
       <style>{CSS}</style>
       <div className="container-wide ob-grid">
         <div className="ob-head" data-reveal="">

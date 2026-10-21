@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { HowHero } from "@/components/how/HowHero";
+import { OurBelief } from "@/components/home/bloom/OurBelief";
 import { HowSteps } from "@/components/how/HowSteps";
 import { HowYouDo } from "@/components/how/HowYouDo";
 import { StatementChapter } from "@/components/home/chapters/StatementChapter";
@@ -32,6 +33,7 @@ export default function HowItWorksPage() {
   return (
     <>
       <HowHero />
+      <OurBelief />
       <div className="cv-below">
         <HowSteps />
       </div>

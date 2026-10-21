@@ -71,7 +71,7 @@ export function WatchItWork() {
     <section className="band-night chapter-pad" aria-labelledby="watch-title">
       <div className="container-wide grid gap-12 lg:grid-cols-[1fr_1.55fr] lg:items-center lg:gap-16">
         <Reveal variant="wipe" className="max-w-xl">
-          <p className="eyebrow"><span className="chap-n">02</span> Demo</p>
+          <p className="eyebrow">Demo</p>
           <h2 id="watch-title" className="h2 mt-4">
             <SplitWords text="Watch it work." />
           </h2>
@@ -128,7 +128,7 @@ export function WhatYouGet({ showAll = true }: { showAll?: boolean } = {}) {
       <div className="container-wide">
         <Reveal variant="wipe" className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
           <div className="max-w-3xl">
-            <p className="eyebrow"><span className="chap-n">03</span> Work done</p>
+            <p className="eyebrow">Work done</p>
             <h2 id="get-title" className="h2 mt-4">
               <SplitWords text="Four jobs, done for you." />
             </h2>
@@ -187,7 +187,7 @@ export function InControl() {
     <section className="section-pad bg-canvas-2" aria-labelledby="control-title">
       <div className="container-wide grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
         <Reveal variant="wipe">
-          <p className="eyebrow"><span className="chap-n">08</span> Control</p>
+          <p className="eyebrow">Control</p>
           <h2 id="control-title" className="h2 mt-5">
             <SplitWords text="You stay in control." />
           </h2>

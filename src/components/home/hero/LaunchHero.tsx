@@ -1,10 +1,8 @@
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { SITE } from "@/data/site";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
-import { EarthRise } from "./EarthRise";
-import { OurBelief } from "../bloom/OurBelief";
-import { LazySections } from "./LazySections";
 
 /**
  * The home hero: the opening that is live on verdancesystemsai.com (the warm
@@ -61,6 +59,15 @@ const CSS = `
 /* depth in the light: a soft vignette and a faint haze toward the bottom */
 .lh-depth { position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background: radial-gradient(120% 80% at 50% 38%, transparent 55%, rgba(var(--hairline-rgb), 0.05) 100%), linear-gradient(transparent 60%, rgba(var(--accent-rgb), 0.07) 100%); }
+/* a long soft fade from the light ground into the navy of 01 Promise */
+.lh-into-dark { height: clamp(160px, 26vh, 320px); margin-bottom: -1px;
+  background: linear-gradient(var(--bg) 0%, color-mix(in oklab, var(--bg) 70%, #8FB0FF) 30%, color-mix(in oklab, var(--bg) 25%, #1D3F8F) 62%, #060B1A 100%); }
+.lh-why { position: relative; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 0.9375rem; color: var(--color-ink-soft); }
+.lh-why::after { content: ""; position: absolute; left: 0; right: 18px; bottom: 10px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
+.lh-why:hover, .lh-why:focus-visible { color: var(--color-ink); }
+.lh-why:hover::after, .lh-why:focus-visible::after { transform: scaleX(1); }
+.lh-why span { transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
+.lh-why:hover span, .lh-why:focus-visible span { transform: translateX(3px); }
 /* the scroll cue: a word and a fine line with a light running down it */
 .lh-cue { position: absolute; z-index: 2; left: 50%; bottom: calc(var(--arc) + 22px); transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px;
   font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-ink-muted); }
@@ -142,18 +149,18 @@ export function LaunchHero() {
                 Or WhatsApp us
               </a>
             </p>
+            <Link href="/how-it-works#belief" className="lh-why">
+              Why we build this way <span aria-hidden>→</span>
+            </Link>
           </div>
-
         </div>
         <span aria-hidden className="lh-cue">
           Scroll
           <i />
         </span>
       </section>
-      <OurBelief />
-      {/* the light page dissolves into the dark, then the Operations Team */}
-      <EarthRise />
-      <LazySections />
+      {/* the light page dissolves into the dark of 01 Promise */}
+      <div aria-hidden className="lh-into-dark" />
     </>
   );
 }

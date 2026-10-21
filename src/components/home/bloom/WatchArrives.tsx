@@ -7,7 +7,7 @@ export function WatchArrives() {
     <section className="band-night chapter-pad" aria-labelledby="watch-title">
       <div className="container-wide grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-16">
         <Reveal variant="wipe" className="max-w-xl">
-          <p className="eyebrow"><span className="chap-n">02</span> Demo</p>
+          <p className="eyebrow">Demo</p>
           <h2 id="watch-title" className="h2 mt-4">
             <SplitWords text="Watch it work." />
           </h2>

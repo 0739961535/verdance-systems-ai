@@ -262,7 +262,6 @@ export function ProcessTimeline({ steps }: { steps: ProcessStep[] }) {
                 <Icon strokeWidth={1.75} />
               </span>
               <p className="pt-meta">
-                <span className="pt-num">{s.n}</span>
                 <span className="pt-timing">{s.timing}</span>
               </p>
               <h3 className="pt-word">{s.word}</h3>

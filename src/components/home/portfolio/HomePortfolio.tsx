@@ -185,7 +185,7 @@ export function HomePortfolio() {
         <div className="flex flex-wrap items-end justify-between gap-6" data-reveal="">
           <div className="max-w-3xl">
             <p className="eyebrow">
-              <span className="chap-n">04</span> Portfolio
+              Portfolio
             </p>
             <h2 id="portfolio-title" className="h2 mt-4">
               <SplitWords text="Built and running" /> <span>for clients.</span>

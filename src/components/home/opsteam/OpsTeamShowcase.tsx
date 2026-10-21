@@ -10,7 +10,7 @@ import { OpsDepth } from "./OpsDepth";
  * do, and how deep it goes. Sits after "Our belief" on a band-night ground.
  * All numbers in the command centre are sample data, labelled on screen.
  */
-export function OpsTeamShowcase() {
+export function OpsTeamShowcase({ depth = true }: { depth?: boolean } = {}) {
   return (
     <section className="band-night chapter-pad ots" aria-labelledby="ots-title">
       <style>{CSS}</style>
@@ -27,7 +27,7 @@ export function OpsTeamShowcase() {
 
         <div className="ots-mock">
           <CommandMock />
-          <p className="museum mt-3">Sample data. Your command centre shows your own business.</p>
+          <p className="museum mt-3">Sample data. Your command centre shows your own business. We run Verdance on the same system.</p>
         </div>
 
         <div className="ots-sub" data-reveal="">
@@ -36,11 +36,15 @@ export function OpsTeamShowcase() {
         </div>
         <OpsCapabilities />
 
-        <div className="ots-sub" data-reveal="">
-          <h3 className="ots-sub-h">How deep it goes</h3>
-          <p className="ots-sub-b">Start with one job. Add the next when the first has proved itself in your own numbers.</p>
-        </div>
-        <OpsDepth />
+        {depth ? (
+          <>
+            <div className="ots-sub" data-reveal="">
+              <h3 className="ots-sub-h">How deep it goes</h3>
+              <p className="ots-sub-b">Start with one job. Add the next when the first has proved itself in your own numbers.</p>
+            </div>
+            <OpsDepth />
+          </>
+        ) : null}
 
         <div className="ots-cta" data-reveal="">
           <Link href={AI_TEAM_PATH} className="btn btn-accent ots-btn">

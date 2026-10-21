@@ -96,7 +96,7 @@ export function ProcessChapter() {
       <div className="pc-body container-wide">
         <div data-reveal="">
           <p className="eyebrow">
-            <span className="chap-n">06</span> Process
+            Process
           </p>
           <h2 id="process-title" className="h2 pc-h2">
             <SplitWords text="From first call to" />{" "}

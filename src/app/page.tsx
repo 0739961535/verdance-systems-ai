@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { InControl, SimpleFinalCTA, SimpleHero, WatchItWork, WhatYouGet } from "@/components/home/SimpleHome";
-import { StatementChapter } from "@/components/home/chapters/StatementChapter";
 import { ProcessChapter } from "@/components/home/ProcessChapter";
 import { QuestionsChapter } from "@/components/home/QuestionsChapter";
 import { FilmStory } from "@/components/home/flight/FilmStory";
 import { FlightStory } from "@/components/home/flight/FlightStory";
 import { LaunchHero } from "@/components/home/hero/LaunchHero";
 import { BloomHero } from "@/components/home/bloom/BloomHero";
+import { EarthLimb } from "@/components/home/hero/EarthLimb";
+import { LazySections } from "@/components/home/hero/LazySections";
 import { WatchArrives } from "@/components/home/bloom/WatchArrives";
 
 /** The illustrated flight is the old fallback (FLIGHT_FILM=0). The scroll
@@ -14,10 +15,7 @@ import { WatchArrives } from "@/components/home/bloom/WatchArrives";
  * back; otherwise the still hero ships and the film's frames never load. */
 const FLIGHT_FILM = process.env.FLIGHT_FILM !== "0";
 const HERO_FILM = process.env.HERO_FILM === "1";
-import { BuiltForUs } from "@/components/home/BuiltForUs";
 import { HomePortfolio } from "@/components/home/portfolio/HomePortfolio";
-import { ToolsMarquee } from "@/components/home/ToolsMarquee";
-import { WhoWeAre } from "@/components/home/WhoWeAre";
 import { BookingSection } from "@/components/booking/BookingSection";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/niches";
@@ -80,23 +78,18 @@ export default function HomePage() {
           <LaunchHero />
         </>
       )}
-      {/* 04 to 13 below the film (growth-lab/BELOW_THE_FOLD_SPEC.md); each
-          skipped by layout and paint until it nears the screen */}
-      <div className="cv-below">
-        <StatementChapter />
-      </div>
+      {/* the live work first, then the Operations Team it all runs on
+          (V31 order); sections skip layout and paint until near the screen */}
       <div className="cv-below">
         <WatchArrives />
       </div>
       <div className="cv-below">
         <WhatYouGet />
       </div>
-      <ToolsMarquee className="band-orbit" />
+      <EarthLimb />
+      <LazySections />
       <div className="cv-below">
         <HomePortfolio />
-      </div>
-      <div className="cv-below">
-        <BuiltForUs />
       </div>
       <div className="cv-below">
         <ProcessChapter />
@@ -104,11 +97,8 @@ export default function HomePage() {
       <div className="cv-below">
         <QuestionsChapter />
       </div>
-      {/* 13 who we are, 14 the booking flow (id="book"; the page's booking
-          links scroll here). Not in .cv-below: the flow measures itself. */}
-      <WhoWeAre />
+      {/* the booking flow (id="book"); not in .cv-below: it measures itself */}
       <BookingSection />
-      <SimpleFinalCTA />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label={CTA_PRIMARY} />
     </>
   );
