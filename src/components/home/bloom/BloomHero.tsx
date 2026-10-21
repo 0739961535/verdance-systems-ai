@@ -1,4 +1,3 @@
-import { preload } from "react-dom";
 import manifest from "./bloom-manifest.json";
 import { BloomScroll } from "./BloomScroll";
 
@@ -22,11 +21,8 @@ export const BLOOM_WORDS = ["That answers", "That follows up", "That runs the ad
 const hasFrames = manifest.desktop.count > 0;
 
 export function BloomHero() {
-  // the first frame is the LCP: start fetching it from the document head
-  if (hasFrames) {
-    preload(`/bloom/first-640.avif?v=${manifest.v}`, { as: "image", type: "image/avif", fetchPriority: "high", media: "(max-width: 767px)" });
-    preload(`/bloom/first-960.avif?v=${manifest.v}`, { as: "image", type: "image/avif", fetchPriority: "high", media: "(min-width: 768px)" });
-  }
+  // the first frame is the LCP: it is in the HTML with fetchPriority high (no
+  // preload(), which also leaked into other pages through the prefetched home)
   return (
     <>
     <section className="bl" aria-label="We make AI that answers, follows up, runs the admin, sounds like you, to run your business" data-word={BLOOM_WORDS.length - 1}>
@@ -102,7 +98,7 @@ function Placeholder() {
 }
 
 const CSS = `
-.bl { --p: 1; --o: 0; position: relative; height: 350svh; margin-bottom: -60svh; background: #F9F4E8; color: #0E0E10; }
+.bl { --p: 1; --o: 0; position: relative; height: 350svh; margin-bottom: -75svh; background: #F9F4E8; color: #0E0E10; }
 /* the outro: once the last line has landed, the flower and its words recede
    together (a little smaller, then gone) while the page is still pinned, so
    the statement below arrives on clean paper with nothing half-faded over it */
@@ -111,11 +107,17 @@ const CSS = `
    flower settles back and fades, and the statement's own section slides up
    over the clean paper once both have gone (it overlaps the last 60% of
    that screen, so there is never an empty screen in between) */
-.bl-flower { opacity: clamp(0, calc(1 - (var(--o) - 0.15) * 2.4), 1); transform: scale(calc(1 - var(--o) * 0.1)) translate3d(0, calc(var(--o) * -3%), 0); }
+.bl-flower { opacity: clamp(0, calc(1 - (var(--o) - 0.1) * 2.8), 1); transform: scale(calc(1 - var(--o) * 0.1)) translate3d(0, calc(var(--o) * -3%), 0); }
 .bl-left, .bl-right { opacity: clamp(0, calc(1 - var(--o) * 4.5), 1); }
 .bl-after { display: none; }
 .bl .bl-left { color: #0E0E10; }
 .bl-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; display: grid; place-items: center; isolation: isolate; }
+/* desktop: the stage sits below the fixed header, and the open bloom keeps
+   clear of it (the square never grows past the space under the header) */
+@media (min-width: 768px) {
+  .bl-stage { padding-top: 84px; }
+  .bl .bl-flower { width: min(92vw, calc(100svh - 84px - 72px)); }
+}
 .bl-glow { display: none; position: absolute; left: 50%; top: 50%; width: min(80vw, 760px); aspect-ratio: 1; transform: translate(-50%, -50%) scale(calc(0.7 + var(--p) * 0.5)); border-radius: 50%; z-index: -1;
   background: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.18), rgba(var(--accent-rgb), 0)); opacity: calc(0.4 + var(--p) * 0.6); }
 .bl-flower { position: relative; width: min(92vw, 78svh); aspect-ratio: 1; }
@@ -151,13 +153,15 @@ const CSS = `
    flower in a square that fills the space between, the changing line. The
    flower never reaches the words, at any scroll point or screen height */
 @media (max-width: 767px) {
-  .bl-stage { display: grid; grid-template-rows: auto auto auto; place-items: center; align-content: center; row-gap: clamp(8px, 2.4svh, 22px);
+  .bl-stage { display: grid; grid-template-rows: auto auto auto; place-items: center; align-content: center; row-gap: clamp(24px, 3svh, 32px);
     padding: calc(84px + env(safe-area-inset-top)) 20px calc(28px + env(safe-area-inset-bottom)); }
   .bl-left, .bl-right { position: relative; top: auto; left: auto; right: auto; text-align: center; font-size: clamp(1.6rem, 7.4vw, 2.2rem); }
   .bl-left { transform: translateY(calc(var(--o) * -14px)); }
   .bl-right { transform: translateY(calc(var(--o) * -14px)); justify-items: center; width: 100%; min-height: 2.6em; align-items: start; }
   /* the square takes what the screen allows after the two lines and the header */
-  .bl-flower { width: min(92vw, calc(100svh - 84px - 28px - 9.5em)); height: auto; }
+  .bl-flower { width: min(92vw, calc(100svh - 84px - 28px - 9.5em - 48px)); height: auto; }
+  /* the flower head sits a little left of the frame's centre (measured: 1.5%); line it up with the words */
+  .bl-first, .bl-canvas { transform: translateX(1.5%); }
   .bl-word { max-width: none; }
 }
 @media (prefers-reduced-motion: reduce) {
