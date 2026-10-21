@@ -4,7 +4,6 @@ import { useRef, useState, type KeyboardEvent } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { ServiceGlyph } from "@/components/services/ServiceGlyph";
-import { SERVICE_BY_SLUG } from "@/data/services";
 
 /**
  * /services: the twelve services as three tabs of four, one line each.
@@ -69,7 +68,8 @@ const CSS = `
 @media (prefers-reduced-motion: reduce) { .st-panel[data-fade] { animation: none; } }
 `;
 
-export function ServicesTabs() {
+/** `names` (slug to service name) comes from the server page, so the full service data never ships to the browser. */
+export function ServicesTabs({ names }: { names: Record<string, string> }) {
   const [active, setActive] = useState(0);
   const [touched, setTouched] = useState(false);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -127,14 +127,14 @@ export function ServicesTabs() {
         >
           <ul className="st-list">
             {g.items.map((it) => {
-              const c = SERVICE_BY_SLUG[it.slug];
-              if (!c) return null;
+              const name = names[it.slug];
+              if (!name) return null;
               return (
                 <li key={it.slug}>
                   <Link href={`/services/${it.slug}`} className="st-row ix-card">
                     <ServiceGlyph slug={it.slug} size={48} />
                     <span className="min-w-0">
-                      <span className="st-name">{c.name}</span>
+                      <span className="st-name">{name}</span>
                       <span className="st-line">{it.line}</span>
                     </span>
                     <ArrowUpRight size={20} aria-hidden className="st-arrow" />

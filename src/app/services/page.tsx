@@ -1,3 +1,4 @@
+import { SERVICE_BY_SLUG } from "@/data/services";
 import type { Metadata } from "next";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { AskYourBusiness } from "@/components/ask/AskYourBusiness";
@@ -7,7 +8,6 @@ import { WebsitesChapter } from "@/components/home/WebsitesChapter";
 import { ServicesOpsFeature } from "@/components/services/ServicesOpsFeature";
 import { ServicesSystem } from "@/components/services/ServicesSystem";
 import { ServicesTabs } from "@/components/services/ServicesTabs";
-import { ServicesEarthLimb } from "@/components/services/ServicesEarthLimb";
 import { ServiceGlyphStyle } from "@/components/services/ServiceGlyph";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { CTA_PRIMARY, SITE_URL } from "@/data/site";
@@ -47,8 +47,8 @@ const JSON_LD = {
 /**
  * /services, in reading order: the Operations Team hero, the system
  * diagram ("One system, five helpers", the page's one bloom), the twelve
- * services as three tabs of four, websites, the Earth limb (the page's one
- * Earth moment) above the tools wall, Ask your business, and the close.
+ * services as three tabs of four, websites, the tools wall, Ask your
+ * business, and the close. The page's one Earth moment is the header art.
  *
  * Plain section titles only: the shared chapters below carry their home
  * page numbers (04, 06), which are hidden here. Muted text on this page is
@@ -65,6 +65,8 @@ const CSS = `
 .sv-custom-in { display: grid; gap: 16px; }
 @media (min-width: 1024px) { .sv-custom-in { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: 48px; } }
 `;
+
+const SERVICE_NAMES: Record<string, string> = Object.fromEntries(Object.entries(SERVICE_BY_SLUG).map(([slug, c]) => [slug, c.name]));
 
 export default function ServicesPage() {
   return (
@@ -83,12 +85,11 @@ export default function ServicesPage() {
             </h2>
             <p className="lead">Twelve parts we use most. We put them together around how you run.</p>
           </div>
-          <ServicesTabs />
+          <ServicesTabs names={SERVICE_NAMES} />
         </div>
       </section>
 
       <WebsitesChapter />
-      <ServicesEarthLimb />
       <ToolsMarquee still className="band-night" />
       <AskYourBusiness />
       <SimpleFinalCTA title={["Not sure where to start? We'll help you", "pick.", ""]} />
