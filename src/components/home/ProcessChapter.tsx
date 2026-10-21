@@ -12,23 +12,23 @@ import { ProcessTimeline, type ProcessStep } from "./ProcessTimeline";
 
 
 const STEPS: ProcessStep[] = [
-  { n: "01", word: "Call", icon: "call", timing: "30 minutes", sentence: "We trace how enquiries reach you today and where they stall before a reply." },
-  { n: "02", word: "Map", icon: "map", timing: "Free", sentence: "A time and capacity audit: where hours and revenue leak, measured." },
+  { n: "01", word: "Call", icon: "call", timing: "30 minutes", sentence: "How enquiries reach you, and where they wait." },
+  { n: "02", word: "Map", icon: "map", timing: "Free", sentence: "Where hours and money leak, in numbers." },
   {
     n: "03",
     word: "Plan",
     icon: "plan",
     timing: "You decide",
-    sentence: "A written implementation plan: what we build first, the timeline to go-live and the expected return. If the numbers don't work, we say so.",
+    sentence: "What we build first and what it should bring back. If the numbers don't work, we say so.",
   },
   {
     n: "04",
     word: "Build",
     icon: "build",
     timing: "10 working days",
-    sentence: "We configure it in your accounts, train it on your voice and test it on real enquiries before go-live.",
+    sentence: "Set up in your accounts, in your voice, tested before it goes live.",
   },
-  { n: "05", word: "Review", icon: "review", timing: "Day 90", sentence: "We review response times and outcomes against the baseline and agree the next phase." },
+  { n: "05", word: "Review", icon: "review", timing: "Day 90", sentence: "Your numbers before and after. You choose what comes next." },
 ];
 
 const CSS = `
@@ -89,7 +89,7 @@ export function ProcessChapter() {
             ,{" "}
             <SplitWords text="step by step." start={5} />
           </h2>
-          <p className="pc-intro">Five steps. You make two decisions: whether to go ahead, and what comes next. We do the rest.</p>
+          <p className="pc-intro">Five steps. Two decisions are yours. We do the rest.</p>
         </div>
 
         <div data-reveal="" style={{ ["--reveal-delay" as string]: "0.12s" }}>

@@ -10,6 +10,9 @@ import { OpsDepth } from "./OpsDepth";
  * with the agents' own workspaces under it, what it can do, and how deep it goes. Sits after "Our belief" on a band-night ground.
  * All numbers in the command centre are sample data, labelled on screen.
  */
+/** The four parts shown on the home page; the Operations Team page shows all eight. */
+const HOME_CAPS = ["Connected to your tools", "Approvals and handover", "Knows your business", "Ask your business"];
+
 export function OpsTeamShowcase({ depth = true }: { depth?: boolean } = {}) {
   return (
     <section className="band-night chapter-pad ots" aria-labelledby="ots-title">
@@ -21,7 +24,7 @@ export function OpsTeamShowcase({ depth = true }: { depth?: boolean } = {}) {
             A team of agents that runs the work. <span className="italic-accent">You make the calls.</span>
           </h2>
           <p className="lead mt-6">
-            One agent per job, inside the tools you already use. It answers, follows up, does the admin and tells you what needs you.
+            One agent per job, inside the tools you already use. It tells you what needs you.
           </p>
         </div>
 
@@ -32,10 +35,10 @@ export function OpsTeamShowcase({ depth = true }: { depth?: boolean } = {}) {
         <div className="ots-sub" data-reveal="">
           <h3 className="ots-sub-h">What it can do</h3>
           <p className="ots-sub-b">
-            Deep inside your business, not a chatbot on the side. <span className="ots-sub-em">Every build is custom. These are the parts we use most.</span>
+            Deep inside your business, not a chatbot on the side. <span className="ots-sub-em">Every build is custom.</span>
           </p>
         </div>
-        <OpsCapabilities />
+        <OpsCapabilities only={depth ? undefined : HOME_CAPS} />
 
         {depth ? (
           <>

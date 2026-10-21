@@ -78,7 +78,7 @@ export function HowItConnects() {
             Your tools, joined up. <span className="italic-accent">One place to run them.</span>
           </h2>
           <p className="lead mt-6">
-            We connect what you already use, add an assistant that knows your business, and give you one app to run it from.
+            We connect what you already use and give you one app to run it from.
           </p>
         </div>
 
@@ -104,7 +104,6 @@ export function HowItConnects() {
                   <span className="hic-n">{s.n}</span>
                   <span className="hic-t">{s.title}</span>
                   <span className="hic-tech">{s.tech}</span>
-                  <span className="hic-gloss">{s.gloss}</span>
                 </button>
               </li>
             );
@@ -118,8 +117,7 @@ export function HowItConnects() {
           </div>
           <ul className="hic-sec-list">
             <li>POPIA built in: consent records, opt-outs and an operator agreement.</li>
-            <li>Every action is recorded in an audit log, with who did it and why.</li>
-            <li>Your data stays in accounts you own.</li>
+            <li>Every action is logged, and your data stays in accounts you own.</li>
             {/* TODO(Daniel): confirm GDPR wording before UK launch; no "no training on your data" claim until confirmed. */}
             <li>For UK clients, GDPR terms on request.</li>
           </ul>

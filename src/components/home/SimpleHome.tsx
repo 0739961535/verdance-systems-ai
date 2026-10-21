@@ -97,25 +97,25 @@ const GETS = [
   {
     word: "Answer",
     title: "Every customer, fast",
-    body: "Every enquiry answered within 60 seconds, in your voice, day or night. You see every chat and can step in.",
+    body: "Every enquiry answered within 60 seconds, in your voice, day or night.",
     href: "/services/conversation-ai",
   },
   {
     word: "Follow up",
     title: "No one slips away",
-    body: "Quiet after a quote? A friendly check-in goes out at 09:00, after your tap or on its own. Nobody is forgotten.",
+    body: "Quiet after a quote? A friendly check-in goes out. Nobody is forgotten.",
     href: "/services/follow-up-nurture",
   },
   {
     word: "Admin",
     title: "Done for you",
-    body: "Bookings land in your diary with the notes attached, and a reminder goes out the night before. Nothing typed twice.",
+    body: "Bookings land in your diary with notes, and reminders go out. Nothing typed twice.",
     href: "/services/booking-calendar",
   },
   {
     word: "Report",
     title: "What's working",
-    body: "A short report on the 1st of each month: enquiries, reply times and what became work. Plus one thing to fix.",
+    body: "A short monthly report: what came in, how fast, and one thing to fix.",
     href: "/services/analytics-compliance",
   },
 ];

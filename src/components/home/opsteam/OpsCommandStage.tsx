@@ -133,7 +133,7 @@ export function OpsCommandStage() {
 
       <div className="ocs-ws-head" data-reveal="">
         <p className="ocs-ws-k">Their workspaces</p>
-        <p className="ocs-ws-b">Each agent works on its own computer for you. It does the job there and reports back to your command centre.</p>
+        <p className="ocs-ws-b">Each agent does its job on its own computer and reports back.</p>
       </div>
       <svg className="ocs-wires" viewBox="0 0 1000 64" preserveAspectRatio="none" aria-hidden>
         {[166, 500, 834].map((x) => (

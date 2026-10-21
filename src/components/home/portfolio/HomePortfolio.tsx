@@ -192,7 +192,7 @@ const CASES = [
     id: "ecom",
     name: "A South African e-commerce brand",
     tag: "Assistant",
-    outcome: "Customer questions answered across all their channels: WhatsApp, Facebook, Instagram, email and web chat, 24/7.",
+    outcome: "Customer questions answered on every channel, day and night.",
     stage: "is-phone",
     device: <Phone />,
     note: "Illustration, details changed",

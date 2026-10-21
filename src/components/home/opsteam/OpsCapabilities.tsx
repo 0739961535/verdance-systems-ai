@@ -7,11 +7,12 @@ import { OPS_CAPABILITIES } from "./opsData";
  * that explains it. Works on any band (it reads the band's ink and hairline
  * tokens); set --ops-tile on a parent to change the tile surface.
  */
-export function OpsCapabilities() {
+export function OpsCapabilities({ only }: { only?: string[] } = {}) {
+  const list = only ? OPS_CAPABILITIES.filter((c) => only.includes(c.title)) : OPS_CAPABILITIES;
   return (
     <ul className="ocap">
       <style>{CSS}</style>
-      {OPS_CAPABILITIES.map((c, i) => {
+      {list.map((c, i) => {
         const Icon = c.icon;
         return (
           <li key={c.title} className="ocap-tile" data-reveal="" style={{ ["--reveal-delay" as string]: `${Math.min(i * 0.05, 0.3)}s` }}>
