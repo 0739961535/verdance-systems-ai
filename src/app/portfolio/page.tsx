@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { CaseStudy, CASE_CSS } from "@/components/portfolio/CaseStudy";
-import { Concepts } from "@/components/portfolio/Concepts";
+import { ConceptDemos } from "@/components/portfolio/concepts/ConceptDemos";
+import { PossibleStatement } from "@/components/portfolio/concepts/PossibleStatement";
 import { SimpleFinalCTA } from "@/components/home/SimpleHome";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
@@ -37,7 +38,8 @@ const HERO_CSS = `
 
 /**
  * /portfolio: three real builds (names private until written OK, see
- * src/data/portfolio.ts), then a strip of concepts, then the closing scene.
+ * src/data/portfolio.ts), then "Anything is possible." turning paper into
+ * night, then four interactive concept demos, then the closing scene.
  */
 export default function PortfolioPage() {
   return (
@@ -87,9 +89,8 @@ export default function PortfolioPage() {
         </section>
       ))}
 
-      <div className="cv-below">
-        <Concepts />
-      </div>
+      <PossibleStatement />
+      <ConceptDemos />
       <SimpleFinalCTA title={["Your business could be", "next.", ""]} />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label={CTA_PRIMARY} />
     </>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import type { CaseImage, PortfolioCase } from "@/data/portfolio";
+import { conversationsProof, type CaseImage, type PortfolioCase } from "@/data/portfolio";
 
 /**
  * One real build on /portfolio: the label and outcome, the work in a laptop
@@ -23,6 +23,8 @@ export const CASE_CSS = `
 .pc-title { margin-top: 14px; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.9rem, 1.8vw + 1.3rem, 3rem); line-height: 1.06; letter-spacing: -0.03em; color: var(--color-ink); }
 .pc-out { margin-top: 12px; max-width: 40ch; font-size: 1.125rem; line-height: 1.5; color: var(--color-ink-soft); }
 @media (min-width: 1024px) { .pc-out { font-size: 1.25rem; } }
+.pc-proof { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.02em; color: #2554D4; font-variant-numeric: tabular-nums; }
+.pc-proof i { width: 7px; height: 7px; border-radius: 999px; background: currentColor; }
 
 .pc-stage { position: relative; margin-top: 32px; overflow: hidden; border-radius: 22px; padding: 28px 16px 24px;
   background: radial-gradient(90% 80% at 85% 0%, rgba(77,124,255,0.3), rgba(77,124,255,0) 60%), #0A1226; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06); }
@@ -72,6 +74,7 @@ function Shot({ img, sizes }: { img: CaseImage; sizes: string }) {
 export function CaseStudy({ c, index }: { c: PortfolioCase; index: number }) {
   const title = c.name ?? c.label;
   const headId = `case-${c.id}-title`;
+  const proof = conversationsProof(c.conversationsHandled);
   return (
     <article id={c.id} className="pc-case" aria-labelledby={headId}>
       <div className="pc-head" data-reveal="">
@@ -95,6 +98,12 @@ export function CaseStudy({ c, index }: { c: PortfolioCase; index: number }) {
             {title}
           </h2>
           <p className="pc-out">{c.outcome}</p>
+          {proof ? (
+            <p className="pc-proof">
+              <i aria-hidden />
+              {proof}
+            </p>
+          ) : null}
         </div>
       </div>
 

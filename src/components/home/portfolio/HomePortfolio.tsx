@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight, Bot, UserRound } from "lucide-react";
 import { CTA_PRIMARY } from "@/data/site";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { SplitWords } from "@/components/primitives/Reveal";
+import { PORTFOLIO_CASES, conversationsProof } from "@/data/portfolio";
 
 /**
  * 04 Portfolio (home teaser): two real builds in device frames, side by side
@@ -11,7 +12,11 @@ import { SplitWords } from "@/components/primitives/Reveal";
  * Rules: no client names, logos, staff or real numbers. The studio still is
  * the anonymised live site; the chat is drawn and says so.
  * TODO(Daniel): a real number can join each case once the client gives written OK.
+ * The e-commerce "conversations handled" line reads `conversationsHandled` in
+ * src/data/portfolio.ts and renders only when it is a number.
  */
+
+const ECOM_PROOF = conversationsProof(PORTFOLIO_CASES.find((c) => c.id === "ecom")?.conversationsHandled);
 
 const CSS = `
 .hp-grid { display: grid; gap: 20px; }
@@ -67,6 +72,8 @@ const CSS = `
 .hp-name { margin-top: 14px; font-size: 0.875rem; color: var(--color-ink-muted); }
 .hp-out-line { margin-top: 4px; font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0.018em; color: var(--color-ink); }
 @media (min-width: 1024px) { .hp-out-line { font-size: 1.5rem; } }
+.hp-proof { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; font-family: var(--font-mono, ui-monospace, monospace); font-size: 12.5px; letter-spacing: 0.02em; color: #2554D4; font-variant-numeric: tabular-nums; }
+.hp-proof i { width: 7px; height: 7px; border-radius: 999px; background: currentColor; }
 .hp-go { margin-top: auto; padding-top: 10px; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; align-self: flex-start;
   font-size: 0.9375rem; font-weight: 600; color: #2554D4; outline: none; }
 .hp-go::after { content: ""; position: absolute; inset: 0; border-radius: 22px; }
@@ -165,15 +172,17 @@ const CASES = [
     stage: "is-laptop",
     device: <Laptop />,
     note: null,
+    proof: null,
   },
   {
     id: "ecom",
     name: "A South African e-commerce brand",
     tag: "Assistant",
-    outcome: "Customer questions answered on WhatsApp and website chat, day and night.",
+    outcome: "Customer questions answered across all their channels: WhatsApp, Facebook, Instagram, email and web chat, 24/7.",
     stage: "is-phone",
     device: <Phone />,
     note: "Illustration, details changed",
+    proof: ECOM_PROOF,
   },
 ] as const;
 
@@ -214,6 +223,12 @@ export function HomePortfolio() {
                   {c.name}
                 </h3>
                 <p className="hp-out-line">{c.outcome}</p>
+                {c.proof ? (
+                  <p className="hp-proof">
+                    <i aria-hidden />
+                    {c.proof}
+                  </p>
+                ) : null}
                 <Link href={`/portfolio#${c.id}`} className="hp-go" aria-label={`View the build: ${c.name}`}>
                   View the build
                   <ArrowRight size={16} className="hp-arrow" aria-hidden />
