@@ -110,7 +110,7 @@ export function HowItConnects() {
           })}
         </ol>
 
-        <aside className="hic-sec" aria-labelledby="hic-sec-h" data-reveal="">
+        <div className="hic-sec" data-reveal="">
           <div className="hic-sec-head">
             <ShieldCheck size={18} aria-hidden className="hic-sec-ico" />
             <h3 id="hic-sec-h" className="hic-sec-h">Security</h3>
@@ -121,7 +121,7 @@ export function HowItConnects() {
             {/* TODO(Daniel): confirm GDPR wording before UK launch; no "no training on your data" claim until confirmed. */}
             <li>For UK clients, GDPR terms on request.</li>
           </ul>
-        </aside>
+        </div>
       </div>
     </section>
   );
