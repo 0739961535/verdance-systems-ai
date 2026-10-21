@@ -5,6 +5,7 @@ import { PageHero } from "@/components/kit/PageHero";
 import { SectionHead } from "@/components/kit/SectionHead";
 import { CTABand } from "@/components/kit/CTABand";
 import { MapBloom } from "@/components/audit/MapBloom";
+import { HOW_VISUALS_CSS, HowVisual } from "@/components/how/HowVisuals";
 import { FAQControl } from "@/components/sections/v4/FAQControl";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
@@ -85,7 +86,9 @@ export default function AuditPage() {
               </>
             }
           />
-          <ul className="mt-12 grid gap-4 sm:grid-cols-2 md:mt-16">
+          <style>{HOW_VISUALS_CSS}</style>
+          <div className="mt-12 grid items-start gap-10 md:mt-16 lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-12">
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
             {GET.map((g, i) => (
               <li key={g.t}>
                 <Reveal delay={i * 0.06} className="h-full">
@@ -99,6 +102,8 @@ export default function AuditPage() {
               </li>
             ))}
           </ul>
+          <HowVisual k="plan" compact />
+          </div>
         </div>
       </section>
 

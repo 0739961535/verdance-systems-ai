@@ -12,6 +12,9 @@ import { HOW_VISUALS_CSS, HowVisual, type HowVisualKey } from "./HowVisuals";
  * Motion: stroke-dashoffset and opacity only, once, about 0.7s, keyed off
  * the shared RevealObserver (data-armed / data-revealed). Without JS and
  * under reduced motion everything renders finished.
+ *
+ * Every step has its own visual beside it (HowVisuals.tsx): a call card,
+ * the map bloom, the plan unfolding, the 10-day stem and the day 90 sunrise.
  */
 
 type Step = {
@@ -25,8 +28,6 @@ type Step = {
   body: string;
   bring: string;
   decision?: boolean;
-  /** Only the Build step carries a visual, so the page keeps calm space. */
-  vis?: boolean;
 };
 
 const STEPS: Step[] = [
@@ -70,7 +71,6 @@ const STEPS: Step[] = [
     title: "Built in your accounts, in your voice.",
     body: "We teach it your services and answers, then test it on real enquiries. Once live, every enquiry is answered within 60 seconds.",
     bring: "An hour to try it and tell us what sounds wrong.",
-    vis: true,
   },
   {
     key: "review",
@@ -217,7 +217,7 @@ export function HowSteps() {
                   <line className="hs-ln" x1="1" y1="0" x2="1" y2="100" stroke="#4D7CFF" strokeWidth={1.5} pathLength={1} style={d(0.25)} />
                 </svg>
               </span>
-              <div className="hs-in" data-split={s.vis ? "" : undefined}>
+              <div className="hs-in" data-split="">
                 <div>
                   <p className="hs-meta">
                     <span className="hs-timing">{s.timing}</span>
@@ -231,11 +231,9 @@ export function HowSteps() {
                     <dd>{s.bring}</dd>
                   </dl>
                 </div>
-                {s.vis ? (
-                  <div className="hs-vis">
-                    <HowVisual k={s.key} />
-                  </div>
-                ) : null}
+                <div className="hs-vis">
+                  <HowVisual k={s.key} />
+                </div>
               </div>
             </Reveal>
           ))}
