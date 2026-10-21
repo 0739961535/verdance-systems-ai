@@ -102,8 +102,18 @@ function Placeholder() {
 }
 
 const CSS = `
-.bl { --p: 1; position: relative; height: 250svh; background: #F9F4E8; color: #0E0E10; }
-.bl-after { height: clamp(64px, 8vh, 120px); background: linear-gradient(#F9F4E8, var(--bg)); }
+.bl { --p: 1; --o: 0; position: relative; height: 350svh; margin-bottom: -60svh; background: #F9F4E8; color: #0E0E10; }
+/* the outro: once the last line has landed, the flower and its words recede
+   together (a little smaller, then gone) while the page is still pinned, so
+   the statement below arrives on clean paper with nothing half-faded over it */
+.bl-flower, .bl-left, .bl-right { will-change: opacity; }
+/* the last screen of the pin is the outro: the words go first, the open
+   flower settles back and fades, and the statement's own section slides up
+   over the clean paper once both have gone (it overlaps the last 60% of
+   that screen, so there is never an empty screen in between) */
+.bl-flower { opacity: clamp(0, calc(1 - (var(--o) - 0.15) * 2.4), 1); transform: scale(calc(1 - var(--o) * 0.1)) translate3d(0, calc(var(--o) * -3%), 0); }
+.bl-left, .bl-right { opacity: clamp(0, calc(1 - var(--o) * 4.5), 1); }
+.bl-after { display: none; }
 .bl .bl-left { color: #0E0E10; }
 .bl-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; display: grid; place-items: center; isolation: isolate; }
 .bl-glow { display: none; position: absolute; left: 50%; top: 50%; width: min(80vw, 760px); aspect-ratio: 1; transform: translate(-50%, -50%) scale(calc(0.7 + var(--p) * 0.5)); border-radius: 50%; z-index: -1;
@@ -128,8 +138,8 @@ const CSS = `
    by word, and the last line lands larger, in the brand blue, and holds */
 .bl-left, .bl-right { position: absolute; top: 50%; margin: 0; font-family: var(--font-display); font-weight: 600; text-transform: uppercase;
   font-size: clamp(1.5rem, 1.5vw + 1rem, 2.75rem); line-height: 1; letter-spacing: -0.02em; }
-.bl-left { color: #0E0E10; right: calc(50% + min(46vw, 39svh) * 0.8); transform: translateY(-50%); text-align: right; white-space: nowrap; z-index: 2; }
-.bl-right { z-index: 2; left: calc(50% + min(46vw, 39svh) * 0.8); right: 24px; transform: translateY(-50%); display: grid; overflow: hidden; padding: 0.12em 0; }
+.bl-left { color: #0E0E10; right: calc(50% + min(46vw, 39svh) * 0.8); transform: translateY(calc(-50% - var(--o) * 18px)); text-align: right; white-space: nowrap; z-index: 2; }
+.bl-right { z-index: 2; left: calc(50% + min(46vw, 39svh) * 0.8); right: 24px; transform: translateY(calc(-50% - var(--o) * 18px)); display: grid; overflow: hidden; padding: 0.12em 0; }
 .bl-word { grid-area: 1 / 1; max-width: 11ch; color: #2554D4; transform: translate3d(0, 110%, 0); opacity: 0;
   transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease; }
 .bl-word[data-i="4"] { font-size: 1.18em; letter-spacing: -0.03em; color: #1D3F8F; background: linear-gradient(90deg, #1D3F8F, #4D7CFF); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
@@ -137,14 +147,21 @@ const CSS = `
 .bl[data-word="3"] .bl-word[data-i="3"], .bl[data-word="4"] .bl-word[data-i="4"] { opacity: 1; transform: none; }
 /* the word that just left slides on up and out */
 .bl[data-word="1"] .bl-word[data-i="0"], .bl[data-word="2"] .bl-word[data-i="1"], .bl[data-word="3"] .bl-word[data-i="2"], .bl[data-word="4"] .bl-word[data-i="3"] { transform: translate3d(0, -110%, 0); }
+/* phones: a column in its own band below the header: the headline, the
+   flower in a square that fills the space between, the changing line. The
+   flower never reaches the words, at any scroll point or screen height */
 @media (max-width: 767px) {
-  .bl-left, .bl-right { left: 20px; right: 20px; transform: none; text-align: center; font-size: clamp(1.6rem, 7.4vw, 2.2rem); }
-  .bl-left { top: calc(50% - min(46vw, 39svh) - 3.2em); }
-  .bl-right { top: calc(50% + min(46vw, 39svh) + 0.6em); justify-items: center; }
+  .bl-stage { display: grid; grid-template-rows: auto auto auto; place-items: center; align-content: center; row-gap: clamp(8px, 2.4svh, 22px);
+    padding: calc(84px + env(safe-area-inset-top)) 20px calc(28px + env(safe-area-inset-bottom)); }
+  .bl-left, .bl-right { position: relative; top: auto; left: auto; right: auto; text-align: center; font-size: clamp(1.6rem, 7.4vw, 2.2rem); }
+  .bl-left { transform: translateY(calc(var(--o) * -14px)); }
+  .bl-right { transform: translateY(calc(var(--o) * -14px)); justify-items: center; width: 100%; min-height: 2.6em; align-items: start; }
+  /* the square takes what the screen allows after the two lines and the header */
+  .bl-flower { width: min(92vw, calc(100svh - 84px - 28px - 9.5em)); height: auto; }
   .bl-word { max-width: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .bl { height: 100svh; }
+  .bl { height: 100svh; margin-bottom: 0; }
   .bl-word { transition: none; }
 }
 `;

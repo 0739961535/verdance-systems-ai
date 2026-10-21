@@ -22,7 +22,11 @@ const LINE_1 = ["We", "don't", "talk", "about", "AI."];
 const LINE_2 = ["We", "ship", "it."];
 
 const CSS = `
-.lh { position: relative; isolation: isolate; overflow: hidden; }
+.lh { position: relative; isolation: isolate; overflow: hidden; z-index: 2; }
+/* it rises over the flower's last screen: a soft top edge, no hard line */
+@media (prefers-reduced-motion: no-preference) {
+  .lh { -webkit-mask-image: linear-gradient(to bottom, transparent, #000 140px); mask-image: linear-gradient(to bottom, transparent, #000 140px); }
+}
 /* the glow layer runs the full first screen and fades out */
 .lh .aurora { height: auto; bottom: 0; -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
 .lh-glow { position: absolute; z-index: 0; pointer-events: none; border-radius: 999px; }
@@ -41,6 +45,10 @@ const CSS = `
 @keyframes lh-rise { to { transform: none; } }
 .lh-fade { opacity: 0; animation: lh-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: var(--d, 0.4s); }
 @keyframes lh-in { from { opacity: 0; transform: translate3d(0, 10px, 0); } to { opacity: 1; transform: none; } }
+/* below the flower, the statement waits for its own frame: its words rise and
+   its lines fade in when it scrolls into view, not at page load */
+.lh-in[data-armed]:not([data-revealed]) .lh-w > span, .lh-in[data-armed]:not([data-revealed]) .lh-fade { animation: none; }
+.lh-in[data-armed]:not([data-revealed]) .lh-fade { opacity: 0; }
 /* the button: a slow lift, a deeper glow and the arrow easing out */
 .lh .btn-launch { transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s; }
 .lh .btn-launch:hover, .lh .btn-launch:focus-visible { transform: translate3d(0, -2px, 0); box-shadow: 0 18px 44px -12px rgba(var(--accent-rgb), 0.55), 0 0 0 6px rgba(var(--accent-rgb), 0.1); }
@@ -105,7 +113,7 @@ export function LaunchHero() {
         <span aria-hidden className="lh-glow lh-glow-a" />
         <span aria-hidden className="lh-glow lh-glow-b" />
         <span aria-hidden className="lh-depth" />
-        <div className="lh-in container-narrow relative text-center">
+        <div className="lh-in container-narrow relative text-center" data-reveal="">
 
           <p className="lh-eyebrow lh-fade relative z-[1] mx-auto" style={{ ["--d" as string]: "0.05s" }}>
             Verdance Systems AI
