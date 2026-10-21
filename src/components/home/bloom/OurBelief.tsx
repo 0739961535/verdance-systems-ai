@@ -1,70 +1,47 @@
+import { BarChart3, Sprout, Users, Wrench, type LucideIcon } from "lucide-react";
+
 /**
- * Our belief: straight after "We don't talk about AI. We ship it." A calm,
- * editorial page on the light ground: one statement, one paragraph and four
- * principles, each marked with a small blue bloom glyph of our own.
+ * Our belief (used on /how-it-works): one large quote on the light ground,
+ * then the four principles as a compact icon row. Static, server-rendered;
+ * the shared reveal fades each part in.
  */
 
-const PRINCIPLES = [
-  {
-    t: "Built around your idea",
-    b: "We start from your business, not a template. Every system is shaped around how you sell, serve and deliver.",
-  },
-  {
-    t: "A team of specialist agents",
-    b: "Each job gets its own agent: one answers, one follows up, one does the admin, one reports. They work together, and a person stays in charge.",
-  },
-  {
-    t: "Built and run in-house",
-    b: "Assistants, automations, websites, reports and custom agents, designed, built and looked after by Verdance.",
-  },
-  {
-    t: "Measured in results",
-    b: "Faster first responses, more booked work, fewer hours lost. Every build reports what it returned.",
-  },
+const PRINCIPLES: { t: string; b: string; Icon: LucideIcon }[] = [
+  { t: "Built around your business", b: "Shaped to how you sell and serve.", Icon: Sprout },
+  { t: "A team of AI helpers", b: "Each job gets its own helper.", Icon: Users },
+  { t: "Built and run by us", b: "Designed, built and looked after by Verdance.", Icon: Wrench },
+  { t: "Measured in results", b: "Every build reports what it brought back.", Icon: BarChart3 },
 ];
-
-/** Five soft petals around a bright heart, drawn small. */
-function BloomMark() {
-  return (
-    <svg viewBox="-20 -20 40 40" width="28" height="28" aria-hidden className="ob-mark">
-      <defs>
-        <radialGradient id="ob-petal" cx="0" cy="-6" r="14" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#DCE6FF" />
-          <stop offset="0.55" stopColor="#7FA3FF" />
-          <stop offset="1" stopColor="#2554D4" />
-        </radialGradient>
-      </defs>
-      {[0, 72, 144, 216, 288].map((a) => (
-        <path key={a} transform={`rotate(${a})`} d="M0 0 C 6 -4, 6 -13, 0 -17 C -6 -13, -6 -4, 0 0 Z" fill="url(#ob-petal)" />
-      ))}
-      <circle r="3" fill="#F2F5FC" />
-    </svg>
-  );
-}
 
 export function OurBelief() {
   return (
     <section id="belief" className="ob" aria-labelledby="ob-title" style={{ scrollMarginTop: "5rem" }}>
       <style>{CSS}</style>
-      <div className="container-wide ob-grid">
-        <div className="ob-head" data-reveal="">
-          <p className="eyebrow">Our belief</p>
-          <h2 id="ob-title" className="ob-h">
-            AI is a tool. What matters is <span className="italic-accent">whose hands</span> it&apos;s in.
-          </h2>
-        </div>
-        <p className="ob-body" data-reveal="" style={{ ["--reveal-delay" as string]: "0.08s" }}>
-          AI has no judgement of its own. It can&apos;t tell a good reply from a costly one. It has never run a business, earned a
-          customer&apos;s trust or carried the risk of a bad month. So we never hand your business to a model and walk away. We build
-          around how you work, test it on your real enquiries, and keep a person in charge of what matters. In the right hands, AI
-          stops being a tool. It starts running part of your business.
+      <div className="container-wide">
+        <p className="eyebrow" data-reveal="">
+          Our belief
         </p>
-        <ul className="ob-list">
-          {PRINCIPLES.map((p, i) => (
-            <li key={p.t} data-reveal="" style={{ ["--reveal-delay" as string]: `${0.06 * i}s` }}>
-              <BloomMark />
-              <h3 className="ob-t">{p.t}</h3>
-              <p className="ob-b">{p.b}</p>
+        <figure className="ob-fig" data-reveal="" style={{ ["--reveal-delay" as string]: "0.06s" }}>
+          <blockquote>
+            <h2 id="ob-title" className="ob-q">
+              AI is a tool. It has never run a business or earned a customer&apos;s trust. So we never switch it on and walk away.{" "}
+              <span className="ob-q-soft">
+                We build it around how you work, test it on your real enquiries and keep a{" "}
+                <span className="italic-accent">person in charge.</span>
+              </span>
+            </h2>
+          </blockquote>
+        </figure>
+        <ul className="ob-row">
+          {PRINCIPLES.map(({ t, b, Icon }, i) => (
+            <li key={t} data-reveal="" style={{ ["--reveal-delay" as string]: `${0.05 * i}s` }}>
+              <span className="ob-ic" aria-hidden>
+                <Icon strokeWidth={1.5} />
+              </span>
+              <span>
+                <span className="ob-t">{t}</span>
+                <span className="ob-b">{b}</span>
+              </span>
             </li>
           ))}
         </ul>
@@ -74,18 +51,24 @@ export function OurBelief() {
 }
 
 const CSS = `
-.ob { background: var(--bg); color: var(--color-ink); padding: clamp(96px, 14vh, 168px) 0 clamp(112px, 16vh, 200px); }
-.ob-grid { display: grid; gap: 40px; }
-@media (min-width: 1024px) { .ob-grid { grid-template-columns: 5fr 6fr; column-gap: 96px; row-gap: 72px; align-items: start; } }
-.ob-h { margin: 16px 0 0; font-family: var(--font-display); font-weight: 600; font-size: clamp(2.1rem, 2.8vw + 1rem, 4rem); line-height: 1.02; letter-spacing: -0.035em; text-wrap: balance; max-width: 16ch; }
-.ob-body { margin: 0; font-size: clamp(1.05rem, 0.4vw + 0.95rem, 1.25rem); line-height: 1.65; color: var(--color-ink-soft); max-width: 46ch; text-wrap: pretty; }
-@media (min-width: 1024px) { .ob-body { padding-top: 44px; } }
-.ob-list { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--hairline-2); }
-@media (min-width: 768px) { .ob-list { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 1024px) { .ob-list { grid-column: 1 / -1; margin-top: 24px; } }
-.ob-list li { padding: 32px 0; border-bottom: 1px solid var(--hairline-2); }
-@media (min-width: 768px) { .ob-list li { padding: 40px 40px 40px 0; } .ob-list li:nth-child(even) { padding: 40px 0 40px 40px; border-left: 1px solid var(--hairline-2); } }
-.ob-mark { display: block; filter: drop-shadow(0 4px 10px rgba(77, 124, 255, 0.25)); }
-.ob-t { margin: 16px 0 0; font-family: var(--font-display); font-weight: 600; font-size: 1.375rem; letter-spacing: -0.02em; }
-.ob-b { margin: 8px 0 0; font-size: 1.0625rem; line-height: 1.6; color: var(--color-ink-soft); max-width: 40ch; }
+.ob { background: var(--bg); color: var(--color-ink); padding: clamp(88px, 13vh, 160px) 0 clamp(88px, 13vh, 160px); }
+.ob-fig { margin: 20px 0 0; }
+.ob-fig blockquote { margin: 0; }
+.ob-q {
+  margin: 0; max-width: 24ch; font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.9rem, 2.6vw + 1rem, 3.6rem); line-height: 1.08; letter-spacing: -0.03em; text-wrap: pretty;
+}
+@media (min-width: 1024px) { .ob-q { max-width: 26ch; } }
+.ob-q-soft { color: var(--color-ink-soft); }
+.ob-row { list-style: none; margin: 56px 0 0; padding: 24px 0 0; display: grid; gap: 20px; border-top: 1px solid var(--hairline-2); }
+@media (min-width: 640px) { .ob-row { grid-template-columns: 1fr 1fr; gap: 24px 32px; } }
+@media (min-width: 1024px) { .ob-row { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 80px; padding-top: 32px; } }
+.ob-row li { display: flex; gap: 14px; align-items: flex-start; }
+.ob-ic {
+  flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px;
+  color: var(--color-accent); background: rgba(var(--accent-rgb), 0.08); box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), 0.22);
+}
+.ob-ic svg { width: 20px; height: 20px; }
+.ob-t { display: block; font-weight: 600; font-size: 1rem; line-height: 1.3; letter-spacing: -0.01em; }
+.ob-b { display: block; margin-top: 4px; font-size: 0.9375rem; line-height: 1.45; color: var(--color-ink-soft); }
 `;

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 /**
- * "Built for our own business": Ashford, the system Verdance runs on.
+ * "Built for our own business": the system Verdance runs on (used on /about).
  * One screen: a heading, one drawn command-centre panel and five short
  * lines. Always dark, like a control room. The panel is an illustration:
  * no real screen, names or numbers, and nothing on how it is built.
@@ -24,7 +24,7 @@ const DOES = [
   // confirmed claims only (spec, Oct 2026); the voice, portal and nightly
   // review lines come back once Daniel confirms them
   { title: "Anything important waits for our yes.", body: "Routine replies follow agreed rules. Quotes, refunds and anything sensitive wait for approval." },
-  { title: "Every enquiry is tracked.", body: "Each one moves through pipeline stages, from first message to booked call." },
+  { title: "Every enquiry is tracked.", body: "Each one moves along our list of deals, from first message to booked call." },
 ];
 
 const QUEUE = [
@@ -95,7 +95,7 @@ export function BuiltForUs() {
       <div className="container-wide relative z-[1] grid gap-10 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-16">
         <div data-reveal="">
           <p className="eyebrow" style={{ color: C.muted }}>
-            <span style={{ color: C.accent }}>05</span> Ours
+            Ours
           </p>
           <h2 id="ours-title" className="h2 mt-4" style={{ color: C.ink }}>
             <SplitWords text="We run Verdance on the" /> <span>same</span> <SplitWords text="system." />

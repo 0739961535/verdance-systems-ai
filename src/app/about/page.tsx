@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
 import { PageHero } from "@/components/kit/PageHero";
 import { SectionHead } from "@/components/kit/SectionHead";
@@ -12,10 +12,19 @@ import { SITE, SITE_URL } from "@/data/site";
 import { ORG_ID, PERSON_ID, PERSON_LD } from "@/data/entity";
 import { BuiltForUs } from "@/components/home/BuiltForUs";
 import { FounderPortrait } from "@/components/brand/FounderPortrait";
+import { EarthStrip } from "@/components/about/EarthStrip";
+
+/**
+ * TODO(Daniel): drop a real photo of Daniel in public/people/ and set the
+ * path here, e.g. "/people/daniel-about.webp" (4:5 crop, at least 800 x 1000,
+ * under about 80KB). Until then the About hero shows the clean "DB" monogram.
+ * Never put a placeholder, stock or AI face here.
+ */
+const ABOUT_PHOTO: string | null = null;
 
 const TITLE = "About Daniel Bouwer and Verdance Systems AI";
 const DESCRIPTION =
-  "Verdance Systems AI is run by Daniel Bouwer, 20, in South Africa. He builds AI systems that answer every enquiry within 60 seconds for owner-led businesses.";
+  "Daniel Bouwer, 20, runs Verdance Systems AI. He builds AI systems that answer every enquiry within 60 seconds for owner-led businesses in SA and the UK.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -28,7 +37,7 @@ export const metadata: Metadata = {
 
 const FACTS = [
   { k: "Founder", v: "Daniel Bouwer" },
-  { k: "Based in", v: "South Africa, remote first" },
+  { k: "Works in", v: "South Africa and the UK, remote first" },
   { k: "Works with", v: "Owner-led businesses" },
   { k: "Builds", v: "AI systems and the Operations Team" },
   { k: "Promise", v: "Every enquiry answered within 60 seconds" },
@@ -104,7 +113,7 @@ export default function AboutPage() {
             Daniel Bouwer, <span className="italic-accent">founder.</span>
           </>
         }
-        lead="I'm 20, I live in South Africa, and I build AI systems for owner-led businesses: the kind where people spend the day answering customers, chasing quotes and doing admin. Verdance makes sure every enquiry is answered within 60 seconds and every follow-up gets done."
+        lead="I'm 20 and I build AI systems for owner-led businesses in South Africa and the UK. With Verdance, every enquiry is answered within 60 seconds and every follow-up gets done."
         crumbs={[{ href: "/", label: "Home" }, { label: "About" }]}
         visual={<FactSheet />}
         note="Free Operations Map · 30 minutes with Daniel"
@@ -134,9 +143,8 @@ export default function AboutPage() {
                 its hours back.
               </p>
               <p className="text-[color:var(--color-ink-soft)]">
-                Being 20 is part of the point. I have no old habits to protect, and I would rather you judge me on how
-                your first ten working days feel than on my age. So I set out to make them the best onboarding you have
-                had from any supplier.
+                I&apos;m 20. I have no old habits to protect. Judge me on how your first ten working days feel. I&apos;ve set
+                out to make them the best onboarding you&apos;ll get from any supplier.
               </p>
             </div>
           </Reveal>
@@ -158,9 +166,8 @@ export default function AboutPage() {
             {HOW.map((h, i) => (
               <li key={h.t}>
                 <Reveal delay={Math.min(i * 0.06, 0.3)} className="h-full">
-                  <div className={`card-x h-full p-6 md:p-8 ${i === 2 ? "is-accent" : ""}`}>
-                    <span className="font-mono text-[0.72rem] text-[color:var(--color-accent)] tabular">{String(i + 1).padStart(2, "0")}</span>
-                    <h3 className="mt-4 font-display text-[1.35rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
+                  <div className={`card-x ix-card h-full p-6 md:p-8 ${i === 2 ? "is-accent" : ""}`}>
+                    <h3 className="font-display text-[1.35rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
                       {h.t}
                     </h3>
                     <p className="mt-2 text-[0.98rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{h.b}</p>
@@ -205,7 +212,7 @@ export default function AboutPage() {
             eyebrow="Where we are"
             title={
               <>
-                South Africa, remote first.
+                South Africa and the UK, <span className="italic-accent">remote first.</span>
               </>
             }
           />
@@ -215,41 +222,42 @@ export default function AboutPage() {
                 Nothing gets installed and nobody has to visit you. Everything is set up on a video call and runs on
                 your own accounts.
               </p>
-              <ul className="mt-5 flex flex-wrap gap-2">
-                {LOCATIONS.map((l) => (
-                  <li key={l.slug}>
+              <EarthStrip className="mt-6" />
+              <p className="mt-4 text-[0.9rem] text-[color:var(--color-ink-muted)]">
+                South African city pages:{" "}
+                {LOCATIONS.map((l, i) => (
+                  <span key={l.slug}>
+                    {i > 0 ? ", " : null}
                     <Link
                       href={`/ai-agency/${l.slug}`}
-                      className="inline-flex min-h-11 items-center gap-1 rounded-full px-3.5 text-[0.85rem] text-[color:var(--color-ink-soft)] transition-colors hover:text-[color:var(--color-ink)]"
-                      style={{ border: "1px solid var(--hairline-2)" }}
+                      className="relative inline-block text-[color:var(--color-ink-soft)] underline-offset-4 hover:text-[color:var(--color-ink)] hover:underline before:absolute before:-inset-x-1 before:-inset-y-3 before:content-['']"
                     >
                       {l.name}
-                      <ArrowUpRight size={13} aria-hidden className="opacity-60" />
                     </Link>
-                  </li>
+                  </span>
                 ))}
-              </ul>
-              <dl className="mt-7 grid gap-3 text-[0.95rem]">
-                <div className="flex flex-wrap gap-x-3">
+              </p>
+              <dl className="mt-6 grid gap-0 text-[0.95rem]">
+                <div className="flex flex-wrap items-center gap-x-3">
                   <dt className="text-[color:var(--color-ink-muted)]">Email</dt>
                   <dd>
-                    <a href={`mailto:${SITE.email}`} className="text-[color:var(--color-ink)] underline-offset-4 hover:underline">
+                    <a href={`mailto:${SITE.email}`} className="inline-flex min-h-11 items-center text-[color:var(--color-ink)] underline-offset-4 hover:underline">
                       {SITE.email}
                     </a>
                   </dd>
                 </div>
-                <div className="flex flex-wrap gap-x-3">
+                <div className="flex flex-wrap items-center gap-x-3">
                   <dt className="text-[color:var(--color-ink-muted)]">WhatsApp</dt>
                   <dd>
-                    <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="text-[color:var(--color-ink)] underline-offset-4 hover:underline">
+                    <a href={SITE.whatsapp.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center text-[color:var(--color-ink)] underline-offset-4 hover:underline">
                       {SITE.whatsapp.display}
                     </a>
                   </dd>
                 </div>
-                <div className="flex flex-wrap gap-x-3">
+                <div className="flex flex-wrap items-center gap-x-3">
                   <dt className="text-[color:var(--color-ink-muted)]">LinkedIn</dt>
                   <dd>
-                    <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" className="text-[color:var(--color-ink)] underline-offset-4 hover:underline">
+                    <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center text-[color:var(--color-ink)] underline-offset-4 hover:underline">
                       Daniel Bouwer
                     </a>
                   </dd>
@@ -261,6 +269,7 @@ export default function AboutPage() {
       </section>
 
       <CTABand
+        points={["Where your team's hours go", "How long customers wait", "A written plan: what we build first, and what it should bring back"]}
         title={
           <>
             Thirty minutes with me, <span className="italic-accent">and the map is yours.</span>
@@ -272,14 +281,49 @@ export default function AboutPage() {
   );
 }
 
+/** A small line-drawn bloom: Daniel's signature mark beside the portrait. */
+function BloomSignature() {
+  return (
+    <svg viewBox="-20 -20 40 40" width="36" height="36" aria-hidden focusable="false" className="absolute right-5 top-5 md:right-7 md:top-7">
+      {[0, 72, 144, 216, 288].map((a) => (
+        <path
+          key={a}
+          transform={`rotate(${a})`}
+          d="M0 -2 C 5 -5, 6 -12, 0 -16 C -6 -12, -5 -5, 0 -2 Z"
+          fill="rgba(77,124,255,0.14)"
+          stroke="var(--color-accent)"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
+      ))}
+      <circle r="2.2" fill="var(--color-accent)" />
+    </svg>
+  );
+}
+
 /**
- * The hero visual: Daniel's portrait (a clean placeholder until the real
- * photo is set in src/data/founder.ts), then the facts as a small card.
+ * The hero visual: Daniel's portrait (ABOUT_PHOTO, or the clean monogram
+ * until a real photo exists), the bloom signature, then the facts.
  */
 function FactSheet() {
   return (
-    <div className="browser-frame g-border p-6 md:p-8">
-      <FounderPortrait className="mb-6" />
+    <div className="browser-frame g-border relative p-6 md:p-8">
+      <BloomSignature />
+      {ABOUT_PHOTO ? (
+        <figure className="mb-6 max-w-[22rem]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={ABOUT_PHOTO}
+            alt="Daniel Bouwer, founder of Verdance Systems AI"
+            width={800}
+            height={1000}
+            decoding="async"
+            className="block aspect-[4/5] w-full rounded-[20px] object-cover"
+          />
+        </figure>
+      ) : (
+        <FounderPortrait className="mb-6" />
+      )}
       <p className="font-mono text-[0.66rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">Verdance Systems AI</p>
       <dl className="mt-5 divide-y" style={{ borderColor: "var(--hairline)" }}>
         {FACTS.map((f) => (

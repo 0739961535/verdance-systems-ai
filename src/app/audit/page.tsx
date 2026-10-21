@@ -1,58 +1,76 @@
 import type { Metadata } from "next";
+import { CalendarClock, ClipboardCheck, Video } from "lucide-react";
 import { Reveal } from "@/components/primitives/Reveal";
 import { PageHero } from "@/components/kit/PageHero";
 import { SectionHead } from "@/components/kit/SectionHead";
 import { CTABand } from "@/components/kit/CTABand";
-import { AuditReport } from "@/components/visuals/hero/AuditReport";
+import { MapBloom } from "@/components/audit/MapBloom";
 import { FAQControl } from "@/components/sections/v4/FAQControl";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { CTA_PRIMARY, SITE_URL } from "@/data/site";
 
-const TITLE = "The free Operations Map: where your time and money go | Verdance";
+const TITLE = "Free Operations Map: where time and money leak | Verdance";
 const DESCRIPTION =
-  "A free 30-minute call. We look at how your business runs and show you where Verdance can save you time and money, and what to fix first.";
+  "A free 30-minute call. We show you where your team's hours go, how long customers wait and what to fix first, with a written plan to keep.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/audit" },
   openGraph: {
-images: ["/opengraph-image"], title: TITLE, description: DESCRIPTION, url: `${SITE_URL}/audit`, type: "website" },
+    images: ["/opengraph-image"],
+    title: TITLE,
+    description: DESCRIPTION,
+    url: `${SITE_URL}/audit`,
+    type: "website",
+    siteName: "Verdance Systems AI",
+  },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+};
+
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Operations Map", item: `${SITE_URL}/audit` },
+  ],
 };
 
 const GET = [
-  { t: "Time and capacity audit", b: "Which tasks consume the most hours each week, and which of them Verdance can take over." },
-  { t: "Response, delivery and onboarding times", b: "How long enquiries wait for a first response, and how long it takes to quote, deliver and onboard a new customer, across WhatsApp, email, calls and your website." },
-  { t: "Priority fixes", b: "A ranked shortlist of what to fix first. Yours to keep, even if we never work together." },
-  { t: "Written implementation plan", b: "What we would build first, the timeline to go-live and what it should return." },
+  { t: "Where your team's hours go", b: "The jobs that take the most hours each week, and which ones we can take off your team." },
+  { t: "How long customers wait", b: "How long each enquiry waits for a reply, and how long it takes to quote and deliver." },
+  { t: "What to fix first", b: "A short list, biggest leak first. Yours to keep, even if we never work together." },
+  { t: "A written plan", b: "What we would build first, when it goes live and what it should bring back." },
 ];
 
 const STEPS = [
-  { n: "01", t: "Book a time", b: "Pick a slot that suits you. It takes a minute." },
-  { n: "02", t: "A 30-minute call", b: "We look at how your business runs and how customers reach you." },
-  { n: "03", t: "You get the plan", b: "Your numbers, what to fix first, and what it should bring back." },
+  { Icon: CalendarClock, t: "Book a time", b: "Pick a slot that suits you. It takes a minute." },
+  { Icon: Video, t: "A 30-minute call", b: "We look at how your business runs and how customers reach you." },
+  { Icon: ClipboardCheck, t: "You get the map", b: "Your numbers, what to fix first, and what it should bring back." },
 ];
 
 const FAQS = [
-  { q: "Is it really free?", a: "Yes. There is nothing to sign and no obligation. The plan is yours to keep either way." },
+  { q: "Is it really free?", a: "Yes. There is nothing to sign and no obligation. The map is yours to keep either way." },
   { q: "Do I need to prepare anything?", a: "No. It helps to know roughly how many messages you get a week and what a customer is worth to you. We can work it out together." },
-  { q: "What happens after the call?", a: "You get the plan in writing. It shows what we would build first and what it should bring back. If you want us to build it, we agree the first phase and a start date. If not, that is the end of it." },
+  { q: "What happens after the call?", a: "You get the map and plan in writing. It shows what we would build first and what it should bring back. If you want us to build it, we agree the first phase and a start date. If not, that is the end of it." },
 ];
 
 export default function AuditPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
       <PageHero
         eyebrow="The Operations Map · free · 30 minutes"
         title={
           <>
-            See what Verdance can do <span className="italic-accent">for your business.</span>
+            Your free Operations Map: <span className="italic-accent">where your time and money leak.</span>
           </>
         }
-        lead="A free 30-minute video call. We look at how your business runs and show you where Verdance can save you time and money."
+        lead="A free 30-minute video call. We look at how your business runs, then show you where the hours and money go and what to fix first."
         crumbs={[{ href: "/", label: "Home" }, { label: "Operations Map" }]}
-        visual={<AuditReport />}
+        visual={<MapBloom />}
         note="Free · 30 minutes · nothing to sign"
       />
 
@@ -71,12 +89,11 @@ export default function AuditPage() {
             {GET.map((g, i) => (
               <li key={g.t}>
                 <Reveal delay={i * 0.06} className="h-full">
-                  <div className={`card-x h-full p-6 md:p-8 ${i === 3 ? "is-accent" : ""}`}>
-                    <span className="font-mono text-[0.72rem] text-[color:var(--color-accent)] tabular">{String(i + 1).padStart(2, "0")}</span>
-                    <h3 className="mt-4 font-display text-[1.35rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
+                  <div className={`card-x ix-card h-full p-6 md:p-8 ${i === 3 ? "is-accent" : ""}`}>
+                    <h3 className="font-display text-[1.35rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
                       {g.t}
                     </h3>
-                    <p className="mt-2 text-[0.98rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{g.b}</p>
+                    <p className="mt-2 text-[1rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{g.b}</p>
                   </div>
                 </Reveal>
               </li>
@@ -97,15 +114,15 @@ export default function AuditPage() {
             }
           />
           <ol className="mt-12 grid gap-10 md:mt-16 md:grid-cols-3 md:gap-8">
-            {STEPS.map((s, i) => (
-              <li key={s.n} className="relative pt-8" style={{ borderTop: "1px solid var(--hairline-2)" }}>
+            {STEPS.map(({ Icon, t, b }, i) => (
+              <li key={t} className="relative pt-8" style={{ borderTop: "1px solid var(--hairline-2)" }}>
                 <span aria-hidden className="absolute -top-px left-0 h-px w-16" style={{ background: "var(--accent)" }} />
                 <Reveal delay={i * 0.06}>
-                  <span className="font-mono text-[0.8rem] text-[color:var(--color-accent)] tabular">{s.n}</span>
+                  <Icon size={22} strokeWidth={1.5} aria-hidden className="text-[color:var(--color-accent)]" />
                   <h3 className="mt-4 font-display text-[1.6rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.03em" }}>
-                    {s.t}
+                    {t}
                   </h3>
-                  <p className="mt-3 text-[1rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{s.b}</p>
+                  <p className="mt-3 text-[1rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{b}</p>
                 </Reveal>
               </li>
             ))}
@@ -114,7 +131,9 @@ export default function AuditPage() {
       </section>
 
       <FAQControl faqs={FAQS} />
-      <CTABand />
+      <CTABand
+        points={["Where your team's hours go", "How long customers wait", "A written plan: what we build first, and what it should bring back"]}
+      />
       <StickyMobileCTA href={GENERIC_BOOK_URL} label={CTA_PRIMARY} />
     </>
   );
