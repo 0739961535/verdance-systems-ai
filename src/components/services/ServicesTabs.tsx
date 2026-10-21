@@ -19,7 +19,7 @@ const GROUPS = [
     items: [
       { slug: "websites-build", line: "A fast site that turns visits into enquiries." },
       { slug: "lead-generation", line: "Old enquiries brought back, new ones found." },
-      { slug: "reputation-reviews", line: "Happy customers asked for a review at the right time." },
+      { slug: "reputation-reviews", line: "Every customer asked for a review, every review answered." },
       { slug: "marketing-social", line: "Posts and adverts that keep going in busy weeks." },
     ],
   },

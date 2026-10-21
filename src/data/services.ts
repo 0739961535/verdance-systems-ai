@@ -417,27 +417,27 @@ const BASE_CATEGORIES: ServiceCategory[] = [
     name: "Google reviews",
     headline: "More good reviews,",
     italicWord: "without having to ask.",
-    promise: "Every happy customer is asked for a Google review at the right moment, and problems come to you first.",
+    promise: "Every customer is asked for a Google review the same way, at the right moment, and every review gets a reply.",
     description:
-      "After each job or visit, the customer gets a short, friendly request with a link straight to your Google review page. If someone is unhappy, their feedback comes to you privately so you can put it right. New reviews are flagged to you, with a reply ready to send.",
+      "After each job or visit, the customer gets a short, friendly request with a link straight to your Google review page. Every customer is asked the same way, whatever they thought. New reviews are flagged to you, with a reply ready to send, so every review gets an answer.",
     whatYouGet: [
       "A review request after every job or visit, by SMS or WhatsApp",
-      "Unhappy customers routed to you privately first",
+      "Every customer asked the same way, never only the happy ones",
       "An alert for every new review, with a reply drafted for you",
       "Your best reviews shown on your website",
-      "A gentle nudge to happy customers to refer a friend",
+      "A reply to every review, good or bad, drafted for you to approve",
     ],
     bestFor: "Local businesses where customers check Google before they choose who to call.",
     subProducts: [
       {
         name: "Google review requests",
-        description: "Every happy customer gets a friendly request with a link straight to your Google review page.",
+        description: "Every customer gets the same friendly request with a link straight to your Google review page.",
         howItWorks: ["A job or visit is marked as done", "A personal request goes out by SMS or WhatsApp", "One tap takes them to your review page"],
       },
       {
-        name: "Catching problems early",
-        description: "If a customer is unhappy, their feedback comes to you privately first.",
-        howItWorks: ["The customer answers one quick question", "Unhappy answers come straight to you", "Happy customers are asked for a review"],
+        name: "Hearing about problems",
+        description: "Any customer can tell you about a problem at any time. You put it right, and they still choose whether to review.",
+        howItWorks: ["A problem is flagged to you straight away", "You call or message them to put it right", "The review request still goes to everyone"],
       },
       {
         name: "Review alerts and replies",
@@ -450,12 +450,12 @@ const BASE_CATEGORIES: ServiceCategory[] = [
         howItWorks: ["We add a reviews section to your site", "It updates as new reviews come in", "It matches your branding"],
       },
     ],
-    whyItMatters: "Good reviews bring in new customers every day. Most happy customers simply forget to leave one unless they are asked.",
-    outcome: "A steady stream of new Google reviews, and unhappy customers caught before they post.",
+    whyItMatters: "Good reviews bring in new customers every day. Most customers simply forget to leave one unless they are asked.",
+    outcome: "A steady stream of new Google reviews, and a reply to every one.",
     relatedSlugs: ["follow-up-nurture", "marketing-social", "lead-generation"],
     seoTitle: "More Google Reviews, Asked at the Right Time",
     seoDescription:
-      "Happy customers get a friendly Google review request after each job. Unhappy ones reach you privately first, so you can put it right.",
+      "Every customer gets the same friendly Google review request after each job, and every review gets a reply, drafted for you to approve.",
   },
   {
     slug: "websites-build",
@@ -1337,9 +1337,9 @@ export const SERVICE_STORY: Record<string, ServiceStory> = {
     withUs: ["Job done", "Invoice and pay link sent", "Paid sooner"],
   },
   "reputation-reviews": {
-    short: "After each job, happy customers get a friendly link to your Google reviews. Unhappy ones reach you privately first, so you can put it right.",
-    today: ["Happy customer", "Never asked", "No review"],
-    withUs: ["Happy customer", "Asked at the right time", "New Google review"],
+    short: "After each job, every customer gets the same friendly link to your Google reviews. You reply to every review, good or bad.",
+    today: ["Job done", "Never asked", "No review"],
+    withUs: ["Job done", "Every customer asked", "New Google review"],
   },
   "websites-build": {
     short: "A fast website that shows up on Google and makes getting in touch easy. It answers and books people while you work.",
