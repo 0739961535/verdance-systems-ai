@@ -56,10 +56,19 @@ export async function POST(req: Request) {
   });
   if (!contactId) return NextResponse.json({ error: "booking_failed" }, { status: 502 });
 
+  const note = bookingNote({ name, business, slot, textConsent, timeTaker, source, utms, tz: cleanZone(body.tz) });
   const booked = await createAppointment(cr, { contactId, slot, title: `Call: ${name} (${business})` });
-  if (!booked) return NextResponse.json({ error: "slot_taken" }, { status: 409 });
+  if (!booked.ok && booked.taken) return NextResponse.json({ error: "slot_taken" }, { status: 409 });
+  if (!booked.ok) {
+    // The appointment wasn't created, but the request is never lost: the
+    // contact exists, and the note says which time they asked for, so the
+    // team can confirm it by hand.
+    const saved = await addNote(cr, contactId, `Requested slot ${slot}, appointment not created: ${booked.reason}\n\n${note}`);
+    if (!saved) console.error("[booking] pending booking note not saved");
+    return NextResponse.json({ ok: true, pending: true, ticket: signTicket(contactId) });
+  }
 
-  const saved = await addNote(cr, contactId, bookingNote({ name, business, slot, textConsent, timeTaker, source, utms, tz: cleanZone(body.tz) }));
+  const saved = await addNote(cr, contactId, note);
   if (!saved) console.warn("booking note not saved");
 
   return NextResponse.json({ ok: true, ticket: signTicket(contactId), ...(dryRun() ? { dryRun: true } : {}) });
