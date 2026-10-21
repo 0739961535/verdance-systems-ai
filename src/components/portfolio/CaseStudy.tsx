@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { DrawnResults } from "./DrawnResults";
+import { EcomVisuals } from "@/components/home/proof/cases";
+import { PROOF_CSS } from "@/components/home/proof/styles";
 import { ArrowRight } from "lucide-react";
 import { conversationsProof, type CaseImage, type PortfolioCase } from "@/data/portfolio";
 
@@ -72,6 +74,17 @@ function Shot({ img, sizes }: { img: CaseImage; sizes: string }) {
   );
 }
 
+const DEMO_CSS = `
+.pc-demo { margin-top: 40px; display: grid; gap: 20px; max-width: 820px; margin-inline: auto; }
+@media (min-width: 1024px) { .pc-demo { margin-top: 56px; } }
+.pc-demo-k { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.08em; text-transform: uppercase; color: #1F7A4A; }
+.pc-demo-k i { width: 8px; height: 8px; border-radius: 99px; background: #1F9D5C; }
+@media (prefers-reduced-motion: no-preference) { .pc-demo-k i { animation: pc-live 2s ease-out infinite; } }
+@keyframes pc-live { 0% { box-shadow: 0 0 0 0 rgba(31,157,92,0.5); } 100% { box-shadow: 0 0 0 7px rgba(31,157,92,0); } }
+.pc-demo-h { margin-top: 8px; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.4rem, 1vw + 1.1rem, 1.9rem); letter-spacing: -0.025em; line-height: 1.2; color: var(--color-ink); }
+.pc-demo-p { margin-top: 6px; font-size: 1rem; line-height: 1.55; color: var(--color-ink-soft); }
+`;
+
 export function CaseStudy({ c, index }: { c: PortfolioCase; index: number }) {
   const title = c.name ?? c.label;
   const headId = `case-${c.id}-title`;
@@ -126,6 +139,24 @@ export function CaseStudy({ c, index }: { c: PortfolioCase; index: number }) {
         </div>
         <figcaption className="pc-cap">{c.caption}</figcaption>
       </figure>
+
+      {c.id === "ecom" ? (
+        <section id="ecom-demo" className="pc-demo" aria-labelledby="ecom-demo-title" style={{ scrollMarginTop: 96 }}>
+          <style>{PROOF_CSS + DEMO_CSS}</style>
+          <div className="pc-demo-head">
+            <p className="pc-demo-k">
+              <i aria-hidden />
+              See it working
+            </p>
+            <h3 id="ecom-demo-title" className="pc-demo-h">
+              A customer asks, the assistant answers from the store.
+            </h3>
+            <p className="pc-demo-p">Tap through the chat, the pipeline, what happens behind it and the monthly report.</p>
+          </div>
+          <EcomVisuals />
+          <p className="museum text-center">Drawn from the real system. Customers, orders and details are changed.</p>
+        </section>
+      ) : null}
 
       <div className="pc-body">
         <div>

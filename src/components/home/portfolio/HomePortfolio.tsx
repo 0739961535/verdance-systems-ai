@@ -4,6 +4,7 @@ import { CTA_PRIMARY } from "@/data/site";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { SplitWords } from "@/components/primitives/Reveal";
 import { PORTFOLIO_CASES, conversationsProof } from "@/data/portfolio";
+import { Bud } from "@/components/how/Bud";
 
 /**
  * 04 Portfolio (home teaser): two real builds in device frames, side by side
@@ -77,6 +78,19 @@ const CSS = `
 .hp-go { margin-top: auto; padding-top: 10px; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; align-self: flex-start;
   font-size: 0.9375rem; font-weight: 600; color: #2554D4; outline: none; }
 .hp-go::after { content: ""; position: absolute; inset: 0; border-radius: 22px; }
+.hp-possible { grid-column: 1 / -1; position: relative; display: flex; align-items: center; gap: 16px; padding: 18px 20px; border-radius: 22px; color: #F2F5FC;
+  background: radial-gradient(120% 140% at 0% 0%, #1B2E66, #0A1226 70%); box-shadow: 0 30px 60px -40px rgba(37,84,212,0.6); transition: transform .45s cubic-bezier(0.16,1,0.3,1), box-shadow .45s; }
+@media (min-width: 768px) { .hp-possible { padding: 22px 28px; } }
+.hp-possible .bud { flex: none; --u: 1.4; }
+.hp-possible b { display: block; font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; letter-spacing: -0.02em; }
+.hp-possible small { display: block; margin-top: 2px; font-size: 0.9375rem; color: #C9D2E6; }
+.hp-possible .hp-arrow { margin-left: auto; color: #8FB0FF; flex: none; }
+.hp-possible:focus-visible { outline: 2px solid #2554D4; outline-offset: 3px; }
+@media (hover: hover) { .hp-possible:hover { transform: translate3d(0,-3px,0); box-shadow: 0 36px 70px -40px rgba(37,84,212,0.75); } .hp-possible:hover .hp-arrow { transform: translate3d(3px,0,0); } }
+.hp-live { display: inline-flex; align-items: center; gap: 8px; }
+.hp-live i { width: 8px; height: 8px; border-radius: 99px; background: #1F9D5C; }
+@media (prefers-reduced-motion: no-preference) { .hp-live i { animation: hp-live 2s ease-out infinite; } }
+@keyframes hp-live { 0% { box-shadow: 0 0 0 0 rgba(31,157,92,0.5); } 100% { box-shadow: 0 0 0 7px rgba(31,157,92,0); } }
 .hp-arrow { transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
 .hp-all { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 1rem; font-weight: 600; color: #2554D4; }
 .hp-all:hover .hp-arrow { transform: translate3d(3px, 0, 0); }
@@ -199,7 +213,7 @@ export function HomePortfolio() {
             <h2 id="portfolio-title" className="h2 mt-4">
               <SplitWords text="Built and running" /> <span>for clients.</span>
             </h2>
-            <p className="lead mt-6">Two recent builds. Client names stay private.</p>
+            <p className="lead mt-6">Two recent builds, and what else we can build. Client names stay private.</p>
           </div>
           <Link href="/portfolio" className="hp-all">
             See all work
@@ -208,6 +222,14 @@ export function HomePortfolio() {
         </div>
 
         <div className="hp-grid mt-10 lg:mt-16" data-reveal="">
+          <Link href="/portfolio#concepts" className="hp-possible">
+            <Bud stage={4} size={44} gold />
+            <span>
+              <b>Anything is possible</b>
+              <small>See what we can build</small>
+            </span>
+            <ArrowRight size={20} className="hp-arrow" aria-hidden />
+          </Link>
           {CASES.map((c) => (
             <article key={c.id} className="hp-card" aria-labelledby={`hp-${c.id}`}>
               <div className={`hp-stage ${c.stage}`}>
@@ -229,10 +251,20 @@ export function HomePortfolio() {
                     {c.proof}
                   </p>
                 ) : null}
-                <Link href={`/portfolio#${c.id}`} className="hp-go" aria-label={`View the build: ${c.name}`}>
-                  View the build
-                  <ArrowRight size={16} className="hp-arrow" aria-hidden />
-                </Link>
+                {c.id === "ecom" ? (
+                  <Link href="/portfolio#ecom-demo" className="hp-go" aria-label={`See it working: ${c.name}`}>
+                    <span className="hp-live">
+                      <i aria-hidden />
+                      See it working
+                    </span>
+                    <ArrowRight size={16} className="hp-arrow" aria-hidden />
+                  </Link>
+                ) : (
+                  <Link href={`/portfolio#${c.id}`} className="hp-go" aria-label={`View the build: ${c.name}`}>
+                    View the build
+                    <ArrowRight size={16} className="hp-arrow" aria-hidden />
+                  </Link>
+                )}
               </div>
             </article>
           ))}
