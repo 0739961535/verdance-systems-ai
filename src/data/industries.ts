@@ -4,6 +4,8 @@ export interface Industry {
   icon: string;
   headline: string;
   subheadline: string;
+  /** shorter name for the page title (title stays within 60 characters) */
+  metaName?: string;
   problems: { title: string; description: string }[];
   relevantProducts: string[];
   automationFlow: { step: number; label: string; description: string }[];
@@ -13,10 +15,11 @@ export const industries: Industry[] = [
   {
     slug: "legal-professional-services",
     name: "Legal & Professional Services",
+    metaName: "Law and Professional Firms",
     icon: "Scale",
-    headline: "Stop losing clients to slow response times.",
+    headline: "New clients email after hours. We answer first.",
     subheadline:
-      "New clients answered, sorted and followed up for you, so your team spends its time on paid work, not admin.",
+      "New clients answered and booked in, so your team spends its time on paid work.",
     problems: [
       {
         title: "Slow enquiry response",
@@ -59,9 +62,9 @@ export const industries: Industry[] = [
     slug: "real-estate-property",
     name: "Real Estate & Property",
     icon: "Building2",
-    headline: "More viewings. More offers. Less admin.",
+    headline: "Fifty people ask about one flat. Each one gets an answer.",
     subheadline:
-      "Every buyer and tenant answered, followed up and booked for a viewing, so your agents sell instead of chase.",
+      "Every buyer and tenant answered and booked for a viewing, so your agents can sell.",
     problems: [
       {
         title: "Slow lead response",
@@ -103,9 +106,9 @@ export const industries: Industry[] = [
     slug: "medical-wellness",
     name: "Medical & Wellness",
     icon: "Heart",
-    headline: "Full appointment books. Every call answered or texted back.",
+    headline: "The phones never stop. Every patient still gets an answer.",
     subheadline:
-      "Bookings, reminders and questions handled for you, so your team can focus on patients.",
+      "Bookings, reminders and questions handled, so your team can focus on patients.",
     problems: [
       {
         title: "High call volume",
@@ -148,9 +151,9 @@ export const industries: Industry[] = [
     slug: "automotive",
     name: "Automotive",
     icon: "Car",
-    headline: "More service bookings. More vehicle sales. Less missed follow-up.",
+    headline: "Leads arrive on Saturday night. We reply before they go cold.",
     subheadline:
-      "Every enquiry answered, services booked and old leads brought back, for your dealership or workshop.",
+      "Every enquiry answered and booked in, for your dealership or workshop.",
     problems: [
       {
         title: "Missed inbound calls",
@@ -186,10 +189,11 @@ export const industries: Industry[] = [
   {
     slug: "home-services-contractors",
     name: "Home Services & Contractors",
+    metaName: "Builders and Contractors",
     icon: "Wrench",
-    headline: "Every job enquiry answered and followed up.",
+    headline: "Quotes go out and nobody chases them. We follow up every one.",
     subheadline:
-      "Every enquiry answered, every job booked and every quote followed up, without you chasing.",
+      "Every enquiry answered and every quote followed up, without you chasing.",
     problems: [
       {
         title: "Leads lost after hours",
@@ -225,9 +229,9 @@ export const industries: Industry[] = [
     slug: "fitness-gyms",
     name: "Fitness & Gyms",
     icon: "Dumbbell",
-    headline: "Fill your classes. Reduce cancellations. Keep members longer.",
+    headline: "People ask about joining, then never come in. We book their first visit.",
     subheadline:
-      "Membership questions answered, classes booked and quiet members checked in on, for you.",
+      "Membership questions answered and first visits booked, for you.",
     problems: [
       {
         title: "Slow membership enquiry response",
@@ -263,7 +267,7 @@ export const industries: Industry[] = [
     slug: "beauty-aesthetics",
     name: "Beauty & Aesthetics",
     icon: "Sparkles",
-    headline: "Every enquiry followed up. Reminders before every booking.",
+    headline: "Messages pile up while you are with a client. We reply and book them in.",
     subheadline:
       "Bookings, reminders and review requests done for you, while you focus on clients.",
     problems: [
@@ -301,9 +305,9 @@ export const industries: Industry[] = [
     slug: "restaurants-hospitality",
     name: "Restaurants & Hospitality",
     icon: "UtensilsCrossed",
-    headline: "More bookings. Better reviews. Guests that come back.",
+    headline: "Booking requests sit in the inbox during service. We confirm the table.",
     subheadline:
-      "Bookings, follow-ups and reviews done for you, so your front of house can look after guests.",
+      "Booking requests answered for you, so your front of house can look after guests.",
     problems: [
       {
         title: "Manual reservation handling",
@@ -339,9 +343,9 @@ export const industries: Industry[] = [
     slug: "education-coaching",
     name: "Education & Coaching",
     icon: "GraduationCap",
-    headline: "More enrolments. Better retention. Less admin.",
+    headline: "Parents ask the same questions every week. We answer and book the open day.",
     subheadline:
-      "Enquiries answered, sessions booked and clients followed up, for coaches and teachers.",
+      "Enquiries answered and sessions booked, for coaches and teachers.",
     problems: [
       {
         title: "Slow response to course enquiries",
@@ -375,40 +379,22 @@ export const industries: Industry[] = [
   },
   {
     slug: "ecommerce-product-businesses",
-    name: "eCommerce & Product Businesses",
+    name: "E-commerce & Product Brands",
     icon: "ShoppingBag",
-    headline: "More sales. Fewer abandoned carts. Better reviews.",
+    headline: "Customers ask where their order is all day. We answer from your store.",
     subheadline:
-      "Customer questions answered, orders followed up and reviews asked for, however busy you get.",
+      "Order, returns and wholesale questions answered from your own store.",
     problems: [
-      {
-        title: "High website bounce rate",
-        description:
-          "Visitors browse and leave without making contact because nothing prompts them to act.",
-      },
-      {
-        title: "Abandoned cart recovery",
-        description:
-          "Customers who add to cart but don't complete purchase are rarely followed up.",
-      },
-      {
-        title: "Low review volume",
-        description:
-          "Happy customers don't leave reviews without a direct, frictionless ask.",
-      },
+      { title: "Order questions all day", description: "Where's my order? arrives on WhatsApp, email and Instagram, and each one is looked up by hand." },
+      { title: "Returns and swaps by hand", description: "Every return means the same questions and the same steps, typed out again." },
+      { title: "Wholesale reorders waiting on a reply", description: "Trade customers want to reorder now. Their message waits in the inbox." },
     ],
-    relevantProducts: [
-      "website-conversion-widget",
-      "whatsapp-ai-agent",
-      "automated-follow-up",
-      "google-review-automation",
-      "post-interaction-messenger",
-    ],
+    relevantProducts: ["whatsapp-ai-agent", "automated-follow-up", "post-interaction-messenger"],
     automationFlow: [
-      { step: 1, label: "Visitor arrives", description: "A chat opens and offers help after 20 seconds" },
-      { step: 2, label: "Enquiry captured", description: "Contact details collected before they leave" },
-      { step: 3, label: "Purchase follow-up", description: "A thank-you message confirms the order and suggests what goes with it" },
-      { step: 4, label: "Review requested", description: "A review request goes out 2 days after delivery" },
+      { step: 1, label: "Customer asks", description: "On WhatsApp, email, Instagram or web chat" },
+      { step: 2, label: "Order looked up", description: "Straight from your Shopify or WooCommerce store" },
+      { step: 3, label: "Reply in 60 seconds", description: "Or a handover to a named person on your team" },
+      { step: 4, label: "Monthly report", description: "Every question, and the hours it saved" },
     ],
   },
 ];

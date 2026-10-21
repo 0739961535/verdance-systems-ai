@@ -15,6 +15,7 @@ import { PRODUCT_TO_SERVICE } from "@/data/productToService";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import type { Metadata } from "next";
 import { SITE_URL } from "@/data/site";
+import { EcomPage, ECOM_META, ECOM_SLUG } from "@/components/industries/ecom/EcomPage";
 
 function splitHeadline(headline: string): { lead: string; accent: string | null } {
   const sentences = headline.trim().split(/(?<=\.)\s+/).filter(Boolean);
@@ -50,10 +51,23 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   }
 
+  if (slug === ECOM_SLUG) {
+    const { title, description } = ECOM_META;
+    const url = `${SITE_URL}/industries/${slug}`;
+    return {
+      title,
+      description,
+      alternates: { canonical: `/industries/${slug}` },
+      openGraph: { images: ["/opengraph-image"], title, description, url, type: "website", siteName: "Verdance Systems AI" },
+      twitter: { card: "summary_large_image", title, description },
+    };
+  }
+
   const industry = getIndustryBySlug(slug);
   if (!industry) return {};
-  const title = `Enquiry Answering and Booking for ${industry.name} | Verdance Systems AI`;
-  const description = `${industry.subheadline} Every call and message answered within 60 seconds, day or night, and booked. Fixed quote after a free Operations Map.`;
+  // At most 60 characters for the title and 160 for the description.
+  const title = `${industry.metaName ?? industry.name}: Enquiries Answered | Verdance`;
+  const description = `${industry.subheadline} Every enquiry answered within 60 seconds. Start with a free Operations Map.`;
   const url = `${SITE_URL}/industries/${slug}`;
   return {
     title,
@@ -69,6 +83,7 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
   const { slug } = await params;
   const niche = getNicheBySlug(slug);
   if (niche) return <NicheOfferPage niche={niche} />;
+  if (slug === ECOM_SLUG) return <EcomPage />;
 
   const industry = getIndustryBySlug(slug);
   if (!industry) notFound();
@@ -104,7 +119,7 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
           </>
         }
         lead={industry.subheadline}
-        crumbs={[{ href: "/industries", label: "Industries" }, { label: industry.name }]}
+        crumbs={[{ href: "/", label: "Home" }, { href: "/industries", label: "Industries" }, { label: industry.name }]}
         visual={
           <ServiceConsole
             title={`${industry.name} · how an enquiry is handled`}
@@ -129,9 +144,8 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
             {industry.problems.map((problem, i) => (
               <li key={problem.title}>
                 <Reveal delay={i * 0.06} className="h-full">
-                  <div className="card-x h-full p-6 md:p-7">
-                    <span className="font-mono text-[0.72rem] text-[color:var(--color-accent)] tabular">{String(i + 1).padStart(2, "0")}</span>
-                    <h3 className="mt-3 font-display text-[1.3rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
+                  <div className="card-x ix-card h-full p-6 md:p-7">
+                    <h3 className="font-display text-[1.3rem] text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
                       {problem.title}
                     </h3>
                     <p className="mt-2 text-[0.98rem] leading-[1.6] text-[color:var(--color-ink-soft)]">{problem.description}</p>
@@ -192,9 +206,9 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
               {services.map((c, i) => (
                 <li key={c.slug}>
                   <Reveal delay={i * 0.06} className="h-full">
-                    <Link href={`/services/${c.slug}`} className="card-x group flex h-full flex-col p-6 md:p-7">
+                    <Link href={`/services/${c.slug}`} className="card-x ix-card group flex h-full flex-col p-6 md:p-7">
                       <div className="flex items-center justify-between">
-                        <span className="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">Service {c.number}</span>
+                        <span className="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-[color:var(--color-ink-muted)]">Service</span>
                         <ArrowUpRight size={17} aria-hidden className="nudge text-[color:var(--color-ink-muted)] group-hover:text-[color:var(--color-accent)]" />
                       </div>
                       <h3 className="mt-6 font-display text-[1.3rem] leading-tight text-[color:var(--color-ink)]" style={{ letterSpacing: "-0.025em" }}>
