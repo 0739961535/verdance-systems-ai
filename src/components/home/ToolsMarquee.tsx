@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { TOOL_ICONS, type ToolIcon } from "./toolIcons";
+import { TOOL_SPRITE, toolSymbolId } from "./toolSprite";
 
 /*
  * ToolsMarquee - "Works with anything you already use".
@@ -75,8 +76,8 @@ const CSS = `
 `;
 
 /** Every mark lives once in /tools.svg (scripts/build-tool-sprite.mjs); each copy references it, so no path is inlined in the page. */
-const symbolId = (name: string) => `tm-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
-const SPRITE = "/tools.svg?v=b6254353";
+const symbolId = toolSymbolId;
+const SPRITE = TOOL_SPRITE;
 
 function Item({ tool }: { tool: ToolIcon }) {
   const brand = tool.hex && !NEAR_BLACK.has(tool.hex.toUpperCase()) ? `#${tool.hex}` : "var(--color-ink)";

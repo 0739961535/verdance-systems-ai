@@ -10,9 +10,9 @@ import { STEPS } from "./connectData";
  * core, to one command centre. Sits after the Operations Team showcase on a
  * band-night ground.
  *
- * Motion story: while the section is on screen the active step advances every
- * 4s and the diagram lights up cumulatively (chips, wires, core, app), with
- * pulses running along lit wires. Off screen everything pauses. Tapping a
+ * Motion story: the diagram is a plant (ConnectDiagram) that the visitor
+ * drives with the mouse or a tap. While the section is on screen the active
+ * step card advances every 4s. Off screen the cycle pauses. Tapping a
  * step jumps to it and restarts the timer. The step cards lift like the
  * other cards (ix-card) and, only on hover or keyboard focus, a light runs
  * the whole way round their border (a conic gradient masked to a 1.5px ring,
@@ -63,8 +63,6 @@ export function HowItConnects() {
     return () => window.clearTimeout(t);
   }, [step, live, reduce]);
 
-  const shown = reduce ? STEPS.length - 1 : step;
-
   return (
     <section
       ref={root}
@@ -85,7 +83,7 @@ export function HowItConnects() {
         </div>
 
         <div className="hic-stage">
-          <ConnectDiagram step={shown} />
+          <ConnectDiagram />
           <p className="museum mt-3">Illustration. Your tools and command centre will match your business.</p>
         </div>
 
@@ -137,67 +135,7 @@ const CSS = `
 .hic-stage { margin-top: 48px; }
 @media (min-width: 1024px) { .hic-stage { margin-top: 72px; } }
 
-/* Diagram */
-.hic-dia { position: relative; }
-.hic-svg { display: block; width: 100%; height: auto; overflow: visible; }
-.hic-svg-wide { display: none; }
-.hic-svg-tall { max-width: 460px; margin: 0 auto; }
-@media (min-width: 1024px) { .hic-svg-wide { display: block; } .hic-svg-tall { display: none; } }
-.hic-svg text { font-family: var(--font-sans, inherit); fill: var(--ink); }
-
-.hic-panel { fill: rgba(10,18,38,0.6); stroke: rgba(255,255,255,0.08); stroke-width: 1; }
-.hic-panel-k { font-family: var(--font-mono) !important; font-size: 9.5px; letter-spacing: 0.16em; fill: rgba(143,176,255,0.8) !important; }
-.hic-node-b { fill: #0E1730; stroke: rgba(255,255,255,0.11); stroke-width: 1; transition: stroke .5s ease; }
-.hic-node-hi { fill: rgba(255,255,255,0.035); }
-.hic-node-t { fill: rgba(234,240,255,0.72) !important; font-weight: 500; letter-spacing: -0.005em; }
-.hic-chips[data-on] .hic-node-b { stroke: rgba(143,176,255,0.3); }
-
-.hic-wire { fill: none; stroke: rgba(143,176,255,0.12); stroke-width: 1.25; transition: stroke .5s ease; }
-.hic-in[data-on] .hic-wire, .hic-out[data-on] .hic-wire { stroke: rgba(143,176,255,0.3); }
-.hic-pulse { fill: none; stroke: #BFD2FF; stroke-width: 2.25; stroke-linecap: round; stroke-dasharray: 9 91; stroke-dashoffset: 100; opacity: 0; }
-.hic-pulse-out { stroke: #DDE7FF; }
-
-.hic-core-b { stroke: rgba(143,176,255,0.45); stroke-width: 1; }
-.hic-core-in { fill: rgba(255,255,255,0.04); }
-.hic-core-dot { fill: #8FB0FF; }
-.hic-ring { fill: none; stroke: #4D7CFF; stroke-width: 1; opacity: 0; transform-box: fill-box; transform-origin: center; }
-.hic-orbit { fill: none; stroke: rgba(143,176,255,0.14); stroke-width: 1; stroke-dasharray: 2 7; transform-box: fill-box; transform-origin: center; }
-.hic-orbit-2 { stroke: rgba(143,176,255,0.08); stroke-dasharray: 1 10; }
-.hic-halo { opacity: 0.4; transition: opacity .6s ease; }
-.hic-core[data-on] .hic-halo { opacity: 1; }
-.hic-core-k { font-family: var(--font-mono) !important; font-size: 10px; letter-spacing: 0.16em; fill: #8FB0FF !important; }
-.hic-core-t { font-weight: 600; letter-spacing: -0.02em; }
-.hic-core-s { font-family: var(--font-mono) !important; font-size: 11px; fill: rgba(234,240,255,0.6) !important; }
-
-.hic-win { fill: #0A1226; stroke: rgba(255,255,255,0.12); stroke-width: 1; }
-.hic-phone-b { fill: #13203F; }
-.hic-notch { fill: rgba(255,255,255,0.12); }
-.hic-dot { fill: rgba(255,255,255,0.16); }
-.hic-app-k { font-family: var(--font-mono) !important; font-size: 9px; letter-spacing: 0.16em; fill: rgba(143,176,255,0.75) !important; }
-.hic-app-h { font-weight: 600; letter-spacing: -0.01em; }
-.hic-rule { stroke: rgba(255,255,255,0.07); stroke-width: 1; }
-.hic-row-t { fill: rgba(234,240,255,0.84) !important; }
-.hic-led { fill: rgba(143,176,255,0.45); }
-.hic-led-hot { fill: #4D7CFF; }
-.hic-skel { fill: rgba(255,255,255,0.08); }
-.hic-pill { fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.12); stroke-width: 1; }
-.hic-pill-hot { fill: rgba(77,124,255,0.22); stroke: rgba(143,176,255,0.5); }
-.hic-pill-t { font-family: var(--font-mono) !important; font-size: 10px; fill: rgba(234,240,255,0.7) !important; }
-.hic-pill-t-hot { fill: #C9D8FF !important; }
-
-@media (prefers-reduced-motion: no-preference) {
-  .hic-g { transition: opacity .5s ease; opacity: 0.4; }
-  .hic-g[data-on] { opacity: 1; }
-  .hic-in[data-on] .hic-pulse { opacity: 1; animation: hic-flow 3s cubic-bezier(.45,0,.55,1) infinite; }
-  .hic-out[data-on] .hic-pulse { opacity: 1; animation: hic-flow 2.2s cubic-bezier(.45,0,.55,1) infinite; }
-  .hic-core[data-on] .hic-ring { animation: hic-ring 2.4s ease-out infinite; }
-  .hic-orbit { animation: hic-spin 60s linear infinite; }
-  .hic-orbit-2 { animation-duration: 90s; animation-direction: reverse; }
-  .hic:not([data-live]) .hic-pulse, .hic:not([data-live]) .hic-ring, .hic:not([data-live]) .hic-orbit { animation-play-state: paused; }
-}
-@keyframes hic-flow { 0% { stroke-dashoffset: 100; opacity: 0; } 8% { opacity: 1; } 88% { opacity: 1; } 100% { stroke-dashoffset: 9; opacity: 0; } }
-@keyframes hic-ring { 0% { opacity: .6; transform: scale(1); } 100% { opacity: 0; transform: scale(1.1); } }
-@keyframes hic-spin { to { transform: rotate(360deg); } }
+/* Diagram: styles live in ConnectDiagram (the tree). */
 
 /* Steps */
 .hic-steps { list-style: none; margin: 48px 0 0; padding: 0; display: grid; gap: 12px; }
