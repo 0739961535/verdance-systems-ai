@@ -144,10 +144,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
         />
+        <a href="#main" className="skip-link">Skip to content</a>
         <NoPullToRefresh />
         <SmoothScroll>
           <Navbar menus={MEGA_MENUS} niches={NICHE_LINKS} />
-          <main className="flex-1">{children}</main>
+          <main id="main" tabIndex={-1} className="flex-1 outline-none">{children}</main>
           <Footer />
         </SmoothScroll>
         <RevealObserver />
