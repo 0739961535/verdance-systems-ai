@@ -39,7 +39,6 @@ export function AskYourBusiness({ compact = false }: { compact?: boolean }) {
         </div>
         <div className="min-w-0">
           <AskPanel compact={compact} />
-          <p className="museum mt-3">Sample questions and answers.</p>
         </div>
       </div>
     </section>

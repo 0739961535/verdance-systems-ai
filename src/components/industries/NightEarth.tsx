@@ -59,7 +59,7 @@ const STARS = (() => {
   return pts;
 })();
 
-export function NightEarth({ caption = "Enquiries arrive at all hours. We answer them." }: { caption?: string }) {
+export function NightEarth() {
   return (
     <figure className="ne">
       <style>{CSS}</style>
@@ -114,7 +114,6 @@ export function NightEarth({ caption = "Enquiries arrive at all hours. We answer
           <text x={SA.x + 22} y={SA.y + 8}>South Africa</text>
         </g>
       </svg>
-      <figcaption className="ne-cap">{caption}</figcaption>
     </figure>
   );
 }

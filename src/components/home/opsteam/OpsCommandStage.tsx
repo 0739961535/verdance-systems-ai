@@ -1,5 +1,6 @@
 "use client";
 
+import { SampleTag } from "@/components/kit/SampleTag";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AgentWorkspaces } from "./AgentWorkspaces";
 import { CommandMock, SCREEN_PANELS } from "./CommandMock";
@@ -97,7 +98,8 @@ export function OpsCommandStage() {
   return (
     <div ref={root} className="ocs" style={{ ["--play" as string]: live ? "running" : "paused" }}>
       <style>{CSS}</style>
-      <div className="ocs-laptop" inert={narrow}>
+      <div className="ocs-laptop" inert={narrow} style={{ position: "relative" }}>
+        <SampleTag place="tr" style={{ top: -14, right: 8 }}>Sample data</SampleTag>
         <LaptopFrame label="The Operations Team command centre on a laptop, sample data">
           <CommandMock counts={counts} task={task} last={last} tab={narrow ? tab : -1} />
         </LaptopFrame>
@@ -129,7 +131,6 @@ export function OpsCommandStage() {
         ))}
       </div>
 
-      <p className="museum ocs-note">Sample data. Your command centre shows your own business. We run Verdance on the same system.</p>
 
       <div className="ocs-ws-head" data-reveal="">
         <p className="ocs-ws-k">Their workspaces</p>

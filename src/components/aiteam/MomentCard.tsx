@@ -1,5 +1,6 @@
 "use client";
 
+import { SampleTag } from "@/components/kit/SampleTag";
 import { useEffect, useRef, useState } from "react";
 import { animate, motion, useInView } from "motion/react";
 import type { Moment } from "@/data/aiTeam";
@@ -122,7 +123,7 @@ export function MomentCard({ moment }: { moment: Moment; index?: number }) {
 
       <footer className={m.foot}>
         <p className={m.delta}>{moment.delta}</p>
-        <p className={m.note}>Illustrative scenario</p>
+        <SampleTag place="inline" tone="light">Sample</SampleTag>
       </footer>
     </article>
   );

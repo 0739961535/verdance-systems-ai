@@ -84,7 +84,6 @@ export function HowItConnects() {
 
         <div className="hic-stage">
           <ConnectDiagram />
-          <p className="museum mt-3">Illustration. Your tools and command centre will match your business.</p>
         </div>
 
         <ol className="hic-steps" aria-label="How we connect your business, in four steps">

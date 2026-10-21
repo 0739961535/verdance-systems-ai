@@ -1,3 +1,4 @@
+import { SampleTag } from "@/components/kit/SampleTag";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Bot, UserRound } from "lucide-react";
 import { CTA_PRIMARY } from "@/data/site";
@@ -195,7 +196,7 @@ const CASES = [
     outcome: "Customer questions answered on every channel, day and night.",
     stage: "is-phone",
     device: <Phone />,
-    note: "Illustration, details changed",
+    note: "Sample · details changed",
     proof: ECOM_PROOF,
   },
 ] as const;
@@ -234,7 +235,7 @@ export function HomePortfolio() {
             <article key={c.id} className="hp-card" aria-labelledby={`hp-${c.id}`}>
               <div className={`hp-stage ${c.stage}`}>
                 {c.device}
-                {c.note ? <span className="hp-note">{c.note}</span> : null}
+                {c.note ? <SampleTag place="br">{c.note}</SampleTag> : null}
               </div>
               <div className="hp-text">
                 <p className="hp-meta">

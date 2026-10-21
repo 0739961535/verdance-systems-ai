@@ -1,5 +1,6 @@
 "use client";
 
+import { SampleTag } from "@/components/kit/SampleTag";
 import { useEffect, useRef, useState } from "react";
 import { Check, UserRound, type LucideIcon } from "lucide-react";
 import { usePlay } from "./ProofTabs";
@@ -19,7 +20,7 @@ export function Frame({
   title,
   sub,
   stagger = 0.07,
-  foot = "Illustration, details changed",
+  foot = "Sample · details changed",
   children,
 }: {
   icon: LucideIcon;
@@ -70,7 +71,9 @@ export function Frame({
         <span className="pv-live-dot ml-auto" aria-hidden />
       </div>
       <div className="pv-body">{children}</div>
-      <div className="pv-foot">{foot}</div>
+      <div className="pv-foot">
+        <SampleTag place="inline">{foot}</SampleTag>
+      </div>
     </div>
   );
 }

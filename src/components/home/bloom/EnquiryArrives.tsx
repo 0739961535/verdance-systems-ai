@@ -1,5 +1,6 @@
 "use client";
 
+import { SampleTag } from "@/components/kit/SampleTag";
 import { useEffect, useRef, useState } from "react";
 import { CalendarCheck, Check, CheckCheck } from "lucide-react";
 import { useReducedMotionPref } from "@/lib/useReducedMotionPref";
@@ -80,6 +81,7 @@ export function EnquiryArrives() {
       <style>{CSS}</style>
       <span aria-hidden className="ea-bloom" />
       <div className="ea-phone" aria-label="Sample conversation: an after-hours enquiry answered and booked">
+        <SampleTag place="tr" style={{ top: -12, right: -6 }}>Sample</SampleTag>
         <div className="ea-notch" aria-hidden />
         {/* the notification, before the chat opens */}
         <div className="ea-note" aria-hidden={s !== 1}>
@@ -144,7 +146,6 @@ export function EnquiryArrives() {
           </div>
         </div>
       </div>
-      <p className="museum ea-label">Sample conversation. A venue here, but it works the same for any industry.</p>
     </div>
   );
 }

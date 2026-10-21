@@ -1,3 +1,4 @@
+import { SampleTag } from "@/components/kit/SampleTag";
 import type { ReactNode } from "react";
 import { ArrowUpRight, Check, ChevronDown } from "lucide-react";
 import { Reveal, SplitWords } from "@/components/primitives/Reveal";
@@ -264,7 +265,6 @@ export function ServiceDepth({
                 }))}
               />
             </div>
-            <p className="museum mt-10">Sample screens. The businesses, customers and numbers are made up.</p>
           </div>
         </section>
       ) : (
@@ -282,12 +282,14 @@ export function ServiceDepth({
                     <h3>{s.title}</h3>
                     <p className="dp-body">{s.body}</p>
                   </div>
-                  <DepthVisual visual={s.visual} />
+                  <div style={{ position: "relative" }}>
+                    <DepthVisual visual={s.visual} />
+                    <SampleTag place="tr" style={{ top: -10, right: -6 }}>Sample</SampleTag>
+                  </div>
                 </Reveal>
               </li>
             ))}
           </ol>
-          <p className="museum mt-12">Sample screens. The businesses, customers and numbers are made up.</p>
         </div>
       </section>
       )}

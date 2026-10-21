@@ -134,7 +134,7 @@ export function NicheLeak({ niche }: { niche: Niche }) {
           </h2>
         </div>
         <div className="mt-10 lg:mt-4">
-          <StickyStory steps={steps} caption="Sample, on the customer's phone" />
+          <StickyStory steps={steps} caption="Sample" />
         </div>
       </div>
     </section>

@@ -79,7 +79,6 @@ export function WatchItWork() {
 
         <div className="inbox-stage min-w-0">
           <LaptopInbox rotation={HOME_ROTATION} />
-          <p className="museum mt-4">Sample conversations. The businesses and customers are made up.</p>
         </div>
       </div>
     </section>
