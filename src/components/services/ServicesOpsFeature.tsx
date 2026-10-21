@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import { AI_TEAM_PATH } from "@/data/aiTeam";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { CTA_PRIMARY } from "@/data/site";
+import { EarthArt } from "@/components/visuals/EarthArt";
 
 /**
  * /services hero: the Operations Team as the main attraction. A dark,
@@ -28,8 +29,8 @@ const BRIEF = [
 ] as const;
 
 const CSS = `
-.sof { position: relative; overflow: hidden; background: #060B1A; color: #F2F5FC; }
-.sof::before { content: ""; position: absolute; inset: -20% -10% auto auto; width: 900px; height: 900px; border-radius: 50%; pointer-events: none;
+.sof { position: relative; isolation: isolate; overflow: hidden; background: #060B1A; color: #F2F5FC; }
+.sof::before { content: ""; position: absolute; z-index: -1; inset: -20% -10% auto auto; width: 900px; height: 900px; border-radius: 50%; pointer-events: none;
   background: radial-gradient(closest-side, rgba(77, 124, 255, 0.22), rgba(37, 84, 212, 0.08) 55%, transparent); }
 .sof::after { content: ""; position: absolute; inset: auto 0 0 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(143, 176, 255, 0.35), transparent); }
 .sof-in { position: relative; z-index: 1; display: grid; gap: 48px; padding-top: 128px; padding-bottom: 80px; }
@@ -91,6 +92,7 @@ export function ServicesOpsFeature() {
   return (
     <section className="band-night sof" aria-labelledby="sv-title" data-cta-location="services-hero">
       <style>{CSS}</style>
+      <EarthArt />
       <div className="container-wide sof-in">
         <div>
           <p className="eyebrow">Services: the Operations Team</p>

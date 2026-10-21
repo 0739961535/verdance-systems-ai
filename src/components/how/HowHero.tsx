@@ -3,6 +3,7 @@ import { ArrowUpRight, Check } from "lucide-react";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { CTA_PRIMARY, SITE } from "@/data/site";
 import { WhatsAppIcon } from "@/components/sections/v4/WhatsAppIcon";
+import { EarthArt } from "@/components/visuals/EarthArt";
 
 /**
  * The /how-it-works hero: a film-blue night band with a slow blue glow,
@@ -97,6 +98,7 @@ export function HowHero() {
       data-cta-location="hero"
     >
       <style>{CSS}</style>
+      <EarthArt />
       <div aria-hidden className="hh-glow" />
       <div aria-hidden className="hh-grid" />
       <div className="container-wide">
