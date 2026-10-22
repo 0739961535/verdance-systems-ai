@@ -230,6 +230,12 @@ h2{font-size:clamp(22px,2.7vw,34px);margin:6px 0 8px}
 .cmp{margin-top:14px}
 .hrow{padding:10px 0 8px}.steps{padding-bottom:9px}
 @media (max-width:900px){.two{grid-template-columns:1fr}.screen{height:520px}}
+
+.call{min-height:0;overflow:hidden}
+.transcript{overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding-right:4px}
+.transcript::-webkit-scrollbar{width:4px}.transcript::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:4px}
+.callbtns{flex-shrink:0}
+.msgs{min-height:0;overscroll-behavior:contain}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -506,7 +512,7 @@ function callFlow(){const sc=$('#slscreen');dmIntro(sc,()=>{countTo(41);
    <div class="wave" id="wave">${'<i></i>'.repeat(28)}</div><div class="transcript" id="tr"></div>
    <div class="callbtns"><div class="cb r">End</div><div class="cb g">Live</div></div></div>`;
    const bars=$$('#wave i');waveT=setInterval(()=>bars.forEach(b=>b.style.height=(6+Math.random()*26)+'px'),140);
-   const tr=$('#tr');const say=(who,t,you)=>{const p=document.createElement('p');if(you)p.className='you';p.innerHTML=`<b>${who}</b> ${t}`;tr.appendChild(p);tr.scrollTop=1e4};
+   const tr=$('#tr');const say=(who,t,you)=>{const p=document.createElement('p');if(you)p.className='you';p.innerHTML=`<b>${who}</b> ${t}`;tr.appendChild(p);requestAnimationFrame(()=>tr.scrollTop=tr.scrollHeight);setTimeout(()=>tr.scrollTop=tr.scrollHeight,50)};
    const lines=[['Assistant','Hi Sam, it\'s the Shift Method assistant. You just grabbed the 3-step reset. Got two minutes?'],['Sam','Yeah, go for it.',1],
     ['Assistant','What would you love to change in the next few months?'],['Sam','Honestly, leave my job and coach full time.',1,'goal'],
     ['Assistant','And roughly where is your coaching income today?'],['Sam','About three to five k a month.',1,'inc'],
