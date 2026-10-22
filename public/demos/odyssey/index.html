@@ -3,30 +3,77 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Nicolas x Odyssey · Content Plan</title>
+<meta name="description" content="A content plan for Nicolas Alexandrou, by Odyssey Prods.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:#0F0F0E;overflow:hidden;font-family:'DM Sans',Arial,sans-serif;-webkit-font-smoothing:antialiased}
-#stage{position:fixed;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center center}
-.slide{position:absolute!important;inset:0;width:1920px;height:1080px;opacity:0;visibility:hidden;transition:opacity .6s ease,transform .6s ease;transform:scale(1.015)}
+html,body{height:100%;background:#0B0B0A;overflow:hidden;font-family:'DM Sans',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+#stage{position:fixed;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center center;perspective:2000px}
+.slide{position:absolute!important;inset:0;width:1920px;height:1080px;overflow:hidden;opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1),visibility .7s}
 .slide.on{opacity:1;visibility:visible;transform:none}
+.slide.back{transform:translateX(-60px) scale(.985)}
 .slide ul{padding-left:1.1em}.slide li{margin:.2em 0}
 .slide table{width:100%;border-collapse:collapse}.slide th,.slide td{padding:18px 12px;border-bottom:1px solid #E2DFD7;text-align:left}
 .slide th{font-weight:700;color:#141412}
-#bar{position:fixed;left:0;top:0;height:3px;background:#E6C446;transition:width .4s;z-index:5}
-#ui{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;padding:14px 22px;z-index:5;pointer-events:none}
-#ui *{pointer-events:auto}
+.slide table tr{transition:background .25s}.slide table tr:hover td{background:rgba(230,196,70,.12)}
+/* staggered entrance */
+.a{opacity:0;transform:translateY(34px);filter:blur(6px)}
+.slide.on .a{animation:rise .9s cubic-bezier(.16,.84,.24,1) forwards;animation-delay:calc(var(--d,0)*95ms + 120ms)}
+@keyframes rise{to{opacity:1;transform:none;filter:none}}
+.slide.done .a{opacity:1;transform:none;filter:none;animation:none}
+/* grain */
+#grain{position:fixed;inset:-50%;pointer-events:none;z-index:4;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,3%)}80%{transform:translate(3%,1%)}100%{transform:translate(0,0)}}
+/* cursor spotlight */
+#spot{position:fixed;width:900px;height:900px;border-radius:50%;pointer-events:none;z-index:3;background:radial-gradient(circle,rgba(230,196,70,.13),rgba(230,196,70,0) 60%);transform:translate(-50%,-50%);mix-blend-mode:screen;transition:opacity .4s;opacity:0}
+body.dark #spot{opacity:1}
+/* cards */
+.card{transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s,border-color .4s;transform-style:preserve-3d;will-change:transform}
+.card:hover{box-shadow:0 40px 90px rgba(0,0,0,.28),0 0 0 2px rgba(230,196,70,.55)!important}
+/* flow arrows */
+.flow{display:inline-flex;flex:none}
+.flow svg{animation:pulse 2.4s ease-in-out infinite;animation-delay:calc(var(--k)*.35s)}
+@keyframes pulse{0%,100%{opacity:.45;transform:translateX(0)}40%{opacity:1;transform:translateX(8px)}}
+/* glow on gold blocks */
+.glow{animation:breathe 3.2s ease-in-out infinite}
+@keyframes breathe{0%,100%{box-shadow:0 0 50px rgba(230,196,70,.25)}50%{box-shadow:0 0 110px rgba(230,196,70,.55)}}
+/* hook flips */
+.hook{cursor:pointer;perspective:1200px}
+.hook .in{transition:transform .8s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d;display:flex;flex-direction:column;height:100%}
+.hook:hover .in{transform:rotateX(-8deg) translateY(-6px)}
+/* range sliders */
+.rng{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:14px;font-size:30px;color:#BDBAB2}
+.rng b{font-family:'Space Grotesk',sans-serif;font-size:44px;color:#F0EEE9}
+.rng input{width:100%;-webkit-appearance:none;appearance:none;height:10px;border-radius:999px;background:linear-gradient(90deg,#E6C446 var(--p,20%),#34332F var(--p,20%));outline:none;cursor:pointer}
+.rng input::-webkit-slider-thumb{-webkit-appearance:none;width:44px;height:44px;border-radius:50%;background:#F0EEE9;border:6px solid #E6C446;box-shadow:0 0 30px rgba(230,196,70,.5)}
+.rng input::-moz-range-thumb{width:34px;height:34px;border-radius:50%;background:#F0EEE9;border:6px solid #E6C446}
+/* UI */
+#bar{position:fixed;left:0;top:0;height:3px;background:linear-gradient(90deg,#8A6D14,#E6C446);transition:width .5s;z-index:6;box-shadow:0 0 18px rgba(230,196,70,.6)}
+#ui{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;z-index:6;pointer-events:none;gap:12px}
+#ui>*{pointer-events:auto}
+.pill{font:600 13px 'DM Sans',sans-serif;color:#F0EEE9;background:rgba(20,20,18,.72);border:1px solid rgba(240,238,233,.14);border-radius:999px;padding:9px 14px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);text-decoration:none;cursor:pointer}
+.pill:hover{border-color:#E6C446}
+#credit b{color:#E6C446;font-weight:600}
+#dots{display:flex;gap:7px;align-items:center;padding:12px 16px}
+#dots i{width:7px;height:7px;border-radius:99px;background:rgba(240,238,233,.3);transition:all .4s;cursor:pointer}
+#dots i.on{width:26px;background:#E6C446}
 .nav{display:flex;gap:8px}
-.nav button{font:600 14px 'DM Sans',sans-serif;color:#F0EEE9;background:rgba(28,28,27,.75);border:1px solid rgba(240,238,233,.15);border-radius:999px;padding:9px 16px;cursor:pointer;backdrop-filter:blur(8px)}
-.nav button:hover{border-color:#E6C446}
-#count{font:600 13px 'DM Sans',sans-serif;color:#9A978F;background:rgba(28,28,27,.6);padding:7px 12px;border-radius:999px}
-#credit{font:500 12px 'DM Sans',sans-serif;color:#9A978F;text-decoration:none;background:rgba(28,28,27,.6);padding:7px 12px;border-radius:999px}
-#credit b{color:#8fb3ff;font-weight:600}
-@media (max-width:600px){#credit span{display:none}}
-@media (prefers-reduced-motion:reduce){.slide{transition:none}}
+#over{position:fixed;inset:0;z-index:8;background:rgba(11,11,10,.94);backdrop-filter:blur(14px);display:none;padding:70px 40px 40px;overflow:auto}
+#over.on{display:block}
+#over h4{font:700 14px 'DM Sans',sans-serif;letter-spacing:4px;color:#E6C446;margin:0 0 22px 6px}
+#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.th{cursor:pointer;border-radius:12px;overflow:hidden;border:1px solid rgba(240,238,233,.12);background:#141412;transition:transform .3s,border-color .3s}
+.th:hover{transform:translateY(-4px);border-color:#E6C446}
+.th .box{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden}
+.th .box section{position:absolute!important;left:0;top:0;transform-origin:0 0;opacity:1!important;visibility:visible!important;pointer-events:none}
+.th p{font:600 13px 'DM Sans',sans-serif;color:#BDBAB2;padding:10px 12px}
+#hint{position:fixed;top:16px;right:20px;z-index:6;font:500 12px 'DM Sans',sans-serif;color:#9A978F;transition:opacity .8s}
+@media (max-width:700px){#credit span,#hint{display:none}#dots{display:none}}
+@media (prefers-reduced-motion:reduce){.a,.slide.on .a{animation:none;opacity:1;transform:none;filter:none}.flow svg,.glow,#grain{animation:none}.slide{transition:opacity .2s}}
 </style></head><body>
-<div id="bar"></div>
+<div id="bar"></div><div id="grain"></div><div id="spot"></div>
+<div id="hint">← → keys · click · swipe · O for overview</div>
 <div id="stage">
 <section class="slide" data-i="0" id="cover" data-transition="fade" style="background:radial-gradient(ellipse at 85% 15%, #2A2412 0%, #0F0F0E 55%);color:#F0EEE9;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between">
 <p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:32px;font-weight:700;letter-spacing:10px;color:#F0EEE9">ODYSSEY PRODS</p>
@@ -75,19 +122,19 @@ html,body{height:100%;background:#0F0F0E;overflow:hidden;font-family:'DM Sans',A
 <p style="font-size:24px;font-weight:600;letter-spacing:5px;color:#9A978F">ORGANIC</p>
 <div style="display:flex;align-items:center;gap:20px">
 <p style="flex:1;font-size:30px;background:#1C1C1B;border:1px solid #2E2D2A;border-radius:18px;padding:32px">TikTok slideshow</p>
-<svg width="56" height="28" viewBox="0 0 56 28" style="flex:none"><path d="M0 9h34V0l22 14-22 14v-9H0z" fill="#E6C446"/></svg>
+<span class="flow" style="--k:1"><svg width="56" height="28" viewBox="0 0 56 28"><path d="M0 9h34V0l22 14-22 14v-9H0z" fill="#E6C446"/></svg></span>
 <p style="flex:1;font-size:30px;background:#1C1C1B;border:1px solid #2E2D2A;border-radius:18px;padding:32px">DM, then WhatsApp</p>
-<svg width="56" height="28" viewBox="0 0 56 28" style="flex:none"><path d="M0 9h34V0l22 14-22 14v-9H0z" fill="#E6C446"/></svg>
+<span class="flow" style="--k:2"><svg width="56" height="28" viewBox="0 0 56 28"><path d="M0 9h34V0l22 14-22 14v-9H0z" fill="#E6C446"/></svg></span>
 <p style="flex:1;font-size:30px;background:#1C1C1B;border:1px solid #2E2D2A;border-radius:18px;padding:32px">Free group, about 350, auto-nurtured</p>
-<svg width="56" height="28" viewBox="0 0 56 28" style="flex:none"><path d="M0 9h34V0l22 14-22 14v-9H0z" fill="#E6C446"/></svg>
+<span class="flow" style="--k:3"><svg width="56" height="28" viewBox="0 0 56 28"><path d="M0 9h34V0l22 14-22 14v-9H0z" fill="#E6C446"/></svg></span>
 <p style="flex:1;font-size:30px;font-weight:700;color:#141412;background:#E6C446;border-radius:18px;padding:32px;box-shadow:0 0 60px rgba(230,196,70,0.35)">Buys in about a week</p>
 </div>
 <p style="font-size:24px;font-weight:600;letter-spacing:5px;color:#9A978F;padding:24px 0 0">PAID</p>
 <div style="display:flex;align-items:center;gap:20px">
 <p style="flex:1;font-size:30px;background:#1C1C1B;border:1px solid #2E2D2A;border-radius:18px;padding:32px">Your ads</p>
-<svg width="56" height="28" viewBox="0 0 56 28" style="flex:none"><path d="M0 9h34V0l22 14-22 14v-9H0z" fill="#6B6964"/></svg>
+<span class="flow" style="--k:4"><svg width="56" height="28" viewBox="0 0 56 28"><path d="M0 9h34V0l22 14-22 14v-9H0z" fill="#6B6964"/></svg></span>
 <p style="flex:1;font-size:30px;background:#1C1C1B;border:1px solid #2E2D2A;border-radius:18px;padding:32px">Landing page</p>
-<svg width="56" height="28" viewBox="0 0 56 28" style="flex:none"><path d="M0 9h34V0l22 14-22 14v-9H0z" fill="#6B6964"/></svg>
+<span class="flow" style="--k:5"><svg width="56" height="28" viewBox="0 0 56 28"><path d="M0 9h34V0l22 14-22 14v-9H0z" fill="#6B6964"/></svg></span>
 <p style="flex:1;font-size:30px;background:#1C1C1B;border:1px solid #2E2D2A;border-radius:18px;padding:32px">Self-checkout</p>
 <div style="flex:1"></div>
 </div>
@@ -104,8 +151,8 @@ html,body{height:100%;background:#0F0F0E;overflow:hidden;font-family:'DM Sans',A
 <div style="flex:1.6;display:flex;flex-direction:column;gap:24px;background:#FAF9F6;padding:48px;border:1px solid #E2DFD7;border-radius:24px;box-shadow:0 24px 60px rgba(20,20,18,0.08)">
 <p style="font-size:24px;font-weight:600;letter-spacing:4px;color:#6B6964">TIKTOK, DROPSERVICING PAGE</p>
 <div style="display:flex;gap:64px">
-<div style="display:flex;flex-direction:column;gap:4px"><p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:96px;font-weight:700;line-height:1;color:#141412">96K</p><p style="font-size:26px;color:#6B6964">views</p></div>
-<div style="display:flex;flex-direction:column;gap:4px"><p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:96px;font-weight:700;line-height:1;color:#141412">251</p><p style="font-size:26px;color:#6B6964">followers kept</p></div>
+<div style="display:flex;flex-direction:column;gap:4px"><p data-count="96K" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:96px;font-weight:700;line-height:1;color:#141412">96K</p><p style="font-size:26px;color:#6B6964">views</p></div>
+<div style="display:flex;flex-direction:column;gap:4px"><p data-count="251" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:96px;font-weight:700;line-height:1;color:#141412">251</p><p style="font-size:26px;color:#6B6964">followers kept</p></div>
 </div>
 <p style="font-size:28px;line-height:1.45;color:#4A4A46">Three posts made 77% of the views, and each one argued something:</p>
 <ul style="font-size:28px;line-height:1.55;color:#141412">
@@ -156,15 +203,15 @@ html,body{height:100%;background:#0F0F0E;overflow:hidden;font-family:'DM Sans',A
 </div>
 <div style="display:flex;gap:32px">
 <div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FAF9F6;padding:48px;border:1px solid #E2DFD7;border-radius:24px;box-shadow:0 24px 60px rgba(20,20,18,0.08)">
-<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:112px;font-weight:700;line-height:1;color:#141412">2.1×</p>
+<p data-count="2.1×" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:112px;font-weight:700;line-height:1;color:#141412">2.1×</p>
 <p style="font-size:28px;line-height:1.45;color:#4A4A46">Reels reach about 2.1 times more non-followers than carousels. Reels and trial reels find new people.</p>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FAF9F6;padding:48px;border:1px solid #E2DFD7;border-radius:24px;box-shadow:0 24px 60px rgba(20,20,18,0.08)">
-<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:112px;font-weight:700;line-height:1;color:#8A6D14">6.9%</p>
+<p data-count="6.9%" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:112px;font-weight:700;line-height:1;color:#8A6D14">6.9%</p>
 <p style="font-size:28px;line-height:1.45;color:#4A4A46">Median engagement per person reached on carousels, against 3.3% for Reels. Carousels hold attention.</p>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FAF9F6;padding:48px;border:1px solid #E2DFD7;border-radius:24px;box-shadow:0 24px 60px rgba(20,20,18,0.08)">
-<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:112px;font-weight:700;line-height:1;color:#141412">~5×</p>
+<p data-count="~5×" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:112px;font-weight:700;line-height:1;color:#141412">~5×</p>
 <p style="font-size:28px;line-height:1.45;color:#4A4A46">Instagram carousels outperform TikTok carousels by nearly five times. Your best format travels.</p>
 </div>
 </div>
@@ -175,14 +222,14 @@ html,body{height:100%;background:#0F0F0E;overflow:hidden;font-family:'DM Sans',A
 <section class="slide" data-i="6" id="proof" data-transition="fade" style="background:#E6C446;color:#141412;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:center;gap:56px">
 <p style="font-size:26px;font-weight:700;letter-spacing:6px;color:#3A3114;text-transform:uppercase">One carousel we made for a US fitness coach, posted 11 October</p>
 <div style="display:flex;flex-direction:column;gap:8px">
-<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:260px;font-weight:700;line-height:0.95;letter-spacing:-8px;color:#141412">1,872,118</p>
+<p data-count="1,872,118" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:260px;font-weight:700;line-height:0.95;letter-spacing:-8px;color:#141412">1,872,118</p>
 <p style="font-size:44px;color:#3A3114">views</p>
 </div>
 <div style="display:flex;gap:32px">
-<div style="flex:1;display:flex;flex-direction:column;gap:8px;border-top:3px solid #141412;padding:24px 0 0"><p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:700;color:#141412">1,190,787</p><p style="font-size:28px;color:#3A3114">accounts reached</p></div>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px;border-top:3px solid #141412;padding:24px 0 0"><p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:700;color:#141412">4,747</p><p style="font-size:28px;color:#3A3114">new followers</p></div>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px;border-top:3px solid #141412;padding:24px 0 0"><p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:700;color:#141412">19.7K</p><p style="font-size:28px;color:#3A3114">saves</p></div>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px;border-top:3px solid #141412;padding:24px 0 0"><p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:700;color:#141412">7.5K</p><p style="font-size:28px;color:#3A3114">shares</p></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;border-top:3px solid #141412;padding:24px 0 0"><p data-count="1,190,787" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:700;color:#141412">1,190,787</p><p style="font-size:28px;color:#3A3114">accounts reached</p></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;border-top:3px solid #141412;padding:24px 0 0"><p data-count="4,747" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:700;color:#141412">4,747</p><p style="font-size:28px;color:#3A3114">new followers</p></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;border-top:3px solid #141412;padding:24px 0 0"><p data-count="19.7K" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:700;color:#141412">19.7K</p><p style="font-size:28px;color:#3A3114">saves</p></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px;border-top:3px solid #141412;padding:24px 0 0"><p data-count="7.5K" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:700;color:#141412">7.5K</p><p style="font-size:28px;color:#3A3114">shares</p></div>
 </div>
 <p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#3A3114">From the client’s Instagram post insights. Views include the post’s Facebook crosspost.</p>
 </section>
@@ -224,22 +271,22 @@ html,body{height:100%;background:#0F0F0E;overflow:hidden;font-family:'DM Sans',A
 </div>
 <div style="display:flex;gap:24px">
 <div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FAF9F6;padding:40px;border:1px solid #E2DFD7;border-radius:24px;box-shadow:0 24px 60px rgba(20,20,18,0.08)">
-<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1;color:#8A6D14">40%</p>
+<p data-count="40%" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1;color:#8A6D14">40%</p>
 <h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:700;color:#141412">Middleman thesis</h3>
 <p style="font-size:27px;line-height:1.45;color:#4A4A46">Why owning the client beats doing the work. We start with five new versions of your 36.1K post.</p>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FAF9F6;padding:40px;border:1px solid #E2DFD7;border-radius:24px;box-shadow:0 24px 60px rgba(20,20,18,0.08)">
-<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1;color:#8A6D14">25%</p>
+<p data-count="25%" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1;color:#8A6D14">25%</p>
 <h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:700;color:#141412">Receipts</h3>
 <p style="font-size:27px;line-height:1.45;color:#4A4A46">Client payments, group wins and the software finding warm leads, on screen.</p>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FAF9F6;padding:40px;border:1px solid #E2DFD7;border-radius:24px;box-shadow:0 24px 60px rgba(20,20,18,0.08)">
-<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1;color:#8A6D14">20%</p>
+<p data-count="20%" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1;color:#8A6D14">20%</p>
 <h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:700;color:#141412">Contrarian takes</h3>
 <p style="font-size:27px;line-height:1.45;color:#4A4A46">Against cold outreach and cold calls, aimed at business owners, not students.</p>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FAF9F6;padding:40px;border:1px solid #E2DFD7;border-radius:24px;box-shadow:0 24px 60px rgba(20,20,18,0.08)">
-<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1;color:#8A6D14">15%</p>
+<p data-count="15%" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1;color:#8A6D14">15%</p>
 <h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:700;color:#141412">How it works</h3>
 <p style="font-size:27px;line-height:1.45;color:#4A4A46">Screen-recorded breakdowns that end in “comment AK” and feed the group.</p>
 </div>
@@ -284,13 +331,13 @@ html,body{height:100%;background:#0F0F0E;overflow:hidden;font-family:'DM Sans',A
 </div>
 <div style="display:flex;gap:40px;align-items:center">
 <div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#1C1C1B;border:1px solid #2E2D2A;border-radius:24px;padding:56px">
-<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:120px;font-weight:700;line-height:1;color:#F0EEE9">R15,000</p>
+<p data-count="R15,000" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:120px;font-weight:700;line-height:1;color:#F0EEE9">R15,000</p>
 <p style="font-size:26px;font-weight:600;letter-spacing:5px;color:#9A978F">A MONTH, THE FLOOR</p>
 <p style="font-size:30px;color:#BDBAB2">Covers strategy, writing, design and editing.</p>
 </div>
 <p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:96px;font-weight:700;color:#E6C446">+</p>
 <div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#E6C446;border-radius:24px;padding:56px;box-shadow:0 0 80px rgba(230,196,70,0.3)">
-<p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:120px;font-weight:700;line-height:1;color:#141412">10%</p>
+<p data-count="10%" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:120px;font-weight:700;line-height:1;color:#141412">10%</p>
 <p style="font-size:26px;font-weight:700;letter-spacing:5px;color:#3A3114">OF SOFTWARE REVENUE</p>
 <p style="font-size:30px;color:#141412">From customers who came through our content, for as long as they stay subscribed.</p>
 </div>
@@ -302,7 +349,31 @@ html,body{height:100%;background:#0F0F0E;overflow:hidden;font-family:'DM Sans',A
 </div>
 </section>
 
-<section class="slide" data-i="11" id="next" data-transition="fade" style="background:#F0EEE9;color:#141412;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between">
+<section class="slide" data-i="11" id="calc" style="background:radial-gradient(ellipse at 20% 100%, #2A2412 0%, #0F0F0E 60%);color:#F0EEE9;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between">
+<div style="display:flex;flex-direction:column;gap:24px">
+<p style="font-size:26px;font-weight:600;letter-spacing:6px;color:#E6C446;text-transform:uppercase">Try it</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:80px;font-weight:700;letter-spacing:-2px;color:#F0EEE9">See how the deal adds up</h2>
+</div>
+<div style="display:flex;gap:64px;align-items:stretch">
+<div class="calc-in" style="flex:1.2;display:flex;flex-direction:column;gap:44px;background:#1C1C1B;border:1px solid #2E2D2A;border-radius:24px;padding:56px">
+<label class="rng"><span>New subscribers a month from our content</span><b id="cv1">10</b><input id="c1" type="range" min="0" max="60" value="10"></label>
+<label class="rng"><span>Your monthly software price (R)</span><b id="cv2">R1,000</b><input id="c2" type="range" min="200" max="5000" step="100" value="1000"></label>
+<label class="rng"><span>Months a subscriber stays</span><b id="cv3">6</b><input id="c3" type="range" min="1" max="24" value="6"></label>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:24px">
+<div class="card" style="background:#E6C446;color:#141412;border-radius:24px;padding:48px;display:flex;flex-direction:column;gap:8px;box-shadow:0 0 80px rgba(230,196,70,0.3)">
+<p style="font-size:24px;font-weight:700;letter-spacing:5px;color:#3A3114">NEW REVENUE FOR YOU, PER MONTH (MONTH 6)</p>
+<p id="cRev" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:96px;font-weight:700;line-height:1">R60,000</p>
+</div>
+<div class="card" style="background:#1C1C1B;border:1px solid #2E2D2A;border-radius:24px;padding:40px;display:flex;justify-content:space-between;gap:24px">
+<div><p style="font-size:24px;color:#9A978F">You keep</p><p id="cKeep" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:700;color:#F0EEE9">R54,000</p></div>
+<div><p style="font-size:24px;color:#9A978F">Odyssey earns</p><p id="cOdy" style="font-family:'Space Grotesk', Arial, sans-serif;font-size:56px;font-weight:700;color:#E6C446">R21,000</p></div>
+</div>
+</div>
+</div>
+<p style="font-size:26px;color:#9A978F">An illustration, not a forecast. Move the sliders to your own numbers. Odyssey earns the R15,000 floor plus 10% of organic software revenue.</p>
+</section>
+<section class="slide" data-i="12" id="next" data-transition="fade" style="background:#F0EEE9;color:#141412;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between">
 <div style="display:flex;flex-direction:column;gap:24px">
 <p style="font-size:26px;font-weight:600;letter-spacing:6px;color:#8A6D14;text-transform:uppercase">Next steps</p>
 <h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:96px;font-weight:700;letter-spacing:-3px;color:#141412">From yes to live <span style="color:#8A6D14">in a week</span></h2>
@@ -332,21 +403,57 @@ html,body{height:100%;background:#0F0F0E;overflow:hidden;font-family:'DM Sans',A
 </section>
 
 </div>
+<div id="over"><h4>ALL SLIDES</h4><div id="grid"></div></div>
 <div id="ui">
-<a id="credit" href="https://www.verdancesystemsai.com" target="_blank" rel="noopener"><span>Deck built by </span><b>Verdance Systems AI</b></a>
-<span id="count"></span>
-<div class="nav"><button id="prev" aria-label="Previous slide">←</button><button id="next" aria-label="Next slide">→</button><button id="fs" aria-label="Full screen">⤢</button></div>
+<a id="credit" class="pill" href="https://www.verdancesystemsai.com" target="_blank" rel="noopener"><span>Deck built by </span><b>Verdance Systems AI</b></a>
+<div id="dots" class="pill"></div>
+<div class="nav"><button class="pill" id="ov" aria-label="Overview">▦</button><button class="pill" id="prev" aria-label="Previous slide">←</button><button class="pill" id="next" aria-label="Next slide">→</button><button class="pill" id="fs" aria-label="Full screen">⤢</button></div>
 </div>
 <script>
-const S=[...document.querySelectorAll('.slide')],st=document.getElementById('stage');let i=0;
-function fit(){const k=Math.min(innerWidth/1920,innerHeight/1080);st.style.transform='translate(-50%,-50%) scale('+k+')'}
-function go(n){i=Math.max(0,Math.min(S.length-1,n));S.forEach((s,j)=>s.classList.toggle('on',j===i));document.getElementById('count').textContent=(i+1)+' / '+S.length;document.getElementById('bar').style.width=((i+1)/S.length*100)+'%';history.replaceState(null,'','#'+(i+1))}
-addEventListener('resize',fit);fit();
-addEventListener('keydown',e=>{if(['ArrowRight',' ','PageDown','Enter'].includes(e.key)){e.preventDefault();go(i+1)}if(['ArrowLeft','PageUp'].includes(e.key))go(i-1)});
-document.getElementById('prev').onclick=()=>go(i-1);document.getElementById('next').onclick=()=>go(i+1);
-document.getElementById('fs').onclick=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(e){}};
-st.addEventListener('click',e=>{const r=innerWidth;e.clientX<r*0.3?go(i-1):go(i+1)});
-let tx=null;addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40)go(dx<0?i+1:i-1);tx=null});
-const h=parseInt(location.hash.slice(1));go(isNaN(h)?0:h-1);
+const T=["Cover", "What you told us", "What works", "Your pages", "The plan", "Carousels", "Proof", "Your version", "Pillars", "The deal", "Pricing", "Try it", "Next steps"];
+const S=[...document.querySelectorAll('#stage>.slide')],st=document.getElementById('stage');let i=-1,busy=false;
+const DARK=S.map(s=>/#0F0F0E|#E6C446;color:#141412|radial/.test(s.getAttribute('style')||'')&&!/background:#E6C446/.test(s.getAttribute('style')||''));
+// mark animatable blocks: direct children, plus children of card rows
+S.forEach(s=>{let n=0;[...s.children].forEach(c=>{if(c.tagName==='P'&&c.style.position==='absolute'){c.classList.add('a');c.style.setProperty('--d',n++);return}
+ const kids=[...c.children];const row=c.tagName==='DIV'&&kids.length>1&&getComputedStyle(c).flexDirection!=='column'&&kids.every(k=>k.tagName!=='SPAN');
+ if(row&&c.tagName==='DIV'){kids.forEach(k=>{k.classList.add('a');k.style.setProperty('--d',n++)})}else{c.classList.add('a');c.style.setProperty('--d',n++)}});
+ s.querySelectorAll('div[style*="border-radius:24px"],div[style*="border-radius:18px"],p[style*="border-radius:18px"]').forEach(c=>c.classList.add('card'));
+ s.querySelectorAll('[style*="background:#E6C446"]').forEach(c=>{if(c!==s&&/box-shadow/.test(c.getAttribute('style')))c.classList.add('glow')});});
+// hook flips on "your version"
+const vs=document.getElementById('version');if(vs){vs.querySelectorAll(':scope>div:nth-of-type(2)>div').forEach(h=>h.classList.add('hook'))}
+function fit(){const k=Math.min(innerWidth/1920,innerHeight/1080);st.style.transform='translate(-50%,-50%) scale('+k+')';sizeThumbs()}
+function fmt(v,tpl){let pre=tpl.match(/^[~R]*/)[0],suf=tpl.match(/[K×%]$/)?tpl.slice(-1):'',dec=(tpl.match(/\.(\d+)/)||[,''])[1].length,body=v.toFixed(dec);if(tpl.includes(','))body=Number(body).toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec});return pre+body+suf}
+function count(s){s.querySelectorAll('[data-count]').forEach(el=>{const tpl=el.dataset.count,t=parseFloat(tpl.replace(/[^\d.]/g,''));if(isNaN(t))return;const t0=performance.now(),dur=1600;el.textContent=fmt(0,tpl);const iv=setInterval(()=>{const p=Math.min(1,(performance.now()-t0)/dur),e=1-Math.pow(1-p,4);el.textContent=fmt(t*e,tpl);if(p>=1){clearInterval(iv);el.textContent=tpl}},30);setTimeout(()=>{clearInterval(iv);el.textContent=tpl},dur+400)})}
+function go(n,dir){n=Math.max(0,Math.min(S.length-1,n));if(n===i)return;const back=n<i;S.forEach((s,j)=>{s.classList.toggle('back',back&&j!==n);if(j!==n)s.classList.remove('on')});
+ const s=S[n];S.forEach(x=>x.classList.remove('done'));s.classList.remove('back');void s.offsetWidth;s.classList.add('on');i=n;count(s);clearTimeout(window.__dt);window.__dt=setTimeout(()=>s.classList.add('done'),2600);document.getElementById('credit').style.visibility=(i===0||i===S.length-1)?'visible':'hidden';
+ document.body.classList.toggle('dark',DARK[n]);document.getElementById('bar').style.width=((i+1)/S.length*100)+'%';
+ [...document.querySelectorAll('#dots i')].forEach((d,j)=>d.classList.toggle('on',j===i));history.replaceState(null,'','#'+(i+1));if(s.id==='calc')calc()}
+// dots + overview
+const dots=document.getElementById('dots');S.forEach((s,j)=>{const d=document.createElement('i');d.title=T[j];d.onclick=e=>{e.stopPropagation();go(j)};dots.appendChild(d)});
+const grid=document.getElementById('grid');S.forEach((s,j)=>{const t=document.createElement('div');t.className='th';t.innerHTML='<div class="box"></div><p>'+(j+1)+'. '+T[j]+'</p>';const c=s.cloneNode(true);c.classList.remove('slide','on','back');c.removeAttribute('id');c.querySelectorAll('[id]').forEach(x=>x.removeAttribute('id'));c.querySelectorAll('.a').forEach(x=>{x.classList.remove('a')});c.style.width='1920px';c.style.height='1080px';t.querySelector('.box').appendChild(c);t.onclick=()=>{over(false);go(j)};grid.appendChild(t)});
+function sizeThumbs(){document.querySelectorAll('.th .box').forEach(b=>{const c=b.firstChild;if(c&&b.clientWidth)c.style.transform='scale('+(b.clientWidth/1920)+')'})}
+function over(on){document.getElementById('over').classList.toggle('on',on);if(on)sizeThumbs()}
+document.getElementById('ov').onclick=e=>{e.stopPropagation();over(!document.getElementById('over').classList.contains('on'))};
+addEventListener('resize',fit);
+addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;if(e.key==='o'||e.key==='O'||e.key==='Escape'){over(e.key!=='Escape'&&!document.getElementById('over').classList.contains('on'));return}
+ if(['ArrowRight',' ','PageDown','Enter'].includes(e.key)){e.preventDefault();go(i+1)}if(['ArrowLeft','PageUp'].includes(e.key))go(i-1);if(e.key==='Home')go(0);if(e.key==='End')go(S.length-1)});
+document.getElementById('prev').onclick=e=>{e.stopPropagation();go(i-1)};document.getElementById('next').onclick=e=>{e.stopPropagation();go(i+1)};
+document.getElementById('fs').onclick=e=>{e.stopPropagation();try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(_){}};
+st.addEventListener('click',e=>{if(e.target.closest('input,label,a,button,.calc-in'))return;e.clientX<innerWidth*0.28?go(i-1):go(i+1)});
+let tx=null,ty=null;addEventListener('touchstart',e=>{if(e.target.closest('input'))return;tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy))go(dx<0?i+1:i-1);tx=null});
+// spotlight + card tilt
+const spot=document.getElementById('spot');addEventListener('pointermove',e=>{spot.style.left=e.clientX+'px';spot.style.top=e.clientY+'px';
+ const c=e.target.closest&&e.target.closest('.card');document.querySelectorAll('.card.tilt').forEach(x=>{if(x!==c){x.classList.remove('tilt');x.style.transform=''}});
+ if(c&&matchMedia('(hover:hover)').matches){const r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;c.classList.add('tilt');c.style.transform='rotateY('+(px*7)+'deg) rotateX('+(-py*7)+'deg) translateY(-6px)'}});
+// calculator
+const R=n=>'R'+Math.round(n).toLocaleString('en-US');
+function calc(){const a=+c1.value,p=+c2.value,m=+c3.value;cv1.textContent=a;cv2.textContent=R(p);cv3.textContent=m;
+ const active=a*Math.min(6,m),rev=active*p;cRev.textContent=R(rev);cKeep.textContent=R(rev*0.9);cOdy.textContent=R(15000+rev*0.1);
+ [c1,c2,c3].forEach(x=>x.style.setProperty('--p',((x.value-x.min)/(x.max-x.min)*100)+'%'))}
+const c1=document.getElementById('c1'),c2=document.getElementById('c2'),c3=document.getElementById('c3'),cv1=document.getElementById('cv1'),cv2=document.getElementById('cv2'),cv3=document.getElementById('cv3'),cRev=document.getElementById('cRev'),cKeep=document.getElementById('cKeep'),cOdy=document.getElementById('cOdy');
+[c1,c2,c3].forEach(x=>x&&x.addEventListener('input',calc));
+setTimeout(()=>{const h=document.getElementById('hint');if(h)h.style.opacity=0},5000);
+fit();const h=parseInt(location.hash.slice(1));go(isNaN(h)?0:h-1);
 </script>
 </body></html>
