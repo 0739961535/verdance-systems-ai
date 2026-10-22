@@ -1,5 +1,6 @@
 "use client";
 
+import { WhyNowDuet } from "@/components/kit/WhyNowDuet";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 
@@ -38,6 +39,9 @@ export function LazySections() {
         <>
           {/* the four jobs above already cover one agent per job: no levels here */}
           <OpsTeamShowcase depth={false} />
+          <div className="container-wide pb-16 md:pb-24">
+            <WhyNowDuet />
+          </div>
           <HowItConnects />
         </>
       ) : null}
