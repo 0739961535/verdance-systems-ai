@@ -97,7 +97,7 @@ export const PROCESS: ProcessStep[] = [
       },
     ],
     deliverable:
-      "A document with the full scope, a fixed build fee, a fixed monthly, the return on investment worked out from your own numbers, and a launch date. Sign it or do not, but nothing is ambiguous.",
+      "A document with the full scope, a fixed build fee, a fixed monthly, the return on investment worked out from your own numbers, and every step of the build laid out so you can follow it. Sign it or do not, but nothing is ambiguous.",
     fromYou: [
       "An hour to read it properly",
       "Any correction to the numbers you gave us",
@@ -113,7 +113,7 @@ export const PROCESS: ProcessStep[] = [
     n: "03",
     name: "Build",
     desc: "We build it, then test it against that plan line by line.",
-    meta: "Weeks 2-3 · you get: something you can try before it goes live",
+    meta: "you get: something you can try before it goes live",
     promise: "Built, then tested against the plan line by line.",
     duration: "Tracked stage by stage, so you see the progress",
     beats: [
@@ -180,14 +180,14 @@ export const PROCESS: ProcessStep[] = [
     slug: "launch",
     n: "05",
     name: "Launch",
-    desc: "It goes live on the date written into your contract, and we train your team to use it.",
-    meta: "you get: a launch date in the contract",
-    promise: "Live on the date in your contract, with your team trained.",
-    duration: "One day, on a date agreed weeks earlier",
+    desc: "It goes live once it passes your own tests, and we train your team to use it.",
+    meta: "you get: every step tracked, as it happens",
+    promise: "Live once you have tested it, with your team trained.",
+    duration: "One day, once every test has passed",
     beats: [
       {
-        title: "It goes live on the agreed date",
-        body: "The date is in the contract, not in an email. We build towards it in stages so it is never in doubt in the last week.",
+        title: "It goes live when it is ready",
+        body: "Every build is different, so we do not promise a date we cannot stand behind. We build in stages, every step is tracked, and you see each one as it is done, so you always know where it stands.",
       },
       {
         title: "Your team gets trained",

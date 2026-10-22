@@ -30,7 +30,7 @@ const QUESTIONS: QA[] = [
   },
   {
     q: "You're a young company. Why trust you?",
-    a: "Judge us on the work. You test it yourself before a real customer sees it, and the launch date goes in your contract.",
+    a: "Judge us on the work. You test it yourself before a real customer sees it, and you see every step of the build as it happens.",
   },
   {
     q: "Do we have to change our software? What about POPIA?",
