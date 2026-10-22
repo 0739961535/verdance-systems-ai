@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inbound Coaching Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070b16;--bg2:#0c1222;--card:#111a2e;--card2:#16213a;--line:rgba(148,170,220,.14);
+  --ink:#eef2fb;--mute:#9aa8c7;--dim:#6b7899;--blue:#4f8dff;--blue2:#8fb3ff;--deep:#2554d4;
+  --ok:#3ecf8e;--warn:#e9b44c;--radius:18px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:-20% -10% auto auto;width:70vw;height:70vw;max-width:900px;max-height:900px;background:radial-gradient(circle,rgba(79,141,255,.16),rgba(79,141,255,0) 62%);pointer-events:none;z-index:0}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:20;background:rgba(7,11,22,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0 10px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600}
+.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--deep));display:grid;place-items:center;font-size:13px;font-weight:700}
+.brand small{display:block;font-weight:400;color:var(--mute);font-size:12px}
+.badge{font-size:12px;color:#f3d18c;border:1px solid rgba(233,180,76,.45);background:rgba(233,180,76,.08);padding:6px 12px;border-radius:999px;white-space:nowrap}
+.steps{display:flex;gap:6px;overflow-x:auto;padding:0 0 12px;scrollbar-width:none}
+.steps::-webkit-scrollbar{display:none}
+.steps button{flex:0 0 auto;padding:8px 14px;border-radius:999px;border:1px solid var(--line);color:var(--mute);font-size:13px;font-weight:500;transition:.2s}
+.steps button span{opacity:.6;margin-right:6px}
+.steps button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.progress{height:2px;background:var(--line)}
+.progress i{display:block;height:100%;width:0;background:var(--blue);transition:width .4s}
+main{position:relative;z-index:1}
+section.step{display:none;padding:42px 0 120px;animation:in .45s ease both}
+section.step.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.kick{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue2);font-weight:600}
+h1,h2{font-weight:700;letter-spacing:-.025em;line-height:1.08;text-wrap:balance}
+h1{font-size:clamp(34px,5.4vw,60px);margin:12px 0 14px}
+h2{font-size:clamp(28px,4vw,44px);margin:10px 0 12px}
+h1 em,h2 em{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;color:var(--blue2);letter-spacing:0}
+.lead{color:var(--mute);font-size:17px;max-width:620px}
+.grid{display:grid;gap:18px}
+.card{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.q{display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start}
+.q .n{width:52px;height:52px;border-radius:14px;background:rgba(79,141,255,.12);border:1px solid rgba(79,141,255,.35);display:grid;place-items:center;font-family:"Instrument Serif",serif;font-size:28px;color:var(--blue2)}
+.q h3{font-size:19px;font-weight:600;line-height:1.35;margin-bottom:8px}
+.q p{color:var(--mute);font-size:14px}
+.q p b{color:var(--ink);font-weight:500}
+.two{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:start;margin-top:28px}
+.toggle{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;gap:4px;flex-wrap:wrap}
+.toggle button{padding:9px 16px;border-radius:999px;font-size:13px;font-weight:500;color:var(--mute)}
+.toggle button.on{background:var(--blue);color:#fff}
+.phone{width:min(340px,100%);margin:0 auto;border-radius:44px;padding:12px;background:#0a0f1c;border:1px solid rgba(255,255,255,.08);box-shadow:0 40px 80px -30px rgba(0,0,0,.8),0 0 0 6px #121a2c}
+.screen{border-radius:34px;overflow:hidden;background:#0e1527;min-height:560px;display:flex;flex-direction:column;position:relative}
+.sbar{display:flex;justify-content:space-between;padding:14px 22px 6px;font-size:12px;font-weight:600}
+.notch{width:110px;height:26px;background:#000;border-radius:20px;margin:0 auto -20px;position:relative;top:-28px}
+.chathead{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.chathead .logo{width:30px;height:30px;font-size:11px}
+.chathead b{font-size:14px}
+.chathead small{display:block;color:var(--mute);font-size:11px}
+.msgs{flex:1;padding:14px;display:flex;flex-direction:column;gap:9px;overflow:auto}
+.m{max-width:84%;padding:9px 12px;border-radius:16px;font-size:13.5px;line-height:1.45;animation:pop .3s ease both}
+.m.in{background:#1b2742;align-self:flex-start;border-bottom-left-radius:5px}
+.m.out{background:var(--blue);align-self:flex-end;border-bottom-right-radius:5px;color:#fff}
+.m .stop{display:block;font-size:10.5px;color:var(--dim);margin-top:4px}
+.m.sys{align-self:center;background:none;color:var(--dim);font-size:11.5px;text-align:center}
+@keyframes pop{from{opacity:0;transform:translateY(6px) scale(.98)}to{opacity:1;transform:none}}
+.call{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:30px 18px 18px;text-align:center;background:radial-gradient(circle at 50% 20%,rgba(79,141,255,.25),transparent 60%)}
+.call .av{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--deep));display:grid;place-items:center;font-weight:700;font-size:22px;margin:4px 0 12px}
+.call h4{font-size:20px;font-weight:600}
+.call small{color:var(--mute)}
+.wave{display:flex;gap:3px;align-items:center;height:34px;margin:14px 0 10px}
+.wave i{width:3px;border-radius:3px;background:var(--blue2);height:6px;transition:height .12s}
+.transcript{width:100%;text-align:left;display:flex;flex-direction:column;gap:7px;max-height:250px;overflow:auto;margin-top:4px}
+.transcript p{font-size:12.5px;line-height:1.45;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.04);animation:pop .3s ease both}
+.transcript p b{color:var(--blue2);font-weight:600}
+.transcript p.you b{color:#f3d18c}
+.callbtns{display:flex;gap:28px;margin-top:auto;padding-top:14px}
+.cb{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:600}
+.cb.g{background:#2fbf71}.cb.r{background:#e5484d}
+.side{display:flex;flex-direction:column;gap:14px}
+.stat{display:flex;align-items:baseline;gap:10px}
+.stat b{font-size:46px;font-weight:700;letter-spacing:-.03em}
+.stat span{color:var(--mute);font-size:13px}
+.rec{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13.5px}
+.rec dt{color:var(--mute)}
+.rec dd{font-weight:500;text-align:right}
+.chip{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:#9fe3c2;border:1px solid rgba(62,207,142,.35);background:rgba(62,207,142,.07);padding:7px 12px;border-radius:999px}
+details.legal{border:1px solid rgba(62,207,142,.3);border-radius:14px;padding:10px 14px;background:rgba(62,207,142,.05)}
+details.legal summary{cursor:pointer;color:#9fe3c2;font-size:13px;font-weight:600;list-style:none}
+details.legal summary::-webkit-details-marker{display:none}
+details.legal ul{margin:8px 0 2px 16px;color:var(--mute);font-size:13px;display:grid;gap:4px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;background:var(--blue);color:#fff;font-weight:600;font-size:14px}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.line{font-size:15px;color:var(--ink);padding:14px 18px;border-left:3px solid var(--blue);background:rgba(79,141,255,.06);border-radius:0 12px 12px 0}
+.journey{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:28px}
+.jstep{text-align:left;padding:16px;border-radius:16px;border:1px solid var(--line);background:var(--card);transition:.2s;min-width:0}
+.jstep .ix{font-size:11px;color:var(--blue2);letter-spacing:.14em;font-weight:600}
+.jstep h4{font-size:14.5px;margin-top:6px;font-weight:600;line-height:1.3}
+.jstep.on{border-color:var(--blue);background:linear-gradient(180deg,#152448,#0f1830);box-shadow:0 0 0 1px var(--blue) inset}
+.jdetail{margin-top:18px}
+.agents{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:26px}
+.agent{text-align:left;padding:16px;border-radius:16px;border:1px solid var(--line);background:var(--card);transition:.2s;position:relative}
+.agent:hover{border-color:rgba(79,141,255,.5)}
+.agent.on{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue) inset;background:linear-gradient(180deg,#152448,#0f1830)}
+.agent .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.agent .ic{width:34px;height:34px;border-radius:10px;background:rgba(79,141,255,.14);display:grid;place-items:center;font-size:16px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(62,207,142,.15)}
+.dot.w{background:var(--warn);box-shadow:0 0 0 4px rgba(233,180,76,.15)}
+.agent h4{font-size:15px;font-weight:600}
+.agent p{font-size:12.5px;color:var(--mute);margin-top:3px}
+.panel{margin-top:16px;display:grid;grid-template-columns:1.3fr .7fr;gap:16px}
+.feed{display:grid;gap:8px;margin-top:10px}
+.feed div{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.035);animation:pop .3s ease both}
+.feed div em{font-style:normal;color:var(--dim);font-size:12px;min-width:42px}
+.feed div.wait{border:1px solid rgba(233,180,76,.35)}
+.feed div.wait .ok{margin-left:auto;font-size:12px;color:#fff;background:var(--blue);padding:4px 10px;border-radius:999px}
+.mode{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:var(--mute);margin-top:10px}
+.sw{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px}
+.sw button{padding:6px 11px;border-radius:999px;font-size:12px;color:var(--mute)}
+.sw button.on{background:var(--card2);color:var(--ink)}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.kpi{padding:12px;border-radius:12px;background:rgba(255,255,255,.035)}
+.kpi b{font-size:22px;display:block;letter-spacing:-.02em}
+.kpi span{font-size:11.5px;color:var(--mute)}
+.tag{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#f3d18c;border:1px solid rgba(233,180,76,.4);padding:3px 8px;border-radius:999px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:26px}
+.tile{padding:18px;border-radius:16px;border:1px solid var(--line);background:var(--card)}
+.tile .ic{font-size:20px}
+.tile h4{font-size:15.5px;font-weight:600;margin:8px 0 4px}
+.tile p{font-size:13px;color:var(--mute)}
+.close{min-height:62vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:22px}
+.close blockquote{font-family:"Instrument Serif",Georgia,serif;font-size:clamp(32px,4.6vw,56px);line-height:1.12;max-width:900px;letter-spacing:-.01em}
+.close blockquote em{color:var(--blue2)}
+.foot{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(7,11,22,.9);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.frow{display:flex;justify-content:space-between;align-items:center;padding:12px 0;gap:10px}
+.frow small{color:var(--dim);font-size:12px;text-align:center}
+.frow .btn{padding:10px 18px}
+.ig{display:flex;flex-direction:column;background:#000;font-size:12.5px}
+.ighead{display:flex;align-items:center;gap:9px;padding:8px 12px}
+.igav{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#f9ce34,#ee2a7b,#6228d7);display:grid;place-items:center;font-size:10px;font-weight:700;padding:2px;box-shadow:inset 0 0 0 2px #000}
+.ighead b{font-size:12.5px}.ighead small{display:block;color:#8e8e8e;font-size:10.5px}
+.igdots{margin-left:auto;color:#ddd}
+.igimg{aspect-ratio:1/1;background:radial-gradient(circle at 30% 20%,#2a3f75,#0b1430 70%);display:flex;flex-direction:column;justify-content:center;padding:22px;gap:14px}
+.igimg div{font-size:19px;font-weight:700;line-height:1.25;letter-spacing:-.01em}
+.igimg em{font-family:"Instrument Serif",serif;font-weight:400;color:var(--blue2);font-size:22px}
+.igimg small{font-size:11px;color:#cfd8ef;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:5px 10px;align-self:flex-start}
+.igact{display:flex;gap:14px;padding:9px 12px 4px;font-size:18px}.igact .r{margin-left:auto}
+.igtxt{padding:0 12px 10px;display:grid;gap:4px}
+.igtxt p{line-height:1.4}.igc p{color:#ddd}
+.igview{color:#8e8e8e;font-size:11px}
+@media (max-width:900px){
+  .two,.panel{grid-template-columns:1fr}
+  .journey{grid-template-columns:1fr 1fr}
+  .badge{display:none}
+}
+@media (max-width:520px){
+  .journey{grid-template-columns:1fr}
+  section.step{padding-top:28px}
+  .q{grid-template-columns:40px 1fr}.q .n{width:40px;height:40px;font-size:22px}
+  .frow small{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="hrow">
+      <div class="brand"><div class="logo">SM</div><div>Shift Method<small>An AI system for a low-ticket to high-ticket coaching funnel</small></div></div>
+      <div class="badge">Demo: fictional brand, sample data</div>
+    </div>
+    <nav class="steps" id="steps"></nav>
+  </div>
+  <div class="progress"><i id="bar"></i></div>
+</header>
+
+<main class="wrap">
+
+<!-- 0 QUESTIONS -->
+<section class="step" data-title="Three questions">
+  <div class="kick">Before the demo</div>
+  <h1>Three questions <em>first.</em></h1>
+  <p class="lead">Every coaching business leaks money in a different place. These three answers decide what's worth building.</p>
+  <div class="grid" style="margin-top:28px">
+    <div class="card q"><div class="n">1</div><div>
+      <h3>When someone buys your low-ticket offer or comments on a post, what happens in the first hour?</h3>
+      <p><b>Why it matters:</b> the first hour is when interest is highest. Who replies, how fast, and on which channel decides how many ever book a call.</p>
+    </div></div>
+    <div class="card q"><div class="n">2</div><div>
+      <h3>Of the people who buy the entry offer or join the community, how many end up on a strategy call, and where do most drop off?</h3>
+      <p><b>Why it matters:</b> the money sits between the small offer and the big one. Knowing the drop-off point shows exactly where a system pays for itself.</p>
+    </div></div>
+    <div class="card q"><div class="n">3</div><div>
+      <h3>If you could hand one part of your week to a system tomorrow, what would it be?</h3>
+      <p><b>Why it matters:</b> start where it gives back the most time or money, then build out from there.</p>
+    </div></div>
+  </div>
+</section>
+
+<!-- 1 SPEED TO LEAD -->
+<section class="step" data-title="Speed to lead">
+  <div class="kick">01 · Speed to lead</div>
+  <h2>Answered in under 60 seconds, <em>not one business day.</em></h2>
+  <p class="lead">A post goes out and the comments roll in. The AI sends the free resource by DM and asks for a number. Then you choose how the first touch happens: a call, a text, or both.</p>
+  <div style="margin-top:22px" class="toggle" id="sltoggle">
+    <button class="on" data-mode="call">AI phone call</button>
+    <button data-mode="text">AI text</button>
+    <button data-mode="miss">Call not answered</button>
+  </div>
+  <div class="two">
+    <div class="phone"><div class="screen" id="slscreen"></div></div>
+    <div class="side">
+      <div class="card">
+        <div class="kick" style="font-size:11px">Opt-in to first contact</div>
+        <div class="stat"><b id="sltimer">0s</b><span>sample, from form to first contact</span></div>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center"><div class="kick" style="font-size:11px">Lead record</div><span class="tag">Sample</span></div>
+        <dl class="rec" id="slrec" style="margin-top:12px">
+          <dt>Goal</dt><dd>–</dd><dt>Current income</dt><dd>–</dd><dt>Timeline</dt><dd>–</dd><dt>Fit</dt><dd>–</dd><dt>Call</dt><dd>–</dd>
+        </dl>
+      </div>
+      <button class="btn" id="slplay">Play the demo</button>
+      <details class="legal"><summary>How it stays legal (UK)</summary><ul>
+        <li>We only call or text people who ticked a separate consent box for it.</li>
+        <li>Every text names the business and says how to stop. Every call says it's an assistant.</li>
+        <li>No contact before 08:00 or after 20:00 in the lead's time zone.</li>
+        <li>A person can take over any conversation at any moment.</li>
+      </ul></details>
+    </div>
+  </div>
+</section>
+
+<!-- 2 OFFER JOURNEY -->
+<section class="step" data-title="Small offer to big offer">
+  <div class="kick">02 · From the small offer to the big one</div>
+  <h2>The journey runs itself, <em>at the right moment.</em></h2>
+  <p class="lead">Someone buys the entry offer. From there, each step is timed to what they actually do. Tap a step to see the message.</p>
+  <div class="journey" id="journey"></div>
+  <div class="two jdetail" style="margin-top:20px">
+    <div class="phone"><div class="screen"><div class="sbar"><span>09:41</span><span>5G</span></div>
+      <div class="chathead"><div class="logo">SM</div><div><b>Shift Method</b><small>Text message</small></div></div>
+      <div class="msgs" id="jmsgs"></div></div></div>
+    <div class="side">
+      <div class="card"><div class="kick" style="font-size:11px">What triggers it</div><p id="jwhy" style="margin-top:8px;color:var(--mute)"></p></div>
+      <div class="card"><div class="kick" style="font-size:11px">What it changes</div><p id="jwin" style="margin-top:8px"></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 OPERATIONS TEAM -->
+<section class="step" data-title="Operations Team">
+  <div class="kick">03 · The Operations Team</div>
+  <h2>An AI team that runs the busy work, <em>you approve what matters.</em></h2>
+  <p class="lead">Each agent owns one job. Tap one to see what it did today. You choose: approve everything, or let routine work go out on its own.</p>
+  <div class="agents" id="agents"></div>
+  <div class="panel">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><div><div class="kick" style="font-size:11px" id="agKick">Inbox agent</div><h3 id="agName" style="font-size:20px;margin-top:4px">Today</h3></div><span class="tag">Sample</span></div>
+      <div class="feed" id="agFeed"></div>
+      <div class="mode"><span>Approval mode</span><div class="sw" id="modeSw"><button class="on" data-m="approve">Approve everything</button><button data-m="auto">Auto</button></div></div>
+    </div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center"><div class="kick" style="font-size:11px">This week</div><span class="tag">Sample</span></div>
+      <div class="kpis">
+        <div class="kpi"><b>412</b><span>conversations handled</span></div>
+        <div class="kpi"><b>&lt;60s</b><span>first reply</span></div>
+        <div class="kpi"><b>38</b><span>strategy calls booked</span></div>
+        <div class="kpi"><b>81%</b><span>show-up rate</span></div>
+        <div class="kpi"><b>9</b><span>failed payments recovered</span></div>
+        <div class="kpi"><b>6</b><span>waiting for you</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 WHAT ELSE -->
+<section class="step" data-title="What else">
+  <div class="kick">04 · What we could build later</div>
+  <h2>Once the basics run, <em>this is the next layer.</em></h2>
+  <div class="tiles">
+    <div class="tile"><div class="ic">🎧</div><h4>Sales call reviewer</h4><p>Every call scored against your script, with coaching notes for the closer the same day.</p></div>
+    <div class="tile"><div class="ic">⚠️</div><h4>Refund risk warning</h4><p>Spots clients going quiet in the programme and flags them before they ask for a refund.</p></div>
+    <div class="tile"><div class="ic">💬</div><h4>Honest feedback collector</h4><p>Asks every client the same way at the right milestone, and turns the best answers into case studies with their OK.</p></div>
+    <div class="tile"><div class="ic">🤝</div><h4>Referral flow</h4><p>After a visible win, a simple way for clients to introduce a friend, tracked end to end.</p></div>
+    <div class="tile"><div class="ic">📡</div><h4>Webinar and launch engine</h4><p>Sign-ups, reminders, replays and the follow-up offer, all timed and tracked.</p></div>
+    <div class="tile"><div class="ic">✍️</div><h4>Content engine</h4><p>One post that works becomes clips, carousels and emails in your voice, ready to approve.</p></div>
+    <div class="tile"><div class="ic">📊</div><h4>Owner's morning brief</h4><p>Revenue, calls, show-ups and anything stuck, on WhatsApp at 07:00.</p></div>
+    <div class="tile"><div class="ic">🇺🇸</div><h4>US texting, done right</h4><p>For outbound to US prospects: carrier registration and TCPA rules set up properly from day one.</p></div>
+  </div>
+</section>
+
+<!-- 5 CLOSE -->
+<section class="step" data-title="Close">
+  <div class="close">
+    <div class="kick">Where this goes</div>
+    <blockquote>There's so much we can do with AI these days that <em>genuinely anything is possible.</em></blockquote>
+    <p class="lead" style="text-align:center">Want the deep dive? There's a 22-page technical playbook on UK texting: the rules, the strategy and the exact messages.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+      <a class="btn" href="https://www.verdancesystemsai.com/book" target="_blank" rel="noopener">Book a call</a>
+      <a class="btn ghost" href="https://www.verdancesystemsai.com" target="_blank" rel="noopener">Built by Verdance Systems AI</a>
+    </div>
+    <p style="color:var(--dim);font-size:12.5px">Demo only. A fictional brand and sample data. Nothing here sends a real message.</p>
+  </div>
+</section>
+
+</main>
+
+<div class="foot"><div class="wrap frow">
+  <button class="btn ghost" id="prev">← Back</button>
+  <small id="where"></small>
+  <button class="btn" id="next">Next →</button>
+</div></div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const steps=$$('section.step'); let cur=0;
+const nav=$('#steps');
+steps.forEach((s,i)=>{const b=document.createElement('button');b.innerHTML=`<span>${i}</span>${s.dataset.title}`;b.onclick=()=>go(i);nav.appendChild(b)});
+function go(i){cur=Math.max(0,Math.min(steps.length-1,i));steps.forEach((s,j)=>s.classList.toggle('on',j===cur));
+  $$('#steps button').forEach((b,j)=>b.classList.toggle('on',j===cur));
+  $('#bar').style.width=((cur)/(steps.length-1)*100)+'%';
+  $('#where').textContent=`${cur} of ${steps.length-1} · ${steps[cur].dataset.title}`;
+  $('#prev').style.visibility=cur?'visible':'hidden';$('#next').style.visibility=cur<steps.length-1?'visible':'hidden';
+  nav.children[cur].scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
+  history.replaceState(null,'','#s'+cur);window.scrollTo({top:0,behavior:'smooth'});
+  if(cur===1)resetSL();}
+$('#prev').onclick=()=>go(cur-1);$('#next').onclick=()=>go(cur+1);
+addEventListener('keydown',e=>{if(e.target.closest('input,textarea'))return;if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1)});
+
+/* ---------- speed to lead ---------- */
+let mode='call',timers=[];
+const clear=()=>{timers.forEach(clearTimeout);timers=[];clearInterval(waveT)};
+const later=(ms,f)=>timers.push(setTimeout(f,ms));
+let waveT;
+const rec={goal:'Leave the corporate job, coach full time',inc:'£3k to £5k a month',time:'Next 90 days',fit:'Strong fit',call:'Thu 14:00 strategy call'};
+function setRec(k){const map=['goal','inc','time','fit','call'];const dd=$$('#slrec dd');map.forEach((m,i)=>{if(k.includes(m))dd[i].textContent=rec[m]})}
+function resetSL(){clear();$$('#slrec dd').forEach(d=>d.textContent='–');$('#sltimer').textContent='0s';
+  const sc=$('#slscreen');
+  sc.innerHTML=igPost();}
+function igPost(){return `<div class="sbar"><span>14:01</span><span>5G</span></div>
+   <div class="ig">
+    <div class="ighead"><div class="igav">SM</div><div><b>shiftmethod</b><small>Original post</small></div><span class="igdots">···</span></div>
+    <div class="igimg"><div>Most people don't need more discipline.<br><em>They need a new identity.</em></div><small>Comment SHIFT for the 3-step reset</small></div>
+    <div class="igact"><span>♡</span><span>💬</span><span>➤</span><span class="r">⌑</span></div>
+    <div class="igtxt"><b>2,184 likes</b><p><b>shiftmethod</b> The reset I wish I'd had 3 years ago. Comment SHIFT and I'll send it to you.</p>
+     <div class="igc" id="igc"><p><b>sam.builds</b> SHIFT</p><p><b>jo.wellness</b> SHIFT 🙌</p><p><b>mike_coaches</b> SHIFT please</p></div>
+     <small class="igview">View all 318 comments</small></div>
+   </div>
+   <div class="m sys" style="margin:auto 0 14px">Press "Play the demo" to see what happens next</div>`}
+$$('#sltoggle button').forEach(b=>b.onclick=()=>{$$('#sltoggle button').forEach(x=>x.classList.remove('on'));b.classList.add('on');mode=b.dataset.mode;resetSL()});
+function countTo(n){let t=0;const iv=setInterval(()=>{t++;$('#sltimer').textContent=t+'s';if(t>=n)clearInterval(iv)},70);timers.push(setTimeout(()=>clearInterval(iv),9000))}
+function dmIntro(sc,cb){
+  sc.innerHTML=igPost();sc.querySelector('.m.sys').remove();
+  later(500,()=>{const p=document.createElement('p');p.innerHTML='<b>sam.morgan</b> SHIFT';p.style.cssText='background:rgba(79,141,255,.18);border-radius:8px;padding:3px 6px;animation:pop .3s ease both';$('#igc').appendChild(p)});
+  later(1700,()=>dmStart(sc,cb));}
+function dmStart(sc,cb){
+  sc.innerHTML=`<div class="sbar"><span>14:02</span><span>5G</span></div>
+   <div class="chathead"><div class="logo">SM</div><div><b>Shift Method</b><small>Instagram DM · AI assistant</small></div></div><div class="msgs" id="dm"></div>`;
+  const dm=$('#dm');const add=(c,h)=>{const d=document.createElement('div');d.className='m '+c;d.innerHTML=h;dm.appendChild(d);dm.scrollTop=1e4};
+  later(200,()=>add('in','Hey Sam, saw your comment. Here\'s your 3-step reset: shiftmethod.example/reset'));
+  later(1000,()=>add('in','Want a quick call to see where you\'re at? Pop your number in and tick the box.'));
+  later(1700,()=>add('out','Yes please. 07700 900123'));
+  later(2300,()=>add('sys','☑ Yes, Shift Method can call or text me about coaching. Reply STOP any time.'));
+  later(3200,cb);}
+function callFlow(){const sc=$('#slscreen');dmIntro(sc,()=>{countTo(41);
+  later(1200,()=>{sc.innerHTML=`<div class="call"><small>Incoming call</small><div class="av">SM</div><h4>Shift Method</h4><small>Assistant calling about your reset</small>
+   <div class="wave" id="wave">${'<i></i>'.repeat(28)}</div><div class="transcript" id="tr"></div>
+   <div class="callbtns"><div class="cb r">End</div><div class="cb g">Live</div></div></div>`;
+   const bars=$$('#wave i');waveT=setInterval(()=>bars.forEach(b=>b.style.height=(6+Math.random()*26)+'px'),120);
+   const tr=$('#tr');const say=(who,t,you)=>{const p=document.createElement('p');if(you)p.className='you';p.innerHTML=`<b>${who}</b> ${t}`;tr.appendChild(p);tr.scrollTop=1e4};
+   const lines=[['Assistant','Hi Sam, it\'s the Shift Method assistant. You just grabbed the 3-step reset. Got two minutes?'],['Sam','Yeah, go for it.',1],
+    ['Assistant','What would you love to change in the next few months?'],['Sam','Honestly, leave my job and coach full time.',1,'goal'],
+    ['Assistant','And roughly where is your coaching income today?'],['Sam','About three to five k a month.',1,'inc'],
+    ['Assistant','When do you want to make the move?'],['Sam','Within the next 90 days.',1,'time'],
+    ['Assistant','You\'re a great fit for a strategy call. Thursday at 14:00 or Friday at 10:00?'],['Sam','Thursday works.',1,'fit'],
+    ['Assistant','Booked. You\'ll get a text with the details now. Speak soon.','', 'call']];
+   lines.forEach((l,i)=>later(500+i*1050,()=>{say(l[0],l[1],l[2]);if(l[3])setRec(l.slice(3).join(','));if(l[3]==='fit')setRec('fit');if(i===lines.length-1){clearInterval(waveT);setRec('call,fit')}}));
+  });});}
+function textFlow(){const sc=$('#slscreen');dmIntro(sc,()=>{countTo(27);
+  later(2200,()=>{sc.innerHTML=`<div class="sbar"><span>14:02</span><span>5G</span></div><div class="chathead"><div class="logo">SM</div><div><b>Shift Method</b><small>Text message · AI assistant</small></div></div><div class="msgs" id="tx"></div>`;
+   const tx=$('#tx');const add=(c,h,stop)=>{const d=document.createElement('div');d.className='m '+c;d.innerHTML=h+(stop?'<span class="stop">Shift Method. Reply STOP to opt out</span>':'');tx.appendChild(d);tx.scrollTop=1e4};
+   const seq=[['in','Hi Sam, it\'s the Shift Method assistant. Thanks for grabbing the reset. Quick one: what would you love to change in the next few months?',1],['out','Leave my job and coach full time','','goal'],
+    ['in','Love that. Where\'s your coaching income today, roughly?'],['out','3 to 5k a month','','inc'],['in','And when do you want to make the move?'],['out','Next 90 days','','time'],
+    ['in','You\'re a great fit for a free strategy call. Thu 14:00 or Fri 10:00?'],['out','Thu 14:00','','fit'],['in','Booked for Thursday at 14:00. I\'ll send a reminder the day before.',1,'call']];
+   seq.forEach((s,i)=>later(500+i*1100,()=>{add(s[0],s[1],s[2]);if(s[3])setRec(s[3]);if(s[3]==='fit')setRec('fit')}));});});}
+function missFlow(){const sc=$('#slscreen');dmIntro(sc,()=>{countTo(38);
+  later(2400,()=>{sc.innerHTML=`<div class="sbar"><span>14:03</span><span>5G</span></div><div class="chathead"><div class="logo">SM</div><div><b>Shift Method</b><small>Text message · AI assistant</small></div></div><div class="msgs" id="tx"></div>`;
+   const tx=$('#tx');const add=(c,h,stop)=>{const d=document.createElement('div');d.className='m '+c;d.innerHTML=h+(stop?'<span class="stop">Shift Method. Reply STOP to opt out</span>':'');tx.appendChild(d);tx.scrollTop=1e4};
+   const seq=[['sys','Missed call · Shift Method assistant'],['in','Hi Sam, I just tried calling about your reset. No stress, we can do it here. What would you love to change in the next few months?',1],
+    ['out','Coach full time instead of my job','','goal'],['in','Where\'s your coaching income today, roughly?'],['out','About 3 to 5k','','inc'],['in','When do you want to make the move?'],['out','Within 3 months','','time'],
+    ['in','Perfect. Free strategy call: Thu 14:00 or Fri 10:00?'],['out','Fri 10:00','','fit'],['in','Booked for Friday at 10:00. Speak then.',1,'call']];
+   rec.call='Fri 10:00 strategy call';
+   seq.forEach((s,i)=>later(500+i*1050,()=>{add(s[0],s[1],s[2]);if(s[3])setRec(s[3]);if(s[3]==='fit')setRec('fit')}));});});}
+$('#slplay').onclick=()=>{resetSL();rec.call=mode==='miss'?'Fri 10:00 strategy call':'Thu 14:00 strategy call';({call:callFlow,text:textFlow,miss:missFlow})[mode]()};
+
+/* ---------- journey ---------- */
+const J=[
+ {t:'Buys the entry offer',why:'A purchase of the low-ticket offer.',win:'They get value straight away, and the first reply comes from you in their pocket, not an inbox.',msgs:[['in','Welcome in, Sam. Your Offer Formula is ready here: shiftmethod.example/start. Reply with your biggest question and I\'ll point you to the right part.',1],['out','How do I price my first offer?'],['in','Section 2 covers exactly that. Most people get it done in 20 minutes.']]},
+ {t:'Joins the community',why:'Two days after purchase, if they haven\'t posted yet.',win:'More people introduce themselves, and active members are the ones who buy the bigger programme.',msgs:[['in','Quick one, Sam: the community has a "first win" thread. Post your offer draft there and get feedback from the group today.',1],['out','Done, posted it'],['in','Great. Coaches who post in week one get far more out of it. Keep going.']]},
+ {t:'Strategy call offer',why:'They finished the formula, or posted twice in the community.',win:'The call offer arrives when they\'re most ready, not on a fixed day for everyone.',msgs:[['in','You\'ve finished the formula. Want a free 30 minute call to turn it into a full offer? Thu 14:00 or Fri 10:00.',1],['out','Fri 10 please'],['in','Booked. You\'ll get a reminder the day before.']]},
+ {t:'Shows up',why:'24 hours, 1 hour and 10 minutes before the call.',win:'Fewer no-shows. Reschedules happen by text instead of disappearing.',msgs:[['in','Reminder: your strategy call is tomorrow at 10:00. Reply C to confirm or tell me a better time.',1],['out','Can we do 12 instead?'],['in','Done, moved to 12:00 tomorrow. Link is in your email.']]},
+ {t:'Pays, or gets a nudge',why:'A failed instalment on the bigger programme.',win:'Payment problems are fixed calmly and quickly, without awkward chasing.',msgs:[['in','Hi Sam, this month\'s instalment didn\'t go through. Probably just the card. You can update it here: shiftmethod.example/pay',1],['out','Sorted, new card added'],['in','Thank you, all done. See you in Thursday\'s session.']]}];
+const jj=$('#journey');
+J.forEach((s,i)=>{const b=document.createElement('button');b.className='jstep';b.innerHTML=`<div class="ix">STEP ${i+1}</div><h4>${s.t}</h4>`;b.onclick=()=>jgo(i);jj.appendChild(b)});
+function jgo(i){$$('.jstep').forEach((b,j)=>b.classList.toggle('on',i===j));const s=J[i];$('#jwhy').textContent=s.why;$('#jwin').textContent=s.win;
+ const box=$('#jmsgs');box.innerHTML='';s.msgs.forEach((m,k)=>setTimeout(()=>{const d=document.createElement('div');d.className='m '+m[0];d.innerHTML=m[1]+(m[2]?'<span class="stop">Shift Method. Reply STOP to opt out</span>':'');box.appendChild(d)},k*450))}
+jgo(0);
+
+/* ---------- agents ---------- */
+const A=[
+ {ic:'💬',n:'Inbox agent',d:'Comments and DMs on Instagram, Facebook and LinkedIn',f:[['07:12','Replied to 46 comments on yesterday\'s post'],['08:30','Sent the free resource to 31 people who commented SHIFT'],['09:05','Flagged a journalist enquiry for you',1]]},
+ {ic:'📅',n:'Setter agent',d:'Qualifies new leads and books strategy calls',f:[['09:20','Called 12 new opt-ins, 9 answered'],['09:40','Booked 6 strategy calls this morning'],['10:02','Lead asks about payment plans before booking',1]]},
+ {ic:'⏰',n:'Show-up agent',d:'Reminders, confirmations and reschedules',f:[['08:00','Sent 14 reminders for today\'s calls'],['08:15','Moved 2 calls to later times'],['08:16','Confirmed 12 of 14']]},
+ {ic:'🫂',n:'Community agent',d:'Onboards new members and keeps them active',f:[['07:30','Welcomed 18 new members'],['11:00','Nudged 23 quiet members with a first-win prompt'],['11:20','Member post sounds unhappy, worth a personal reply',1]]},
+ {ic:'💳',n:'Payments agent',d:'Failed payments and instalments',f:[['06:00','Found 4 failed instalments'],['06:05','Sent 4 friendly update-your-card texts'],['10:40','3 of 4 paid']]},
+ {ic:'✍️',n:'Content agent',d:'Turns one winning post into ten pieces',f:[['07:00','Spotted yesterday\'s top post (3x usual comments)'],['07:20','Drafted 4 clips, 3 carousels and 2 emails in your voice'],['07:21','Drafts ready for your approval',1]]},
+ {ic:'🧭',n:'Chief of staff',d:'Your 07:00 brief on WhatsApp',f:[['07:00','Brief sent: 6 calls today, 4 payments recovered, 3 things need you'],['07:00','Top priority: reply to the journalist before noon']]}];
+const ag=$('#agents');let agI=0,amode='approve';
+A.forEach((a,i)=>{const b=document.createElement('button');b.className='agent';b.innerHTML=`<div class="top"><div class="ic">${a.ic}</div><span class="dot${a.f.some(x=>x[2])?' w':''}"></span></div><h4>${a.n}</h4><p>${a.d}</p>`;b.onclick=()=>agGo(i);ag.appendChild(b)});
+function agGo(i){agI=i;$$('.agent').forEach((b,j)=>b.classList.toggle('on',i===j));const a=A[i];$('#agKick').textContent=a.n;$('#agName').textContent='What it did today';
+ const f=$('#agFeed');f.innerHTML='';a.f.forEach((x,k)=>setTimeout(()=>{const d=document.createElement('div');
+  if(x[2]){d.className='wait';d.innerHTML=`<em>${x[0]}</em><span>${x[1]}</span><button class="ok">${amode==='auto'?'Waiting for you':'Approve'}</button>`;d.querySelector('.ok').onclick=e=>{e.target.textContent='Done';e.target.style.background='var(--ok)'}}
+  else{d.innerHTML=`<em>${x[0]}</em><span>${x[1]}${amode==='approve'?' <span style="color:var(--dim)">· approved by you</span>':''}</span>`}
+  f.appendChild(d)},k*220))}
+$$('#modeSw button').forEach(b=>b.onclick=()=>{$$('#modeSw button').forEach(x=>x.classList.remove('on'));b.classList.add('on');amode=b.dataset.m;agGo(agI)});
+agGo(0);
+
+/* start */
+const h=parseInt((location.hash||'').replace('#s',''));go(isNaN(h)?0:h);
+</script>
+</body>
+</html>

@@ -43,8 +43,8 @@ const csp = [
   "object-src 'none'",
   "frame-ancestors 'self'",
   "img-src 'self' data: blob: https:",
-  "font-src 'self' data: https://*.leadconnectorhq.com https://fonts.bunny.net",
-  "style-src 'self' 'unsafe-inline' https://*.leadconnectorhq.com https://fonts.bunny.net",
+  "font-src 'self' data: https://*.leadconnectorhq.com https://fonts.bunny.net https://fonts.gstatic.com",
+  "style-src 'self' 'unsafe-inline' https://*.leadconnectorhq.com https://fonts.bunny.net https://fonts.googleapis.com",
   `script-src 'self' 'unsafe-inline' https://link.msgsndr.com https://*.leadconnectorhq.com ${googleTag} ${metaPixel}${isDev ? " 'unsafe-eval'" : ""}`,
   "worker-src 'self' blob:",
   `connect-src 'self' https: ${googleTag} ${metaPixel}${isDev ? " ws: wss:" : ""}`,
@@ -121,12 +121,17 @@ const nextConfig: NextConfig = {
   // Private prospect showcase pages live as static files in public/showcase.
   // Serve them at clean URLs (/showcase/dulini) and keep them out of search.
   async rewrites() {
-    return [{ source: "/showcase/:name", destination: "/showcase/:name.html" }];
+    return [
+      { source: "/showcase/:name", destination: "/showcase/:name.html" },
+      // standalone demo pages live in public/demos/<name>/index.html
+      { source: "/demos/:name", destination: "/demos/:name/index.html" },
+    ];
   },
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },
       { source: "/showcase/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
+      { source: "/demos/:path*", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] },
     ];
   },
 };
