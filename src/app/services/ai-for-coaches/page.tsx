@@ -4,6 +4,7 @@ import { Reveal } from "@/components/primitives/Reveal";
 import { PageHero } from "@/components/kit/PageHero";
 import { SectionHead } from "@/components/kit/SectionHead";
 import { CTABand } from "@/components/kit/CTABand";
+import { WhyNowDuet } from "@/components/kit/WhyNowDuet";
 import { StickyMobileCTA } from "@/components/sections/v4/StickyMobileCTA";
 import { GENERIC_BOOK_URL } from "@/data/booking";
 import { CTA_PRIMARY, SITE_URL } from "@/data/site";
@@ -121,6 +122,12 @@ export default function CoachesPage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section className="bg-canvas-2 pb-16 md:pb-24" aria-label="Why now">
+        <div className="container-wide">
+          <WhyNowDuet tone="page" />
         </div>
       </section>
 
