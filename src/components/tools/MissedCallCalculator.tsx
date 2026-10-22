@@ -205,7 +205,7 @@ export function MissedCallCalculator() {
           href="/book"
           className="btn btn-accent justify-center min-h-12 w-full mt-6 inline-flex"
         >
-          Book a free audit call
+          Book a free 30-minute call
           <ArrowUpRight size={15} aria-hidden />
         </Link>
 

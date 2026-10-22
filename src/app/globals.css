@@ -2331,6 +2331,15 @@ html[data-header-dark]:not(:has(.flm)) header > .container-wide, html[data-heade
   --color-hairline-2: rgba(255, 255, 255, 0.28); --color-accent: #8FB0FF;
 }
 
+/* over paper sections (cream, in either theme) the header uses the light
+   theme's colours: a cream bar and dark ink (Navbar sets data-header-paper) */
+html[data-header-paper]:not([data-header-dark]) header { background: rgba(249, 244, 232, 0.96) !important; border-color: rgba(14, 14, 16, 0.06) !important; }
+html[data-header-paper]:not([data-header-dark]) header > .container-wide {
+  --color-ink: #0B0F1A; --color-ink-soft: #2A3550; --color-ink-muted: #3F4A63;
+  --color-hairline-2: rgba(14, 14, 16, 0.18); --color-accent: #2554D4; --bg: #F9F4E8; --bg-2: #F0EBE2; --bg-glass: rgba(249, 244, 232, 0.9);
+  --hairline-rgb: 14, 14, 16; color: #0B0F1A;
+}
+
 /* one thing at the bottom of the screen: no chat bubble while the film fills
    the screen, or on phones while the sticky bar shows; no chat greeting */
 html[data-in-flight] chat-widget { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; transition: opacity 0.3s, visibility 0.3s; }

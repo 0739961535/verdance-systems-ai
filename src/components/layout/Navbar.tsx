@@ -79,7 +79,11 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
       last = performance.now();
       const y = (header?.offsetHeight ?? 64) + 4;
       const under = document.elementsFromPoint(window.innerWidth / 2, y).find((el) => !header?.contains(el)) ?? null;
-      html.toggleAttribute("data-header-dark", bgOf(under) < 90);
+      const lum = bgOf(under);
+      html.toggleAttribute("data-header-dark", lum < 90);
+      // over paper (the cream hero and statement) the header keeps the light
+      // theme's colours even in dark mode, so its text never goes cream on cream
+      html.toggleAttribute("data-header-paper", lum > 200);
     };
     const onScroll = () => {
       if (timer) return;
@@ -93,6 +97,7 @@ export function Navbar({ menus, niches }: { menus: Record<string, MegaMenu>; nic
       window.removeEventListener("resize", onScroll);
       if (timer) window.clearTimeout(timer);
       html.removeAttribute("data-header-dark");
+      html.removeAttribute("data-header-paper");
     };
   }, [pathname]);
 

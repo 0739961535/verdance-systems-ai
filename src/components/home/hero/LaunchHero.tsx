@@ -72,6 +72,8 @@ const CSS = `
    scroll cue at the bottom. The Earth rises in the next scene (EarthRise). */
 .lh { --arc: 0px; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
 .lh-in { padding-top: 96px; padding-bottom: 88px; }
+/* phones: no empty screen of cream under the statement */
+@media (max-width: 767px) { .lh { min-height: 0; } .lh-in { padding-bottom: 40px; } .lh-into-dark { height: 36svh; } }
 @media (min-width: 768px) { .lh-in { padding-top: 112px; padding-bottom: 112px; } }
 .lh-h1 { font-size: clamp(2.9rem, 5.6vw + 0.9rem, 7rem); line-height: 0.95; letter-spacing: -0.05em; }
 /* depth in the light: a soft vignette and a faint haze toward the bottom */
@@ -80,7 +82,7 @@ const CSS = `
 /* a long soft fade from the light ground into the navy of 01 Promise */
 /* one long, even blend from the cream ground into the navy below: it
    starts at exactly the cream (no stripe) and takes most of a screen */
-.lh-into-dark { height: clamp(260px, 48svh, 520px); margin-top: -1px; margin-bottom: -1px;
+.lh-into-dark { height: clamp(220px, 48svh, 520px); margin-top: -1px; margin-bottom: -1px;
   background: linear-gradient(#F9F4E8 0%, color-mix(in oklab, #F9F4E8 88%, #8FB0FF) 22%, color-mix(in oklab, #F9F4E8 62%, #4D6FC4) 44%, color-mix(in oklab, #F9F4E8 30%, #1D3F8F) 66%, color-mix(in oklab, #F9F4E8 8%, #0B1430) 86%, #060B1A 100%); }
 .lh-why { position: relative; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 0.9375rem; color: var(--color-ink-soft); }
 .lh-why::after { content: ""; position: absolute; left: 0; right: 18px; bottom: 10px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }

@@ -153,6 +153,8 @@ const CSS = `
    flower in a square that fills the space between, the changing line. The
    flower never reaches the words, at any scroll point or screen height */
 @media (max-width: 767px) {
+  /* phones: the statement starts rising while the flower is still fading */
+  .bl { margin-bottom: -95svh; }
   .bl-stage { display: grid; grid-template-rows: auto auto auto; place-items: center; align-content: center; row-gap: clamp(24px, 3svh, 32px);
     padding: calc(84px + env(safe-area-inset-top)) 20px calc(28px + env(safe-area-inset-bottom)); }
   .bl-left, .bl-right { position: relative; top: auto; left: auto; right: auto; text-align: center; font-size: clamp(1.6rem, 7.4vw, 2.2rem); }
