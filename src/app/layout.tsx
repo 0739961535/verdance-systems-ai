@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Verdance Systems AI | Every enquiry answered in 60 seconds",
   description:
-    "Every enquiry answered within 60 seconds, every follow-up done, and your team's hours back. Live in 10 working days. Start with a free Operations Map.",
+    "Every enquiry answered within 60 seconds, every follow-up done, and your team's hours back. Every step is tracked, and you see the progress. Start with a free Operations Map.",
   applicationName: "Verdance Systems AI",
   keywords: [
     "AI receptionist South Africa",
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Verdance Systems AI | Every enquiry answered in 60 seconds",
     description:
-      "Every enquiry answered within 60 seconds, every follow-up done, and your team's hours back. Live in 10 working days. Start with a free Operations Map.",
+      "Every enquiry answered within 60 seconds, every follow-up done, and your team's hours back. Every step is tracked, and you see the progress. Start with a free Operations Map.",
     url: SITE_URL,
     type: "website",
     locale: "en_GB",
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Verdance Systems AI | Every enquiry answered in 60 seconds",
     description:
-      "Every enquiry answered within 60 seconds, every follow-up done. Live in 10 working days. Start with a free Operations Map.",
+      "Every enquiry answered within 60 seconds, every follow-up done. Every step is tracked, and you see the progress. Start with a free Operations Map.",
   },
   robots: {
     index: true,

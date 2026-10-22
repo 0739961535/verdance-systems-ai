@@ -181,7 +181,7 @@ export const LANDING_FAQS = [
   },
   {
     q: "How long until it's working?",
-    a: "Live in 10 working days from the day the plan is signed off. The launch date is in your contract, and we build in stages so you see it working early, not at the end.",
+    a: "Each build is different. Every stage is tracked, and we build in stages so you see it working early, not at the end.",
   },
   {
     q: "We already have a system for our customers. Do we have to switch?",

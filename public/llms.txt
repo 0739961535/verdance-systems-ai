@@ -2,7 +2,7 @@
 
 > Verdance Systems AI builds an Operations Team for owner-led businesses in
 > South Africa and the UK: every enquiry answered within 60 seconds, every follow-up done,
-> and the team's hours back. Live in 10 working days. It starts with a free
+> and the team's hours back. Every step is tracked, and you see the progress. It starts with a free
 > Operations Map.
 
 Founded and run by Daniel Bouwer, South Africa.
@@ -16,7 +16,7 @@ Contact: daniel@verdancesystemsai.com · WhatsApp and phone (South Africa): +27 
   email and social answered within 60 seconds, day or night. Every quote and
   enquiry followed up until the customer replies. A person takes over the
   moment it matters.
-- How fast: live in 10 working days from the day the plan is signed off.
+- Build: each build is different. Every stage is tracked, and the owner can see where it is at any time.
 - How it starts: a free 30-minute Operations Map. It shows where time and
   money leak in enquiries, follow-up and admin, in hours and money, and what to
   fix first. The client keeps it whether or not they go ahead.

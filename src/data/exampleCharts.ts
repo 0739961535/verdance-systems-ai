@@ -2,7 +2,7 @@
  * EXAMPLE figures for the homepage chart section. None of these are client
  * results or measured averages: every chart that uses them is labelled
  * "Example" on the page. The only real numbers are Verdance's promises
- * (a reply within 60 seconds, live in 10 working days).
+ * (a reply within 60 seconds, every step tracked).
  */
 
 /** Reply-time race: an example enquiry, before and with the system. */

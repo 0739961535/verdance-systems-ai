@@ -25,8 +25,8 @@ const STEPS: ProcessStep[] = [
     n: "04",
     word: "Build",
     icon: "build",
-    timing: "10 working days",
-    sentence: "Set up in your accounts, in your voice, tested before it goes live.",
+    timing: "Progress you can see",
+    sentence: "Set up in your accounts, in your voice. Every step tracked, and tested before it goes live.",
   },
   { n: "05", word: "Review", icon: "review", timing: "Day 90", sentence: "Your numbers before and after. You choose what comes next." },
 ];

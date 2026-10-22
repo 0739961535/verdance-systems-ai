@@ -14,7 +14,7 @@ import type { ServiceDepth as ServiceDepthData } from "@/data/services";
 /**
  * The depth sections of a service page ("How it works"), in reading order:
  * what it does in one line, the step by step flow with a small screen per
- * step, who does what, the 10 working days, what you see once live, the
+ * step, who does what, the build, what you see once live, the
  * questions, then one Book button. No section numbers. Calm and phone first: one column on a
  * phone, the screens beside the words from lg up. Dark bands, so the
  * sample screens sit on the colours they were drawn for.
@@ -22,7 +22,7 @@ import type { ServiceDepth as ServiceDepthData } from "@/data/services";
  * compact (the twelve service pages, about 550 visible words): "How it
  * works" becomes a strip of tabs with one part shown at a time, "Who does
  * what" sits behind a "Show me who does what" reveal, and "Once it is live"
- * is one line under the 10 working days.
+ * is one line under the build.
  */
 
 const CSS = `
@@ -322,10 +322,10 @@ export function ServiceDepth({
         </div>
       </section>
 
-      {/* The 10 working days: the build stem */}
+      {/* The build stem */}
       <section className="band-orbit chapter-pad" aria-labelledby="dp-days">
         <div className="container-wide">
-          <Head eyebrow="Timeline" title="Live in 10 working days." lead="Counted from the day you sign off the plan." id="dp-days" />
+          <Head eyebrow="The build" title="Progress you can see." lead="Each build is different. Every stage is tracked, and you can see where it is at any time." id="dp-days" />
           <div className="mt-12 md:mt-16">
             <BuildStem buildNote={depth.buildNote} />
           </div>

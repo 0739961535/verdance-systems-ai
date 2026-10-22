@@ -92,9 +92,6 @@ export function WatchItWork() {
    sample content). MINI stays for the approval card in "In control". */
 const MINI = "mt-6 max-w-[22rem] rounded-[14px] border border-white/[0.08] bg-[#0A1226] p-3.5 text-[0.875rem] leading-[1.45] text-[#E9EDEF] md:mt-8 md:max-w-[28rem] md:p-5 md:text-[1rem] md:min-h-[9.5rem] md:content-center";
 
-export const COACH_PAGE = "/services/ai-for-coaches";
-export const COACH_DEMO = "/demos/coaching";
-
 const GETS = [
   {
     word: "Answer",
@@ -150,11 +147,6 @@ const JOBS_CSS = `
 }
 
 .jobs-grid { display: grid; gap: 1.25rem; }
-.coach-card { height: auto; }
-.coach-in { display: grid; gap: 20px; padding: 22px 20px 18px; }
-@media (min-width: 1024px) { .coach-in { grid-template-columns: 1fr auto; align-items: center; gap: 40px; padding: 30px 34px; } }
-.coach-links { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
-@media (min-width: 1024px) { .coach-links { align-items: flex-end; } }
 @media (min-width: 1024px) { .jobs-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; } }
 .job-card {
   height: 100%; display: flex; flex-direction: column; border-radius: 28px; padding: 10px;
@@ -254,36 +246,6 @@ export function WhatYouGet({ showAll = true }: { showAll?: boolean } = {}) {
           ))}
         </ul>
 
-        {/* A built offer for one kind of business: coaches */}
-        <Reveal className="mt-5 lg:mt-6">
-          <div className="ix-card job-card coach-card">
-            <div className="coach-in">
-              <div>
-                <p className="job-n">For coaches</p>
-                <p className="mt-2 font-display text-[color:var(--color-ink)]" style={{ fontSize: "clamp(2rem, 1.6vw + 1.3rem, 2.9rem)", lineHeight: 1, letterSpacing: "-0.04em" }}>
-                  AI for <span className="italic-accent">coaches</span>
-                </p>
-                <p className="mt-3 max-w-[60ch] text-[1.0625rem] leading-[1.6] text-[color:var(--color-ink-soft)]">
-                  From your first low-ticket sale to your high-ticket programme: every lead answered, called or texted in under 60 seconds,
-                  every call reminded, every payment followed up.
-                </p>
-              </div>
-              <div className="coach-links">
-                <a href={COACH_DEMO} target="_blank" rel="noopener" className="btn btn-accent min-h-[48px] justify-center px-6">
-                  Try the live demo
-                  <ArrowUpRight size={16} aria-hidden />
-                </a>
-                <Link
-                  href={COACH_PAGE}
-                  className="group inline-flex min-h-11 items-center gap-1.5 text-[1rem] font-medium text-[color:var(--color-accent)] hover:text-[color:var(--color-ink)]"
-                >
-                  How it works for coaches
-                  <ArrowRight size={16} aria-hidden className="transition-transform group-hover:translate-x-1" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </Reveal>
       </div>
     </section>
   );

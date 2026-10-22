@@ -7,8 +7,8 @@ import { DrawOnView } from "@/components/services/DrawOnView";
  * ("Today" ends in a loss, "With Verdance" ends booked). The point in five
  * seconds: the same moment, a different ending.
  *
- * BuildStem: the 10 working days as a stem with ten tick marks, after the
- * three steps before day 1 (call, map, plan). Live on day 10 is the bloom.
+ * BuildStem: the build as a stem with tick marks for its stages, after the
+ * three steps before it (call, map, plan). Going live is the bloom.
  *
  * Both draw in once on view (stroke-dashoffset and opacity), static under
  * reduced motion.
@@ -135,7 +135,7 @@ export function BuildStem({ buildNote }: { buildNote: string }) {
         </ol>
       </div>
       <div className="bs-main">
-        <p className="bs-cap">10 working days</p>
+        <p className="bs-cap">Progress you can see</p>
         <div className="bs-track">
           <svg className="bs-stem" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden>
             <line className="dv-line" pathLength={1} x1="5" y1="1" x2="95" y2="1" style={d(0.2)} />
@@ -183,7 +183,7 @@ export function BuildStem({ buildNote }: { buildNote: string }) {
           </li>
           <li className="dv-fade" style={d(1.2)}>
             <b>Live</b>
-            <span>It goes live on day 10, and we watch the first weeks closely.</span>
+            <span>It goes live, and we watch the first weeks closely.</span>
           </li>
         </ul>
       </div>

@@ -155,7 +155,7 @@ function Phone() {
             <span className="hp-t">22:14</span>
           </span>
           <span className="hp-b hp-out">
-            Yes, across South Africa. Durban is usually 2 to 3 working days.
+            Yes, across South Africa. Durban is usually 2 to 3 days.
             <span className="hp-t">22:14</span>
           </span>
           <span className="hp-b hp-in">

@@ -106,7 +106,7 @@ export const CHANNELS: Channel[] = [
     ),
     from: "Sipho", at: "13:05:50",
     ask: "Do you deliver to Durban?",
-    reply: "We do, in 2 to 3 working days. Shall I send you the order link?",
+    reply: "We do, in 2 to 3 days. Shall I send you the order link?",
     secs: 3,
     outcomes: [
       { label: "Answered", detail: "Delivery times shared" },

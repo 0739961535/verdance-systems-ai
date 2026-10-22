@@ -6,7 +6,7 @@ import { HOW_VISUALS_CSS, HowVisual, type HowVisualKey } from "./HowVisuals";
  * The five steps as a growing stem. At the top, one glance: five buds on a
  * stem that open from a closed bud (Call) to a full bloom (Review), the two
  * decisions drawn in gold, and a ring of ten ticks round the Build bud for
- * its ten working days. Below, the same stem runs down the page: each
+ * its build stages. Below, the same stem runs down the page: each
  * segment draws as its step scrolls into view and the bud on it opens.
  *
  * Motion: stroke-dashoffset and opacity only, once, about 0.7s, keyed off
@@ -14,7 +14,7 @@ import { HOW_VISUALS_CSS, HowVisual, type HowVisualKey } from "./HowVisuals";
  * under reduced motion everything renders finished.
  *
  * Every step has its own visual beside it (HowVisuals.tsx): a call card,
- * the map bloom, the plan unfolding, the 10-day stem and the day 90 sunrise.
+ * the map bloom, the plan unfolding, the build stem and the day 90 sunrise.
  */
 
 type Step = {
@@ -66,8 +66,8 @@ const STEPS: Step[] = [
     key: "build",
     stage: 3,
     word: "Build",
-    timing: "10 working days",
-    glance: "10 days",
+    timing: "Every step tracked",
+    glance: "Tracked",
     title: "Built in your accounts, in your voice.",
     body: "We teach it your services and answers, then test it on real enquiries. Once live, every enquiry is answered within 60 seconds.",
     bring: "An hour to try it and tell us what sounds wrong.",
@@ -158,7 +158,7 @@ const d = (s: number) => ({ ["--d" as string]: `${s}s` });
 function Glance() {
   return (
     <Reveal className="hs-glance hs-draw" y={16}>
-      <div className="hs-g-row" role="img" aria-label="Five steps on one stem: Call, 30 minutes. Map, free. Plan, in writing, you decide. Build, 10 working days. Review at day 90, you decide.">
+      <div className="hs-g-row" role="img" aria-label="Five steps on one stem: Call, 30 minutes. Map, free. Plan, in writing, you decide. Build, every step tracked. Review at day 90, you decide.">
         <svg className="hs-g-stem" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden>
           <line className="hs-ln" x1="0" y1="1" x2="75" y2="1" stroke="#4D7CFF" strokeWidth={1.5} pathLength={1} />
           {/* Build to Review: a lighter, dotted stretch (the weeks before day 90) */}
@@ -166,7 +166,7 @@ function Glance() {
         </svg>
         {STEPS.map((s, i) => (
           <div key={s.key} className="hs-g-node" style={d(0.12 * i)} aria-hidden>
-            <Bud stage={s.stage} gold={s.decision} days={s.key === "build"} />
+            <Bud stage={s.stage} gold={s.decision} days={false} />
             <span className="hs-g-word">{s.word}</span>
             <span className="hs-g-sub">{s.glance}</span>
             {s.decision ? <span className="hs-g-gold">You decide</span> : null}
@@ -201,7 +201,7 @@ export function HowSteps() {
           <h2 id="steps-title" className="h2 mt-4">
             <SplitWords text="Five steps." /> <span><SplitWords text="Two decisions are yours." start={2} /></span>
           </h2>
-          <p className="lead mt-6">Live in 10 working days from your yes. Then we look at the numbers together at day 90.</p>
+          <p className="lead mt-6">Each build is different. Every stage is tracked, and you can see where it is at any time. Then we look at the numbers together at day 90.</p>
         </Reveal>
 
         <Glance />
@@ -210,7 +210,7 @@ export function HowSteps() {
           {STEPS.map((s) => (
             <Reveal as="li" key={s.key} className="hs-row hs-draw" y={24}>
               <span className="hs-node" aria-hidden>
-                <Bud stage={s.stage} gold={s.decision} days={s.key === "build"} />
+                <Bud stage={s.stage} gold={s.decision} days={false} />
               </span>
               <span className="hs-seg" aria-hidden>
                 <svg viewBox="0 0 2 100" preserveAspectRatio="none">

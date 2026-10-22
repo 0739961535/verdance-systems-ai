@@ -77,7 +77,7 @@ export type ServiceDepth = {
   /** What the client does, and what we do. */
   youDo: string[];
   weDo: string[];
-  /** What the build looks like inside the 10 working days (one line). */
+  /** What the build looks like, stage by stage (one line). */
   buildNote: string;
   /** What you see each week once it is live. */
   weekly: { label: string; text: string }[];
@@ -643,7 +643,7 @@ const BASE_CATEGORIES: ServiceCategory[] = [
  */
 const LIVE_FAQ = {
   q: "How long until it is live?",
-  a: "The first phase is live in 10 working days from sign-off. You test it yourself before any customer sees it.",
+  a: "Each build is different. Every stage is tracked, so you see the progress as it happens, and you test it yourself before any customer sees it.",
 };
 
 const SERVICE_DEPTH: Record<string, ServiceDepth> = {

@@ -33,7 +33,7 @@ const REST: Entry[] = [
   { slug: "beauty-aesthetics", name: "Beauty and aesthetics", line: "Messages pile up while you're with a client. We reply and book them in." },
   { slug: "fitness-gyms", name: "Fitness and gyms", line: "People ask about joining, then never come in. We answer and book a first visit." },
   { slug: "restaurants-hospitality", name: "Restaurants", line: "Booking requests sit in the inbox during service. We reply and confirm the table." },
-  { slug: "education-coaching", name: "Education and coaching", line: "Parents ask the same questions every week. We answer and book the open day." },
+  { slug: "education-coaching", name: "Coaching and education", line: "Leads go cold before you reply. We answer in 60 seconds, then book the call." },
 ].map((e, i) => ({ ...e, tint: TINTS[(i + 2) % TINTS.length] }));
 
 function Card({ e, big = false, row = false }: { e: Entry; big?: boolean; row?: boolean }) {
