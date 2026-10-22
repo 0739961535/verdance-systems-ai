@@ -109,6 +109,7 @@ const nextConfig: NextConfig = {
       { source: "/contact", destination: "/book", permanent: false },
       // the old application page: one way in, the booking page
       { source: "/apply", destination: "/book", statusCode: 301 },
+      { source: "/services/ai-for-coaches", destination: "/industries/education-coaching", statusCode: 301 },
       // City pages folded from 18 to 4 (SEO plan, fix 6): each retired page
       // points at the closest kept city, or the /ai-agency index.
       ...Object.entries(LOCATION_REDIRECTS).map(([from, to]) => ({

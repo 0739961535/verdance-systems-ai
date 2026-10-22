@@ -157,6 +157,7 @@ export default async function IndustryDetailPage({ params }: { params: Promise<{
           />
         }
         note="Free 30-minute call · nothing to sign"
+        {...(industry.demo ? { secondary: { href: industry.demo.href, label: industry.demo.label } } : {})}
       />
 
       <section className="section-pad bg-canvas-2" aria-labelledby="problems-title" style={{ borderTop: "1px solid var(--hairline)" }}>

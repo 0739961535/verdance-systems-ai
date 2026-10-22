@@ -9,6 +9,8 @@ export interface Industry {
   problems: { title: string; description: string }[];
   relevantProducts: string[];
   automationFlow: { step: number; label: string; description: string }[];
+  /** A live demo for this industry, linked from the page hero. */
+  demo?: { href: string; label: string };
 }
 
 export const industries: Industry[] = [
@@ -341,41 +343,42 @@ export const industries: Industry[] = [
   },
   {
     slug: "education-coaching",
-    name: "Education & Coaching",
+    name: "Coaching & Education",
+    metaName: "Coaches and Educators",
     icon: "GraduationCap",
-    headline: "Parents ask the same questions every week. We answer and book the open day.",
+    headline: "Leads go cold before you reply. We answer in 60 seconds.",
     subheadline:
-      "Enquiries answered and sessions booked, for coaches and teachers.",
+      "From your first low-ticket sale to your high-ticket programme: every lead answered, called or texted in under 60 seconds, every call reminded, every payment followed up.",
     problems: [
       {
-        title: "Slow response to course enquiries",
+        title: "Leads wait for a reply",
         description:
-          "Prospective students enquire on social media and wait too long for a response.",
+          "A lead from an ad, a form or a DM waits hours for an answer, and books with someone faster.",
       },
       {
-        title: "Session scheduling inefficiency",
+        title: "Small buyers never hear about the programme",
         description:
-          "Coordinating 1:1 coaching or tutoring sessions manually creates admin backlog.",
+          "Someone buys your low-ticket offer, then nobody takes them to the next step.",
       },
       {
-        title: "Poor intake process",
+        title: "Calls missed and payments chased by hand",
         description:
-          "First sessions delayed because client background information wasn't collected beforehand.",
+          "Booked calls get no reminder, people do not turn up, and late payments wait for you to notice.",
       },
     ],
     relevantProducts: [
       "whatsapp-ai-agent",
       "smart-scheduler",
-      "client-intake-automation",
       "automated-follow-up",
       "post-interaction-messenger",
     ],
     automationFlow: [
-      { step: 1, label: "Enquiry received", description: "Verdance replies on WhatsApp within 60 seconds, with course details" },
-      { step: 2, label: "Session booked", description: "The booking is confirmed from your live diary" },
-      { step: 3, label: "Intake collected", description: "A background form sent and completed on WhatsApp" },
-      { step: 4, label: "Follow-up after the session", description: "Notes and a link to book again, sent for you" },
+      { step: 1, label: "Lead answered in 60 seconds", description: "A call or a text within a minute of the opt-in, day or night, and the call is booked" },
+      { step: 2, label: "Small offer to programme", description: "The right next message at the right time, until they are ready to talk about your programme" },
+      { step: 3, label: "Calls kept, payments followed up", description: "Reminders before every call, and a polite reminder with a fresh link when a payment fails" },
+      { step: 4, label: "Welcomed into your community", description: "New clients onboarded and pointed to where to start, with post ideas drafted from your calls" },
     ],
+    demo: { href: "/demos/coaching", label: "Try the live demo" },
   },
   {
     slug: "ecommerce-product-businesses",
