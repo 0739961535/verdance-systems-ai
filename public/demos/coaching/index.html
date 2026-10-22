@@ -183,6 +183,24 @@ details.legal ul{margin:8px 0 2px 16px;color:var(--mute);font-size:13px;display:
   .frow small{display:none}
 }
 
+
+.setup{list-style:none;counter-reset:n;display:grid;gap:10px;margin-top:10px}
+.setup li{counter-increment:n;position:relative;padding-left:34px;font-size:13.5px;color:var(--mute);line-height:1.5}
+.setup li b{color:var(--ink);font-weight:600}
+.setup li:before{content:counter(n);position:absolute;left:0;top:0;width:22px;height:22px;border-radius:7px;background:rgba(79,141,255,.15);color:var(--blue2);font-size:12px;font-weight:700;display:grid;place-items:center}
+.pick{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.pick button{padding:7px 11px;border-radius:999px;border:1px solid var(--line);font-size:12.5px;color:var(--mute)}
+.pick button.on{border-color:var(--blue);color:#fff;background:rgba(79,141,255,.2)}
+.verdict{margin-top:14px;padding:14px;border-radius:12px;background:rgba(255,255,255,.035);min-height:96px}
+.verdict b{display:block;font-size:17px;margin-bottom:6px}
+.verdict p{color:var(--mute);font-size:13.5px}
+.rules{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+.rules .t{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:6px}
+.rules h3{font-size:15.5px;margin-bottom:6px}.rules p{color:var(--mute);font-size:13px}
+.no{color:#ff9d9d}.ok{color:#9fe3c2}.warn{color:#f3d18c}
+@media (max-width:900px){.rules{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.rules{grid-template-columns:1fr}}
+
 /* compact pass */
 body{font-size:14px}
 section.step{padding:22px 0 96px}
@@ -229,59 +247,36 @@ h2{font-size:clamp(22px,2.7vw,34px);margin:6px 0 8px}
 
 <main class="wrap">
 
-<!-- 0 QUESTIONS -->
-<section class="step" data-title="Three questions">
-  <div class="kick">Before the demo</div>
-  <h1>Three questions <em>first.</em></h1>
-  <p class="lead">Every coaching business leaks money in a different place. These three answers decide what's worth building.</p>
-  <div class="grid" style="margin-top:28px">
-    <div class="card q"><div class="n">1</div><div>
-      <h3>When someone buys your low-ticket offer or comments on a post, what happens in the first hour?</h3>
-      <p><b>Why it matters:</b> the first hour is when interest is highest. Who replies, how fast, and on which channel decides how many ever book a call.</p>
-    </div></div>
-    <div class="card q"><div class="n">2</div><div>
-      <h3>Of the people who buy the entry offer or join the community, how many end up on a strategy call, and where do most drop off?</h3>
-      <p><b>Why it matters:</b> the money sits between the small offer and the big one. Knowing the drop-off point shows exactly where a system pays for itself.</p>
-    </div></div>
-    <div class="card q"><div class="n">3</div><div>
-      <h3>If you could hand one part of your week to a system tomorrow, what would it be?</h3>
-      <p><b>Why it matters:</b> start where it gives back the most time or money, then build out from there.</p>
-    </div></div>
-  </div>
-</section>
-
-<!-- 1 SPEED TO LEAD -->
-<section class="step" data-title="Speed to lead">
-  <div class="kick">01 · Speed to lead</div>
-  <h2>Answered in under 60 seconds, <em>not one business day.</em></h2>
-  <p class="lead">A post goes out and the comments roll in. The AI sends the free resource by DM and asks for a number. Then you choose how the first touch happens: a call, a text, or both.</p>
-  <div style="margin-top:22px" class="toggle" id="sltoggle">
-    <button class="on" data-mode="call">AI phone call</button>
-    <button data-mode="text">AI text</button>
-    <button data-mode="miss">Call not answered</button>
-  </div>
-  <div class="two">
-    <div class="phone"><div class="screen" id="slscreen"></div></div>
-    <div class="side">
-      <div class="card">
-        <div class="kick" style="font-size:11px">Opt-in to first contact</div>
-        <div class="stat"><b id="sltimer">0s</b><span>sample, from form to first contact</span></div>
-      </div>
-      <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center"><div class="kick" style="font-size:11px">Lead record</div><span class="tag">Sample</span></div>
-        <dl class="rec" id="slrec" style="margin-top:12px">
-          <dt>Goal</dt><dd>·</dd><dt>Current income</dt><dd>·</dd><dt>Timeline</dt><dd>·</dd><dt>Fit</dt><dd>·</dd><dt>Call</dt><dd>·</dd>
-        </dl>
-      </div>
-      <button class="btn" id="slplay">Play the demo</button>
-      <details class="legal"><summary>How it stays legal (UK)</summary><ul>
-        <li>We only call or text people who ticked a separate consent box for it.</li>
-        <li>Every text names the business and says how to stop. Every call says it's an assistant.</li>
-        <li>No contact before 08:00 or after 20:00 in the lead's time zone.</li>
-        <li>A person can take over any conversation at any moment.</li>
-      </ul></details>
+<!-- SMS SETUP AND RULES -->
+<section class="step" data-title="SMS setup and rules">
+  <div class="kick">01 · SMS, set up properly</div>
+  <h1>Texting that works, <em>and stays legal.</em></h1>
+  <p class="lead">How we set it up, the UK rules in plain English, and a quick check you can try: can you text this person?</p>
+  <div class="cmp">
+    <div class="card">
+      <div class="kick" style="font-size:11px">How we set it up</div>
+      <ol class="setup">
+        <li><b>A number people recognise.</b> A UK mobile number for two-way chat, or your business name as the sender for one-way updates.</li>
+        <li><b>Consent built into everything.</b> Posts, forms, checkout and DMs all ask for the number with a separate, unticked "text me" box.</li>
+        <li><b>A consent record for every contact.</b> Who, when, where and the exact wording they agreed to, stored automatically.</li>
+        <li><b>Rules enforced by the system.</b> STOP works instantly across every list. Sending hours, a monthly limit and your name in every text.</li>
+        <li><b>AI replies, people in control.</b> The AI answers and books. Prices, complaints and anything unusual go to a person.</li>
+        <li><b>Tracked end to end.</b> Opt-ins, replies, calls booked, show-ups and revenue per hundred texts.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <div class="kick" style="font-size:11px">Can I text this person? (UK)</div>
+      <div class="pick" id="pick"></div>
+      <div class="verdict" id="verdict"></div>
     </div>
   </div>
+  <div class="rules">
+    <div class="card"><div class="t no">Off limits</div><h3>Cold texts to people</h3><p>Individuals, sole traders and ordinary partnerships need consent, or the soft opt-in from a past purchase, before any marketing text. That's PECR regulation 22.</p></div>
+    <div class="card"><div class="t warn">Narrow lane</div><h3>Company-issued numbers</h3><p>Ltd and LLP numbers follow lighter rules, but you still name yourself and offer an opt-out every time. If you can't tell whose number it is, treat it as a person's.</p></div>
+    <div class="card"><div class="t ok">Always</div><h3>Every single text</h3><p>Says who it's from, says how to stop, respects sending hours, and never goes to anyone who opted out.</p></div>
+    <div class="card"><div class="t no">The stakes</div><h3>Fines are real</h3><p>Since February 2026 the maximum is £17.5 million or 4% of global turnover. Recent ICO text fines: £300k, £200k and £120k.</p></div>
+  </div>
+  <p style="color:var(--dim);font-size:12px;margin-top:12px">Plain-English summary, not legal advice. Texting US prospects follows different rules (TCPA and carrier registration).</p>
 </section>
 
 <!-- SMS CAMPAIGN -->
@@ -318,9 +313,64 @@ h2{font-size:clamp(22px,2.7vw,34px);margin:6px 0 8px}
   </div>
 </section>
 
+<!-- 0 QUESTIONS -->
+<section class="step" data-title="Three questions">
+  <div class="kick">03 · About your business</div>
+  <h1>Three questions <em>for you.</em></h1>
+  <p class="lead">Every coaching business leaks money in a different place. These three answers decide what's worth building.</p>
+  <div class="grid" style="margin-top:28px">
+    <div class="card q"><div class="n">1</div><div>
+      <h3>When someone buys your low-ticket offer or comments on a post, what happens in the first hour?</h3>
+      <p><b>Why it matters:</b> the first hour is when interest is highest. Who replies, how fast, and on which channel decides how many ever book a call.</p>
+    </div></div>
+    <div class="card q"><div class="n">2</div><div>
+      <h3>Of the people who buy the entry offer or join the community, how many end up on a strategy call, and where do most drop off?</h3>
+      <p><b>Why it matters:</b> the money sits between the small offer and the big one. Knowing the drop-off point shows exactly where a system pays for itself.</p>
+    </div></div>
+    <div class="card q"><div class="n">3</div><div>
+      <h3>If you could hand one part of your week to a system tomorrow, what would it be?</h3>
+      <p><b>Why it matters:</b> start where it gives back the most time or money, then build out from there.</p>
+    </div></div>
+  </div>
+</section>
+
+<!-- 1 SPEED TO LEAD -->
+<section class="step" data-title="Speed to lead">
+  <div class="kick">04 · Speed to lead</div>
+  <h2>Answered in under 60 seconds, <em>not one business day.</em></h2>
+  <p class="lead">A post goes out and the comments roll in. The AI sends the free resource by DM and asks for a number. Then you choose how the first touch happens: a call, a text, or both.</p>
+  <div style="margin-top:22px" class="toggle" id="sltoggle">
+    <button class="on" data-mode="call">AI phone call</button>
+    <button data-mode="text">AI text</button>
+    <button data-mode="miss">Call not answered</button>
+  </div>
+  <div class="two">
+    <div class="phone"><div class="screen" id="slscreen"></div></div>
+    <div class="side">
+      <div class="card">
+        <div class="kick" style="font-size:11px">Opt-in to first contact</div>
+        <div class="stat"><b id="sltimer">0s</b><span>sample, from form to first contact</span></div>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center"><div class="kick" style="font-size:11px">Lead record</div><span class="tag">Sample</span></div>
+        <dl class="rec" id="slrec" style="margin-top:12px">
+          <dt>Goal</dt><dd>·</dd><dt>Current income</dt><dd>·</dd><dt>Timeline</dt><dd>·</dd><dt>Fit</dt><dd>·</dd><dt>Call</dt><dd>·</dd>
+        </dl>
+      </div>
+      <button class="btn" id="slplay">Play the demo</button>
+      <details class="legal"><summary>How it stays legal (UK)</summary><ul>
+        <li>We only call or text people who ticked a separate consent box for it.</li>
+        <li>Every text names the business and says how to stop. Every call says it's an assistant.</li>
+        <li>No contact before 08:00 or after 20:00 in the lead's time zone.</li>
+        <li>A person can take over any conversation at any moment.</li>
+      </ul></details>
+    </div>
+  </div>
+</section>
+
 <!-- 2 OFFER JOURNEY -->
 <section class="step" data-title="Small offer to big offer">
-  <div class="kick">03 · From the small offer to the big one</div>
+  <div class="kick">05 · From the small offer to the big one</div>
   <h2>The journey runs itself, <em>at the right moment.</em></h2>
   <p class="lead">Someone buys the entry offer. From there, each step is timed to what they actually do. Tap a step to see the message.</p>
   <div class="journey" id="journey"></div>
@@ -337,7 +387,7 @@ h2{font-size:clamp(22px,2.7vw,34px);margin:6px 0 8px}
 
 <!-- 3 OPERATIONS TEAM -->
 <section class="step" data-title="Operations Team">
-  <div class="kick">04 · The Operations Team</div>
+  <div class="kick">06 · The Operations Team</div>
   <h2>An AI team that runs the busy work, <em>you approve what matters.</em></h2>
   <p class="lead">Each agent owns one job. Tap one to see what it did today. You choose: approve everything, or let routine work go out on its own.</p>
   <div class="agents" id="agents"></div>
@@ -363,7 +413,7 @@ h2{font-size:clamp(22px,2.7vw,34px);margin:6px 0 8px}
 
 <!-- 4 WHAT ELSE -->
 <section class="step" data-title="What else">
-  <div class="kick">05 · What we could build later</div>
+  <div class="kick">07 · What we could build later</div>
   <h2>Once the basics run, <em>this is the next layer.</em></h2>
   <div class="tiles">
     <div class="tile"><div class="ic">🎧</div><h4>Sales call reviewer</h4><p>Every call scored against your script, with coaching notes for the closer the same day.</p></div>
@@ -411,7 +461,7 @@ function go(i){cur=Math.max(0,Math.min(steps.length-1,i));steps.forEach((s,j)=>s
   $('#prev').style.visibility=cur?'visible':'hidden';$('#next').style.visibility=cur<steps.length-1?'visible':'hidden';
   nav.children[cur].scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
   history.replaceState(null,'','#s'+cur);window.scrollTo({top:0,behavior:'smooth'});
-  if(cur===1)resetSL();}
+  if(steps[cur].dataset.title==='Speed to lead')resetSL();}
 $('#prev').onclick=()=>go(cur-1);$('#next').onclick=()=>go(cur+1);
 addEventListener('keydown',e=>{if(e.target.closest('input,textarea'))return;if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1)});
 
@@ -482,6 +532,12 @@ function missFlow(){const sc=$('#slscreen');dmIntro(sc,()=>{countTo(38);
    seq.forEach((s,i)=>later(500+i*1050,()=>{add(s[0],s[1],s[2]);if(s[3])setRec(s[3]);if(s[3]==='fit')setRec('fit')}));});});}
 function play(){resetSL();rec.call=mode==='miss'?'Fri 10:00 strategy call':'Thu 14:00 strategy call';$('#slplay').textContent='Play it again';({call:callFlow,text:textFlow,miss:missFlow})[mode]()}
 $('#slplay').onclick=play;
+
+/* ---------- can I text ---------- */
+const V=[["Opted in with a tick box", "ok", "Yes", "They agreed to texts from you by name. Keep the record, name yourself and include STOP in every text."], ["Bought from you before", "ok", "Yes, carefully", "The soft opt-in covers similar products only, and only if they were offered an opt-out when they bought. Every text offers STOP."], ["Number from a bought list", "no", "No", "A bought list can never meet the soft opt-in, and its consent almost never names you or texts. This is what gets fined."], ["Number found on a website", "no", "No", "A public number is not consent. A person, sole trader or partnership still needs consent first."], ["Company-issued mobile (Ltd)", "warn", "Only with care", "Lighter rules for corporate subscribers, but name yourself and offer an opt-out. If you can't prove it's company-issued, treat it as a person."], ["Texted STOP last month", "no", "Never", "An opt-out is permanent until they opt back in themselves. The system blocks them across every list."], ["Prospect in the US", "warn", "Different rules", "US texting follows the TCPA and carrier registration (10DLC). We set that up separately, before any text goes out."]];
+const pk=$('#pick');V.forEach((v,i)=>{const b=document.createElement('button');b.textContent=v[0];b.onclick=()=>pv(i);pk.appendChild(b)});
+function pv(i){$$('#pick button').forEach((b,j)=>b.classList.toggle('on',i===j));const v=V[i];$('#verdict').innerHTML=`<b class="${v[1]}">${v[2]}</b><p>${v[3]}</p>`}
+pv(0);
 
 /* ---------- sms campaign ---------- */
 const C={
