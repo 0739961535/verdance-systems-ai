@@ -110,7 +110,7 @@ export default async function LocationPage({
             name: "How long does it take to go live?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "Live in 10 working days from the day the plan is signed off. The launch date is in your contract.",
+              text: "Each build is different. Every stage is tracked, and you can see where it is at any time. The plan you sign off sets out what goes live first.",
             },
           },
           {

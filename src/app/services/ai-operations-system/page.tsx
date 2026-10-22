@@ -220,7 +220,7 @@ export default function AiOperationsTeamPage() {
         </div>
       </section>
 
-      {/* HOW IT WORKS: the step by step, who does what, the 10 working days and the weeks after */}
+      {/* HOW IT WORKS: the step by step, who does what, the build and the weeks after */}
       <ServiceDepth depth={OPS_TEAM_DEPTH} showWhat={false} showFaq={false} showCta={false} compact sampleTags={false} />
 
       <div style={BAND}>

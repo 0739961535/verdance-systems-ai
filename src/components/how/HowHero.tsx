@@ -15,7 +15,7 @@ import { EarthArt } from "@/components/visuals/EarthArt";
 const FACTS: [string, string][] = [
   ["30 min", "first call, on video"],
   ["Free", "map of where time and money leak"],
-  ["10", "working days to live"],
+  ["Tracked", "every step of the build"],
   ["Day 90", "review together"],
 ];
 
@@ -23,7 +23,7 @@ const STATUS: [string, string, "done" | "now" | "next"][] = [
   ["Call", "Done", "done"],
   ["Map", "Done", "done"],
   ["Plan", "Agreed", "done"],
-  ["Build", "Day 6 of 10", "now"],
+  ["Build", "In progress", "now"],
   ["Review", "Day 90", "next"],
 ];
 

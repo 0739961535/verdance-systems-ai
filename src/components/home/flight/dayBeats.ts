@@ -15,5 +15,5 @@ export const DAY_BEATS: DayBeat[] = [
   { time: "17:30", title: "The admin. Done.", body: "Bookings in the diary, notes on the right customer. Nothing typed twice.", at: [0.54, 0.62] },
   { time: "21:41", title: "A new enquiry. Booked.", body: "Answered within 60 seconds, and a time offered before they ask anyone else.", at: [0.68, 0.74] },
   { time: "02:00", title: "Still answered.", body: "Every enquiry, every hour. Anything important waits for you in the morning.", at: [0.785, 0.835] },
-  { time: "", title: "Your team's hours back.", body: "Live in 10 working days. Start with a free 30-minute call.", at: [0.87, 0.95], end: true },
+  { time: "", title: "Your team's hours back.", body: "Every step tracked, so you see the progress. Start with a free 30-minute call.", at: [0.87, 0.95], end: true },
 ];

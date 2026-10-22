@@ -8,7 +8,7 @@ import { useEffect, useRef, type RefObject } from "react";
  *     "Replied" chip slides in
  * (b) a 24 hour dial: the sun travels the arc and becomes the moon, the sky
  *     shifts from day to night, the ticks light as it passes
- * (c) a 10 day track: segments fill with a moving highlight, then "Live"
+ * (c) a build track: segments fill with a moving highlight, then "Live"
  *
  * Plays once, the first time the row is on screen. The server HTML is the
  * finished state, so no JS and reduced motion both get a calm, static row.
@@ -21,7 +21,7 @@ import { useEffect, useRef, type RefObject } from "react";
 const FACTS = [
   { title: "Answered within 60 seconds.", body: "First-response time on WhatsApp, email, website chat and calls." },
   { title: "Day, night and weekends.", body: "After-hours and weekend enquiries handled to the same service level." },
-  { title: "Live in 10 working days.", body: "From signed plan to go-live: set up in your accounts, trained on your voice." },
+  { title: "Progress you can see.", body: "From signed plan to go-live, every step is tracked: set up in your accounts, trained on your voice." },
 ] as const;
 
 /* ---------------- timing (seconds) ---------------- */
@@ -98,7 +98,7 @@ const CSS = `
 .pr-days span { position: relative; height: 3px; border-radius: 2px; background: rgba(143,176,255,0.18); overflow: hidden; }
 .pr-days span > i { position: absolute; inset: 0; background: #8FB0FF; }
 
-/* 10 day track */
+/* build track */
 .pr-track { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; }
 .pr-seg { height: 8px; border-radius: 3px; background: rgba(255,255,255,0.08); position: relative; overflow: hidden; }
 .pr-seg > i { position: absolute; inset: 0; background: #4D7CFF; transform-origin: left; }
@@ -279,8 +279,8 @@ function TenDays({ dayRef }: { dayRef: RefObject<HTMLSpanElement | null> }) {
         ))}
       </div>
       <div className="pr-num mt-2 flex justify-between text-[0.75rem] font-medium text-[rgba(234,240,255,0.6)]">
-        <span>Day 1</span>
-        <span>Day 10</span>
+        <span>Plan</span>
+        <span>Live</span>
       </div>
     </div>
   );

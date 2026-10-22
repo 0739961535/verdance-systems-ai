@@ -151,7 +151,7 @@ export function WhatWeBuild() {
                 <p className="wb-lead-t">Every enquiry answered. Every follow-up done. Your team&apos;s hours back.</p>
                 <p className="wb-lead-b">
                   Verdance answers every enquiry within 60 seconds, follows up, does the admin and reports back. You choose what goes out on
-                  its own and what waits for you. Live in 10 working days.
+                  its own and what waits for you. Every step is tracked, and you see progress as it happens.
                 </p>
                 <span className="wb-go">
                   See the Operations Team <ArrowUpRight size={16} aria-hidden />

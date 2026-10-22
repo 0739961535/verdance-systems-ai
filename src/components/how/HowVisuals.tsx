@@ -8,7 +8,7 @@ import { Bud } from "./Bud";
  *            leak points glowing, money at risk as low / medium / high.
  *   Plan   - a written plan that unfolds, items ticked, and the
  *            "what it should bring back" line.
- *   Build  - the 10-day stem growing, helpers coming online one by one.
+ *   Build  - the build stem growing, helpers coming online one by one.
  *   Review - the day 90 sunrise over the Earth's limb, before and after.
  * Every figure is made up and each card says "Sample".
  *
@@ -337,7 +337,7 @@ function PlanVisual({ compact = false }: { compact?: boolean }) {
       className={`sv sv-plan${compact ? " is-compact" : ""}`}
       data-reveal=""
       role="img"
-      aria-label="Sample written plan. Build first: every enquiry answered within 60 seconds, in your voice. Then every quote followed up. Live in 10 working days from your yes. What it should bring back: hours back each week and more enquiries booked, measured in your own numbers. Then you decide: yes or not now."
+      aria-label="Sample written plan. Build first: every enquiry answered within 60 seconds, in your voice. Then every quote followed up. Every step tracked, so you see the progress. What it should bring back: hours back each week and more enquiries booked, measured in your own numbers. Then you decide: yes or not now."
     >
       <Top app="Your plan · in writing" />
       <div className="sv-doc">
@@ -359,7 +359,7 @@ function PlanVisual({ compact = false }: { compact?: boolean }) {
             </li>
             <li>
               <Tick d={1.9} c="#2554D4" />
-              Live in 10 working days from your yes.
+              Every step tracked, so you see the progress.
             </li>
           </ul>
         </div>
@@ -388,13 +388,13 @@ const AGENTS = [
 ];
 
 function BuildVisual() {
-  // Ten days across the stem: day n sits at x = 16 + (n - 0.5) * 32.
+  // Ten stages across the stem: stage n sits at x = 16 + (n - 0.5) * 32.
   const X = (n: number) => 16 + (n - 0.5) * 32;
-  const grow = 1.4; // seconds for the stem to reach day 10
+  const grow = 1.4; // seconds for the stem to reach the end
   const at = (n: number) => 0.2 + (grow * n) / 10;
   return (
-    <div className="sv sv-build" data-reveal="" role="img" aria-label="Sample build over 10 working days: the enquiry helper comes online on day 3, follow-up on day 5, booking on day 7, the daily report on day 9, and on day 10 it goes live.">
-      <Top app="Build · 10 working days" />
+    <div className="sv sv-build" data-reveal="" role="img" aria-label="Sample build, every step tracked: the enquiry helper comes online first, then follow-up, booking and the daily report, and then it goes live.">
+      <Top app="Build · progress you can see" />
       <div className="sv-stem">
         <div style={{ position: "relative" }}>
         <svg viewBox="0 0 352 92" aria-hidden>
@@ -422,16 +422,12 @@ function BuildVisual() {
           </span>
         </span>
         </div>
-        <div className="sv-days" style={{ paddingInline: `${(16 / 352) * 100}%` }}>
-          {Array.from({ length: 10 }, (_, i) => (
-            <span key={i}>{i + 1}</span>
-          ))}
-        </div>
+
       </div>
       <ul className="sv-agents">
         {AGENTS.map((a) => (
           <li key={a.name}>
-            <span className="day">Day {a.day}</span>
+            <span className="day">Step {AGENTS.indexOf(a) + 1}</span>
             <span className="nm">
               {a.name}
               <small>{a.what}</small>
@@ -443,7 +439,7 @@ function BuildVisual() {
           </li>
         ))}
         <li className="live">
-          <span className="day">Day 10</span>
+          <span className="day">Live</span>
           <span className="nm">
             Live
             <small>Every enquiry answered within 60 seconds</small>

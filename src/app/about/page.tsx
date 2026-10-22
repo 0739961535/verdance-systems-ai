@@ -43,7 +43,7 @@ const FACTS = [
   { k: "Works with", v: "Owner-led businesses" },
   { k: "Builds", v: "AI systems and the Operations Team" },
   { k: "Promise", v: "Every enquiry answered within 60 seconds" },
-  { k: "Live in", v: "10 working days" },
+  { k: "Builds", v: "Every step tracked" },
   { k: "Starts with", v: "A free Operations Map" },
 ];
 
@@ -53,8 +53,8 @@ const HOW = [
     b: "Every build starts with a free Operations Map of your own enquiries, reply times and admin. We only propose a build if your numbers show at least twice the monthly cost back. If they don't, we say so.",
   },
   {
-    t: "Live in 10 working days",
-    b: "From the day the plan is signed off. The launch date goes in your contract, and you test it yourself before a real customer touches it.",
+    t: "Progress you can see",
+    b: "Each build is different. Every stage is tracked, so you can see where it is at any time, and you test it yourself before a real customer touches it.",
   },
   {
     t: "A person when it matters",
@@ -145,7 +145,7 @@ export default function AboutPage() {
                 its hours back.
               </p>
               <p className="text-[color:var(--color-ink-soft)]">
-                I&apos;m 20. I have no old habits to protect. Judge me on how your first ten working days feel. I&apos;ve set
+                I&apos;m 20. I have no old habits to protect. Judge me on how your first weeks with us feel. I&apos;ve set
                 out to make them the best onboarding you&apos;ll get from any supplier.
               </p>
             </div>

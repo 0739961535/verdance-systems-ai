@@ -12,7 +12,7 @@ import type { Niche } from "@/data/niches";
  */
 
 const TABS = ["What's included", "How we work", "Questions"] as const;
-const TERMS = ["A fixed quote, in writing, before any work starts", "Live in 10 working days", "You choose what needs your approval before it goes out"];
+const TERMS = ["A fixed quote, in writing, before any work starts", "Every step tracked, progress you can see", "You choose what needs your approval before it goes out"];
 
 export function NicheTabs({ niche }: { niche: Niche }) {
   const [active, setActive] = useState(0);

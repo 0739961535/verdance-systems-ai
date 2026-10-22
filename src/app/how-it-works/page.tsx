@@ -10,7 +10,7 @@ import { SITE_URL } from "@/data/site";
 
 const TITLE = "How Verdance Works | From First Call to Live";
 const DESCRIPTION =
-  "Five steps: a free call, a free map of where time and money leak, a plan you decide on, live in 10 working days, then a review at day 90.";
+  "Five steps: a free call, a free map of where time and money leak, a plan you decide on, a build you can follow step by step, then a review at day 90.";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/how-it-works" },

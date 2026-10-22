@@ -274,7 +274,7 @@ function Ticks({ read, double }: { read: boolean; double: boolean }) {
 /* ------------------------------------------------------------------ */
 /* Answer                                                              */
 /* ------------------------------------------------------------------ */
-const REPLY = "Yes, we deliver to Durban. It takes 2 to 3 working days.";
+const REPLY = "Yes, we deliver to Durban. It takes 2 to 3 days.";
 /* typed two characters per frame */
 const TYPE_STEPS = Math.ceil(REPLY.length / 2);
 /* 0 in, 1 dots, 2.. typing, then sent, read, reset */

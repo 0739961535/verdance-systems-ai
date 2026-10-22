@@ -3,7 +3,7 @@
  * page.
  *
  * Rules: no prices, no invented numbers, no client names. Every figure here is
- * our own commitment (60 seconds, 10 working days), not a result.
+ * our own commitment (60 seconds, progress you can see), not a result.
  */
 
 export const OPERATIONS_MAP = {
@@ -29,7 +29,7 @@ export const OPERATIONS_MAP = {
 export const REVENUE_TEAM = {
   eyebrow: "Step two · the build",
   name: "Operations Team",
-  chip: "Live in 10 working days",
+  chip: "Progress you can see",
   rows: [
     {
       lever: "What changes",
@@ -44,8 +44,8 @@ export const REVENUE_TEAM = {
     },
     {
       lever: "How fast",
-      statement: "Live on your WhatsApp, phone, website and inbox in 10 working days.",
-      proof: "10 days",
+      statement: "Built on your WhatsApp, phone, website and inbox, every step tracked so you see the progress.",
+      proof: "Tracked",
     },
     {
       lever: "What you do",

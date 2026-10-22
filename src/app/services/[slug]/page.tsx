@@ -18,7 +18,7 @@ const REPLY_DEMO: Demo = {
   channel: "WhatsApp · 21:41",
   messages: [
     { from: "them", text: "Hi, do you deliver to Durban?", time: "21:41" },
-    { from: "us", text: "Hi, yes we do. Delivery takes 2 to 3 working days. Shall I send you the order link?", time: "21:41" },
+    { from: "us", text: "Hi, yes we do. Delivery takes 2 to 3 days. Shall I send you the order link?", time: "21:41" },
     { from: "them", text: "Yes please", time: "21:42" },
     { from: "card", title: "Order link sent", lines: ["Saved to the customer record", "The team sees the whole chat"], tone: "info" },
   ],

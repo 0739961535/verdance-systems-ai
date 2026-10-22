@@ -49,7 +49,7 @@ export const STAGES: { n: string; name: string; title: string; accent: string; b
     name: "Ascent",
     title: "AI starts doing the work.",
     accent: "doing the work.",
-    body: "It answers customers, follows up and does the admin, on the tools you already use. Live in 10 working days.",
+    body: "It answers customers, follows up and does the admin, on the tools you already use. Every step is tracked, and you see progress as it happens.",
   },
   {
     n: "03",

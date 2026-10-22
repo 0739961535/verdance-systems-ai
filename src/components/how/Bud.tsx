@@ -23,7 +23,7 @@ const SPREAD: Record<BudStage, number[]> = {
   4: [0, 72, 144, 216, 288],
 };
 
-/** Ten short ticks in a ring: the ten working days of the build. */
+/** Ten short ticks in a ring (not used on the site now: the build has no fixed day count). */
 const TICKS = Array.from({ length: 10 }, (_, i) => (i * 36 - 90) * (Math.PI / 180));
 
 export function Bud({

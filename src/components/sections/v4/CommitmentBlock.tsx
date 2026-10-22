@@ -11,7 +11,7 @@ type Clause = { n: string; label: string; text: string };
 
 const CLAUSES: Clause[] = [
   { n: "01", label: "Fixed quote", text: "Agreed in writing before any work starts. The price on the quote is the price you pay." },
-  { n: "02", label: "Live in 10 working days", text: "On your WhatsApp, phone, website and inbox, with visible progress every week." },
+  { n: "02", label: "Progress you can see", text: "On your WhatsApp, phone, website and inbox. Every step is tracked, and you see it as it happens." },
   { n: "03", label: "Your team approves what goes out", text: "You approve what matters from one screen, and a person takes over the moment it counts." },
 ];
 

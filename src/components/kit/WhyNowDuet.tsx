@@ -24,8 +24,8 @@ export function WhyNowDuet({ tone = "night" }: { tone?: "night" | "page" }) {
         Even Anthropic, the company behind Claude, has just launched an AI agent for small business owners.
       </p>
       <p className="mt-4 max-w-[60ch] text-[1.0625rem] leading-[1.6]" style={{ color: soft }}>
-        We build the version made for your business: connected to your systems, with you approving what matters, live in 10 working
-        days, and available in South Africa and the UK today.
+        We build the version made for your business: connected to your systems, with you approving what matters, every step tracked so
+        you see the progress, and available in South Africa and the UK today.
       </p>
       <p className="mt-5 text-[0.875rem] leading-[1.5]" style={{ color: muted }}>
         Source:{" "}

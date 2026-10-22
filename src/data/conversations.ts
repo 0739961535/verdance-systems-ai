@@ -278,7 +278,7 @@ export const HOME_ROTATION: { label: string; conversation: Conversation }[] = [
           kind: "out",
           time: "22:15",
           meta: "Replied in 3s",
-          text: "It's back in stock in medium. Delivery to Durban takes 2 to 3 working days.",
+          text: "It's back in stock in medium. Delivery to Durban takes 2 to 3 days.",
           product: { name: "Trail running jacket, medium", detail: "In stock · ships tomorrow", cta: "Buy now" },
         },
         { kind: "in", time: "22:16", text: "Perfect, just ordered" },

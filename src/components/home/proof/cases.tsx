@@ -26,7 +26,7 @@ const ECOM_TABS: ProofTab[] = [
     panel: (
       <Frame icon={MessageCircle} title="Store assistant" sub="Website chat · replies in under a minute" stagger={0.9}>
         <Msg side="in">Hi, do you deliver to Durban? How long does it take?</Msg>
-        <Msg side="out">We do. Durban is 2 to 3 working days, and orders placed before 12:00 go out the same day.</Msg>
+        <Msg side="out">We do. Durban is 2 to 3 days, and orders placed before 12:00 go out the same day.</Msg>
         <Msg side="in">Can I collect instead?</Msg>
         <Msg side="out">Yes, collection is free from the warehouse, weekdays 08:00 to 16:00.</Msg>
         <Msg side="in">My last order arrived damaged.</Msg>
