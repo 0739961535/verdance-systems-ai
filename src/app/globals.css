@@ -2338,6 +2338,10 @@ html[data-header-paper]:not([data-header-dark]) header > .container-wide {
   --color-ink: #0B0F1A; --color-ink-soft: #2A3550; --color-ink-muted: #3F4A63;
   --color-hairline-2: rgba(14, 14, 16, 0.18); --color-accent: #2554D4; --bg: #F9F4E8; --bg-2: #F0EBE2; --bg-glass: rgba(249, 244, 232, 0.9);
   --hairline-rgb: 14, 14, 16; color: #0B0F1A;
+  /* the dropdown menus and mobile menu: white panels with black text over paper */
+  --bg-3: #FFFFFF; --bg-4: #FFFFFF; --color-ink-faint: #5A6478;
+  --hairline: rgba(14, 14, 16, 0.10); --hairline-3: rgba(14, 14, 16, 0.22);
+  --surface-tint-1: rgba(14, 14, 16, 0.03); --surface-tint-2: rgba(14, 14, 16, 0.05); --surface-tint-3: rgba(14, 14, 16, 0.08);
 }
 
 /* one thing at the bottom of the screen: no chat bubble while the film fills
